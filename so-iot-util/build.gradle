@@ -1,0 +1,50 @@
+group 'com.pineone.icbms.so'
+version '1.0.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.7
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    //so soucre dependencies
+    compile "com.pineone.icbms.so:so-util:1.0.0-SNAPSHOT"
+    compile "com.pineone.icbms.so:so-iot-resources:1.0.0-SNAPSHOT"
+}
+
+repositories {
+    maven {
+        url "${nexusUrl}/content/groups/pineone-public/"
+    }
+}
+
+jar {
+    baseName ='so-iot-util'
+    version = '1.0.0-SNAPSHOT'
+}
+
+configurations.all {
+    // check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "${nexusUrl}/content/repositories/pineone-releases/"){
+                authentication(userName: nexusUsername, password: nexusPassword)
+            }
+            snapshotRepository(url: "${nexusUrl}/content/repositories/pineone-snapshots") {
+                authentication(userName: nexusUsername, password: nexusPassword)
+            }
+        }
+    }
+}
+
