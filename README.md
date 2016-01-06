@@ -1,5 +1,5 @@
 
-![Alt Text](https://raw.githubusercontent.com/iotoasis/SO/master/logo_oasis_s.png)
+![Logo](logo_oasis_m.png)
 
 # Oasis Project
 
