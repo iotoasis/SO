@@ -2,19 +2,25 @@ package com.pineone.icbms.so.resources.model.repo.service;
 
 import java.util.List;
 
-import com.pineone.icbms.so.resources.model.IModel;
+import com.pineone.icbms.so.resources.model.IGenericModel;
+import com.pineone.icbms.so.resources.model.repo.task.DefaultTaskModel;
 import com.pineone.icbms.so.resources.model.repo.task.ITaskModel;
 
 /**
  * Service model interface for repository.<BR/>
- * Created by uni4love on 2015. 10. 15..
+ * ¬ Created by uni4love on 2015. 10. 15..
  */
-public interface IServiceModel extends IModel
+public interface IServiceModel<TASK_MODEL extends ITaskModel> extends IGenericModel
 {
+	/**
+	 * type: service
+	 */
+	String TYPE = "so/resource/service";
+
 	/**
 	 * return task model list.<BR/>
 	 * 
-	 * @return task modedl list.
+	 * @return task model list.
 	 */
-	List<ITaskModel> getTaskModelList();
+	List<TASK_MODEL> getTaskModelList();
 }

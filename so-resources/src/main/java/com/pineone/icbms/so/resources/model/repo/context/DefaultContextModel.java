@@ -1,45 +1,41 @@
 package com.pineone.icbms.so.resources.model.repo.context;
 
+import java.util.List;
+
+import com.pineone.icbms.so.resources.model.AGenericModel;
+
 /**
  * Default context model class.<BR/>
  * Created by Melvin on 15. 10. 21..
  */
-public class DefaultContextModel extends AGenericContextModel
+public class DefaultContextModel extends AGenericModel
+		implements IContextModel<DefaultContextModel>
 {
 	/**
-	 * domain id
+	 * context model list
 	 */
-	String domainId;
+	protected List<DefaultContextModel> contextModelList = null;
 
-
-	/**
-	 * constructor<BR/>
-	 */
-	public DefaultContextModel()
+	@Override
+	public String getType()
 	{
+		return TYPE;
 	}
 
 	/**
-	 * constructor<BR/>
+	 * add a context model.<BR/>
 	 * 
-	 * @param contextModelName
-	 *            context model name
-	 * @param domainId
-	 *            domain id
+	 * @param contextModel
+	 *            context model
 	 */
-	public DefaultContextModel(String contextModelName, String domainId)
+	public void addContextModel(DefaultContextModel contextModel)
 	{
-		this.name = contextModelName;
-		this.domainId = domainId;
+		this.contextModelList.add(contextModel);
 	}
 
-	public String getDomainId()
+	@Override
+	public List<DefaultContextModel> getContextModelList()
 	{
-		return domainId;
-	}
-
-	public void setDomainId(String domainId)
-	{
-		this.domainId = domainId;
+		return contextModelList;
 	}
 }

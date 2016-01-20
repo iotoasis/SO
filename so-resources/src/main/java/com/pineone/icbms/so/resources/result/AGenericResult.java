@@ -1,5 +1,6 @@
 package com.pineone.icbms.so.resources.result;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,8 +9,10 @@ import java.util.Map;
  * Generic result abstract class.<BR/>
  * Created by uni4love on 2015. 10. 20..
  */
-abstract public class AGenericResult implements IGenericResult
+abstract public class AGenericResult implements IGenericResult, Serializable
 {
+	private static final long serialVersionUID = 3664754380402892058l;
+
 	/**
 	 * STATUS_CODE_VARIABLE_PREFIX
 	 */

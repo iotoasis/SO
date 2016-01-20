@@ -1,11 +1,11 @@
 package com.pineone.icbms.so.resources.task;
 
-import com.pineone.icbms.so.resources.vo.IVirtualObject;
+import com.pineone.icbms.so.resources.vo.IGenericVirtualObject;
 
 /**
  * Task interface.<BR/>
  * Created by uni4love on 2015. 07. 11..
  */
-public interface ITask<ID, NAME> extends IVirtualObject
+public interface ITask extends IGenericVirtualObject
 {
 }

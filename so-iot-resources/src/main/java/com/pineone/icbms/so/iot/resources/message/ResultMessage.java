@@ -46,4 +46,13 @@ public class ResultMessage
 	{
 		this._result = _result;
 	}
+
+	@Override
+	public String toString() {
+		return "resultMessage{" +
+				"_commandId='" + _commandId + '\'' +
+				", _resultCode='" + _resultCode + '\'' +
+				", _result='" + _result + '\'' +
+				'}';
+	}
 }
