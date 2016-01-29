@@ -1,33 +1,39 @@
 package com.pineone.icbms.so.iot.resources.model.repo.device;
 
-import com.pineone.icbms.so.iot.resources.device.DefaultDeviceInformation;
+import com.pineone.icbms.so.resources.model.AGenericModel;
 
 /**
  * DefaultDeviceInformation model class for repository.<BR/>
  * Created by uni4love on 2015. 12. 7..
  */
-public class DeviceInformationModel extends DefaultDeviceInformation
-		implements IDeviceInformationModel<String, String>
+public class DeviceInformationModel extends AGenericModel
+		implements IDeviceInformationModel
 {
 	/**
 	 * model
 	 */
-	String model;
+	protected String model;
 
 	/**
 	 * serial number
 	 */
-	String sn;
+	protected String sn;
 
 	/**
 	 * manufacturer
 	 */
-	String mf;
+	protected String mf;
 
 	/**
 	 * device driver id
 	 */
-	String deviceDriverID;
+	protected String deviceDriverID;
+
+	@Override
+	public String getType()
+	{
+		return TYPE;
+	}
 
 	public String getModel()
 	{
@@ -67,58 +73,5 @@ public class DeviceInformationModel extends DefaultDeviceInformation
 	public void setDeviceDriverId(String deviceDriverId)
 	{
 		this.deviceDriverID = deviceDriverId;
-	}
-	/**
-	 * type
-	 */
-	protected String type = TYPE;
-
-	/**
-	 * created date
-	 */
-	protected String createdDate = null;
-
-	/**
-	 * modified date
-	 */
-	protected String modifiedDate = null;
-
-	/**
-	 * decription
-	 */
-	protected String description = null;
-
-	@Override
-	public String getType()
-	{
-		return type;
-	}
-
-	@Override
-	public String getCreatedDate()
-	{
-		return createdDate;
-	}
-
-	@Override
-	public String getModifiedDate()
-	{
-		return modifiedDate;
-	}
-
-	@Override
-	public String getDescription()
-	{
-		return description;
-	}
-
-	@Override
-	public String toString() {
-		return "DeviceInformationModel{" +
-				"type='" + type + '\'' +
-				", createdDate='" + createdDate + '\'' +
-				", modifiedDate='" + modifiedDate + '\'' +
-				", description='" + description + '\'' +
-				'}';
 	}
 }

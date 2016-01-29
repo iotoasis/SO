@@ -1,6 +1,6 @@
 package com.pineone.icbms.so.iot.resources.message;
 
-public class ResultMessage
+public class ResultMessage extends DefaultMessage
 {
 	String	_commandId;
 	String	_resultCode;

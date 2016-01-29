@@ -1,5 +1,7 @@
 package com.pineone.icbms.so.resources.model;
 
+import java.util.Date;
+
 /**
  * Generic model object.<BR/>
  * Created by uni4love on 2015. 10. 7..
@@ -24,17 +26,22 @@ abstract public class AGenericModel implements IGenericModel
 	/**
 	 * created date
 	 */
-	protected String createdDate = null;
+	protected Date createdDate = null;
 
 	/**
 	 * modified date
 	 */
-	protected String modifiedDate = null;
+	protected Date modifiedDate = null;
 
 	/**
 	 * description
 	 */
 	protected String description = null;
+
+	/**
+	 * status
+	 */
+	protected String status = null;
 
 	@Override
 	public String getId()
@@ -59,15 +66,25 @@ abstract public class AGenericModel implements IGenericModel
 	}
 
 	@Override
-	public String getCreatedDate()
+	public Date getCreatedDate()
 	{
 		return createdDate;
 	}
 
+	public void setCreatedDate(Date createdDate)
+	{
+		this.createdDate = createdDate;
+	}
+
 	@Override
-	public String getModifiedDate()
+	public Date getModifiedDate()
 	{
 		return modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate)
+	{
+		this.modifiedDate = modifiedDate;
 	}
 
 	@Override
@@ -76,20 +93,25 @@ abstract public class AGenericModel implements IGenericModel
 		return description;
 	}
 
-	public void setCreatedDate(String createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public void setModifiedDate(String modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public void setDescription(String description) {
+	public void setDescription(String description)
+	{
 		this.description = description;
+	}
+
+	@Override
+	public String getStatus()
+	{
+		return status;
+	}
+
+	public void setStatus(String status)
+	{
+		this.status = status;
+	}
+
+	public void setType(String type)
+	{
+		this.type = type;
 	}
 
 	@Override
@@ -102,6 +124,7 @@ abstract public class AGenericModel implements IGenericModel
 		sb.append("\ncreatedDate: ").append(createdDate);
 		sb.append("\nmodifiedDate: ").append(modifiedDate);
 		sb.append("\ndescription: ").append(description);
+		sb.append("\nstatus: ").append(status);
 		return sb.toString();
 	}
 }

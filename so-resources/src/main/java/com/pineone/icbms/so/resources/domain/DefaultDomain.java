@@ -13,7 +13,17 @@ public class DefaultDomain extends AGenericDomain
 
 	public String person_id;
 
-	public String getLoc()
+    public String cond;
+
+    public String getCond() {
+        return cond;
+    }
+
+    public void setCond(String cond) {
+        this.cond = cond;
+    }
+
+    public String getLoc()
 	{
 		return loc;
 	}

@@ -3,12 +3,12 @@ package com.pineone.icbms.so.iot.resources.message;
 /**
  * Created by pahnj on 2016-01-18.
  */
-public class AlarmInfoMessage extends DefaultMessage {
+public class AlarmInfoMessage {
 
     /**
      * AlarmInfo id
      */
-    String alarmId;
+    String alarm_id;
 
     /**
      * AlarmInfo action type
@@ -18,7 +18,7 @@ public class AlarmInfoMessage extends DefaultMessage {
     /**
      * AlarmInfo userid
      */
-    String userId;
+    String user_id;
 
     /**
      * AlarmInfo wakeTime
@@ -33,20 +33,20 @@ public class AlarmInfoMessage extends DefaultMessage {
     public AlarmInfoMessage() {
     }
 
-    public AlarmInfoMessage(String alarmId, String actionType, String userId, String wakeTime, String period) {
-        this.alarmId = alarmId;
+    public AlarmInfoMessage(String alarm_id, String actionType, String user_id, String wakeTime, String period) {
+        this.alarm_id = alarm_id;
         this.actionType = actionType;
-        this.userId = userId;
+        this.user_id = user_id;
         this.wakeTime = wakeTime;
         this.period = period;
     }
 
-    public String getAlarmId() {
-        return alarmId;
+    public String getAlarm_id() {
+        return alarm_id;
     }
 
-    public void setAlarmId(String alarmId) {
-        this.alarmId = alarmId;
+    public void setAlarm_id(String alarm_id) {
+        this.alarm_id = alarm_id;
     }
 
     public String getActionType() {
@@ -57,12 +57,12 @@ public class AlarmInfoMessage extends DefaultMessage {
         this.actionType = actionType;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
     public String getWakeTime() {
@@ -80,4 +80,5 @@ public class AlarmInfoMessage extends DefaultMessage {
     public void setPeriod(String period) {
         this.period = period;
     }
+
 }

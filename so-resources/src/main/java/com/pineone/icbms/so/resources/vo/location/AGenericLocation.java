@@ -1,12 +1,12 @@
 package com.pineone.icbms.so.resources.vo.location;
 
-import com.pineone.icbms.so.resources.vo.AGenericVirtualObject;
+import com.pineone.icbms.so.resources.domain.AGenericDomain;
 
 /**
  * Generic location.<BR/>
  * Created by Melvin on 2015. 12. 7..
  */
-abstract class AGenericLocation extends AGenericVirtualObject implements IGenericLocation
+abstract class AGenericLocation extends AGenericDomain implements IGenericLocation
 {
     protected String uri;
 

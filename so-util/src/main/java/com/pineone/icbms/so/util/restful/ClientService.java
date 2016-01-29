@@ -17,7 +17,7 @@ import java.util.HashMap;
  */
 public class ClientService implements IClientService
 {
-	public static final int DATA_TIMEOUT_VALUE = 500000;
+	public static final int DATA_TIMEOUT_VALUE = 9000;
 
 	private final Logger log = LoggerFactory.getLogger(ClientService.class);
 
@@ -29,10 +29,11 @@ public class ClientService implements IClientService
 	 * @return
 	 */
 	@Override
-	public IHttpResponseMessage requestPostService(String serviceUrl, String body)
+	public IHttpResponseMessage requestPostService(String serviceUrl,
+			String body)
 	{
-		System.out.println("[[Client Service requestPostService uri]] " + serviceUrl);
-		System.out.println("[[Client Service requestPostService data]] " + body);
+		log.info("[[Client Service requestPostService uri]] " + serviceUrl);
+		log.info("[[Client Service requestPostService data]] " + body);
 		// request delivery message
 		HttpClientServiceRequestDeliveryMessage req = new HttpClientServiceRequestDeliveryMessage();
 		// add key-value list.
@@ -42,15 +43,15 @@ public class ClientService implements IClientService
 
 		req.addValue(HttpClientService.KEY_HEADER_PARAMETERS, headerList);
 		req.addValue(HttpClientService.KEY_SERVICE_URL, serviceUrl);
-		req.addValue(HttpClientService.KEY_CONNECTION_TIMEOUT, 9000);
-
+		req.addValue(HttpClientService.KEY_CONNECTION_TIMEOUT, DATA_TIMEOUT_VALUE);
 		req.addValue(HttpClientService.KEY_HTTP_METHOD,
 				HttpClientService.VALUE_HTTP_METHOD_POST);
 				// req.addValue(HttpClientService);
 
 		// body data
 		// StringInputStream inputStream = new StringInputStream(body);
-		ByteArrayInputStream inputStream = new ByteArrayInputStream(body.getBytes());
+		ByteArrayInputStream inputStream = new ByteArrayInputStream(
+				body.getBytes());
 		req.addValue(HttpClientService.KEY_BODY_INPUT_STREAM, inputStream);
 
 		// response delivery message
@@ -88,8 +89,7 @@ public class ClientService implements IClientService
 		HttpClientServiceRequestDeliveryMessage req = new HttpClientServiceRequestDeliveryMessage();
 		// add key-value list.
 		req.addValue(HttpClientService.KEY_SERVICE_URL, uri);
-		req.addValue(HttpClientService.KEY_CONNECTION_TIMEOUT,
-				DATA_TIMEOUT_VALUE);
+		req.addValue(HttpClientService.KEY_CONNECTION_TIMEOUT,DATA_TIMEOUT_VALUE);
 		req.addValue(HttpClientService.KEY_HTTP_METHOD,
 				HttpClientService.VALUE_HTTP_METHOD_GET);
 

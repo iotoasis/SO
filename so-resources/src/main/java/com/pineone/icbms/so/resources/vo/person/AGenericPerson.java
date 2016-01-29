@@ -1,12 +1,12 @@
 package com.pineone.icbms.so.resources.vo.person;
 
-import com.pineone.icbms.so.resources.vo.AGenericVirtualObject;
+import com.pineone.icbms.so.resources.domain.AGenericDomain;
 
 /**
  * Generic person abstract class.<BR/>
  * Created by Melvin on 2016. 1. 10..
  */
-abstract public class AGenericPerson extends AGenericVirtualObject
+abstract public class AGenericPerson extends AGenericDomain
 		implements IGenericPerson
 {
 	/**

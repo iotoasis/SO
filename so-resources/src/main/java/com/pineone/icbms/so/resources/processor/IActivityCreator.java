@@ -8,18 +8,18 @@ import java.util.List;
 /**
  * Created by existmaster on 2016. 1. 11..
  */
-public interface IActivityCreator<ACTIVITY, ACTIVITY_MODEL> {
+public interface IActivityCreator<ACTIVITY, ACTIVITY_MODEL, CONTEXT> {
     /**
      * Create Activities.
      * @param activityModelList activityModelList
      * @return List of ACTIVITY
      */
-    List<ACTIVITY> createActivities(List<ACTIVITY_MODEL> activityModelList);
+    List<ACTIVITY> createActivities(List<ACTIVITY_MODEL> activityModelList, CONTEXT context);
 
     /**
      * Create Activity.
      * @param activityModel activityModel
      * @return ACTIVITY
      */
-    ACTIVITY createActivity(ACTIVITY_MODEL activityModel);
+    ACTIVITY createActivity(ACTIVITY_MODEL activityModel, CONTEXT context);
 }

@@ -1,8 +1,8 @@
 package com.pineone.icbms.so.iot.resources.service;
 
-import java.util.List;
+import com.pineone.icbms.so.resources.domain.AGenericDomain;
 
-import com.pineone.icbms.so.resources.domain.DefaultDomain;
+import java.util.List;
 
 /**
  * Service information class for creating a service.<BR/>
@@ -15,22 +15,22 @@ public class ServiceSketch
 	 */
 	protected List<String> serviceModelIdList = null;
 
-	/**
-	 * domain list
-	 */
-	protected List<DefaultDomain> domainList = null;
+    /**
+     * domain list
+     */
+    protected List<? extends AGenericDomain> domainList = null;
 
-	/**
-	 * domain type
-	 */
-	protected String domainType = null;
+    /**
+     * domain type
+     */
+    protected String domainType = null;
 
-	public List<DefaultDomain> getDomainList()
+	public List<? extends AGenericDomain> getDomainList()
 	{
 		return domainList;
 	}
 
-	public void setDomainList(List<DefaultDomain> domainList)
+	public void setDomainList(List<? extends AGenericDomain> domainList)
 	{
 		this.domainList = domainList;
 	}

@@ -45,4 +45,10 @@ public interface IModel<MODEL_TYPE, ID, NAME, DATE> extends IIdOwner<ID>, INameO
      * @return description
      */
     String getDescription();
+
+    /**
+     * return status.<BR/>
+     * @return status
+     */
+    String getStatus();
 }

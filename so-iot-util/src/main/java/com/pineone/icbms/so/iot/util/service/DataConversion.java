@@ -39,7 +39,6 @@ public class DataConversion
 			VirtualDeviceControlMessage message)
 	{
 
-		log.info("virtualDataConversion start");
 		DeviceControlMessage deviceControlMessage = new DeviceControlMessage();
 
 		deviceControlMessage.set_uri(message.getDeviceid());
@@ -56,7 +55,6 @@ public class DataConversion
 
 	public static String objectToString(Object o)
 	{
-		log.info("dataparsing object to String");
 		ObjectMapper mapper = new ObjectMapper();
 		String data = null;
 		if(o == null){
@@ -114,8 +112,6 @@ public class DataConversion
 
     static public ResponseMessage responseMessageByResultMessage(ResultMessage message)
     {
-        log.info("responseMessage by resultMessage convert start");
-
         ResponseMessage responseMessage = new ResponseMessage();
 
         if (RESPONSE_SUCCESS_ONEM2MCODE.equals(message.get_resultCode())

@@ -23,6 +23,21 @@ public class DriverResultModel extends AGenericModel
 	 */
 	String result2;
 
+	/**
+	 *  Command Id
+     */
+	String commandId;
+
+	/**
+	 * control value
+	 */
+	String value;
+
+	/**
+	 *  control deviceUrl
+	 */
+	String deviceUrl;
+
 	@Override
 	public String getType()
 	{
@@ -64,4 +79,36 @@ public class DriverResultModel extends AGenericModel
 	{
 		this.result2 = result2;
 	}
+
+	@Override
+	public String getCommandId() {
+		return commandId;
+	}
+
+	@Override
+	public void setCommandId(String commandId) {
+		this.commandId = commandId;
+	}
+
+	@Override
+	public String getValue() {
+		return value;
+	}
+
+	@Override
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	@Override
+	public String getDeviceUrl() {
+		return deviceUrl;
+	}
+
+	@Override
+	public void setDeviceUrl(String deviceUrl) {
+		this.deviceUrl = deviceUrl;
+	}
+
+
 }
