@@ -1,8 +1,11 @@
 package com.pineone.icbms.so.resources.service;
 
+import java.util.Iterator;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pineone.icbms.so.resources.context.AGenericContext;
 import com.pineone.icbms.so.resources.domain.IGenericDomain;
-import com.pineone.icbms.so.resources.model.repo.context.IGenericContextModel;
 import com.pineone.icbms.so.resources.result.IGenericResult;
 import com.pineone.icbms.so.resources.task.IGenericTask;
 
@@ -10,61 +13,27 @@ import com.pineone.icbms.so.resources.task.IGenericTask;
  * Generic service abstract class.<BR/>
  * Created by uni4love on 2015. 06. 14..
  */
-abstract public class AGenericService extends AGenericContext
-		implements IGenericService
+abstract public class AGenericService<V> extends AGenericContext<V>implements
+		IGenericService<IGenericTask, IGenericDomain, IGenericResult, V>,
+		java.io.Serializable
 {
-	/**
-	 * id
-	 */
-	protected String id;
-
-	/**
-	 * name
-	 */
-	protected String name;
-
-	/**
-	 * context model
-	 */
-	protected IGenericContextModel contextModel;
+	private static final long serialVersionUID = -1499639462866642534l;
 
 	/**
 	 * task
 	 */
-	protected IGenericTask task;
+
+	protected List<IGenericTask> taskList = null;
 
 	/**
 	 * domain
 	 */
-	protected IGenericDomain domain;
+	protected IGenericDomain domain = null;
 
 	/**
 	 * result
 	 */
-	protected IGenericResult result;
-
-	@Override
-	public String getId()
-	{
-		return id;
-	}
-
-	@Override
-	public String getName()
-	{
-		return name;
-	}
-
-	@Override
-	public IGenericContextModel getContextModel()
-	{
-		return contextModel;
-	}
-
-	public void setContextModel(IGenericContextModel contextModel)
-	{
-		this.contextModel = contextModel;
-	}
+	protected IGenericResult result = null;
 
 	@Override
 	public IGenericDomain getDomain()
@@ -89,13 +58,28 @@ abstract public class AGenericService extends AGenericContext
 	}
 
 	@Override
-	public IGenericTask getTask()
+	public List<IGenericTask> getTaskList()
 	{
-		return task;
+		return taskList;
 	}
 
-	public void setTask(IGenericTask task)
+	public void setTaskList(List<IGenericTask> taskList)
 	{
-		this.task = task;
+		this.taskList = taskList;
+	}
+
+	@Override
+	public String toString()
+	{
+		StringBuffer sb = new StringBuffer("> service\n");
+		sb.append(super.toString());
+		sb.append("\ndomain: ").append(domain);
+		sb.append("\ntask list: size = " + taskList.size() + "\n");
+		Iterator<IGenericTask> iter = taskList.iterator();
+		while (iter.hasNext())
+		{
+			sb.append(iter.next());
+		}
+		return sb.toString();
 	}
 }
