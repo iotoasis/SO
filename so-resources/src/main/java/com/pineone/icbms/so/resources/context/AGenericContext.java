@@ -1,25 +1,33 @@
 package com.pineone.icbms.so.resources.context;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pineone.icbms.so.resources.vo.AGenericVirtualObject;
+
 /**
- * generic context abstract class.<BR/>
+ * Generic context abstract class.<BR/>
  * Created by uni4love on 2015. 05. 30..
  */
-abstract public class AGenericContext<V> implements IGenericContext<String, V>
+abstract public class AGenericContext<V> extends AGenericVirtualObject
+		implements IGenericContext<String, V>, Serializable
 {
-    /**
+	private static final long serialVersionUID = -7915130755854696838l;
+
+	/**
+	 * key-value store
+	 */
+	protected Map<String, V> store = null;
+
+	/**
 	 * logger
 	 */
-	private Logger log = LoggerFactory.getLogger(AGenericContext.class);
-
-    /**
-     * key-value store
-     */
-    protected Map<String, V> store = null;
+	@JsonIgnore
+	transient private Logger log = getLogger();
 
 	/**
 	 * constructor
@@ -38,6 +46,7 @@ abstract public class AGenericContext<V> implements IGenericContext<String, V>
 	@Override
 	public void addValue(String key, V value)
 	{
+		getLogger();
 		if (store.containsKey(key))
 		{
 			log.warn(
@@ -63,6 +72,7 @@ abstract public class AGenericContext<V> implements IGenericContext<String, V>
 	{
 		if (!store.containsKey(key))
 		{
+			getLogger();
 			log.warn("The value NOT exists already in registry: {}", key);
 		}
 		return store.remove(key);
@@ -80,6 +90,7 @@ abstract public class AGenericContext<V> implements IGenericContext<String, V>
 	{
 		if (!store.containsKey(key))
 		{
+			getLogger();
 			log.warn("The value NOT exists: {}", key);
 		}
 		return store.get(key);
@@ -92,4 +103,23 @@ abstract public class AGenericContext<V> implements IGenericContext<String, V>
 	 */
 	abstract protected Map<String, V> createStore();
 
+	@Override
+	public String toString()
+	{
+		StringBuffer sb = new StringBuffer();
+		sb.append("store: " + store);
+		return sb.toString();
+	}
+
+	/**
+	 * get logger instance.<BR/>
+	 */
+	private Logger getLogger()
+	{
+		if (log == null)
+		{
+			log = LoggerFactory.getLogger(getClass());
+		}
+		return log;
+	}
 }

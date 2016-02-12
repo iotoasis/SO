@@ -1,0 +1,47 @@
+package com.pineone.icbms.so.iot.provider;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+
+public abstract class AGeneralProvider implements IProvider {
+	
+	protected final String id_str = "id";
+	protected final String name_str = "name";
+	
+	
+	public AGeneralProvider(){
+		
+	}
+	
+	/**
+	 * Provide now Date Time 
+	 * @return now DateTime (format ex : 20160111T170523) 
+	 */
+	public String getNowDate(){
+		Calendar calendar = Calendar.getInstance();
+		String nowDate = new SimpleDateFormat("yyyyMMdd'T'HHmmss").format(calendar.getTime());
+		return nowDate;
+	}
+	
+	/**
+	 * set Model Object Property(createdDate, modifiedDate)
+	 * @param object Model Object
+	 * @param dateMethodName setCreateDate or setEditeDate
+	 */
+	public <D> void setModelDate(D data, String dateMethodName){
+		try {
+			Method method = data.getClass().getMethod(dateMethodName, new String().getClass());
+			try {
+				method.invoke(data, getNowDate());
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				e.printStackTrace();
+			}
+		} catch (NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
+	}
+
+}

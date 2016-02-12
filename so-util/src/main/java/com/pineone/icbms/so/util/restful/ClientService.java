@@ -1,128 +1,121 @@
 package com.pineone.icbms.so.util.restful;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
+import com.withwiz.beach.network.http.message.IHttpResponseMessage;
+import com.withwiz.jellyfish.service.IGenericService;
+import com.withwiz.jellyfish.service.ServiceException;
+import com.withwiz.service.network.http.client.httpclientservice.HttpClientService;
+import com.withwiz.service.network.http.client.httpclientservice.HttpClientServiceRequestDeliveryMessage;
+import com.withwiz.service.network.http.client.httpclientservice.HttpClientServiceResponseDeliveryMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.MalformedURLException;
+import java.io.ByteArrayInputStream;
+import java.util.HashMap;
 
 /**
  * Created by use on 2015-10-12.
  */
 public class ClientService implements IClientService
 {
-    private final Logger log = LoggerFactory.getLogger(ClientService.class);
+	public static final int DATA_TIMEOUT_VALUE = 9000;
 
-	public static final String	SIDOMAIN		= "http://localhost:8090/";
-	public static final String	SICOMMAND		= "http://116.124.171.125:8081/si/command";
-	public static final String	SDA_TEST_DOMAIN	= "http://localhost:18080";
-	public static final String	SERVICE_ENGINE	= "http://localhost:8080/so/service/engine";
+	private final Logger log = LoggerFactory.getLogger(ClientService.class);
 
-	/** Context Model 조회 */
-	public static final String SDA_GET_CONTEXTMODEL = "http://192.168.1.186:18080/sda/itf/cm";
-
-	/** Context Model 등록 - POST */
-	public static final String SDA_REGIST_CONTEXTMODEL = "http://192.168.1.186:18080/sda/itf/cm";
-
-	public static final String	SIDEVICECONTROL			= "http://localhost:8090/si/controlmessage";
-	public static final String	ACCEPT_ENCODING			= "Accept-Encoding";
-	public static final String	ACCEPT_ENCODING_IDNTITY	= "identity";
-	public static final String	CONTENT_TYPE			= "Content-Type";
-	public static final String	CONTENT_TYPE_JSON		= "application/json";
-	public static final String	ENDODING_UTF8			= "UTF-8";
-
-	public static final String	SI_DEVICE_RESOURCE_WALLY6	= "/herit-in/herit-cse/wally6";
-	public static final String	SI_DEVICE_RESOURCE_HUE8		= "/herit-in/herit-cse/hue8";
-	public static final String	SI_DEVICE_RESOURCE_WALLY5	= "/herit-in/herit-cse/wally5";
-	public static final String	SI_DEVICE_RESOURCE_HUE7		= "/herit-in/herit-cse/hue7";
-
-	public ClientService() {
-	}
-
+	/**
+	 * request post service.<BR/>
+	 * 
+	 * @param serviceUrl
+	 * @param body
+	 * @return
+	 */
 	@Override
-	public HttpResponse requestData(String uri)
+	public IHttpResponseMessage requestPostService(String serviceUrl,
+			String body)
 	{
-		HttpResponse response = null;
+		log.info("[[Client Service requestPostService uri]] " + serviceUrl);
+		log.info("[[Client Service requestPostService data]] " + body);
+		// request delivery message
+		HttpClientServiceRequestDeliveryMessage req = new HttpClientServiceRequestDeliveryMessage();
+		// add key-value list.
+		HashMap<String, String> headerList = new HashMap<String, String>();
+		headerList.put("Content-Type", "application/json");
+		// headerList.put("Content-Length", "238");
 
-        log.info("RequestData get start");
+		req.addValue(HttpClientService.KEY_HEADER_PARAMETERS, headerList);
+		req.addValue(HttpClientService.KEY_SERVICE_URL, serviceUrl);
+		req.addValue(HttpClientService.KEY_CONNECTION_TIMEOUT, DATA_TIMEOUT_VALUE);
+		req.addValue(HttpClientService.KEY_HTTP_METHOD,
+				HttpClientService.VALUE_HTTP_METHOD_POST);
+				// req.addValue(HttpClientService);
+
+		// body data
+		// StringInputStream inputStream = new StringInputStream(body);
+		ByteArrayInputStream inputStream = new ByteArrayInputStream(
+				body.getBytes());
+		req.addValue(HttpClientService.KEY_BODY_INPUT_STREAM, inputStream);
+
+		// response delivery message
+		HttpClientServiceResponseDeliveryMessage res = new HttpClientServiceResponseDeliveryMessage();
+		IHttpResponseMessage httpResponseMessage = null;
+		// HttpClientService
+		IGenericService service = new HttpClientService();
 		try
 		{
-			HttpClient client = new DefaultHttpClient();
-			HttpGet get = new HttpGet(uri);
-			get.setHeader(ACCEPT_ENCODING, ACCEPT_ENCODING_IDNTITY);
-			get.setHeader(CONTENT_TYPE, CONTENT_TYPE_JSON);
-
-			response = client.execute(get);
-
-			System.out.println("Output from Server result data .... \n");
-
+			// execute a service
+			service.onService(req, res);
+			// get a service response
+			httpResponseMessage = res
+					.getValue(HttpClientService.KEY_HTTP_RESPONSE);
+			// print a response
+			System.out.println(res);
 		}
-		catch (ClientProtocolException e)
+		catch (ServiceException e)
 		{
 			e.printStackTrace();
 		}
-		catch (MalformedURLException e)
-		{
-			e.printStackTrace();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
-		return response;
+		return httpResponseMessage;
 	}
 
+	/**
+	 * request get service.<BR/>
+	 * 
+	 * @param uri
+	 * @return
+	 */
 	@Override
-	public HttpResponse requestData(String uri, String data)
+	public IHttpResponseMessage requestGetService(String uri)
 	{
+		// request delivery message
+		HttpClientServiceRequestDeliveryMessage req = new HttpClientServiceRequestDeliveryMessage();
+		// add key-value list.
+		req.addValue(HttpClientService.KEY_SERVICE_URL, uri);
+		req.addValue(HttpClientService.KEY_CONNECTION_TIMEOUT,DATA_TIMEOUT_VALUE);
+		req.addValue(HttpClientService.KEY_HTTP_METHOD,
+				HttpClientService.VALUE_HTTP_METHOD_GET);
 
-        log.info("requestData post start");
-        log.debug("requestData : " + data);
-		HttpResponse response = null;
+		// response delivery message
+		HttpClientServiceResponseDeliveryMessage res = new HttpClientServiceResponseDeliveryMessage();
 
+		// HttpClientService
+		IGenericService service = new HttpClientService();
+		// return IHttpResponseMessage
+		IHttpResponseMessage httpResponseMessage = null;
 		try
 		{
-			HttpClient client = new DefaultHttpClient();
-			HttpPost post = new HttpPost(uri);
-			post.setHeader(ACCEPT_ENCODING, ACCEPT_ENCODING_IDNTITY);
-			post.setHeader(CONTENT_TYPE, CONTENT_TYPE_JSON);
-
-			HttpEntity entity = new ByteArrayEntity(
-					data.getBytes(ENDODING_UTF8));
-			post.setEntity(entity);
-			response = client.execute(post);
-
-			/**
-			 * String result = EntityUtils.toString(response.getEntity());
-			 * System.out.println(result);
-			 * 
-			 * DataService에서 같은 메소드를 사용하는데, 중복이 되면 현재 메서드 안에서 사용한 이후에 스트림을 닫아버리는
-			 * 오류가 발생하여 주석처리
-			 */
-			System.out.println("Output from Server result data .... \n");
-
+			// execute a service
+			service.onService(req, res);
+			// get a service response
+			httpResponseMessage = res
+					.getValue(HttpClientService.KEY_HTTP_RESPONSE);
+			// print a response
+			System.out.println(res);
 		}
-		catch (ClientProtocolException e)
+		catch (ServiceException e)
 		{
 			e.printStackTrace();
 		}
-		catch (MalformedURLException e)
-		{
-			e.printStackTrace();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		return httpResponseMessage;
 
-		return response;
 	}
+
 }

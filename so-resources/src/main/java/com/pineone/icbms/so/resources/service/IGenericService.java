@@ -1,42 +1,37 @@
 package com.pineone.icbms.so.resources.service;
 
-import com.pineone.icbms.so.resources.domain.IDomain;
-import com.pineone.icbms.so.resources.model.repo.context.IContextModel;
-import com.pineone.icbms.so.resources.result.IResult;
-import com.pineone.icbms.so.resources.task.ITask;
+import com.pineone.icbms.so.resources.context.IGenericContext;
+import com.pineone.icbms.so.resources.domain.IGenericDomain;
+import com.pineone.icbms.so.resources.result.IGenericResult;
+import com.pineone.icbms.so.resources.task.IGenericTask;
+
+import java.util.List;
 
 /**
- * generic service interface.<BR/>
+ * Generic service interface.<BR/>
  * Created by uni4love on 2015. 06. 14..
  */
-public interface IGenericService<IGenericContextModel extends IContextModel, IGenericTask extends ITask, IGenericDomain extends IDomain, IGenericResult extends IResult>
-		extends IService
+public interface IGenericService<GENERIC_TASK extends IGenericTask, DOMAIN extends IGenericDomain, GENERIC_RESULT extends IGenericResult, V>
+		extends IService, IGenericContext<String, V>
 {
-	/**
-	 * return context model.<BR/>
-	 * 
-	 * @return IGenericContextModel
-	 */
-	IGenericContextModel getContextModel();
-
 	/**
 	 * return task.<BR/>
 	 * 
-	 * @return IGenericTask
+	 * @return GENERIC_TASK
 	 */
-	IGenericTask getTask();
+	List<GENERIC_TASK> getTaskList();
 
 	/**
 	 * return domain.<BR/>
 	 * 
-	 * @return IGenericDomain
+	 * @return DOMAIN
 	 */
-	IGenericDomain getDomain();
+	DOMAIN getDomain();
 
 	/**
 	 * return result.<BR/>
 	 * 
 	 * @return IGenericResult
 	 */
-	IGenericResult getResult();
+	GENERIC_RESULT getResult();
 }

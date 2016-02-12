@@ -9,5 +9,4 @@ import com.pineone.icbms.so.resources.context.AGenericContext;
 abstract public class AGenericDeviceContext<V> extends AGenericContext<V>
 		implements IGenericDeviceContext<V>
 {
-
 }
