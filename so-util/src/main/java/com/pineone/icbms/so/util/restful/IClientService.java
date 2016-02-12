@@ -1,15 +1,12 @@
 package com.pineone.icbms.so.util.restful;
 
-import org.apache.http.HttpResponse;
+import com.withwiz.beach.network.http.message.IHttpResponseMessage;
 
 /**
- * Created by use on 2015-09-23.
+ * Created by pahnj on 2016-01-08.
  */
-public interface IClientService
-{
+public interface IClientService {
 
-	HttpResponse requestData(String uri);
-
-	HttpResponse requestData(String uri, String data);
-
+    IHttpResponseMessage requestPostService(String uri, String data);
+    IHttpResponseMessage requestGetService(String uri);
 }

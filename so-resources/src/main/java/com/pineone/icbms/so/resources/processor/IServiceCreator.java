@@ -1,13 +1,17 @@
 package com.pineone.icbms.so.resources.processor;
 
+import com.pineone.icbms.so.resources.service.IService;
+
 /**
- * Created by Melvin on 2015. 11. 13..
- * Receive occ form ContextProviderModule
- * Make DefaultTask for sending to ServiceEngineModule
+ * Created by existmaster on 2015. 12. 23..
  */
-
-
 public interface IServiceCreator {
 
-    void executeServiceController(String a);
+    /**
+     * This method return IService type object.
+     *
+     * @param serviceModelID key the serviceModel to be searched for.
+     * @return the searched IService Object.
+     */
+    IService createServiceByID(String serviceModelID);
 }
