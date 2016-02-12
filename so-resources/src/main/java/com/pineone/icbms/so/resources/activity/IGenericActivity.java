@@ -1,26 +1,43 @@
 package com.pineone.icbms.so.resources.activity;
 
-import com.pineone.icbms.so.resources.action.IAction;
-import com.pineone.icbms.so.resources.result.IGenericResult;
-
 import java.util.List;
+
+import com.pineone.icbms.so.resources.action.IGenericAction;
+import com.pineone.icbms.so.resources.property.operation.IGenericOperationValue;
+import com.pineone.icbms.so.resources.property.reference.IGenericOntologyReference;
+import com.pineone.icbms.so.resources.result.IGenericResult;
 
 /**
  * Generic activity interface.<BR/>
  * Created by uni4love on 2015. 06. 18..
  */
-public interface IGenericActivity<IGenericAction extends IAction> extends IActivity<Long, String>
+public interface IGenericActivity extends IActivity
 {
 	/**
 	 * return action list.<BR/>
 	 * 
-	 * @return IGenericAction list
+	 * @return GENERIC_ACTION list
 	 */
 	List<IGenericAction> getActionList();
 
 	/**
 	 * return result.<BR/>
-	 * @return result
-     */
+	 *
+	 * @return IGenericResult
+	 */
 	IGenericResult getResult();
+
+	/**
+	 * return ontology reference.<BR/>
+	 * 
+	 * @return ontology reference
+	 */
+	IGenericOntologyReference getOntologyReference();
+
+	/**
+	 * return operation value.<BR/>
+	 * 
+	 * @return operation value
+	 */
+	IGenericOperationValue getOperationValue();
 }

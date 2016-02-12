@@ -7,7 +7,8 @@ import com.pineone.icbms.so.resources.property.INameOwner;
  * Virtual Object interface.<BR/>
  * Created by uni4love on 2015. 5. 7..
  */
-public interface IVirtualObject<ID, NAME> extends IIdOwner<ID>, INameOwner<NAME>
+public interface IVirtualObject<ID, NAME>
+		extends IIdOwner<ID>, INameOwner<NAME>
 {
 	/**
 	 * return virtual object id<BR>

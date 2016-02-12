@@ -1,19 +1,26 @@
 package com.pineone.icbms.so.resources.model.repo.task;
 
-import com.pineone.icbms.so.resources.model.IModel;
-import com.pineone.icbms.so.resources.model.repo.activity.IActivityModel;
-
 import java.util.List;
+
+import com.pineone.icbms.so.resources.model.IGenericModel;
+import com.pineone.icbms.so.resources.model.repo.activity.IActivityModel;
 
 /**
  * Task model interface for repository.<BR/>
  * Created by uni4love on 2015. 10. 15..
  */
-public interface ITaskModel extends IModel
+public interface ITaskModel<ACTIVITY_MODEL extends IActivityModel>
+		extends IGenericModel
 {
-    /**
-     * return activity model list.<BR/>
-     * @return activity model list
-     */
-    List<IActivityModel> getActivityModelList();
+	/**
+	 * type: task
+	 */
+	String TYPE = "so/resource/task";
+
+	/**
+	 * return activity model list.<BR/>
+	 * 
+	 * @return activity model list
+	 */
+	List<ACTIVITY_MODEL> getActivityModelList();
 }

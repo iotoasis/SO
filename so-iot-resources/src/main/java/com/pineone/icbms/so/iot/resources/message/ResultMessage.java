@@ -1,6 +1,6 @@
 package com.pineone.icbms.so.iot.resources.message;
 
-public class ResultMessage
+public class ResultMessage extends DefaultMessage
 {
 	String	_commandId;
 	String	_resultCode;
@@ -45,5 +45,14 @@ public class ResultMessage
 	public void set_result(String _result)
 	{
 		this._result = _result;
+	}
+
+	@Override
+	public String toString() {
+		return "resultMessage{" +
+				"_commandId='" + _commandId + '\'' +
+				", _resultCode='" + _resultCode + '\'' +
+				", _result='" + _result + '\'' +
+				'}';
 	}
 }

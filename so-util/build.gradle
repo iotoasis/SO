@@ -13,6 +13,7 @@ repositories {
     maven {
         url "${nexusUrl}/content/groups/pineone-public/"
     }
+    jcenter()
 }
 
 configurations.all {
@@ -62,6 +63,9 @@ dependencies {
 
     //apache http
     compile "org.apache.httpcomponents:httpclient:4.5.1"
+
+    //Http client service
+    compile "com.withwiz:httpclientservice:0.1.1"
 
 
     //quartz

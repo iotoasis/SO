@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <!-- Insert the current time formatted as "yyyyMMdd'T'HHmmss" under
+         the key "bySecond" into the logger context. This value will be
+         available to all subsequent configuration elements. -->
+    <!--<timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>-->
+    <!--<appender name="FILE" class="ch.qos.logback.core.FileAppender">-->
+        <!--<file>log-${bySecond}.log</file>-->
+        <!--<append>true</append>-->
+        <!--&lt;!&ndash; encoders are assigned the type-->
+             <!--ch.qos.logback.classic.encoder.PatternLayoutEncoder by default &ndash;&gt;-->
+        <!--<encoder>-->
+            <!--<pattern>%-4relative [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+        <!--</encoder>-->
+        <!--&lt;!&ndash; file lock &ndash;&gt;-->
+        <!--<prudent>true</prudent>-->
+    <!--</appender>-->
+
+    <timestamp key="byDay" datePattern="yyyyMMdd"/>
+    <appender name="FILE-DAY" class="ch.qos.logback.core.FileAppender">
+        <file>log-${byDay}.log</file>
+        <append>true</append>
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%-4relative [%thread] %d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+        <!-- file lock -->
+        <prudent>true</prudent>
+    </appender>
+
+    <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/svc/log/so/so-server/so-server.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>/svc/log/so/so-server/so-server-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.springframework" level="debug" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="com.pineone.icbms" level="debug" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="com.pineone.icbms" level="debug" additivity="false">
+        <appender-ref ref="ROLLING" />
+    </logger>
+
+    <logger name="com.pineone.icbms" level="debug" additivity="false">
+        <appender-ref ref="FILE-DAY" />
+    </logger>
+
+    <root level="error">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>

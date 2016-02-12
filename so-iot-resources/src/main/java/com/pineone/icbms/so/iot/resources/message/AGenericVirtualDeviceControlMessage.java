@@ -1,8 +1,8 @@
 package com.pineone.icbms.so.iot.resources.message;
 
 import com.pineone.icbms.so.resources.domain.IDomain;
-import com.pineone.icbms.so.resources.property.IOntologyReference;
 import com.pineone.icbms.so.resources.property.IValue;
+import com.pineone.icbms.so.resources.property.reference.IOntologyReference;
 
 /**
  * Virtual device control message abstract class.<BR/>
