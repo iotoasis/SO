@@ -5,17 +5,20 @@ import com.pineone.icbms.so.iot.resources.context.IotServiceContext;
 import com.pineone.icbms.so.resources.action.DefaultAction;
 import com.pineone.icbms.so.resources.context.IGenericContext;
 import com.pineone.icbms.so.resources.vo.location.DefaultLocation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 /**
- *  * 적정 온도보다 낮은 장소 조회 <BR/>
+ * get Location information that has Under optimum Temperature <BR/>
  * Created by Melvin on 2016. 1. 20..
  */
 public class MakeColdLocationInfoAction extends DefaultAction {
 
-    DefaultLocation location;
+    private final Logger log = LoggerFactory.getLogger(MakeColdLocationInfoAction.class);
 
+    DefaultLocation location;
 
     @Override
     public void execute(IGenericContext context) {
@@ -25,13 +28,16 @@ public class MakeColdLocationInfoAction extends DefaultAction {
         location = ((DefaultLocation) context.getValue(IotServiceContext.ACTION_TARGET_LOCATION));
 
         /**
-         * 수신받은 Locaiton 정보를 이용하여 그 Location이 현재 적정 온도보다 낮은지 조회.<BR/>
-         * 온도보다 낮다면 Location을 정보를 반환 <BR/>
+         * Use LocationInfoProvider that has SDA Interface(getColdLocation) <BR/>
+         * add Information of Location to ACTION_TARGET_LOCATION  <BR/>
          */
 
         List<DefaultLocation> locationList = locationInfoProvider.getColdLocationInfo(location);
 
-        context.addValue(IotServiceContext.ACTION_TARGET_LOCATION, locationList);
+        for(DefaultLocation location : locationList){
+            log.info(" >> deviceList : " + location.getUri());
+        }
 
+        context.addValue(IotServiceContext.ACTION_TARGET_LOCATION, locationList);
     }
 }

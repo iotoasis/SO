@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 
 public abstract class AGeneralProvider implements IProvider {
@@ -17,12 +18,21 @@ public abstract class AGeneralProvider implements IProvider {
 	}
 	
 	/**
-	 * Provide now Date Time 
+	 * Provide now Date Time :: OnTology Format
 	 * @return now DateTime (format ex : 20160111T170523) 
 	 */
-	public String getNowDate(){
+	public String getNowDateOnTology(){
 		Calendar calendar = Calendar.getInstance();
 		String nowDate = new SimpleDateFormat("yyyyMMdd'T'HHmmss").format(calendar.getTime());
+		return nowDate;
+	}
+	
+	/**
+	 * Provide now Date 
+	 * @return now Date  
+	 */
+	public Date getNowDate(){
+		Date nowDate = new Date();
 		return nowDate;
 	}
 	
@@ -33,7 +43,8 @@ public abstract class AGeneralProvider implements IProvider {
 	 */
 	public <D> void setModelDate(D data, String dateMethodName){
 		try {
-			Method method = data.getClass().getMethod(dateMethodName, new String().getClass());
+			//Method method = data.getClass().getMethod(dateMethodName, new String().getClass()); by method getNowDateOnTology()
+			Method method = data.getClass().getMethod(dateMethodName, new Date().getClass());
 			try {
 				method.invoke(data, getNowDate());
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {

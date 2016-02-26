@@ -3,6 +3,7 @@ package com.pineone.icbms.so.util.restful;
 import com.withwiz.beach.network.http.message.IHttpResponseMessage;
 
 /**
+ * ClientService interface.<BR/>
  * Created by pahnj on 2016-01-08.
  */
 public interface IClientService {

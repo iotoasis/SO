@@ -7,69 +7,88 @@ package com.pineone.icbms.so.interfaces.sda.collector;
 public class ExpectJsonData {
 
     /**
-     * CAM 정보 및 다른 URI를 데이터로 받기위한 변수
+     * Uri
      */
     String uri;
 
     /**
-     * Location 정보를 데이터로 받기위한 변수
+     * Location Information
      */
     String loc;
 
     /**
-     * 사람 정보를 데이터로 받기위한 변수
+     * Person Information
      */
     String person;
 
     /**
-     * device 정보를 데이터로 받기위한 변수
+     * Device Information
      */
     String dev;
 
     /**
-     * 최소값 정보를 데이터로 받기위한 변수
+     * Minimum Value
      */
     double min_value;
 
     /**
-     * 최대값 정보를 데이터로 받기위한 변수
+     * Maximum Value
      */
     double max_value;
 
     /**
-     * 관리인(특정 장소) 정보를 데이터로 받기위한 변수
+     * Manager Information(Specific Location)
      */
     String manager;
 
     /**
-     * 유저 정보를 데이터로 받기위한 변수
+     * User id(Detail Information)
      */
     String user_id;
 
     /**
-     * 유저 정보를 데이터로 받기위한 변수
+     * User's Phone(Detail Information)
      */
     String phone;
 
     /**
-     * 유저 정보를 데이터로 받기위한 변수
+     * User's name(Detail Information)
      */
     String name;
 
     /**
-     * 유저 정보를 데이터로 받기위한 변수
+     * User's Student_id(Detail Information)
      */
     String student_id;
 
     /**
-     * Device OperationType을 수신받기 위한 변수
+     * Device OperationType
      */
     String type;
 
     /**
-     * 200응답코드가 아닌 다른 응답에러일경우 메세지 저장을 위한 벼누
+     * URL only cam used
+     */
+    String camurl;
+
+    /**
+     * Response Message
      */
     String msg;
+
+    /**
+     * Condition Information
+     */
+
+    String cond;
+
+    public String getCond() {
+        return cond;
+    }
+
+    public void setCond(String cond) {
+        this.cond = cond;
+    }
 
     public String getMsg() {
         return msg;
@@ -176,4 +195,14 @@ public class ExpectJsonData {
     public void setUri(String uri) {
         this.uri = uri;
     }
+
+    public String getCamurl() {
+        return camurl;
+    }
+
+    public void setCamurl(String camurl) {
+        this.camurl = camurl;
+    }
 }
+
+

@@ -24,6 +24,9 @@ import com.withwiz.jellyfish.service.DefaultService;
 public final class OrchestrationService extends
 		DefaultService<OrchestrationServiceRequestDeliveryMessage, OrchestrationServiceResponseDeliveryMessage>
 {
+	static{
+		ServiceRunner.getInstance().start();
+	}
 	/**
 	 * service parameter key: RESPONSE_STATUS
 	 */
@@ -60,9 +63,14 @@ public final class OrchestrationService extends
 	public static final String KEY_DOMAIN_LIST = "DOMAIN_LIST";
 
 	/**
-	 * service parameter value:
+	 * service parameter value: success
 	 */
 	public static final int VALUE_STATUS_SUCCESS = 200;
+
+	/**
+	 * service parameter value: Resource NOT found
+	 */
+	public static final int VALUE_STATUS_NOT_FOUND = 404;
 
 	/**
 	 * service parameter value: VALUE_METHOD_INITIALIZE
@@ -130,7 +138,7 @@ public final class OrchestrationService extends
 
 		// initialize service runner
 		EmitService.getInstance();
-		ServiceRunner.getInstance();
+
 	}
 
 	/**
@@ -163,70 +171,8 @@ public final class OrchestrationService extends
 		model.setContextId(occurrence.getContextId());
 		model.setDomainList(occurrence.getDomainList());
 		setOccurrenceEventToDb(model);
-
-		OrchestrationServiceRequestDeliveryMessage req = null;
-		OrchestrationServiceResponseDeliveryMessage res = null;
-		OrchestrationService service = null;
-		int status;
-		// --------------------- rule processing
-		req = new OrchestrationServiceRequestDeliveryMessage();
-		// set method
-		req.addValue(KEY_METHOD, VALUE_METHOD_RULE_PROCESSING);
-		// set a occurrence
-		req.addValue(KEY_OCCURRENCE, occurrence);
-		// response message
-		res = new OrchestrationServiceResponseDeliveryMessage();
-		// service
-		service = new OrchestrationService();
-		// execute service
-		service.onService(req, res);
-		// get response status
-		status = (int) res.getValue(KEY_RESPONSE_STATUS);
-		ServiceSketch serviceSketch = null;
-		if (status == OrchestrationService.VALUE_STATUS_SUCCESS)
-		{
-			// get service sketch
-			serviceSketch = (ServiceSketch) res.getValue(KEY_SERVICE_SKETCH);
-		}
-		// --------------------- create services
-		req = new OrchestrationServiceRequestDeliveryMessage();
-		// set method
-		req.addValue(KEY_METHOD, VALUE_METHOD_CREATE_SERVICES);
-		// set service sketch
-		req.addValue(KEY_SERVICE_SKETCH, serviceSketch);
-		// response message
-		res = new OrchestrationServiceResponseDeliveryMessage();
-		// service
-		service = new OrchestrationService();
-		// execute service
-		service.onService(req, res);
-		// get response status
-		status = (int) res.getValue(KEY_RESPONSE_STATUS);
-		// get service list
-		List<IGenericService> serviceList = null;
-		if (status == OrchestrationService.VALUE_STATUS_SUCCESS)
-		{
-			serviceList = (List<IGenericService>) res
-					.getValue(KEY_SERVICE_LIST);
-		}
-		// --------------------- execute services
-		req = new OrchestrationServiceRequestDeliveryMessage();
-		// set method
-		req.addValue(KEY_METHOD, VALUE_METHOD_EXECUTE_SERVICES);
-		// set service list
-		req.addValue(KEY_SERVICE_LIST, serviceList);
-		// response message
-		res = new OrchestrationServiceResponseDeliveryMessage();
-		// service
-		service = new OrchestrationService();
-		// execute service
-		service.onService(req, res);
-		// get response status
-		status = (int) res.getValue(KEY_RESPONSE_STATUS);
-		if (status == OrchestrationService.VALUE_STATUS_SUCCESS)
-		{
-		}
-
+		// handler
+		new OccurrenceHandler(occurrence).start();
 	}
 
 	/**
@@ -291,8 +237,17 @@ public final class OrchestrationService extends
 				DefaultOccurrence occurrence2 = (DefaultOccurrence) request
 						.getValue(KEY_OCCURRENCE);
 				ServiceSketch serviceSketch = processRule(occurrence2);
-				response.addValue(KEY_SERVICE_SKETCH, serviceSketch);
-				response.addValue(KEY_RESPONSE_STATUS, VALUE_STATUS_SUCCESS);
+				if (serviceSketch == null)
+				{
+					response.addValue(KEY_RESPONSE_STATUS,
+							VALUE_STATUS_NOT_FOUND);
+				}
+				else
+				{
+					response.addValue(KEY_SERVICE_SKETCH, serviceSketch);
+					response.addValue(KEY_RESPONSE_STATUS,
+							VALUE_STATUS_SUCCESS);
+				}
 				break;
 			case VALUE_METHOD_CREATE_SERVICES:
 				ServiceSketch serviceSketch1 = (ServiceSketch) request
@@ -414,6 +369,107 @@ public final class OrchestrationService extends
 		status = (int) res.getValue(KEY_RESPONSE_STATUS);
 		if (status == OrchestrationService.VALUE_STATUS_SUCCESS)
 		{
+		}
+	}
+
+	/**
+	 * Occurrence handler class.<BR/>
+	 */
+	class OccurrenceHandler extends Thread
+	{
+		/**
+		 * occurrence
+		 */
+		private DefaultOccurrence occurrence = null;
+
+		/**
+		 * contructor
+		 * 
+		 * @param occurrence
+		 *            occurrence
+		 */
+		public OccurrenceHandler(DefaultOccurrence occurrence)
+		{
+			this.occurrence = occurrence;
+		}
+
+		@Override
+		public void run()
+		{
+			occurrenceHandler(occurrence);
+		}
+
+		/**
+		 * occurrence handler.<BR/>
+		 *
+		 * @param occurrence
+		 *            occurrence
+		 */
+		private void occurrenceHandler(DefaultOccurrence occurrence)
+		{
+			int status;
+			OrchestrationServiceRequestDeliveryMessage req = null;
+			OrchestrationServiceResponseDeliveryMessage res = null;
+			OrchestrationService service = null;
+			// --------------------- rule processing
+			req = new OrchestrationServiceRequestDeliveryMessage();
+			// set method
+			req.addValue(KEY_METHOD, VALUE_METHOD_RULE_PROCESSING);
+			// set a occurrence
+			req.addValue(KEY_OCCURRENCE, occurrence);
+			// response message
+			res = new OrchestrationServiceResponseDeliveryMessage();
+			// service
+			service = new OrchestrationService();
+			// execute service
+			service.onService(req, res);
+			// get response status
+			status = (int) res.getValue(KEY_RESPONSE_STATUS);
+			ServiceSketch serviceSketch = null;
+			if (status == OrchestrationService.VALUE_STATUS_SUCCESS)
+			{
+				// get service sketch
+				serviceSketch = (ServiceSketch) res
+						.getValue(KEY_SERVICE_SKETCH);
+			}
+			// --------------------- create services
+			req = new OrchestrationServiceRequestDeliveryMessage();
+			// set method
+			req.addValue(KEY_METHOD, VALUE_METHOD_CREATE_SERVICES);
+			// set service sketch
+			req.addValue(KEY_SERVICE_SKETCH, serviceSketch);
+			// response message
+			res = new OrchestrationServiceResponseDeliveryMessage();
+			// service
+			service = new OrchestrationService();
+			// execute service
+			service.onService(req, res);
+			// get response status
+			status = (int) res.getValue(KEY_RESPONSE_STATUS);
+			// get service list
+			List<IGenericService> serviceList = null;
+			if (status == OrchestrationService.VALUE_STATUS_SUCCESS)
+			{
+				serviceList = (List<IGenericService>) res
+						.getValue(KEY_SERVICE_LIST);
+			}
+			// --------------------- execute services
+			req = new OrchestrationServiceRequestDeliveryMessage();
+			// set method
+			req.addValue(KEY_METHOD, VALUE_METHOD_EXECUTE_SERVICES);
+			// set service list
+			req.addValue(KEY_SERVICE_LIST, serviceList);
+			// response message
+			res = new OrchestrationServiceResponseDeliveryMessage();
+			// service
+			service = new OrchestrationService();
+			// execute service
+			service.onService(req, res);
+			// get response status
+			status = (int) res.getValue(KEY_RESPONSE_STATUS);
+			if (status == OrchestrationService.VALUE_STATUS_SUCCESS)
+			{
+			}
 		}
 	}
 }

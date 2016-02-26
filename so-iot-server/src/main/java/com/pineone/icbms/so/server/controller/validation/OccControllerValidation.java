@@ -9,6 +9,7 @@ import java.util.Date;
 
 /**
  * Created by Melvin on 2015. 12. 22..
+ * Occurrence Validator<BR/>
  */
 public class OccControllerValidation
 {
@@ -17,14 +18,14 @@ public class OccControllerValidation
 			throws Exception
 	{
 
-		if (occurrence.getDomains() == null)
+		if (occurrence.getDomainList() == null || occurrence.getDomainList().size() == 0)
 			throw new NotExistDomainException();
 
-		if (occurrence.getContextId() == null
+		if (occurrence.getContextId() == null || occurrence.getDomainList().size() == 0
 				|| occurrence.getContextId().equals(""))
 			throw new NotExistContextIdException();
 
-		if (occurrence.getTime() == null || occurrence.getTime().equals(""))
+		if (occurrence.getTime() == null || occurrence.getTime().equals("") || occurrence.getTime().length() == 0)
 			throw new NotExistTimeException();
 
 		if (getFutureTime(occurrence.getTime()) == true)

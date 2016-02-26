@@ -6,4 +6,5 @@ package com.pineone.icbms.so.iot.resources.vo.vd;
  */
 public class DefaultVirtualDevice extends AGenericVirtualDevice
 {
+
 }

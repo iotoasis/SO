@@ -1,54 +1,91 @@
 package com.pineone.icbms.so.interfaces.sda.collector.provider;
 
 import com.pineone.icbms.so.interfaces.sda.client.CollectorController;
+import com.pineone.icbms.so.interfaces.sda.client.NotExistDataException;
+import com.pineone.icbms.so.interfaces.sda.client.NotUsefulDataException;
 import com.pineone.icbms.so.interfaces.sda.collector.ResponseMapper;
 import com.pineone.icbms.so.interfaces.sda.collector.ResponseModel;
 import com.pineone.icbms.so.iot.resources.person.DefaultStudent;
 import com.pineone.icbms.so.resources.vo.location.DefaultLocation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Properties;
 
 /**
- * 필요한 정보를 입력받아서 Uri를 만들어 연관된 장소를 조회
+ * Get Location Information list From SDA<BR/>
  * Created by Melvin on 2016. 1. 11..
  */
 public class LocationInfoProvider {
 
-    /**
-     * 지정 요일의 강의실을 검색하기 위한 컨텍스트가 포함된 주소
-     */
-    public static final String cm100Host = "http://166.104.112.43:20080/sda/ctx/CM-1-1-100/?p=";
+
+
+    public String init() {
+
+//        String path = LocationInfoProvider.class.getResource("").getPath();
+//        System.out.println("path --> "+path);
+
+
+
+
+        Properties sdaInfo = new Properties();
+        InputStream in = LocationInfoProvider.class.getClassLoader().getResourceAsStream("sda.properties");
+        String sdaConnection = null;
+        
+        try {
+//            Reader reader = new FileReader(path+"sda.properties");
+//            sdaInfo.load(new FileInputStream("./sda.properties"));
+            sdaInfo.load(in);
+            sdaConnection = sdaInfo.getProperty("Sda_Connection");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return sdaConnection;
+    }
+
+    String sdaConn = init();
+
+//    /**
+//     * HostName Include ContextID : search Location about Scheduled<BR/>
+//     */
+//    public static final String cm100Host = "http://166.104.112.43:20080/sda/ctx/CM-1-1-100/?p=";
+//
+//    /**
+//     * HostName Include ContextID : search Location about Person<BR/>
+//     */
+//    public static final String cm200Host = "http://166.104.112.43:20080/sda/ctx/CM-1-1-200/?p=";
+//
+//    /**
+//     * HostName Include ContextID : search Location about Optimum temperature<BR/>
+//     */
+//    public static final String cm230Host = "http://166.104.112.43:20080/sda/ctx/CM-1-1-230/?p=";
+//
+//    /**
+//     * HostName Include ContextID : search Location about Optimum Humidify<BR/>
+//     */
+//    public static final String cm240Host = "http://166.104.112.43:20080/sda/ctx/CM-1-1-240/?p=";
+//
+//    /**
+//     * HostName Include ContextID : search Location about Optimum Luminosity<BR/>
+//     */
+//    public static final String cm250Host = "http://166.104.112.43:20080/sda/ctx/CM-1-1-250/?p=";
+
+    private final Logger log = LoggerFactory.getLogger(LocationInfoProvider.class);
+
+
 
     /**
-     * 인물의 현재 위치를 검색하기 위한 컨텍스트가 포함된 주소
-     */
-    public static final String cm200Host = "http://166.104.112.43:20080/sda/ctx/CM-1-1-200/?p=";
-
-    /**
-     * 장소의 현재 온도의 적절성에 대해 조회하기 위한 컨텍스트가 포함된 주소
-     */
-    public static final String cm230Host = "http://166.104.112.43:20080/sda/ctx/CM-1-1-230/?p=";
-
-    /**
-     * 장소의 현재 습도의 적절성에 대해 조회하기 위한 컨텍스트가 포함된 주소
-     */
-    public static final String cm240Host = "http://166.104.112.43:20080/sda/ctx/CM-1-1-240/?p=";
-
-    /**
-     * 장소의 현재 조도의 적절성에 대해 조회하기 위한 컨텍스트가 포함된 주소
-     */
-    public static final String cm250Host = "http://166.104.112.43:20080/sda/ctx/CM-1-1-250/?p=";
-
-
-
-    /**
-     * 요일과 시간을 입력받아서 강의가 예정되어있는지 조회
+     * get Scheduled Location<BR/>
      *
      * @param date
      * @param time
      * @return
      */
-    public ArrayList<DefaultLocation> getLocationInfoFromSDA(String date, String time) {
+    public ArrayList<DefaultLocation> getLocationInfoFromSDA(String date, String time) throws NotExistDataException {
 
         CollectorController collectorController = new CollectorController();
         ResponseMapper responseMapper = new ResponseMapper();
@@ -56,26 +93,29 @@ public class LocationInfoProvider {
         ArrayList<DefaultLocation> locationArrayList = new ArrayList<>();
         DefaultLocation location;
 
-        /**
-         * 요일과 시간 내용을 입력받아서 장소 정보를 가지고 올 수 있는 URL을 생성.
-         *  ex)http://166.104.112.43:20080/sda/ctx/CM-1-1-100/?p=monday,0850
-         *
-         */
-        String getLocationURL = cm100Host + date + "," + time;
+        log.info(" >> Scheduled - Day : " + date + ", + Time : " + time);
+        log.info(" >> Control Scheduled Location");
 
         /**
-         *Controller를 이용하여 HttpResponse형태의 데이터를 String으로 수신
+         * Use Schedule Information to make URL
+         *  ex)http://166.104.112.43:20080/sda/ctx/CM-1-1-100/?p=monday,0850<BR/>
+         */
+        String cm100Host = "CM-1-1-100/?p=";
+
+        String getLocationURL = sdaConn + cm100Host + date + "," + time;
+
+        /**
+         * get String Type Location InformationList<BR/>
          */
         String afterConnectData = collectorController.getDevice(getLocationURL);
 
 
         /**
-         * Json형태를 띄고 있는 String형 데이터를 Object로 변환
+         * Convert To Object from Jason Type Sting Data(LocationList)<BR/>
          */
         responseModel = responseMapper.getList(afterConnectData);
 
-        /** local 정보만 String 으로 추출하여 반환
-         */
+        /** get Only Location Information and add LocationList as Uri  (setUri)<BR/> */
 
         for (int i = 0; i < responseModel.getContent().size(); i++) {
             location = new DefaultLocation();
@@ -87,9 +127,14 @@ public class LocationInfoProvider {
     }
 
     /**
-     * 사람이 현재 있는 장소를 조회
+     * get Current Location about Student<BR/>
+     * @param student
+     * @return
+     * @throws NotExistDataException
      */
-    public ArrayList<DefaultLocation> getCurrentLocationFromSDA(DefaultStudent student) {
+
+
+    public DefaultLocation getCurrentLocationFromSDA(DefaultStudent student) throws NotExistDataException {
 
         CollectorController collectorController = new CollectorController();
         ResponseMapper responseMapper = new ResponseMapper();
@@ -97,34 +142,110 @@ public class LocationInfoProvider {
         ArrayList<DefaultLocation> locationArrayList = new ArrayList<>();
         DefaultLocation location;
 
-        /**
-         * 요일과 시간 내용을 입력받아서 장소 정보를 가지고 올 수 있는 URL을 생성.
-         *  ex)http://166.104.112.43:20080/sda/ctx/CM-1-1-200/?p=http://www.pineone.com/campus/u00002
-         *
-         */
-        String getLocationURL = cm200Host + student.getUri();
+
+        log.info(" >> Student : " + student);
+        log.info(" >> Get Current Location of Person");
 
         /**
-         *Controller를 이용하여 HttpResponse형태의 데이터를 String으로 수신
+         *  Use Student Id to make URL
+         *  ex)http://166.104.112.43:20080/sda/ctx/CM-1-1-200/?p=http://www.pineone.com/campus/u00001<BR/>
+         */
+
+        String cm200Host = "CM-1-1-200/?p=";
+        String getLocationURL = sdaConn + cm200Host + student.getUri();
+        System.out.println(getLocationURL);
+
+        /**
+         * Convert To Object from Jason Type Sting Data(LocationList)<BR/>
+         */
+        /**
+         * TODO : only Test
+         */
+        String afterConnectData = collectorController.getDevice(getLocationURL);
+
+//        String afterConnectData = afterConnectDataTemp.replace("nowhere","DT0001");
+
+        /** get Only Location Information and add LocationList as Uri  (setUri)<BR/> */
+        responseModel = responseMapper.getList(afterConnectData);
+
+        location = new DefaultLocation();
+        location.setUri(responseModel.getContent().get(0).getLoc());
+
+
+        return location;
+    }
+
+    /**
+     * filter Hot Location<BR/>
+     *
+     * @param location
+     * @return
+     * @throws NotExistDataException
+     */
+    public ArrayList<DefaultLocation> getHotLocationInfo(DefaultLocation location) throws NotExistDataException {
+
+        CollectorController collectorController = new CollectorController();
+        ResponseMapper responseMapper = new ResponseMapper();
+        ResponseModel responseModel;
+        ArrayList<DefaultLocation> locationArrayList = new ArrayList<>();
+
+
+
+
+        /**
+         * use location Information to make URL
+         *  ex)http://166.104.112.43:20080/sda/ctx/CM-1-1-230/? + location<BR/>
+         *
+         */
+        String cm230Host = "CM-1-1-230/?p=";
+        String getLocationURL = sdaConn + cm230Host + location.getUri();
+
+        /**
+         * get String Type Location InformationList<BR/>
          */
         String afterConnectData = collectorController.getDevice(getLocationURL);
 
 
         /**
-         * Json형태를 띄고 있는 String형 데이터를 Object로 변환
+         * Convert To Object from Jason Type Sting Data(LocationList)<BR/>
          */
         responseModel = responseMapper.getList(afterConnectData);
 
-        for (int i = 0; i < responseModel.getContent().size(); i++) {
-            location = new DefaultLocation();
-            location.setUri(responseModel.getContent().get(i).getLoc());
-            locationArrayList.add(location);
-        }
+        /**
+         * if location's temperature is hotter than optimum temperature , return location<BR/>
+         * else throw Exception<BR/>
+         */
+        if (afterConnectData.contains("hot")) {
 
-        return locationArrayList;
+
+            for (int i = 0; i < responseModel.getContent().size(); i++) {
+                location = new DefaultLocation();
+                location.setUri(responseModel.getContent().get(i).getLoc());
+                locationArrayList.add(location);
+            }
+
+            log.info(" >> Location : " + location);
+            log.info(" >> Get Over Temp Location ");
+
+            return locationArrayList;
+        } else {
+
+            throw new NotUsefulDataException();
+
+        }
     }
 
-    public ArrayList<DefaultLocation> getHotLocationInfo(DefaultLocation location) {
+    /**
+     *
+     * filter Cold Location<BR/>
+     *
+     * @param location
+     * @return
+     * @throws NotExistDataException
+     * @throws NotUsefulDataException
+     */
+
+    public ArrayList<DefaultLocation> getColdLocationInfo(DefaultLocation location) throws NotExistDataException, NotUsefulDataException {
 
         CollectorController collectorController = new CollectorController();
         ResponseMapper responseMapper = new ResponseMapper();
@@ -132,25 +253,83 @@ public class LocationInfoProvider {
         ArrayList<DefaultLocation> locationArrayList = new ArrayList<>();
 
         /**
-         * 조회가 필요한 장소의 정보를 추가하여 URL을 생성
-         *  ex)http://166.104.112.43:20080/sda/ctx/CM-1-1-230/? + location
+         * use location Information to make URL
+         *  ex)http://166.104.112.43:20080/sda/ctx/CM-1-1-230/? + location<BR/>
          *
          */
-        String getLocationURL = cm230Host + location.getUri();
+        String cm230Host = "CM-1-1-230/?p=";
+        String getLocationURL = sdaConn + cm230Host + location.getUri();
 
         /**
-         *Controller를 이용하여 HttpResponse형태의 데이터를 String으로 수신
+         * get String Type Location InformationList<BR/>
+         */
+        String afterConnectData = collectorController.getDevice(getLocationURL);
+
+        /**
+         * Convert To Object from Jason Type Sting Data(LocationList)<BR/>
+         */
+        responseModel = responseMapper.getList(afterConnectData);
+
+
+        /**
+         * if location's temperature is colder than optimum temperature , return location<BR/>
+         * else throw Exception<BR/>
+         */
+        if (afterConnectData.contains("cold")) {
+
+            for (int i = 0; i < responseModel.getContent().size(); i++) {
+                location = new DefaultLocation();
+                location.setUri(responseModel.getContent().get(i).getLoc());
+                locationArrayList.add(location);
+            }
+            log.info(" >> Location : " + location);
+            log.info(" >> Get Under Temp Location ");
+
+            return locationArrayList;
+        } else {
+
+            throw new NotUsefulDataException();
+
+        }
+    }
+
+    /**
+     * filter wet Location<BR/>
+     *
+     * @param location
+     * @return
+     * @throws NotExistDataException
+     * @throws NotUsefulDataException
+     */
+    public ArrayList<DefaultLocation> getWetLocationInfo(DefaultLocation location) throws NotExistDataException, NotUsefulDataException {
+
+        CollectorController collectorController = new CollectorController();
+        ResponseMapper responseMapper = new ResponseMapper();
+        ResponseModel responseModel;
+        ArrayList<DefaultLocation> locationArrayList = new ArrayList<>();
+
+        /**
+         * use location Information to make URL
+         *  ex)http://166.104.112.43:20080/sda/ctx/CM-1-1-240/? + location<BR/>
+         *
+         */
+        String cm240Host = "CM-1-1-240/?p=";
+        String getLocationURL = sdaConn + cm240Host + location.getUri();
+
+        /**
+         * get String Type Location InformationList<BR/>
          */
         String afterConnectData = collectorController.getDevice(getLocationURL);
 
 
         /**
-         * 적정 온도 이상의 강의실이 판별이 된다면 장소를 리턴
+         * if location's humidify is more humidify than optimum , return location<BR/>
+         * else throw Exception<BR/>
          */
-        if (afterConnectData.contains("Hot")) {
+        if (afterConnectData.contains("wet")) {
 
             /**
-             * Json형태를 띄고 있는 String형 데이터를 Object로 변환
+             * Convert To Object from Jason Type Sting Data(LocationList)<BR/>
              */
             responseModel = responseMapper.getList(afterConnectData);
 
@@ -159,16 +338,26 @@ public class LocationInfoProvider {
                 location.setUri(responseModel.getContent().get(i).getLoc());
                 locationArrayList.add(location);
             }
+            log.info(" >> Location : " + location);
+            log.info(" >> Get Humid Location ");
 
             return locationArrayList;
         } else {
 
-            /*TODO : Exception 정책 */
-            return null;
+            throw new NotUsefulDataException();
+
         }
     }
 
-    public ArrayList<DefaultLocation> getColdLocationInfo(DefaultLocation location) {
+    /**
+     * get dry Location<BR/>
+     *
+     * @param location
+     * @return
+     * @throws NotExistDataException
+     * @throws NotUsefulDataException
+     */
+    public ArrayList<DefaultLocation> getDryLocationInfo(DefaultLocation location) throws NotExistDataException, NotUsefulDataException {
 
         CollectorController collectorController = new CollectorController();
         ResponseMapper responseMapper = new ResponseMapper();
@@ -176,69 +365,27 @@ public class LocationInfoProvider {
         ArrayList<DefaultLocation> locationArrayList = new ArrayList<>();
 
         /**
-         * 조회가 필요한 장소의 정보를 추가하여 URL을 생성
-         *  ex)http://166.104.112.43:20080/sda/ctx/CM-1-1-230/? + location
-         *
-         */
-        String getLocationURL = cm230Host + location.getUri();
-
-        /**
-         *Controller를 이용하여 HttpResponse형태의 데이터를 String으로 수신
-         */
-        String afterConnectData = collectorController.getDevice(getLocationURL);
-
-
-        /**
-         * 적정 온도 이하의 강의실이 판별이 된다면 장소를 리턴
-         */
-        if (afterConnectData.contains("Cold")) {
-
-            /**
-             * Json형태를 띄고 있는 String형 데이터를 Object로 변환
-             */
-            responseModel = responseMapper.getList(afterConnectData);
-
-            for (int i = 0; i < responseModel.getContent().size(); i++) {
-                location = new DefaultLocation();
-                location.setUri(responseModel.getContent().get(i).getLoc());
-                locationArrayList.add(location);
-            }
-
-            return locationArrayList;
-        } else {
-
-            /*TODO : Exception 정책 */
-            return null;
-        }
-    }
-
-    public ArrayList<DefaultLocation> getWetLocationInfo(DefaultLocation location) {
-
-        CollectorController collectorController = new CollectorController();
-        ResponseMapper responseMapper = new ResponseMapper();
-        ResponseModel responseModel;
-        ArrayList<DefaultLocation> locationArrayList = new ArrayList<>();
-
-        /**
-         * 조회가 필요한 장소의 정보를 추가하여 URL을 생성
+         * use Location Information to make URL
          *  ex)http://166.104.112.43:20080/sda/ctx/CM-1-1-240/? + location
          *
          */
-        String getLocationURL = cm240Host + location.getUri();
+        String cm240Host = "CM-1-1-240/?p=";
+        String getLocationURL = sdaConn + cm240Host + location.getUri();
 
         /**
-         *Controller를 이용하여 HttpResponse형태의 데이터를 String으로 수신
+         * get String Type Location InformationList<BR/>
          */
         String afterConnectData = collectorController.getDevice(getLocationURL);
 
 
         /**
-         * 적정 습도 이상의 강의실이 판별이 된다면 장소를 리턴
+         * if location's humidify is less humidify than optimum , return location<BR/>
+         * else throw Exception<BR/>
          */
-        if (afterConnectData.contains("Wet")) {
+        if (afterConnectData.contains("dry")) {
 
             /**
-             * Json형태를 띄고 있는 String형 데이터를 Object로 변환
+             * Convert To Object from Jason Type Sting Data(LocationList)<BR/>
              */
             responseModel = responseMapper.getList(afterConnectData);
 
@@ -248,15 +395,25 @@ public class LocationInfoProvider {
                 locationArrayList.add(location);
             }
 
+            log.info(" >> Location : " + location);
+            log.info(" >> Get Dry Location ");
+
             return locationArrayList;
         } else {
 
-            /*TODO : Exception 정책 */
-            return null;
+            throw new NotUsefulDataException();
         }
     }
 
-    public ArrayList<DefaultLocation> getDryLocationInfo(DefaultLocation location) {
+    /**
+     * filter bright Location
+     *
+     * @param location
+     * @return
+     * @throws NotExistDataException
+     * @throws NotUsefulDataException
+     */
+    public ArrayList<DefaultLocation> getBrightLocationInfo(DefaultLocation location) throws NotExistDataException, NotUsefulDataException {
 
         CollectorController collectorController = new CollectorController();
         ResponseMapper responseMapper = new ResponseMapper();
@@ -264,69 +421,27 @@ public class LocationInfoProvider {
         ArrayList<DefaultLocation> locationArrayList = new ArrayList<>();
 
         /**
-         * 조회가 필요한 장소의 정보를 추가하여 URL을 생성
-         *  ex)http://166.104.112.43:20080/sda/ctx/CM-1-1-240/? + location
-         *
-         */
-        String getLocationURL = cm240Host + location.getUri();
-
-        /**
-         *Controller를 이용하여 HttpResponse형태의 데이터를 String으로 수신
-         */
-        String afterConnectData = collectorController.getDevice(getLocationURL);
-
-
-        /**
-         * 적정 습도 이하의 강의실이 판별이 된다면 장소를 리턴
-         */
-        if (afterConnectData.contains("Dry")) {
-
-            /**
-             * Json형태를 띄고 있는 String형 데이터를 Object로 변환
-             */
-            responseModel = responseMapper.getList(afterConnectData);
-
-            for (int i = 0; i < responseModel.getContent().size(); i++) {
-                location = new DefaultLocation();
-                location.setUri(responseModel.getContent().get(i).getLoc());
-                locationArrayList.add(location);
-            }
-
-            return locationArrayList;
-        } else {
-
-            /*TODO : Exception 정책 */
-            return null;
-        }
-    }
-
-    public ArrayList<DefaultLocation> getBrightLocationInfo(DefaultLocation location) {
-
-        CollectorController collectorController = new CollectorController();
-        ResponseMapper responseMapper = new ResponseMapper();
-        ResponseModel responseModel;
-        ArrayList<DefaultLocation> locationArrayList = new ArrayList<>();
-
-        /**
-         * 조회가 필요한 장소의 정보를 추가하여 URL을 생성
+         *  use Location Information to make URL
          *  ex)http://166.104.112.43:20080/sda/ctx/CM-1-1-250/? + location
          *
          */
-        String getLocationURL = cm250Host + location.getUri();
+        String cm250Host = "CM-1-1-250/?p=";
+        String getLocationURL = sdaConn + cm250Host + location.getUri();
 
         /**
-         *Controller를 이용하여 HttpResponse형태의 데이터를 String으로 수신
+         * get String Type Location InformationList<BR/>
          */
         String afterConnectData = collectorController.getDevice(getLocationURL);
 
 
         /**
-         * 적정 조도 이의 강의실이 판별이 된다면 장소를 리턴
+         * if location is bright , return location<BR/>
+         * else throw Exception<BR/>
          */
-        if (afterConnectData.contains("Bright")) {
+        if (afterConnectData.contains("bright")) {
 
             /**
-             * Json형태를 띄고 있는 String형 데이터를 Object로 변환
+             * Convert To Object from Jason Type Sting Data(LocationList)<BR/>
              */
             responseModel = responseMapper.getList(afterConnectData);
 
@@ -336,15 +451,26 @@ public class LocationInfoProvider {
                 locationArrayList.add(location);
             }
 
+            log.info(" >> Location : " + location);
+            log.info(" >> Get Bright Location ");
+
             return locationArrayList;
         } else {
 
-            /*TODO : Exception 정책 */
-            return null;
+            throw new NotUsefulDataException();
+
         }
     }
 
-    public ArrayList<DefaultLocation> getDarkLocationInfo(DefaultLocation location) {
+    /**
+     * filter dark Location
+     *
+     * @param location
+     * @return
+     * @throws NotExistDataException
+     * @throws NotUsefulDataException
+     */
+    public ArrayList<DefaultLocation> getDarkLocationInfo(DefaultLocation location) throws NotExistDataException, NotUsefulDataException {
 
         CollectorController collectorController = new CollectorController();
         ResponseMapper responseMapper = new ResponseMapper();
@@ -352,25 +478,26 @@ public class LocationInfoProvider {
         ArrayList<DefaultLocation> locationArrayList = new ArrayList<>();
 
         /**
-         * 조회가 필요한 장소의 정보를 추가하여 URL을 생성
+         *  use Location Information to make URL
          *  ex)http://166.104.112.43:20080/sda/ctx/CM-1-1-250/? + location
          *
          */
-        String getLocationURL = cm250Host + location.getUri();
+        String cm250Host = "CM-1-1-250/?p=";
+        String getLocationURL = sdaConn + cm250Host + location.getUri();
 
         /**
-         *Controller를 이용하여 HttpResponse형태의 데이터를 String으로 수신
+         * get String Type Location InformationList<BR/>
          */
         String afterConnectData = collectorController.getDevice(getLocationURL);
 
-
         /**
-         * 적정 조도 이하의 강의실이 판별이 된다면 장소를 리턴
+         * if location is dark , return location<BR/>
+         * else throw Exception<BR/>
          */
-        if (afterConnectData.contains("Dark")) {
+        if (afterConnectData.contains("dark")) {
 
             /**
-             * Json형태를 띄고 있는 String형 데이터를 Object로 변환
+             * Convert To Object from Jason Type Sting Data(LocationList)<BR/>
              */
             responseModel = responseMapper.getList(afterConnectData);
 
@@ -380,15 +507,12 @@ public class LocationInfoProvider {
                 locationArrayList.add(location);
             }
 
+            log.info(" >> Location : " + location);
+            log.info(" >> Get Dark Location ");
+
             return locationArrayList;
         } else {
-
-            /*TODO : Exception 정책 */
-            return null;
+            throw new NotUsefulDataException();
         }
     }
-
-
-
-
 }
