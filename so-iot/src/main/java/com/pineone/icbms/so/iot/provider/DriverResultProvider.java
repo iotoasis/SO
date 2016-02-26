@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.pineone.icbms.so.interfaces.repository.DriverResultRepoInterface;
+import com.pineone.icbms.so.iot.resources.model.repo.driver.result.DriverResultModel;
 
 public class DriverResultProvider extends AGeneralProvider {
 
@@ -48,6 +49,7 @@ public class DriverResultProvider extends AGeneralProvider {
 	 */
 	public <T, D> Map<String, String> setData(D data){
 		setModelDate(data,"setCreatedDate");
+		setModelDate(data,"setModifiedDate");
 		return driverResultRepoInterface.setData(data); 
 	}
 	
@@ -59,6 +61,14 @@ public class DriverResultProvider extends AGeneralProvider {
 	 */
 	public <T, D> Map<String, String> updateDataByID(String id, D data){
 		setModelDate(data,"setModifiedDate");
+		System.out.println("updateDataByID id--> "+id);
+		DriverResultModel dr = (DriverResultModel) data;
+		System.out.println("updateDataByID Data getResult1--> "+dr.getResult1());
+		System.out.println("updateDataByID Data getResult2--> "+dr.getResult2());
+		System.out.println("updateDataByID Data getValue--> "+dr.getValue());
+		System.out.println("updateDataByID Data getDeviceUrl--> "+dr.getDeviceUrl());
+		System.out.println("updateDataByID Data getSendMessage--> "+dr.getSendMessage());
+		System.out.println("updateDataByID Data getStatus--> "+dr.getStatus());
 		return driverResultRepoInterface.updateData(id_str, id, data); 
 	}
 	

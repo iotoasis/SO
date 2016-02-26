@@ -18,7 +18,7 @@ public class SSAlarmInfoDeviceDriver extends AAlarmInfoDeviceDriver {
 
     @Override
     String alarmInfoControl(IGenericDeviceContext context) {
-        log.info("SSAlarmInfoDeviceDriver alarmControl");
+        log.info("SSAlarmInfoDeviceDriver alarmControl ");
         return driverManager.deviceExecute(context);
     }
 

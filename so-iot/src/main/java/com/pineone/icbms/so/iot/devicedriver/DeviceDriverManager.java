@@ -9,12 +9,17 @@ import com.pineone.icbms.so.iot.resources.message.EmergencyNotiMessage;
 import com.pineone.icbms.so.iot.resources.model.repo.driver.result.DriverResultModel;
 import com.pineone.icbms.so.iot.util.service.DataConversion;
 import com.pineone.icbms.so.resources.property.operation.DefaultOperationValue;
+import com.pineone.icbms.so.resources.vo.location.DefaultLocation;
 import com.pineone.icbms.so.util.restful.ClientService;
 import com.withwiz.beach.network.http.message.IHttpResponseMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.util.Properties;
+
 /**
+ * Device Driver Manager Class.<BR/>
  * Created by use on 2015-11-12.
  */
 public class DeviceDriverManager
@@ -23,10 +28,8 @@ public class DeviceDriverManager
 	public static final int	KEY_SUCCESS_CODE			= 200;
 	public static final int	KEY_SI_RESULT_SUCCESS_CODE	= 2000;
 
-	public static final String	SO_CONTROL_NOTIFICATON_URI	= "http://166.104.112.45:10080/so/resources/vdcm/";
 	public static final String	SO_CONTROL_TYPE				= "text/plain:0";
 	public static final String	SO_CONTROL_ACTION			= "action";
-	public static final String	SI_CONNECT_URI				= "http://166.104.112.34:8081/si/command";
 	public static final String	SI_COMMAND_ID				= "cmd_";
 	public static final String  SI_DEVICE_URL				= "http://www.pineone.com";
 
@@ -51,7 +54,19 @@ public class DeviceDriverManager
 
 	public String deviceExecute(IGenericDeviceContext context)
 	{
-        log.info("device execute");
+		log.info("physical data setting");
+		/**
+		 *	Property Data Setting.<BR/>
+		 */
+
+		Properties properties = new Properties();
+		try {
+			properties.load(this.getClass().getClassLoader().getResourceAsStream("db.properties"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		String so_notification_uri = properties.getProperty("SO_Notification_URI");
+		String si_connect_uri = properties.getProperty("SI_Connect_URI");
 
 		/**
 		 * Context get the deviceId, devicecommand, operationValue<BR/>
@@ -79,24 +94,29 @@ public class DeviceDriverManager
 		 * DeviceControlMessage setting<BR/>
 		 */
 		DeviceControlMessage controlMessage = new DeviceControlMessage(deviceId,
-				SO_CONTROL_NOTIFICATON_URI + deviceCommand, deviceCommand, SO_CONTROL_ACTION,
+				so_notification_uri + deviceCommand, deviceCommand, SO_CONTROL_ACTION,
 				SO_CONTROL_TYPE, operationValue);
 		requestData = DataConversion.objectToString(controlMessage);
-
+		log.info("convert DeviceControlMessage");
 		/**
 		 * SI stored in the transfer data.<BR/>
 		 */
 		driverResultModel.setId(deviceCommand);
+		driverResultModel.setDeviceUrl(deviceId);
+		driverResultModel.setValue(operationValue);
 		driverResultModel.setSendMessage(requestData);
+		driverResultModel.setResult1("");
+		driverResultModel.setResult2("");
 		driverResultProvider.setData(driverResultModel);
+
 
 		/**
 		 * Control requests to the SI.<BR/>
 		 */
 		IHttpResponseMessage responseMessage = clientService
-				.requestPostService(SI_CONNECT_URI, requestData);
+				.requestPostService(si_connect_uri, requestData);
 
-
+		driverResultModel = new DriverResultModel();
 		/**
 		 * Confirmation control results. And results delivered.<BR/>
 		 */
@@ -122,7 +142,7 @@ public class DeviceDriverManager
 	private void emergencyNotiMessageCreate(IGenericDeviceContext context) {
 		log.info("EmergencyNoti Message Create");
 		emergencyNotiMessage.setUserId((String)context.getValue(IotServiceContext.ACTION_PHYSICAL_USERID));
-		emergencyNotiMessage.setZone((String)context.getValue(IotServiceContext.ACTION_PHYSICAL_EMERGENCYNOTI_ZONE));
+		emergencyNotiMessage.setZone(((DefaultLocation)context.getValue(IotServiceContext.ACTION_PHYSICAL_EMERGENCYNOTI_ZONE)).getUri());
 		emergencyNotiMessage.setKind((String)context.getValue(IotServiceContext.ACTION_PHYSICAL_EMERGENCYNOTI_KIND));
 		emergencyNotiMessage.setCamUrl((String)context.getValue(IotServiceContext.ACTION_PHYSICAL_EMERGENCYNOTI_CAMURL));
 	}
@@ -132,8 +152,8 @@ public class DeviceDriverManager
 	 */
 	private void alarmInfoMessageCreate(IGenericDeviceContext context) {
 		log.info("AlarmInfo Message Create");
-		alarmInfoMessage.setUserId((String)context.getValue(IotServiceContext.ACTION_PHYSICAL_USERID));
-		alarmInfoMessage.setAlarmId((String)context.getValue(IotServiceContext.ACTION_PHYSICAL_ALARMINFO_ALARMID));
+		alarmInfoMessage.setUser_id((String)context.getValue(IotServiceContext.ACTION_PHYSICAL_USERID));
+		alarmInfoMessage.setAlarm_id((String)context.getValue(IotServiceContext.ACTION_PHYSICAL_ALARMINFO_ALARMID));
 		alarmInfoMessage.setPeriod((String)context.getValue(IotServiceContext.ACTION_PHYSICAL_ALARMINFO_PERIOD));
 		alarmInfoMessage.setWakeTime((String)context.getValue(IotServiceContext.ACTION_PHYSICAL_ALARMINFO_WAKETIME));
 		alarmInfoMessage.setActionType((String)context.getValue(IotServiceContext.ACTION_PHYSICAL_ALARMINFO_TYPE));

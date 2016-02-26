@@ -1,31 +1,72 @@
 package com.pineone.icbms.so.interfaces.sda.collector.provider;
 
 import com.pineone.icbms.so.interfaces.sda.client.CollectorController;
+import com.pineone.icbms.so.interfaces.sda.client.NotExistDataException;
 import com.pineone.icbms.so.interfaces.sda.collector.ResponseMapper;
 import com.pineone.icbms.so.interfaces.sda.collector.ResponseModel;
 import com.pineone.icbms.so.iot.resources.person.DefaultStudent;
 import com.pineone.icbms.so.resources.vo.location.DefaultLocation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Properties;
 
 /**
- * URL로 관련된 사람에 대한 정보를 제공 받기 위한 Provider
+ * get Person Information<BR/>
  * Created by Melvin on 2016. 1. 10..
  */
 public class PersonInfoProvider {
 
-    public static final String cm170Host = "http://166.104.112.43:20080/sda/ctx/CM-1-1-170/?p=";
-    public static final String basicContextId = "CM-1-1-110";
-    public static final String cm190Host = "http://166.104.112.43:20080/sda/ctx/CM-1-1-190/?p=";
+    public String init() {
+
+//        String path = LocationInfoProvider.class.getResource("").getPath();
+//        System.out.println("path --> "+path);
+
+
+
+
+        Properties sdaInfo = new Properties();
+        InputStream in = PersonInfoProvider.class.getClassLoader().getResourceAsStream("sda.properties");
+        String sdaConnection = null;
+
+        try {
+//            Reader reader = new FileReader(path+"sda.properties");
+//            sdaInfo.load(new FileInputStream("./sda.properties"));
+            sdaInfo.load(in);
+            sdaConnection = sdaInfo.getProperty("Sda_Connection");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return sdaConnection;
+    }
+
+    String sdaConn = init();
+
+//    /**
+//     * HostName Include ContextID : search Manager about specific Location<BR/>
+//     */
+//    public static final String cm170Host = "http://166.104.112.43:20080/sda/ctx/CM-1-1-170/?p=";
+//
+//    /**
+//     * HostName Include ContextID : search Location about Scheduled<BR/>
+//     */
+//    public static final String cm190Host = "http://166.104.112.43:20080/sda/ctx/CM-1-1-190/?p=";
+
+    private final Logger log = LoggerFactory.getLogger(PersonInfoProvider.class);
 
     /***
-     * 입력받은 Location, Context 정보를 이용하여 URL을 만들고 필요에 따른 Person 를 생성하여 반환<BR/>
+     * get Manager Information
 
      * @param location
      * @return
      */
 
-    public ArrayList<DefaultStudent> getManagerInfoFromSDA(DefaultLocation location) {
+    public ArrayList<DefaultStudent> getManagerInfoFromSDA(DefaultLocation location) throws NotExistDataException {
 
         CollectorController collectorController = new CollectorController();
         ResponseMapper responseMapper = new ResponseMapper();
@@ -35,28 +76,29 @@ public class PersonInfoProvider {
 
         String locationInfo = location.getUri();
 
-        /**
-         * Context 와 location 내용을 입력받아서 사람 정보를 가지고 올 수 있는 URL을 생성.
-         *  ex)http://166.104.112.43:20080/sda/ctx/CM-1-1-170/?p=http://www.pineone.com/campus/LB0001
-         *
-         *  강의실 icbms:LR0001
-         실험실 icbms:LB0001
-         기숙사 icbms:DT0001
-         */
-        String getPersonURL = cm170Host + locationInfo;
+        log.info(" >> Location :" + locationInfo);
+        log.info(" Get Manager of Location");
+
 
         /**
-         *Controller를 이용하여 HttpResponse형태의 데이터를 String으로 수신
+         *  use locationInformation to make url
+         *  ex)http://166.104.112.43:20080/sda/ctx/CM-1-1-170/?p=http://www.pineone.com/campus/LB0001
+         *
+         */
+        String cm170Host = "CM-1-1-170/?p=";
+        String getPersonURL = sdaConn + cm170Host + locationInfo;
+
+        /**
+         * get String Type Person InformationList<BR/>
          */
         String afterConnectData = collectorController.getDevice(getPersonURL);
 
         /**
-         * Json형태를 띄고 있는 String형 데이터를 Object로 변환
+         * Convert To Object from Jason Type Sting Data<BR/>
          */
         responseModel = responseMapper.getList(afterConnectData);
 
-        /** Person 정보만 String 으로 추출하여 반환
-         */
+        /** get Only Student Information and add Student as Manager (setManager) <BR/> */
 
         for (int i = 0; i < responseModel.getContent().size(); i++) {
 
@@ -69,12 +111,12 @@ public class PersonInfoProvider {
     }
 
     /***
-     * 입력받은 시간 정보를 입력받아 URL을 만들고 알람을 울려야 하는 Person 를 생성하여 반환<BR/>
+     * ger Person to ring Alarm<BR/>
      *
      * @param time
      * @return
      */
-    public ArrayList<DefaultStudent> getPersonInfoAboutAlarm(String time){
+    public ArrayList<DefaultStudent> getPersonInfoAboutAlarm(String time) throws NotExistDataException {
 
         CollectorController collectorController = new CollectorController();
         ResponseMapper responseMapper = new ResponseMapper();
@@ -82,24 +124,26 @@ public class PersonInfoProvider {
         DefaultStudent student = new DefaultStudent();
         ArrayList<DefaultStudent> studentList = new ArrayList<>();
 
-        /**
-         * 시간 정보를 입력받아서 알람을 울려야 할 학생을 조회하는 URL생성
-         */
-        String getPersonURL = cm190Host + time;
+        log.info(" >> Time :" + time);
+        log.info(" Get Person Who Set Alarm");
 
         /**
-         *Controller를 이용하여 HttpResponse형태의 데이터를 String으로 수신
+         * use time to make URL<BR/>
+         */
+        String cm190Host = "CM-1-1-190/?p=";
+        String getPersonURL = sdaConn + cm190Host + time;
+
+        /**
+         * get String Type Person InformationList<BR/>
          */
         String afterConnectData = collectorController.getDevice(getPersonURL);
 
         /**
-         * Json형태를 띄고 있는 String형 데이터를 Object로 변환
+         * Convert To Object from Jason Type Sting Data<BR/>
          */
         responseModel = responseMapper.getList(afterConnectData);
 
-        /** Person 정보만 String 으로 추출하여 반환
-         */
-
+        /** get Only Student Information and add Student as Manager (setManager) <BR/> */
 
         for (int i = 0; i < responseModel.getContent().size(); i++) {
 

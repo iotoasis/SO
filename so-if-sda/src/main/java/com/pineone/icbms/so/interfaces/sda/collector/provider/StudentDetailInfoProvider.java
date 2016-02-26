@@ -1,32 +1,70 @@
 package com.pineone.icbms.so.interfaces.sda.collector.provider;
 
 import com.pineone.icbms.so.interfaces.sda.client.CollectorController;
+import com.pineone.icbms.so.interfaces.sda.client.NotExistDataException;
 import com.pineone.icbms.so.interfaces.sda.collector.ResponseMapper;
 import com.pineone.icbms.so.interfaces.sda.collector.ResponseModel;
 import com.pineone.icbms.so.iot.resources.person.DefaultStudent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Properties;
 
 /**
+ * get detail Information about person<BR/>
  * Created by Melvin on 2016. 1. 10..
- * 사람의 상세 정보를 받기 위한 객체
+ *
  */
 public class StudentDetailInfoProvider {
 
-    public static final String host = "http://166.104.112.43:20080/sda/ctx/CM-1-1-220/?p=";
-    public static final String basicContextId = "CM-1-1-110";
+    public String init() {
+
+//        String path = LocationInfoProvider.class.getResource("").getPath();
+//        System.out.println("path --> "+path);
+
+
+
+
+        Properties sdaInfo = new Properties();
+        InputStream in = StudentDetailInfoProvider.class.getClassLoader().getResourceAsStream("sda.properties");
+        String sdaConnection = null;
+
+        try {
+//            Reader reader = new FileReader(path+"sda.properties");
+//            sdaInfo.load(new FileInputStream("./sda.properties"));
+            sdaInfo.load(in);
+            sdaConnection = sdaInfo.getProperty("Sda_Connection");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return sdaConnection;
+    }
+
+    String sdaConn = init();
+
+//    /**
+//     * HostName Include ContextID : search Detail Information List<BR/>
+//     */
+//    public static final String host = "http://166.104.112.43:20080/sda/ctx/CM-1-1-220/?p=";
+
+
+    private final Logger log = LoggerFactory.getLogger(StudentDetailInfoProvider.class);
 
 
 
     /***
-     * 입력받은 context, student 정보를 이용하여 URL을 만들고 필요에 따른 Person 를 생성하여 반환<BR/>
+     * get Detail Information about Person <BR/>
      *
-
      * @param student
      * @return
      */
 
-    public ArrayList<DefaultStudent> getStudentExtraInfoFromSDA(DefaultStudent student) {
+    public ArrayList<DefaultStudent> getStudentExtraInfoFromSDA(DefaultStudent student) throws NotExistDataException {
 
         CollectorController collectorController = new CollectorController();
         ResponseMapper responseMapper = new ResponseMapper();
@@ -35,25 +73,28 @@ public class StudentDetailInfoProvider {
 
         String personInfo = student.getUri();
 
+        log.info(" >> Student : " + student);
+        log.info(" Get Detail Information about Student");
+
         /**
-         * Context 와 student정보를 받아 Student의 상세 정보를 조회<BR/>
+         *  use Student Information to make URL
          *  ex)http://166.104.112.43:20080/sda/ctx/CM-1-1-220/?p=http://www.pineone.com/campus/Student_S00001<BR/>
          *
          */
-        String getDeviceURL = host + personInfo;
+        String cm220Host = "CM-1-1-220/?p=";
+        String getDeviceURL = sdaConn + cm220Host + personInfo;
 
         /**
-         *Controller를 이용하여 HttpResponse형태의 데이터를 String으로 수신
+         * get String Type Location InformationList<BR/>
          */
         String afterConnectData = collectorController.getDevice(getDeviceURL);
 
         /**
-         * Json형태를 띄고 있는 String형 데이터를 Object로 변환
+         * Convert To Object from Jason Type Sting Data(LocationList)<BR/>
          */
         responseModel = responseMapper.getList(afterConnectData);
 
-        /** 학생의 상세 정보를 리스트에 넣어 반환
-         */
+        /** set Student's Detail Information */
 
         for (int i = 0; i < responseModel.getContent().size(); i++) {
 
@@ -61,7 +102,6 @@ public class StudentDetailInfoProvider {
             student.setId(responseModel.getContent().get(i).getUser_id());
             student.setPhone(responseModel.getContent().get(i).getPhone());
             student.setName(responseModel.getContent().get(i).getName());
-            student.setStudentId(responseModel.getContent().get(i).getStudent_id());
 
             studentList.add(student);
         }

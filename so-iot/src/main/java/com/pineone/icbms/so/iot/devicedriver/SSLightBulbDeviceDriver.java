@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * LightBulb device driver class.<BR/>
  * Created by use on 2015-10-29.
  */
 public class SSLightBulbDeviceDriver extends ALightBulbDeviceDriver {

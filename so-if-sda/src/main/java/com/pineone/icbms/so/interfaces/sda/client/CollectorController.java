@@ -1,18 +1,20 @@
 package com.pineone.icbms.so.interfaces.sda.client;
 
-import com.pineone.icbms.so.iot.util.service.DataConversion;
 import com.pineone.icbms.so.util.restful.ClientService;
 import com.withwiz.beach.network.http.message.IHttpResponseMessage;
 
 /**
- * Created by Melvin on 2016. 1. 7..
- * SDA 에 조회하기 위한 HttpResponseMessage를 사용하고 검증
+ * Make HttpResponseMessage to get necessary information<BR/>
+ * Created by Melvin on 2016. 1. 7..<BR/>
+
  */
 
 
 public class CollectorController {
 
-    public String getDevice(String getDataURL) {
+//    private final Logger log = LoggerFactory.getLogger(CollectorController.class);
+
+    public String getDevice(String getDataURL) throws NotExistDataException {
         ClientService clientService = new ClientService();
 //ArrayList<String> deviceInfo = ideviceInfo.getDeviceInfo(ontologyRef,location);
 
@@ -22,15 +24,16 @@ public class CollectorController {
         String message = null;
 
         /**
-         * 상태코드확인후 정상일 때
+         * Check HttpResponseMessage's statusCode</BR>
+         * 200 : get Http Body </BR>
+         * else : Make Exception </BR>
          */
         if(httpResponseMessage.getStatusCode() ==200 ) {
-            /**
-             * 수신한 데이터에서 body부분만 추출
-             */
-            devicesData = DataConversion.responseDataToString(httpResponseMessage);
-//            devicesData = new String(httpResponseMessage.getBodyByteArray());
 
+//        log.info("[Get Data from SDA]");
+//            devicesData = DataConversion.responseDataToString(httpResponseMessage);
+            devicesData = new String(httpResponseMessage.getBodyByteArray());
+//        log.info(devicesData);
             return devicesData;
         }
 
@@ -39,17 +42,15 @@ public class CollectorController {
 //            message = "{\"content\": [{ \"msg\": \" StatusCode = " + httpResponseMessage.getStatusCode() + "\"}]}";
 //            message = new String("error");
 //            return message;
-            /** TODO : Error 후 정책은?
+
             throw new NotExistDataException();
-        */
-            return null;
         }
     }
 
     /**
-     * {"code":200,"message":"OK",
-     * "content":"[{\"uri\":\"http://www.pineone.com/herit-in/herit-cse/DoorLock_LB0001DL0001\"},
-     * {\"uri\":\"http://www.pineone.com/herit-in/herit-cse/DoorLock_LB0001DL0002\"},
-     * {\"uri\":\"http://www.pineone.com/herit-in/herit-cse/Siren_LB0001SR0001\"}]"}
+     * {"code":200,"message":"OK", <BR/>
+     * "content":"[{\"uri\":\"http://www.pineone.com/herit-in/herit-cse/DoorLock_LB0001DL0001\"}, <BR/>
+     * {\"uri\":\"http://www.pineone.com/herit-in/herit-cse/DoorLock_LB0001DL0002\"}, <BR/>
+     * {\"uri\":\"http://www.pineone.com/herit-in/herit-cse/Siren_LB0001SR0001\"}]"} <BR/>
      */
 }

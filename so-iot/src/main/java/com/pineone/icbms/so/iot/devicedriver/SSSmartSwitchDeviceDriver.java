@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * SmartSwitch device driver class.<BR/>
  * Created by use on 2015-10-21.
  */
 public class SSSmartSwitchDeviceDriver extends ASmartSwitchDeviceDriver {
