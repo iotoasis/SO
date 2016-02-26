@@ -6,12 +6,16 @@ import com.pineone.icbms.so.iot.resources.value.DefaultValue;
 import com.pineone.icbms.so.resources.action.DefaultAction;
 import com.pineone.icbms.so.resources.context.IGenericContext;
 import com.pineone.icbms.so.resources.vo.location.DefaultLocation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * 입력받은 장소의 적정 온도를 검색하는 액션
+ * get Optimum Temperature Value
  * Created by Melvin on 2016. 1. 12..
  */
 public class MakeValueInfoAction extends DefaultAction{
+
+    private final Logger log = LoggerFactory.getLogger(MakeValueInfoAction.class);
 
     DefaultLocation location ;
 
@@ -24,11 +28,14 @@ public class MakeValueInfoAction extends DefaultAction{
 
 
         /**
-         * Location정보를 DefaultLocation객체에 넣어서 SDA인터페이스 사용(valueInfoProvider)
-         * 최소, 최대값이 저장되어 있는 value값을 ACTION_OPTIMAL_TEMP 의 value 값으로 설정
+         * Use ValueInfoProvider that has SDA Interface(get Optimal Value) <BR/>
+         * add Information of Optimal Temperature Value to ACTION_OPTIMAL_TEMP <BR/>
          */
 
         DefaultValue value = valueInfoProvider.getOptimalValueFromSDA(location);
+
+        log.info(" >> Maxvalue : " + value.getMaxValue());
+        log.info(" >> Minvalue : " + value.getMinValue());
 
         context.addValue(IotServiceContext.ACTION_OPTIMAL_TEMP, value);
 

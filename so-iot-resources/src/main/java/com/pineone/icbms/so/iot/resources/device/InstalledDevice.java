@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.iot.resources.device;
 
 /**
+ * Install Device Class.<BR/>
  * Created by pahnj on 2016-01-04.
  */
 public class InstalledDevice {

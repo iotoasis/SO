@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Dehumidifier device driver class.<BR/>
  * Created by use on 2015-11-04.
  */
 public class SSDehumidifierDeviceDriver extends ADeHumidifierDeviceDriver {

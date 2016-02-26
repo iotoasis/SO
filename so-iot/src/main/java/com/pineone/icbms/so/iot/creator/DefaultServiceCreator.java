@@ -1,37 +1,39 @@
 package com.pineone.icbms.so.iot.creator;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.pineone.icbms.so.iot.provider.ServiceProvider;
 import com.pineone.icbms.so.iot.resources.service.ServiceSketch;
-import com.pineone.icbms.so.resources.domain.DefaultDomain;
+import com.pineone.icbms.so.resources.domain.AGenericDomain;
 import com.pineone.icbms.so.resources.model.repo.service.DefaultServiceModel;
 import com.pineone.icbms.so.resources.model.repo.task.DefaultTaskModel;
-import com.pineone.icbms.so.resources.processor.IServiceCreator;
 import com.pineone.icbms.so.resources.service.DefaultService;
 import com.pineone.icbms.so.resources.service.IGenericService;
 import com.pineone.icbms.so.resources.task.IGenericTask;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by existmaster on 2016. 1. 4..
  */
-public class DefaultServiceCreator implements IServiceCreator
+public class DefaultServiceCreator
 {
 	/**
 	 * Create Service by ID
 	 * 
-	 * @param serviceModelID
-	 *            serviceModelID
+	 *
+	 * @param serviceModelId
+	 * @param domainType
+	 *            domainType
+	 * @param domain
 	 * @return IGenericService
 	 */
-	public IGenericService createServiceByID(String serviceModelID)
+	public IGenericService createServiceByID(String serviceModelId, String domainType, AGenericDomain domain)
 	{
 		ServiceProvider serviceProvider = new ServiceProvider();
 		DefaultServiceModel defaultServiceModel = serviceProvider
-				.getDataByID(serviceModelID, DefaultServiceModel.class);
+				.getDataByID(serviceModelId, DefaultServiceModel.class);
 
-		return createService(defaultServiceModel);
+		return createService(defaultServiceModel, domainType, domain);
 	}
 
 	/**
@@ -39,13 +41,18 @@ public class DefaultServiceCreator implements IServiceCreator
 	 * 
 	 * @param defaultServiceModel
 	 *            defaultServiceModel
-	 * 
+	 *
+	 * @param domainType
+	 * @param domain
 	 * @return IGenericService
 	 */
 	public IGenericService createService(
-			DefaultServiceModel defaultServiceModel)
+			DefaultServiceModel defaultServiceModel, String domainType, AGenericDomain domain)
 	{
 		DefaultService<Object> defaultService = new DefaultService<Object>();
+
+		defaultService.addValue(domainType, domain);
+
 		DefaultTaskCreator defaultTaskCreator = new DefaultTaskCreator();
 		defaultService
 				.setId(defaultServiceModel.getId() + "_" + System.nanoTime());
@@ -54,7 +61,10 @@ public class DefaultServiceCreator implements IServiceCreator
 		List<DefaultTaskModel> taskModelList = defaultServiceModel
 				.getTaskModelList();
 		List<IGenericTask> tasks = defaultTaskCreator
-				.createTasks(taskModelList);
+				.createTasks(taskModelList, defaultService);
+
+
+
 		defaultService.setTaskList(tasks);
 
 		return defaultService;
@@ -70,18 +80,17 @@ public class DefaultServiceCreator implements IServiceCreator
 	public List<IGenericService> createServices(ServiceSketch serviceSketch)
 	{
 		List<IGenericService> defaultServiceList = new ArrayList<IGenericService>();
-		String domain_Type = serviceSketch.getDomainType();
+		String domainType = serviceSketch.getDomainType();
 
 
 		for (String serviceModelId : serviceSketch.getServiceModelIdList())
 		{
-			for (DefaultDomain defaultDomain : serviceSketch.getDomainList())
+			for (AGenericDomain domain : serviceSketch.getDomainList())
 			{
 
 				DefaultService defaultService = (DefaultService) createServiceByID(
-						serviceModelId);
-				System.out.println(String.format("[[Service AddValue]] -- K(Domain_Type) : %s, V(defualtDomain) : %s", domain_Type, defaultDomain.toString()));
-				defaultService.addValue(domain_Type, defaultDomain);
+						serviceModelId, domainType, domain);
+
 				defaultServiceList.add(defaultService);
 			}
 		}

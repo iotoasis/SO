@@ -6,14 +6,18 @@ import com.pineone.icbms.so.iot.resources.person.DefaultStudent;
 import com.pineone.icbms.so.resources.action.DefaultAction;
 import com.pineone.icbms.so.resources.context.IGenericContext;
 import com.pineone.icbms.so.resources.vo.location.DefaultLocation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 /**
- * 연구실의 관리인 정보 검색하는 액션
- * Created by Melvin on 2016. 1. 12..
+ * Created by Melvin on 2016. 1. 13..
+ * get Manager Information of Specific Location <BR/>
  */
 public class MakeManagerInfoAction extends DefaultAction {
+
+    private final Logger log = LoggerFactory.getLogger(MakeManagerInfoAction.class);
 
     DefaultLocation location ;
 
@@ -23,13 +27,17 @@ public class MakeManagerInfoAction extends DefaultAction {
         PersonInfoProvider personInfoProvider = new PersonInfoProvider();
 
         /**
-         * Location정보를 DefaultLocation객체에 넣어서 SDA인터페이스 사용(DeviceInfoProvider)
-         * 해당 장소의 관리인 리스트(Studentlist)를 Action_STYDENT_MANAGER 의 value 값으로 설정
+         * Use PersonInfoProvider that has SDA Interface(get Manager Info) <BR/>
+         * add Information of  Manager to ACTION_STUDENT_MANAGER  <BR/>
          */
 
         location = (DefaultLocation) context.getValue(IotServiceContext.ACTION_TARGET_LOCATION);
 
         List<DefaultStudent> studentList= personInfoProvider.getManagerInfoFromSDA(location);
+
+        for(DefaultStudent student : studentList){
+            log.info(" >> ManagerList : " + student.getUri());
+        }
 
         context.addValue(IotServiceContext.ACTION_STUDENT_MANAGER, studentList);
     }

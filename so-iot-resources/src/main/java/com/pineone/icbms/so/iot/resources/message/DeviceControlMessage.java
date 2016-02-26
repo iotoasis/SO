@@ -1,7 +1,7 @@
 package com.pineone.icbms.so.iot.resources.message;
 
 /**
- * SO-SI interface dataSet
+ * SO-SI interface dataSet<BR/>
  */
 public class DeviceControlMessage {
 

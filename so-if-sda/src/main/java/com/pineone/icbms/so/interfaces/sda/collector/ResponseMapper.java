@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * Created by Melvin on 2016. 1. 7..
  *
- * Json형태를 띄고 있는 String형 데이터를 ObjectMapper를 이용하여 오브젝트로 변환한다.
+ * Convert To Object from Jason Type Sting Data<BR/>
  */
 
 public class ResponseMapper {
@@ -16,16 +16,6 @@ public class ResponseMapper {
 
 
     public ResponseModel getList(String JsonTypeStrData){
-
-//        String jsonURl = url.replace("\\","");
-
-//        try {
-//            String content = objectMapper.readv.readValue(url, String.class);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-//        System.out.println(url);
 
         try {
             responseModel = objectMapper.readValue(JsonTypeStrData, ResponseModel.class);

@@ -3,11 +3,9 @@ package com.pineone.icbms.so.iot.servicerunner;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+import com.pineone.icbms.so.iot.servicerunner.controller.ServiceController;
 import com.pineone.icbms.so.iot.servicerunner.db.DatabaseConnection;
 import com.pineone.icbms.so.iot.servicerunner.db.DatabaseController;
-import com.pineone.icbms.so.iot.servicerunner.db.IBasicState;
-import com.pineone.icbms.so.iot.servicerunner.db.ServiceDBField;
-import com.pineone.icbms.so.resources.service.AGenericService;
 import com.pineone.icbms.so.resources.service.IGenericService;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -36,11 +34,12 @@ public class EmitService extends RabbitMessageQueueBase {
 	}
 
 	public void addService(IGenericService service) {
-		ServiceDBField serviceField = new ServiceDBField();
-		serviceField.setData(service.getId(), service.getName(), IBasicState.BASIC_STATE_READY);
-		mDbController.setState(serviceField);			
+		
+		ServiceController servcieController = new ServiceController(service);
+		
 		try {
 			send(IQueueList.QUEUE_NAME_SERVICE, service);
+			servcieController.createServiceDataBase();
 		} catch (IOException | TimeoutException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

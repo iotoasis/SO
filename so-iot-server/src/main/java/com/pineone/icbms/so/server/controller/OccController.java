@@ -7,7 +7,10 @@ import com.pineone.icbms.so.iot.service.orchestration.OrchestrationService;
 import com.pineone.icbms.so.iot.service.orchestration.OrchestrationServiceRequestDeliveryMessage;
 import com.pineone.icbms.so.iot.service.orchestration.OrchestrationServiceResponseDeliveryMessage;
 import com.pineone.icbms.so.iot.util.service.DataConversion;
+import com.pineone.icbms.so.resources.domain.DefaultDomain;
 import com.pineone.icbms.so.server.controller.validation.OccControllerValidation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +29,7 @@ public class OccController {
    public static final String exceptionCode = "3000";
    public static final String errorCode = "4000";
 
+    private final Logger log = LoggerFactory.getLogger(OccController.class);
    /**
     * ResponseMessageSDA : templateClass for Response SDA
     */
@@ -40,10 +44,29 @@ public class OccController {
     * @return
     */
 
-   @RequestMapping(value = "/resource/occ1", method = RequestMethod.POST)
+   @RequestMapping(value = "/resource/occ", method = RequestMethod.POST)
    @ResponseStatus(value = HttpStatus.OK)
    @ResponseBody
    public ResponseMessageSDA getOccFromSDA(@RequestBody DefaultOccurrence occurrence) {
+
+       log.info(" >> Receive Occurrence From SDA - Address: so/resource/occ");
+
+//       try{
+//           if(occurrence.getDomains().get(0).getLoc() == null){
+//               throw new NotExistDomainException();
+//           }
+//       }
+//       catch (Exception e){
+//
+//           log.info(e.getMessage());
+//       }
+
+
+       for(DefaultDomain domain : occurrence.getDomainList()) {
+
+           log.info(" >> Domains : " + domain.getId());
+
+       }
 
        ResponseMessageSDA responseMessageToSDA = new ResponseMessageSDA();
 
@@ -58,32 +81,32 @@ public class OccController {
         */
 
 
+//        if(occurrence.getCmd().equalsIgnoreCase("occ-test")) {
+
+            occurrence.setId(occurrence.getContextId() + "-" + occurrence.getTime());
+
+            OrchestrationServiceRequestDeliveryMessage req = null;
+            OrchestrationServiceResponseDeliveryMessage res = null;
+            OrchestrationService service = null;
+            int status;
+            // --------------------- occurred
+            // request message
+            req = new OrchestrationServiceRequestDeliveryMessage();
+            // set method
+            req.addValue(OrchestrationService.KEY_METHOD, OrchestrationService.VALUE_METHOD_OCCUR_A_EVENT);
+            // set a occurrence
+            req.addValue(OrchestrationService.KEY_OCCURRENCE, occurrence);
+            // response message
+            res = new OrchestrationServiceResponseDeliveryMessage();
+            // service
+            service = new OrchestrationService();
+            // execute service
+            service.onService(req, res);
+            // get response status
+            status = (int) res.getValue(OrchestrationService.KEY_RESPONSE_STATUS);
 
 
-        occurrence.setId(occurrence.getContextId() + "-" + occurrence.getTime());
-
-       OrchestrationServiceRequestDeliveryMessage req = null;
-       OrchestrationServiceResponseDeliveryMessage res = null;
-       OrchestrationService service = null;
-       int status;
-       // --------------------- occurred
-       // request message
-       req = new OrchestrationServiceRequestDeliveryMessage();
-       // set method
-       req.addValue(OrchestrationService.KEY_METHOD, OrchestrationService.VALUE_METHOD_OCCUR_A_EVENT);
-       // set a occurrence
-       req.addValue(OrchestrationService.KEY_OCCURRENCE, occurrence);
-       // response message
-       res = new OrchestrationServiceResponseDeliveryMessage();
-       // service
-       service = new OrchestrationService();
-       // execute service
-       service.onService(req, res);
-       // get response status
-       status = (int) res.getValue(OrchestrationService.KEY_RESPONSE_STATUS);
-
-
-
+//        }
 
        /**
         * use occControllerValidation that include Defined Exception.
@@ -94,6 +117,7 @@ public class OccController {
            occControllerValidation.inspectOccController(occurrence);
        }catch (Exception e) {
 //            e.printStackTrace();
+           log.info(e.getMessage());
            responseMessageToSDA.setCode(exceptionCode);
            responseMessageToSDA.setMessage(e.getMessage());
            return responseMessageToSDA;
@@ -117,8 +141,7 @@ public class OccController {
 //           System.out.println("ServiceAdded...");
 //       }
 
-       /** put SuccessCode(2000) into ResponseMessage and Return SDA
-        *  Occ를 String으로 변환하여 전송하는 것은 Test 결과를 위한 실행.  */
+       /** put SuccessCode(2000) into ResponseMessage and Return SDA */
 
 
        String occString = DataConversion.objectToString(occurrence); // + serviceFullId;

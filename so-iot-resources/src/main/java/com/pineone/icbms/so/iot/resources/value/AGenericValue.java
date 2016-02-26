@@ -5,8 +5,14 @@ package com.pineone.icbms.so.iot.resources.value;
  */
 abstract class AGenericValue implements IGenericValue
 {
+    /**
+     * Minimum Value
+     */
 	double minValue;
 
+    /**
+     * Maximum Value
+     */
 	double maxValue;
 
 	@Override
