@@ -11,6 +11,10 @@ import com.pineone.icbms.so.resources.activity.IGenericActivity;
  */
 public class DefaultTask extends AGenericTask
 {
+	/**
+	 * This method return List of GenericActivity
+	 * @return List of GenericActivity
+     */
 	@Override
 	protected List<IGenericActivity> createActivityList()
 	{

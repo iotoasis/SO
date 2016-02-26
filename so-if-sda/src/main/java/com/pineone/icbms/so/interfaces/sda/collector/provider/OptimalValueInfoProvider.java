@@ -1,30 +1,70 @@
 package com.pineone.icbms.so.interfaces.sda.collector.provider;
 
 import com.pineone.icbms.so.interfaces.sda.client.CollectorController;
+import com.pineone.icbms.so.interfaces.sda.client.NotExistDataException;
 import com.pineone.icbms.so.interfaces.sda.collector.ResponseMapper;
 import com.pineone.icbms.so.interfaces.sda.collector.ResponseModel;
 import com.pineone.icbms.so.iot.resources.value.DefaultValue;
 import com.pineone.icbms.so.resources.vo.location.DefaultLocation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 /**
+ * get Optimal Value from SDA<BR/>
  * Created by Melvin on 2016. 1. 10..
- * 결과로 입력받은 정보들을 이용하여 URL을 만들고 특정 장소의 Optimal Value 를 수신받아 제공한다. <BR/>
+
  */
 public class OptimalValueInfoProvider {
-    public static final String host = "http://166.104.112.43:20080/sda/ctx/CM-1-1-160/?p=";
-//    public static final String basicContextId = "CM-1-1-110";
+
+    public String init() {
+
+//        String path = LocationInfoProvider.class.getResource("").getPath();
+//        System.out.println("path --> "+path);
 
 
-    /***
+
+
+        Properties sdaInfo = new Properties();
+        InputStream in = OptimalValueInfoProvider.class.getClassLoader().getResourceAsStream("sda.properties");
+        String sdaConnection = null;
+
+        try {
+//            Reader reader = new FileReader(path+"sda.properties");
+//            sdaInfo.load(new FileInputStream("./sda.properties"));
+            sdaInfo.load(in);
+            sdaConnection = sdaInfo.getProperty("Sda_Connection");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return sdaConnection;
+    }
+
+    String sdaConn = init();
+
+//    /**
+//     * HostName Include ContextID : search Optimal Value<BR/>
+//     */
+//    public static final String host = "http://166.104.112.43:20080/sda/ctx/CM-1-1-160/?p=";
+////    public static final String basicContextId = "CM-1-1-110";
+
+    private final Logger log = LoggerFactory.getLogger(OptimalValueInfoProvider.class);
+
+    /**
      *
-     * 입력받은 Location, Context 정보를 이용하여 URL을 만들고 필요에 따른 OptimalValue 를 생성하여 반환<BR/>
+     * get OptimalValue about Specific Location
      *
-
      * @param location
      * @return
+     * @throws NotExistDataException
      */
 
-    public DefaultValue getOptimalValueFromSDA(DefaultLocation location){
+    public DefaultValue getOptimalValueFromSDA(DefaultLocation location) throws NotExistDataException {
 
         CollectorController collectorController = new CollectorController();
         ResponseMapper responseMapper = new ResponseMapper();
@@ -33,30 +73,30 @@ public class OptimalValueInfoProvider {
 
         String locationInfo = location.getUri();
 
+        log.info(" >> Location : " + location);
+        log.info(" >> Get Optimal Temperature");
 
 
         /**
-         * Context 와 location 내용을 입력받아서 실제 디바이스 정보를 가지고 올 수 있는 URL을 생성.
+         * Use Location Information to make URL
          *  ex)http://166.104.112.43:20080/sda/ctx/CM-1-1-160/?p=http://www.pineone.com/campus/DT0001
-         *
-         *  강의실 icbms:LR0001
-         실험실 icbms:LB0001
-         기숙사 icbms:DT0001
          */
-        String getDeviceURL = host + locationInfo;
+        String cm160Host = "CM-1-1-160/?p=";
+        String getDeviceURL = sdaConn + cm160Host + locationInfo;
 
         /**
-         *Controller를 이용하여 HttpResponse형태의 데이터를 String으로 수신
+         * get String Type Value InformationList<BR/>
          */
         String afterConnectData = collectorController.getDevice(getDeviceURL);
 
 
         /**
-         * Json형태를 띄고 있는 String형 데이터를 Object로 변환
+         * Convert To Object from Jason Type Sting Data<BR/>
          */
         responseModel = responseMapper.getList(afterConnectData);
 
-        /** Value 정보만 추출하여 반환
+        /**
+         * get Max and Min value and setting
          */
         value = new DefaultValue();
         value.setMaxValue(responseModel.getContent().get(0).getMax_value());

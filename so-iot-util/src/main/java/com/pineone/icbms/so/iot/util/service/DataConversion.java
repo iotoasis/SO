@@ -1,15 +1,10 @@
 package com.pineone.icbms.so.iot.util.service;
 
-import com.pineone.icbms.so.iot.resources.message.ResponseMessage;
-import com.pineone.icbms.so.iot.resources.message.ResultMessage;
 import com.withwiz.beach.network.http.message.IHttpResponseMessage;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.pineone.icbms.so.iot.resources.message.DeviceControlMessage;
-import com.pineone.icbms.so.iot.resources.message.VirtualDeviceControlMessage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
 /**
+ * Data Conversion Class<BR/>
  * Created by use on 2015-10-12.
  */
 public class DataConversion
@@ -35,24 +31,11 @@ public class DataConversion
     public static final String	RESPONSE_FIALURE_CODE		= "400";
     public static final String	RESPONSE_SUCCESS_ONEM2MCODE	= "2000";
 
-	public static DeviceControlMessage virtualDataConversion(
-			VirtualDeviceControlMessage message)
-	{
-
-		DeviceControlMessage deviceControlMessage = new DeviceControlMessage();
-
-		deviceControlMessage.set_uri(message.getDeviceid());
-		deviceControlMessage.set_notificationUri(
-				SO_CONTROL_NOTIFICATON_URI + message.getId());
-		deviceControlMessage.set_commandId(message.getId());
-		deviceControlMessage.set_command(CONTROL_ACTION);
-		deviceControlMessage.setCnf(SO_CONTROL_TYPE);
-		deviceControlMessage.setCon(message.getValue());
-
-		return deviceControlMessage;
-
-	}
-
+    /**
+     * Object Data to String.<BR/>
+     * @param o
+     * @return
+     */
 	public static String objectToString(Object o)
 	{
 		ObjectMapper mapper = new ObjectMapper();
@@ -108,28 +91,6 @@ public class DataConversion
         }
 
         return result;
-    }
-
-    static public ResponseMessage responseMessageByResultMessage(ResultMessage message)
-    {
-        ResponseMessage responseMessage = new ResponseMessage();
-
-        if (RESPONSE_SUCCESS_ONEM2MCODE.equals(message.get_resultCode())
-                || RESPONSE_SUCCESS.equals(message.get_result())
-                || RESPONSE_SUCCESS_CODE.equals(message.get_resultCode()))
-        {
-            responseMessage.setCode(RESPONSE_SUCCESS_CODE);
-            responseMessage.setMessage(RESPONSE_SUCCESS);
-            responseMessage.setContent(message.get_result());
-        }
-        else
-        {
-            responseMessage.setCode(message.get_resultCode());
-            responseMessage.setMessage(RESPONSE_FAILURE);
-            responseMessage.setContent(message.get_result());
-        }
-
-        return responseMessage;
     }
 
 }

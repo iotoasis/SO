@@ -6,17 +6,18 @@ import com.pineone.icbms.so.iot.resources.person.DefaultStudent;
 import com.pineone.icbms.so.resources.action.DefaultAction;
 import com.pineone.icbms.so.resources.context.IGenericContext;
 import com.pineone.icbms.so.resources.vo.location.DefaultLocation;
-
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * 인물의 현재 위치 검색
+ * get current Location of Specific Person<BR/>
  * Created by Melvin on 2016. 1. 13..
  */
 public class MakeCurrentLocationInfoAction extends DefaultAction {
 
-    DefaultStudent student;
+    private final Logger log = LoggerFactory.getLogger(MakeCurrentLocationInfoAction.class);
 
+    DefaultStudent student;
 
     @Override
     public void execute(IGenericContext context) {
@@ -26,13 +27,16 @@ public class MakeCurrentLocationInfoAction extends DefaultAction {
         student = ((DefaultStudent)context.getValue(IotServiceContext.ACTION_TARGET_STUDENT));
 
         /**
-         * String형 time으로 이벤트(알람)을 발생시킬 학생목록 리스트 조회
-         * 조회된 studentList를 ACTION_TARGET_STUDENT value 값으로 설정
+         * Use LocationInfoProvider that has SDA Interface(get Current Location) <BR/>
+         * add Current Location to ACTION_TARGET_LOCATION<BR/>
          */
 
-        List<DefaultLocation> locationList = locationInfoProvider.getCurrentLocationFromSDA(student);
+        DefaultLocation location = locationInfoProvider.getCurrentLocationFromSDA(student);
 
-        context.addValue(IotServiceContext.ACTION_TARGET_LOCATION, locationList);
+        log.info(" >> Location : " + location.getUri());
+
+
+        context.addValue(IotServiceContext.ACTION_TARGET_LOCATION, location);
 
     }
 }

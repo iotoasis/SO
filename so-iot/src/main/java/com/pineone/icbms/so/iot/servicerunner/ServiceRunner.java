@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.concurrent.TimeoutException;
 
-import com.pineone.icbms.so.iot.servicerunner.db.BasicField;
+import com.pineone.icbms.so.iot.servicerunner.controller.IBasicField;
+import com.pineone.icbms.so.iot.servicerunner.controller.IBasicState;
+import com.pineone.icbms.so.iot.servicerunner.controller.ServiceController;
+import com.pineone.icbms.so.iot.servicerunner.controller.ServiceData;
 import com.pineone.icbms.so.iot.servicerunner.db.DatabaseConnection;
 import com.pineone.icbms.so.iot.servicerunner.db.DatabaseController;
-import com.pineone.icbms.so.iot.servicerunner.db.IBasicState;
-import com.pineone.icbms.so.iot.servicerunner.db.ServiceDBField;
 import com.pineone.icbms.so.iot.servicerunner.tp.ThreadPool;
 import com.pineone.icbms.so.resources.service.AGenericService;
 import com.rabbitmq.client.AMQP.BasicProperties;
@@ -22,7 +23,7 @@ import com.rabbitmq.client.Envelope;
 public class ServiceRunner extends RabbitMessageQueueBase {
 	private static ServiceRunner mInstance = null;
 	
-	private int THREAD_MAX_COUNT = 100; 
+	private int THREAD_MAX_COUNT = 1000;
 
 	private Connection mRecvConnection;
 	private HashMap<String, Channel> mRecvChannel;
@@ -43,7 +44,7 @@ public class ServiceRunner extends RabbitMessageQueueBase {
 		System.out.println("Service Manager");
 		mRecvChannel = new HashMap<String, Channel>();
 		mConsumer = new HashMap<String, Consumer>();
-		
+
 		mDbConnection = DatabaseConnection.getInstance();
 		mDbController = mDbConnection.getController();
 		
@@ -132,50 +133,55 @@ public class ServiceRunner extends RabbitMessageQueueBase {
 	    		System.out.println("[serviceConsumer][handleDelivery][getDeliveryTag:"+envelope.getDeliveryTag()+"]");
 	    		System.out.println("[serviceConsumer][handleDelivery][getRoutingKey:"+envelope.getRoutingKey()+"]");
 	    		System.out.println("[serviceConsumer][handleDelivery][consumerTag:"+consumerTag+"]");
-	    		
-	    		ServiceData serviceData = new ServiceData(as, consumerTag, envelope.getDeliveryTag());
-	    		serviceData.setRoutingKey(envelope.getRoutingKey());
+
 	    		
 	    		ThreadPool tp = ThreadPool.getInstance();
 	    		
 	    		if(0 < tp.getAvailableThreadCount()) {
 	    			
-		    		ServiceDBField serviceField = new ServiceDBField();
-		    		serviceField.updateState(IBasicState.BASIC_STATE_RUNNING);
-		    		mDbController.updateSateById(BasicField.FIELD_SERVICE_ID, as.getId(), serviceField);				    		
-	    			
-	    		
-		    		TaskRunner taskRunner = new TaskRunner(serviceData);
+		    		ServiceWorkData serviceWorkData = new ServiceWorkData(as, consumerTag, envelope.getDeliveryTag());
+		    		serviceWorkData.setRoutingKey(envelope.getRoutingKey());
+
+	    			ServiceData serviceData = new ServiceData();
+	    			serviceData.setState(IBasicState.BASIC_STATE_RUNNING);
+	    			serviceData.setStartTime();
+	    			mDbController.update(IBasicField.FIELD_ID, as.getId(), serviceData);
+		    		
+		    		TaskRunner taskRunner = new TaskRunner(serviceWorkData);
 		    		taskRunner.setListener(new IRunnerListener() {
 						
 						@Override
-						public void OnComplete(String id, ServiceData data) {
+						public void OnComplete(String id, ServiceWorkData data) {
 			        		Channel channel = mRecvChannel.get(data.getRoutingKey());
 				    		try {
 				    			System.out.println("[serviceConsumer][IServiceManagerListener][Ack Ok]");
 								channel.basicAck(data.getDeliveryTag(), false);
+
+				    			ServiceData serviceData = new ServiceData();
+				    			serviceData.setState(IBasicState.BASIC_STATE_COMPLETE);
+				    			serviceData.setEndTime();
+				    			mDbController.update(IBasicField.FIELD_ID, id, serviceData);
+				    			
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
-				    		
-				    		ServiceDBField serviceField = new ServiceDBField();
-				    		serviceField.updateState(IBasicState.BASIC_STATE_COMPLETE);
-				    		mDbController.updateSateById(BasicField.FIELD_SERVICE_ID, id, serviceField);				    		
 						}
 
 						@Override
-						public void OnFail(String id, ServiceData data) {
+						public void OnFail(String id, ServiceWorkData data) {
 			        		Channel channel = mRecvChannel.get(data.getRoutingKey());
 				    		try {
 				    			System.out.println("[serviceConsumer][IServiceManagerListener][Ack Ok]");
 								channel.basicAck(data.getDeliveryTag(), false);
+
+				    			ServiceData serviceData = new ServiceData();
+				    			serviceData.setState(IBasicState.BASIC_STATE_FAIL);
+				    			serviceData.setEndTime();
+				    			mDbController.update(IBasicField.FIELD_ID, id, serviceData);
+								
 							} catch (IOException e) {
 								e.printStackTrace();
 							}							
-				    		ServiceDBField serviceField = new ServiceDBField();
-				    		serviceField.updateState(IBasicState.BASIC_STATE_FAIL);
-				    		mDbController.updateSateById(BasicField.FIELD_SERVICE_ID, id, serviceField);				    		
-				    		
 						}
 					});
 		    		tp.setWork(taskRunner);

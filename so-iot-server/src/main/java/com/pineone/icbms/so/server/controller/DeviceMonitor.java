@@ -9,16 +9,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * DeviceMonitor Class<BR/>
+ */
 @RestController
 public class DeviceMonitor
 {
+
 	private final Logger log = LoggerFactory.getLogger(DeviceMonitor.class);
 
-	DriverResultProvider	driverResultProvider	= new DriverResultProvider();
-	DriverResultModel		driverResultModel		= null;
-
 	/**
-	 * 응답 결과를 받아서 결과 여부를 판단함.<BR/>
+	 * Receiving a response result determined whether the result.<BR/>
 	 * 
 	 * @param message
 	 * @param id
@@ -29,6 +30,15 @@ public class DeviceMonitor
 	public String asynchronousControlResult(@RequestBody ResultMessage message,
 			@PathVariable String id) throws Exception
 	{
+		DriverResultProvider	driverResultProvider	= new DriverResultProvider();
+		/**
+		 * DB get DriverResultModel<BR/>
+		 */
+		DriverResultModel		driverResultModel		= null;
+		/**
+		 * Driver result2 data model<BR/>
+		 */
+		DriverResultModel		resultModel				= new DriverResultModel();
 
 		log.info("insert device moniter controller");
 		log.info("ResultMessage _commandId = " + message.get_commandId()
@@ -38,7 +48,7 @@ public class DeviceMonitor
 		System.out.println("[[DeviceMoniter message]] = " + message.toString());
 
 		/**
-		 * DB에 ID에 대한 데이터가 있으면 DB에 result2값 저장
+		 * Save the Result2 Data<BR/>
 		 */
 		driverResultModel = driverResultProvider.getDataByID(id,
 				DriverResultModel.class);
@@ -52,17 +62,27 @@ public class DeviceMonitor
 								.equals(message.get_resultCode())))
 		{
 			log.info("success resultData and the response has been properly.");
-			driverResultModel.setResult2(message.get_resultCode());
+			log.debug(message.get_commandId() + " data success");
+			resultModel.setResult2(message.get_resultCode());
+
+			System.out.println("[[driverResultModel getId, getResult2]] = " + driverResultModel.getId() +", "+ driverResultModel.getResult2());
+
 			driverResultProvider.updateDataByID(driverResultModel.getId(),
-					driverResultModel);
+					resultModel);
 		} else {
 			if(driverResultModel != null)
 			{
 				log.info("fail resultData and the response has been properly.");
-				driverResultModel.setResult2(message.get_resultCode());
-				driverResultProvider.updateDataByID(driverResultModel.getId(),driverResultModel);
+				log.debug(message.get_commandId() + " data fail");
+				resultModel.setResult2(message.get_resultCode());
+
+				System.out.println("[[driverResultModel getId, getResult2]] = " + driverResultModel.getId() +", "+ driverResultModel.getResult2());
+
+				driverResultProvider.updateDataByID(driverResultModel.getId(),resultModel);
 			}
 		}
+
+
 
 		return message.toString();
 	}

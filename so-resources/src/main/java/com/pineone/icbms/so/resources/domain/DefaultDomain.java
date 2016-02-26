@@ -2,17 +2,30 @@ package com.pineone.icbms.so.resources.domain;
 
 /**
  * Created by Melvin on 2016. 1. 6..
+ * Occurrence has DefaultDomain List, use transfer Data with SDA<BR/>
  */
 public class DefaultDomain extends AGenericDomain
 {
 	private static final long serialVersionUID = 3664754380402892045l;
 
+    /**
+     * Device Information
+     */
 	public String dev;
 
+    /**
+     * location Information
+     */
 	public String loc;
 
+    /**
+     * Person Information
+     */
 	public String person_id;
 
+    /**
+     * Condition information
+     */
     public String cond;
 
     public String getCond() {
