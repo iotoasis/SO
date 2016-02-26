@@ -15,6 +15,9 @@ import com.pineone.icbms.so.iot.resources.occurrence.DefaultOccurrence;
 public class RootConfig
 {
 
+	/**
+	 * REDIS Server Config
+	 */
 	private static final String	REDIS_SERVER_IP			= "166.104.112.37";	// "127.0.0.1";
 	private static final int	REDIS_SERVER_PORT		= 36379;			// 6379;
 	private static final String	REDIS_SERVER_PASSWORD	= "vkdls1dnjs";
@@ -45,6 +48,10 @@ public class RootConfig
 		return jedisConnectionFactory;
 	}
 
+	/**
+	 * RedisTemplate Bean Config
+	 * @return
+     */
 	@Bean
 	public RedisTemplate<String, DefaultOccurrence> occurrenceRedisTemplate()
 	{
@@ -54,6 +61,10 @@ public class RootConfig
 		return redisTemplate;
 	}
 
+	/**
+	 * RedisTemplate Bean Config
+	 * @return
+     */
 	@Bean
 	public RedisTemplate<String, VirtualDeviceControlMessage> virtualDeviceControlMessageRedisTemplate()
 	{

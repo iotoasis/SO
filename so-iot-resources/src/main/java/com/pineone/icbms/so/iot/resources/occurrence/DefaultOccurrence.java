@@ -23,13 +23,13 @@ import java.util.List;
 public class DefaultOccurrence extends AGenericOccurrence
 {
 	/**
-	 * cmd : Scheduling 된 상황이 발생하는지 응급상황이 발생하는지 구분<BR/>
-	 * - occ-emergency : 긴급상황 발생 정보 전송<BR/>
-	 * - occ-schedule : 스케줄에 따른 상황 정보 전송<BR/>
-	 * contextId : 등록한 상황의 조건에 대한 ID<BR/>
-	 * time : 상황이 발생한 시각에 대한 정보(yyyyMMdd’T’HHmmss)<BR/>
-	 * domains : 상황이 발생된 공간, 혹은 저장된 장소<BR/>
-	 * occurrenceId : Occurrence 의 고유 아이디 = " contextID + time "<BR/>
+	 * cmd : distinguish emergency and schedule<BR/>
+	 * - occ-emergency : emergency situation occur<BR/>
+	 * - occ-schedule : scheduled occur<BR/>
+	 * contextId : registered context ID that appointed with SDA in advance  <BR/>
+	 * time : Occurrence happen Time (yyyyMMdd’T’HHmmss)<BR/>
+	 * domains : Location information of occurrence <BR/>
+	 * occurrenceId : Occurrence's ID = " contextID + time "<BR/>
 	 */
 	protected String cmd;
 
@@ -136,17 +136,17 @@ public class DefaultOccurrence extends AGenericOccurrence
 
 	}
 
-
+    /**
+     * add Domain for Test
+     *
+     * @param domain
+     * @return
+     */
 	public List<DefaultDomain> addDomains(DefaultDomain domain)
 	{
 		if (this.domains == null)
 			this.domains = new ArrayList<DefaultDomain>();
 		domains.add(domain);
-		return domains;
-	}
-
-	public List<DefaultDomain> getDomains()
-	{
 		return domains;
 	}
 

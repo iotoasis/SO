@@ -3,6 +3,7 @@ package com.pineone.icbms.so.iot.resources.model.repo.driver.result;
 import com.pineone.icbms.so.resources.model.AGenericModel;
 
 /**
+ * Device Result model class for repository.<BR/>
  * Created by pahnj on 2016-01-09.
  */
 public class DriverResultModel extends AGenericModel

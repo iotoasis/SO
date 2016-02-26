@@ -5,14 +5,18 @@ import com.pineone.icbms.so.iot.resources.context.IotServiceContext;
 import com.pineone.icbms.so.resources.action.DefaultAction;
 import com.pineone.icbms.so.resources.context.IGenericContext;
 import com.pineone.icbms.so.resources.vo.location.DefaultLocation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 /**
- * 입력하는 스케쥴에 이벤트가 있는 장소 정보를 획득하는 액션
+ * get Scheduled Location Information<BR/>
  * Created by Melvin on 2016. 1. 12..
  */
 public class MakeScheduledLocationAction extends DefaultAction{
+
+    private final Logger log = LoggerFactory.getLogger(MakeScheduledLocationAction.class);
 
     @Override
     public void execute(IGenericContext context) {
@@ -24,13 +28,16 @@ public class MakeScheduledLocationAction extends DefaultAction{
         String time= "0850";
 
         /**
-         * String형 date와 time으로 이벤트가 발생하는 장소 정보 획득
-         * locationList를 Action_TARGET_LOCATION 의 value 값으로 설정
+         * Use LocationInfoProvider that has SDA Interface(get Location Info) <BR/>
+         * add Information of location to ACTION_TARGET_LOCATION  <BR/>
          */
-
 
         List<DefaultLocation> locationList =
                 locationInfoProvider.getLocationInfoFromSDA(date, time);
+
+        for(DefaultLocation location : locationList){
+            log.info(" >> LocationList : " + location.getUri());
+        }
 
         context.addValue(IotServiceContext.ACTION_TARGET_LOCATION, locationList );
 

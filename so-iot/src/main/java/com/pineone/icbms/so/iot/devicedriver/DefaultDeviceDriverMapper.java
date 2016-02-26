@@ -64,7 +64,7 @@ public class DefaultDeviceDriverMapper extends
      */
 	public void getDeviceDrivers(IGenericDeviceContext device)
 	{
-		log.info("DeviceDriverMapper getDeviceDrivers");
+		log.info("DeviceDriverMapper getDeviceDrivers start");
 		/**
 		 * init DefaultDeviceDriver List<BR/>
 		 */
@@ -79,7 +79,6 @@ public class DefaultDeviceDriverMapper extends
 		 */
 		for(DefaultPhysicalDevice physicalDevice : (List<DefaultPhysicalDevice>)device.getValue(IotServiceContext.ACTION_PHYSICAL_DEVICE_URI))
 		{
-			log.info("[[DefaultPhysicalDevice Data]] = " + physicalDevice.toString());
 			providerDeviceDriver(physicalDevice);
 		}
 
@@ -92,36 +91,35 @@ public class DefaultDeviceDriverMapper extends
 	}
 
 	/**
-	 * Bring to packageName the DeviceDirver.
+	 * Bring to packageName the DeviceDirver.<BR/>
 	 * @param physicalDevice
      */
 	public void providerDeviceDriver(DefaultPhysicalDevice physicalDevice) {
-		log.info("DeviceDriverMapper providerDeviceDriver");
+		log.info("DeviceDriverMapper providerDeviceDriver start");
 		/**
          * Have a physicalModel Device Device ID brings in the DB.<BR/>
          */
-		log.info("DeviceDriverMapper get the physical Device Model");
+		log.info("DeviceDriverMapper get the physical Device Model uri = " + physicalDevice.getUri());
 		physicalDeviceModel = physicalDeviceProvider.getDataByURI(
                 physicalDevice.getUri(), PhysicalDeviceModel.class);
-		log.debug("DeviceDriverMapper physical Device Model data = " + physicalDeviceModel != null ? physicalDeviceModel.toString() : "null");
 		/**
 		 * With the identity of deviceInfomationModel leads to deviceInfomationModel in DB.<BR/>
          */
 		log.info("DeviceDriverMapper get the Device Information Model");
+		log.debug("physicalDeviceModel.getDeviceInformationId() = " + physicalDeviceModel.getDeviceInformationId());
 		deviceInformationModel = deviceInformationProvider.getDataByID(
                 physicalDeviceModel.getDeviceInformationId(),
                 DeviceInformationModel.class);
-		log.debug("DeviceDriverMapper Device Information Model data = " + deviceInformationModel != null ? deviceInformationModel.toString() : "null");
 		/**
 		 * With the identity of deviceDriverModel leads to deviceDriverModel in DB.<BR/>
          */
 		log.info("DeviceDriverMapper get the Device Driver Model");
+		log.debug("deviceInformationModel.getDeviceDriverId() = " + deviceInformationModel.getDeviceDriverId());
 		deviceDriverModel = deviceDriverProvider.getDataByID(
                 deviceInformationModel.getDeviceDriverId(),
                 DeviceDriverModel.class);
-		log.debug("DeviceDriverMapper Device Driver Model data = " + deviceDriverModel != null ? deviceDriverModel.toString() : "null");
 		/**
-		 * Bring to packageName the DeviceDirver.
+		 * Bring to packageName the DeviceDirver.<BR/>
          */
 
 		DefaultDeviceDriver deviceDriver = null;
@@ -130,6 +128,7 @@ public class DefaultDeviceDriverMapper extends
 			log.info("DeviceDriverMapper packageName get the Device Driver");
             deviceDriver = (DefaultDeviceDriver) Class
                     .forName(deviceDriverModel.getPackageName()).newInstance();
+			log.info("DeviceDriverMapper DeviceDriver Name = " + deviceDriver.getClass().getName());
         }
         catch (InstantiationException e)
         {

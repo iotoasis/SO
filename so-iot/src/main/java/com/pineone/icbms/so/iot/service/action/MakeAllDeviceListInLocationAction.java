@@ -6,14 +6,18 @@ import com.pineone.icbms.so.iot.resources.vo.pd.DefaultPhysicalDevice;
 import com.pineone.icbms.so.resources.action.DefaultAction;
 import com.pineone.icbms.so.resources.context.IGenericContext;
 import com.pineone.icbms.so.resources.vo.location.DefaultLocation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 /**
- * 지정된 장소의 모든 디바이스들의 정보를 가져오는 액션
- * Created by Melvin on 2016. 1. 12..
+ * Created by Melvin on 2016. 1. 12..<BR/>
+ * get All Devices In ACTION_TARGET_LOCATION<BR/>
  */
 public class MakeAllDeviceListInLocationAction extends DefaultAction {
+
+    private final Logger log = LoggerFactory.getLogger(MakeAllDeviceListInLocationAction.class);
 
     DefaultLocation location;
 
@@ -22,13 +26,18 @@ public class MakeAllDeviceListInLocationAction extends DefaultAction {
 
         DeviceInfoProvider deviceInfoProvider = new DeviceInfoProvider();
         /**
-         * Location정보를 DefaultLocation객체에 넣어서 SDA인터페이스 사용(DeviceInfoProvider)
-         * DeviceList를 Action_Device_URI 의 value 값으로 설정
+         * Use DeviceInfoProvider that has SDA Interface(get All Device) <BR/>
+         * add Information of AllDevices to ACTION_DEVICE_URI<BR/>
          */
 
         location = (DefaultLocation) context.getValue(IotServiceContext.ACTION_TARGET_LOCATION);
 
         List<DefaultPhysicalDevice> deviceList = deviceInfoProvider.getDeviceListinLocationFromSDA(location);
+
+        for(DefaultPhysicalDevice device : deviceList){
+            log.info(" >> deviceList : " + device.getUri());
+        }
+
 
         context.addValue(IotServiceContext.ACTION_DEVICE_URI, deviceList);
     }

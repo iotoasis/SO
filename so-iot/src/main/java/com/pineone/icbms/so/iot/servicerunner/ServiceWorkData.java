@@ -2,7 +2,7 @@ package com.pineone.icbms.so.iot.servicerunner;
 
 import com.pineone.icbms.so.resources.service.AGenericService;
 
-public class ServiceData {
+public class ServiceWorkData {
 
 	private long mDeliveryTag;
 	private String mExchange;
@@ -10,7 +10,7 @@ public class ServiceData {
 	private String mConsumerTag;
 	private AGenericService mService;
 	
-	public ServiceData(AGenericService service, String consumerTag, long deliveryTag) {
+	public ServiceWorkData(AGenericService service, String consumerTag, long deliveryTag) {
 		mService = service;
 		mDeliveryTag = deliveryTag;
 		mConsumerTag = new String(consumerTag);

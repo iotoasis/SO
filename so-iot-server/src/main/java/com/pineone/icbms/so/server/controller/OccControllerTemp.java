@@ -32,13 +32,13 @@ public class OccControllerTemp {
      */
 
     @JsonIgnore
-    @RequestMapping(value = "/resource/occ", method = RequestMethod.POST)
+    @RequestMapping(value = "/resource/occ1", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public ResponseMessageSDA getOccFromSDA(@RequestBody DefaultOccurrence occurrence) {
 /**
  * Created by Melvin on 2016. 1. 14..
- * 서버로 인해 임시적으로 SDA에 대비하기 위한 Controller
+ * temporary Controller , only used to Test
  */
 
     ResponseMessageSDA responseMessageToSDA = new ResponseMessageSDA();
@@ -89,7 +89,7 @@ public class OccControllerTemp {
 //    }
 
     /** put SuccessCode(2000) into ResponseMessage and Return SDA
-     *  Occ를 String으로 변환하여 전송하는 것은 Test 결과를 위한 실행.  */
+     */
 
 
     String occString = DataConversion.objectToString(occurrence); // + serviceFullId;

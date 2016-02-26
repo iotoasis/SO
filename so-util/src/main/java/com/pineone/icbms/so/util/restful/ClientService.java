@@ -13,6 +13,7 @@ import java.io.ByteArrayInputStream;
 import java.util.HashMap;
 
 /**
+ * ClientService class<BR/>
  * Created by use on 2015-10-12.
  */
 public class ClientService implements IClientService
@@ -43,7 +44,7 @@ public class ClientService implements IClientService
 
 		req.addValue(HttpClientService.KEY_HEADER_PARAMETERS, headerList);
 		req.addValue(HttpClientService.KEY_SERVICE_URL, serviceUrl);
-		req.addValue(HttpClientService.KEY_CONNECTION_TIMEOUT, DATA_TIMEOUT_VALUE);
+		req.addValue(HttpClientService.KEY_CONNECTION_TIMEOUT, 50000);
 		req.addValue(HttpClientService.KEY_HTTP_METHOD,
 				HttpClientService.VALUE_HTTP_METHOD_POST);
 				// req.addValue(HttpClientService);

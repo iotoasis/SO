@@ -56,6 +56,7 @@ public class OccurrenceProvider extends AGeneralProvider {
 	 */
 	public <T, D> Map<String, String> setData(D data){
 		setModelDate(data,"setCreatedDate");
+		setModelDate(data,"setModifiedDate");
 		return occurrenceRepoInterface.setData(data); 
 	}
 	

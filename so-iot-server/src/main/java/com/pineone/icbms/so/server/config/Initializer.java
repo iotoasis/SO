@@ -18,6 +18,11 @@ import com.pineone.icbms.so.iot.servicerunner.ServiceRunner;
  */
 public class Initializer implements WebApplicationInitializer
 {
+    /**
+     * Servlet Initialize Code
+     * @param servletContext
+     * @throws ServletException
+     */
     @Override
     public void onStartup(ServletContext servletContext)
             throws ServletException
@@ -25,10 +30,6 @@ public class Initializer implements WebApplicationInitializer
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
         rootContext.register(RootConfig.class);
         servletContext.addListener(new ContextLoaderListener(rootContext));
-
-        //TODO: remove
-        ServiceRunner serviceRunner = ServiceRunner.getInstance();
-        serviceRunner.start();
 
         this.addDispatcherServlet(servletContext);
         this.addUtf8CharacterEncodingFilter(servletContext);

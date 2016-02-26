@@ -5,14 +5,18 @@ import com.pineone.icbms.so.iot.resources.context.IotServiceContext;
 import com.pineone.icbms.so.iot.resources.person.DefaultStudent;
 import com.pineone.icbms.so.resources.action.DefaultAction;
 import com.pineone.icbms.so.resources.context.IGenericContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 /**
- * 알람 대상자를 검색하기 위한 액션
+ * get Person Information that need to Ring Alarm<BR/>
  * Created by Melvin on 2016. 1. 12..
  */
 public class MakePersonListforAlarmAction extends DefaultAction {
+
+    private final Logger log = LoggerFactory.getLogger(MakePersonListforAlarmAction.class);
 
     @Override
     public void execute(IGenericContext context) {
@@ -22,13 +26,16 @@ public class MakePersonListforAlarmAction extends DefaultAction {
         String time = "08:00";
 
         /**
-         * String형 time으로 이벤트(알람)을 발생시킬 학생목록 리스트 조회
-         * 조회된 studentList를 ACTION_TARGET_STUDENT value 값으로 설정
+         * Use PersonInfoProvider that has SDA Interface(get Person Info About Alarm) <BR/>
+         * add Information of STUDENT to ACTION_TARGET_STUDENT  <BR/>
          */
-
 
         List<DefaultStudent> studentList =
                 personInfoProvider.getPersonInfoAboutAlarm(time);
+
+        for(DefaultStudent student : studentList ){
+            log.info(" >> StudentList : " + student.getUri());
+        }
 
         context.addValue(IotServiceContext.ACTION_TARGET_STUDENT, studentList);
 

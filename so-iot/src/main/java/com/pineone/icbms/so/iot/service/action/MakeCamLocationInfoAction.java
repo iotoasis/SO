@@ -6,14 +6,19 @@ import com.pineone.icbms.so.iot.resources.vo.pd.DefaultPhysicalDevice;
 import com.pineone.icbms.so.resources.action.DefaultAction;
 import com.pineone.icbms.so.resources.context.IGenericContext;
 import com.pineone.icbms.so.resources.vo.location.DefaultLocation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 /**
- * Created by Melvin on 2016. 1. 13..
- * 지정된 장소의 캠 정보(uri) 를 가져오는 액션
+ * get Cam's URI information<BR/>
+ * Created by Melvin on 2016. 1. 20..zby Melvin on 2016. 1. 13..
+
  */
 public class MakeCamLocationInfoAction extends DefaultAction{
+
+    private final Logger log = LoggerFactory.getLogger(MakeCamLocationInfoAction.class);
 
     DefaultLocation location ;
 
@@ -23,14 +28,19 @@ public class MakeCamLocationInfoAction extends DefaultAction{
         DeviceInfoProvider deviceInfoProvider = new DeviceInfoProvider();
 
         /**
-         * Location정보를 DefaultLocation객체에 넣어서 SDA인터페이스 사용(DeviceInfoProvider)
-         * DeviceList를 Action_Device_URI 의 value 값으로 설정
+         * Use DeviceInfoProvider that has SDA Interface(getCamInfo) <BR/>
+         * add Information of Cam to ACTION_EMERGENCY_CAMURL  <BR/>
          */
 
         location = (DefaultLocation) context.getValue(IotServiceContext.ACTION_TARGET_LOCATION);
 
         List<DefaultPhysicalDevice> deviceList = deviceInfoProvider.getCamInfoFromSDA(location);
 
-        context.addValue(IotServiceContext.ACTION_DEVICE_URI, deviceList);
+        for(DefaultPhysicalDevice device : deviceList){
+            log.info(" >> deviceList : " + device.getUri());
+        }
+
+
+        context.addValue(IotServiceContext.ACTION_EMERGENCYNOTI_CAMURL, deviceList);
     }
 }

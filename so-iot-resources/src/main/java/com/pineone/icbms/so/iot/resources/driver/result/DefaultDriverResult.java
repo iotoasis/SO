@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.iot.resources.driver.result;
 
 /**
+ * Default Driver Result Class.<BR/>
  * Created by pahnj on 2016-01-09.
  */
 public class DefaultDriverResult extends AGenericDriverResult
