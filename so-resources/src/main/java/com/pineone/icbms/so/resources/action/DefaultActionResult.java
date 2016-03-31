@@ -13,12 +13,6 @@ public class DefaultActionResult extends AGenericResult
 	 */
 	protected int status = SC_SUCCESS;
 
-	/**
-	 * names
-     */
-
-	protected String name ="";
-
 	@Override
 	public Integer getStatus()
 	{
