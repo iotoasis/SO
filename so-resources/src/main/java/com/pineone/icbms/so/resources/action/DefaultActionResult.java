@@ -16,7 +16,6 @@ public class DefaultActionResult extends AGenericResult
 	/**
 	 * names
      */
-
 	protected String name ="";
 
 	@Override
