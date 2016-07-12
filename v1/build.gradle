@@ -1,0 +1,114 @@
+group 'com.pineone.icbms.so'
+version '2.0.0-SNAPSHOT'
+apply plugin: 'base'
+apply plugin: 'idea'
+
+buildscript {
+    repositories{
+        mavenCentral()
+        jcenter()
+    }
+}
+
+task wrapper(type:Wrapper) {
+    gradleVersion = '2.9'
+}
+
+allprojects {
+    task hello << { task -> println "I'm $task.project.name" }
+}
+subprojects {
+
+}
+
+//allprojects {
+//    repositories {
+//        mavenCentral()
+//        jcenter()
+//    }
+//}
+//
+//subprojects { subproject ->
+//    apply plugin: 'java'
+//
+//    sourceCompatibility = 1.8
+//    targetCompatibility = 1.8
+//
+//    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+//
+//    repositories {
+//        jcenter()
+//    }
+//
+//    dependencies {
+//        testCompile group: 'junit', name: 'junit', version: '4.11'
+//    }
+//}
+
+//project(':so-context') {
+//    dependencies {
+//        compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:'2.6.2'
+//    }
+//}
+//
+//project(':so-device') {
+//    dependencies {
+//        compile project(':so-context')
+//    }
+//}
+
+/*
+group 'com.pineone.icbms.so'
+version '2.0.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    //so soucre dependencies
+    compile "com.pineone.icbms.so:so-if-repository:1.0.0-SNAPSHOT"
+    compile "com.pineone.icbms.so:so-iot-resources:1.0.0-SNAPSHOT"
+    compile "com.pineone.icbms.so:so-iot-util:1.0.0-SNAPSHOT"
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+}
+
+repositories {
+    maven {
+        url "${nexusUrl}/content/groups/pineone-public/"
+    }
+}
+
+jar {
+    baseName ='so-if-resources'
+    version = '1.0.0-SNAPSHOT'
+}
+
+configurations.all {
+    // check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "${nexusUrl}/content/repositories/pineone-releases/"){
+                authentication(userName: nexusUsername, password: nexusPassword)
+            }
+            snapshotRepository(url: "${nexusUrl}/content/repositories/pineone-snapshots") {
+                authentication(userName: nexusUsername, password: nexusPassword)
+            }
+        }
+    }
+}
+
+*/
