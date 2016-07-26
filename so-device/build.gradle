@@ -20,10 +20,6 @@ dependencies {
 
     testCompile group: 'junit', name: 'junit', version: '4.11'
 
-    //so soucre dependencies
-    compile "com.pineone.icbms.so:so-iot-resources:1.0.0-SNAPSHOT"
-    compile "com.pineone.icbms.so:so-iot-util:1.0.0-SNAPSHOT"
-
     //Http client service
     compile "com.withwiz:httpclientservice:0.1.1"
 
