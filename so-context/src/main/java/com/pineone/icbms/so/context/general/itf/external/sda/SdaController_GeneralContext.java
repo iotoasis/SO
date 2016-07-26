@@ -66,6 +66,7 @@ public class SdaController_GeneralContext implements ContextInterface {
         }
         return generalContextList;
     }
+
     //NOTE : SDA 의 GeneralContext 상세조회
     public GeneralContext retrieveGeneralContextDetail(String contextName){
         //

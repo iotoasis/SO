@@ -3,7 +3,9 @@ package com.pineone.icbms.so.context.contextmodel.itf.database;
 import com.pineone.icbms.so.context.contextmodel.ContextModel;
 import com.pineone.icbms.so.context.DatabaseInterface;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,21 +23,19 @@ public class MapController_ContextModel implements DatabaseInterface {
         contextModelStore.put(contextModel.getName(),contextModel);
     }
 
-//    //NOTE: DB 에서 ContextModelList 조회
-//    public List<GeneralContext> retrieveGeneralContextList() {
-//        //
-//        List<GeneralContext> generalContextList = new ArrayList<>();
-//        for (String key : generalContextStore.keySet()) {
-//            generalContextList.add(generalContextStore.get(key));
-//        }
-//        return generalContextList;
-//    }
+    //NOTE: DB 에서 ContextModelList 조회
+    public List<ContextModel> retrieveContextModelList() {
+        //
+        List<ContextModel> contextModelList = new ArrayList<>();
+        for (String key : contextModelStore.keySet()) {
+            contextModelList.add(contextModelStore.get(key));
+        }
+        return contextModelList;
+    }
 
     public static MapController_ContextModel getInstance(){
         if(instance == null)
             instance = new MapController_ContextModel();
         return instance;
     }
-
-
 }

@@ -25,19 +25,6 @@ public class GeneralContextTest {
     List<DeviceObject> deviceObjectList;
     ContextAddress contextAddress;
 
-//    NOTE : ContextModel 에 사용될 ContextType
-//    @Test
-//    public void requestContext() throws Exception {
-//        generalContext = GeneralContext.newGeneralContext();
-//        List<ContextType> contextTypeArrayList;
-//        contextTypeArrayList = generalContext.retrieveDeviceObjectList();
-//        System.out.println(" *** Step1 : ContextType Request ***");
-//        for(ContextType contextType : contextTypeArrayList){
-//            System.out.println(contextType);
-//        }
-//    }
-
-
     @Test
     //NOTE: GeneralContext 저작 요청을 하고 DeviceObject 를 수신
     public void requestContextMakingTest() throws Exception {

@@ -9,8 +9,11 @@ public class AddressStore {
     public static final String RETRIEVE_CONCEPTSERVICE = "inquiry/conceptservice/{deviceobject}";
     public static final String REGISTER_GENERALCONTEXT = "registration/generalcontext";
     public static final String RETRIEVE_GENERALCONTEXT = "inquiry/generalcontext";
-    public static final String RETRIEVE_GENERALCONTEXT_DETAIL = "inquiry/generalcontext/{contextname}";
+    public static final String RETRIEVE_GENERALCONTEXT_DETAIL = "inquiry/generalcontext/"; // NOTE : + {contextname}
     public static final String RETRIEVE_DOMAIN = "inquiry/domain";
     public static final String RETRIEVE_DOMAIN_SDA = "inquiry/domain/sda";
     public static final String REGISTER_CONTEXTMODEL = "registration/contextmodel";
+    public static final String RETRIEVE_CONTEXTMODEL = "inquiry/contextmodel";
+    public static final String RETRIEVE_CONTEXTMODEL_DETAIL = "inquiry/contextmodel/"; // NOTE : + {contextModelname}
+
 }

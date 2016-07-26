@@ -7,6 +7,7 @@ import com.pineone.icbms.so.context.contextmodel.domain.Domain_SDA;
 import com.pineone.icbms.so.context.contextmodel.domain.Domain_SO;
 import com.pineone.icbms.so.context.contextmodel.itf.database.MapController_ContextModel;
 import com.pineone.icbms.so.context.contextmodel.itf.external.sda.SdaController_ContextModel;
+import com.pineone.icbms.so.context.general.itf.external.sda.SdaController_GeneralContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class ContextModel {
     private List<GeneralContext> generalContextList;
     private String contextType;
     private List<ContextType> contextTypeArrayList;
+    private List<ContextModel> contextModelList;
 
     public String getName() {
         return name;
@@ -100,7 +102,31 @@ public class ContextModel {
         mapController_contextModel.createContextModel(contextModel);
     }
 
+    //NOTE: DB 에서 ContextModelList 조회(User 의 조회요청에 따라)
+    public List<ContextModel> retrieveContextModelList(){
+        //
+        MapController_ContextModel mapController_contextModel = MapController_ContextModel.getInstance();
+        List<ContextModel> contextModelList = mapController_contextModel.retrieveContextModelList();
+        return contextModelList;
+    }
 
+    // NOTE: SDA 에서 ContextModelList 조회(SO 에서 주기적으로 동기화시키기 위해서)
+    public List<ContextModel> retrieveContextModelListFromSDA(){
+        //
+        List<Object> objectList = SdaController_ContextModel.newSdaController_ContextModel()
+                .retrieveContextModelListFromSDA();
+        List<ContextModel> ContextModelList = new ArrayList<>();
+        for(Object object : objectList){
+            contextModelList.add((ContextModel) object);
+        }
+        return contextModelList;
+    }
 
-
+    // NOTE: SDA 에서 ContextModel 상세 조회
+    public ContextModel retrieveContextModel(String contextModelName){
+        //
+        ContextModel contextModel = SdaController_ContextModel.newSdaController_ContextModel()
+                .retrieveContextModelDetail(contextModelName);
+        return contextModel;
+    }
 }
