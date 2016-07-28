@@ -6,13 +6,8 @@ import com.pineone.icbms.so.context.general.device.DeviceObject;
 import com.pineone.icbms.so.context.general.device.TempConceptService;
 import com.pineone.icbms.so.context.general.device.VirtualObject;
 
-import com.pineone.icbms.so.context.util.address.AddressStore;
 import com.pineone.icbms.so.context.util.address.ContextAddress;
-import com.pineone.icbms.so.context.util.conversion.DataConversion;
 import org.junit.Test;
-import org.mockserver.integration.ClientAndServer;
-import org.mockserver.model.HttpRequest;
-import org.mockserver.model.HttpResponse;
 
 import java.util.List;
 
@@ -49,38 +44,38 @@ public class GeneralContextTest {
         System.out.println();
     }
 
-    @Test
-    //NOTE : GeneralContext 정보를 입력 받아서 SDA 에 등록
-    public void registerGeneralContextToSDATest() throws Exception {
-
-        ClientAndServer mockServer = ClientAndServer.startClientAndServer(18080);
-        //User Field
-        String name = "EmergencyTempContext";
-        int minValue = 60;
-        int maxValue = 100;
-        DeviceObject deviceObject = VirtualObject.TemperatureSensor001;
-        ConceptService conceptService = TempConceptService.temperature_measure_service;
-
-        //SDA register
-        generalContext = GeneralContext.newGeneralContext();
-        generalContext.setName(name);
-        generalContext.setMinValue(minValue);
-        generalContext.setMaxValue(maxValue);
-        generalContext.setDeviceObject(deviceObject);
-        generalContext.setConceptService(conceptService);
-
-//        generalContext.registerGeneralContext(generalContext);
-
-        String sendData = DataConversion.objectToString(generalContext);
-        contextAddress = ContextAddress.newContextAddress();
-
-        System.out.println(" *** Step3 - Request : registerGeneralContextToSDA , Response : result ***");
-        System.out.println();
-        mockServer
-                .when(HttpRequest.request().withMethod("POST").withBody(sendData)
-                        .withPath(AddressStore.REGISTER_GENERALCONTEXT))
-                .respond(HttpResponse.response().withStatusCode(200).withBody(sendData));
-    }
+//    @Test
+//    //NOTE : GeneralContext 정보를 입력 받아서 SDA 에 등록
+//    public void registerGeneralContextToSDATest() throws Exception {
+//
+//        ClientAndServer mockServer = ClientAndServer.startClientAndServer(18080);
+//        //User Field
+//        String name = "EmergencyTempContext";
+//        int minValue = 60;
+//        int maxValue = 100;
+//        DeviceObject deviceObject = VirtualObject.TemperatureSensor001;
+//        ConceptService conceptService = TempConceptService.temperature_measure_service;
+//
+//        //SDA register
+//        generalContext = GeneralContext.newGeneralContext();
+//        generalContext.setName(name);
+//        generalContext.setMinValue(minValue);
+//        generalContext.setMaxValue(maxValue);
+//        generalContext.setDeviceObject(deviceObject);
+//        generalContext.setConceptService(conceptService);
+//
+////        generalContext.registerGeneralContext(generalContext);
+//
+//        String sendData = DataConversion.objectToString(generalContext);
+//        contextAddress = ContextAddress.newContextAddress();
+//
+//        System.out.println(" *** Step3 - Request : registerGeneralContextToSDA , Response : result ***");
+//        System.out.println();
+//        mockServer
+//                .when(HttpRequest.request().withMethod("POST").withBody(sendData)
+//                        .withPath(AddressStore.REGISTER_GENERALCONTEXT))
+//                .respond(HttpResponse.response().withStatusCode(200).withBody(sendData));
+//    }
 
     //NOTE: DB 저장 및 조회
     @Test

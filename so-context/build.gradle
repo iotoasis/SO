@@ -35,8 +35,12 @@ dependencies {
     compile "org.codehaus.jackson:jackson-mapper-asl:$jacksonVersion"
     compile "org.codehaus.jackson:jackson-core-asl:$jacksonVersion"
     compile "com.googlecode.json-simple:json-simple:$jsonVersion"
+    compile "com.google.code.gson:gson:2.6.2"
+
 
     //test
     testCompile "org.mock-server:mockserver-netty:3.10.1"
+
+
 
 }

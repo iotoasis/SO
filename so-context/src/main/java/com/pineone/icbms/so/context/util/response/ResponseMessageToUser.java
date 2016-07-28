@@ -1,5 +1,6 @@
 package com.pineone.icbms.so.context.util.response;
 
+import com.pineone.icbms.so.context.contextmodel.ContextModel;
 import com.pineone.icbms.so.context.general.GeneralContext;
 
 /**
@@ -16,11 +17,17 @@ public class ResponseMessageToUser {
         return responseMessage;
     }
 
-    // NOTE : 전달 메세지 생성
+    // NOTE : GeneralContext 전달 메세지 생성
     public String generalContextResultMessage(GeneralContext generalContext){
         message = "Name : " + generalContext.getName() + " Virtual Object : " + generalContext.getDeviceObject()
                 + " Concept Service" + generalContext.getConceptService() +
                 " Minimum Value : " + generalContext.getMinValue() + " Maximum Value : " + generalContext.getMaxValue();
+        return message;
+    }
+
+    // NOTE : contextModel 전달 메시지 생성
+    public String contextModelResultMessage(ContextModel contextModel){
+        message = " Name : " + contextModel.getName() + " ContextType : " + contextModel.getContextType();
         return message;
     }
 

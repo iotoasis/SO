@@ -1,17 +1,14 @@
 package com.pineone.icbms.so;
 
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.pineone.icbms.so.context.contextmodel.domain.Domain;
 import com.pineone.icbms.so.context.contextmodel.domain.Domain_SDA;
-import com.pineone.icbms.so.context.util.address.AddressStore;
 import com.pineone.icbms.so.context.contextmodel.pr.UserController_Domain;
-import com.pineone.icbms.so.context.util.conversion.DataConversion;
 import org.junit.Test;
-import org.mockserver.integration.ClientAndServer;
-import org.mockserver.model.HttpRequest;
-import org.mockserver.model.HttpResponse;
-import org.springframework.web.client.RestTemplate;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,40 +17,40 @@ import java.util.List;
  */
 public class DomainTest {
 
-    @Test
-    public void domainRetrieveTest() throws Exception {
+//    @Test
+//    public void domainRetrieveTest() throws Exception {
+//
+//        //NOTE: Prepare
+//        Domain domainUsingSDAEx1 = Domain_SDA.newDomain();
+//        Domain domainUsingSDAEx2 = Domain_SDA.newDomain();
+//        domainUsingSDAEx1.setName("ClassRoom");
+//        domainUsingSDAEx2.setName("ComputerRoom");
+//        List<Domain> domainUsingSDAList = new ArrayList<>();
+//        domainUsingSDAList.add(domainUsingSDAEx1);
+//        domainUsingSDAList.add(domainUsingSDAEx2);
+//        String sendData = DataConversion.objectToString(domainUsingSDAList);
+//        ClientAndServer mockServer = ClientAndServer.startClientAndServer(18080);
+//        mockServer
+//                .when(HttpRequest.request().withMethod("GET")
+//                        .withPath(AddressStore.REGISTER_GENERALCONTEXT)
+//                .withBody(sendData))
+//                .respond(HttpResponse.response().withStatusCode(200).withBody(sendData));
+//
+//        String readData = new RestTemplate().getForObject("http://localhost:18080" + AddressStore.RETRIEVE_DOMAIN,
+//                String.class);
+//        System.out.println(readData);
+//    }
 
-        //NOTE: Prepare
-        Domain domainUsingSDAEx1 = Domain_SDA.newDomain();
-        Domain domainUsingSDAEx2 = Domain_SDA.newDomain();
-        domainUsingSDAEx1.setName("ClassRoom");
-        domainUsingSDAEx2.setName("ComputerRoom");
-        List<Domain> domainUsingSDAList = new ArrayList<>();
-        domainUsingSDAList.add(domainUsingSDAEx1);
-        domainUsingSDAList.add(domainUsingSDAEx2);
-        String sendData = DataConversion.objectToString(domainUsingSDAList);
-        ClientAndServer mockServer = ClientAndServer.startClientAndServer(18080);
-        mockServer
-                .when(HttpRequest.request().withMethod("GET")
-                        .withPath(AddressStore.REGISTER_GENERALCONTEXT)
-                .withBody(sendData))
-                .respond(HttpResponse.response().withStatusCode(200).withBody(sendData));
-
-        String readData = new RestTemplate().getForObject("http://localhost:18080" + AddressStore.RETRIEVE_DOMAIN,
-                String.class);
-        System.out.println(readData);
-    }
-
-    @Test
-    public void name() throws Exception {
-        ClientAndServer mockServer = ClientAndServer.startClientAndServer(18000);
-        String message = "{message : \"Hello World \"}";
-        mockServer
-                .when(HttpRequest.request().withMethod("GET").withPath("/test"))
-                .respond(HttpResponse.response().withStatusCode(200).withBody(message));
-        String response = new RestTemplate().getForObject("http://localhost:18000/test", String.class);
-        System.out.println("Response is " + response);
-    }
+//    @Test
+//    public void name() throws Exception {
+//        ClientAndServer mockServer = ClientAndServer.startClientAndServer(18000);
+//        String message = "{message : \"Hello World \"}";
+//        mockServer
+//                .when(HttpRequest.request().withMethod("GET").withPath("/test"))
+//                .respond(HttpResponse.response().withStatusCode(200).withBody(message));
+//        String response = new RestTemplate().getForObject("http://localhost:18000/test", String.class);
+//        System.out.println("Response is " + response);
+//    }
 
     @Test
     public void multipleContextModelTest() throws Exception {
@@ -141,5 +138,28 @@ public class DomainTest {
             System.out.println(domain.getUri());
         }
         System.out.println();
+    }
+
+    @Test
+    public void listConversionTest() throws Exception {
+        Domain domainUsingSDAEx1 = Domain_SDA.newDomain();
+        Domain domainUsingSDAEx2 = Domain_SDA.newDomain();
+        domainUsingSDAEx1.setName("ClassRoom");
+        domainUsingSDAEx2.setName("ComputerRoom");
+        domainUsingSDAEx1.setUri("111");
+        domainUsingSDAEx2.setUri("222");
+        List<Domain> domainUsingSDAList = new ArrayList<>();
+        domainUsingSDAList.add(domainUsingSDAEx1);
+        domainUsingSDAList.add(domainUsingSDAEx2);
+
+        String testData = new Gson().toJson(domainUsingSDAList);
+        System.out.println(testData);
+
+        Type type = new TypeToken<List<Domain_SDA>>(){}.getType();
+        List<Domain> domainList = new Gson().fromJson(testData,type);
+
+        for(Domain domain : domainList){
+            System.out.println(domain.getName());
+        }
     }
 }

@@ -32,6 +32,11 @@ public class GeneralContext implements Context {
         return generalContext;
     }
 
+    // HINT : Test 용 생성자 - 추후 삭제
+    public GeneralContext(String name){
+        this.name = name;
+    }
+
     public GeneralContext(String id, String name, DeviceObject deviceObject, ConceptService conceptService,
                                           int minValue, int maxValue){
         //
@@ -137,12 +142,8 @@ public class GeneralContext implements Context {
     // NOTE: SDA 에서 GeneralContextList 조회(SO 에서 주기적으로 동기화시키기 위해서)
     public List<GeneralContext> retrieveGeneralContextListFromSDA(){
         //
-        List<Object> objectList = SdaController_GeneralContext.newSdaController().retrieveGeneralContextListFromSDA();
-        List<GeneralContext> generalContextList = new ArrayList<>();
-        for(Object object : objectList){
-            generalContextList.add((GeneralContext)object);
-        }
-        return generalContextList; //generalContextList
+        List<GeneralContext> generalContextList = SdaController_GeneralContext.newSdaController().retrieveGeneralContextListFromSDA();
+        return generalContextList;
     }
 
     // NOTE: SDA 에서 GeneralContext 상세 조회

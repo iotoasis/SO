@@ -38,3 +38,9 @@ so-context/build/classes/main/com/pineone/icbms/so/context/util/http/ClientServi
 so-context/build/classes/main/com/pineone/icbms/so/context/util/response/ResponseMessageToUser.class
 so-context/build/classes/test/com/pineone/icbms/so/DomainTest.class
 so-context/build/classes/test/com/pineone/icbms/so/GeneralContextTest.class
+so-context/build/classes/main/com/pineone/icbms/so/context/contextmodel/itf/external/sda/SdaController_ContextModel$1.class
+so-context/build/classes/main/com/pineone/icbms/so/context/contextmodel/itf/external/sda/SdaController_ContextModel$2.class
+so-context/build/classes/main/com/pineone/icbms/so/context/general/itf/external/sda/SdaController_GeneralContext$1.class
+so-context/build/classes/main/com/pineone/icbms/so/context/general/itf/external/sda/SdaController_GeneralContext$2.class
+so-context/build/classes/test/com/pineone/icbms/so/ContextModelTest.class
+so-context/build/classes/test/com/pineone/icbms/so/DomainTest$1.class

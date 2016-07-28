@@ -28,7 +28,7 @@ public class UserController_GeneralContext {
     @ResponseBody
     public List<DeviceObject> requestGeneralContextMaking(){
         //
-        generalContext = generalContext.newGeneralContext();
+        generalContext = GeneralContext.newGeneralContext();
         List<DeviceObject> deviceObjectList = generalContext.retrieveDeviceObjectList();
         return deviceObjectList;
     }
@@ -39,7 +39,7 @@ public class UserController_GeneralContext {
     @ResponseBody
     public List<ConceptService> retrieveConceptServiceController(@PathVariable("deviceobject") DeviceObject deviceObject){
         //
-        generalContext = generalContext.newGeneralContext();
+        generalContext = GeneralContext.newGeneralContext();
         List<ConceptService> conceptServiceList = generalContext.retrieveConceptService(deviceObject);
         return conceptServiceList;
     }
@@ -69,7 +69,7 @@ public class UserController_GeneralContext {
     @ResponseBody
     public List<GeneralContext> retrieveGeneralContextListController(){
         //
-        generalContext = generalContext.newGeneralContext();
+        generalContext = GeneralContext.newGeneralContext();
         List<GeneralContext> generalContextList = generalContext.retrieveGeneralContextList();
         return generalContextList;
     }
@@ -80,7 +80,7 @@ public class UserController_GeneralContext {
     @ResponseBody
     public GeneralContext retrieveGeneralContextController(@PathVariable("contextname") String contextName){
         //
-        generalContext = generalContext.newGeneralContext().retrieveGeneralContext(contextName);
+        generalContext = GeneralContext.newGeneralContext().retrieveGeneralContext(contextName);
         return generalContext;
     }
 

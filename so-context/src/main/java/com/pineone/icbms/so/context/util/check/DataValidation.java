@@ -1,5 +1,6 @@
 package com.pineone.icbms.so.context.util.check;
 
+import com.pineone.icbms.so.context.contextmodel.ContextModel;
 import com.pineone.icbms.so.context.general.GeneralContext;
 import com.pineone.icbms.so.context.general.exception.DataLossException;
 
@@ -20,6 +21,15 @@ public class DataValidation {
         if(generalContext.getName() == null || generalContext.getConceptService() == null ||
                 generalContext.getDeviceObject() == null || (generalContext.getMaxValue() == 0 &&
                 generalContext.getMinValue() == 0)){
+            throw new DataLossException();
+        }
+    }
+
+    //NOTE : ContextModel 데이터 검증
+    public void inspectContextModel(ContextModel contextModel) throws DataLossException {
+        //
+        if(contextModel.getName() == null || contextModel.getContextType() == null ||
+                contextModel.getDomainList() == null || contextModel.getGeneralContextList() == null){
             throw new DataLossException();
         }
     }

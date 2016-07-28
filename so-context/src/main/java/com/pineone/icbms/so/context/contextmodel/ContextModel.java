@@ -1,5 +1,6 @@
 package com.pineone.icbms.so.context.contextmodel;
 
+import com.pineone.icbms.so.context.Context;
 import com.pineone.icbms.so.context.contextmodel.type.ContextType;
 import com.pineone.icbms.so.context.general.GeneralContext;
 import com.pineone.icbms.so.context.contextmodel.domain.Domain;
@@ -22,7 +23,22 @@ public class ContextModel {
     private List<GeneralContext> generalContextList;
     private String contextType;
     private List<ContextType> contextTypeArrayList;
-    private List<ContextModel> contextModelList;
+
+    public List<Domain> getDomainList() {
+        return domainList;
+    }
+
+    public void setDomainList(List<Domain> domainList) {
+        this.domainList = domainList;
+    }
+
+    public List<GeneralContext> getGeneralContextList() {
+        return generalContextList;
+    }
+
+    public void setGeneralContextList(List<GeneralContext> generalContextList) {
+        this.generalContextList = generalContextList;
+    }
 
     public String getName() {
         return name;
@@ -40,6 +56,8 @@ public class ContextModel {
         this.contextType = contextType;
     }
 
+
+
     public static ContextModel newContextModel(){
         //
         ContextModel contextModel = new ContextModel();
@@ -47,9 +65,9 @@ public class ContextModel {
     }
 
     //NOTE : ContextType 조회 - Emergency or Schedule
-    public List<ContextType> retrieveDeviceObjectList(){
+    public List<ContextType> retrieveContextTypeList(){
         //
-        contextTypeArrayList = new ArrayList<ContextType>();
+        contextTypeArrayList = new ArrayList<>();
         for(ContextType contextType : ContextType.values()){
             contextTypeArrayList.add(contextType);
         }
@@ -113,12 +131,8 @@ public class ContextModel {
     // NOTE: SDA 에서 ContextModelList 조회(SO 에서 주기적으로 동기화시키기 위해서)
     public List<ContextModel> retrieveContextModelListFromSDA(){
         //
-        List<Object> objectList = SdaController_ContextModel.newSdaController_ContextModel()
+        List<ContextModel> contextModelList = SdaController_ContextModel.newSdaController_ContextModel()
                 .retrieveContextModelListFromSDA();
-        List<ContextModel> ContextModelList = new ArrayList<>();
-        for(Object object : objectList){
-            contextModelList.add((ContextModel) object);
-        }
         return contextModelList;
     }
 
@@ -128,5 +142,13 @@ public class ContextModel {
         ContextModel contextModel = SdaController_ContextModel.newSdaController_ContextModel()
                 .retrieveContextModelDetail(contextModelName);
         return contextModel;
+    }
+
+    //NOTE: ContextModel 상황 발생 여부 질의
+    public List<Domain> isHappenContextModel(ContextModel contextModel){
+        //
+        List<Domain> domainList = SdaController_ContextModel.newSdaController_ContextModel()
+                .retrieveContextModelEvent(contextModel);
+        return domainList;
     }
 }
