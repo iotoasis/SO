@@ -23,7 +23,7 @@ public class ContextInformationPresentationTest {
     @Test
     public void 가상객체목록조회 () throws Exception {
         //
-        List<DeviceObject> deviceObjectList = contextInformationPresentation.requestGeneralContextMaking();
+        List<DeviceObject> deviceObjectList = contextInformationPresentation.requestContextInformationMaking();
         for(DeviceObject deviceObject : deviceObjectList){
             System.out.println(deviceObject);
         }
@@ -61,7 +61,7 @@ public class ContextInformationPresentationTest {
         contextInformation.setDeviceObject(deviceObject);
         contextInformation.setConceptService(conceptService);
 
-        ResponseMessage responseMessage = contextInformationPresentation.registerGeneralContextController(contextInformation);
+        ResponseMessage responseMessage = contextInformationPresentation.registerContextInformationController(contextInformation);
         System.out.println(responseMessage.getMessage());
     }
 }

@@ -21,7 +21,7 @@ public class ContextInformationPresentation {
     @RequestMapping(value = AddressStore.REQUIRE_GENERALCONTEXT, method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public List<DeviceObject> requestGeneralContextMaking(){
+    public List<DeviceObject> requestContextInformationMaking(){
         //
         List<DeviceObject> deviceObjectList = ContextInformationLogic.newContextInformationLogic().retrieveDeviceObjectList();
         return deviceObjectList;
@@ -41,9 +41,9 @@ public class ContextInformationPresentation {
     @RequestMapping(value = AddressStore.REGISTER_GENERALCONTEXT, method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public ResponseMessage registerGeneralContextController(@RequestBody ContextInformation contextInformation){
+    public ResponseMessage registerContextInformationController(@RequestBody ContextInformation contextInformation){
         //
-        ResponseMessage responseMessage = ContextInformationLogic.newContextInformationLogic().registerGeneralContext(contextInformation);
+        ResponseMessage responseMessage = ContextInformationLogic.newContextInformationLogic().registerContextInformation(contextInformation);
         return responseMessage;
     }
 }
