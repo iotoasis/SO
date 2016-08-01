@@ -1,4 +1,4 @@
-package com.pineone.icbms.so;
+package com.pineone.icbms.so.context_information;
 
 import com.pineone.icbms.so.context_information.entity.ContextInformation;
 import com.pineone.icbms.so.context_information.store.ContextInformationMapStore;
