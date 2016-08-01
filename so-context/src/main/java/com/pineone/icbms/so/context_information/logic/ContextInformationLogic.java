@@ -37,7 +37,7 @@ public class ContextInformationLogic {
     }
 
     //NOTE: ContextInformation 등록정보를 수신받고 TODO : SO DB에 저장하고 SDA 에 등록하며 보여줘야할 내용(결정 필요)을 리턴
-    public ResponseMessage registerContextInformation(@RequestBody ContextInformation contextInformation){
+    public ResponseMessage registerContextInformation(ContextInformation contextInformation){
 
         ContextInformationStore contextInformationStore = ContextInformationMapStore.getInstance();
         DataValidation dataValidation = DataValidation.newGeneralContextValidation();

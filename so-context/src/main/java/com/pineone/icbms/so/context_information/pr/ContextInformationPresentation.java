@@ -2,6 +2,8 @@ package com.pineone.icbms.so.context_information.pr;
 
 import com.pineone.icbms.so.context_information.entity.ContextInformation;
 import com.pineone.icbms.so.context_information.logic.ContextInformationLogic;
+import com.pineone.icbms.so.context_information.store.ContextInformationMapStore;
+import com.pineone.icbms.so.context_information.store.ContextInformationStore;
 import com.pineone.icbms.so.context_information.temp.device.ConceptService;
 import com.pineone.icbms.so.context_information.temp.device.DeviceObject;
 import com.pineone.icbms.so.util.address.AddressStore;
@@ -45,5 +47,13 @@ public class ContextInformationPresentation {
         //
         ResponseMessage responseMessage = ContextInformationLogic.newContextInformationLogic().registerContextInformation(contextInformation);
         return responseMessage;
+    }
+
+    // NOTE: ContextInformation Component 의 DB에 접근해서 리스트 조회
+    public List<ContextInformation> retrieveContextInformationList(){
+        //
+        ContextInformationStore contextInformationStore = ContextInformationMapStore.getInstance();
+        List<ContextInformation> contextInformationList = contextInformationStore.retrieveContextInformationList();
+        return contextInformationList;
     }
 }

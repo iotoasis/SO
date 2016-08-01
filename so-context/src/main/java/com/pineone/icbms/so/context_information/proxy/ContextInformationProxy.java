@@ -3,8 +3,6 @@ package com.pineone.icbms.so.context_information.proxy;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pineone.icbms.so.context_information.entity.ContextInformation;
-import com.pineone.icbms.so.context_information.store.ContextInformationMapStore;
-import com.pineone.icbms.so.context_information.store.ContextInformationStore;
 import com.pineone.icbms.so.util.address.AddressStore;
 import com.pineone.icbms.so.util.address.ContextAddress;
 import com.pineone.icbms.so.util.conversion.DataConversion;
@@ -25,14 +23,6 @@ public class ContextInformationProxy {
 
     public static ContextInformationProxy newContextInformationProxy(){
         return new ContextInformationProxy();
-    }
-
-    // NOTE: ContextInformation Component 의 DB에 접근해서 리스트 조회
-    public List<ContextInformation> retrieveContextInformationList(){
-        //
-        ContextInformationStore contextInformationStore = ContextInformationMapStore.getInstance();
-        List<ContextInformation> contextInformationList = contextInformationStore.retrieveContextInformationList();
-        return contextInformationList;
     }
 
     //NOTE: SDA 에 ContextInformation 등록 TODO: Response 논의
