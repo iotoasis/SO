@@ -5,3 +5,7 @@
 target
 gradlew
 gradlew.bat
+so-context/build/classes/main/com/pineone/icbms/so/context_information/store/ContextInformationMapStore.class
+so-context/build/classes/main/com/pineone/icbms/so/context_information/store/ContextInformationStore.class
+so-context/build/classes/test/com/pineone/icbms/so/ContextInformationPresentationTest.class
+so-context/build/classes/test/com/pineone/icbms/so/ContextInformationStoreTest.class
