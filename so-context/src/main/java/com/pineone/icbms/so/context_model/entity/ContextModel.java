@@ -1,6 +1,5 @@
 package com.pineone.icbms.so.context_model.entity;
 
-import com.pineone.icbms.so.context_information.entity.ContextInformation;
 import java.util.List;
 
 /**
@@ -10,7 +9,7 @@ public class ContextModel {
 
     private String name;
     private List<Domain> domainList;
-    private List<ContextInformation> contextInformationList;
+    private List<String> contextInformationList;
     private String contextType;
 
     public String getName() {
@@ -29,11 +28,11 @@ public class ContextModel {
         this.domainList = domainList;
     }
 
-    public List<ContextInformation> getContextInformationList() {
+    public List<String> getContextInformationList() {
         return contextInformationList;
     }
 
-    public void setContextInformationList(List<ContextInformation> contextInformationList) {
+    public void setContextInformationList(List<String> contextInformationList) {
         this.contextInformationList = contextInformationList;
     }
 

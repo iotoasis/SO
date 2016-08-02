@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * Created by melvin on 2016. 7. 29..
- * NOTE : ContextInformation 관련 테스트
+ * NOTE : ContextInformationLogic 관련 테스트
  */
 public class ContextInformationPresentationTest {
 
@@ -42,7 +42,7 @@ public class ContextInformationPresentationTest {
     }
 
     @Test
-    //NOTE : ContextInformation 정보를 입력후 등록 과정
+    //NOTE : ContextInformationLogic 정보를 입력후 등록 과정
     public void ContextInformation등록() throws Exception {
         //
         //User field

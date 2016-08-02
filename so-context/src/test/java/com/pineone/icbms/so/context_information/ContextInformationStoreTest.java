@@ -59,7 +59,7 @@ public class ContextInformationStoreTest {
     }
 
     @Test
-    //NOTE : ContextInformation 상세 조회 테스트
+    //NOTE : ContextInformationLogic 상세 조회 테스트
     public void ContextInformation상세조회() throws Exception {
         ContextInformationStore contextInformationStore = ContextInformationMapStore.getInstance();
         ContextInformation contextInformation = contextInformationStore.retrieveContextInformationDetail("EmergencyTempContext");

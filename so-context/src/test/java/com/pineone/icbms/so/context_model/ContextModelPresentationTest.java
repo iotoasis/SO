@@ -65,7 +65,7 @@ public class ContextModelPresentationTest {
         chooseContextInformationList.add(contextInformationList.get(2));
         chooseContextInformationList.add(contextInformationList.get(3));
 
-        System.out.println("*********** Step2 : ContextInformation 선택해서 ContextModel 에 저장 **************");
+        System.out.println("*********** Step2 : ContextInformationLogic 선택해서 ContextModel 에 저장 **************");
         contextModel.setContextInformationList(chooseContextInformationList);
         for(ContextInformation contextInformation : chooseContextInformationList){
             System.out.println(contextInformation.getName());
