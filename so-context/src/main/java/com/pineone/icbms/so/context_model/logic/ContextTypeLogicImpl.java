@@ -8,10 +8,10 @@ import java.util.List;
 /**
  * Created by melvin on 2016. 8. 1..
  */
-public class ContextTypeLogic {
+public class ContextTypeLogicImpl implements ContextTypeLogic {
 
-    public static ContextTypeLogic newContextTypeLogic(){
-        return new ContextTypeLogic();
+    public static ContextTypeLogicImpl newContextTypeLogic(){
+        return new ContextTypeLogicImpl();
     }
 
     //NOTE : ContextType 조회 - Emergency or Schedule

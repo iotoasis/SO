@@ -15,13 +15,13 @@ import java.util.List;
  * Created by melvin on 2016. 8. 1..
  * NOTE: SDA 인터페이스 이용, 도메인 관련 (예비)
  */
-public class DomainProxy {
+public class DomainSDAProxy {
 
     ContextAddress contextAddress;
     ClientService clientService;
 
-    public static DomainProxy newDomainProxy(){
-        DomainProxy domainProxy = new DomainProxy();
+    public static DomainSDAProxy newDomainProxy(){
+        DomainSDAProxy domainProxy = new DomainSDAProxy();
         return domainProxy;
     }
 
