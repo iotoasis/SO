@@ -54,21 +54,21 @@ public class ContextModelPresentationTest {
 
         ContextModel contextModel = new ContextModel();
         System.out.println("*********** Step1 : ContextInformationList 조회 **************");
-        List<ContextInformation> contextInformationList = contextModelPresentation.requestContextModelMakingController();
-        for(ContextInformation contextInformation : contextInformationList){
-            System.out.println(contextInformation.getName());
+        List<String> contextInformationList = contextModelPresentation.requestContextModelMakingController();
+        for(String contextInformation : contextInformationList){
+            System.out.println(contextInformation);
         }
         System.out.println();
 
-        List<ContextInformation> chooseContextInformationList = new ArrayList<>();
+        List<String> chooseContextInformationList = new ArrayList<>();
         chooseContextInformationList.add(contextInformationList.get(1));
         chooseContextInformationList.add(contextInformationList.get(2));
         chooseContextInformationList.add(contextInformationList.get(3));
 
         System.out.println("*********** Step2 : ContextInformationLogic 선택해서 ContextModel 에 저장 **************");
         contextModel.setContextInformationList(chooseContextInformationList);
-        for(ContextInformation contextInformation : chooseContextInformationList){
-            System.out.println(contextInformation.getName());
+        for(String contextInformation : chooseContextInformationList){
+            System.out.println(contextInformation);
         }
         System.out.println();
 

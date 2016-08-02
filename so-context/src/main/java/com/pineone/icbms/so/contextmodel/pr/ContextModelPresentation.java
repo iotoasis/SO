@@ -97,8 +97,8 @@ public class ContextModelPresentation {
     }
 
     //NOTE: ContextModel 상황 발생 여부 질의
-    public List<Domain> isHappenContextModel(ContextModel contextModel){
-        List<Domain> domainList = contextModelLogic.isHappenContextModel(contextModel);
+    public List<Domain> isHappenContextModel(String contextModelName){
+        List<Domain> domainList = contextModelLogic.isHappenContextModel(contextModelName);
         return domainList;
     }
 }

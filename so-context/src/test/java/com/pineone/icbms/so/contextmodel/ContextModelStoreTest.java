@@ -33,13 +33,13 @@ public class ContextModelStoreTest {
         contextInformationStore.createContextInformation(new ContextInformation("이상상황"));
 
         ContextModel contextModel = new ContextModel();
-        List<ContextInformation> contextInformationList = contextModelPresentation.requestContextModelMakingController();
-        List<ContextInformation> chooseContextInformationList = new ArrayList<>();
-        chooseContextInformationList.add(contextInformationList.get(1));
-        chooseContextInformationList.add(contextInformationList.get(2));
-        chooseContextInformationList.add(contextInformationList.get(3));
+        List<String> contextInformationNameList = contextModelPresentation.requestContextModelMakingController();
+        List<String> chooseContextInformationNameList = new ArrayList<>();
+        chooseContextInformationNameList.add(contextInformationNameList.get(1));
+        chooseContextInformationNameList.add(contextInformationNameList.get(2));
+        chooseContextInformationNameList.add(contextInformationNameList.get(3));
 
-        contextModel.setContextInformationList(chooseContextInformationList);
+        contextModel.setContextInformationList(chooseContextInformationNameList);
 
         List<Domain> domainList =  contextModelPresentation.retrieveDomainListController();
 
@@ -65,9 +65,9 @@ public class ContextModelStoreTest {
 
     @Test
     public void 컨텍스트모델리스트조회() throws Exception {
-        List<ContextModel> contextModelList = contextModelPresentation.retrieveContextModelList();
-        for(ContextModel contextModel : contextModelList){
-            System.out.println(contextModel.getName());
+        List<String> contextModelList = contextModelPresentation.retrieveContextModelList();
+        for(String contextModel : contextModelList){
+            System.out.println(contextModel);
         }
     }
 
@@ -79,8 +79,8 @@ public class ContextModelStoreTest {
         for(Domain domain : contextModel.getDomainList()){
             System.out.println(domain.getName());
         }
-        for(ContextInformation contextInformation : contextModel.getContextInformationList()){
-            System.out.println(contextInformation.getName());
+        for(String contextInformation : contextModel.getContextInformationList()){
+            System.out.println(contextInformation);
         }
     }
 }
