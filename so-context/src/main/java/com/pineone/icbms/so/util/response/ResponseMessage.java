@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.util.response;
 
-import com.pineone.icbms.so.context_information.entity.ContextInformation;
+import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
+import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 
 /**
  * Created by melvin on 2016. 7. 13..
@@ -16,11 +17,17 @@ public class ResponseMessage {
         return responseMessage;
     }
 
-    // NOTE : ContextInformation 전달 메세지 생성
-    public String generalContextResultMessage(ContextInformation contextInformation){
+    // NOTE : ContextInformationLogic 전달 메세지 생성
+    public String contextInformationResultMessage(ContextInformation contextInformation){
         message = "ID: " + contextInformation.getId() + ", Name : " + contextInformation.getName() + ", Virtual Object : "
                 + contextInformation.getDeviceObject() + ", Concept Service" + contextInformation.getConceptService() +
                 ", Minimum Value : " + contextInformation.getMinValue() + ", Maximum Value : " + contextInformation.getMaxValue();
+        return message;
+    }
+
+    // NOTE : contextModel 전달 메시지 생성
+    public String contextModelResultMessage(ContextModel contextModel){
+        message = " Name : " + contextModel.getName() + " ContextType : " + contextModel.getContextType();
         return message;
     }
 

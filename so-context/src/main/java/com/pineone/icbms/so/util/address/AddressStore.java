@@ -5,11 +5,11 @@ package com.pineone.icbms.so.util.address;
  * NOTE: 플랫폼에서 사용할 주소 관리
  */
 public class AddressStore {
-    public static final String REQUIRE_GENERALCONTEXT = "requirement/generalcontext";
+    public static final String REQUIRE_CONTEXTINFORMATION = "requirement/contextinformation";
     public static final String RETRIEVE_CONCEPTSERVICE = "inquiry/conceptservice/{deviceobject}";
-    public static final String REGISTER_GENERALCONTEXT = "registration/generalcontext";
-    public static final String RETRIEVE_GENERALCONTEXT = "inquiry/generalcontext";
-    public static final String RETRIEVE_GENERALCONTEXT_DETAIL = "inquiry/generalcontext/{contextname}"; //
+    public static final String REGISTER_CONTEXTINFORMATION = "registration/contextinformation";
+    public static final String RETRIEVE_CONTEXTINFORMATION = "inquiry/contextinformation";
+    public static final String RETRIEVE_CONTEXTINFORMATION_DETAIL = "inquiry/contextinformation/{contextname}"; //
     public static final String RETRIEVE_DOMAIN = "inquiry/domain";
     public static final String REGISTER_CONTEXTMODEL = "registration/contextmodel";
     public static final String RETRIEVE_CONTEXTMODEL = "inquiry/contextmodel";
