@@ -2,6 +2,8 @@ package com.pineone.icbms.so.context_information.pr;
 
 import com.pineone.icbms.so.context_information.entity.ContextInformation;
 import com.pineone.icbms.so.context_information.logic.ContextInformationLogic;
+import com.pineone.icbms.so.context_information.store.ContextInformationMapStore;
+import com.pineone.icbms.so.context_information.store.ContextInformationStore;
 import com.pineone.icbms.so.context_information.temp.device.ConceptService;
 import com.pineone.icbms.so.context_information.temp.device.DeviceObject;
 import com.pineone.icbms.so.util.address.AddressStore;
@@ -18,10 +20,10 @@ import java.util.List;
 public class ContextInformationPresentation {
 
     //NOTE: ContextInformation 생성 요청  -> ContextInformation 에 사용할 가상객체 (VO - CVO) DeviceObject 리스트 리턴
-    @RequestMapping(value = AddressStore.REQUIRE_GENERALCONTEXT, method = RequestMethod.GET)
+    @RequestMapping(value = AddressStore.REQUIRE_CONTEXTINFORMATION, method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public List<DeviceObject> requestGeneralContextMaking(){
+    public List<DeviceObject> requestContextInformationMaking(){
         //
         List<DeviceObject> deviceObjectList = ContextInformationLogic.newContextInformationLogic().retrieveDeviceObjectList();
         return deviceObjectList;
@@ -38,12 +40,31 @@ public class ContextInformationPresentation {
     }
 
     //NOTE: ContextInformation 의 입력 정보 작성 후 등록 -> 등록 결과 리턴
-    @RequestMapping(value = AddressStore.REGISTER_GENERALCONTEXT, method = RequestMethod.POST)
+    @RequestMapping(value = AddressStore.REGISTER_CONTEXTINFORMATION, method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public ResponseMessage registerGeneralContextController(@RequestBody ContextInformation contextInformation){
+    public ResponseMessage registerContextInformationController(@RequestBody ContextInformation contextInformation){
         //
-        ResponseMessage responseMessage = ContextInformationLogic.newContextInformationLogic().registerGeneralContext(contextInformation);
+        ResponseMessage responseMessage = ContextInformationLogic.newContextInformationLogic().registerContextInformation(contextInformation);
         return responseMessage;
     }
+
+    // NOTE: ContextInformation Component 의 DB에 접근해서 리스트 조회
+    public List<ContextInformation> retrieveContextInformationList(){
+        //
+        List<ContextInformation> contextInformationList = ContextInformationLogic.newContextInformationLogic().retrieveContextInformationList();
+        return contextInformationList;
+    }
+
+    //NOTE: ContextInformation 상세 정보 조회 -> 상세정보 리턴
+    @RequestMapping(value = AddressStore.RETRIEVE_CONTEXTINFORMATION_DETAIL, method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public ContextInformation retrieveGeneralContextController(@PathVariable("contextname") String contextName){
+        //
+        ContextInformation contextInformation = ContextInformationLogic.newContextInformationLogic().retrieveContextInformationDetail(contextName);
+        return contextInformation;
+    }
+
+
 }
