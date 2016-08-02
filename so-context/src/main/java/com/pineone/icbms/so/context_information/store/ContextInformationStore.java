@@ -11,4 +11,5 @@ public interface ContextInformationStore {
 
     void createContextInformation(ContextInformation contextInformation);
     List<ContextInformation> retrieveContextInformationList();
+    ContextInformation retrieveContextInformationDetail(String contextName);
 }

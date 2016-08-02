@@ -23,3 +23,9 @@ so-context/build/classes/main/com/pineone/icbms/so/util/http/ClientService.class
 so-context/build/classes/test/com/pineone/icbms/so/context_information/ContextInformationPresentationTest.class
 so-context/build/classes/test/com/pineone/icbms/so/context_information/ContextInformationStoreTest.class
 so-context/build/classes/test/com/pineone/icbms/so/context_model/DomainPresentationTest.class
+so-context/build/classes/main/com/pineone/icbms/so/context_model/entity/ContextModel.class
+so-context/build/classes/main/com/pineone/icbms/so/context_model/logic/ContextModelLogic.class
+so-context/build/classes/main/com/pineone/icbms/so/context_model/logic/ContextTypeLogic.class
+so-context/build/classes/main/com/pineone/icbms/so/context_model/pr/ContextModelPresentation.class
+so-context/build/classes/main/com/pineone/icbms/so/context_model/ref/ContextType.class
+so-context/build/classes/test/com/pineone/icbms/so/context_model/ContextModelPresentationTest.class

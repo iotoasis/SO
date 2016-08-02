@@ -18,6 +18,12 @@ public class ContextInformation {
         return new ContextInformation();
     }
 
+    public ContextInformation(){};
+
+    public ContextInformation(String name){
+        this.name = name;
+    };
+
     public String getId() {
         return id;
     }

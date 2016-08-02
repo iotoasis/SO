@@ -31,16 +31,16 @@ public class ContextInformationProxy {
         String sendData = DataConversion.objectToString(contextInformation);
         contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestPostService
-                (contextAddress.getAddress() + AddressStore.REGISTER_GENERALCONTEXT, sendData);
+                (contextAddress.getAddress() + AddressStore.REGISTER_CONTEXTINFORMATION, sendData);
         String response = new Gson().toJson(message);
         return response;
     }
 
-    //NOTE : SDA 에서 ContextInformation 조회
+    //NOTE : SDA 에서 ContextInformationList 조회
     public List<ContextInformation> retrieveContextInformationListFromSDA(){
         //
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getAddress() + AddressStore.RETRIEVE_GENERALCONTEXT);
+                contextAddress.getAddress() + AddressStore.RETRIEVE_CONTEXTINFORMATION);
         String readData = new Gson().toJson(message);
         Type type = new TypeToken<List<ContextInformation>>(){}.getType();
         List<ContextInformation> contextInformationList = new Gson().fromJson(readData,type);
@@ -51,7 +51,7 @@ public class ContextInformationProxy {
     public ContextInformation retrieveGeneralContextDetail(String contextName){
         //
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getAddress() + AddressStore.RETRIEVE_GENERALCONTEXT + "/" + contextName);
+                contextAddress.getAddress() + AddressStore.RETRIEVE_CONTEXTINFORMATION + "/" + contextName);
         String readData = new Gson().toJson(message);
         Type type = new TypeToken<ContextInformation>(){}.getType();
         ContextInformation contextInformation = new Gson().fromJson(readData,type);

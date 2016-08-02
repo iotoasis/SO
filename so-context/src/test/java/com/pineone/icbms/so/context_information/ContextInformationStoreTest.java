@@ -2,6 +2,7 @@ package com.pineone.icbms.so.context_information;
 
 import com.pineone.icbms.so.context_information.entity.ContextInformation;
 import com.pineone.icbms.so.context_information.store.ContextInformationMapStore;
+import com.pineone.icbms.so.context_information.store.ContextInformationStore;
 import com.pineone.icbms.so.context_information.temp.device.ConceptService;
 import com.pineone.icbms.so.context_information.temp.device.DeviceObject;
 import com.pineone.icbms.so.context_information.temp.device.TempConceptService;
@@ -46,7 +47,7 @@ public class ContextInformationStoreTest {
     }
 
     @Test
-    public void retrieveContextInformationStoreTest() throws Exception {
+    public void ContextInformation리스트조회() throws Exception {
 
         ContextInformationMapStore contextInformationStore = ContextInformationMapStore.getInstance();
         // NOTE: DB에 저장되어 있는 데이터들을 조회
@@ -55,5 +56,19 @@ public class ContextInformationStoreTest {
         for (ContextInformation contextInfo : contextInformationList){
             System.out.println(contextInfo.getName());
         }
+    }
+
+    @Test
+    //NOTE : ContextInformation 상세 조회 테스트
+    public void ContextInformation상세조회() throws Exception {
+        ContextInformationStore contextInformationStore = ContextInformationMapStore.getInstance();
+        ContextInformation contextInformation = contextInformationStore.retrieveContextInformationDetail("EmergencyTempContext");
+
+        System.out.println(contextInformation.getName());
+        System.out.println(contextInformation.getDeviceObject());
+        System.out.println(contextInformation.getConceptService());
+        System.out.println(contextInformation.getId());
+        System.out.println(contextInformation.getMinValue());
+        System.out.println(contextInformation.getMaxValue());
     }
 }

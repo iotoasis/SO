@@ -20,7 +20,7 @@ import java.util.List;
 public class ContextInformationPresentation {
 
     //NOTE: ContextInformation 생성 요청  -> ContextInformation 에 사용할 가상객체 (VO - CVO) DeviceObject 리스트 리턴
-    @RequestMapping(value = AddressStore.REQUIRE_GENERALCONTEXT, method = RequestMethod.GET)
+    @RequestMapping(value = AddressStore.REQUIRE_CONTEXTINFORMATION, method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public List<DeviceObject> requestContextInformationMaking(){
@@ -40,7 +40,7 @@ public class ContextInformationPresentation {
     }
 
     //NOTE: ContextInformation 의 입력 정보 작성 후 등록 -> 등록 결과 리턴
-    @RequestMapping(value = AddressStore.REGISTER_GENERALCONTEXT, method = RequestMethod.POST)
+    @RequestMapping(value = AddressStore.REGISTER_CONTEXTINFORMATION, method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public ResponseMessage registerContextInformationController(@RequestBody ContextInformation contextInformation){
@@ -52,8 +52,19 @@ public class ContextInformationPresentation {
     // NOTE: ContextInformation Component 의 DB에 접근해서 리스트 조회
     public List<ContextInformation> retrieveContextInformationList(){
         //
-        ContextInformationStore contextInformationStore = ContextInformationMapStore.getInstance();
-        List<ContextInformation> contextInformationList = contextInformationStore.retrieveContextInformationList();
+        List<ContextInformation> contextInformationList = ContextInformationLogic.newContextInformationLogic().retrieveContextInformationList();
         return contextInformationList;
     }
+
+    //NOTE: ContextInformation 상세 정보 조회 -> 상세정보 리턴
+    @RequestMapping(value = AddressStore.RETRIEVE_CONTEXTINFORMATION_DETAIL, method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public ContextInformation retrieveGeneralContextController(@PathVariable("contextname") String contextName){
+        //
+        ContextInformation contextInformation = ContextInformationLogic.newContextInformationLogic().retrieveContextInformationDetail(contextName);
+        return contextInformation;
+    }
+
+
 }

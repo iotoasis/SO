@@ -55,4 +55,20 @@ public class ContextInformationLogic {
         responseMessage.setMessage(responseMessage.generalContextResultMessage(contextInformation));
         return responseMessage;
     }
+
+    //NOTE : ContextInformation 상세 조회
+    public ContextInformation retrieveContextInformationDetail(String contextName) {
+        ContextInformationStore contextStore = ContextInformationMapStore.getInstance();
+        ContextInformation contextInformation = contextStore.retrieveContextInformationDetail(contextName);
+        //SDA 이용할 경우 : ContextInformation contextInformation = ContextInformationProxy.newContextInformationProxy().retrieveGeneralContextDetail(contextName);
+        return contextInformation;
+    }
+
+    //NOTE : DB에서 ContextInformationList 조회
+    public List<ContextInformation> retrieveContextInformationList() {
+        ContextInformationStore contextStore = ContextInformationMapStore.getInstance();
+        List<ContextInformation> contextInformationList = contextStore.retrieveContextInformationList();
+        //SDA 이용할 경우 : List<ContextInformation> contextInformationList = ContextInformationProxy.newContextInformationProxy().retrieveContextInformationListFromSDA();
+        return contextInformationList;
+    }
 }

@@ -35,6 +35,12 @@ public class ContextInformationMapStore implements ContextInformationStore{
         return contextInformationList;
     }
 
+    @Override
+    public ContextInformation retrieveContextInformationDetail(String contextName) {
+        ContextInformation contextInformation = contextInformationStore.get(contextName);
+        return contextInformation;
+    }
+
     public static ContextInformationMapStore getInstance(){
         if(instance == null)
             instance = new ContextInformationMapStore();

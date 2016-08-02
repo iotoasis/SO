@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.util.response;
 
 import com.pineone.icbms.so.context_information.entity.ContextInformation;
+import com.pineone.icbms.so.context_model.entity.ContextModel;
 
 /**
  * Created by melvin on 2016. 7. 13..
@@ -21,6 +22,12 @@ public class ResponseMessage {
         message = "ID: " + contextInformation.getId() + ", Name : " + contextInformation.getName() + ", Virtual Object : "
                 + contextInformation.getDeviceObject() + ", Concept Service" + contextInformation.getConceptService() +
                 ", Minimum Value : " + contextInformation.getMinValue() + ", Maximum Value : " + contextInformation.getMaxValue();
+        return message;
+    }
+
+    // NOTE : contextModel 전달 메시지 생성
+    public String contextModelResultMessage(ContextModel contextModel){
+        message = " Name : " + contextModel.getName() + " ContextType : " + contextModel.getContextType();
         return message;
     }
 

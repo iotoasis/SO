@@ -29,7 +29,7 @@ public class DomainProxy {
     public List<Domain> retrieveDomainFromSDA(){
         contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService
-                (contextAddress.getAddress() + AddressStore.REGISTER_GENERALCONTEXT);
+                (contextAddress.getAddress() + AddressStore.REGISTER_CONTEXTINFORMATION);
         String readData = new Gson().toJson(message);
         Type type = new TypeToken<List<Domain>>(){}.getType();
         List<Domain> domainList = new Gson().fromJson(readData,type);
