@@ -15,7 +15,7 @@ public class DataValidation {
         return dataValidation;
     }
 
-    //NOTE : ContextInformation 데이터 검증
+    //NOTE : ContextInformationLogic 데이터 검증
     public void inspectGeneralContext(ContextInformation contextInformation) throws DataLossException {
         //
         if(contextInformation.getId() == null || contextInformation.getName() == null ||
