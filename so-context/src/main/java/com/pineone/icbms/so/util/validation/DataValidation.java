@@ -1,7 +1,7 @@
 package com.pineone.icbms.so.util.validation;
 
-import com.pineone.icbms.so.context_information.entity.ContextInformation;
-import com.pineone.icbms.so.context_model.entity.ContextModel;
+import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
+import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 import com.pineone.icbms.so.util.exception.DataLossException;
 
 /**
