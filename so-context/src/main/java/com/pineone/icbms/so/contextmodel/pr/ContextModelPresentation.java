@@ -62,7 +62,7 @@ public class ContextModelPresentation {
     @ResponseBody
     public ResponseMessage registerGeneralContextController(@RequestBody ContextModel contextModel){
         //
-        DataValidation dataValidation = DataValidation.newGeneralContextValidation();
+        DataValidation dataValidation = DataValidation.newDataValidation();
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
         ContextModelStore contextModelStore = ContextModelMapStore.getInstance();
         try {

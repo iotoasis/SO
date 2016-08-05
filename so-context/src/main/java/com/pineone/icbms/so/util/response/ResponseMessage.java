@@ -31,6 +31,12 @@ public class ResponseMessage {
         return message;
     }
 
+    // NOTE: BizContext 전달 메시지 생성
+    public String bizContextResultMessage(String bizContextName) {
+        message = " Name : " + bizContextName ;
+        return message;
+    }
+
     public String getMessage() {
         return message;
     }
@@ -46,4 +52,6 @@ public class ResponseMessage {
     public void setExceptionMessage(String exceptionMessage) {
         this.exceptionMessage = exceptionMessage;
     }
+
+
 }
