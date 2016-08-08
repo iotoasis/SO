@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.pineone.icbms.so.AppTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2016-08-08T01:27:13" hostname="DESKTOP-H5AL2U6" time="0.001">
+  <properties/>
+  <testcase name="testApp" classname="com.pineone.icbms.so.AppTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
