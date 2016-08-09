@@ -73,9 +73,15 @@ public class DeviceProxy {
     public List<Device> findDeviceByDomain(String requestUri){
         List<Device> deviceList = new ArrayList<>();
 
-        // 해당 url로 client로 SDA 요청
+        String responseData = clientService.requestGetService(requestUri);
 
+        try {
+            deviceList = mapper.readValue(responseData, new TypeReference<List<Device>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return deviceList;
+        // 해당 url로 client로 SDA 요청
     }
 
 
