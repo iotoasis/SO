@@ -61,7 +61,7 @@ public class ContextInformationPresentationTest {
         contextInformation.setDeviceObject(deviceObject);
         contextInformation.setConceptService(conceptService);
 
-        ResponseMessage responseMessage = contextInformationPresentation.registerContextInformationController(contextInformation);
-        System.out.println(responseMessage.getMessage());
+//        ResponseMessage responseMessage = contextInformationPresentation.registerContextInformationController(contextInformation);
+//        System.out.println(responseMessage.getMessage());
     }
 }

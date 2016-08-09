@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
  * Created by melvin on 2016. 8. 1..
- * NOTE: MAP 을 이용한 ContextInformationLogic Create , Retrieve 기능 구현
+ * NOTE: MAP 을 이용한 ContextInformation Create , Retrieve 기능 구현
  */
 public class ContextInformationMapStore implements ContextInformationStore{
 
@@ -17,7 +17,7 @@ public class ContextInformationMapStore implements ContextInformationStore{
     private ContextInformationMapStore(){};
     private Map<String, ContextInformation> contextInformationStore = new HashMap<>();
 
-    //NOTE: DB에 ContextInformationLogic 데이터 생성
+    //NOTE: DB에 ContextInformation 데이터 생성
     @Override
     public void createContextInformation(ContextInformation contextInformation) {
         //
@@ -35,6 +35,7 @@ public class ContextInformationMapStore implements ContextInformationStore{
         return contextInformationList;
     }
 
+    //NOTE: DB에서 ContextInformation 조회
     @Override
     public ContextInformation retrieveContextInformationDetail(String contextName) {
         ContextInformation contextInformation = contextInformationStore.get(contextName);
