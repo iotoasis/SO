@@ -64,16 +64,12 @@ public class ContextModelPresentation {
         //
         DataValidation dataValidation = DataValidation.newDataValidation();
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
-        ContextModelStore contextModelStore = ContextModelMapStore.getInstance();
         try {
             dataValidation.inspectContextModel(contextModel);
         } catch (DataLossException e) {
             responseMessage.setExceptionMessage(e.getMessage());
             return responseMessage;
         }
-
-        contextModelStore.createContextModel(contextModel);
-        //TODO : 저작된 ContextModel 을 SDA 에 등록
         String resultMessage = contextModelLogic.registerContextModel(contextModel);
         responseMessage.setMessage(resultMessage);
         return responseMessage;
