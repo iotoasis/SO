@@ -2,6 +2,7 @@ package com.pineone.icbms.so.util.response;
 
 import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
+import com.pineone.icbms.so.service.entity.Service;
 
 /**
  * Created by melvin on 2016. 7. 13..
@@ -34,6 +35,14 @@ public class ResponseMessage {
     // NOTE: BizContext 전달 메시지 생성
     public String bizContextResultMessage(String bizContextName) {
         message = " Name : " + bizContextName ;
+        return message;
+    }
+
+    //NOTE : Service 전달 메시지 생성
+    public String serviceResultMessage(Service service){
+        message = "ID: " + service.getId() + ", Name : " + service.getName() + ", Virtual Object : "
+                + service.getDeviceObject() + ", Concept Service" + service.getConceptService() +
+                ", Status : " + service.getStatus();
         return message;
     }
 

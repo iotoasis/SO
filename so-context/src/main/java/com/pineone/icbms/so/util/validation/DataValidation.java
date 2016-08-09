@@ -3,6 +3,7 @@ package com.pineone.icbms.so.util.validation;
 import com.pineone.icbms.so.bizcontext.ref.Biz_Note;
 import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
+import com.pineone.icbms.so.service.entity.Service;
 import com.pineone.icbms.so.util.exception.DataLossException;
 
 /**
@@ -39,6 +40,15 @@ public class DataValidation {
     public void inspectBizContext(String bizContextName) throws DataLossException {
         //
         if(bizContextName == null){
+            throw new DataLossException();
+        }
+    }
+
+    //NOTE : Service 데이터 검증
+    public void inspectService(Service service) throws DataLossException {
+        //
+        if(service.getName() == null || service.getId() == null || service.getDeviceObject() == null
+                || service.getConceptService() == null || service.getStatus() == null){
             throw new DataLossException();
         }
     }

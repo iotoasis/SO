@@ -48,7 +48,7 @@ public class ContextInformationLogicImpl implements ContextInformationLogic {
         return contextInformationStr;
     }
 
-    //NOTE : ContextInformationLogic 상세 조회
+    //NOTE : ContextInformation 상세 조회
     public ContextInformation retrieveContextInformationDetail(String contextName) {
         ContextInformationStore contextStore = ContextInformationMapStore.getInstance();
         ContextInformation contextInformation = contextStore.retrieveContextInformationDetail(contextName);
