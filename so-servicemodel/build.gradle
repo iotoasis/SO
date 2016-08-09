@@ -19,6 +19,8 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
 
     compile project (":so-util")
+    compile project (":so-service")
+
     compile "com.withwiz:httpclientservice:0.1.1"
 
     //spring
