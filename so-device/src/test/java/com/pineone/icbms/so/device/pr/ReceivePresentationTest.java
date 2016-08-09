@@ -1,16 +1,16 @@
-package com.pineone.icbms.so.pr;
+package com.pineone.icbms.so.device.pr;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.pineone.icbms.so.entity.DeviceResult;
-import com.pineone.icbms.so.entity.ReleaseResultMessage;
-import com.pineone.icbms.so.entity.ResultMessage;
-import com.pineone.icbms.so.store.DeviceResultStore;
-import com.pineone.icbms.so.store.memory.DeviceResultMemory;
-import com.pineone.icbms.so.util.ClientProfile;
+import com.pineone.icbms.so.device.entity.DeviceResult;
+import com.pineone.icbms.so.device.entity.ReleaseResultMessage;
+import com.pineone.icbms.so.device.entity.ResultMessage;
+import com.pineone.icbms.so.device.store.DeviceResultStore;
+import com.pineone.icbms.so.device.store.memory.DeviceResultMemory;
+import com.pineone.icbms.so.device.util.ClientProfile;
 
 /**
  * Created by pahnj on 2016-08-05.

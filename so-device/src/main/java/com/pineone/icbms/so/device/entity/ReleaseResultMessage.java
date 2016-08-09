@@ -1,4 +1,4 @@
-package com.pineone.icbms.so.entity;
+package com.pineone.icbms.so.device.entity;
 
 /**
  * Created by pahnj on 2016-07-27.

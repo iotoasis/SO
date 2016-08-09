@@ -1,4 +1,4 @@
-package com.pineone.icbms.so.entity;
+package com.pineone.icbms.so.device.entity;
 
 /**
  * Device Result model class for repository.<BR/>
