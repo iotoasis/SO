@@ -1,4 +1,4 @@
-package com.pineone.icbms.so.util;
+package com.pineone.icbms.so.device.util;
 
 import org.junit.Before;
 import org.junit.Test;
