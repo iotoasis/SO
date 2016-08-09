@@ -20,6 +20,9 @@ dependencies {
 
     compile "com.withwiz:httpclientservice:0.1.1"
 
+    //spring-boot
+    compile("org.springframework.boot:spring-boot-starter-web:1.4.0.RELEASE")
+
     //spring
     compile "org.springframework:spring-context:$springVersion"
     compile "org.springframework:spring-context-support:$springVersion"
