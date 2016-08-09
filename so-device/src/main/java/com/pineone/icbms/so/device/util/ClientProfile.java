@@ -7,6 +7,7 @@ public class ClientProfile {
     public static final String	SO_CONTROL_TYPE				= "text/plain:0";
     public static final String	CONTROL_ACTION				= "action";
 
+
     // Presentation Data
     public static final String	RESPONSE_SUCCESS			= "success";
     public static final String	RESPONSE_FAILURE			= "failure";
