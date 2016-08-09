@@ -1,4 +1,4 @@
-package com.pineone.icbms.so.util;
+package com.pineone.icbms.so.device.util;
 
 import com.withwiz.beach.network.http.message.IHttpResponseMessage;
 import com.withwiz.jellyfish.service.IGenericService;

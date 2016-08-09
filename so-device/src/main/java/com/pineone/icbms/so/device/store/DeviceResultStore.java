@@ -1,6 +1,6 @@
-package com.pineone.icbms.so.store;
+package com.pineone.icbms.so.device.store;
 
-import com.pineone.icbms.so.entity.DeviceResult;
+import com.pineone.icbms.so.device.entity.DeviceResult;
 
 public interface DeviceResultStore {
 

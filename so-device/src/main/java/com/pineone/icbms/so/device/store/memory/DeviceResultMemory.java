@@ -1,7 +1,7 @@
-package com.pineone.icbms.so.store.memory;
+package com.pineone.icbms.so.device.store.memory;
 
-import com.pineone.icbms.so.entity.DeviceResult;
-import com.pineone.icbms.so.store.DeviceResultStore;
+import com.pineone.icbms.so.device.entity.DeviceResult;
+import com.pineone.icbms.so.device.store.DeviceResultStore;
 
 import java.util.HashMap;
 import java.util.Map;
