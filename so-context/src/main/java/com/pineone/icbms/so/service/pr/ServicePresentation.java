@@ -86,4 +86,11 @@ public class ServicePresentation {
         Service service = serviceLogic.retrieveServiceDetail(serviceName);
         return service;
     }
+
+    // NOTE: Service Component 의 DB에 접근해서 service Name 리스트 조회
+    public List<String> retrieveServiceNameList(){
+        //
+        List<String> serviceNameList = serviceLogic.retrieveServiceNameList();
+        return serviceNameList;
+    }
 }

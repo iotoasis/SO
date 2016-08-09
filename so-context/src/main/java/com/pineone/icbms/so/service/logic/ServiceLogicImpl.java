@@ -1,10 +1,6 @@
 package com.pineone.icbms.so.service.logic;
 
 
-import com.pineone.icbms.so.contextinformation.proxy.ContextInformationProxy;
-import com.pineone.icbms.so.contextinformation.proxy.ContextInformationSDAProxy;
-import com.pineone.icbms.so.contextinformation.store.ContextInformationMapStore;
-import com.pineone.icbms.so.contextinformation.store.ContextInformationStore;
 import com.pineone.icbms.so.service.entity.Service;
 import com.pineone.icbms.so.service.ref.ConceptService;
 import com.pineone.icbms.so.service.ref.DeviceCenter;
@@ -69,6 +65,19 @@ public class ServiceLogicImpl implements ServiceLogic{
 
     @Override
     public Service retrieveServiceDetail(String serviceName) {
-        return null;
+        ServiceStore serviceStore = ServiceMapStore.getInstance();
+        Service service = serviceStore.retrieveServiceDetail(serviceName);
+        return service;
+    }
+
+    @Override
+    public List<String> retrieveServiceNameList() {
+        ServiceStore serviceStore = ServiceMapStore.getInstance();
+        List<String> serviceNameList = new ArrayList<>();
+        List<Service> serviceList = serviceStore.retrieveServiceList();
+        for(Service service : serviceList){
+            serviceNameList.add(service.getName());
+        }
+        return serviceNameList;
     }
 }

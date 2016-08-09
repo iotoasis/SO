@@ -17,4 +17,5 @@ public interface ServiceLogic {
     List<Status> retrieveStatusList(ConceptService conceptService);
     String registerService(Service service);
     Service retrieveServiceDetail(String serviceName);
+    List<String> retrieveServiceNameList();
 }
