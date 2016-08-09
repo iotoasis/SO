@@ -20,3 +20,4 @@ rootProject.name = 'SO'
 
 include 'so-context'
 include 'so-device'
+include 'so-web'
