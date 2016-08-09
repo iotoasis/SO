@@ -18,5 +18,10 @@ include 'services:webservice'
 
 rootProject.name = 'SO'
 
-include 'so-context'
 include 'so-device'
+include 'so-contextinformation'
+include 'so-contextmodel'
+include 'so-service'
+include 'so-servicemodel'
+include 'so-bizcontext'
+include 'so-util'
