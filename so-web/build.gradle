@@ -8,8 +8,5 @@ jar {
 }
 
 dependencies {
-    compile project(':so-context')
-    compile project(':so-device')
-    compile("org.springframework.boot:spring-boot-starter-web:1.4.0.RELEASE")
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
