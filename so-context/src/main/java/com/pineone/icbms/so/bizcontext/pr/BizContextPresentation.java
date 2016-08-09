@@ -1,6 +1,5 @@
 package com.pineone.icbms.so.bizcontext.pr;
 
-import com.pineone.icbms.so.bizcontext.entity.LackPCBiz;
 import com.pineone.icbms.so.bizcontext.logic.*;
 import com.pineone.icbms.so.bizcontext.ref.Biz_Note;
 import com.pineone.icbms.so.util.exception.DataLossException;
@@ -103,7 +102,6 @@ public class BizContextPresentation {
             needPCQuantity = LackPCBizLogic.newLackPCBizLogic().retrieveNeedQuantity();
             message = "PC = " + needPCQuantity + " 필요";
         }
-
         return message;
     }
 }

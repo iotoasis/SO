@@ -68,7 +68,7 @@ public class ContextInformationPresentation {
     // NOTE: ContextInformation Component 의 DB에 접근해서 CI Name 리스트 조회
     public List<String> retrieveContextInformationNameList(){
         //
-        List<String> contextInformationList = ContextInformationLogicImpl.newContextInformationLogic().retrieveContextInformationNameList();
+        List<String> contextInformationList = contextInformationLogic.retrieveContextInformationNameList();
         return contextInformationList;
     }
 

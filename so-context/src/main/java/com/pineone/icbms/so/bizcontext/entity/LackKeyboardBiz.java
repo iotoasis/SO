@@ -3,7 +3,7 @@ package com.pineone.icbms.so.bizcontext.entity;
 /**
  * Created by melvin on 2016. 8. 3..
  */
-public class LackKeyboardBiz {
+public class LackKeyboardBiz implements BizContext {
     //
     String id;
     String name;
