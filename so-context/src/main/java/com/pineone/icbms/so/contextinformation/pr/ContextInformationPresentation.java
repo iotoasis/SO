@@ -52,7 +52,7 @@ public class ContextInformationPresentation {
     @ResponseBody
     public ResponseMessage registerContextInformationController(@RequestBody ContextInformation contextInformation){
         //
-        DataValidation dataValidation = DataValidation.newGeneralContextValidation();
+        DataValidation dataValidation = DataValidation.newDataValidation();
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
         try {
             dataValidation.inspectGeneralContext(contextInformation);
