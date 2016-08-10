@@ -17,7 +17,7 @@ public class DeviceProxy {
      * 1. Domain 조회(get)
      * 2. Device By ID 조회(get)
      * 3. Device By Domain 조회(get)
-     * 4. Device AspectOperation 조회(post)
+     * 4. Device functionality 조회(get)
      *
      * SI 제어 요청
      * 1, Device 제어(post)
@@ -81,17 +81,37 @@ public class DeviceProxy {
             e.printStackTrace();
         }
         return deviceList;
-        // 해당 url로 client로 SDA 요청
+    }
+
+    /**
+     * 4. Device functionality 조회(get)
+     * @param requestUri
+     * @return
+     */
+    public List<String> findDeivceFunctionality(String requestUri){
+        //
+        List<String> deviceFunctionalityList = new ArrayList<>();
+
+        String responseData = clientService.requestGetService(requestUri);
+
+        try {
+            deviceFunctionalityList = mapper.readValue(responseData, new TypeReference<List<String>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return deviceFunctionalityList;
     }
 
 
     /**
      * The actual device control request.
+     * 1, Device 제어(post)
      * @param requestUrl
      * @param requestBody
      * @return
      */
-    public String DeviceControlRequest(String requestUrl,String requestBody) {
+    public String deviceControlRequest(String requestUrl,String requestBody) {
         //
         ResultMessage resultMessage = new ResultMessage();
 
@@ -105,17 +125,5 @@ public class DeviceProxy {
             return resultMessage.get_resultCode();
         }
     }
-
-    public Object mappingData(String data,Class T){
-        ObjectMapper mapper = new ObjectMapper();
-        Object o = null;
-        try {
-            o = mapper.readValue(data, T);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return o;
-    }
-
 
 }
