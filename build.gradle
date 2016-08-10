@@ -18,6 +18,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+apply plugin: 'eclipse'
 
 dependencies {
     compile project (":so-bizcontext")
@@ -35,6 +36,7 @@ dependencies {
 allprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
+    apply plugin: 'eclipse'
     apply plugin: 'spring-boot'
     apply plugin: 'io.spring.dependency-management'
 
