@@ -44,6 +44,9 @@ dependencies {
     // https://mvnrepository.com/artifact/com.google.code.svenson/svenson
     compile group: 'com.google.code.svenson', name: 'svenson', version: '1.5.4'
 
+    // https://mvnrepository.com/artifact/org.mockito/mockito-all
+    compile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
+
 
 
 }
