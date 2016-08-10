@@ -8,5 +8,13 @@ jar {
 }
 
 dependencies {
+    compile project (":so-bizcontext")
+    compile project (":so-contextinformation")
+    compile project (":so-contextmodel")
+    compile project (":so-device")
+    compile project (":so-service")
+    compile project (":so-util")
+
+
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }

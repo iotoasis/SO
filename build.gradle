@@ -2,32 +2,56 @@
     Main build file create by existmaster.
  */
 buildscript {
+    ext {
+        springBootVersion = '1.4.0.RELEASE'
+    }
     repositories {
         mavenCentral()
+        //jcenter()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.3.5.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("io.spring.gradle:dependency-management-plugin:0.5.7.RELEASE")
     }
 }
 
-subprojects {
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+dependencies {
+    compile project (":so-bizcontext")
+    compile project (":so-contextinformation")
+    compile project (":so-contextmodel")
+    compile project (":so-device")
+    compile project (":so-service")
+    compile project (":so-util")
+    compile project (":so-web")
+
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+allprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
     apply plugin: 'spring-boot'
     apply plugin: 'io.spring.dependency-management'
 
-    version = '2.0.0-SANPSHOT'
+    version = '2.0.0-SNAPSHOT'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
     repositories {
         mavenCentral()
+        jcenter()
     }
 
     dependencies {
-        compile("org.springframework.boot:spring-boot-starter-web:1.4.0.RELEASE")
+        compile "com.withwiz:httpclientservice:0.1.1"
+        //compile "com.withwiz:httpclientservice:0.1.1"
+        compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
         testCompile("org.springframework.boot:spring-boot-starter-test")
     }
 }
