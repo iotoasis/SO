@@ -92,4 +92,12 @@ public class ContextModelLogicImpl implements ContextModelLogic {
         List<Domain> domainList = contextModelProxty.retrieveContextModelEvent(contextModelName);
         return domainList;
     }
+
+    //NOTE : ContextModel 이름으로 ContextModelType 조회
+    @Override
+    public String retrieveContextModelType(String contextModelName) {
+        ContextModelStore contextModelStore = ContextModelMapStore.getInstance();
+        ContextModel contextModel = contextModelStore.retrieveContextModelDetail(contextModelName);
+        return contextModel.getContextType();
+    }
 }

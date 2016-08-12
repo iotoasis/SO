@@ -97,4 +97,10 @@ public class ContextModelPresentation {
         List<Domain> domainList = contextModelLogic.isHappenContextModel(contextModelName);
         return domainList;
     }
+
+    //NOTE: Profile 에서 ContextModel 의 타입을 알고 추가 정보 요청 판단을 위해 ContextModelName으로 contextTypeName 조회
+    public String retrieveContextModelType(String contextModelName){
+        String contextModelType = contextModelLogic.retrieveContextModelType(contextModelName);
+        return contextModelType;
+    }
 }
