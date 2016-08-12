@@ -3,6 +3,8 @@ package com.pineone.icbms.so.servicemodel;
 import com.pineone.icbms.so.service.entity.Service;
 import com.pineone.icbms.so.service.store.ServiceMapStore;
 import com.pineone.icbms.so.service.store.ServiceStore;
+import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
+import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
 import org.junit.Before;
 import org.junit.Test;
 
