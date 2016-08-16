@@ -10,6 +10,7 @@ import java.util.List;
  * Created by melvin on 2016. 8. 2..
  */
 public interface ContextModelLogic {
+    //
     List<String> retrieveContextInformationNameList();
     List<Domain> retrieveDomainList();
     List<ContextType> retrieveContextTypeList();
@@ -17,4 +18,5 @@ public interface ContextModelLogic {
     List<String> retrieveContextModelNameList();
     ContextModel retrieveContextModelDetail(String contextModelName);
     List<Domain> isHappenContextModel(String contextModelName);
+    String retrieveContextModelType(String contextModelName);
 }
