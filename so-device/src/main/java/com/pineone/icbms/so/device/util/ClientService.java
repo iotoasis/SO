@@ -20,7 +20,7 @@ public class ClientService {
         return requestPostService(uri,data,false);
     }
 
-    public String requestPostService(String uri, String data, boolean bCheck) {
+    public String requestPostService(String uri, String data, boolean onlyResultValue) {
 //        log.info("[[Client Service requestPostService uri]] " + serviceUrl);
 //        log.info("[[Client Service requestPostService data]] " + body);
         // request delivery message
@@ -63,7 +63,7 @@ public class ClientService {
             e.printStackTrace();
         }
         String returnData = null;
-        if(bCheck){
+        if(onlyResultValue){
             returnData = String.valueOf(httpResponseMessage.getStatusCode());
         } else {
             returnData = responseDataToString(httpResponseMessage);
