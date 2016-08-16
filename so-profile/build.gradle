@@ -1,4 +1,5 @@
 group 'com.pineone.icbms.so'
+version '1.0.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'maven'
@@ -18,8 +19,11 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
 
     compile project (":so-util")
-    compile project (":so-contextinformation")
-    
+    compile project (":so-servicemodel")
+    compile project (":so-contextmodel")
+    compile project (":so-bizcontext")
+
+
     compile "com.withwiz:httpclientservice:0.1.1"
 
 //    //spring

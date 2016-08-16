@@ -8,6 +8,12 @@ import com.pineone.icbms.so.service.ref.Status;
  * Created by melvin on 2016. 8. 5..
  */
 public class Service {
+
+    public Service(){};
+
+    public Service(String name){
+        this.name = name;
+    }
     private String id;
     private String name;
     private DeviceObject deviceObject;
