@@ -20,7 +20,6 @@ public class DeviceProxy {
      * 4. Device functionality 조회(get)
      *
      * SI 제어 요청
-     * 1, Device 제어(post)
      */
 
     private ClientService clientService = new ClientService();
