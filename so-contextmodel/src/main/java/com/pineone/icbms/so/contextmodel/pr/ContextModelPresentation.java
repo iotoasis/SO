@@ -103,4 +103,32 @@ public class ContextModelPresentation {
         String contextModelType = contextModelLogic.retrieveContextModelType(contextModelName);
         return contextModelType;
     }
+
+    //NOTE: SDA 에서 사용할 Emergency ContextModel 을 수신 받기 위한 인터페이스 제공
+    @RequestMapping(value = "/occ", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public ResponseMessage emergencyContextModel(@RequestBody ContextModel contextModel){
+        //
+        DataValidation dataValidation = DataValidation.newDataValidation();
+        ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
+        try {
+            dataValidation.inspectContextModel(contextModel);
+        } catch (DataLossException e) {
+            responseMessage.setExceptionMessage(e.getMessage());
+            return responseMessage;
+        }
+        String resultMessage = contextModelLogic.useQueueSaveContextModel(contextModel);
+        responseMessage.setMessage(resultMessage);
+        return responseMessage;
+    }
+
+    //NOTE: ContextModel Queue 에 있는 데이터를 Read
+    public ContextModel retrieveContextModelQueueData(){
+        ContextModel contextModel = contextModelLogic.retrieveQueueData();
+        return contextModel;
+    }
 }
+
+
+

@@ -1,10 +1,12 @@
 package com.pineone.icbms.so.servicemodel.pr;
 
+import com.pineone.icbms.so.contextmodel.entity.Domain;
 import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
 import com.pineone.icbms.so.servicemodel.logic.ServiceModelLogic;
 import com.pineone.icbms.so.servicemodel.logic.ServiceModelLogicImpl;
 import com.pineone.icbms.so.servicemodel.ref.DataValidation;
 import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
+import com.pineone.icbms.so.servicemodel.ref.ServiceMessage;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelMapStore;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
 import com.pineone.icbms.so.util.exception.DataLossException;
@@ -71,4 +73,13 @@ public class ServiceModelPresentation {
         ServiceModel serviceModel = serviceModelLogic.retrieveServiceModelDetail(serviceModelName);
         return serviceModel;
     }
+
+    //NOTE: 응급상황으로 발생하는 ContextModel 에 따른 ServiceModel 실행
+    public void executeEmergencyServiceModel(List<Domain> domainList, String serviceModelName) {
+        //
+        ServiceMessage serviceMessage = new ServiceMessage(domainList, serviceModelName);
+        serviceModelLogic.executeEmergencyServiceModel(serviceMessage);
+    }
+
+
 }

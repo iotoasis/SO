@@ -19,4 +19,6 @@ public interface ContextModelLogic {
     ContextModel retrieveContextModelDetail(String contextModelName);
     List<Domain> isHappenContextModel(String contextModelName);
     String retrieveContextModelType(String contextModelName);
+    String useQueueSaveContextModel(ContextModel contextModel);
+    ContextModel retrieveQueueData();
 }
