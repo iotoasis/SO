@@ -1,6 +1,6 @@
 package com.pineone.icbms.so.servicemodel;
 
-import com.pineone.icbms.so.contextmodel.ContextModelApplication;
+import com.pineone.icbms.so.domain.DomainApplication;
 import com.pineone.icbms.so.util.UtilApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @ComponentScan
-@Import({ UtilApplication.class, ContextModelApplication.class})
+@Import({ UtilApplication.class, DomainApplication.class})
 @EnableAutoConfiguration
 public class ServiceModelApplication
 {

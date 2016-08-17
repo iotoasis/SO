@@ -2,13 +2,13 @@ package com.pineone.icbms.so.contextmodel.logic;
 
 import com.pineone.icbms.so.contextinformation.pr.ContextInformationPresentation;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
-import com.pineone.icbms.so.contextmodel.entity.Domain;
 import com.pineone.icbms.so.contextmodel.proxy.ContextModelProxy;
 import com.pineone.icbms.so.contextmodel.proxy.ContextModelSDAProxy;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.contextmodel.ref.ResponseMessage;
 import com.pineone.icbms.so.contextmodel.store.ContextModelMapStore;
 import com.pineone.icbms.so.contextmodel.store.ContextModelStore;
+import com.pineone.icbms.so.domain.entity.Domain;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -32,14 +32,6 @@ public class ContextModelLogicImpl implements ContextModelLogic{
         ContextInformationPresentation contextInformationPresentation = new ContextInformationPresentation();
         List<String> contextInformationList = contextInformationPresentation.retrieveContextInformationNameList();
         return contextInformationList;
-    }
-
-    //NOTE: ContextModel 의 Domain 을 결정하기 위해 DomainList 제공
-    public List<Domain> retrieveDomainList(){
-        //
-        DomainLogic domainLogic = DomainLogicImpl.newDomainLogic();
-        List<Domain> domainList = domainLogic.retrieveDomainList();
-        return domainList;
     }
 
     //NOTE: ContextModel 의 ContextType 을 결정하기 위해 ContextTypeList 제공

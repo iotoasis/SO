@@ -1,13 +1,10 @@
 package com.pineone.icbms.so.contextmodel;
 
 import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
-import com.pineone.icbms.so.contextinformation.store.ContextInformationMapStore;
-import com.pineone.icbms.so.contextinformation.store.ContextInformationStore;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
-import com.pineone.icbms.so.contextmodel.entity.Domain;
-import com.pineone.icbms.so.contextmodel.logic.ContextModelLogicImpl;
 import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
 import com.pineone.icbms.so.contextmodel.ref.ResponseMessage;
+import com.pineone.icbms.so.domain.entity.Domain;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -2,12 +2,9 @@ package com.pineone.icbms.so.servicemodel;
 
 import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
-import com.pineone.icbms.so.contextmodel.entity.Domain;
 import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
 import com.pineone.icbms.so.contextmodel.ref.ResponseMessage;
-import com.pineone.icbms.so.profile.entity.Profile;
 import com.pineone.icbms.so.profile.logic.ProfileLogicImpl;
-import com.pineone.icbms.so.profile.pr.ProfilePresentation;
 import org.junit.Before;
 
 import java.util.ArrayList;
