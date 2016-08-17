@@ -9,8 +9,8 @@ public class Device {
     private String          deviceName;
     private String          deviceLocation;
     private String          deviceUri;
-    private List<String>    deviceServices;
     private List<String>    deviceCommand;
+    private List<String>    deviceServices;
     private String          deviceCreateTime;
     private String          deviceExfiredTime;
 

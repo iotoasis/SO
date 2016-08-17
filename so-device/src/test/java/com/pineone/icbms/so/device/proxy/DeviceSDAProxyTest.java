@@ -12,13 +12,13 @@ import java.util.List;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class DeviceProxyTest {
+public class DeviceSDAProxyTest {
 
-    private DeviceProxy deviceProxy;
+    private DeviceSDAProxy deviceSDAProxy;
 
     @Before
     public void setUp(){
-        deviceProxy =  mock(DeviceProxy.class);
+        deviceSDAProxy =  mock(DeviceSDAProxy.class);
     }
 
 
@@ -29,8 +29,8 @@ public class DeviceProxyTest {
         List<String> domainTestList = new ArrayList<>();
         domainTestList.add("classroom");
 
-        when(deviceProxy.findDomain(ClientProfile.SDA_DATAREQUEST_URI)).thenReturn(domainTestList);
-        domainlist = deviceProxy.findDomain(ClientProfile.SDA_DATAREQUEST_URI);
+        when(deviceSDAProxy.findDomain(ClientProfile.SDA_DATAREQUEST_URI)).thenReturn(domainTestList);
+        domainlist = deviceSDAProxy.findDomain(ClientProfile.SDA_DATAREQUEST_URI);
         Assert.assertEquals(domainlist.get(0),"classroom");
 
     }
@@ -42,8 +42,8 @@ public class DeviceProxyTest {
         deviceTest.setDeviceName("JunitTestDevice");
         deviceTest.setDeviceId("deviceT001");
 
-        when(deviceProxy.findDeviceByID(ClientProfile.SDA_DATAREQUEST_URI + "device/deviceT001")).thenReturn(deviceTest);
-        device = deviceProxy.findDeviceByID(ClientProfile.SDA_DATAREQUEST_URI + "device/deviceT001");
+        when(deviceSDAProxy.findDeviceByID(ClientProfile.SDA_DATAREQUEST_URI + "device/deviceT001")).thenReturn(deviceTest);
+        device = deviceSDAProxy.findDeviceByID(ClientProfile.SDA_DATAREQUEST_URI + "device/deviceT001");
         Assert.assertEquals(device,deviceTest);
     }
 
@@ -56,8 +56,8 @@ public class DeviceProxyTest {
         deviceTemp.setDeviceId("deviceT001");
         deviceTestList.add(deviceTemp);
 
-        when(deviceProxy.findDeviceByDomain(ClientProfile.SDA_DATAREQUEST_URI + "device/")).thenReturn(deviceTestList);
-        devices = deviceProxy.findDeviceByDomain(ClientProfile.SDA_DATAREQUEST_URI + "device/");
+        when(deviceSDAProxy.findDeviceByDomain(ClientProfile.SDA_DATAREQUEST_URI + "device/")).thenReturn(deviceTestList);
+        devices = deviceSDAProxy.findDeviceByDomain(ClientProfile.SDA_DATAREQUEST_URI + "device/");
         Assert.assertEquals(devices,deviceTestList);
 
     }
@@ -68,8 +68,8 @@ public class DeviceProxyTest {
         List<String> deviceFunctionalityListTest = new ArrayList<>();
         deviceFunctionalityListTest.add("TempControl");
 
-        when(deviceProxy.findDeivceFunctionality(ClientProfile.SDA_DATAREQUEST_URI +"devices/functionality/deviceT001")).thenReturn(deviceFunctionalityListTest);
-        deviceFunctionalityList = deviceProxy.findDeivceFunctionality(ClientProfile.SDA_DATAREQUEST_URI + "devices/functionality/deviceT001");
+        when(deviceSDAProxy.findDeivceFunctionality(ClientProfile.SDA_DATAREQUEST_URI +"devices/functionality/deviceT001")).thenReturn(deviceFunctionalityListTest);
+        deviceFunctionalityList = deviceSDAProxy.findDeivceFunctionality(ClientProfile.SDA_DATAREQUEST_URI + "devices/functionality/deviceT001");
         Assert.assertEquals(deviceFunctionalityList,deviceFunctionalityListTest);
     }
 
@@ -78,8 +78,8 @@ public class DeviceProxyTest {
         String resultData = null;
         String resultTestData = "success";
 
-        when(deviceProxy.deviceControlRequest(ClientProfile.SI_CONTOL_URI,"testBody")).thenReturn(resultTestData);
-        resultData = deviceProxy.deviceControlRequest(ClientProfile.SI_CONTOL_URI,"testBody");
+        when(deviceSDAProxy.deviceControlRequest(ClientProfile.SI_CONTOL_URI,"testBody")).thenReturn(resultTestData);
+        resultData = deviceSDAProxy.deviceControlRequest(ClientProfile.SI_CONTOL_URI,"testBody");
         Assert.assertEquals(resultData,resultTestData);
     }
 
