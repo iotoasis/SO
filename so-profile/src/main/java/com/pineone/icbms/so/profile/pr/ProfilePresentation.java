@@ -93,4 +93,11 @@ public class ProfilePresentation {
         Profile profile = profileLogic.retrieveProfileDetail(profileName);
         return profile;
     }
+
+    //NOTE: ContextModelName 으로 프로파일 조회
+    public Profile retrieveProfileConnectDetailController(String contextModelName){
+        //
+        Profile profile = profileLogic.retrieveProfileDetail(contextModelName);
+        return profile;
+    }
 }

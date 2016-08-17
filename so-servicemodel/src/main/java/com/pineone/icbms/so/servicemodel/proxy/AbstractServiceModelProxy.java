@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by melvin on 2016. 8. 9..
  */
-public class AbstractServiceModelProxy implements ServiceModelProxy {
+public abstract class AbstractServiceModelProxy implements ServiceModelProxy {
 
     @Override
     public List<String> retrieveServiceNameList() {
