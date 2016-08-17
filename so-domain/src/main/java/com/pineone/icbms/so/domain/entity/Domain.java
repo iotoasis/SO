@@ -1,4 +1,4 @@
-package com.pineone.icbms.so.contextmodel.entity;
+package com.pineone.icbms.so.domain.entity;
 
 
 /**

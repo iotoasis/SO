@@ -2,6 +2,7 @@ package com.pineone.icbms.so.bizcontext.logic;
 
 import com.pineone.icbms.so.bizcontext.ref.Biz_Note;
 import com.pineone.icbms.so.bizcontext.ref.ResponseMessage;
+import com.pineone.icbms.so.domain.entity.Domain;
 
 import java.util.ArrayList;
 import java.util.List;

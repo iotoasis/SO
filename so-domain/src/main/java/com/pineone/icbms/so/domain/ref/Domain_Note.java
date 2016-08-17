@@ -1,4 +1,4 @@
-package com.pineone.icbms.so.contextmodel.ref;
+package com.pineone.icbms.so.domain.ref;
 
 /**
  * Created by melvin on 2016. 7. 25..

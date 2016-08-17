@@ -1,4 +1,4 @@
-package com.pineone.icbms.so.contextmodel;
+package com.pineone.icbms.so.domain;
 
 import com.pineone.icbms.so.util.UtilApplication;
 import org.springframework.boot.SpringApplication;

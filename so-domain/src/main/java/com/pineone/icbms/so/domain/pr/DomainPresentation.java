@@ -1,8 +1,8 @@
-package com.pineone.icbms.so.contextmodel.pr;
+package com.pineone.icbms.so.domain.pr;
 
-import com.pineone.icbms.so.contextmodel.entity.Domain;
-import com.pineone.icbms.so.contextmodel.logic.DomainLogic;
-import com.pineone.icbms.so.contextmodel.logic.DomainLogicImpl;
+import com.pineone.icbms.so.domain.entity.Domain;
+import com.pineone.icbms.so.domain.logic.DomainLogic;
+import com.pineone.icbms.so.domain.logic.DomainLogicImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ public class DomainPresentation {
     DomainLogic domainLogic = DomainLogicImpl.newDomainLogic();
 
     //NOTE: DomainList 조회
-    @RequestMapping(value = "/domain", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public List<Domain> retrieveDomainListController(){

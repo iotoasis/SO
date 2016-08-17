@@ -1,6 +1,4 @@
-package com.pineone.icbms.so.contextmodel.logic;
-
-import com.pineone.icbms.so.contextmodel.entity.Domain;
+package com.pineone.icbms.so.domain.logic;
 
 import java.util.List;
 
@@ -8,5 +6,5 @@ import java.util.List;
  * Created by melvin on 2016. 8. 2..
  */
 public interface DomainLogic {
-    List<Domain> retrieveDomainList();
+    List<com.pineone.icbms.so.domain.entity.Domain> retrieveDomainList();
 }

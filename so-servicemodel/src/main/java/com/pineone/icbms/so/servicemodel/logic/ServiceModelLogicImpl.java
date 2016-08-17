@@ -1,8 +1,6 @@
 package com.pineone.icbms.so.servicemodel.logic;
 
-import com.pineone.icbms.so.contextmodel.entity.ContextModel;
-import com.pineone.icbms.so.contextmodel.entity.Domain;
-import com.pineone.icbms.so.contextmodel.logic.ContextModelLogicImpl;
+import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.service.entity.Service;
 import com.pineone.icbms.so.service.pr.ServicePresentation;
 import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
@@ -13,7 +11,6 @@ import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
 import com.pineone.icbms.so.servicemodel.ref.ServiceMessage;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelMapStore;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.LinkedList;
 import java.util.List;

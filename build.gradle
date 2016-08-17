@@ -25,6 +25,9 @@ dependencies {
     compile project (":so-contextmodel")
     compile project (":so-device")
     compile project (":so-service")
+    compile project (":so-servicemodel")
+    compile project (":so-profile")
+    compile project (":so-domain")
     compile project (":so-util")
     compile project (":so-web")
 

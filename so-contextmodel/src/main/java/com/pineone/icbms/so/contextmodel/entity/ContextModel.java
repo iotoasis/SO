@@ -1,5 +1,7 @@
 package com.pineone.icbms.so.contextmodel.entity;
 
+import com.pineone.icbms.so.domain.entity.Domain;
+
 import java.util.List;
 
 /**

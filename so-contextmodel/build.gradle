@@ -19,6 +19,7 @@ dependencies {
 
     compile project (":so-util")
     compile project (":so-contextinformation")
+    compile project (":so-domain")
     
     compile "com.withwiz:httpclientservice:0.1.1"
 
