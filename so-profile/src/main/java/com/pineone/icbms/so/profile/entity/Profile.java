@@ -14,9 +14,7 @@ public class Profile {
     String bizContextName;
     int period;
     int expirationTime;
-
     boolean happenContextModel;
-    ControlMessage controlMessage;
 
     public String getName() {
         return name;
@@ -56,14 +54,6 @@ public class Profile {
 
     public void setHappenContextModel(boolean happenContextModel) {
         this.happenContextModel = happenContextModel;
-    }
-
-    public ControlMessage getControlMessage() {
-        return controlMessage;
-    }
-
-    public void setControlMessage(ControlMessage controlMessage) {
-        this.controlMessage = controlMessage;
     }
 
     public String getBizContextName() {

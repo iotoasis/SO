@@ -11,12 +11,16 @@ import com.pineone.icbms.so.contextmodel.store.ContextModelMapStore;
 import com.pineone.icbms.so.contextmodel.store.ContextModelStore;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Created by melvin on 2016. 8. 1..
  */
-public class ContextModelLogicImpl implements ContextModelLogic {
+public class ContextModelLogicImpl implements ContextModelLogic{
+
+    public static final Queue CONTEXT_MODEL_QUEUE = new LinkedList<>();
 
     public static ContextModelLogicImpl newContextModelLogic(){
         return new ContextModelLogicImpl();
@@ -51,10 +55,10 @@ public class ContextModelLogicImpl implements ContextModelLogic {
         //
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
         ContextModelStore contextModelStore = ContextModelMapStore.getInstance();
-        ContextModelProxy contextModelProxy = ContextModelSDAProxy.newContextModelProxy();
+        //ContextModelProxy contextModelProxy = ContextModelSDAProxy.newContextModelProxy();
 
         contextModelStore.createContextModel(contextModel);
-        contextModelProxy.registerContextModel(contextModel);
+        //contextModelProxy.registerContextModel(contextModel);
         String contextModelResultMessage = responseMessage.contextModelResultMessage(contextModel);
         return contextModelResultMessage;
     }
@@ -88,16 +92,36 @@ public class ContextModelLogicImpl implements ContextModelLogic {
 
     //NOTE: ContextModel 상황 발생 여부 질의
     public List<Domain> isHappenContextModel(String contextModelName){
-        ContextModelProxy contextModelProxty = ContextModelSDAProxy.newContextModelProxy();
-        List<Domain> domainList = contextModelProxty.retrieveContextModelEvent(contextModelName);
+        //
+        ContextModelProxy contextModelProxy = ContextModelSDAProxy.newContextModelProxy();
+        List<Domain> domainList = contextModelProxy.retrieveContextModelEvent(contextModelName);
         return domainList;
     }
 
     //NOTE : ContextModel 이름으로 ContextModelType 조회
     @Override
     public String retrieveContextModelType(String contextModelName) {
+        //
         ContextModelStore contextModelStore = ContextModelMapStore.getInstance();
         ContextModel contextModel = contextModelStore.retrieveContextModelDetail(contextModelName);
         return contextModel.getContextType();
+    }
+
+    //NOTE: EmergencyContextmodel 을 일시적으로 Queue에 저장. Profile Component 에서 사용 할 수 QUEUE 에 삽입
+    @Override
+    public String useQueueSaveContextModel(ContextModel contextModel) {
+        //
+        ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
+
+        CONTEXT_MODEL_QUEUE.offer(contextModel);
+
+        String contextModelResultMessage = responseMessage.contextModelResultMessage(contextModel);
+        return contextModelResultMessage;
+    }
+
+    @Override
+    public ContextModel retrieveQueueData() {
+        ContextModel contextModel = (ContextModel) ContextModelLogicImpl.CONTEXT_MODEL_QUEUE.poll();
+        return contextModel;
     }
 }

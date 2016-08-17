@@ -31,24 +31,24 @@ public class BizContextPresentation {
         return bizContextList;
     }
 
-    //NOTE : 선택된 BizContext 종류 획득
-    @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
-    public ResponseMessage requestBizContext(@RequestBody String bizContextName){
-        //
-        DataValidation dataValidation = DataValidation.newDataValidation();
-        ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
-        try {
-            dataValidation.inspectBizContext(bizContextName);
-        } catch (DataLossException e) {
-            responseMessage.setExceptionMessage(e.getMessage());
-            return responseMessage;
-        }
-        String resultMessage = BizContextBasicLogic.newBizContextBasicLogic().registerBizContext(bizContextName);
-        responseMessage.setMessage(resultMessage);
-        return responseMessage;
-    }
+//    //NOTE : 선택된 BizContext 종류 획득
+//    @RequestMapping(method = RequestMethod.POST)
+//    @ResponseStatus(value = HttpStatus.OK)
+//    @ResponseBody
+//    public ResponseMessage registerBizContext(@RequestBody String bizContextName){
+//        //
+//        DataValidation dataValidation = DataValidation.newDataValidation();
+//        ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
+//        try {
+//            dataValidation.inspectBizContext(bizContextName);
+//        } catch (DataLossException e) {
+//            responseMessage.setExceptionMessage(e.getMessage());
+//            return responseMessage;
+//        }
+//        String resultMessage = BizContextBasicLogic.newBizContextBasicLogic().registerBizContext(bizContextName);
+//        responseMessage.setMessage(resultMessage);
+//        return responseMessage;
+//    }
 
     //NOTE: BIZ Context 조건 충족 여부 판단
     public boolean isBizContextHappen(String bizContextName){
