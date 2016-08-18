@@ -11,12 +11,18 @@ import java.util.Map;
 public class VirtualObjectMemory implements VirtualObjectStore {
 
     //
-    static private Map<String,VirtualObject> virtualObjectRepository;
+    private Map<String,VirtualObject> virtualObjectRepository = new HashMap<>();
 
-    public VirtualObjectMemory() {
-        if(virtualObjectRepository == null){
-            virtualObjectRepository = new HashMap<>();
+    private static VirtualObjectMemory instance;
+
+    private VirtualObjectMemory() {
+    }
+
+    public static VirtualObjectMemory getInstance(){
+        if(instance == null) {
+            instance = new VirtualObjectMemory();
         }
+        return instance;
     }
 
     public void create(VirtualObject virtualObject) {

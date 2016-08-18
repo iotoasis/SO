@@ -26,7 +26,7 @@ public class DevicePresentationTest {
     public void setUp(){
         //
         devicePresentation =  new DevicePresentation();
-        deviceStore = new DeviceMemory();
+        deviceStore = DeviceMemory.getInstance();
 
         DeviceResult deviceResult = new DeviceResult();
         DeviceResult BadDeviceResult = new DeviceResult();
@@ -34,7 +34,7 @@ public class DevicePresentationTest {
         deviceResult.setCommandId("JunitTestCode");
         BadDeviceResult.setCommandId("JunitTestCodeBad");
 
-        deviceResultStore = new DeviceResultMemory();
+        deviceResultStore = DeviceResultMemory.getInstance();
         deviceResultStore.create(deviceResult);
         deviceResultStore.create(BadDeviceResult);
     }

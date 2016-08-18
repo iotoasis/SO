@@ -10,12 +10,18 @@ import java.util.Map;
 
 public class DeviceMemory implements DeviceStore {
     //
-    static private Map<String,Device> deviceRepository;
+    private Map<String,Device> deviceRepository = new HashMap<>();
 
-    public DeviceMemory() {
-        if(deviceRepository == null){
-            deviceRepository = new HashMap<>();
+    private static DeviceMemory instance;
+
+    private DeviceMemory() {
+    }
+
+    public static DeviceMemory getInstance(){
+        if(instance == null){
+            instance = new DeviceMemory();
         }
+        return instance;
     }
 
     @Override
