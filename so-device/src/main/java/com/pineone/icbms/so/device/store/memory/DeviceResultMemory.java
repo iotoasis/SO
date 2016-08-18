@@ -9,13 +9,20 @@ import java.util.Map;
 public class DeviceResultMemory implements DeviceResultStore {
 
     //
-    static private Map<String,DeviceResult> deviceResultRepository;
+    static private Map<String,DeviceResult> deviceResultRepository = new HashMap<>();
+    private static DeviceResultMemory instance;
 
-    public DeviceResultMemory() {
-        if(deviceResultRepository == null){
-            deviceResultRepository = new HashMap<>();
-        }
+    private DeviceResultMemory() {
     }
+
+    public static DeviceResultMemory getInstance(){
+        if(instance == null) {
+            instance = new DeviceResultMemory();
+        }
+        return instance;
+    }
+
+
 
     @Override
     public void create(DeviceResult deviceResult) {

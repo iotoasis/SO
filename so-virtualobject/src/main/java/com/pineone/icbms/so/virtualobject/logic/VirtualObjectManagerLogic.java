@@ -19,7 +19,7 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
 
     ClientService clientService = new ClientService();
 
-    VirtualObjectStore virtualObjectStore = new VirtualObjectMemory();
+    VirtualObjectStore virtualObjectStore = VirtualObjectMemory.getInstance();
 
     @Override
     public VirtualObject searchVirtualObject(String id) {

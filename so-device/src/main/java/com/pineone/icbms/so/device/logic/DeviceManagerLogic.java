@@ -14,8 +14,8 @@ import java.util.List;
 
 public class DeviceManagerLogic implements DeviceManager {
 
-    private DeviceStore deviceStore = new DeviceMemory();
-    private DeviceResultStore deviceResultStore = new DeviceResultMemory();
+    private DeviceStore deviceStore = DeviceMemory.getInstance();
+    private DeviceResultStore deviceResultStore = DeviceResultMemory.getInstance();
     private ClientService clientService = new ClientService();
 
 
@@ -178,7 +178,7 @@ public class DeviceManagerLogic implements DeviceManager {
 
     private void controlResultsStorage(String deviceId, String commandId, String deviceCommand, ResultMessage resultMessage){
 
-        DeviceResultStore deviceResultStore = new DeviceResultMemory();
+        DeviceResultStore deviceResultStore = DeviceResultMemory.getInstance();
 
         DeviceResult deviceResult = new DeviceResult();
 
