@@ -3,7 +3,7 @@ package com.pineone.icbms.so.contextmodel.proxy;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
-import com.pineone.icbms.so.contextmodel.entity.Domain;
+import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.util.address.AddressStore;
 import com.pineone.icbms.so.util.address.ContextAddress;
 import com.pineone.icbms.so.util.conversion.DataConversion;

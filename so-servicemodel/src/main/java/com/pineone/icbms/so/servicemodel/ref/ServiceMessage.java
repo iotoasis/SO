@@ -1,6 +1,6 @@
 package com.pineone.icbms.so.servicemodel.ref;
 
-import com.pineone.icbms.so.contextmodel.entity.Domain;
+import com.pineone.icbms.so.domain.entity.Domain;
 
 import java.util.ArrayList;
 import java.util.List;

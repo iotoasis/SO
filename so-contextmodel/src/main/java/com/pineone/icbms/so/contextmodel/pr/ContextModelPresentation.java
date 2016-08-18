@@ -1,14 +1,12 @@
 package com.pineone.icbms.so.contextmodel.pr;
 
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
-import com.pineone.icbms.so.contextmodel.entity.Domain;
 import com.pineone.icbms.so.contextmodel.logic.ContextModelLogic;
 import com.pineone.icbms.so.contextmodel.logic.ContextModelLogicImpl;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.contextmodel.ref.DataValidation;
 import com.pineone.icbms.so.contextmodel.ref.ResponseMessage;
-import com.pineone.icbms.so.contextmodel.store.ContextModelMapStore;
-import com.pineone.icbms.so.contextmodel.store.ContextModelStore;
+import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.util.exception.DataLossException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -34,16 +32,6 @@ public class ContextModelPresentation {
         //
         List<String> contextInformationNameList = contextModelLogic.retrieveContextInformationNameList();
         return contextInformationNameList;
-    }
-
-    //NOTE: DomainList 조회
-    @RequestMapping(value = "/domain", method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
-    public List<Domain> retrieveDomainListController(){
-        //
-        List<Domain> domainList = contextModelLogic.retrieveDomainList();
-        return domainList;
     }
 
     //NOTE : ContextType 조회

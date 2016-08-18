@@ -24,7 +24,7 @@ public class BizContextPresentationTest {
 
     @Test
     public void biz컨텍스트선택해서등록() throws Exception {
-        ResponseMessage responseMessage = bizContextPresentation.requestBizContext("LACK_PC");
+        ResponseMessage responseMessage = bizContextPresentation.registerBizContext("LACK_PC");
         System.out.println(responseMessage.getMessage());
     }
 

@@ -1,12 +1,11 @@
 package com.pineone.icbms.so.servicemodel;
 
-import com.pineone.icbms.so.contextmodel.entity.Domain;
+import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.service.ref.DeviceObject;
 import com.pineone.icbms.so.service.ref.Status;
 import com.pineone.icbms.so.service.ref.VirtualObject;
 import com.pineone.icbms.so.servicemodel.logic.ServiceModelLogic;
 import com.pineone.icbms.so.servicemodel.logic.ServiceModelLogicImpl;
-import com.pineone.icbms.so.servicemodel.ref.ServiceMessage;
 import org.junit.Test;
 
 /**

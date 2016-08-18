@@ -2,6 +2,7 @@ package com.pineone.icbms.so.bizcontext.logic;
 
 import com.pineone.icbms.so.bizcontext.proxy.BizContextProxy;
 import com.pineone.icbms.so.bizcontext.proxy.BizContextSDAProxy;
+import com.pineone.icbms.so.domain.entity.Domain;
 
 /**
  * Created by melvin on 2016. 8. 3..
@@ -16,9 +17,9 @@ public class LackMouseBizLogic extends AbstractBizContextLogic
     private BizContextProxy bizContextProxy = BizContextSDAProxy.newBizContextProxy();
 
     @Override
-    public int retrieveNeedQuantity(){
-        int currentValue = bizContextProxy.retrieveCurrentClassMouseAmount();
-        int nextValue = bizContextProxy.retrieveNextClassMouseAmount();
+    public int retrieveNeedQuantity(Domain domain){
+        int currentValue = bizContextProxy.retrieveCurrentClassMouseAmount(domain);
+        int nextValue = bizContextProxy.retrieveNextClassMouseAmount(domain);
 
         return nextValue - currentValue;
     }

@@ -1,14 +1,12 @@
 package com.pineone.icbms.so.servicemodel.pr;
 
-import com.pineone.icbms.so.contextmodel.entity.Domain;
+import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
 import com.pineone.icbms.so.servicemodel.logic.ServiceModelLogic;
 import com.pineone.icbms.so.servicemodel.logic.ServiceModelLogicImpl;
 import com.pineone.icbms.so.servicemodel.ref.DataValidation;
 import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
 import com.pineone.icbms.so.servicemodel.ref.ServiceMessage;
-import com.pineone.icbms.so.servicemodel.store.ServiceModelMapStore;
-import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
 import com.pineone.icbms.so.util.exception.DataLossException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
