@@ -7,7 +7,8 @@ import java.util.List;
 public interface DeviceStore {
     void create(Device device);
     Device retrieveByID(String id);
-    List<Device> retrievceByLocation(String location);
+    List<Device> retrieveByLocation(String location);
+    List<String> retrieveDeviceService(String location);
     void update(Device device);
     void delete(String id);
 }

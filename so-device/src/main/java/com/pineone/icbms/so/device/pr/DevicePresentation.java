@@ -30,7 +30,7 @@ public class DevicePresentation {
 
     public String deviceControl(String deviceId, String deviceService, String deviceCommand){
         // NOTE : Device Control
-        return deviceManager.deviceExecute(deviceId, deviceService, deviceCommand);
+        return deviceManager.deviceExecute(deviceId, deviceCommand);
     }
 
     public Device findDeviceById(String deviceId){
@@ -41,6 +41,12 @@ public class DevicePresentation {
     public List<Device> findDeviceByLocation(String location){
         // Search Device By Location
         return deviceManager.deviceSearchByLocation(location);
+    }
+
+    @RequestMapping(value = "/service/{location}",method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public List<String> deviceServiceList(@PathVariable String location) {
+        return deviceManager.requestDeviceServiceList(location);
     }
 
 

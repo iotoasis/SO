@@ -32,11 +32,18 @@ public class DeviceMemory implements DeviceStore {
     }
 
     @Override
-    public List<Device> retrievceByLocation(String location) {
-        // TODO : Device 순차 검색 후 List로 변환 하여 리턴.
+    public List<Device> retrieveByLocation(String location) {
+        // TODO : Device DB 적용후 적ㅇㅇ
         List<Device> deviceList = new ArrayList<>();
 
         return deviceList;
+    }
+
+    @Override
+    public List<String> retrieveDeviceService(String location) {
+        // TODO : Device DB 적용후 적ㅇㅇ
+        List<String> deviceServiceList = new ArrayList<>();
+        return deviceServiceList;
     }
 
     @Override

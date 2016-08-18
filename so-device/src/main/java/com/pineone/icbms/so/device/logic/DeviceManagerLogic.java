@@ -19,6 +19,7 @@ public class DeviceManagerLogic implements DeviceManager {
     private ClientService clientService = new ClientService();
 
 
+    @Override
     public void deviceRegister(deviceReleaseMessage deviceReleaseMessage){
         // NOTE : 디바이스 생성.
 
@@ -33,15 +34,13 @@ public class DeviceManagerLogic implements DeviceManager {
 
     }
 
+    @Override
     public void deviceRelease(String deviceId){
         deviceStore.delete(deviceId);
     }
 
-    private void deviceCreate(Device device){
-        deviceStore.create(device);
-    }
-
-    public String deviceExecute(String deviceId, String deviceService, String deviceCommand){
+    @Override
+    public String deviceExecute(String deviceId,String deviceCommand){
 
         String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
 
@@ -93,7 +92,12 @@ public class DeviceManagerLogic implements DeviceManager {
 
     @Override
     public List<Device> deviceSearchByLocation(String location) {
-        return deviceStore.retrievceByLocation(location);
+        return deviceStore.retrieveByLocation(location);
+    }
+
+    @Override
+    public List<String> requestDeviceServiceList(String location) {
+        return deviceStore.retrieveDeviceService(location);
     }
 
     private Device makeDeviceData(String deviceId, String deviceService, String deviceCommand){
@@ -187,6 +191,10 @@ public class DeviceManagerLogic implements DeviceManager {
 
         deviceResultStore.create(deviceResult);
 
+    }
+
+    private void deviceCreate(Device device){
+        deviceStore.create(device);
     }
 
 }
