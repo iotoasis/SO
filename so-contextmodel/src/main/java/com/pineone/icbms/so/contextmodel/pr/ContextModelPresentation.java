@@ -116,6 +116,15 @@ public class ContextModelPresentation {
         ContextModel contextModel = contextModelLogic.retrieveQueueData();
         return contextModel;
     }
+
+    //NOTE : DomainList 조회
+    @RequestMapping(value = "/domain" , method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public List<Domain> retrieveDomain(){
+        List<Domain> domainList = contextModelLogic.retrieveDomainList();
+        return domainList;
+    }
 }
 
 

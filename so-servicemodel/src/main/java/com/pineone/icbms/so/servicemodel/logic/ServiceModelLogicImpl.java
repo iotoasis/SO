@@ -24,7 +24,6 @@ public class ServiceModelLogicImpl implements ServiceModelLogic, Runnable {
     public static final Queue SERVICEMODEL_QUEUE = new LinkedList<>();
 
     ServiceModelProxy serviceModelProxy = ServiceModelInternalProxy.newServiceModelSDAProxy();
-    ServicePresentation servicePresentation = new ServicePresentation();
 
     public static ServiceModelLogic newServiceModelLogic() {
         return new ServiceModelLogicImpl();
@@ -80,7 +79,7 @@ public class ServiceModelLogicImpl implements ServiceModelLogic, Runnable {
                 ServiceModel serviceModel = this.retrieveServiceModelDetail(serviceMessage.getServiceModelName());
                 List<Domain> domainList = serviceMessage.getDomainList();
                 for (String serviceName : serviceModel.getServiceNameList()) {
-                    Service service = servicePresentation.retrieveServiceDetailController(serviceName);
+                    Service service = serviceModelProxy.retrieveServiceDetail(serviceName);
                     for (Domain domain : domainList) {
                         executeDummyClass.controlService(domain.getName(), service.getDeviceObject(), service.getStatus());
                     }

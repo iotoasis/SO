@@ -4,6 +4,7 @@ import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.domain.store.DomainStore;
 import com.pineone.icbms.so.domain.store.DomainStoreImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +14,13 @@ import java.util.List;
  * NOTE: Domain 관련 로직
  */
 
+//@Service
 public class DomainLogicImpl implements DomainLogic {
 
     DomainStore domainStore = new DomainStoreImpl();
 
 //    @Autowired
-//    DomainStoreImpl domainStore;
+//    DomainStore domainStore;
 
     public static DomainLogicImpl newDomainLogic(){
         return new DomainLogicImpl();

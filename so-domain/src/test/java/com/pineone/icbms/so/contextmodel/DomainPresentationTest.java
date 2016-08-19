@@ -1,14 +1,17 @@
 package com.pineone.icbms.so.contextmodel;
 
+import com.pineone.icbms.so.domain.DomainApplication;
 import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.domain.pr.DomainPresentation;
 import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
 /**
  * Created by melvin on 2016. 8. 1..
  */
+
 public class DomainPresentationTest {
 
     DomainPresentation domainPresentation = new DomainPresentation();

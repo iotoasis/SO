@@ -1,7 +1,7 @@
 package com.pineone.icbms.so.contextmodel.logic;
 
-import com.pineone.icbms.so.contextinformation.pr.ContextInformationPresentation;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
+import com.pineone.icbms.so.contextmodel.proxy.ContextModelInternalProxy;
 import com.pineone.icbms.so.contextmodel.proxy.ContextModelProxy;
 import com.pineone.icbms.so.contextmodel.proxy.ContextModelSDAProxy;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
@@ -29,8 +29,8 @@ public class ContextModelLogicImpl implements ContextModelLogic{
     //NOTE: ContextInformationLogic 컴포넌트에서 퍼블리싱한 정보를 이용해서 ContextInformationLogic 리스트 조회
     public List<String> retrieveContextInformationNameList(){
         //
-        ContextInformationPresentation contextInformationPresentation = new ContextInformationPresentation();
-        List<String> contextInformationList = contextInformationPresentation.retrieveContextInformationNameList();
+        ContextModelProxy contextModelProxy = new ContextModelInternalProxy().newContextModelInternalProxy();
+        List<String> contextInformationList = contextModelProxy.retrieveContextInformationNameList();
         return contextInformationList;
     }
 
@@ -99,7 +99,7 @@ public class ContextModelLogicImpl implements ContextModelLogic{
         return contextModel.getContextType();
     }
 
-    //NOTE: EmergencyContextmodel 을 일시적으로 Queue에 저장. Profile Component 에서 사용 할 수 QUEUE 에 삽입
+    //NOTE: EmergencyContextmodel 을 일시적으로 Queue 에 저장. Profile Component 에서 사용 할 수 QUEUE 에 삽입
     @Override
     public String useQueueSaveContextModel(ContextModel contextModel) {
         //
@@ -115,5 +115,12 @@ public class ContextModelLogicImpl implements ContextModelLogic{
     public ContextModel retrieveQueueData() {
         ContextModel contextModel = (ContextModel) ContextModelLogicImpl.CONTEXT_MODEL_QUEUE.poll();
         return contextModel;
+    }
+
+    @Override
+    public List<Domain> retrieveDomainList() {
+        ContextModelProxy contextModelProxy = ContextModelInternalProxy.newContextModelInternalProxy();
+        List<Domain> domainList = contextModelProxy.retrieveDomainList();
+        return domainList;
     }
 }
