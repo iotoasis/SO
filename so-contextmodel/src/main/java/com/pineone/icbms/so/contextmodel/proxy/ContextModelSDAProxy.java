@@ -17,7 +17,7 @@ import java.util.List;
  * Created by melvin on 2016. 8. 2..
  * NOTE: ContextModel 관련 SDA Interface 이용
  */
-public class ContextModelSDAProxy implements ContextModelProxy{
+public class ContextModelSDAProxy extends AbstractContextModelProxy {
 
     private ClientService clientService = new ClientService();
     private ContextAddress contextAddress = ContextAddress.newContextAddress();

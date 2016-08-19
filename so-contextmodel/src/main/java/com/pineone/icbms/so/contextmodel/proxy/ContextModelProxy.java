@@ -9,10 +9,11 @@ import java.util.List;
  * Created by melvin on 2016. 8. 2..
  */
 public interface ContextModelProxy {
-
+    //
     String registerContextModel(ContextModel contextModel);
     List<ContextModel> retrieveContextModelListFromSDA();
     ContextModel retrieveContextModelDetail(String contextModelName);
     List<Domain> retrieveContextModelEvent(String contextModelName);
-
+    List<String> retrieveContextInformationNameList();
+    List<Domain> retrieveDomainList();
 }

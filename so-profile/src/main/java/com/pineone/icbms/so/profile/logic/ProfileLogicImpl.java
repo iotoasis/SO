@@ -6,6 +6,8 @@ import com.pineone.icbms.so.contextmodel.logic.ContextModelLogicImpl;
 import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.profile.entity.Profile;
+import com.pineone.icbms.so.profile.proxy.ProfileInternalProxy;
+import com.pineone.icbms.so.profile.proxy.ProfileProxy;
 import com.pineone.icbms.so.profile.ref.ResponseMessage;
 import com.pineone.icbms.so.profile.store.ProfileMapStore;
 import com.pineone.icbms.so.profile.store.ProfileStore;
@@ -20,9 +22,7 @@ import java.util.List;
  */
 public class ProfileLogicImpl implements ProfileLogic, Runnable{
     //
-    ServiceModelPresentation serviceModelPresentation = new ServiceModelPresentation();
     ContextModelPresentation contextModelPresentation = new ContextModelPresentation();
-    BizContextPresentation bizContextPresentation = new BizContextPresentation();
 
     public static ProfileLogicImpl newProfileLogic() {
         return new ProfileLogicImpl();
@@ -32,7 +32,8 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     @Override
     public List<String> retrieveContextModelNameList() {
         //
-        List<String> contextModelNameList = contextModelPresentation.retrieveContextModelList();
+        ProfileProxy profileProxy = ProfileInternalProxy.newProfileInternalProxy();
+        List<String> contextModelNameList = profileProxy.retrieveContextModelNameList();
         return contextModelNameList;
     }
 
@@ -40,7 +41,8 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     @Override
     public List<String> retrieveServiceModelNameList() {
         //
-        List<String> serviceModelNameList = serviceModelPresentation.retrieveServiceModelList();
+        ProfileProxy profileProxy = ProfileInternalProxy.newProfileInternalProxy();
+        List<String> serviceModelNameList = profileProxy.retrieveServiceModelNameList();
         return serviceModelNameList;
     }
 
@@ -48,11 +50,13 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     @Override
     public List<String> retrieveBizContextNameList() {
         //
-        List<String> bizContextTypeList = bizContextPresentation.retrieveBizContextList();
+        ProfileProxy profileProxy = ProfileInternalProxy.newProfileInternalProxy();
+        List<String> bizContextTypeList = profileProxy.retrieveBizContextList();
         return bizContextTypeList;
     }
 
     //NOTE : Profile 등록 정보를 수신받고 SO DB에 저장하고 보여줘야할 내용(ResponseMessage)을 리턴
+    // TODO : 컨텍스트모델에서 Type 구분후 등록받으면 변경
     @Override
     public String registerProfile(Profile profile) {
         //
@@ -102,14 +106,15 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     @Override
     public void run() {
         //
+        ProfileProxy profileProxy = ProfileInternalProxy.newProfileInternalProxy();
         while(true){
             try{
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if(!(ContextModelLogicImpl.CONTEXT_MODEL_QUEUE.isEmpty())){
-                ContextModel contextModel = contextModelPresentation.retrieveContextModelQueueData();
+            if(!(profileProxy.checkContextModelQueue())){
+                ContextModel contextModel = profileProxy.retrieveContextModelQueueData();
                 System.out.println(contextModel.getName());
                 //TODO : 디비 연결후 contextModel 이름으로 Profile 조회 기능 구현 및 연결
                 //TODO : Profile 로 ServiceModel 찾아서 ServiceModel 에 전송

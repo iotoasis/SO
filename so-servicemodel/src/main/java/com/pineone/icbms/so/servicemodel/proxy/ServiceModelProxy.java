@@ -1,5 +1,7 @@
 package com.pineone.icbms.so.servicemodel.proxy;
 
+import com.pineone.icbms.so.service.entity.Service;
+
 import java.util.List;
 
 /**
@@ -8,6 +10,5 @@ import java.util.List;
 public interface ServiceModelProxy {
     //
     List<String> retrieveServiceNameList();
-
-
+    Service retrieveServiceDetail(String serviceName);
 }

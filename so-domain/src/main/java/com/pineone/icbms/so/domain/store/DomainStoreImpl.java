@@ -4,6 +4,7 @@ import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.domain.ref.Domain_Note;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,10 +13,10 @@ import java.util.List;
 /**
  * Created by melvin on 2016. 8. 17..
  */
+
 @Service
 public class DomainStoreImpl implements DomainStore{
     //
-    @Override
     public List<Domain> retrieveDomainList() {
         //
         List<Domain> domainList = new ArrayList<>();
