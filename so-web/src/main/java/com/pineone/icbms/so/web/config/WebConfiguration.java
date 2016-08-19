@@ -17,7 +17,6 @@ import org.springframework.context.annotation.Import;
  */
 @Import({BizContextApplication.class, ContextInformationApplication.class,
         ContextModelApplication.class, DeviceApplication.class,
-        ServiceApplication.class, UtilApplication.class})
         ServiceApplication.class, UtilApplication.class,
         ServiceModelApplication.class})
 @EnableAutoConfiguration
