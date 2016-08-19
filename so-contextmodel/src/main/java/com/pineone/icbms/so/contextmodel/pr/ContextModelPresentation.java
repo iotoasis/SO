@@ -1,14 +1,12 @@
 package com.pineone.icbms.so.contextmodel.pr;
 
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
-import com.pineone.icbms.so.contextmodel.entity.Domain;
 import com.pineone.icbms.so.contextmodel.logic.ContextModelLogic;
 import com.pineone.icbms.so.contextmodel.logic.ContextModelLogicImpl;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.contextmodel.ref.DataValidation;
 import com.pineone.icbms.so.contextmodel.ref.ResponseMessage;
-import com.pineone.icbms.so.contextmodel.store.ContextModelMapStore;
-import com.pineone.icbms.so.contextmodel.store.ContextModelStore;
+import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.util.exception.DataLossException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -34,16 +32,6 @@ public class ContextModelPresentation {
         //
         List<String> contextInformationNameList = contextModelLogic.retrieveContextInformationNameList();
         return contextInformationNameList;
-    }
-
-    //NOTE: DomainList 조회
-    @RequestMapping(value = "/domain", method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
-    public List<Domain> retrieveDomainListController(){
-        //
-        List<Domain> domainList = contextModelLogic.retrieveDomainList();
-        return domainList;
     }
 
     //NOTE : ContextType 조회
@@ -103,4 +91,32 @@ public class ContextModelPresentation {
         String contextModelType = contextModelLogic.retrieveContextModelType(contextModelName);
         return contextModelType;
     }
+
+    //NOTE: SDA 에서 사용할 Emergency ContextModel 을 수신 받기 위한 인터페이스 제공
+    @RequestMapping(value = "/occ", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public ResponseMessage emergencyContextModel(@RequestBody ContextModel contextModel){
+        //
+        DataValidation dataValidation = DataValidation.newDataValidation();
+        ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
+        try {
+            dataValidation.inspectContextModel(contextModel);
+        } catch (DataLossException e) {
+            responseMessage.setExceptionMessage(e.getMessage());
+            return responseMessage;
+        }
+        String resultMessage = contextModelLogic.useQueueSaveContextModel(contextModel);
+        responseMessage.setMessage(resultMessage);
+        return responseMessage;
+    }
+
+    //NOTE: ContextModel Queue 에 있는 데이터를 Read
+    public ContextModel retrieveContextModelQueueData(){
+        ContextModel contextModel = contextModelLogic.retrieveQueueData();
+        return contextModel;
+    }
 }
+
+
+

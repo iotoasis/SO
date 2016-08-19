@@ -15,6 +15,8 @@ public class ProfileMapStore implements ProfileStore {
 
     private static ProfileMapStore instance;
     private ProfileMapStore(){};
+
+    //NOTE : 이름으로 프로파일 조회
     private Map<String, Profile> profileStore = new HashMap<>();
 
     //NOTE: DB 에 Profile 데이터 생성

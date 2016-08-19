@@ -2,6 +2,7 @@ package com.pineone.icbms.so.bizcontext.logic;
 
 import com.pineone.icbms.so.bizcontext.proxy.BizContextProxy;
 import com.pineone.icbms.so.bizcontext.proxy.BizContextSDAProxy;
+import com.pineone.icbms.so.domain.entity.Domain;
 
 /**
  * Created by melvin on 2016. 8. 3..
@@ -15,10 +16,10 @@ public class LackPCBizLogic extends AbstractBizContextLogic{
     private BizContextProxy bizContextProxy = BizContextSDAProxy.newBizContextProxy();
 
     @Override
-    public int retrieveNeedQuantity(){
+    public int retrieveNeedQuantity(Domain domain){
         //
-        int currentValue = bizContextProxy.retrieveCurrentClassPCAmount();
-        int nextValue = bizContextProxy.retrieveNextClassPCAmount();
+        int currentValue = bizContextProxy.retrieveCurrentClassPCAmount(domain);
+        int nextValue = bizContextProxy.retrieveNextClassPCAmount(domain);
 
         return nextValue - currentValue;
     }

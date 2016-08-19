@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.bizcontext.proxy;
 
 import com.google.gson.Gson;
+import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.util.address.AddressStore;
 import com.pineone.icbms.so.util.address.ContextAddress;
 import com.pineone.icbms.so.util.http.ClientService;
@@ -20,11 +21,11 @@ public class BizContextSDAProxy implements BizContextProxy{
 
     //NOTE: SDA 에 현재 사용량을 조회 (전력외 다른 Aspect 추가시 파라미터 추가)
     @Override
-    public int retrieveCurrentValue() {
+    public int retrieveCurrentValue(Domain domain) {
         //
         contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService
-                (contextAddress.getAddress() + AddressStore.RETRIEVE_CURRENT_VALUE);
+                (contextAddress.getAddress() + AddressStore.RETRIEVE_CURRENT_VALUE + "/" + domain.getName());
         String response = new Gson().toJson(message);
         int currentValue = Integer.parseInt(response);
         return currentValue;
@@ -32,11 +33,11 @@ public class BizContextSDAProxy implements BizContextProxy{
 
     //NOTE: SDA 에 과거 사용량을 조회 (전력외 다른 Aspect 추가시 파라미터 추가,  시간등록 필요시 Aspect 추가)
     @Override
-    public int retrievePastValue() {
+    public int retrievePastValue(Domain domain) {
         //
         contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getAddress() + AddressStore.RETRIEVE_PAST_VALUE);
+                contextAddress.getAddress() + AddressStore.RETRIEVE_PAST_VALUE + "/" + domain.getName());
         String response = new Gson().toJson(message);
         int pastValue = Integer.parseInt(response);
         return pastValue;
@@ -44,11 +45,11 @@ public class BizContextSDAProxy implements BizContextProxy{
 
     // NOTE : SDA 에 모든 디바이스의 예상 총 전력 소비량 조회
     @Override
-    public int retrieveAllDeviceUseAmount() {
+    public int retrieveAllDeviceUseAmount(Domain domain) {
         //
         contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getAddress() + AddressStore.RETRIEVE_USE_AMOUNT);
+                contextAddress.getAddress() + AddressStore.RETRIEVE_USE_AMOUNT + "/" + domain.getName());
         String response = new Gson().toJson(message);
         int useAmount = Integer.parseInt(response);
         return useAmount;
@@ -56,11 +57,11 @@ public class BizContextSDAProxy implements BizContextProxy{
 
     //NOTE : SDA 에 목표 전력 사용량을 조회
     @Override
-    public int retrieveObjectValue() {
+    public int retrieveObjectValue(Domain domain) {
         //
         contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getAddress() + AddressStore.RETRIEVE_OBJECT_VALUE);
+                contextAddress.getAddress() + AddressStore.RETRIEVE_OBJECT_VALUE + "/" + domain.getName());
         String response = new Gson().toJson(message);
         int objectValue = Integer.parseInt(response);
         return objectValue;
@@ -68,11 +69,11 @@ public class BizContextSDAProxy implements BizContextProxy{
 
     //NOTE : SDA 에 현재 전산실의 PC 수량을 조회
     @Override
-    public int retrieveCurrentClassPCAmount() {
+    public int retrieveCurrentClassPCAmount(Domain domain) {
         //
         contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getAddress() + AddressStore.RETRIEVE_CURRENT_PC);
+                contextAddress.getAddress() + AddressStore.RETRIEVE_CURRENT_PC + "/" + domain.getName());
         String response = new Gson().toJson(message);
         int currentPC = Integer.parseInt(response);
         return currentPC;
@@ -80,11 +81,11 @@ public class BizContextSDAProxy implements BizContextProxy{
 
     //NOTE : SDA 에 전산실의 다음 수업에 필요한 PC 수량을 조회
     @Override
-    public int retrieveNextClassPCAmount() {
+    public int retrieveNextClassPCAmount(Domain domain) {
         //
         contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getAddress() + AddressStore.RETRIEVE_NEXT_PC);
+                contextAddress.getAddress() + AddressStore.RETRIEVE_NEXT_PC + "/" + domain.getName());
         String response = new Gson().toJson(message);
         int nextPC = Integer.parseInt(response);
         return nextPC;
@@ -92,11 +93,11 @@ public class BizContextSDAProxy implements BizContextProxy{
 
     //NOTE : SDA 에 현재 전산실의 마우스 수량을 조회
     @Override
-    public int retrieveCurrentClassMouseAmount() {
+    public int retrieveCurrentClassMouseAmount(Domain domain) {
         //
         contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getAddress() + AddressStore.RETRIEVE_CURRENT_MOUSE);
+                contextAddress.getAddress() + AddressStore.RETRIEVE_CURRENT_MOUSE + "/" + domain.getName());
         String response = new Gson().toJson(message);
         int currentMouse = Integer.parseInt(response);
         return currentMouse;
@@ -104,11 +105,11 @@ public class BizContextSDAProxy implements BizContextProxy{
 
     //NOTE : SDA 에 전산실의 다음 수업에 필요한 마우스 수량을 조회
     @Override
-    public int retrieveNextClassMouseAmount() {
+    public int retrieveNextClassMouseAmount(Domain domain) {
         //
         contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getAddress() + AddressStore.RETRIEVE_NEXT_MOUSE);
+                contextAddress.getAddress() + AddressStore.RETRIEVE_NEXT_MOUSE + "/" + domain.getName());
         String response = new Gson().toJson(message);
         int nextMouse = Integer.parseInt(response);
         return nextMouse;
@@ -116,11 +117,11 @@ public class BizContextSDAProxy implements BizContextProxy{
 
     //NOTE : SDA 에 현재 전산실의 키보드 수량을 조회
     @Override
-    public int retrieveCurrentClassKeyBoardAmount() {
+    public int retrieveCurrentClassKeyBoardAmount(Domain domain) {
         //
         contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getAddress() + AddressStore.RETRIEVE_CURRENT_KEYBOARD);
+                contextAddress.getAddress() + AddressStore.RETRIEVE_CURRENT_KEYBOARD + "/" + domain.getName());
         String response = new Gson().toJson(message);
         int currentKeyBoard = Integer.parseInt(response);
         return currentKeyBoard;
@@ -128,11 +129,11 @@ public class BizContextSDAProxy implements BizContextProxy{
 
     //NOTE : SDA 에 현재 전산실의 다음 수업에 필요한 키보드 수량을 조회
     @Override
-    public int retrieveNextClassKeyBoardAmount() {
+    public int retrieveNextClassKeyBoardAmount(Domain domain) {
         //
         contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getAddress() + AddressStore.RETRIEVE_NEXT_KEYBOARD);
+                contextAddress.getAddress() + AddressStore.RETRIEVE_NEXT_KEYBOARD + "/" + domain.getName());
         String response = new Gson().toJson(message);
         int nextKeyBoard = Integer.parseInt(response);
         return nextKeyBoard;

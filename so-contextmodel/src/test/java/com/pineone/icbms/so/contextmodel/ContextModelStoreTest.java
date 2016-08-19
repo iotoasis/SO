@@ -4,11 +4,12 @@ import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
 import com.pineone.icbms.so.contextinformation.store.ContextInformationMapStore;
 import com.pineone.icbms.so.contextinformation.store.ContextInformationStore;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
-import com.pineone.icbms.so.contextmodel.entity.Domain;
 import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.contextmodel.store.ContextModelMapStore;
 import com.pineone.icbms.so.contextmodel.store.ContextModelStore;
+import com.pineone.icbms.so.domain.entity.Domain;
+import com.pineone.icbms.so.domain.pr.DomainPresentation;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,6 +22,7 @@ import java.util.List;
 public class ContextModelStoreTest {
 
     ContextModelPresentation contextModelPresentation = new ContextModelPresentation();
+    DomainPresentation domainPresentation = new DomainPresentation();
 
     // NOTE: MAP 디비에 ContextModel 저장
     @Before
@@ -41,7 +43,7 @@ public class ContextModelStoreTest {
 
         contextModel.setContextInformationList(chooseContextInformationNameList);
 
-        List<Domain> domainList =  contextModelPresentation.retrieveDomainListController();
+        List<Domain> domainList =  domainPresentation.retrieveDomainListController();
 
         List<Domain> chooseDomainList = new ArrayList<>();
         chooseDomainList.add(domainList.get(0));

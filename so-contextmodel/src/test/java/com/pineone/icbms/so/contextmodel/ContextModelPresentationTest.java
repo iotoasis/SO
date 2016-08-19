@@ -4,9 +4,10 @@ import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
 import com.pineone.icbms.so.contextinformation.store.ContextInformationMapStore;
 import com.pineone.icbms.so.contextinformation.store.ContextInformationStore;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
-import com.pineone.icbms.so.contextmodel.entity.Domain;
 import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
+import com.pineone.icbms.so.domain.entity.Domain;
+import com.pineone.icbms.so.domain.pr.DomainPresentation;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,11 +20,12 @@ import java.util.List;
 public class ContextModelPresentationTest {
 
     ContextModelPresentation contextModelPresentation = new ContextModelPresentation();
+    DomainPresentation domainPresentation = new DomainPresentation();
 
     @Test
     public void domain조회() throws Exception {
 
-        List<Domain> domainList = contextModelPresentation.retrieveDomainListController();
+        List<Domain> domainList = domainPresentation.retrieveDomainListController();
         for(Domain domain : domainList){
             System.out.println(domain.getName());
             System.out.println(domain.getUri());
@@ -73,7 +75,7 @@ public class ContextModelPresentationTest {
         System.out.println();
 
         System.out.println("*********** Step3 : DomainList 조회 **************");
-        List<Domain> domainList =  contextModelPresentation.retrieveDomainListController();
+        List<Domain> domainList =  domainPresentation.retrieveDomainListController();
         for(Domain domain : domainList) {
             System.out.println(domain.getName());
         }

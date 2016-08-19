@@ -1,26 +1,33 @@
 package com.pineone.icbms.so.device.entity;
 
-public class Device {
-    //
-    private String deviceId;
-    private String deviceName;
-    private String deviceLocation;
-    private String deviceUri;
-    private String deviceService;
-    private String deviceCommand;
-    private String deviceCreateTime;
-    private String deviceExfiredTime;
+import java.util.List;
 
+public class Device {
+
+    // Command Device Parameter
+    private String          deviceId;
+    private String          deviceName;
+    private String          deviceLocation;
+    private String          deviceUri;
+    private List<String>    deviceCommand;
+    private List<String>    deviceServices;
+    private String          deviceCreateTime;
+    private String          deviceExfiredTime;
+
+    // Real Device Parameter
+    private String          deviceRealCommandId;
+    private String          deviceRealService;
+    private String          deviceRealCommand;
 
     public Device() {
     }
 
-    public Device(String deviceId, String deviceName, String deviceLocation, String deviceUri, String deviceService, String deviceCommand, String deviceCreateTime, String deviceExfiredTime) {
+    public Device(String deviceId, String deviceName, String deviceLocation, String deviceUri, List<String> deviceServices, List<String> deviceCommand, String deviceCreateTime, String deviceExfiredTime) {
         this.deviceId = deviceId;
         this.deviceName = deviceName;
         this.deviceLocation = deviceLocation;
         this.deviceUri = deviceUri;
-        this.deviceService = deviceService;
+        this.deviceServices = deviceServices;
         this.deviceCommand = deviceCommand;
         this.deviceCreateTime = deviceCreateTime;
         this.deviceExfiredTime = deviceExfiredTime;
@@ -58,19 +65,19 @@ public class Device {
         this.deviceUri = deviceUri;
     }
 
-    public String getDeviceService() {
-        return deviceService;
+    public List<String> getDeviceServices() {
+        return deviceServices;
     }
 
-    public void setDeviceService(String deviceService) {
-        this.deviceService = deviceService;
+    public void setDeviceServices(List<String> deviceServices) {
+        this.deviceServices = deviceServices;
     }
 
-    public String getDeviceCommand() {
+    public List<String> getDeviceCommand() {
         return deviceCommand;
     }
 
-    public void setDeviceCommand(String deviceCommand) {
+    public void setDeviceCommand(List<String> deviceCommand) {
         this.deviceCommand = deviceCommand;
     }
 
@@ -88,5 +95,29 @@ public class Device {
 
     public void setDeviceExfiredTime(String deviceExfiredTime) {
         this.deviceExfiredTime = deviceExfiredTime;
+    }
+
+    public String getDeviceRealService() {
+        return deviceRealService;
+    }
+
+    public void setDeviceRealService(String deviceRealService) {
+        this.deviceRealService = deviceRealService;
+    }
+
+    public String getDeviceRealCommand() {
+        return deviceRealCommand;
+    }
+
+    public void setDeviceRealCommand(String deviceRealCommand) {
+        this.deviceRealCommand = deviceRealCommand;
+    }
+
+    public String getDeviceRealCommandId() {
+        return deviceRealCommandId;
+    }
+
+    public void setDeviceRealCommandId(String deviceRealCommandId) {
+        this.deviceRealCommandId = deviceRealCommandId;
     }
 }

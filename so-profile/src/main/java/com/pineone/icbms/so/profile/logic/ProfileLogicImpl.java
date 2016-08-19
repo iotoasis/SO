@@ -1,6 +1,8 @@
 package com.pineone.icbms.so.profile.logic;
 
 import com.pineone.icbms.so.bizcontext.pr.BizContextPresentation;
+import com.pineone.icbms.so.contextmodel.entity.ContextModel;
+import com.pineone.icbms.so.contextmodel.logic.ContextModelLogicImpl;
 import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.profile.entity.Profile;
@@ -16,9 +18,8 @@ import java.util.List;
  * Created by melvin on 2016. 8. 11..
  * NOTE: Profile 생성 및 실행 로직 포함
  */
-public class ProfileLogicImpl implements ProfileLogic{
+public class ProfileLogicImpl implements ProfileLogic, Runnable{
     //
-
     ServiceModelPresentation serviceModelPresentation = new ServiceModelPresentation();
     ContextModelPresentation contextModelPresentation = new ContextModelPresentation();
     BizContextPresentation bizContextPresentation = new BizContextPresentation();
@@ -95,5 +96,24 @@ public class ProfileLogicImpl implements ProfileLogic{
         ProfileStore profileStore = ProfileMapStore.getInstance();
         Profile profile = profileStore.retrieveProfileDetail(profileName);
         return profile;
+    }
+
+    //NOTE : ContextModel QUEUE 에 ContextModel 이 있다면 로직 실행
+    @Override
+    public void run() {
+        //
+        while(true){
+            try{
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if(!(ContextModelLogicImpl.CONTEXT_MODEL_QUEUE.isEmpty())){
+                ContextModel contextModel = contextModelPresentation.retrieveContextModelQueueData();
+                System.out.println(contextModel.getName());
+                //TODO : 디비 연결후 contextModel 이름으로 Profile 조회 기능 구현 및 연결
+                //TODO : Profile 로 ServiceModel 찾아서 ServiceModel 에 전송
+            }
+        }
     }
 }
