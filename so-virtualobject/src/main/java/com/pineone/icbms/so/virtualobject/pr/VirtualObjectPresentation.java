@@ -24,7 +24,7 @@ public class VirtualObjectPresentation {
 
     private VirtualObjectManager virtualObjectManager = new VirtualObjectManagerLogic();
 
-    @RequestMapping(value = "/create",method = RequestMethod.POST)
+    @RequestMapping(value = "/",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public void createVirtualObject(@RequestBody ExternalVirtulaObject virtulaObject){
         virtualObjectManager.produceVirtualObject(virtulaObject);
@@ -37,7 +37,7 @@ public class VirtualObjectPresentation {
         return virtualObjectManager.controlDevice(id, operation);
     }
 
-    @RequestMapping(value = "/search/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/resource/{id}",method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public VirtualObject searchVirtualObject(@PathVariable String id){
         return virtualObjectManager.searchVirtualObject(id);

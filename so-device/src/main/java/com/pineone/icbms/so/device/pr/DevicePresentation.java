@@ -4,7 +4,7 @@ import com.pineone.icbms.so.device.entity.Device;
 import com.pineone.icbms.so.device.entity.ResultMessage;
 import com.pineone.icbms.so.device.entity.deviceReleaseMessage;
 import com.pineone.icbms.so.device.logic.DeviceManager;
-import com.pineone.icbms.so.device.logic.DeviceManagerLogic;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,23 +26,42 @@ public class DevicePresentation {
      * Device Service들 요청.
      */
 
-    private DeviceManager deviceManager = new DeviceManagerLogic();
+    @Autowired
+    private DeviceManager deviceManager;
 
-    public String deviceControl(String deviceId, String deviceService, String deviceCommand){
+    /**
+     *  Device 제어 요청
+     */
+    @RequestMapping(value = "/contol",method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public String deviceControl(@RequestBody String deviceId, String deviceCommand){
         // NOTE : Device Control
         return deviceManager.deviceExecute(deviceId, deviceCommand);
     }
 
-    public Device findDeviceById(String deviceId){
+    /**
+     *  Device 검색. By ID
+     */
+    @RequestMapping(value = "/{deviceId}",method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public Device findDeviceById(@PathVariable String deviceId){
         // Search Device By Id
         return deviceManager.deviceSearchById(deviceId);
     }
 
+    /**
+     *  Device 검색. By Location
+     */
+    @RequestMapping(value = "/location/{location}",method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
     public List<Device> findDeviceByLocation(String location){
         // Search Device By Location
         return deviceManager.deviceSearchByLocation(location);
     }
 
+    /**
+     *  Device 서비스 리스트 검색
+     */
     @RequestMapping(value = "/service/{location}",method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<String> deviceServiceList(@PathVariable String location) {
@@ -50,7 +69,10 @@ public class DevicePresentation {
     }
 
 
-    @RequestMapping(value = "/enable",method = RequestMethod.POST)
+    /**
+     *  Device 등록 노티 SI -> SO
+     */
+    @RequestMapping(value = "",method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public void deviceEnableNotification(@RequestBody deviceReleaseMessage message) {
         // NOTE : Register the device memory
@@ -58,7 +80,10 @@ public class DevicePresentation {
     }
 
 
-    @RequestMapping(value ="/disable",method = RequestMethod.POST)
+    /**
+     *  Device 해제 노티 SI -> SO
+     */
+    @RequestMapping(value ="",method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deviceDisableNotification(@RequestBody deviceReleaseMessage message) {
         // NOTE : Unregister the device memory
@@ -66,6 +91,9 @@ public class DevicePresentation {
     }
 
 
+    /**
+     *  Device 제어 결과 노티 SI -> SO
+     */
     @RequestMapping(value ="/moniter",method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public String asynchronousControlResult(@RequestBody ResultMessage message){
