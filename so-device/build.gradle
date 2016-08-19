@@ -4,16 +4,13 @@ apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'idea'
 
-
-sourceCompatibility = 1.7
-
 repositories {
     mavenCentral()
     jcenter()
 }
 
 dependencies {
-    def springVersion = "4.0.5.RELEASE"
+    def springVersion = "4.2.2.RELEASE"
     def jacksonVersion = "1.9.13"
     def jsonVersion = "1.1.1"
 

@@ -3,19 +3,27 @@ package com.pineone.icbms.so.device.logic;
 import com.pineone.icbms.so.device.entity.*;
 import com.pineone.icbms.so.device.store.DeviceResultStore;
 import com.pineone.icbms.so.device.store.DeviceStore;
-import com.pineone.icbms.so.device.store.memory.DeviceMemory;
-import com.pineone.icbms.so.device.store.memory.DeviceResultMemory;
 import com.pineone.icbms.so.device.util.ClientProfile;
 import com.pineone.icbms.so.device.util.ClientService;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
 
+@Service
 public class DeviceManagerLogic implements DeviceManager {
 
-    private DeviceStore deviceStore = DeviceMemory.getInstance();
-    private DeviceResultStore deviceResultStore = DeviceResultMemory.getInstance();
+//    private DeviceStore deviceStore = DeviceMemory.getInstance();
+//    private DeviceResultStore deviceResultStore = DeviceResultMemory.getInstance();
+
+    @Autowired
+    private DeviceStore deviceStore;
+//    private DeviceStore deviceStore = new DeviceMongoStore();
+    @Autowired
+    private DeviceResultStore deviceResultStore;
+
     private ClientService clientService = new ClientService();
 
 
@@ -100,17 +108,17 @@ public class DeviceManagerLogic implements DeviceManager {
         return deviceStore.retrieveDeviceService(location);
     }
 
-    private Device makeDeviceData(String deviceId, String deviceService, String deviceCommand){
-        // Device 식별자로 Device를 DB에서 끄냄.
-        Device device = deviceStore.retrieveByID(deviceId);
-
-        // Device에 RealService, RealCommand 설정.
-        device.setDeviceRealService(deviceService);
-        device.setDeviceRealCommand(deviceCommand);
-        device.setDeviceRealCommandId(ClientProfile.SI_COMMAND_ID + System.nanoTime());
-
-        return device;
-    }
+//    private Device makeDeviceData(String deviceId, String deviceService, String deviceCommand){
+//        // Device 식별자로 Device를 DB에서 끄냄.
+//        Device device = deviceStore.retrieveByID(deviceId);
+//
+//        // Device에 RealService, RealCommand 설정.
+//        device.setDeviceRealService(deviceService);
+//        device.setDeviceRealCommand(deviceCommand);
+//        device.setDeviceRealCommandId(ClientProfile.SI_COMMAND_ID + System.nanoTime());
+//
+//        return device;
+//    }
 
 
     private DeviceControlMessage deviceDataConversion(String deviceId, String commandId, String deviceCommand){
@@ -177,8 +185,6 @@ public class DeviceManagerLogic implements DeviceManager {
     }
 
     private void controlResultsStorage(String deviceId, String commandId, String deviceCommand, ResultMessage resultMessage){
-
-        DeviceResultStore deviceResultStore = DeviceResultMemory.getInstance();
 
         DeviceResult deviceResult = new DeviceResult();
 

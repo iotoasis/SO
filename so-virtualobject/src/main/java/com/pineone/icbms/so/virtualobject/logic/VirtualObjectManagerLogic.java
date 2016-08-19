@@ -2,9 +2,10 @@ package com.pineone.icbms.so.virtualobject.logic;
 
 import com.pineone.icbms.so.device.logic.DeviceManager;
 import com.pineone.icbms.so.device.util.ClientProfile;
-import com.pineone.icbms.so.device.util.ClientService;
 import com.pineone.icbms.so.virtualobject.entity.ExternalVirtulaObject;
 import com.pineone.icbms.so.virtualobject.entity.VirtualObject;
+import com.pineone.icbms.so.virtualobject.proxy.VirtualObjectProxy;
+import com.pineone.icbms.so.virtualobject.proxy.VirtualObjectSDAProxy;
 import com.pineone.icbms.so.virtualobject.store.VirtualObjectStore;
 import com.pineone.icbms.so.virtualobject.store.memory.VirtualObjectMemory;
 import org.json.simple.JSONObject;
@@ -17,9 +18,8 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
     @Autowired
     DeviceManager deviceManager;
 
-    ClientService clientService = new ClientService();
-
     VirtualObjectStore virtualObjectStore = VirtualObjectMemory.getInstance();
+    VirtualObjectProxy virtualObjectProxy = new VirtualObjectSDAProxy();
 
     @Override
     public VirtualObject searchVirtualObject(String id) {
@@ -79,13 +79,13 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
 
     private String requestFunctionality(VirtualObject virtualObject){
         String requestUri = ClientProfile.SDA_DATAREQUEST_URI + ClientProfile.SDA_DEVICE;
-
         JSONObject obj = new JSONObject();
         obj.put("deviceId", virtualObject.getDeviceId());
         obj.put("deviceService", virtualObject.getDeviceService());
         String requestData = obj.toString();
 
-        String responseData = clientService.requestPostService(requestUri,requestData);
+        String responseData = virtualObjectProxy.findFunctionality(requestUri,requestData);
+
         return responseData;
     }
 }
