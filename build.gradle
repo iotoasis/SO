@@ -3,39 +3,39 @@
  */
 buildscript {
     ext {
-        springBootVersion = '1.4.0.RELEASE'
+        //springBootVersion = '1.4.0.RELEASE'
     }
     repositories {
         mavenCentral()
         //jcenter()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${SPRING_BOOT_VERSION}")
         classpath("io.spring.gradle:dependency-management-plugin:0.5.7.RELEASE")
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'spring-boot'
+//apply plugin: 'java'
+//apply plugin: 'idea'
+//apply plugin: 'spring-boot'
 
-dependencies {
-    compile project (":so-bizcontext")
-    compile project (":so-contextinformation")
-    compile project (":so-contextmodel")
-    compile project (":so-device")
-    compile project (":so-service")
-    compile project (":so-servicemodel")
-    compile project (":so-profile")
-    compile project (":so-domain")
-    compile project (":so-util")
-    compile project (":so-web")
+//dependencies {
+//    compile project (":so-bizcontext")
+//    compile project (":so-contextinformation")
+//    compile project (":so-contextmodel")
+//    compile project (":so-device")
+//    compile project (":so-service")
+//    compile project (":so-servicemodel")
+//    compile project (":so-profile")
+//    compile project (":so-domain")
+//    compile project (":so-util")
+//    compile project (":so-web")
+//
+//
+//    testCompile group: 'junit', name: 'junit', version: '4.11'
+//}
 
-
-    testCompile group: 'junit', name: 'junit', version: '4.11'
-}
-
-allprojects {
+subprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
     apply plugin: 'eclipse'
@@ -54,8 +54,8 @@ allprojects {
 
     dependencies {
         compile "com.withwiz:httpclientservice:0.1.1"
-        compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
-        compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
+        compile("org.springframework.boot:spring-boot-starter-web:${SPRING_BOOT_VERSION}")
+        compile("org.springframework.boot:spring-boot-starter-data-mongodb:${SPRING_BOOT_VERSION}")
         testCompile("org.springframework.boot:spring-boot-starter-test")
     }
 }
