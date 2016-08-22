@@ -7,7 +7,7 @@ import java.util.List;
 public interface VirtualObjectStore {
     void create(VirtualObject virtualObject);
     VirtualObject retrieveByID(String id);
-    List<VirtualObject> retrievceByLocation(String location);
+    List<VirtualObject> retrieveByLocation(String location);
 
     void update(VirtualObject virtualObject);
     void delete(String id);

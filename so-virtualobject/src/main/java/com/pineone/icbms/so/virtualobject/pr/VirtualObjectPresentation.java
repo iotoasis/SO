@@ -32,10 +32,10 @@ public class VirtualObjectPresentation {
     }
 
 
-    @RequestMapping(value = "/control/{id}/{operation}",method = RequestMethod.GET)
+    @RequestMapping(value = "/control",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public String controlVirtualObject(@PathVariable String id,@PathVariable String operation){
-        return virtualObjectManager.controlDevice(id, operation);
+    public String controlVirtualObject(@RequestBody String voId,String operation){
+        return virtualObjectManager.controlDevice(voId, operation);
     }
 
     @RequestMapping(value = "/resource/{id}",method = RequestMethod.GET)

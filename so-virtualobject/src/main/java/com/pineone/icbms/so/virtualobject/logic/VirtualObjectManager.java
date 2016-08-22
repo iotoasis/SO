@@ -9,6 +9,6 @@ public interface VirtualObjectManager {
     VirtualObject searchVirtualObject(String id);
     void deleteVirtualObject(String id);
     List<VirtualObject> searchVirtualObjectList(String location);
-    String controlDevice(String deviceId, String operation);
+    String controlDevice(String voId, String operation);
     void produceVirtualObject(ExternalVirtulaObject virtulaObject);
 }
