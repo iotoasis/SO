@@ -40,7 +40,7 @@ public class VirtualObjectMongoStore implements VirtualObjectStore {
     }
 
     @Override
-    public List<VirtualObject> retrievceByLocation(String location) {
+    public List<VirtualObject> retrieveByLocation(String location) {
         List<VirtualObject> virtualObjects = new ArrayList<>();
         List<VirtualObjectDataObject> virtualObjectDataObjects = virtualObjectRepostory.findByvoLocation(location);
 

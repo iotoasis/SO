@@ -36,11 +36,17 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
 
     @Override
     public List<VirtualObject> searchVirtualObjectList(String location) {
-        return virtualObjectStore.retrievceByLocation(location);
+        return virtualObjectStore.retrieveByLocation(location);
     }
 
     @Override
-    public String controlDevice(String deviceId, String operation) {
+    public String controlDevice(String voId, String operation) {
+        // DB에서 VO를 검색
+        VirtualObject virtualObject = searchVirtualObject(voId);
+
+        // 해당 Device ID를 도출
+        String deviceId = virtualObject.getDeviceId();
+
         return deviceManager.deviceExecute(deviceId, operation);
     }
 
@@ -73,6 +79,7 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
         virtualObject.setVoExfiredTime(eVirtulaObject.getVoExfiredTime());
         virtualObject.setVoDiscription(eVirtulaObject.getVoDiscription());
         virtualObject.setVoName(eVirtulaObject.getVoName());
+        virtualObject.setVoLocation(eVirtulaObject.getVoLocation());
         return virtualObject;
     }
 
