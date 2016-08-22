@@ -3,6 +3,7 @@ package com.pineone.icbms.so.contextmodel;
 import com.pineone.icbms.so.domain.DomainApplication;
 import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.domain.pr.DomainPresentation;
+import com.pineone.icbms.so.domain.pr.DomainTransformObject;
 import com.pineone.icbms.so.domain.ref.Domain_Note;
 import com.pineone.icbms.so.domain.ref.ResponseMessage;
 import org.junit.Test;
@@ -38,7 +39,7 @@ public class DomainPresentationTest {
         ResponseMessage responseMessage = domainPresentation.registerDomainController(domain);
         System.out.println(responseMessage.getMessage());
 
-        Domain domain1 = new Domain();
+        Domain domain1= new Domain();
         domain1.setId("do-102");
         domain1.setName(Domain_Note.NAME_LABORATORY);
         domain1.setUri(Domain_Note.URI_LABORATORY);

@@ -1,4 +1,4 @@
-package com.pineone.icbms.so.domain.entity;
+package com.pineone.icbms.so.domain.pr;
 
 /**
  * Created by melvin on 2016. 8. 22..

@@ -2,7 +2,6 @@ package com.pineone.icbms.so.contextinformation.pr;
 
 import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
 import com.pineone.icbms.so.contextinformation.logic.ContextInformationLogic;
-import com.pineone.icbms.so.contextinformation.logic.ContextInformationLogicImpl;
 import com.pineone.icbms.so.contextinformation.ref.DataValidation;
 import com.pineone.icbms.so.contextinformation.ref.ResponseMessage;
 import com.pineone.icbms.so.contextinformation.temp.device.ConceptService;
@@ -77,14 +76,22 @@ public class ContextInformationPresentation {
     }
 
     //NOTE: ContextInformation 상세 정보 조회 -> 상세정보 리턴
-    @RequestMapping(value = "/{contextname}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public ContextInformation retrieveGeneralContextController(@PathVariable("contextname") String contextName){
+    public ContextInformation retrieveGeneralContextController(@PathVariable("id") String contextId){
         //
-        ContextInformation contextInformation = contextInformationLogic.retrieveContextInformationDetail(contextName);
+        ContextInformation contextInformation = contextInformationLogic.retrieveContextInformationDetail(contextId);
         return contextInformation;
     }
 
-
+    //NOTE: ContextInformationList 조회
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public List<ContextInformation> retrieveContextInformationList(){
+        //
+        List<ContextInformation> contextInformationList = contextInformationLogic.retrieveContextInformationList();
+        return contextInformationList;
+    }
 }
