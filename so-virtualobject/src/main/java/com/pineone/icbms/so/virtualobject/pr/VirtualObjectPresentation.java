@@ -3,7 +3,7 @@ package com.pineone.icbms.so.virtualobject.pr;
 import com.pineone.icbms.so.virtualobject.entity.ExternalVirtulaObject;
 import com.pineone.icbms.so.virtualobject.entity.VirtualObject;
 import com.pineone.icbms.so.virtualobject.logic.VirtualObjectManager;
-import com.pineone.icbms.so.virtualobject.logic.VirtualObjectManagerLogic;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,22 +22,23 @@ public class VirtualObjectPresentation {
      * VO 삭제
      */
 
-    private VirtualObjectManager virtualObjectManager = new VirtualObjectManagerLogic();
+    @Autowired
+    private VirtualObjectManager virtualObjectManager;
 
-    @RequestMapping(value = "/create",method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public void createVirtualObject(@RequestBody ExternalVirtulaObject virtulaObject){
         virtualObjectManager.produceVirtualObject(virtulaObject);
     }
 
 
-    @RequestMapping(value = "/control/{id}/{operation}",method = RequestMethod.GET)
+    @RequestMapping(value = "/control",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public String controlVirtualObject(@PathVariable String id,@PathVariable String operation){
-        return virtualObjectManager.controlDevice(id, operation);
+    public String controlVirtualObject(@RequestBody String voId,String operation){
+        return virtualObjectManager.controlDevice(voId, operation);
     }
 
-    @RequestMapping(value = "/search/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/resource/{id}",method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public VirtualObject searchVirtualObject(@PathVariable String id){
         return virtualObjectManager.searchVirtualObject(id);

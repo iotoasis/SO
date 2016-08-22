@@ -11,12 +11,13 @@ public class ExternalVirtulaObject {
     private String deviceService;
     private String deviceId;
     private String voCommand;
+    private String voLocation;
 
 
     public ExternalVirtulaObject() {
     }
 
-    public ExternalVirtulaObject(String voId, String voName, String functionality, String voDiscription, String voCreateTime, String voExfiredTime, String deviceService, String deviceId, String voCommand) {
+    public ExternalVirtulaObject(String voId, String voName, String functionality, String voDiscription, String voCreateTime, String voExfiredTime, String deviceService, String deviceId, String voCommand, String voLocation) {
         this.voId = voId;
         this.voName = voName;
         this.functionality = functionality;
@@ -26,6 +27,7 @@ public class ExternalVirtulaObject {
         this.deviceService = deviceService;
         this.deviceId = deviceId;
         this.voCommand = voCommand;
+        this.voLocation = voLocation;
     }
 
     public String getVoId() {
@@ -98,5 +100,13 @@ public class ExternalVirtulaObject {
 
     public void setVoCommand(String voCommand) {
         this.voCommand = voCommand;
+    }
+
+    public String getVoLocation() {
+        return voLocation;
+    }
+
+    public void setVoLocation(String voLocation) {
+        this.voLocation = voLocation;
     }
 }

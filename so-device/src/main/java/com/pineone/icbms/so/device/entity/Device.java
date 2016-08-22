@@ -14,21 +14,16 @@ public class Device {
     private String          deviceCreateTime;
     private String          deviceExfiredTime;
 
-    // Real Device Parameter
-    private String          deviceRealCommandId;
-    private String          deviceRealService;
-    private String          deviceRealCommand;
-
     public Device() {
     }
 
-    public Device(String deviceId, String deviceName, String deviceLocation, String deviceUri, List<String> deviceServices, List<String> deviceCommand, String deviceCreateTime, String deviceExfiredTime) {
+    public Device(String deviceId, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, String deviceCreateTime, String deviceExfiredTime) {
         this.deviceId = deviceId;
         this.deviceName = deviceName;
         this.deviceLocation = deviceLocation;
         this.deviceUri = deviceUri;
-        this.deviceServices = deviceServices;
         this.deviceCommand = deviceCommand;
+        this.deviceServices = deviceServices;
         this.deviceCreateTime = deviceCreateTime;
         this.deviceExfiredTime = deviceExfiredTime;
     }
@@ -65,20 +60,20 @@ public class Device {
         this.deviceUri = deviceUri;
     }
 
-    public List<String> getDeviceServices() {
-        return deviceServices;
-    }
-
-    public void setDeviceServices(List<String> deviceServices) {
-        this.deviceServices = deviceServices;
-    }
-
     public List<String> getDeviceCommand() {
         return deviceCommand;
     }
 
     public void setDeviceCommand(List<String> deviceCommand) {
         this.deviceCommand = deviceCommand;
+    }
+
+    public List<String> getDeviceServices() {
+        return deviceServices;
+    }
+
+    public void setDeviceServices(List<String> deviceServices) {
+        this.deviceServices = deviceServices;
     }
 
     public String getDeviceCreateTime() {
@@ -97,27 +92,17 @@ public class Device {
         this.deviceExfiredTime = deviceExfiredTime;
     }
 
-    public String getDeviceRealService() {
-        return deviceRealService;
-    }
-
-    public void setDeviceRealService(String deviceRealService) {
-        this.deviceRealService = deviceRealService;
-    }
-
-    public String getDeviceRealCommand() {
-        return deviceRealCommand;
-    }
-
-    public void setDeviceRealCommand(String deviceRealCommand) {
-        this.deviceRealCommand = deviceRealCommand;
-    }
-
-    public String getDeviceRealCommandId() {
-        return deviceRealCommandId;
-    }
-
-    public void setDeviceRealCommandId(String deviceRealCommandId) {
-        this.deviceRealCommandId = deviceRealCommandId;
+    @Override
+    public String toString() {
+        return "Device{" +
+                "deviceId='" + deviceId + '\'' +
+                ", deviceName='" + deviceName + '\'' +
+                ", deviceLocation='" + deviceLocation + '\'' +
+                ", deviceUri='" + deviceUri + '\'' +
+                ", deviceCommand=" + deviceCommand +
+                ", deviceServices=" + deviceServices +
+                ", deviceCreateTime='" + deviceCreateTime + '\'' +
+                ", deviceExfiredTime='" + deviceExfiredTime + '\'' +
+                '}';
     }
 }

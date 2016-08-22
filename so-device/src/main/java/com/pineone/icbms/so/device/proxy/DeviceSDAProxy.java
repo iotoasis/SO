@@ -15,7 +15,7 @@ public class DeviceSDAProxy implements DeviceProxy{
      * 1. Domain 조회(get)
      * 2. Device By ID 조회(get)
      * 3. Device By Domain 조회(get)
-     * 4. Device functionality 조회(get)
+     * 4. Device service 조회(get)
      */
 
     private ClientService clientService = new ClientService();
@@ -82,7 +82,7 @@ public class DeviceSDAProxy implements DeviceProxy{
     }
 
     /**
-     * 4. Device functionality 조회(get)
+     * 4. Device service 조회(get)
      * @param requestUri
      * @return
      */
