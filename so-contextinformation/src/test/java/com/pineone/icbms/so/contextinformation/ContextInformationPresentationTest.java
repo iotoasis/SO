@@ -8,6 +8,7 @@ import com.pineone.icbms.so.contextinformation.temp.device.ConceptService;
 import com.pineone.icbms.so.contextinformation.temp.device.DeviceObject;
 import com.pineone.icbms.so.contextinformation.temp.device.TempConceptService;
 import com.pineone.icbms.so.contextinformation.temp.device.VirtualObject;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ public class ContextInformationPresentationTest {
     @Autowired
     ContextInformationStore contextInformationStore ;
 
-    @Test
+    @Before
     //NOTE : ContextInformationLogic 정보를 입력후 등록 과정
     public void ContextInformation등록() throws Exception {
         //User Field

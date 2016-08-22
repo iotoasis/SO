@@ -6,6 +6,7 @@ import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.contextmodel.ref.ResponseMessage;
 import com.pineone.icbms.so.domain.pr.DomainPresentation;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,7 +136,7 @@ public class ContextModelPresentationTest {
     DomainPresentation domainPresentation;
 
 
-    @Test
+    @Before
     public void CM등록() throws Exception {
 
         List<String> contextInformationIdList = contextInformationPresentation.retrieveContextInformationIdList();
