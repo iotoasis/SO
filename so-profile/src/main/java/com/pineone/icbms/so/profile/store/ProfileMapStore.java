@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.profile.store;
 
 import com.pineone.icbms.so.profile.entity.Profile;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +12,8 @@ import java.util.Map;
  * Created by melvin on 2016. 8. 11..
  * NOTE: Profile 저장 방식중에 Map 에 저장소 사용
  */
+
+@Service
 public class ProfileMapStore implements ProfileStore {
 
     private static ProfileMapStore instance;

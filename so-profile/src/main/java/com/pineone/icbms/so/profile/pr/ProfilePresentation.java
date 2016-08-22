@@ -6,6 +6,7 @@ import com.pineone.icbms.so.profile.logic.ProfileLogicImpl;
 import com.pineone.icbms.so.profile.ref.DataValidation;
 import com.pineone.icbms.so.profile.ref.ResponseMessage;
 import com.pineone.icbms.so.util.exception.DataLossException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,9 @@ import java.util.List;
 @RequestMapping(value = "/profile")
 public class ProfilePresentation {
     //
-    ProfileLogic profileLogic = ProfileLogicImpl.newProfileLogic();
+    @Autowired
+            ProfileLogic profileLogic;
+//    ProfileLogic profileLogic = ProfileLogicImpl.newProfileLogic();
 
     //NOTE: 미리 등록되어 있는 ServiceModel 이름 조회
     @RequestMapping(value = "/servicemodel")

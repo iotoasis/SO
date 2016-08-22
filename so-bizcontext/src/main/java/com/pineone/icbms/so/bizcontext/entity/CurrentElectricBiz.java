@@ -11,21 +11,7 @@ public class CurrentElectricBiz implements BizContext {
     int compareValue;
     boolean result;
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public int getValue() {
         return value;
@@ -48,5 +34,25 @@ public class CurrentElectricBiz implements BizContext {
 
     public void setResult(boolean result) {
         this.result = result;
+    }
+
+    @Override
+    public String getId() {
+        return null;
+    }
+
+    @Override
+    public void setId(String id) {
+
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public void setName(String name) {
+
     }
 }

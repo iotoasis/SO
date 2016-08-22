@@ -1,14 +1,16 @@
 package com.pineone.icbms.so.contextmodel.logic;
 
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
-import com.pineone.icbms.so.contextmodel.proxy.ContextModelInternalProxy;
-import com.pineone.icbms.so.contextmodel.proxy.ContextModelProxy;
-import com.pineone.icbms.so.contextmodel.proxy.ContextModelSDAProxy;
+import com.pineone.icbms.so.contextmodel.proxy.ContextModelExProxy;
+import com.pineone.icbms.so.contextmodel.proxy.ContextModelInProxy;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.contextmodel.ref.ResponseMessage;
 import com.pineone.icbms.so.contextmodel.store.ContextModelMapStore;
 import com.pineone.icbms.so.contextmodel.store.ContextModelStore;
 import com.pineone.icbms.so.domain.entity.Domain;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -18,7 +20,19 @@ import java.util.Queue;
 /**
  * Created by melvin on 2016. 8. 1..
  */
+
+@Service
 public class ContextModelLogicImpl implements ContextModelLogic{
+
+    @Autowired
+    ContextModelExProxy contextModelExProxy;
+
+    @Autowired
+    ContextModelStore contextModelStore;
+
+    @Autowired
+    ContextModelInProxy contextModelInProxy;
+
 
     public static final Queue CONTEXT_MODEL_QUEUE = new LinkedList<>();
 
@@ -29,8 +43,8 @@ public class ContextModelLogicImpl implements ContextModelLogic{
     //NOTE: ContextInformationLogic 컴포넌트에서 퍼블리싱한 정보를 이용해서 ContextInformationLogic 리스트 조회
     public List<String> retrieveContextInformationNameList(){
         //
-        ContextModelProxy contextModelProxy = new ContextModelInternalProxy().newContextModelInternalProxy();
-        List<String> contextInformationList = contextModelProxy.retrieveContextInformationNameList();
+//        ContextModelExProxy contextModelExProxy = new ContextModelInternalProxy().newContextModelInternalProxy();
+        List<String> contextInformationList = contextModelInProxy.retrieveContextInformationNameList();
         return contextInformationList;
     }
 
@@ -46,11 +60,11 @@ public class ContextModelLogicImpl implements ContextModelLogic{
     public String registerContextModel(ContextModel contextModel){
         //
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
-        ContextModelStore contextModelStore = ContextModelMapStore.getInstance();
-        //ContextModelProxy contextModelProxy = ContextModelSDAProxy.newContextModelProxy();
+//        ContextModelStore contextModelStore = ContextModelMapStore.getInstance();
+        //ContextModelExProxy contextModelExProxy = ContextModelSDAProxy.newContextModelProxy();
 
         contextModelStore.createContextModel(contextModel);
-        //contextModelProxy.registerContextModel(contextModel);
+        //contextModelExProxy.registerContextModel(contextModel);
         String contextModelResultMessage = responseMessage.contextModelResultMessage(contextModel);
         return contextModelResultMessage;
     }
@@ -58,12 +72,12 @@ public class ContextModelLogicImpl implements ContextModelLogic{
     // NOTE: DB 에서 ContextModel을 조회해서 Name List 로 변환
     public List<String> retrieveContextModelNameList() {
         //
-        ContextModelStore contextModelStore = ContextModelMapStore.getInstance();
+//        ContextModelStore contextModelStore = ContextModelMapStore.getInstance();
         List<ContextModel> contextModelList = contextModelStore.retrieveContextModelList();
 
         //SDA 에서 조회할 경우
-        //ContextModelProxy contextModelProxy = ContextModelSDAProxy.newContextModelProxy();
-        //List<ContextModel> contextModelList = contextModelProxy.retrieveContextModelListFromSDA();
+        //ContextModelExProxy contextModelExProxy = ContextModelSDAProxy.newContextModelProxy();
+        //List<ContextModel> contextModelList = contextModelExProxy.retrieveContextModelListFromSDA();
         List<String> contextModelNameList = new ArrayList<>();
         for(ContextModel contextModel : contextModelList){
             contextModelNameList.add(contextModel.getName());
@@ -74,19 +88,19 @@ public class ContextModelLogicImpl implements ContextModelLogic{
     // NOTE : DB 에서 ContextModel 상세 조회
     public ContextModel retrieveContextModelDetail(String contextModelName) {
         //
-        ContextModelStore contextModelStore = ContextModelMapStore.getInstance();
+//        ContextModelStore contextModelStore = ContextModelMapStore.getInstance();
         ContextModel contextModel = contextModelStore.retrieveContextModelDetail(contextModelName);
         //SDA 에서 조회할 경우
-        //ContextModelProxy contextModelProxy = ContextModelSDAProxy.newContextModelProxy();
-        //ContextModel contextModel = contextModelProxy.retrieveContextModelDetail(contextModelName);
+        //ContextModelExProxy contextModelExProxy = ContextModelSDAProxy.newContextModelProxy();
+        //ContextModel contextModel = contextModelExProxy.retrieveContextModelDetail(contextModelName);
         return contextModel;
     }
 
     //NOTE: ContextModel 상황 발생 여부 질의
     public List<Domain> isHappenContextModel(String contextModelName){
         //
-        ContextModelProxy contextModelProxy = ContextModelSDAProxy.newContextModelProxy();
-        List<Domain> domainList = contextModelProxy.retrieveContextModelEvent(contextModelName);
+//        ContextModelExProxy contextModelExProxy = ContextModelSDAProxy.newContextModelProxy();
+        List<Domain> domainList = contextModelExProxy.retrieveContextModelEvent(contextModelName);
         return domainList;
     }
 
@@ -94,7 +108,7 @@ public class ContextModelLogicImpl implements ContextModelLogic{
     @Override
     public String retrieveContextModelType(String contextModelName) {
         //
-        ContextModelStore contextModelStore = ContextModelMapStore.getInstance();
+//        ContextModelStore contextModelStore = ContextModelMapStore.getInstance();
         ContextModel contextModel = contextModelStore.retrieveContextModelDetail(contextModelName);
         return contextModel.getContextType();
     }
@@ -119,8 +133,8 @@ public class ContextModelLogicImpl implements ContextModelLogic{
 
     @Override
     public List<Domain> retrieveDomainList() {
-        ContextModelProxy contextModelProxy = ContextModelInternalProxy.newContextModelInternalProxy();
-        List<Domain> domainList = contextModelProxy.retrieveDomainList();
+//        ContextModelExProxy contextModelExProxy = ContextModelInternalProxy.newContextModelInternalProxy();
+        List<Domain> domainList = contextModelInProxy.retrieveDomainList();
         return domainList;
     }
 }

@@ -6,6 +6,7 @@ import com.pineone.icbms.so.service.logic.ServiceLogic;
 import com.pineone.icbms.so.service.logic.ServiceLogicImpl;
 import com.pineone.icbms.so.service.ref.*;
 import com.pineone.icbms.so.util.exception.DataLossException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,9 @@ import java.util.List;
 @ResponseBody
 public class ServicePresentation {
 
-    ServiceLogic serviceLogic = ServiceLogicImpl.newServiceLogicImpl();
+    @Autowired
+            ServiceLogic serviceLogic;
+//    ServiceLogic serviceLogic = ServiceLogicImpl.newServiceLogicImpl();
 
     //NOTE: Service 생성 요청  -> ServiceLogic 에서 사용할 가상객체 (VO - CVO) DeviceObject 리스트 리턴
     @RequestMapping(value = "/deviceobject", method = RequestMethod.GET)

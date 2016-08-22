@@ -4,8 +4,16 @@ import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
 import com.pineone.icbms.so.contextmodel.ref.ResponseMessage;
+import com.pineone.icbms.so.domain.entity.Domain;
+import com.pineone.icbms.so.profile.ProfileApplication;
 import com.pineone.icbms.so.profile.logic.ProfileLogicImpl;
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,19 +21,31 @@ import java.util.List;
 /**
  * Created by melvin on 2016. 8. 16..
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration(classes = ProfileApplication.class)
 public class ProfileExecuteTest {
     //
+    @Autowired
+            ContextModelPresentation contextModelPresentation;
 
-    ContextModelPresentation contextModelPresentation = new ContextModelPresentation();
+//    ContextModelPresentation contextModelPresentation = new ContextModelPresentation();
 
     @Before
     public void setData() throws Exception {
 
     }
 
-    public static void main(String[] args) {
-        //
-        ContextModelPresentation contextModelPresentation = new ContextModelPresentation();
+//    public static void main(String[] args) {
+
+
+    @Test
+    public void name() throws Exception {
+
+
+
+    //
+//        ContextModelPresentation contextModelPresentation = new ContextModelPresentation();
         ContextModel contextModel = new ContextModel();
 
         //NOTE: 도메인 셋팅
@@ -51,6 +71,8 @@ public class ProfileExecuteTest {
 
         contextModelPresentation.registerGeneralContextController(contextModel);
 
+//        ContextModel contextModel1 = contextModelPresentation.retrieveContextModelDetailController("화재상황");
+//        contextModelPresentation.emergencyContextModel(contextModel1);
 
         Thread profileThread = new Thread(new ProfileLogicImpl());
         profileThread.start();

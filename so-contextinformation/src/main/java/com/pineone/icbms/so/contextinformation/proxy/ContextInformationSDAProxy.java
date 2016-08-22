@@ -8,6 +8,8 @@ import com.pineone.icbms.so.util.address.ContextAddress;
 import com.pineone.icbms.so.util.conversion.DataConversion;
 import com.pineone.icbms.so.util.http.ClientService;
 import com.withwiz.beach.network.http.message.IHttpResponseMessage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -16,11 +18,15 @@ import java.util.List;
  * Created by melvin on 2016. 8. 1..
  * NOTE: ContextInformationLogic Component 에서 제공하는 데이터에 접근하거나 데이터를 이용해서 외부와 연동
  */
+
+@Service
 public class ContextInformationSDAProxy implements ContextInformationProxy{
 
-    ClientService clientService = new ClientService();
-    ContextAddress contextAddress = ContextAddress.newContextAddress();
+    @Autowired
+    ClientService clientService;
 
+    @Autowired
+    ContextAddress contextAddress ;
     public static ContextInformationSDAProxy newContextInformationProxy(){
         return new ContextInformationSDAProxy();
     }
@@ -29,7 +35,7 @@ public class ContextInformationSDAProxy implements ContextInformationProxy{
     public String registerContextInformation(ContextInformation contextInformation){
         //
         String sendData = DataConversion.objectToString(contextInformation);
-        contextAddress = ContextAddress.newContextAddress();
+//        contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestPostService
                 (contextAddress.getAddress() + AddressStore.REGISTER_CONTEXTINFORMATION, sendData);
         String response = new Gson().toJson(message);

@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.contextinformation.store;
 
 import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +12,8 @@ import java.util.Map;
  * Created by melvin on 2016. 8. 1..
  * NOTE: MAP 을 이용한 ContextInformation Create , Retrieve 기능 구현
  */
+
+@Service
 public class ContextInformationMapStore implements ContextInformationStore{
 
     private static ContextInformationMapStore instance;

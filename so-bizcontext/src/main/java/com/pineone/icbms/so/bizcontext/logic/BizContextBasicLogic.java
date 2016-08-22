@@ -3,6 +3,8 @@ package com.pineone.icbms.so.bizcontext.logic;
 import com.pineone.icbms.so.bizcontext.ref.Biz_Note;
 import com.pineone.icbms.so.bizcontext.ref.ResponseMessage;
 import com.pineone.icbms.so.domain.entity.Domain;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +13,15 @@ import java.util.List;
  * Created by melvin on 2016. 8. 3..
  * NOTE: 특정 Biz가 아닌 BizContext에 관한 전체적인 로직 포함
  */
+
+@Service
 public class BizContextBasicLogic {
 
-    public static BizContextBasicLogic newBizContextBasicLogic(){
-        return new BizContextBasicLogic();
-    }
+//    public static BizContextBasicLogic newBizContextBasicLogic(){
+//        return new BizContextBasicLogic();
+//    }
+    @Autowired
+    ResponseMessage responseMessage;
 
     //NOTE : BizContext 종류를 조회
     public List<String> retrieveBizContextList() {
@@ -28,7 +34,8 @@ public class BizContextBasicLogic {
 
     //NOTE: 등록 요청한 Biz 컨텍스트를 사용자에게 알려주기 위한 메세지 생성
     public String registerBizContext(String bizContextName) {
-        ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
+
+//        ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
         String resultMessage = responseMessage.bizContextResultMessage(bizContextName);
         return resultMessage;
     }

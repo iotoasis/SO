@@ -6,14 +6,21 @@ import com.pineone.icbms.so.util.address.AddressStore;
 import com.pineone.icbms.so.util.address.ContextAddress;
 import com.pineone.icbms.so.util.http.ClientService;
 import com.withwiz.beach.network.http.message.IHttpResponseMessage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by melvin on 2016. 8. 4..
  */
+
+@Service
 public class BizContextSDAProxy implements BizContextProxy{
 
-    ContextAddress contextAddress = ContextAddress.newContextAddress();
-    ClientService clientService = new ClientService();
+    @Autowired
+    ContextAddress contextAddress;
+
+    @Autowired
+    ClientService clientService;
 
     public static BizContextSDAProxy newBizContextProxy(){
         return new BizContextSDAProxy();
@@ -23,7 +30,7 @@ public class BizContextSDAProxy implements BizContextProxy{
     @Override
     public int retrieveCurrentValue(Domain domain) {
         //
-        contextAddress = ContextAddress.newContextAddress();
+//        contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService
                 (contextAddress.getAddress() + AddressStore.RETRIEVE_CURRENT_VALUE + "/" + domain.getName());
         String response = new Gson().toJson(message);
@@ -35,7 +42,7 @@ public class BizContextSDAProxy implements BizContextProxy{
     @Override
     public int retrievePastValue(Domain domain) {
         //
-        contextAddress = ContextAddress.newContextAddress();
+//        contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService(
                 contextAddress.getAddress() + AddressStore.RETRIEVE_PAST_VALUE + "/" + domain.getName());
         String response = new Gson().toJson(message);
@@ -47,7 +54,7 @@ public class BizContextSDAProxy implements BizContextProxy{
     @Override
     public int retrieveAllDeviceUseAmount(Domain domain) {
         //
-        contextAddress = ContextAddress.newContextAddress();
+//        contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService(
                 contextAddress.getAddress() + AddressStore.RETRIEVE_USE_AMOUNT + "/" + domain.getName());
         String response = new Gson().toJson(message);
@@ -59,7 +66,7 @@ public class BizContextSDAProxy implements BizContextProxy{
     @Override
     public int retrieveObjectValue(Domain domain) {
         //
-        contextAddress = ContextAddress.newContextAddress();
+//        contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService(
                 contextAddress.getAddress() + AddressStore.RETRIEVE_OBJECT_VALUE + "/" + domain.getName());
         String response = new Gson().toJson(message);
@@ -71,7 +78,7 @@ public class BizContextSDAProxy implements BizContextProxy{
     @Override
     public int retrieveCurrentClassPCAmount(Domain domain) {
         //
-        contextAddress = ContextAddress.newContextAddress();
+//        contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService(
                 contextAddress.getAddress() + AddressStore.RETRIEVE_CURRENT_PC + "/" + domain.getName());
         String response = new Gson().toJson(message);
@@ -83,7 +90,7 @@ public class BizContextSDAProxy implements BizContextProxy{
     @Override
     public int retrieveNextClassPCAmount(Domain domain) {
         //
-        contextAddress = ContextAddress.newContextAddress();
+//        contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService(
                 contextAddress.getAddress() + AddressStore.RETRIEVE_NEXT_PC + "/" + domain.getName());
         String response = new Gson().toJson(message);
@@ -95,7 +102,7 @@ public class BizContextSDAProxy implements BizContextProxy{
     @Override
     public int retrieveCurrentClassMouseAmount(Domain domain) {
         //
-        contextAddress = ContextAddress.newContextAddress();
+//        contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService(
                 contextAddress.getAddress() + AddressStore.RETRIEVE_CURRENT_MOUSE + "/" + domain.getName());
         String response = new Gson().toJson(message);
@@ -107,7 +114,7 @@ public class BizContextSDAProxy implements BizContextProxy{
     @Override
     public int retrieveNextClassMouseAmount(Domain domain) {
         //
-        contextAddress = ContextAddress.newContextAddress();
+//        contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService(
                 contextAddress.getAddress() + AddressStore.RETRIEVE_NEXT_MOUSE + "/" + domain.getName());
         String response = new Gson().toJson(message);
@@ -119,7 +126,7 @@ public class BizContextSDAProxy implements BizContextProxy{
     @Override
     public int retrieveCurrentClassKeyBoardAmount(Domain domain) {
         //
-        contextAddress = ContextAddress.newContextAddress();
+//        contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService(
                 contextAddress.getAddress() + AddressStore.RETRIEVE_CURRENT_KEYBOARD + "/" + domain.getName());
         String response = new Gson().toJson(message);
@@ -131,7 +138,7 @@ public class BizContextSDAProxy implements BizContextProxy{
     @Override
     public int retrieveNextClassKeyBoardAmount(Domain domain) {
         //
-        contextAddress = ContextAddress.newContextAddress();
+//        contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService(
                 contextAddress.getAddress() + AddressStore.RETRIEVE_NEXT_KEYBOARD + "/" + domain.getName());
         String response = new Gson().toJson(message);

@@ -2,19 +2,24 @@ package com.pineone.icbms.so.servicemodel.proxy;
 
 import com.pineone.icbms.so.service.entity.Service;
 import com.pineone.icbms.so.service.pr.ServicePresentation;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 /**
  * Created by melvin on 2016. 8. 9..
  */
+
+@org.springframework.stereotype.Service
 public class ServiceModelInternalProxy extends AbstractServiceModelProxy {
 
     public static ServiceModelInternalProxy newServiceModelSDAProxy() {
         return new ServiceModelInternalProxy();
     }
 
-    ServicePresentation servicePresentation = new ServicePresentation();
+    @Autowired
+            ServicePresentation servicePresentation;
+//    ServicePresentation servicePresentation = new ServicePresentation();
 
     //NOTE: Service 컴포넌트를 이용해서 ServiceNameList 조회
     @Override

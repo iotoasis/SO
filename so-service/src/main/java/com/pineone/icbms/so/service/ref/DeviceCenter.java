@@ -1,5 +1,7 @@
 package com.pineone.icbms.so.service.ref;
 
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import java.util.List;
  * Created by melvin on 2016. 7. 11..
  * NOTE: DeviceObject(VO and CVO), ConceptService 관리
  */
+
 public class DeviceCenter {
 
     public static DeviceCenter newDeviceCenter(){

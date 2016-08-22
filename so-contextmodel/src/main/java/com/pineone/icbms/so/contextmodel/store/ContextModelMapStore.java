@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.contextmodel.store;
 
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +11,8 @@ import java.util.Map;
 /**
  * Created by melvin on 2016. 8. 2..
  */
+
+@Service
 public class ContextModelMapStore implements ContextModelStore{
     private static ContextModelMapStore instance;
     private ContextModelMapStore(){};

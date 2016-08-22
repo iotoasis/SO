@@ -1,6 +1,8 @@
 package com.pineone.icbms.so.profile;
 
+import com.pineone.icbms.so.bizcontext.BizContextApplication;
 import com.pineone.icbms.so.contextmodel.ContextModelApplication;
+import com.pineone.icbms.so.domain.DomainApplication;
 import com.pineone.icbms.so.servicemodel.ServiceModelApplication;
 import com.pineone.icbms.so.util.UtilApplication;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +16,7 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @ComponentScan
-@Import({UtilApplication.class, ServiceModelApplication.class, ContextModelApplication.class})
+@Import({UtilApplication.class, ServiceModelApplication.class, ContextModelApplication.class, DomainApplication.class, BizContextApplication.class})
 @EnableAutoConfiguration
 public class ProfileApplication
 {

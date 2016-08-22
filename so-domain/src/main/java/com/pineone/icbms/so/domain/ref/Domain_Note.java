@@ -1,8 +1,12 @@
 package com.pineone.icbms.so.domain.ref;
 
+import org.springframework.stereotype.Service;
+
 /**
  * Created by melvin on 2016. 7. 25..
  */
+
+@Service
 public class Domain_Note {
     public static final String NAME_CLASSROOM = "ClassRoom";
     public static final String NAME_DORMITORY = "Dormitory";

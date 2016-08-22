@@ -12,22 +12,6 @@ public class InefficientElectricBiz implements BizContext {
     boolean result;
     int time;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getValue() {
         return value;
     }
@@ -58,5 +42,25 @@ public class InefficientElectricBiz implements BizContext {
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    @Override
+    public String getId() {
+        return null;
+    }
+
+    @Override
+    public void setId(String id) {
+
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public void setName(String name) {
+
     }
 }

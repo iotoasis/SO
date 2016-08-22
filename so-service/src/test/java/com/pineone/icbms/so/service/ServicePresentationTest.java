@@ -1,18 +1,29 @@
 package com.pineone.icbms.so.service;
 
+import com.pineone.icbms.so.domain.DomainApplication;
 import com.pineone.icbms.so.service.entity.Service;
 import com.pineone.icbms.so.service.pr.ServicePresentation;
 import com.pineone.icbms.so.service.ref.*;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
 
 /**
  * Created by melvin on 2016. 8. 8..
  */
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration(classes = ServiceApplication.class)
 public class ServicePresentationTest {
 
-    ServicePresentation servicePresentation = new ServicePresentation();
+    @Autowired
+    ServicePresentation servicePresentation;
 
     @Test
     public void 가상객체목록조회 () throws Exception {
