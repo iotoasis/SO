@@ -2,7 +2,6 @@ package com.pineone.icbms.so.contextinformation.store.map;
 
 import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
 import com.pineone.icbms.so.contextinformation.store.ContextInformationStore;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;

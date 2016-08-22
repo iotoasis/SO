@@ -4,7 +4,6 @@ import com.pineone.icbms.so.contextinformation.pr.ContextInformationPresentation
 import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.domain.pr.DomainPresentation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,12 +1,16 @@
-package com.pineone.icbms.so.contextmodel.entity;
+package com.pineone.icbms.so.contextmodel.store.mongo;
+
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
 /**
- * Created by melvin on 2016. 7. 20..
- * NOTE: Logic 에서 사용할 contextModel Entity
+ * Created by melvin on 2016. 8. 22..
+ * NOTE: 내부 저장소 에서 사용할 ContextModel Data
  */
-public class ContextModel {
+
+@Document(collection = "context_model")
+public class ContextModelDataObject {
 
     private String id;
     private String name;
@@ -14,10 +18,10 @@ public class ContextModel {
     private List<String> contextInformationIdList;
     private String contextType;
 
-    public ContextModel() {
+    public ContextModelDataObject() {
     }
 
-    public ContextModel(String id, String name, List<String> domainIdList, List<String> contextInformationIdList, String contextType) {
+    public ContextModelDataObject(String id, String name, List<String> domainIdList, List<String> contextInformationIdList, String contextType) {
         this.id = id;
         this.name = name;
         this.domainIdList = domainIdList;

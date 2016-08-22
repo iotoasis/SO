@@ -1,6 +1,5 @@
 package com.pineone.icbms.so.contextmodel.ref;
 
-import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 
 /**

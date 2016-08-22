@@ -1,12 +1,12 @@
-package com.pineone.icbms.so.contextmodel.entity;
+package com.pineone.icbms.so.contextmodel.pr;
 
 import java.util.List;
 
 /**
- * Created by melvin on 2016. 7. 20..
- * NOTE: Logic 에서 사용할 contextModel Entity
+ * Created by melvin on 2016. 8. 22..
+ * NOTE: 외부에 노출될 ContextModel Data - Presentation, Controller 에서 사용
  */
-public class ContextModel {
+public class ContextModelTransFormObject {
 
     private String id;
     private String name;
@@ -14,10 +14,10 @@ public class ContextModel {
     private List<String> contextInformationIdList;
     private String contextType;
 
-    public ContextModel() {
+    public ContextModelTransFormObject() {
     }
 
-    public ContextModel(String id, String name, List<String> domainIdList, List<String> contextInformationIdList, String contextType) {
+    public ContextModelTransFormObject(String id, String name, List<String> domainIdList, List<String> contextInformationIdList, String contextType) {
         this.id = id;
         this.name = name;
         this.domainIdList = domainIdList;
@@ -32,6 +32,7 @@ public class ContextModel {
     public void setId(String id) {
         this.id = id;
     }
+
     public String getName() {
         return name;
     }
@@ -39,7 +40,6 @@ public class ContextModel {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public List<String> getDomainIdList() {
         return domainIdList;

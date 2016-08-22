@@ -33,7 +33,7 @@ public class ContextInformationPresentation {
     @RequestMapping(value = "/deviceobject", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public List<DeviceObject> requestContextInformationMaking(){
+    public List<DeviceObject> requestContextInformationMaking() {
         //
         List<DeviceObject> deviceObjectList = contextInformationLogic.retrieveDeviceObjectList();
         return deviceObjectList;
@@ -43,7 +43,7 @@ public class ContextInformationPresentation {
     @RequestMapping(value = "/conceptservice/{deviceobject}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public List<ConceptService> retrieveConceptServiceController(@PathVariable("deviceobject") DeviceObject deviceObject){
+    public List<ConceptService> retrieveConceptServiceController(@PathVariable("deviceobject") DeviceObject deviceObject) {
         //
         List<ConceptService> conceptServiceList = contextInformationLogic.retrieveConceptService(deviceObject);
         return conceptServiceList;
@@ -53,7 +53,7 @@ public class ContextInformationPresentation {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public ResponseMessage registerContextInformationController(@RequestBody ContextInformation contextInformation){
+    public ResponseMessage registerContextInformationController(@RequestBody ContextInformation contextInformation) {
         //
         DataValidation dataValidation = DataValidation.newDataValidation();
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
@@ -69,7 +69,7 @@ public class ContextInformationPresentation {
     }
 
     // NOTE: ContextInformation Component 의 DB에 접근해서 CI Name 리스트 조회
-    public List<String> retrieveContextInformationNameList(){
+    public List<String> retrieveContextInformationNameList() {
         //
         List<String> contextInformationList = contextInformationLogic.retrieveContextInformationNameList();
         return contextInformationList;
@@ -79,7 +79,7 @@ public class ContextInformationPresentation {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public ContextInformation retrieveGeneralContextController(@PathVariable("id") String contextId){
+    public ContextInformation retrieveGeneralContextController(@PathVariable("id") String contextId) {
         //
         ContextInformation contextInformation = contextInformationLogic.retrieveContextInformationDetail(contextId);
         return contextInformation;
@@ -89,9 +89,16 @@ public class ContextInformationPresentation {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public List<ContextInformation> retrieveContextInformationList(){
+    public List<ContextInformation> retrieveContextInformationList() {
         //
         List<ContextInformation> contextInformationList = contextInformationLogic.retrieveContextInformationList();
         return contextInformationList;
+    }
+
+    // NOTE: ContextInformation Component 의 DB에 접근해서 CI Id 리스트 조회
+    public List<String> retrieveContextInformationIdList() {
+        //
+        List<String> contextInformationIdList = contextInformationLogic.retrieveContextInformationIdList();
+        return contextInformationIdList;
     }
 }

@@ -2,7 +2,6 @@ package com.pineone.icbms.so.contextmodel.pr;
 
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 import com.pineone.icbms.so.contextmodel.logic.ContextModelLogic;
-import com.pineone.icbms.so.contextmodel.logic.ContextModelLogicImpl;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.contextmodel.ref.DataValidation;
 import com.pineone.icbms.so.contextmodel.ref.ResponseMessage;
@@ -73,12 +72,12 @@ public class ContextModelPresentation {
     }
 
     //NOTE: ContextModel 싱세 조회
-    @RequestMapping(value = "{contextmodelname}", method = RequestMethod.GET)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public ContextModel retrieveContextModelDetailController(@PathVariable("contextmodelname")String contextModelName){
+    public ContextModel retrieveContextModelDetailController(@PathVariable("id")String contextModelId){
         //
-        ContextModel contextModel = contextModelLogic.retrieveContextModelDetail(contextModelName);
+        ContextModel contextModel = contextModelLogic.retrieveContextModelDetail(contextModelId);
         return contextModel;
     }
 
@@ -126,6 +125,13 @@ public class ContextModelPresentation {
     public List<Domain> retrieveDomain(){
         List<Domain> domainList = contextModelLogic.retrieveDomainList();
         return domainList;
+    }
+
+    //NOTE: ContextModelId List 퍼블리싱 -  Profile 생성시 사용
+    public List<String> retrieveContextModelIdList(){
+        //
+        List<String> contextModelNameList = contextModelLogic.retrieveContextModelIdList();
+        return contextModelNameList;
     }
 }
 

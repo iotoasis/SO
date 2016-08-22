@@ -1,6 +1,5 @@
 package com.pineone.icbms.so.domain.store.mongo;
 
-import com.sun.tools.javac.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
