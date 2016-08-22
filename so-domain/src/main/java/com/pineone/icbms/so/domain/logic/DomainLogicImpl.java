@@ -1,8 +1,10 @@
 package com.pineone.icbms.so.domain.logic;
 
 import com.pineone.icbms.so.domain.entity.Domain;
+import com.pineone.icbms.so.domain.pr.DomainTransformObject;
 import com.pineone.icbms.so.domain.ref.ResponseMessage;
 import com.pineone.icbms.so.domain.store.DomainStore;
+import com.pineone.icbms.so.domain.store.mongo.DomainDataObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

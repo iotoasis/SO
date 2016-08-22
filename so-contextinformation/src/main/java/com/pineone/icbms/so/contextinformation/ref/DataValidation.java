@@ -17,8 +17,8 @@ public class DataValidation {
     public void inspectGeneralContext(ContextInformation contextInformation) throws DataLossException {
         //
         if(contextInformation.getId() == null || contextInformation.getName() == null ||
-                contextInformation.getConceptService() == null || contextInformation.getDeviceObject() == null
-                || (contextInformation.getMaxValue() == 0 && contextInformation.getMinValue() == 0)){
+                contextInformation.getConceptServiceName() == null || contextInformation.getDeviceObjectName() == null
+                || (contextInformation.getMaxValue() == -100 && contextInformation.getMinValue() == -100)){
             throw new DataLossException();
         }
     }

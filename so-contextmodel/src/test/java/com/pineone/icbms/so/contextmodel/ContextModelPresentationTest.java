@@ -1,8 +1,6 @@
 package com.pineone.icbms.so.contextmodel;
 
-import com.pineone.icbms.so.contextinformation.ContextInformationApplication;
 import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
-import com.pineone.icbms.so.contextinformation.store.ContextInformationMapStore;
 import com.pineone.icbms.so.contextinformation.store.ContextInformationStore;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;

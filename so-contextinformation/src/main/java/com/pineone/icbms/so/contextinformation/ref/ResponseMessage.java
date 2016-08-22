@@ -18,7 +18,7 @@ public class ResponseMessage {
     // NOTE : ContextInformationLogic 전달 메세지 생성
     public String contextInformationResultMessage(ContextInformation contextInformation){
         message = "ID: " + contextInformation.getId() + ", Name : " + contextInformation.getName() + ", Virtual Object : "
-                + contextInformation.getDeviceObject() + ", Concept Service" + contextInformation.getConceptService() +
+                + contextInformation.getDeviceObjectName() + ", Concept Service" + contextInformation.getConceptServiceName() +
                 ", Minimum Value : " + contextInformation.getMinValue() + ", Maximum Value : " + contextInformation.getMaxValue();
         return message;
     }

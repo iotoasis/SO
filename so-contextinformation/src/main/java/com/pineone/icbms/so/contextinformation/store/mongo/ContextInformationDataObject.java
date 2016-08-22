@@ -1,13 +1,15 @@
-package com.pineone.icbms.so.contextinformation.entity;
+package com.pineone.icbms.so.contextinformation.store.mongo;
 
-import com.pineone.icbms.so.contextinformation.temp.device.ConceptService;
-import com.pineone.icbms.so.contextinformation.temp.device.DeviceObject;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * Created by melvin on 2016. 7. 29..
- * NOTE: Logic 에서 사용할 ContextInformation Entity
+ * Created by melvin on 2016. 8. 22..
+ * * NOTE: 내부 저장소 에서 사용할 ContextInformation Data
  */
-public class ContextInformation {
+
+@Document(collection = "context_information")
+public class ContextInformationDataObject
+{
     //
     private String id;
     private String name;
@@ -16,13 +18,10 @@ public class ContextInformation {
     private int maxValue;
     private String conceptServiceName;
 
-    public static ContextInformation newContextInformation(){
-        return new ContextInformation();
+    public ContextInformationDataObject() {
     }
 
-    public ContextInformation(){};
-
-    public ContextInformation(String id, String name, String deviceObjectName, int minValue, int maxValue, String conceptServiceName) {
+    public ContextInformationDataObject(String id, String name, String deviceObjectName, int minValue, int maxValue, String conceptServiceName) {
         this.id = id;
         this.name = name;
         this.deviceObjectName = deviceObjectName;
@@ -30,10 +29,6 @@ public class ContextInformation {
         this.maxValue = maxValue;
         this.conceptServiceName = conceptServiceName;
     }
-
-    public ContextInformation(String name){
-        this.name = name;
-    };
 
     public String getId() {
         return id;
@@ -51,6 +46,14 @@ public class ContextInformation {
         this.name = name;
     }
 
+    public String getDeviceObjectName() {
+        return deviceObjectName;
+    }
+
+    public void setDeviceObjectName(String deviceObjectName) {
+        this.deviceObjectName = deviceObjectName;
+    }
+
     public int getMinValue() {
         return minValue;
     }
@@ -65,14 +68,6 @@ public class ContextInformation {
 
     public void setMaxValue(int maxValue) {
         this.maxValue = maxValue;
-    }
-
-    public String getDeviceObjectName() {
-        return deviceObjectName;
-    }
-
-    public void setDeviceObjectName(String deviceObjectName) {
-        this.deviceObjectName = deviceObjectName;
     }
 
     public String getConceptServiceName() {
