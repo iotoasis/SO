@@ -1,6 +1,5 @@
 package com.pineone.icbms.so.contextmodel;
 
-import com.pineone.icbms.so.contextinformation.ContextInformationApplication;
 import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
@@ -34,23 +33,23 @@ public class ContextModelExecuteTest {
         ContextModel contextModel = new ContextModel();
 
         //NOTE: 도메인 셋팅
-        Domain domain1 = new Domain("강의실", "http://강의실");
-        Domain domain2 = new Domain("기숙사", "http://기숙사");
-        List<Domain> domainList = new ArrayList<>();
-        domainList.add(domain1);
-        domainList.add(domain2);
+        Domain domain1 = new Domain("1","강의실", "http://강의실");
+        Domain domain2 = new Domain("2", "기숙사", "http://기숙사");
+        List<String> domainList = new ArrayList<>();
+        domainList.add(domain1.getId());
+        domainList.add(domain2.getId());
 
         //NOTE : CI 셋팅
         ContextInformation contextInformation1 = new ContextInformation();
         ContextInformation contextInformation2 = new ContextInformation();
-        contextInformation1.setName("고온상황");
-        contextInformation2.setName("사람없음");
-        List<String> contextInformationNameList = new ArrayList<>();
-        contextInformationNameList.add(contextInformation1.getName());
-        contextInformationNameList.add(contextInformation2.getName());
+        contextInformation1.setId("ci-101");
+        contextInformation2.setId("ci-102");
+        List<String> contextInformationIdList = new ArrayList<>();
+        contextInformationIdList.add(contextInformation1.getId());
+        contextInformationIdList.add(contextInformation2.getId());
 
-        contextModel.setDomainList(domainList);
-        contextModel.setContextInformationList(contextInformationNameList);
+        contextModel.setDomainIdList(domainList);
+        contextModel.setContextInformationIdList(contextInformationIdList);
         contextModel.setName("화재상황");
         contextModel.setContextType("Emergency");
 

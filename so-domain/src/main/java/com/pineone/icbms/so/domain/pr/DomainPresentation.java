@@ -2,7 +2,6 @@ package com.pineone.icbms.so.domain.pr;
 
 import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.domain.logic.DomainLogic;
-import com.pineone.icbms.so.domain.logic.DomainLogicImpl;
 import com.pineone.icbms.so.domain.ref.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,6 +51,12 @@ public class DomainPresentation {
         //
         Domain domain = domainLogic.retrieveDomain(id);
         return domain;
+    }
+
+    public List<String> retrieveDomainIdList(){
+        //
+        List<String> domainIdList = domainLogic.retrieveDomainIdList();
+        return domainIdList;
     }
 }
 

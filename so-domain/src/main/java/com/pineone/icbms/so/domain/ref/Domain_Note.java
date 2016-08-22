@@ -1,7 +1,5 @@
 package com.pineone.icbms.so.domain.ref;
 
-import org.springframework.stereotype.Service;
-
 /**
  * Created by melvin on 2016. 7. 25..
  */

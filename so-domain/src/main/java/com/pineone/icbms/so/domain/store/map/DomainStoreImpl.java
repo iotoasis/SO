@@ -2,11 +2,6 @@ package com.pineone.icbms.so.domain.store.map;
 
 import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.domain.ref.Domain_Note;
-import com.pineone.icbms.so.domain.store.DomainStore;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;

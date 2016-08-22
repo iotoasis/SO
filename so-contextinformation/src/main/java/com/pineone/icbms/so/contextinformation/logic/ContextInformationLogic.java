@@ -17,4 +17,5 @@ public interface ContextInformationLogic {
     ContextInformation retrieveContextInformationDetail(String contextName);
     List<String> retrieveContextInformationNameList();
     List<ContextInformation> retrieveContextInformationList();
+    List<String> retrieveContextInformationIdList();
 }

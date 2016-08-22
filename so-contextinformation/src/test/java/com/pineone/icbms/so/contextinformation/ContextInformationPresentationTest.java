@@ -2,14 +2,12 @@ package com.pineone.icbms.so.contextinformation;
 
 import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
 import com.pineone.icbms.so.contextinformation.pr.ContextInformationPresentation;
-import com.pineone.icbms.so.contextinformation.pr.ContextInformationTransformObject;
 import com.pineone.icbms.so.contextinformation.ref.ResponseMessage;
 import com.pineone.icbms.so.contextinformation.store.ContextInformationStore;
 import com.pineone.icbms.so.contextinformation.temp.device.ConceptService;
 import com.pineone.icbms.so.contextinformation.temp.device.DeviceObject;
 import com.pineone.icbms.so.contextinformation.temp.device.TempConceptService;
 import com.pineone.icbms.so.contextinformation.temp.device.VirtualObject;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +61,7 @@ public class ContextInformationPresentationTest {
         String name = "EmergencyTempCon";
         int minValue = 60;
         int maxValue = 100;
-        String id = "ci-101";
+        String id = "CI-EMERGENCY-TEMP";
         DeviceObject deviceObject = VirtualObject.TemperatureSensor001; // 저작시 온도 센서 선택
         ConceptService conceptService = TempConceptService.temperature_measure_service; // 온도센서의 온도 측정 기능 선택
 
@@ -80,7 +78,7 @@ public class ContextInformationPresentationTest {
         System.out.println(responseMessage.getMessage());
 
         ContextInformation contextInformation1 = new ContextInformation();
-        contextInformation1.setId("ci-102");
+        contextInformation1.setId("CI-NOBODY");
         contextInformation1.setName("사람없음");
         contextInformation1.setMinValue(0);
         contextInformation1.setMaxValue(0);
@@ -93,7 +91,7 @@ public class ContextInformationPresentationTest {
 
     @Test
     public void CI개별조회() throws Exception {
-        String contextInformationID = "ci-101";
+        String contextInformationID = "CI-EMERGENCY-TEMP";
         ContextInformation contextInformation = contextInformationPresentation.retrieveGeneralContextController(contextInformationID);
 
         System.out.println(contextInformation.getName());

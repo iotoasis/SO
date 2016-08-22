@@ -87,4 +87,14 @@ public class ContextInformationLogicImpl implements ContextInformationLogic {
         List<ContextInformation> contextInformationList = contextInformationStore.retrieveContextInformationList();
         return contextInformationList;
     }
+
+    @Override
+    public List<String> retrieveContextInformationIdList(){
+        List<ContextInformation> contextInformationList = contextInformationStore.retrieveContextInformationList();
+        List<String> contextInformationIdList = new ArrayList<>();
+        for(ContextInformation contextInformation : contextInformationList){
+            contextInformationIdList.add(contextInformation.getId());
+        }
+        return contextInformationIdList;
+    }
 }

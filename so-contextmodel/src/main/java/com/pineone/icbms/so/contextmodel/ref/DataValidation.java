@@ -1,6 +1,5 @@
 package com.pineone.icbms.so.contextmodel.ref;
 
-import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 import com.pineone.icbms.so.util.exception.DataLossException;
 
@@ -18,7 +17,7 @@ public class DataValidation {
     public void inspectContextModel(ContextModel contextModel) throws DataLossException {
         //
         if(contextModel.getName() == null || contextModel.getContextType() == null ||
-                contextModel.getDomainList() == null || contextModel.getContextInformationList() == null){
+                contextModel.getDomainIdList() == null || contextModel.getContextInformationIdList() == null){
             throw new DataLossException();
         }
     }
