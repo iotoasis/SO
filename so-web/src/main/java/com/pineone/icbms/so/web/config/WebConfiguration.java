@@ -7,6 +7,7 @@ import com.pineone.icbms.so.device.DeviceApplication;
 import com.pineone.icbms.so.service.ServiceApplication;
 import com.pineone.icbms.so.servicemodel.ServiceModelApplication;
 import com.pineone.icbms.so.util.UtilApplication;
+import com.pineone.icbms.so.virtualobject.VirtualObjectApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,7 +19,7 @@ import org.springframework.context.annotation.Import;
 @Import({BizContextApplication.class, ContextInformationApplication.class,
         ContextModelApplication.class, DeviceApplication.class,
         ServiceApplication.class, UtilApplication.class,
-        ServiceModelApplication.class})
+        ServiceModelApplication.class, VirtualObjectApplication.class})
 @EnableAutoConfiguration
 @ComponentScan("com.pineone.icbms.so")
 public class WebConfiguration {
