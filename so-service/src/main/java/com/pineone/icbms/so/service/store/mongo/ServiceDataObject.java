@@ -1,21 +1,25 @@
-package com.pineone.icbms.so.service.entity;
+package com.pineone.icbms.so.service.store.mongo;
+
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * Created by melvin on 2016. 8. 5..
+ * Created by melvin on 2016. 8. 22..
  */
-public class Service {
 
-    public Service(){};
+@Document(collection = "service")
+public class ServiceDataObject {
 
-    public Service(String name){
+    public ServiceDataObject(){};
+
+    public ServiceDataObject(String name){
         this.name = name;
     }
+
     private String id;
     private String name;
     private String deviceObjectId;
     private String conceptServiceId;
     private String status;
-
 
 
     public String getId() {
@@ -50,15 +54,15 @@ public class Service {
         this.conceptServiceId = conceptServiceId;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
     public void setStatus(String status) {
         this.status = status;
     }
 
-    public Service(String id, String name, String deviceObjectId, String conceptServiceId, String status) {
+    public String getStatus() {
+        return status;
+    }
+
+    public ServiceDataObject(String id, String name, String deviceObjectId, String conceptServiceId, String status) {
 
         this.id = id;
         this.name = name;

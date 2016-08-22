@@ -1,12 +1,9 @@
 package com.pineone.icbms.so.servicemodel;
 
 import com.pineone.icbms.so.service.entity.Service;
-import com.pineone.icbms.so.service.store.ServiceMapStore;
 import com.pineone.icbms.so.service.store.ServiceStore;
 import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
-import com.pineone.icbms.so.servicemodel.proxy.ServiceModelProxy;
-import com.pineone.icbms.so.servicemodel.store.ServiceModelMapStore;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
 import org.junit.Before;
 import org.junit.Test;
