@@ -91,4 +91,18 @@ public class Device {
     public void setDeviceExfiredTime(String deviceExfiredTime) {
         this.deviceExfiredTime = deviceExfiredTime;
     }
+
+    @Override
+    public String toString() {
+        return "Device{" +
+                "deviceId='" + deviceId + '\'' +
+                ", deviceName='" + deviceName + '\'' +
+                ", deviceLocation='" + deviceLocation + '\'' +
+                ", deviceUri='" + deviceUri + '\'' +
+                ", deviceCommand=" + deviceCommand +
+                ", deviceServices=" + deviceServices +
+                ", deviceCreateTime='" + deviceCreateTime + '\'' +
+                ", deviceExfiredTime='" + deviceExfiredTime + '\'' +
+                '}';
+    }
 }
