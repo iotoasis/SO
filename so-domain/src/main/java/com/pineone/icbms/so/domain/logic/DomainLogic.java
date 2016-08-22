@@ -11,4 +11,6 @@ import java.util.List;
 
 public interface DomainLogic {
     List<Domain> retrieveDomainList();
+    String registerDomain(Domain domain);
+    Domain retrieveDomain(String id);
 }
