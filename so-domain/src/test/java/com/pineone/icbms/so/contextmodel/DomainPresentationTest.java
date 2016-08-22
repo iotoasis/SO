@@ -3,13 +3,11 @@ package com.pineone.icbms.so.contextmodel;
 import com.pineone.icbms.so.domain.DomainApplication;
 import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.domain.pr.DomainPresentation;
-import com.pineone.icbms.so.domain.pr.DomainTransformObject;
 import com.pineone.icbms.so.domain.ref.Domain_Note;
 import com.pineone.icbms.so.domain.ref.ResponseMessage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -32,7 +30,7 @@ public class DomainPresentationTest {
     public void createDomain() throws Exception {
 
         Domain domain = new Domain();
-        domain.setId("do-101");
+        domain.setId("DO-CLASSROOM");
         domain.setName(Domain_Note.NAME_CLASSROOM);
         domain.setUri(Domain_Note.URI_CLASSROOM);
 
@@ -40,7 +38,7 @@ public class DomainPresentationTest {
         System.out.println(responseMessage.getMessage());
 
         Domain domain1= new Domain();
-        domain1.setId("do-102");
+        domain1.setId("DO-LABORATORY");
         domain1.setName(Domain_Note.NAME_LABORATORY);
         domain1.setUri(Domain_Note.URI_LABORATORY);
 
@@ -52,7 +50,7 @@ public class DomainPresentationTest {
     @Test
     public void 도메인개별조회() throws Exception {
 
-        Domain domain = domainPresentation.retrieveDomain("do-101");
+        Domain domain = domainPresentation.retrieveDomain("DO-CLASSROOM");
         System.out.println(domain.getName());
         System.out.println(domain.getUri());
     }

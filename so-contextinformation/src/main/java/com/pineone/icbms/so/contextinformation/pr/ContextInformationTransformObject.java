@@ -1,8 +1,5 @@
 package com.pineone.icbms.so.contextinformation.pr;
 
-import com.pineone.icbms.so.contextinformation.temp.device.ConceptService;
-import com.pineone.icbms.so.contextinformation.temp.device.DeviceObject;
-
 /**
  * Created by melvin on 2016. 8. 22..
  * NOTE: 외부에 노출될 ContextInformation Data - Presentation, Controller 에서 사용

@@ -1,13 +1,12 @@
 package com.pineone.icbms.so.domain.logic;
 
 import com.pineone.icbms.so.domain.entity.Domain;
-import com.pineone.icbms.so.domain.pr.DomainTransformObject;
 import com.pineone.icbms.so.domain.ref.ResponseMessage;
 import com.pineone.icbms.so.domain.store.DomainStore;
-import com.pineone.icbms.so.domain.store.mongo.DomainDataObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,5 +44,16 @@ public class DomainLogicImpl implements DomainLogic {
     public Domain retrieveDomain(String id) {
         Domain domain = domainStore.read(id);
         return domain;
+    }
+
+    //NOTE : 도메인 아이디 리스트 조회
+    @Override
+    public List<String> retrieveDomainIdList() {
+        List<Domain> domainList = domainStore.retrieveDomainList();
+        List<String> domainIdList = new ArrayList<>();
+        for(Domain domain : domainList){
+            domainIdList.add(domain.getId());
+        }
+        return domainIdList;
     }
 }

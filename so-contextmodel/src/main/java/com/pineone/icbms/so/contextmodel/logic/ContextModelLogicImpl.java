@@ -5,12 +5,10 @@ import com.pineone.icbms.so.contextmodel.proxy.ContextModelExProxy;
 import com.pineone.icbms.so.contextmodel.proxy.ContextModelInProxy;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.contextmodel.ref.ResponseMessage;
-import com.pineone.icbms.so.contextmodel.store.ContextModelMapStore;
 import com.pineone.icbms.so.contextmodel.store.ContextModelStore;
 import com.pineone.icbms.so.domain.entity.Domain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -136,5 +134,20 @@ public class ContextModelLogicImpl implements ContextModelLogic{
 //        ContextModelExProxy contextModelExProxy = ContextModelInternalProxy.newContextModelInternalProxy();
         List<Domain> domainList = contextModelInProxy.retrieveDomainList();
         return domainList;
+    }
+
+    @Override
+    public List<String> retrieveContextModelIdList() {
+        //
+        List<ContextModel> contextModelList = contextModelStore.retrieveContextModelList();
+
+        //SDA 에서 조회할 경우
+        //ContextModelExProxy contextModelExProxy = ContextModelSDAProxy.newContextModelProxy();
+        //List<ContextModel> contextModelList = contextModelExProxy.retrieveContextModelListFromSDA();
+        List<String> contextModelIdList = new ArrayList<>();
+        for(ContextModel contextModel : contextModelList){
+            contextModelIdList.add(contextModel.getId());
+        }
+        return contextModelIdList;
     }
 }

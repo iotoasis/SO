@@ -21,4 +21,5 @@ public interface ContextModelLogic {
     String useQueueSaveContextModel(ContextModel contextModel);
     ContextModel retrieveQueueData();
     List<Domain> retrieveDomainList();
+    List<String> retrieveContextModelIdList();
 }

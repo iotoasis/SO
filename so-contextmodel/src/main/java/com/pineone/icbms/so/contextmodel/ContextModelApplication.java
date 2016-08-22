@@ -1,7 +1,6 @@
 package com.pineone.icbms.so.contextmodel;
 
 import com.pineone.icbms.so.contextinformation.ContextInformationApplication;
-import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
 import com.pineone.icbms.so.domain.DomainApplication;
 import com.pineone.icbms.so.util.UtilApplication;
 import org.springframework.boot.SpringApplication;
