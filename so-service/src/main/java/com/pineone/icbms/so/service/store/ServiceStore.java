@@ -11,5 +11,5 @@ public interface ServiceStore {
     //
     void createService(Service service);
     List<Service> retrieveServiceList();
-    Service retrieveServiceDetail(String serviceName);
+    Service retrieveServiceDetail(String serviceId);
 }

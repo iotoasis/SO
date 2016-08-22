@@ -1,17 +1,17 @@
-package com.pineone.icbms.so.contextmodel;
-
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-
-/**
- * Created by melvin on 2016. 8. 2..
- */
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration(classes = ContextModelApplication.class)
-public class ContextModelStoreTest {
+//package com.pineone.icbms.so.contextmodel;
+//
+//import org.junit.runner.RunWith;
+//import org.springframework.test.context.ContextConfiguration;
+//import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+//import org.springframework.test.context.web.WebAppConfiguration;
+//
+///**
+// * Created by melvin on 2016. 8. 2..
+// */
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@WebAppConfiguration
+//@ContextConfiguration(classes = ContextModelApplication.class)
+//public class ContextModelStoreTest {
 
 //    @Autowired
 //    ContextModelPresentation contextModelPresentation;
@@ -86,4 +86,4 @@ public class ContextModelStoreTest {
 //            System.out.println(contextInformation);
 //        }
 //    }
-}
+//}

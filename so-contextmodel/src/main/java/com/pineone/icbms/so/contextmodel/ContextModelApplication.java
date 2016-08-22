@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @ComponentScan
-@Import({UtilApplication.class , DomainApplication.class, ContextInformationApplication.class})
+@Import({UtilApplication.class, DomainApplication.class, ContextInformationApplication.class})
 @EnableAutoConfiguration
 public class ContextModelApplication
 {

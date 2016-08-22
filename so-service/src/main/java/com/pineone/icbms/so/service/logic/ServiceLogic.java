@@ -18,4 +18,5 @@ public interface ServiceLogic {
     String registerService(Service service);
     Service retrieveServiceDetail(String serviceName);
     List<String> retrieveServiceNameList();
+    List<String> retrieveServiceIdList();
 }

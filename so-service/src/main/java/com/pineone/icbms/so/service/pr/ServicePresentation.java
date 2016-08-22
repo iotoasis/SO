@@ -3,7 +3,6 @@ package com.pineone.icbms.so.service.pr;
 
 import com.pineone.icbms.so.service.entity.Service;
 import com.pineone.icbms.so.service.logic.ServiceLogic;
-import com.pineone.icbms.so.service.logic.ServiceLogicImpl;
 import com.pineone.icbms.so.service.ref.*;
 import com.pineone.icbms.so.util.exception.DataLossException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,12 +76,12 @@ public class ServicePresentation {
     }
 
     //NOTE: Service 상세 정보 조회 -> 상세정보 리턴
-    @RequestMapping(value = "/{servicename}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public Service retrieveServiceDetailController(@PathVariable("servicename") String serviceName){
+    public Service retrieveServiceDetailController(@PathVariable("id") String serviceId){
         //
-        Service service = serviceLogic.retrieveServiceDetail(serviceName);
+        Service service = serviceLogic.retrieveServiceDetail(serviceId);
         return service;
     }
 
@@ -91,5 +90,12 @@ public class ServicePresentation {
         //
         List<String> serviceNameList = serviceLogic.retrieveServiceNameList();
         return serviceNameList;
+    }
+
+    // NOTE: Service Component 의 DB에 접근해서 service Id 리스트 조회
+    public List<String> retrieveServiceIdList(){
+        //
+        List<String> serviceIdList = serviceLogic.retrieveServiceIdList();
+        return serviceIdList;
     }
 }
