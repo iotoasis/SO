@@ -10,5 +10,9 @@ import java.util.List;
  */
 public interface DomainStore {
     //
+    void createDomain(Domain domain);
     List<Domain> retrieveDomainList();
+    Domain read(String id);
+
+
 }
