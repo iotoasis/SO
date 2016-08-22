@@ -5,6 +5,7 @@ import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.domain.pr.DomainPresentation;
 import com.pineone.icbms.so.domain.ref.Domain_Note;
 import com.pineone.icbms.so.domain.ref.ResponseMessage;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class DomainPresentationTest {
     @Autowired
     DomainPresentation domainPresentation;
 
-    @Test
+    @Before
     public void createDomain() throws Exception {
 
         Domain domain = new Domain();
