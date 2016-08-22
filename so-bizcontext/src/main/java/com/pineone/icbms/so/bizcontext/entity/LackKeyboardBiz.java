@@ -11,22 +11,6 @@ public class LackKeyboardBiz implements BizContext {
     int nextLectureNeedQuantity;
     int lackQuantity;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getCurrentQuantity() {
         return currentQuantity;
     }
@@ -49,5 +33,25 @@ public class LackKeyboardBiz implements BizContext {
 
     public void setLackQuantity(int lackQuantity) {
         this.lackQuantity = lackQuantity;
+    }
+
+    @Override
+    public String getId() {
+        return null;
+    }
+
+    @Override
+    public void setId(String id) {
+
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public void setName(String name) {
+
     }
 }

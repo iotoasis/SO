@@ -12,6 +12,8 @@ import com.pineone.icbms.so.profile.ref.ResponseMessage;
 import com.pineone.icbms.so.profile.store.ProfileMapStore;
 import com.pineone.icbms.so.profile.store.ProfileStore;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +22,19 @@ import java.util.List;
  * Created by melvin on 2016. 8. 11..
  * NOTE: Profile 생성 및 실행 로직 포함
  */
+@Service
 public class ProfileLogicImpl implements ProfileLogic, Runnable{
     //
-    ContextModelPresentation contextModelPresentation = new ContextModelPresentation();
+    @Autowired
+            ContextModelPresentation contextModelPresentation;
+
+    @Autowired
+    ProfileProxy profileProxy;
+
+    @Autowired
+    ProfileStore profileStore;
+
+//    ContextModelPresentation contextModelPresentation = new ContextModelPresentation();
 
     public static ProfileLogicImpl newProfileLogic() {
         return new ProfileLogicImpl();
@@ -32,7 +44,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     @Override
     public List<String> retrieveContextModelNameList() {
         //
-        ProfileProxy profileProxy = ProfileInternalProxy.newProfileInternalProxy();
+//        ProfileProxy profileProxy = ProfileInternalProxy.newProfileInternalProxy();
         List<String> contextModelNameList = profileProxy.retrieveContextModelNameList();
         return contextModelNameList;
     }
@@ -41,7 +53,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     @Override
     public List<String> retrieveServiceModelNameList() {
         //
-        ProfileProxy profileProxy = ProfileInternalProxy.newProfileInternalProxy();
+//        ProfileProxy profileProxy = ProfileInternalProxy.newProfileInternalProxy();
         List<String> serviceModelNameList = profileProxy.retrieveServiceModelNameList();
         return serviceModelNameList;
     }
@@ -50,7 +62,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     @Override
     public List<String> retrieveBizContextNameList() {
         //
-        ProfileProxy profileProxy = ProfileInternalProxy.newProfileInternalProxy();
+//        ProfileProxy profileProxy = ProfileInternalProxy.newProfileInternalProxy();
         List<String> bizContextTypeList = profileProxy.retrieveBizContextList();
         return bizContextTypeList;
     }
@@ -61,7 +73,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     public String registerProfile(Profile profile) {
         //
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
-        ProfileStore profileStore = ProfileMapStore.getInstance();
+//        ProfileStore profileStore = ProfileMapStore.getInstance();
 
         //NOTE: ScheduleType 인데 스케쥴이 설정 안되있는 경우
         String contextModelType = contextModelPresentation.retrieveContextModelType(profile.getContextModelName());
@@ -83,7 +95,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     @Override
     public List<String> retrieveProfileNameList() {
         //
-        ProfileStore profileStore = ProfileMapStore.getInstance();
+//        ProfileStore profileStore = ProfileMapStore.getInstance();
         List<String> profileNameList = new ArrayList<>();
         List<Profile> profileList = profileStore.retrieveProfileList();
 
@@ -97,7 +109,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     @Override
     public Profile retrieveProfileDetail(String profileName) {
         //
-        ProfileStore profileStore = ProfileMapStore.getInstance();
+//        ProfileStore profileStore = ProfileMapStore.getInstance();
         Profile profile = profileStore.retrieveProfileDetail(profileName);
         return profile;
     }
@@ -106,7 +118,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     @Override
     public void run() {
         //
-        ProfileProxy profileProxy = ProfileInternalProxy.newProfileInternalProxy();
+//        ProfileProxy profileProxy = ProfileInternalProxy.newProfileInternalProxy();
         while(true){
             try{
                 Thread.sleep(500);

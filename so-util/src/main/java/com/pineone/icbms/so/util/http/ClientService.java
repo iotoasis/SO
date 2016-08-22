@@ -8,6 +8,7 @@ import com.withwiz.service.network.http.client.httpclientservice.HttpClientServi
 import com.withwiz.service.network.http.client.httpclientservice.HttpClientServiceResponseDeliveryMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
 import java.util.HashMap;
@@ -17,6 +18,8 @@ import java.util.HashMap;
  * Created by use on 2015-10-12.
  * NOTE: 외부 통신을 위해 사용
  */
+
+@Service
 public class ClientService
 {
 	public static final int DATA_TIMEOUT_VALUE = 9000;

@@ -18,9 +18,8 @@ import java.util.List;
 @RequestMapping(value = "/domain")
 public class DomainPresentation {
     //
-    DomainLogic domainLogic = DomainLogicImpl.newDomainLogic();
-//    @Autowired
-//    DomainLogic domainLogic;
+    @Autowired
+    DomainLogic domainLogic;
 
     //NOTE: DomainList 조회
     @RequestMapping(method = RequestMethod.GET)

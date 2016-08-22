@@ -9,6 +9,11 @@ import com.pineone.icbms.so.contextinformation.temp.device.TempConceptService;
 import com.pineone.icbms.so.contextinformation.temp.device.VirtualObject;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
 
@@ -16,13 +21,19 @@ import java.util.List;
  * Created by melvin on 2016. 8. 1..
  * NOTE: DB 저장 및 조회
  */
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration(classes = ContextInformationApplication.class)
 public class ContextInformationStoreTest {
+
+    @Autowired
+    ContextInformationMapStore contextInformationStore ;
 
     //NOTE: MAP DB 에 데이터 저장 Test
     @Before
     public void registerContextInformationTest() throws Exception {
 
-        ContextInformationMapStore contextInformationStore = ContextInformationMapStore.getInstance();
         //User Field
         String name = "EmergencyTempContext";
         int minValue = 60;
@@ -49,7 +60,7 @@ public class ContextInformationStoreTest {
     @Test
     public void ContextInformation리스트조회() throws Exception {
 
-        ContextInformationMapStore contextInformationStore = ContextInformationMapStore.getInstance();
+//        ContextInformationMapStore contextInformationStore = ContextInformationMapStore.getInstance();
         // NOTE: DB에 저장되어 있는 데이터들을 조회
         List<ContextInformation> contextInformationList = contextInformationStore.retrieveContextInformationList();
 
@@ -61,7 +72,7 @@ public class ContextInformationStoreTest {
     @Test
     //NOTE : ContextInformationLogic 상세 조회 테스트
     public void ContextInformation상세조회() throws Exception {
-        ContextInformationStore contextInformationStore = ContextInformationMapStore.getInstance();
+//        ContextInformationStore contextInformationStore = ContextInformationMapStore.getInstance();
         ContextInformation contextInformation = contextInformationStore.retrieveContextInformationDetail("EmergencyTempContext");
 
         System.out.println(contextInformation.getName());

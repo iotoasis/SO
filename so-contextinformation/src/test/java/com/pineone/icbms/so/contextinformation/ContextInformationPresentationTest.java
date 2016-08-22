@@ -7,6 +7,11 @@ import com.pineone.icbms.so.contextinformation.temp.device.DeviceObject;
 import com.pineone.icbms.so.contextinformation.temp.device.TempConceptService;
 import com.pineone.icbms.so.contextinformation.temp.device.VirtualObject;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
 
@@ -14,10 +19,14 @@ import java.util.List;
  * Created by melvin on 2016. 7. 29..
  * NOTE : ContextInformationLogic 관련 테스트
  */
-public class ContextInformationPresentationTest {
 
-    ContextInformationPresentation contextInformationPresentation =
-            new ContextInformationPresentation();
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration(classes = ContextInformationApplication.class)
+public class ContextInformationPresentationTest {
+    //
+    @Autowired
+    ContextInformationPresentation contextInformationPresentation;
 
     @Test
     public void 가상객체목록조회 () throws Exception {

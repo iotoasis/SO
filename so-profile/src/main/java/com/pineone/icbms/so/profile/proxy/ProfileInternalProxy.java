@@ -5,6 +5,8 @@ import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 import com.pineone.icbms.so.contextmodel.logic.ContextModelLogicImpl;
 import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -12,11 +14,22 @@ import java.util.List;
  * Created by melvin on 2016. 8. 11..
  * NOTE: 내부의 다른 모듈에 접근하기 위한 Proxy
  */
+
+@Service
 public class ProfileInternalProxy extends AbstractProfileProxy {
     //
-    ContextModelPresentation contextModelPresentation = new ContextModelPresentation();
-    ServiceModelPresentation serviceModelPresentation = new ServiceModelPresentation();
-    BizContextPresentation bizContextPresentation = new BizContextPresentation();
+    @Autowired
+            ContextModelPresentation contextModelPresentation;
+
+    @Autowired
+            ServiceModelPresentation serviceModelPresentation;
+
+    @Autowired
+            BizContextPresentation bizContextPresentation;
+
+//    ContextModelPresentation contextModelPresentation = new ContextModelPresentation();
+//    ServiceModelPresentation serviceModelPresentation = new ServiceModelPresentation();
+//    BizContextPresentation bizContextPresentation = new BizContextPresentation();
 
     public static ProfileInternalProxy newProfileInternalProxy(){
         return new ProfileInternalProxy();

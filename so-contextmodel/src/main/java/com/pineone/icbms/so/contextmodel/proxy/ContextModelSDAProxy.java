@@ -9,6 +9,8 @@ import com.pineone.icbms.so.util.address.ContextAddress;
 import com.pineone.icbms.so.util.conversion.DataConversion;
 import com.pineone.icbms.so.util.http.ClientService;
 import com.withwiz.beach.network.http.message.IHttpResponseMessage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -17,12 +19,17 @@ import java.util.List;
  * Created by melvin on 2016. 8. 2..
  * NOTE: ContextModel 관련 SDA Interface 이용
  */
-public class ContextModelSDAProxy extends AbstractContextModelProxy {
 
-    private ClientService clientService = new ClientService();
-    private ContextAddress contextAddress = ContextAddress.newContextAddress();
+@Service
+public class ContextModelSDAProxy implements ContextModelExProxy {
 
-    public static ContextModelProxy newContextModelProxy(){
+    @Autowired
+    private ClientService clientService;
+
+    @Autowired
+    private ContextAddress contextAddress;
+
+    public static ContextModelExProxy newContextModelProxy(){
         return newContextModelProxy();
     }
 

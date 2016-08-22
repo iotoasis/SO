@@ -8,6 +8,7 @@ import com.pineone.icbms.so.contextmodel.ref.DataValidation;
 import com.pineone.icbms.so.contextmodel.ref.ResponseMessage;
 import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.util.exception.DataLossException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,8 @@ import java.util.List;
 @RequestMapping(value = "/cm")
 public class ContextModelPresentation {
     //
-    ContextModelLogic contextModelLogic = ContextModelLogicImpl.newContextModelLogic();
+    @Autowired ContextModelLogic contextModelLogic;
+//    ContextModelLogic contextModelLogic = ContextModelLogicImpl.newContextModelLogic();
 
     //NOTE: ContextModel 생성 요청 -> ContextInformation 리스트 리턴
     @RequestMapping(value = "/ci", method = RequestMethod.GET)

@@ -5,10 +5,16 @@ import com.pineone.icbms.so.service.store.ServiceMapStore;
 import com.pineone.icbms.so.service.store.ServiceStore;
 import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
+import com.pineone.icbms.so.servicemodel.proxy.ServiceModelProxy;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelMapStore;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,15 +22,28 @@ import java.util.List;
 /**
  * Created by melvin on 2016. 8. 10..
  */
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration(classes = ServiceModelApplication.class)
 public class ServiceModelStoreTest {
 
-    ServiceModelPresentation serviceModelPresentation = new ServiceModelPresentation();
+    @Autowired
+    ServiceModelPresentation serviceModelPresentation;
+
+    @Autowired
+    ServiceModelStore serviceModelStore;
+
+    @Autowired
+    ServiceStore serviceStore;
+
+//    ServiceModelPresentation serviceModelPresentation = new ServiceModelPresentation();
 
     // NOTE: MAP 디비에 ServiceModel 저장
     @Before
     public void setData() throws Exception {
 
-        ServiceStore serviceStore = ServiceMapStore.getInstance();
+//        ServiceStore serviceStore = ServiceMapStore.getInstance();
         serviceStore.createService(new Service("에어컨가동"));
         serviceStore.createService(new Service("냉방장치가동"));
         serviceStore.createService(new Service("선풍기가동"));
@@ -39,7 +58,7 @@ public class ServiceModelStoreTest {
 
         serviceModel.setName("냉방제어");
 
-        ServiceModelStore serviceModelStore = ServiceModelMapStore.getInstance();
+//        ServiceModelStore serviceModelStore = ServiceModelMapStore.getInstance();
         serviceModelStore.createServiceModel(serviceModel);
 
         ServiceModel serviceModel1 = new ServiceModel();

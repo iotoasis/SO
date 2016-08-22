@@ -1,8 +1,12 @@
 package com.pineone.icbms.so.bizcontext.ref;
 
+import org.springframework.stereotype.Service;
+
 /**
  * Created by melvin on 2016. 8. 9..
  */
+
+@Service
 public class ResponseMessage {
 
     private String exceptionMessage;

@@ -1,5 +1,7 @@
 package com.pineone.icbms.so.contextinformation.temp.device;
 
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,8 @@ import java.util.List;
  * Created by melvin on 2016. 7. 11..
  * NOTE: DeviceObject(VO and CVO), ConceptService 관리
  */
+
+@Service
 public class DeviceCenter {
 
     public static DeviceCenter newDeviceCenter(){
@@ -15,7 +19,7 @@ public class DeviceCenter {
     }
 
     //NOTE : DeviceObject(VO and CVO) 조회
-    public static List<DeviceObject> retrieveDeviceObjectList(){
+    public List<DeviceObject> retrieveDeviceObjectList(){
         ArrayList<DeviceObject> deviceObjectArrayList = new ArrayList<DeviceObject>();
         for(VirtualObject virtualObject : VirtualObject.values()) {
             deviceObjectArrayList.add(virtualObject);

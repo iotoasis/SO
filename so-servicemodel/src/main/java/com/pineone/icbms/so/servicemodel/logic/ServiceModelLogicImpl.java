@@ -11,6 +11,7 @@ import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
 import com.pineone.icbms.so.servicemodel.ref.ServiceMessage;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelMapStore;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -19,11 +20,19 @@ import java.util.Queue;
 /**
  * Created by melvin on 2016. 8. 9..
  */
+
+@org.springframework.stereotype.Service
 public class ServiceModelLogicImpl implements ServiceModelLogic, Runnable {
     //
     public static final Queue SERVICEMODEL_QUEUE = new LinkedList<>();
 
-    ServiceModelProxy serviceModelProxy = ServiceModelInternalProxy.newServiceModelSDAProxy();
+    @Autowired
+            ServiceModelProxy serviceModelProxy;
+
+    @Autowired
+    ServiceModelStore serviceModelStore;
+
+//    ServiceModelProxy serviceModelProxy = ServiceModelInternalProxy.newServiceModelSDAProxy();
 
     public static ServiceModelLogic newServiceModelLogic() {
         return new ServiceModelLogicImpl();
@@ -41,7 +50,7 @@ public class ServiceModelLogicImpl implements ServiceModelLogic, Runnable {
     public String registerServiceModel(ServiceModel serviceModel) {
         //
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
-        ServiceModelStore serviceModelStore = ServiceModelMapStore.getInstance();
+//        ServiceModelStore serviceModelStore = ServiceModelMapStore.getInstance();
 
         serviceModelStore.createServiceModel(serviceModel);
         String serviceModelResultMessage = responseMessage.serviceModelResultMessage(serviceModel);
@@ -52,7 +61,7 @@ public class ServiceModelLogicImpl implements ServiceModelLogic, Runnable {
     //NOTE: ServiceModel 상세 정보 조회 요청을 받고 디비에서 정보를 조회해서 반환
     public ServiceModel retrieveServiceModelDetail(String serviceModelName) {
         //
-        ServiceModelStore serviceModelStore = ServiceModelMapStore.getInstance();
+//        ServiceModelStore serviceModelStore = ServiceModelMapStore.getInstance();
         ServiceModel serviceModel = serviceModelStore.retrieveServiceModelDetail(serviceModelName);
         return serviceModel;
     }

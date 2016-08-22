@@ -8,6 +8,7 @@ import com.pineone.icbms.so.servicemodel.ref.DataValidation;
 import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
 import com.pineone.icbms.so.servicemodel.ref.ServiceMessage;
 import com.pineone.icbms.so.util.exception.DataLossException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,9 @@ import java.util.List;
 @RequestMapping(value = "/servicemodel")
 public class ServiceModelPresentation {
     //
-    ServiceModelLogic serviceModelLogic = ServiceModelLogicImpl.newServiceModelLogic();
+    @Autowired
+            ServiceModelLogic serviceModelLogic;
+//    ServiceModelLogic serviceModelLogic = ServiceModelLogicImpl.newServiceModelLogic();
 
     //NOTE: ServiceModel 생성 요청 -> ServiceList 리턴
     @RequestMapping(value = "/service")

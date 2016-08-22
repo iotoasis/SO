@@ -1,5 +1,6 @@
 package com.pineone.icbms.so.contextmodel;
 
+import com.pineone.icbms.so.contextinformation.ContextInformationApplication;
 import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
 import com.pineone.icbms.so.contextinformation.store.ContextInformationMapStore;
 import com.pineone.icbms.so.contextinformation.store.ContextInformationStore;
@@ -10,6 +11,11 @@ import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.domain.pr.DomainPresentation;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +23,19 @@ import java.util.List;
 /**
  * Created by melvin on 2016. 8. 1..
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration(classes = ContextModelApplication.class)
 public class ContextModelPresentationTest {
 
-    ContextModelPresentation contextModelPresentation = new ContextModelPresentation();
-    DomainPresentation domainPresentation = new DomainPresentation();
+    @Autowired
+    ContextModelPresentation contextModelPresentation;
+
+    @Autowired
+    DomainPresentation domainPresentation;
+
+    @Autowired
+    ContextInformationStore contextInformationStore;
 
     @Test
     public void domain조회() throws Exception {
@@ -44,7 +59,7 @@ public class ContextModelPresentationTest {
     @Before
     public void setData() throws Exception {
 
-        ContextInformationStore contextInformationStore = ContextInformationMapStore.getInstance();
+//        ContextInformationStore contextInformationStore = ContextInformationMapStore.getInstance();
         contextInformationStore.createContextInformation(new ContextInformation("연기감지"));
         contextInformationStore.createContextInformation(new ContextInformation("고온상황"));
         contextInformationStore.createContextInformation(new ContextInformation("사람없음"));

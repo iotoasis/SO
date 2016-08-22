@@ -1,11 +1,14 @@
 package com.pineone.icbms.so.bizcontext.pr;
 
+import com.pineone.icbms.so.bizcontext.entity.CurrentElectricBiz;
+import com.pineone.icbms.so.bizcontext.entity.InefficientElectricBiz;
 import com.pineone.icbms.so.bizcontext.logic.*;
 import com.pineone.icbms.so.bizcontext.ref.Biz_Note;
 import com.pineone.icbms.so.bizcontext.ref.DataValidation;
 import com.pineone.icbms.so.bizcontext.ref.ResponseMessage;
 import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.util.exception.DataLossException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,13 +25,40 @@ import java.util.List;
 @ResponseBody
 public class BizContextPresentation {
 
+    @Autowired
+    BizContextBasicLogic bizContextBasicLogic;
+
+    @Autowired
+    CurrentElectricBizLogic currentElectricBizLogic;
+
+    @Autowired
+    InefficientElectricBizLogic inefficientElectricBizLogic;
+
+    @Autowired
+    WasteElectricBizLogic wasteElectricBizLogic;
+
+    @Autowired
+    LackKeyboardBizLogic lackKeyboardBizLogic;
+
+    @Autowired
+    LackPCBizLogic lackPCBizLogic;
+
+    @Autowired
+    LackMouseBizLogic lackMouseBizLogic;
+
+    @Autowired
+    ResponseMessage responseMessage;
+
+    @Autowired
+    DataValidation dataValidation;
+
     //NOTE: BizContext 생성 요청 -> 생성할 수 있는 BizContext 종류 리턴
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public List<String> retrieveBizContextList(){
         //
-        List<String> bizContextList = BizContextBasicLogic.newBizContextBasicLogic().retrieveBizContextList();
+        List<String> bizContextList = bizContextBasicLogic.retrieveBizContextList();
         return bizContextList;
     }
 
@@ -38,15 +68,15 @@ public class BizContextPresentation {
     @ResponseBody
     public ResponseMessage registerBizContext(@RequestBody String bizContextName){
         //
-        DataValidation dataValidation = DataValidation.newDataValidation();
-        ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
+//        DataValidation dataValidation = DataValidation.newDataValidation();
+//        ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
         try {
             dataValidation.inspectBizContext(bizContextName);
         } catch (DataLossException e) {
             responseMessage.setExceptionMessage(e.getMessage());
             return responseMessage;
         }
-        String resultMessage = BizContextBasicLogic.newBizContextBasicLogic().registerBizContext(bizContextName);
+        String resultMessage = bizContextBasicLogic.registerBizContext(bizContextName);
         responseMessage.setMessage(resultMessage);
         return responseMessage;
     }
@@ -60,21 +90,21 @@ public class BizContextPresentation {
             // NOTE : ex) Parameter : "ASPECT: 전력" + name 등..
             // NOTE : 데이터 수신후 currentBiz 에 Set 해서 전달.
             // NOTE : currentBizLogic.newCurrentBizLogic().isHappenBizContext(currentBiz) 형태
-            checkPoint = CurrentElectricBizLogic.newCurrentElectricBizLogic().isHappenBizContext(domain);
+            checkPoint = currentElectricBizLogic.isHappenBizContext(domain);
         }
         else if(bizContextName.equals(Biz_Note.INEFFICIENT_ELECTRIC.toString())){
             // NOTE : 전력비효율에 관한 데이터를 수신받기위한 프레젠테이션 필요시 추가
             // NOTE : ex) Parameter : "ASPECT: 전력" , "Time : 시간" , "증가량 : 수치%" + name 등..
             // NOTE : 데이터 수신후 InefficientBiz Entity 에 Set 해서 전달.
             // NOTE : InefficientBizLogic.newInefficientBizLogic().isHappenBizContext(inefficientBiz) 형태
-            checkPoint = InefficientElectricBizLogic.newInefficientElectricBizLogic().isHappenBizContext(domain);
+            checkPoint = inefficientElectricBizLogic.isHappenBizContext(domain);
         }
         else if(bizContextName.equals(Biz_Note.WASTE_ELECTRIC.toString())){
             // NOTE : 전력낭비에 관한 데이터를 수신받기위한 프레젠테이션 필요시 추가
             // NOTE : ex) Parameter : "ASPECT: 전력" + name 등..
             // NOTE : 데이터 수신후 WasteBiz Entity 에 Set 해서 전달.
             // NOTE : WasteBizLogic.newWasteBizLogic().isHappenBizContext(wasteBiz) 형태
-            checkPoint = WasteElectricBizLogic.newWasteElectricBizLogic().isHappenBizContext(domain);
+            checkPoint = wasteElectricBizLogic.isHappenBizContext(domain);
         }
         return checkPoint;
     }
@@ -92,15 +122,15 @@ public class BizContextPresentation {
         int needPCQuantity = 0;
 
         if(bizContextName.equals(Biz_Note.LACK_KEYBOARD.toString())){
-            needKeyboardQuantity = LackKeyboardBizLogic.newLackKeyboardBizLogic().retrieveNeedQuantity(domain);
+            needKeyboardQuantity = lackKeyboardBizLogic.retrieveNeedQuantity(domain);
             message = "KeyBoard = " + needKeyboardQuantity + " 필요";
         }
         if(bizContextName.equals(Biz_Note.LACK_MOUSE.toString())){
-            needMouseQuantity = LackMouseBizLogic.newLackMouseBizLogic().retrieveNeedQuantity(domain);
+            needMouseQuantity = lackMouseBizLogic.retrieveNeedQuantity(domain);
             message = "Mouse = " + needMouseQuantity + " 필요";
         }
         if(bizContextName.equals(Biz_Note.LACK_PC.toString())){
-            needPCQuantity = LackPCBizLogic.newLackPCBizLogic().retrieveNeedQuantity(domain);
+            needPCQuantity = lackPCBizLogic.retrieveNeedQuantity(domain);
             message = "PC = " + needPCQuantity + " 필요";
         }
         return message;
