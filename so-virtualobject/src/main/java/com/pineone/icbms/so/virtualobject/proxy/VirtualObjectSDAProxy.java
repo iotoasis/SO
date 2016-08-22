@@ -3,7 +3,9 @@ package com.pineone.icbms.so.virtualobject.proxy;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.pineone.icbms.so.device.util.ClientService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class VirtualObjectSDAProxy implements VirtualObjectProxy{
     /**
      * SDA에 DeviceID와 Service로 Functionality를 얻는다.

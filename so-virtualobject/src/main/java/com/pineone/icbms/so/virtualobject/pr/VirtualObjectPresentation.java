@@ -3,7 +3,7 @@ package com.pineone.icbms.so.virtualobject.pr;
 import com.pineone.icbms.so.virtualobject.entity.ExternalVirtulaObject;
 import com.pineone.icbms.so.virtualobject.entity.VirtualObject;
 import com.pineone.icbms.so.virtualobject.logic.VirtualObjectManager;
-import com.pineone.icbms.so.virtualobject.logic.VirtualObjectManagerLogic;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +22,10 @@ public class VirtualObjectPresentation {
      * VO 삭제
      */
 
-    private VirtualObjectManager virtualObjectManager = new VirtualObjectManagerLogic();
+    @Autowired
+    private VirtualObjectManager virtualObjectManager;
 
-    @RequestMapping(value = "/",method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public void createVirtualObject(@RequestBody ExternalVirtulaObject virtulaObject){
         virtualObjectManager.produceVirtualObject(virtulaObject);

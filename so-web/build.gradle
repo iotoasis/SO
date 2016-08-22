@@ -15,6 +15,7 @@ dependencies {
     compile project (":so-service")
     compile project (":so-util")
     compile project (":so-servicemodel")
+    compile project (":so-virtualobject")
 
 
     testCompile group: 'junit', name: 'junit', version: '4.11'

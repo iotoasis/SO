@@ -1,14 +1,14 @@
 package com.pineone.icbms.so.virtualobject.store.memory;
 
 import com.pineone.icbms.so.virtualobject.entity.VirtualObject;
-import com.pineone.icbms.so.virtualobject.store.VirtualObjectStore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class VirtualObjectMemory implements VirtualObjectStore {
+public class VirtualObjectMemory {
+
 
     //
     private Map<String,VirtualObject> virtualObjectRepository = new HashMap<>();

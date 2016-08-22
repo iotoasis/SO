@@ -5,21 +5,24 @@ import com.pineone.icbms.so.device.util.ClientProfile;
 import com.pineone.icbms.so.virtualobject.entity.ExternalVirtulaObject;
 import com.pineone.icbms.so.virtualobject.entity.VirtualObject;
 import com.pineone.icbms.so.virtualobject.proxy.VirtualObjectProxy;
-import com.pineone.icbms.so.virtualobject.proxy.VirtualObjectSDAProxy;
 import com.pineone.icbms.so.virtualobject.store.VirtualObjectStore;
-import com.pineone.icbms.so.virtualobject.store.memory.VirtualObjectMemory;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class VirtualObjectManagerLogic implements VirtualObjectManager {
 
     @Autowired
     DeviceManager deviceManager;
 
-    VirtualObjectStore virtualObjectStore = VirtualObjectMemory.getInstance();
-    VirtualObjectProxy virtualObjectProxy = new VirtualObjectSDAProxy();
+    @Autowired
+    VirtualObjectStore virtualObjectStore;
+
+    @Autowired
+    VirtualObjectProxy virtualObjectProxy;
 
     @Override
     public VirtualObject searchVirtualObject(String id) {

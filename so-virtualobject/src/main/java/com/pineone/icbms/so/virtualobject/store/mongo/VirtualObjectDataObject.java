@@ -1,6 +1,9 @@
-package com.pineone.icbms.so.virtualobject.entity;
+package com.pineone.icbms.so.virtualobject.store.mongo;
 
-public class VirtualObject {
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "VirtualObject")
+public class VirtualObjectDataObject {
     //
     private String voId;
     private String voName;
@@ -14,10 +17,10 @@ public class VirtualObject {
     private String voLocation;
 
 
-    public VirtualObject() {
+    public VirtualObjectDataObject() {
     }
 
-    public VirtualObject(String voId, String voName, String functionality, String voDiscription, String voCreateTime, String voExfiredTime, String deviceService, String deviceId, String voCommand, String voLocation) {
+    public VirtualObjectDataObject(String voId, String voName, String functionality, String voDiscription, String voCreateTime, String voExfiredTime, String deviceService, String deviceId, String voCommand, String voLocation) {
         this.voId = voId;
         this.voName = voName;
         this.functionality = functionality;
@@ -110,4 +113,3 @@ public class VirtualObject {
         this.voLocation = voLocation;
     }
 }
-
