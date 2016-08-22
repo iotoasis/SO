@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * Created by melvin on 2016. 8. 22..
- * NOTE: Mongo DB를 이용하는 객체
+ * NOTE: Mongo DB를 - Domain 정보 연결
  */
 @Repository
 public class DomainStoreMongoImpl implements DomainStore {
