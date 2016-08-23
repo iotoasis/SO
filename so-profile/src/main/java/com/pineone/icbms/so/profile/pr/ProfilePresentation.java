@@ -81,19 +81,19 @@ public class ProfilePresentation {
     @RequestMapping(value = "/profilelist")
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public List<String> retrieveProfileList(){
+    public List<String> retrieveProfileNameList(){
         //
         List<String> profileNameList = profileLogic.retrieveProfileNameList();
         return profileNameList;
     }
 
     //NOTE: DB 에서 profile 상세 조회
-    @RequestMapping(value = "{profilename}", method = RequestMethod.GET)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public Profile retrieveProfileDetailController(@PathVariable("profilename")String profileName){
+    public Profile retrieveProfileDetailController(@PathVariable("id")String profileId){
         //
-        Profile profile = profileLogic.retrieveProfileDetail(profileName);
+        Profile profile = profileLogic.retrieveProfileDetail(profileId);
         return profile;
     }
 
@@ -102,5 +102,11 @@ public class ProfilePresentation {
         //
         Profile profile = profileLogic.retrieveProfileDetail(contextModelName);
         return profile;
+    }
+
+    public List<String> retrieveProfileIdList(){
+        //
+        List<String> profileIdList = profileLogic.retrieveProfileIdList();
+        return profileIdList;
     }
 }

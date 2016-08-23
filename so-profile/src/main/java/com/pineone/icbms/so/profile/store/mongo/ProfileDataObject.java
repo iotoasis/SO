@@ -1,16 +1,17 @@
-package com.pineone.icbms.so.profile.entity;
+package com.pineone.icbms.so.profile.store.mongo;
 
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * Created by melvin on 2016. 8. 11..
- * NOTE: 로직에 사용될 Profile 데이터
+ * Created by melvin on 2016. 8. 23..
+ * NOTE: 내부 저장소 에서 사용할 Profile Data
  */
-public class Profile {
 
-    public Profile() {
-    }
-    String id;
+@Document(collection = "profile")
+public class ProfileDataObject {
+
     String name;
+    String id;
     String contextModelName;
     String serviceModelName;
     String bizContextName;
@@ -74,15 +75,6 @@ public class Profile {
         this.expirationTime = expirationTime;
     }
 
-    public Profile(String id, String name, String contextModelName, String serviceModelName, String bizContextName, int period) {
-        this.id = id;
-        this.name = name;
-        this.contextModelName = contextModelName;
-        this.serviceModelName = serviceModelName;
-        this.bizContextName = bizContextName;
-        this.period = period;
-    }
-
     public int getPeriod() {
 
         return period;
@@ -91,4 +83,17 @@ public class Profile {
     public void setPeriod(int period) {
         this.period = period;
     }
+
+    public ProfileDataObject() {
+    }
+
+    public ProfileDataObject(String id, String name, String contextModelName, String serviceModelName, String bizContextName, int period) {
+        this.id = id;
+        this.name = name;
+        this.contextModelName = contextModelName;
+        this.serviceModelName = serviceModelName;
+        this.bizContextName = bizContextName;
+        this.period = period;
+    }
+
 }

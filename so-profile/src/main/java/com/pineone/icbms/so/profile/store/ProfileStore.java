@@ -12,5 +12,5 @@ public interface ProfileStore {
     //
     void createProfile(Profile profile);
     List<Profile> retrieveProfileList();
-    Profile retrieveProfileDetail(String profileName);
+    Profile retrieveProfileDetail(String profileId);
 }
