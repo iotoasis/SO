@@ -1,6 +1,6 @@
 package com.pineone.icbms.so.virtualobject.entity;
 
-public class ExternalVirtulaObject {
+public class VirtualObjectTransFormObject {
 
     private String voId;
     private String voName;
@@ -14,10 +14,10 @@ public class ExternalVirtulaObject {
     private String voLocation;
 
 
-    public ExternalVirtulaObject() {
+    public VirtualObjectTransFormObject() {
     }
 
-    public ExternalVirtulaObject(String voId, String voName, String functionality, String voDiscription, String voCreateTime, String voExfiredTime, String deviceService, String deviceId, String voCommand, String voLocation) {
+    public VirtualObjectTransFormObject(String voId, String voName, String functionality, String voDiscription, String voCreateTime, String voExfiredTime, String deviceService, String deviceId, String voCommand, String voLocation) {
         this.voId = voId;
         this.voName = voName;
         this.functionality = functionality;

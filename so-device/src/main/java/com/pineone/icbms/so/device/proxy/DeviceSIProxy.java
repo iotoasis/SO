@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class DeviceSIProxy implements DeviceOutsideProxy {
+public class DeviceSIProxy implements DeviceControlProxy {
 
     /**
      * The actual device control request.

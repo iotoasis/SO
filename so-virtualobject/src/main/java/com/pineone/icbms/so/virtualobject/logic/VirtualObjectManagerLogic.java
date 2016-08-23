@@ -1,12 +1,9 @@
 package com.pineone.icbms.so.virtualobject.logic;
 
 import com.pineone.icbms.so.device.logic.DeviceManager;
-import com.pineone.icbms.so.device.util.ClientProfile;
-import com.pineone.icbms.so.virtualobject.entity.ExternalVirtulaObject;
 import com.pineone.icbms.so.virtualobject.entity.VirtualObject;
 import com.pineone.icbms.so.virtualobject.proxy.VirtualObjectProxy;
 import com.pineone.icbms.so.virtualobject.store.VirtualObjectStore;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,15 +43,12 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
 
         // 해당 Device ID를 도출
         String deviceId = virtualObject.getDeviceId();
-
+    // operation -> command SDA 확인.고려.. 형식으로 변경.
         return deviceManager.deviceExecute(deviceId, operation);
     }
 
     @Override
-    public void produceVirtualObject(ExternalVirtulaObject eVirtulaObject) {
-
-        // VirtualObject 생성
-        VirtualObject virtualObject = virtualObjectMapping(eVirtulaObject);
+    public void produceVirtualObject(VirtualObject virtualObject) {
 
         // VirtualObjectdml Functionality 요청
         String responseData = requestFunctionality(virtualObject);
@@ -67,35 +61,15 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
 
     }
 
-    private VirtualObject virtualObjectMapping(ExternalVirtulaObject eVirtulaObject)
-    {
-        VirtualObject virtualObject = new VirtualObject();
-        virtualObject.setVoId(eVirtulaObject.getVoId());
-        virtualObject.setDeviceId(eVirtulaObject.getDeviceId());
-        virtualObject.setDeviceService(eVirtulaObject.getDeviceService());
-        virtualObject.setFunctionality(eVirtulaObject.getFunctionality());
-        virtualObject.setVoCommand(eVirtulaObject.getVoCommand());
-        virtualObject.setVoCreateTime(eVirtulaObject.getVoCreateTime());
-        virtualObject.setVoExfiredTime(eVirtulaObject.getVoExfiredTime());
-        virtualObject.setVoDiscription(eVirtulaObject.getVoDiscription());
-        virtualObject.setVoName(eVirtulaObject.getVoName());
-        virtualObject.setVoLocation(eVirtulaObject.getVoLocation());
-        return virtualObject;
-    }
-
     private void saveVirtualDevice(VirtualObject virtualObject){
         virtualObjectStore.create(virtualObject);
     }
 
     private String requestFunctionality(VirtualObject virtualObject){
-        String requestUri = ClientProfile.SDA_DATAREQUEST_URI + ClientProfile.SDA_DEVICE;
-        JSONObject obj = new JSONObject();
-        obj.put("deviceId", virtualObject.getDeviceId());
-        obj.put("deviceService", virtualObject.getDeviceService());
-        String requestData = obj.toString();
+        String responseData = virtualObjectProxy.findFunctionality(virtualObject.getDeviceId(),virtualObject.getDeviceService());
 
-        String responseData = virtualObjectProxy.findFunctionality(requestUri,requestData);
-
+        // 컨트롤 프록시
+        // 정보 수접 프록시.
         return responseData;
     }
 }
