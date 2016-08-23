@@ -11,5 +11,5 @@ public interface ServiceModelStore {
     //
     void createServiceModel(ServiceModel serviceModel);
     List<ServiceModel> retrieveServiceModelList();
-    ServiceModel retrieveServiceModelDetail(String ServiceModelName);
+    ServiceModel retrieveServiceModelDetail(String ServiceModelId);
 }

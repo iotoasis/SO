@@ -1,13 +1,16 @@
-package com.pineone.icbms.so.servicemodel.entity;
+package com.pineone.icbms.so.servicemodel.store.mongo;
 
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
 /**
- * Created by melvin on 2016. 8. 9..
- * NOTE: 복수의 서비스를 포함하고 있는 서비스 모델 객체
+ * Created by melvin on 2016. 8. 23..
+ * NOTE: 내부 저장소 에서 사용할 ContextModel Data
  */
-public class ServiceModel {
+
+@Document(collection = "service_model")
+public class ServiceModelDataObject {
     //
     private String id;
     private String name;
@@ -37,10 +40,10 @@ public class ServiceModel {
         this.id = id;
     }
 
-    public ServiceModel() {
+    public ServiceModelDataObject() {
     }
 
-    public ServiceModel(String id, String name, List<String> serviceIdList) {
+    public ServiceModelDataObject(String id, String name, List<String> serviceIdList) {
         this.id = id;
         this.name = name;
         this.serviceIdList = serviceIdList;

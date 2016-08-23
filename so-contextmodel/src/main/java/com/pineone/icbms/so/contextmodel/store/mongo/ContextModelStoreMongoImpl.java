@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * Created by melvin on 2016. 8. 22..
- * NOTE: Mongo DB를 - Domain 정보 연결
+ * NOTE: Mongo DB를 - ContextModel 정보 연결
  */
 
 @Repository

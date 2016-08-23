@@ -35,4 +35,11 @@ public class ServiceModelInternalProxy extends AbstractServiceModelProxy {
         Service service = servicePresentation.retrieveServiceDetailController(serviceName);
         return service;
     }
+
+    //NOTE: Service 컴포넌트를 이용해서 ServiceIdList 조회
+    @Override
+    public List<String> retrieveServiceIdList() {
+        List<String> serviceIdList = servicePresentation.retrieveServiceIdList();
+        return serviceIdList;
+    }
 }

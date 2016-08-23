@@ -18,4 +18,9 @@ public abstract class AbstractServiceModelProxy implements ServiceModelProxy {
     public Service retrieveServiceDetail(String serviceName) {
         return null;
     }
+
+    @Override
+    public List<String> retrieveServiceIdList() {
+        return null;
+    }
 }
