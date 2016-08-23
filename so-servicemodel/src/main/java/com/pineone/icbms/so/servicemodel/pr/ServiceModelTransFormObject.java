@@ -1,13 +1,12 @@
-package com.pineone.icbms.so.servicemodel.entity;
-
+package com.pineone.icbms.so.servicemodel.pr;
 
 import java.util.List;
 
 /**
- * Created by melvin on 2016. 8. 9..
- * NOTE: 복수의 서비스를 포함하고 있는 서비스 모델 객체
+ * Created by melvin on 2016. 8. 23..
+ * NOTE: 외부에 노출될 ServiceModel Data - Presentation, Controller 에서 사용
  */
-public class ServiceModel {
+public class ServiceModelTransFormObject {
     //
     private String id;
     private String name;
@@ -37,10 +36,10 @@ public class ServiceModel {
         this.id = id;
     }
 
-    public ServiceModel() {
+    public ServiceModelTransFormObject() {
     }
 
-    public ServiceModel(String id, String name, List<String> serviceIdList) {
+    public ServiceModelTransFormObject(String id, String name, List<String> serviceIdList) {
         this.id = id;
         this.name = name;
         this.serviceIdList = serviceIdList;

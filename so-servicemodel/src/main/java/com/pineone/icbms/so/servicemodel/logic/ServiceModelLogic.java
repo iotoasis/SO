@@ -14,4 +14,6 @@ public interface ServiceModelLogic {
     String registerServiceModel(ServiceModel serviceModel);
     ServiceModel retrieveServiceModelDetail(String serviceModelName);
     void executeEmergencyServiceModel(ServiceMessage serviceMessage);
+    List<String> retrieveServiceIdList();
+    List<String> retrieveServiceModelIdList();
 }
