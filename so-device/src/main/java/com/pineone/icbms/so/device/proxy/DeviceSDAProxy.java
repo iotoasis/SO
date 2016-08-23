@@ -1,21 +1,26 @@
 package com.pineone.icbms.so.device.proxy;
 
 import com.pineone.icbms.so.device.entity.Device;
+import com.pineone.icbms.so.device.util.ClientProfile;
 import com.pineone.icbms.so.device.util.ClientService;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
+import org.json.simple.JSONObject;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeviceSDAProxy implements DeviceProxy{
+@Service
+public class DeviceSDAProxy implements DeviceICollectionProxy {
     /**
      * SDA 데이터 요청
      * 1. Domain 조회(get)
      * 2. Device By ID 조회(get)
      * 3. Device By Domain 조회(get)
      * 4. Device service 조회(get)
+     * 5. Device operation 조회(POST)
      */
 
     private ClientService clientService = new ClientService();
@@ -87,7 +92,7 @@ public class DeviceSDAProxy implements DeviceProxy{
      * @return
      */
     @Override
-    public List<String> findDeivceFunctionality(String requestUri){
+    public List<String> findDeivceServiceList(String requestUri){
         //
         List<String> deviceFunctionalityList = new ArrayList<>();
 
@@ -102,9 +107,21 @@ public class DeviceSDAProxy implements DeviceProxy{
         return deviceFunctionalityList;
     }
 
+    /**
+     * 5. Device operation 조회(Post)
+     */
+
     @Override
-    public String deviceControlRequest(String requestUrl, String requestBody) {
-        return null;
+    public String findDeviceOperation(String deviceId, String deviceService) {
+
+        String requestUri = ClientProfile.SDA_DATAREQUEST_URI + ClientProfile.SDA_DEVICE + ClientProfile.SDA_DEVICE_OPERATION;
+        JSONObject obj = new JSONObject();
+        obj.put("deviceId", deviceId);
+        obj.put("deviceService", deviceService);
+        String requestData = obj.toString();
+
+        String responseData = clientService.requestPostService(requestUri,requestData);
+        return responseData;
     }
 
 }

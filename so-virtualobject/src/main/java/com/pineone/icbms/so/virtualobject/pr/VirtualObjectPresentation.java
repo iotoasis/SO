@@ -1,6 +1,6 @@
 package com.pineone.icbms.so.virtualobject.pr;
 
-import com.pineone.icbms.so.virtualobject.entity.ExternalVirtulaObject;
+import com.pineone.icbms.so.virtualobject.entity.VirtualObjectTransFormObject;
 import com.pineone.icbms.so.virtualobject.entity.VirtualObject;
 import com.pineone.icbms.so.virtualobject.logic.VirtualObjectManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +27,8 @@ public class VirtualObjectPresentation {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public void createVirtualObject(@RequestBody ExternalVirtulaObject virtulaObject){
-        virtualObjectManager.produceVirtualObject(virtulaObject);
+    public void createVirtualObject(@RequestBody VirtualObjectTransFormObject virtulaObject){
+        virtualObjectManager.produceVirtualObject(virtualObjectMapping(virtulaObject));
     }
 
 
@@ -54,6 +54,22 @@ public class VirtualObjectPresentation {
     @ResponseStatus(HttpStatus.OK)
     public void deleteVirtualObject(@PathVariable String id){
         virtualObjectManager.deleteVirtualObject(id);
+    }
+
+    private VirtualObject virtualObjectMapping(VirtualObjectTransFormObject eVirtulaObject)
+    {
+        VirtualObject virtualObject = new VirtualObject();
+        virtualObject.setVoId(eVirtulaObject.getVoId());
+        virtualObject.setDeviceId(eVirtulaObject.getDeviceId());
+        virtualObject.setDeviceService(eVirtulaObject.getDeviceService());
+        virtualObject.setFunctionality(eVirtulaObject.getFunctionality());
+        virtualObject.setVoCommand(eVirtulaObject.getVoCommand());
+        virtualObject.setVoCreateTime(eVirtulaObject.getVoCreateTime());
+        virtualObject.setVoExfiredTime(eVirtulaObject.getVoExfiredTime());
+        virtualObject.setVoDiscription(eVirtulaObject.getVoDiscription());
+        virtualObject.setVoName(eVirtulaObject.getVoName());
+        virtualObject.setVoLocation(eVirtulaObject.getVoLocation());
+        return virtualObject;
     }
 
 }
