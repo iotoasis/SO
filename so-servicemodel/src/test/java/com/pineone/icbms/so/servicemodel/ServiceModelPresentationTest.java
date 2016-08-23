@@ -5,6 +5,7 @@ import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
 import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class ServiceModelPresentationTest {
 
 //    ServiceModelPresentation serviceModelPresentation = new ServiceModelPresentation();
 
-    @Test
+    @Before
     public void 서비스모델등록() throws Exception {
         //
         List<String> serviceIdList = serviceModelPresentation.retrieveServiceIdList();
