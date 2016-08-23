@@ -1,29 +1,10 @@
 package com.pineone.icbms.so.device.pr;
 
-import com.pineone.icbms.so.device.DeviceApplication;
-import com.pineone.icbms.so.device.entity.Device;
-import com.pineone.icbms.so.device.entity.DeviceResult;
-import com.pineone.icbms.so.device.entity.ResultMessage;
-import com.pineone.icbms.so.device.entity.deviceReleaseMessage;
-import com.pineone.icbms.so.device.store.DeviceResultStore;
-import com.pineone.icbms.so.device.store.DeviceStore;
-import com.pineone.icbms.so.device.util.ClientProfile;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-
-
-@RunWith(SpringJUnit4ClassRunner.class)
+/*@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DeviceApplication.class)
-@WebAppConfiguration
+@WebAppConfiguration*/
 public class DevicePresentationTest {
-
+/*
     @Autowired
     private DevicePresentation devicePresentation;
 //    private DeviceResultStore deviceResultStore;
@@ -108,4 +89,5 @@ public class DevicePresentationTest {
         deviceResultStore.delete("JuintTestCode");
         deviceResultStore.delete("JuintTestCodeBad");
     }
+    */
 }

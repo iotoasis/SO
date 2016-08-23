@@ -1,15 +1,15 @@
 package com.pineone.icbms.so.device.proxy;
 
-import com.pineone.icbms.so.device.entity.Device;
 import com.pineone.icbms.so.device.entity.ResultMessage;
 import com.pineone.icbms.so.device.util.ClientProfile;
 import com.pineone.icbms.so.device.util.ClientService;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.List;
 
-public class DeviceSIProxy implements DeviceProxy{
+@Service
+public class DeviceSIProxy implements DeviceOutsideProxy {
 
     /**
      * The actual device control request.
@@ -23,7 +23,7 @@ public class DeviceSIProxy implements DeviceProxy{
     private ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public String deviceControlRequest(String requestUrl,String requestBody) {
+    public ResultMessage deviceControlRequest(String requestUrl,String requestBody) {
         //
         ResultMessage resultMessage = new ResultMessage();
 
@@ -34,28 +34,8 @@ public class DeviceSIProxy implements DeviceProxy{
             e.printStackTrace();
             resultMessage.set_resultCode(ClientProfile.RESPONSE_FIALURE_CODE);
         } finally {
-            return resultMessage.get_resultCode();
+            return resultMessage;
         }
-    }
-
-    @Override
-    public List<String> findDomain(String requestUri) {
-        return null;
-    }
-
-    @Override
-    public Device findDeviceByID(String requestUri) {
-        return null;
-    }
-
-    @Override
-    public List<Device> findDeviceByDomain(String requestUri) {
-        return null;
-    }
-
-    @Override
-    public List<String> findDeivceFunctionality(String requestUri) {
-        return null;
     }
 
 }
