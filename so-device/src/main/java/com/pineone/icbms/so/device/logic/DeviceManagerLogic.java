@@ -1,11 +1,13 @@
 package com.pineone.icbms.so.device.logic;
 
 import com.pineone.icbms.so.device.entity.*;
+import com.pineone.icbms.so.device.proxy.DeviceInsideProxy;
+import com.pineone.icbms.so.device.proxy.DeviceOutsideProxy;
 import com.pineone.icbms.so.device.store.DeviceResultStore;
 import com.pineone.icbms.so.device.store.DeviceStore;
 import com.pineone.icbms.so.device.util.ClientProfile;
-import com.pineone.icbms.so.device.util.ClientService;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,27 +17,24 @@ import java.util.List;
 @Service
 public class DeviceManagerLogic implements DeviceManager {
 
-//    private DeviceStore deviceStore = DeviceMemory.getInstance();
-//    private DeviceResultStore deviceResultStore = DeviceResultMemory.getInstance();
-
     @Autowired
     private DeviceStore deviceStore;
-//    private DeviceStore deviceStore = new DeviceMongoStore();
+
     @Autowired
     private DeviceResultStore deviceResultStore;
 
-    private ClientService clientService = new ClientService();
+    @Autowired
+    private DeviceInsideProxy deviceInsideProxy;
 
+    @Autowired
+    private DeviceOutsideProxy deviceOutsideProxy;
 
     @Override
     public void deviceRegister(deviceReleaseMessage deviceReleaseMessage){
         // NOTE : 디바이스 생성.
 
         // 디바이스 ID로 SDA에 데이터 요청.
-        String responseData = deviceRequest(ClientProfile.SDA_DATAREQUEST_URI + ClientProfile.SDA_DEVICE + deviceReleaseMessage.getDeviceId());
-
-        //데이터 변환.
-        Device device = convertJsonToDevice(responseData);
+        Device device = deviceRequest(ClientProfile.SDA_DATAREQUEST_URI + ClientProfile.SDA_DEVICE + deviceReleaseMessage.getDeviceId());
 
         // 디바이스 저장.
         deviceCreate(device);
@@ -62,10 +61,7 @@ public class DeviceManagerLogic implements DeviceManager {
         String jsonString = convertObjectToJson(deviceControlMessage);
 
         // Device 제어 요청 보냄.
-        String responseData = controlRequest(ClientProfile.SI_CONTOL_URI,jsonString);
-
-        // Device 제어 결과 Convert
-        ResultMessage resultMessage = convertJsonToObject(responseData);
+        ResultMessage resultMessage = controlRequest(ClientProfile.SI_CONTOL_URI,jsonString);
 
         // Device 제어 결과 저장.
         controlResultsStorage(deviceId, commandId, deviceCommand, resultMessage);
@@ -108,17 +104,19 @@ public class DeviceManagerLogic implements DeviceManager {
         return deviceStore.retrieveDeviceService(location);
     }
 
-//    private Device makeDeviceData(String deviceId, String deviceService, String deviceCommand){
-//        // Device 식별자로 Device를 DB에서 끄냄.
-//        Device device = deviceStore.retrieveByID(deviceId);
-//
-//        // Device에 RealService, RealCommand 설정.
-//        device.setDeviceRealService(deviceService);
-//        device.setDeviceRealCommand(deviceCommand);
-//        device.setDeviceRealCommandId(ClientProfile.SI_COMMAND_ID + System.nanoTime());
-//
-//        return device;
-//    }
+    @Override
+    public String searchOperation(String deviceId, String deviceService) {
+        //SDA에 DeviceId와 deviceService를 보낸다.
+        String requestUri = ClientProfile.SDA_DATAREQUEST_URI + ClientProfile.SDA_DEVICE + ClientProfile.SDA_DEVICE_OPERATION;
+        JSONObject obj = new JSONObject();
+        obj.put("deviceId", deviceId);
+        obj.put("deviceService", deviceService);
+        String requestData = obj.toString();
+
+        String responseData = deviceInsideProxy.findDeviceOperation(requestUri,requestData);
+
+        return responseData;
+    }
 
 
     private DeviceControlMessage deviceDataConversion(String deviceId, String commandId, String deviceCommand){
@@ -146,41 +144,15 @@ public class DeviceManagerLogic implements DeviceManager {
         return jsonString;
     }
 
-    private String controlRequest(String uri,String body){
+    private ResultMessage controlRequest(String uri,String body){
         //
-        String responseData = clientService.requestPostService(uri,body);
-
-        return responseData;
-    }
-
-    private String deviceRequest(String uri){
-        //
-        String responseData = clientService.requestGetService(uri);
-
-        return responseData;
-    }
-
-    private ResultMessage convertJsonToObject(String responseData){
-        //
-        ObjectMapper mapper = new ObjectMapper();
-        ResultMessage resultMessage = null;
-        try {
-            resultMessage = mapper.readValue(responseData, ResultMessage.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ResultMessage resultMessage= deviceOutsideProxy.deviceControlRequest(uri,body);
         return resultMessage;
     }
 
-    private Device convertJsonToDevice(String responseData){
+    private Device deviceRequest(String uri){
         //
-        ObjectMapper mapper = new ObjectMapper();
-        Device device = null;
-        try {
-            device = mapper.readValue(responseData, Device.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Device device = deviceInsideProxy.findDeviceByID(uri);
         return device;
     }
 

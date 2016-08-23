@@ -68,20 +68,9 @@ public class DeviceSDAProxyTest {
         List<String> deviceFunctionalityListTest = new ArrayList<>();
         deviceFunctionalityListTest.add("TempControl");
 
-        when(deviceSDAProxy.findDeivceFunctionality(ClientProfile.SDA_DATAREQUEST_URI +"devices/functionality/deviceT001")).thenReturn(deviceFunctionalityListTest);
-        deviceFunctionalityList = deviceSDAProxy.findDeivceFunctionality(ClientProfile.SDA_DATAREQUEST_URI + "devices/functionality/deviceT001");
+        when(deviceSDAProxy.findDeivceServiceList(ClientProfile.SDA_DATAREQUEST_URI +"devices/functionality/deviceT001")).thenReturn(deviceFunctionalityListTest);
+        deviceFunctionalityList = deviceSDAProxy.findDeivceServiceList(ClientProfile.SDA_DATAREQUEST_URI + "devices/functionality/deviceT001");
         Assert.assertEquals(deviceFunctionalityList,deviceFunctionalityListTest);
     }
-
-    @Test
-    public void deviceControlRequestTest(){
-        String resultData = null;
-        String resultTestData = "success";
-
-        when(deviceSDAProxy.deviceControlRequest(ClientProfile.SI_CONTOL_URI,"testBody")).thenReturn(resultTestData);
-        resultData = deviceSDAProxy.deviceControlRequest(ClientProfile.SI_CONTOL_URI,"testBody");
-        Assert.assertEquals(resultData,resultTestData);
-    }
-
 
 }
