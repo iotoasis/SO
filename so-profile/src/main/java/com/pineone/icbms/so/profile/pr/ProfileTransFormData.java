@@ -6,14 +6,16 @@ package com.pineone.icbms.so.profile.pr;
  */
 public class ProfileTransFormData {
 
-    String name;
-    String id;
-    String contextModelName;
-    String serviceModelName;
-    String bizContextName;
-    int period;
-    int expirationTime;
-    boolean happenContextModel;
+    private String id;
+    private String name;
+    private String contextModelName;
+    private String serviceModelName;
+    private String bizContextName;
+    private int period;
+    private int expirationTime;
+    private boolean happenContextModel;
+    private String createTime;
+    private String modifiedTime;
 
     public String getName() {
         return name;
@@ -92,5 +94,21 @@ public class ProfileTransFormData {
 
     public ProfileTransFormData() {
 
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(String modifiedTime) {
+        this.modifiedTime = modifiedTime;
     }
 }

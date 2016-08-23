@@ -11,6 +11,9 @@ public class ServiceModelTransFormObject {
     private String id;
     private String name;
     private List<String> serviceIdList;
+    private String createTime;
+    private String modifiedTime;
+
 
     public String getName() {
         return name;
@@ -36,6 +39,22 @@ public class ServiceModelTransFormObject {
         this.id = id;
     }
 
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(String modifiedTime) {
+        this.modifiedTime = modifiedTime;
+    }
+
     public ServiceModelTransFormObject() {
     }
 
@@ -43,5 +62,13 @@ public class ServiceModelTransFormObject {
         this.id = id;
         this.name = name;
         this.serviceIdList = serviceIdList;
+    }
+
+    public ServiceModelTransFormObject(String id, String name, List<String> serviceIdList, String createTime, String modifiedTime) {
+        this.id = id;
+        this.name = name;
+        this.serviceIdList = serviceIdList;
+        this.createTime = createTime;
+        this.modifiedTime = modifiedTime;
     }
 }

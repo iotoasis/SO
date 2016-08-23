@@ -7,9 +7,11 @@ package com.pineone.icbms.so.domain.entity;
  */
 public class Domain {
 
-    String id;
-    String name;
-    String uri;
+    private String id;
+    private String name;
+    private String uri;
+    private String createTime;
+    private String modifiedTime;
 
     public Domain() {
     }
@@ -19,6 +21,14 @@ public class Domain {
         this.name = name;
         this.uri = uri;
     };
+
+    public Domain(String id, String name, String uri, String createTime, String modifiedTime) {
+        this.id = id;
+        this.name = name;
+        this.uri = uri;
+        this.createTime = createTime;
+        this.modifiedTime = modifiedTime;
+    }
 
     public String getName() {
         return name;
@@ -42,5 +52,21 @@ public class Domain {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(String modifiedTime) {
+        this.modifiedTime = modifiedTime;
     }
 }

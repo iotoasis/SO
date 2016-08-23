@@ -16,6 +16,9 @@ public class ServiceTransFormObject {
     private String deviceObjectId;
     private String conceptServiceId;
     private String status;
+    private String createTime;
+    private String modifiedTime;
+
 
 
 
@@ -59,6 +62,22 @@ public class ServiceTransFormObject {
         return status;
     }
 
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(String modifiedTime) {
+        this.modifiedTime = modifiedTime;
+    }
+
     public ServiceTransFormObject(String id, String name, String deviceObjectId, String conceptServiceId, String status) {
 
         this.id = id;
@@ -66,5 +85,15 @@ public class ServiceTransFormObject {
         this.deviceObjectId = deviceObjectId;
         this.conceptServiceId = conceptServiceId;
         this.status = status;
+    }
+
+    public ServiceTransFormObject(String id, String name, String deviceObjectId, String conceptServiceId, String status, String createTime, String modifiedTime) {
+        this.id = id;
+        this.name = name;
+        this.deviceObjectId = deviceObjectId;
+        this.conceptServiceId = conceptServiceId;
+        this.status = status;
+        this.createTime = createTime;
+        this.modifiedTime = modifiedTime;
     }
 }
