@@ -5,6 +5,7 @@ import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
 import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class ServiceModelPresentationTest {
 
 //    ServiceModelPresentation serviceModelPresentation = new ServiceModelPresentation();
 
-    @Test
+    @Before
     public void 서비스모델등록() throws Exception {
         //
         List<String> serviceIdList = serviceModelPresentation.retrieveServiceIdList();
@@ -51,7 +52,7 @@ public class ServiceModelPresentationTest {
 
 
         ServiceModel serviceModel = new ServiceModel();
-        serviceModel.setId("IDEAL_COOL_TEMP");
+        serviceModel.setId("SM_IDEAL_COOL_TEMP");
         serviceModel.setName("최적온도제공");
         serviceModel.setServiceIdList(chooseServiceList);
 
@@ -92,7 +93,7 @@ public class ServiceModelPresentationTest {
     @Test
     public void 서비스모델개별조회() throws Exception {
 
-        ServiceModel serviceModel = serviceModelPresentation.retrieveServiceModelDetailController("IDEAL_COOL_TEMP");
+        ServiceModel serviceModel = serviceModelPresentation.retrieveServiceModelDetailController("SM_IDEAL_COOL_TEMP");
         System.out.println(serviceModel.getName());
         System.out.println(serviceModel.getId());
         for(String id : serviceModel.getServiceIdList()) {
