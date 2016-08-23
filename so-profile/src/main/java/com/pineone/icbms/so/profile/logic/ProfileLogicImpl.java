@@ -1,17 +1,12 @@
 package com.pineone.icbms.so.profile.logic;
 
-import com.pineone.icbms.so.bizcontext.pr.BizContextPresentation;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
-import com.pineone.icbms.so.contextmodel.logic.ContextModelLogicImpl;
 import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.profile.entity.Profile;
-import com.pineone.icbms.so.profile.proxy.ProfileInternalProxy;
 import com.pineone.icbms.so.profile.proxy.ProfileProxy;
 import com.pineone.icbms.so.profile.ref.ResponseMessage;
-import com.pineone.icbms.so.profile.store.ProfileMapStore;
 import com.pineone.icbms.so.profile.store.ProfileStore;
-import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -112,6 +107,18 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
 //        ProfileStore profileStore = ProfileMapStore.getInstance();
         Profile profile = profileStore.retrieveProfileDetail(profileName);
         return profile;
+    }
+
+    //NOTE : ProfileId List 조회
+    @Override
+    public List<String> retrieveProfileIdList() {
+        List<String> profileIdList = new ArrayList<>();
+        List<Profile> profileList = profileStore.retrieveProfileList();
+
+        for(Profile profile : profileList){
+            profileIdList.add(profile.getName());
+        }
+        return profileIdList;
     }
 
     //NOTE : ContextModel QUEUE 에 ContextModel 이 있다면 로직 실행

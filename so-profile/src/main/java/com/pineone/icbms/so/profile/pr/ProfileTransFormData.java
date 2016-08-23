@@ -1,16 +1,13 @@
-package com.pineone.icbms.so.profile.entity;
-
+package com.pineone.icbms.so.profile.pr;
 
 /**
- * Created by melvin on 2016. 8. 11..
- * NOTE: 로직에 사용될 Profile 데이터
+ * Created by melvin on 2016. 8. 23..
+ * NOTE: 외부에 표현될 Profile 데이터
  */
-public class Profile {
+public class ProfileTransFormData {
 
-    public Profile() {
-    }
-    String id;
     String name;
+    String id;
     String contextModelName;
     String serviceModelName;
     String bizContextName;
@@ -74,7 +71,16 @@ public class Profile {
         this.expirationTime = expirationTime;
     }
 
-    public Profile(String id, String name, String contextModelName, String serviceModelName, String bizContextName, int period) {
+    public int getPeriod() {
+
+        return period;
+    }
+
+    public void setPeriod(int period) {
+        this.period = period;
+    }
+
+    public ProfileTransFormData(String id, String name, String contextModelName, String serviceModelName, String bizContextName, int period) {
         this.id = id;
         this.name = name;
         this.contextModelName = contextModelName;
@@ -83,12 +89,8 @@ public class Profile {
         this.period = period;
     }
 
-    public int getPeriod() {
 
-        return period;
-    }
+    public ProfileTransFormData() {
 
-    public void setPeriod(int period) {
-        this.period = period;
     }
 }

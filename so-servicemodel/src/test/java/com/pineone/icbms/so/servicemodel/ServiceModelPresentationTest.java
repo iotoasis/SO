@@ -52,7 +52,7 @@ public class ServiceModelPresentationTest {
 
 
         ServiceModel serviceModel = new ServiceModel();
-        serviceModel.setId("IDEAL_COOL_TEMP");
+        serviceModel.setId("SM_IDEAL_COOL_TEMP");
         serviceModel.setName("최적온도제공");
         serviceModel.setServiceIdList(chooseServiceList);
 
@@ -93,7 +93,7 @@ public class ServiceModelPresentationTest {
     @Test
     public void 서비스모델개별조회() throws Exception {
 
-        ServiceModel serviceModel = serviceModelPresentation.retrieveServiceModelDetailController("IDEAL_COOL_TEMP");
+        ServiceModel serviceModel = serviceModelPresentation.retrieveServiceModelDetailController("SM_IDEAL_COOL_TEMP");
         System.out.println(serviceModel.getName());
         System.out.println(serviceModel.getId());
         for(String id : serviceModel.getServiceIdList()) {
