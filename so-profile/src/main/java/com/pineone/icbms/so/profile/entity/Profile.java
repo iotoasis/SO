@@ -7,16 +7,20 @@ package com.pineone.icbms.so.profile.entity;
  */
 public class Profile {
 
+
+    private String id;
+    private String name;
+    private String contextModelName;
+    private String serviceModelName;
+    private String bizContextName;
+    private int period;
+    private int expirationTime;
+    private boolean happenContextModel;
+    private String createTime;
+    private String modifiedTime;
+
     public Profile() {
     }
-    String id;
-    String name;
-    String contextModelName;
-    String serviceModelName;
-    String bizContextName;
-    int period;
-    int expirationTime;
-    boolean happenContextModel;
 
     public String getName() {
         return name;
@@ -90,5 +94,21 @@ public class Profile {
 
     public void setPeriod(int period) {
         this.period = period;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(String modifiedTime) {
+        this.modifiedTime = modifiedTime;
     }
 }

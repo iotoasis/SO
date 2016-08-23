@@ -13,6 +13,8 @@ public class ContextModel {
     private List<String> domainIdList;
     private List<String> contextInformationIdList;
     private String contextType;
+    private String createTime;
+    private String modifiedTime;
 
     public ContextModel() {
     }
@@ -23,6 +25,16 @@ public class ContextModel {
         this.domainIdList = domainIdList;
         this.contextInformationIdList = contextInformationIdList;
         this.contextType = contextType;
+    }
+
+    public ContextModel(String id, String name, List<String> domainIdList, List<String> contextInformationIdList, String contextType, String createTime, String modifiedTime) {
+        this.id = id;
+        this.name = name;
+        this.domainIdList = domainIdList;
+        this.contextInformationIdList = contextInformationIdList;
+        this.contextType = contextType;
+        this.createTime = createTime;
+        this.modifiedTime = modifiedTime;
     }
 
     public String getId() {
@@ -63,5 +75,21 @@ public class ContextModel {
 
     public void setContextType(String contextType) {
         this.contextType = contextType;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(String modifiedTime) {
+        this.modifiedTime = modifiedTime;
     }
 }

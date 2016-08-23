@@ -1,7 +1,5 @@
 package com.pineone.icbms.so.profile.store.mongo;
 
-import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
-import com.pineone.icbms.so.contextinformation.store.mongo.ContextInformationDataObject;
 import com.pineone.icbms.so.profile.entity.Profile;
 import com.pineone.icbms.so.profile.store.ProfileStore;
 import org.springframework.beans.factory.annotation.Autowired;
