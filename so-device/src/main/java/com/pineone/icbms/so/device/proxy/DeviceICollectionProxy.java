@@ -4,7 +4,7 @@ import com.pineone.icbms.so.device.entity.Device;
 
 import java.util.List;
 
-public interface DeviceInsideProxy {
+public interface DeviceICollectionProxy {
     List<String> findDomain(String requestUri);
     Device findDeviceByID(String requestUri);
     List<Device> findDeviceByDomain(String requestUri);

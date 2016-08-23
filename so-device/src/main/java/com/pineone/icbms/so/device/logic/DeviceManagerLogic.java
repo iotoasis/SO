@@ -1,13 +1,12 @@
 package com.pineone.icbms.so.device.logic;
 
 import com.pineone.icbms.so.device.entity.*;
-import com.pineone.icbms.so.device.proxy.DeviceInsideProxy;
-import com.pineone.icbms.so.device.proxy.DeviceOutsideProxy;
+import com.pineone.icbms.so.device.proxy.DeviceICollectionProxy;
+import com.pineone.icbms.so.device.proxy.DeviceControlProxy;
 import com.pineone.icbms.so.device.store.DeviceResultStore;
 import com.pineone.icbms.so.device.store.DeviceStore;
 import com.pineone.icbms.so.device.util.ClientProfile;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +23,10 @@ public class DeviceManagerLogic implements DeviceManager {
     private DeviceResultStore deviceResultStore;
 
     @Autowired
-    private DeviceInsideProxy deviceInsideProxy;
+    private DeviceICollectionProxy deviceICollectionProxy;
 
     @Autowired
-    private DeviceOutsideProxy deviceOutsideProxy;
+    private DeviceControlProxy deviceControlProxy;
 
     @Override
     public void deviceRegister(deviceReleaseMessage deviceReleaseMessage){
@@ -107,14 +106,7 @@ public class DeviceManagerLogic implements DeviceManager {
     @Override
     public String searchOperation(String deviceId, String deviceService) {
         //SDA에 DeviceId와 deviceService를 보낸다.
-        String requestUri = ClientProfile.SDA_DATAREQUEST_URI + ClientProfile.SDA_DEVICE + ClientProfile.SDA_DEVICE_OPERATION;
-        JSONObject obj = new JSONObject();
-        obj.put("deviceId", deviceId);
-        obj.put("deviceService", deviceService);
-        String requestData = obj.toString();
-
-        String responseData = deviceInsideProxy.findDeviceOperation(requestUri,requestData);
-
+        String responseData = deviceICollectionProxy.findDeviceOperation(deviceId,deviceService);
         return responseData;
     }
 
@@ -146,13 +138,13 @@ public class DeviceManagerLogic implements DeviceManager {
 
     private ResultMessage controlRequest(String uri,String body){
         //
-        ResultMessage resultMessage= deviceOutsideProxy.deviceControlRequest(uri,body);
+        ResultMessage resultMessage= deviceControlProxy.deviceControlRequest(uri,body);
         return resultMessage;
     }
 
     private Device deviceRequest(String uri){
         //
-        Device device = deviceInsideProxy.findDeviceByID(uri);
+        Device device = deviceICollectionProxy.findDeviceByID(uri);
         return device;
     }
 
