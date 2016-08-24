@@ -17,4 +17,5 @@ public interface ProfileLogic {
     List<String> retrieveProfileNameList();
     Profile retrieveProfileDetail(String profileId);
     List<String> retrieveProfileIdList();
+    void executeScheduleProfile(String profileId);
 }

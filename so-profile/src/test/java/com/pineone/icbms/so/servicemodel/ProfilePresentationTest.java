@@ -60,6 +60,17 @@ public class ProfilePresentationTest {
 
         ResponseMessage responseMessage = profilePresentation.registerProfileController(profile);
         System.out.println(responseMessage.getMessage());
+
+        Profile profile1 = new Profile();
+        profile1.setId("PR-TEST");
+        profile1.setName("화재진압자동화");
+
+        profile1.setContextModelId("CM-TEST");
+        profile1.setServiceModelId("SM_IDEAL_COOL_TEMP");
+        profile1.setPeriod(0);
+
+        ResponseMessage responseMessage1 = profilePresentation.registerProfileController(profile1);
+        System.out.println(responseMessage1.getMessage());
     }
 
     @Test

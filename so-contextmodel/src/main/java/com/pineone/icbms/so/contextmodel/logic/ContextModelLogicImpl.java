@@ -95,11 +95,11 @@ public class ContextModelLogicImpl implements ContextModelLogic{
     }
 
     //NOTE: ContextModel 상황 발생 여부 질의
-    public List<Domain> isHappenContextModel(String contextModelName){
+    public List<String> isHappenContextModel(String contextModelId){
         //
 //        ContextModelExProxy contextModelExProxy = ContextModelSDAProxy.newContextModelProxy();
-        List<Domain> domainList = contextModelExProxy.retrieveContextModelEvent(contextModelName);
-        return domainList;
+        List<String> domainIdList = contextModelExProxy.retrieveContextModelEvent(contextModelId);
+        return domainIdList;
     }
 
     //NOTE : ContextModel 이름으로 ContextModelType 조회
