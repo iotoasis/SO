@@ -125,6 +125,24 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         return profileIdList;
     }
 
+    //NOTE: 스케줄러로 부터 수신받은 프로파일 실행
+    @Override
+    public void executeScheduleProfile(String profileId) {
+        Profile profile = profileStore.retrieveProfileDetail(profileId);
+        List<String> domainIdList = contextModelPresentation.isHappenContextModel(profile.getContextModelId());
+        if(domainIdList != null){
+            for(String domainId : domainIdList){
+                System.out.println(profile.getServiceModelId());
+                System.out.println(domainId);
+                System.out.println("성공");
+                serviceModelPresentation.executeEmergencyServiceModel(domainId, profile.getServiceModelId());
+            }
+        }
+        else{
+            System.out.println("상황 발생하지 않음 ");
+        }
+    }
+
     //NOTE : ContextModel QUEUE 에 ContextModel 이 있다면 로직 실행
     @Override
     public void run() {

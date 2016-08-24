@@ -158,9 +158,20 @@ public class ContextModelPresentationTest {
         chooseDomainList.add("DO-CLASSROOM");
         contextModel.setDomainIdList(chooseDomainList);
 
+        ContextModel contextModel1 = new ContextModel();
+        contextModel1.setName("TEST");
+        contextModel1.setId("CM-TEST");
+        contextModel1.setContextType(ContextType.EmergencyType.toString());
+        contextModel1.setContextInformationIdList(contextInformationIdList);
+        List<String> chooseDomainList1 = new ArrayList<>();
+        chooseDomainList1.add("DO-CLASSROOM");
+        contextModel1.setDomainIdList(chooseDomainList);
+
         ResponseMessage responseMessage = contextModelPresentation.registerGeneralContextController(contextModel);
+        ResponseMessage responseMessage1 = contextModelPresentation.registerGeneralContextController(contextModel1);
 
         System.out.println(responseMessage.getMessage());
+        System.out.println(responseMessage1.getMessage());
     }
 
     @Test

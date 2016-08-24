@@ -110,4 +110,9 @@ public class ProfilePresentation {
         List<String> profileIdList = profileLogic.retrieveProfileIdList();
         return profileIdList;
     }
+
+    //NOTE: 스케줄러에서 체크가 필요한 프로파일을 알려줌
+    public void executeScheduleProfile(String profileId){
+        profileLogic.executeScheduleProfile(profileId);
+    }
 }

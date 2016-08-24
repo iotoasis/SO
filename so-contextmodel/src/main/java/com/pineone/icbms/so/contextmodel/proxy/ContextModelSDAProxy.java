@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,14 +73,22 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
 
     //NOTE: ContextModel 의 상황이 발생했는지 질의, 발생한 도메인 리스트 수신
     @Override
-    public List<Domain> retrieveContextModelEvent(String contextModelName) {
+    public List<String> retrieveContextModelEvent(String contextModelId) {
         //
-        IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getAddress() + AddressStore.RETRIEVE_CONTEXTMODEL_EVENT + "/" + contextModelName);
-        String readData = new Gson().toJson(message);
-        Type type = new TypeToken<List<Domain>>(){}.getType();
-        List<Domain> domainList = new Gson().fromJson(readData,type);
+//        IHttpResponseMessage message = clientService.requestGetService(
+//                contextAddress.getAddress() + AddressStore.RETRIEVE_CONTEXTMODEL_EVENT + "/" + contextModelName);
+//        String readData = new Gson().toJson(message);
+//        Type type = new TypeToken<List<String>>(){}.getType();
+//        List<String> domainIdList = new Gson().fromJson(readData,type);
 
-        return domainList;
+        List<String> domainIdList = new ArrayList<>();
+        //TODO : 일시적 테스트
+        if(contextModelId.equals("CM-FIRE-EMERGENCY")){
+            domainIdList.add("DO-CLASSROOM");
+        }
+        else {
+            domainIdList = null;
+        }
+        return domainIdList;
     }
 }

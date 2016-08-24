@@ -13,5 +13,5 @@ public interface ContextModelExProxy {
     String registerContextModel(ContextModel contextModel);
     List<ContextModel> retrieveContextModelListFromSDA();
     ContextModel retrieveContextModelDetail(String contextModelName);
-    List<Domain> retrieveContextModelEvent(String contextModelName);
+    List<String> retrieveContextModelEvent(String contextModelName);
 }

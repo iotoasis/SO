@@ -88,12 +88,21 @@ public class ProfileExecuteTest {
         }
     }
 
+    @Test
+    public void 일반상황응답테스트() throws Exception {
 
+        profilePresentation.executeScheduleProfile("PR-FIRE-ENV");
 
+    }
 
+    @Test
+    public void 일반상황무응답테스트() throws Exception {
 
+        profilePresentation.executeScheduleProfile("PR-TEST");
 
-//        //NOTE: 도메인 셋팅
+    }
+
+    //        //NOTE: 도메인 셋팅
 //        Domain domain1 = new Domain("강의실", "http://강의실");
 //        Domain domain2 = new Domain("기숙사", "http://기숙사");
 //        List<Domain> domainList = new ArrayList<>();
