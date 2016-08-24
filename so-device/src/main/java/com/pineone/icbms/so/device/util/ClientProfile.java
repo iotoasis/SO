@@ -13,6 +13,7 @@ public class ClientProfile {
     //SDA Data
     public static final String  SDA_DATAREQUEST_URI         = "http://oasia.org/sda/hanyang";
     public static final String  SDA_DEVICE                  = "/device";
+    public static final String  SDA_DEVICE_OPERATION        = "/operation";
 
     // Presentation Data
     public static final String	RESPONSE_SUCCESS			= "success";

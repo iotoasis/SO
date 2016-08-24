@@ -1,8 +1,8 @@
 package com.pineone.icbms.so.virtualobject.proxy;
 
-import org.codehaus.jackson.map.ObjectMapper;
-
+import com.pineone.icbms.so.device.util.ClientProfile;
 import com.pineone.icbms.so.device.util.ClientService;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,12 +12,17 @@ public class VirtualObjectSDAProxy implements VirtualObjectProxy{
      */
 
     private ClientService clientService = new ClientService();
-    private ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public String findFunctionality(String requestUri, String body){
+    public String findFunctionality(String deviceId, String deviceService){
         //
-        String responseData = clientService.requestPostService(requestUri, body);
+        String requestUri = ClientProfile.SDA_DATAREQUEST_URI + ClientProfile.SDA_DEVICE;
+        JSONObject obj = new JSONObject();
+        obj.put("deviceId", deviceId);
+        obj.put("deviceService", deviceService);
+        String requestData = obj.toString();
+
+        String responseData = clientService.requestPostService(requestUri, requestData);
 
         return responseData;
     }

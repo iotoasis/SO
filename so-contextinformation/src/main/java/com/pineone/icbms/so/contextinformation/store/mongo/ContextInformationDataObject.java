@@ -17,6 +17,8 @@ public class ContextInformationDataObject
     private int minValue;
     private int maxValue;
     private String conceptServiceName;
+    private String createTime;
+    private String modifiedTime;
 
     public ContextInformationDataObject() {
     }
@@ -28,6 +30,17 @@ public class ContextInformationDataObject
         this.minValue = minValue;
         this.maxValue = maxValue;
         this.conceptServiceName = conceptServiceName;
+    }
+
+    public ContextInformationDataObject(String id, String name, String deviceObjectName, int minValue, int maxValue, String conceptServiceName, String createTime, String modifiedTime) {
+        this.id = id;
+        this.name = name;
+        this.deviceObjectName = deviceObjectName;
+        this.minValue = minValue;
+        this.maxValue = maxValue;
+        this.conceptServiceName = conceptServiceName;
+        this.createTime = createTime;
+        this.modifiedTime = modifiedTime;
     }
 
     public String getId() {
@@ -76,5 +89,21 @@ public class ContextInformationDataObject
 
     public void setConceptServiceName(String conceptServiceName) {
         this.conceptServiceName = conceptServiceName;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(String modifiedTime) {
+        this.modifiedTime = modifiedTime;
     }
 }

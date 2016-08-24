@@ -24,6 +24,7 @@ public class DevicePresentation {
      * Device 검색 요청(By ID)
      * Device 검색 요청(By Location)
      * Device Service들 요청.
+     * Device Operation 요청
      */
 
     @Autowired
@@ -99,5 +100,15 @@ public class DevicePresentation {
     public String asynchronousControlResult(@RequestBody ResultMessage message){
         // NOTO : Device the result is stored in the data memory.
         return deviceManager.deviceControlResult(message);
+    }
+
+    /**
+     *  Device Operation을 검색
+     */
+    @RequestMapping(value ="/operation",method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public String findDeviceOperation(@RequestBody String deviceId, String deviceService){
+
+        return deviceManager.searchOperation(deviceId, deviceService);
     }
 }

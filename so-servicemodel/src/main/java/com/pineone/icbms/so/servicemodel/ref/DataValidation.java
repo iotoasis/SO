@@ -16,7 +16,7 @@ public class DataValidation {
     //NOTE : ServiceModel 데이터 검증
     public void inspectServiceModel(ServiceModel serviceModel) throws DataLossException {
         //
-        if(serviceModel.getName() == null || serviceModel.getServiceNameList() == null){
+        if(serviceModel.getName() == null || serviceModel.getServiceIdList() == null){
             throw new DataLossException();
         }
     }

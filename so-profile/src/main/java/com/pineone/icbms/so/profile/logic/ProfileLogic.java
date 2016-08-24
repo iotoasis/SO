@@ -16,4 +16,5 @@ public interface ProfileLogic {
     String registerProfile(Profile profile);
     List<String> retrieveProfileNameList();
     Profile retrieveProfileDetail(String profileName);
+    List<String> retrieveProfileIdList();
 }

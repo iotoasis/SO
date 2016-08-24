@@ -1,9 +1,5 @@
 package com.pineone.icbms.so.service.entity;
 
-import com.pineone.icbms.so.service.ref.ConceptService;
-import com.pineone.icbms.so.service.ref.DeviceObject;
-import com.pineone.icbms.so.service.ref.Status;
-
 /**
  * Created by melvin on 2016. 8. 5..
  */
@@ -16,9 +12,11 @@ public class Service {
     }
     private String id;
     private String name;
-    private DeviceObject deviceObject;
-    private ConceptService conceptService;
-    private Status status;
+    private String deviceObjectId;
+    private String conceptServiceId;
+    private String status;
+    private String createTime;
+    private String modifiedTime;
 
     public String getId() {
         return id;
@@ -36,27 +34,64 @@ public class Service {
         this.name = name;
     }
 
-    public DeviceObject getDeviceObject() {
-        return deviceObject;
+    public String getDeviceObjectId() {
+        return deviceObjectId;
     }
 
-    public void setDeviceObject(DeviceObject deviceObject) {
-        this.deviceObject = deviceObject;
+    public void setDeviceObjectId(String deviceObjectId) {
+        this.deviceObjectId = deviceObjectId;
     }
 
-    public ConceptService getConceptService() {
-        return conceptService;
+    public String getConceptServiceId() {
+        return conceptServiceId;
     }
 
-    public void setConceptService(ConceptService conceptService) {
-        this.conceptService = conceptService;
+    public void setConceptServiceId(String conceptServiceId) {
+        this.conceptServiceId = conceptServiceId;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
+
+    public Service(String id, String name, String deviceObjectId, String conceptServiceId, String status) {
+
+        this.id = id;
+        this.name = name;
+        this.deviceObjectId = deviceObjectId;
+        this.conceptServiceId = conceptServiceId;
+        this.status = status;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(String modifiedTime) {
+        this.modifiedTime = modifiedTime;
+    }
+
+    public Service(String id, String name, String deviceObjectId, String conceptServiceId, String status, String createTime, String modifiedTime) {
+        this.id = id;
+        this.name = name;
+        this.deviceObjectId = deviceObjectId;
+        this.conceptServiceId = conceptServiceId;
+        this.status = status;
+        this.createTime = createTime;
+        this.modifiedTime = modifiedTime;
+    }
+
+
 }

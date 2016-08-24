@@ -2,17 +2,15 @@ package com.pineone.icbms.so.servicemodel.logic;
 
 import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.service.entity.Service;
-import com.pineone.icbms.so.service.pr.ServicePresentation;
 import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
-import com.pineone.icbms.so.servicemodel.proxy.ServiceModelInternalProxy;
 import com.pineone.icbms.so.servicemodel.proxy.ServiceModelProxy;
 import com.pineone.icbms.so.servicemodel.ref.ExecuteDummyClass;
 import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
 import com.pineone.icbms.so.servicemodel.ref.ServiceMessage;
-import com.pineone.icbms.so.servicemodel.store.ServiceModelMapStore;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -72,6 +70,22 @@ public class ServiceModelLogicImpl implements ServiceModelLogic, Runnable {
         SERVICEMODEL_QUEUE.offer(serviceMessage);
     }
 
+    @Override
+    public List<String> retrieveServiceIdList() {
+        List<String> serviceIdList = serviceModelProxy.retrieveServiceIdList();
+        return serviceIdList;
+    }
+
+    @Override
+    public List<String> retrieveServiceModelIdList() {
+        List<String> serviceModelIdList = new ArrayList<>();
+        List<ServiceModel> serviceModelList = serviceModelStore.retrieveServiceModelList();
+        for(ServiceModel serviceModel : serviceModelList){
+            serviceModelIdList.add(serviceModel.getId());
+        }
+        return serviceModelIdList;
+    }
+
     //NOTE : 서비스 실행 로직
     @Override
     public void run() {
@@ -87,10 +101,10 @@ public class ServiceModelLogicImpl implements ServiceModelLogic, Runnable {
                 ServiceMessage serviceMessage = (ServiceMessage) SERVICEMODEL_QUEUE.poll();
                 ServiceModel serviceModel = this.retrieveServiceModelDetail(serviceMessage.getServiceModelName());
                 List<Domain> domainList = serviceMessage.getDomainList();
-                for (String serviceName : serviceModel.getServiceNameList()) {
+                for (String serviceName : serviceModel.getServiceIdList()) {
                     Service service = serviceModelProxy.retrieveServiceDetail(serviceName);
                     for (Domain domain : domainList) {
-                        executeDummyClass.controlService(domain.getName(), service.getDeviceObject(), service.getStatus());
+                        executeDummyClass.controlService(domain.getId(), service.getDeviceObjectId(), service.getStatus());
                     }
                 }
             }

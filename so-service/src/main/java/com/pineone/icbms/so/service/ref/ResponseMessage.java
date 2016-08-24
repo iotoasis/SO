@@ -18,7 +18,7 @@ public class ResponseMessage {
     //NOTE : Service 전달 메시지 생성
     public String serviceResultMessage(Service service){
         message = "ID: " + service.getId() + ", Name : " + service.getName() + ", Virtual Object : "
-                + service.getDeviceObject() + ", Concept Service" + service.getConceptService() +
+                + service.getDeviceObjectId() + ", Concept Service" + service.getConceptServiceId() +
                 ", Status : " + service.getStatus();
         return message;
     }

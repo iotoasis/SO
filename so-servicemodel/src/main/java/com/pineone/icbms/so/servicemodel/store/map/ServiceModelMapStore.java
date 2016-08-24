@@ -1,6 +1,7 @@
-package com.pineone.icbms.so.servicemodel.store;
+package com.pineone.icbms.so.servicemodel.store.map;
 
 import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
+import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,8 +12,6 @@ import java.util.Map;
 /**
  * Created by melvin on 2016. 8. 9..
  */
-
-@Service
 public class ServiceModelMapStore implements ServiceModelStore {
 
     private static ServiceModelMapStore instance;

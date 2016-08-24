@@ -1,6 +1,7 @@
-package com.pineone.icbms.so.service.store;
+package com.pineone.icbms.so.service.store.map;
 
 import com.pineone.icbms.so.service.entity.Service;
+import com.pineone.icbms.so.service.store.ServiceStore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import java.util.Map;
  * NOTE: MAP 을 이용한 ContextInformation Create , Retrieve 기능 구현
  */
 
-@org.springframework.stereotype.Service
+
 public class ServiceMapStore implements ServiceStore {
 
     private static ServiceMapStore instance;

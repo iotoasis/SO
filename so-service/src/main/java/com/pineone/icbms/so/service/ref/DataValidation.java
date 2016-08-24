@@ -16,8 +16,8 @@ public class DataValidation {
     //NOTE : Service 데이터 검증
     public void inspectService(Service service) throws DataLossException {
         //
-        if(service.getName() == null || service.getId() == null || service.getDeviceObject() == null
-                || service.getConceptService() == null || service.getStatus() == null){
+        if(service.getName() == null || service.getId() == null || service.getDeviceObjectId() == null
+                || service.getConceptServiceId() == null || service.getStatus() == null){
             throw new DataLossException();
         }
     }

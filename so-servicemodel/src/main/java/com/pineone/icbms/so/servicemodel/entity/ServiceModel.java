@@ -9,9 +9,11 @@ import java.util.List;
  */
 public class ServiceModel {
     //
-    private String name;
-    private List<String> serviceNameList;
     private String id;
+    private String name;
+    private List<String> serviceIdList;
+    private String createTime;
+    private String modifiedTime;
 
 
     public String getName() {
@@ -22,12 +24,12 @@ public class ServiceModel {
         this.name = name;
     }
 
-    public List<String> getServiceNameList() {
-        return serviceNameList;
+    public List<String> getServiceIdList() {
+        return serviceIdList;
     }
 
-    public void setServiceNameList(List<String> serviceNameList) {
-        this.serviceNameList = serviceNameList;
+    public void setServiceIdList(List<String> serviceIdList) {
+        this.serviceIdList = serviceIdList;
     }
 
     public String getId() {
@@ -36,5 +38,38 @@ public class ServiceModel {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(String modifiedTime) {
+        this.modifiedTime = modifiedTime;
+    }
+
+    public ServiceModel() {
+    }
+
+    public ServiceModel(String id, String name, List<String> serviceIdList) {
+        this.id = id;
+        this.name = name;
+        this.serviceIdList = serviceIdList;
+    }
+
+    public ServiceModel(String id, String name, List<String> serviceIdList, String createTime, String modifiedTime) {
+        this.id = id;
+        this.name = name;
+        this.serviceIdList = serviceIdList;
+        this.createTime = createTime;
+        this.modifiedTime = modifiedTime;
     }
 }

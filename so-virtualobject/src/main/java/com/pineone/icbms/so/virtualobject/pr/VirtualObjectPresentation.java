@@ -1,7 +1,8 @@
 package com.pineone.icbms.so.virtualobject.pr;
 
-import com.pineone.icbms.so.virtualobject.entity.ExternalVirtulaObject;
+import com.pineone.icbms.so.virtualobject.entity.ServiceControl;
 import com.pineone.icbms.so.virtualobject.entity.VirtualObject;
+import com.pineone.icbms.so.virtualobject.entity.VirtualObjectTransFormObject;
 import com.pineone.icbms.so.virtualobject.logic.VirtualObjectManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,16 +28,24 @@ public class VirtualObjectPresentation {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public void createVirtualObject(@RequestBody ExternalVirtulaObject virtulaObject){
-        virtualObjectManager.produceVirtualObject(virtulaObject);
+    public void createVirtualObject(@RequestBody VirtualObjectTransFormObject virtulaObject){
+        virtualObjectManager.produceVirtualObject(virtualObjectMapping(virtulaObject));
+    }
+
+    @RequestMapping(value = "/requestcontrol",method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public String requestControlVirtualObject(@RequestBody String voId,String operation){
+        return virtualObjectManager.requestControlDevice(voId, operation);
     }
 
 
     @RequestMapping(value = "/control",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public String controlVirtualObject(@RequestBody String voId,String operation){
-        return virtualObjectManager.controlDevice(voId, operation);
+    public String controlVirtualObject(@RequestBody List<ServiceControl> serviceControls){
+        return virtualObjectManager.controlDevice(serviceControls);
     }
+
+
 
     @RequestMapping(value = "/resource/{id}",method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
@@ -44,16 +53,32 @@ public class VirtualObjectPresentation {
         return virtualObjectManager.searchVirtualObject(id);
     }
 
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/{location}",method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<VirtualObject> searchVirtualObjectList(@PathVariable String id){
-        return virtualObjectManager.searchVirtualObjectList(id);
+    public List<VirtualObject> searchVirtualObjectList(@PathVariable String location){
+        return virtualObjectManager.searchVirtualObjectList(location);
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     public void deleteVirtualObject(@PathVariable String id){
         virtualObjectManager.deleteVirtualObject(id);
+    }
+
+    private VirtualObject virtualObjectMapping(VirtualObjectTransFormObject eVirtulaObject)
+    {
+        VirtualObject virtualObject = new VirtualObject();
+        virtualObject.setVoId(eVirtulaObject.getVoId());
+        virtualObject.setDeviceId(eVirtulaObject.getDeviceId());
+        virtualObject.setDeviceService(eVirtulaObject.getDeviceService());
+        virtualObject.setFunctionality(eVirtulaObject.getFunctionality());
+        virtualObject.setVoCommand(eVirtulaObject.getVoCommand());
+        virtualObject.setVoCreateTime(eVirtulaObject.getVoCreateTime());
+        virtualObject.setVoExpiredTime(eVirtulaObject.getVoExpiredTime());
+        virtualObject.setVoDescription(eVirtulaObject.getVoDescription());
+        virtualObject.setVoName(eVirtulaObject.getVoName());
+        virtualObject.setVoLocation(eVirtulaObject.getVoLocation());
+        return virtualObject;
     }
 
 }

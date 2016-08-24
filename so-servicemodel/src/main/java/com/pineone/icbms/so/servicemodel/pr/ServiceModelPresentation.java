@@ -61,7 +61,7 @@ public class ServiceModelPresentation {
     //NOTE: ServiceModel List 퍼블리싱 -  Profile 생성시 사용
     public List<String> retrieveServiceModelList(){
         //
-        List<String> serviceModelList = serviceModelLogic.retrieveServiceNameList();
+        List<String> serviceModelList = serviceModelLogic.retrieveServiceModelIdList();
         return serviceModelList;
     }
 
@@ -82,5 +82,11 @@ public class ServiceModelPresentation {
         serviceModelLogic.executeEmergencyServiceModel(serviceMessage);
     }
 
+    //NOTE: 저장되어 있는 Service 들의 ID 조회
+    public List<String> retrieveServiceIdList(){
+        //
+        List<String> serviceIdList = serviceModelLogic.retrieveServiceIdList();
+        return serviceIdList;
+    }
 
 }

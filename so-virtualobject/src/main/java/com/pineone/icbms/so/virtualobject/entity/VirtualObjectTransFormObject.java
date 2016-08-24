@@ -1,29 +1,29 @@
 package com.pineone.icbms.so.virtualobject.entity;
 
-public class ExternalVirtulaObject {
+public class VirtualObjectTransFormObject {
 
     private String voId;
     private String voName;
     private String functionality;
-    private String voDiscription;
+    private String voDescription;
     private String voCreateTime;
-    private String voExfiredTime;
+    private String voExpiredTime;
     private String deviceService;
     private String deviceId;
     private String voCommand;
     private String voLocation;
 
 
-    public ExternalVirtulaObject() {
+    public VirtualObjectTransFormObject() {
     }
 
-    public ExternalVirtulaObject(String voId, String voName, String functionality, String voDiscription, String voCreateTime, String voExfiredTime, String deviceService, String deviceId, String voCommand, String voLocation) {
+    public VirtualObjectTransFormObject(String voId, String voName, String functionality, String voDescription, String voCreateTime, String voExpiredTime, String deviceService, String deviceId, String voCommand, String voLocation) {
         this.voId = voId;
         this.voName = voName;
         this.functionality = functionality;
-        this.voDiscription = voDiscription;
+        this.voDescription = voDescription;
         this.voCreateTime = voCreateTime;
-        this.voExfiredTime = voExfiredTime;
+        this.voExpiredTime = voExpiredTime;
         this.deviceService = deviceService;
         this.deviceId = deviceId;
         this.voCommand = voCommand;
@@ -54,12 +54,12 @@ public class ExternalVirtulaObject {
         this.functionality = functionality;
     }
 
-    public String getVoDiscription() {
-        return voDiscription;
+    public String getVoDescription() {
+        return voDescription;
     }
 
-    public void setVoDiscription(String voDiscription) {
-        this.voDiscription = voDiscription;
+    public void setVoDescription(String voDescription) {
+        this.voDescription = voDescription;
     }
 
     public String getVoCreateTime() {
@@ -70,12 +70,12 @@ public class ExternalVirtulaObject {
         this.voCreateTime = voCreateTime;
     }
 
-    public String getVoExfiredTime() {
-        return voExfiredTime;
+    public String getVoExpiredTime() {
+        return voExpiredTime;
     }
 
-    public void setVoExfiredTime(String voExfiredTime) {
-        this.voExfiredTime = voExfiredTime;
+    public void setVoExpiredTime(String voExpiredTime) {
+        this.voExpiredTime = voExpiredTime;
     }
 
     public String getDeviceService() {
