@@ -75,9 +75,9 @@ public class ServiceModelPresentation {
     }
 
     //NOTE: 응급상황으로 발생하는 ContextModel 에 따른 ServiceModel 실행
-    public void executeEmergencyServiceModel(List<String> domainIdList, String serviceModelId) {
+    public void executeEmergencyServiceModel(String domain, String serviceModelId) {
         //
-        serviceModelLogic.executeEmergencyServiceModel(domainIdList, serviceModelId);
+        serviceModelLogic.executeEmergencyServiceModel(domain, serviceModelId);
     }
 
     //NOTE: 저장되어 있는 Service 들의 ID 조회

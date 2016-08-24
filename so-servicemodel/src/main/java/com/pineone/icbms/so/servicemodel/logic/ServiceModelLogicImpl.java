@@ -66,15 +66,15 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
 
     //NOTE: 즉시성 서비스 모델 실행
     @Override
-    public void executeEmergencyServiceModel(List<String> domainIdList, String serviceModelId) {
+    public void executeEmergencyServiceModel(String domainId, String serviceModelId) {
         //
         ServiceModel serviceModel = serviceModelStore.retrieveServiceModelDetail(serviceModelId);
         List<String> serviceIdList = serviceModel.getServiceIdList();
         List<ServiceMessage> serviceMessageList = new ArrayList<>();
         for (String serviceId : serviceIdList) {
             Service service = serviceModelProxy.retrieveServiceDetail(serviceId);
-            ServiceMessage serviceMessage = new ServiceMessage(domainIdList, service.getConceptServiceId(), service.getStatus());
-            serviceMessageList.add(serviceMessage);
+//            ServiceMessage serviceMessage = new ServiceMessage(domainId, service.getConceptServiceId(), service.getStatus());
+//            serviceMessageList.add(serviceMessage);
             new ExecuteDummyClass().controlService(serviceMessageList);
         }
     }

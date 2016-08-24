@@ -82,7 +82,9 @@ public class ProfileExecuteTest {
             System.out.println(profile.getContextModelId());
             System.out.println(profile.getPeriod());
 
-            serviceModelPresentation.executeEmergencyServiceModel(contextModel.getDomainIdList(), profile.getServiceModelId());
+            for(String domainId : contextModel.getDomainIdList()) {
+                serviceModelPresentation.executeEmergencyServiceModel(domainId, profile.getServiceModelId());
+            }
         }
     }
 
