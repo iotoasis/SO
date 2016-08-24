@@ -1,15 +1,12 @@
 package com.pineone.icbms.so.servicemodel.pr;
 
-import com.pineone.icbms.so.service.entity.Service;
 import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
 import com.pineone.icbms.so.servicemodel.logic.ServiceModelLogic;
 import com.pineone.icbms.so.servicemodel.ref.DataValidation;
 import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
-import com.pineone.icbms.so.servicemodel.ref.ServiceMessage;
 import com.pineone.icbms.so.util.exception.DataLossException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +16,7 @@ import java.util.List;
  * NOTE : 서비스 모델에서 제공하는 기능이나 저작을 위한 기능 정의
  */
 
-@Controller
+@RestController
 @RequestMapping(value = "/servicemodel")
 public class ServiceModelPresentation {
     //
@@ -30,7 +27,6 @@ public class ServiceModelPresentation {
     //NOTE: ServiceModel 생성 요청 -> ServiceList 리턴
     @RequestMapping(value = "/service")
     @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
     public List<String> requestServiceModelMakingController(){
         //
         List<String> serviceNameList = serviceModelLogic.retrieveServiceNameList();
@@ -40,9 +36,11 @@ public class ServiceModelPresentation {
     //NOTE: ServiceModel 입력 정보 작성 후 등록 -> 등록 결과 리턴
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
-    public ResponseMessage registerServiceModelController(@RequestBody ServiceModel serviceModel){
-        //
+    public ResponseMessage registerServiceModelController(@RequestBody ServiceModelTransFormObject serviceModelTransFormObject){
+        // 외부 데이터 변환
+        ServiceModel serviceModel = dataObjectToServiceModel(serviceModelTransFormObject);
+
+        // 외부 데이터 검증.
         DataValidation dataValidation = DataValidation.newDataValidation();
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
 
@@ -52,12 +50,16 @@ public class ServiceModelPresentation {
             responseMessage.setExceptionMessage(e.getMessage());
             return responseMessage;
         }
+
         String resultMessage = serviceModelLogic.registerServiceModel(serviceModel);
         responseMessage.setMessage(resultMessage);
         return responseMessage;
     }
 
+
     //NOTE: ServiceModel List 퍼블리싱 -  Profile 생성시 사용
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
     public List<String> retrieveServiceModelList(){
         //
         List<String> serviceModelList = serviceModelLogic.retrieveServiceModelIdList();
@@ -65,17 +67,18 @@ public class ServiceModelPresentation {
     }
 
     //NOTE: DB 에서 ServiceModel 상세 조회
-    @RequestMapping(value = "{servicemodelname}", method = RequestMethod.GET)
+    @RequestMapping(value = "{serviceModelId}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
-    public ServiceModel retrieveServiceModelDetailController(@PathVariable("servicemodelname")String serviceModelName){
+    public ServiceModel retrieveServiceModelDetailController(@PathVariable String serviceModelId){
         //
-        ServiceModel serviceModel = serviceModelLogic.retrieveServiceModelDetail(serviceModelName);
+        ServiceModel serviceModel = serviceModelLogic.retrieveServiceModelDetail(serviceModelId);
         return serviceModel;
     }
 
     //NOTE: 응급상황으로 발생하는 ContextModel 에 따른 ServiceModel 실행
-    public void executeEmergencyServiceModel(String domain, String serviceModelId) {
+    @RequestMapping(value = "/control", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void executeEmergencyServiceModel(@RequestBody String domain, String serviceModelId) {
         //
         serviceModelLogic.executeEmergencyServiceModel(domain, serviceModelId);
     }
@@ -86,5 +89,11 @@ public class ServiceModelPresentation {
         List<String> serviceIdList = serviceModelLogic.retrieveServiceIdList();
         return serviceIdList;
     }
+
+    public ServiceModel dataObjectToServiceModel(ServiceModelTransFormObject serviceModelTransFormObject){
+        if(serviceModelTransFormObject == null) return null;
+        return new ServiceModel(serviceModelTransFormObject.getId(), serviceModelTransFormObject.getName(), serviceModelTransFormObject.getServiceIdList());
+    }
+
 
 }

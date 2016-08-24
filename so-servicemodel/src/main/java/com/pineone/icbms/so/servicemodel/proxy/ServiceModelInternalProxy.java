@@ -11,14 +11,10 @@ import java.util.List;
  */
 
 @org.springframework.stereotype.Service
-public class ServiceModelInternalProxy extends AbstractServiceModelProxy {
-
-    public static ServiceModelInternalProxy newServiceModelSDAProxy() {
-        return new ServiceModelInternalProxy();
-    }
+public class ServiceModelInternalProxy implements ServiceModelProxy {
 
     @Autowired
-            ServicePresentation servicePresentation;
+    ServicePresentation servicePresentation;
 //    ServicePresentation servicePresentation = new ServicePresentation();
 
     //NOTE: Service 컴포넌트를 이용해서 ServiceNameList 조회

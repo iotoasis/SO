@@ -1,7 +1,6 @@
 package com.pineone.icbms.so.servicemodel.logic;
 
 import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
-import com.pineone.icbms.so.servicemodel.ref.ServiceMessage;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ public interface ServiceModelLogic {
     //
     List<String> retrieveServiceNameList();
     String registerServiceModel(ServiceModel serviceModel);
-    ServiceModel retrieveServiceModelDetail(String serviceModelName);
+    ServiceModel retrieveServiceModelDetail(String serviceModelId);
     void executeEmergencyServiceModel(String domainId, String serviceModelId);
     List<String> retrieveServiceIdList();
     List<String> retrieveServiceModelIdList();

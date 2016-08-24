@@ -1,6 +1,5 @@
 package com.pineone.icbms.so.servicemodel.logic;
 
-import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.service.entity.Service;
 import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
 import com.pineone.icbms.so.servicemodel.proxy.ServiceModelProxy;
@@ -57,10 +56,10 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
 
     @Override
     //NOTE: ServiceModel 상세 정보 조회 요청을 받고 디비에서 정보를 조회해서 반환
-    public ServiceModel retrieveServiceModelDetail(String serviceModelName) {
+    public ServiceModel retrieveServiceModelDetail(String serviceModelId) {
         //
 //        ServiceModelStore serviceModelStore = ServiceModelMapStore.getInstance();
-        ServiceModel serviceModel = serviceModelStore.retrieveServiceModelDetail(serviceModelName);
+        ServiceModel serviceModel = serviceModelStore.retrieveServiceModelDetail(serviceModelId);
         return serviceModel;
     }
 
