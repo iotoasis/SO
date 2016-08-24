@@ -3,6 +3,7 @@ package com.pineone.icbms.so.servicemodel;
 import com.pineone.icbms.so.service.pr.ServicePresentation;
 import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
+import com.pineone.icbms.so.servicemodel.pr.ServiceModelTransFormObject;
 import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
 import org.junit.Before;
@@ -56,9 +57,18 @@ public class ServiceModelPresentationTest {
         serviceModel.setName("최적온도제공");
         serviceModel.setServiceIdList(chooseServiceList);
 
-        ResponseMessage responseMessage = serviceModelPresentation.registerServiceModelController(serviceModel);
+        ResponseMessage responseMessage = serviceModelPresentation.registerServiceModelController(ServiceModelToDataObject(serviceModel));
         System.out.println(responseMessage.getMessage());
     }
+
+    public ServiceModelTransFormObject ServiceModelToDataObject(ServiceModel serviceModel){
+        if(serviceModel == null) return null;
+        ServiceModelTransFormObject object = new ServiceModelTransFormObject(serviceModel.getId(), serviceModel.getName(), serviceModel.getServiceIdList());
+        return object;
+    }
+
+
+
 
 //    @Test
 //    public void serviceList조회() throws Exception {
