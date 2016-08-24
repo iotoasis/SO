@@ -10,6 +10,6 @@ import java.util.List;
 public interface ServiceModelProxy {
     //
     List<String> retrieveServiceNameList();
-    Service retrieveServiceDetail(String serviceName);
+    Service retrieveServiceDetail(String serviceId);
     List<String> retrieveServiceIdList();
 }

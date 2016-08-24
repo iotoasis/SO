@@ -11,25 +11,40 @@ import java.util.List;
  */
 public class ServiceMessage {
     //
+    private List<String> domainIdList = new ArrayList<>();
+    private String serviceConceptSerivceId;
+    private String operation;
 
-    public ServiceMessage(List<Domain> domainList, String serviceModelName){};
-
-    private List<Domain> domainList = new ArrayList<>();
-    private String serviceModelName;
-
-    public List<Domain> getDomainList() {
-        return domainList;
+    public ServiceMessage(List<String> domainIdList, String serviceConceptSerivceId, String operation) {
+        this.domainIdList = domainIdList;
+        this.serviceConceptSerivceId = serviceConceptSerivceId;
+        this.operation = operation;
     }
 
-    public void setDomainList(List<Domain> domainList) {
-        this.domainList = domainList;
+    public ServiceMessage() {
     }
 
-    public String getServiceModelName() {
-        return serviceModelName;
+    public List<String> getDomainIdList() {
+        return domainIdList;
     }
 
-    public void setServiceModelName(String serviceModelName) {
-        this.serviceModelName = serviceModelName;
+    public void setDomainIdList(List<String> domainIdList) {
+        this.domainIdList = domainIdList;
+    }
+
+    public String getServiceConceptSerivceId() {
+        return serviceConceptSerivceId;
+    }
+
+    public void setServiceConceptSerivceId(String serviceConceptSerivceId) {
+        this.serviceConceptSerivceId = serviceConceptSerivceId;
+    }
+
+    public String getOperation() {
+        return operation;
+    }
+
+    public void setOperation(String operation) {
+        this.operation = operation;
     }
 }

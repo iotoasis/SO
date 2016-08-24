@@ -16,8 +16,8 @@ public class DataValidation {
     //NOTE : Profile 데이터 검증
     public void inspectProfile(Profile profile) throws DataLossException {
         //
-        if(profile.getName() == null || profile.getContextModelName() == null
-                || profile.getServiceModelName() == null){
+        if(profile.getName() == null || profile.getContextModelId() == null
+                || profile.getServiceModelId() == null){
             throw new DataLossException();
         }
     }

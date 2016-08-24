@@ -13,4 +13,5 @@ public interface ProfileStore {
     void createProfile(Profile profile);
     List<Profile> retrieveProfileList();
     Profile retrieveProfileDetail(String profileId);
+    List<Profile> findByContextModelId(String contextModelId);
 }

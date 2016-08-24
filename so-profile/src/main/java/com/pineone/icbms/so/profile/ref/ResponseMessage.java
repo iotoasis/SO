@@ -17,8 +17,8 @@ public class ResponseMessage {
 
     // NOTE : ServiceModel 전달 메시지 생성
     public String profileResultMessage(Profile profile){
-        message = " Name : " + profile.getName() + ", ContextModelName : " + profile.getContextModelName() +
-                ", ServiceModelName : " + profile.getServiceModelName();
+        message = " Name : " + profile.getName() + ", ContextModelName : " + profile.getContextModelId() +
+                ", ServiceModelName : " + profile.getServiceModelId();
         return message;
     }
 
