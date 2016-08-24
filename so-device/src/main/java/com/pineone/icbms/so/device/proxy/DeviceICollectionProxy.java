@@ -8,6 +8,6 @@ public interface DeviceICollectionProxy {
     List<String> findDomain(String requestUri);
     Device findDeviceByID(String requestUri);
     List<Device> findDeviceByDomain(String requestUri);
-    List<String> findDeivceServiceList(String requestUri);
+    List<String> findDeviceServiceList(String requestUri);
     String findDeviceOperation(String deviceId, String deviceService);
 }

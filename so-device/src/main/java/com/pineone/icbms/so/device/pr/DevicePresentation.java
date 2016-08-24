@@ -33,7 +33,7 @@ public class DevicePresentation {
     /**
      *  Device 제어 요청
      */
-    @RequestMapping(value = "/contol",method = RequestMethod.POST)
+    @RequestMapping(value = "/control",method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public String deviceControl(@RequestBody String deviceId, String deviceCommand){
         // NOTE : Device Control
@@ -95,7 +95,7 @@ public class DevicePresentation {
     /**
      *  Device 제어 결과 노티 SI -> SO
      */
-    @RequestMapping(value ="/moniter",method = RequestMethod.POST)
+    @RequestMapping(value ="/monitor",method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public String asynchronousControlResult(@RequestBody ResultMessage message){
         // NOTO : Device the result is stored in the data memory.

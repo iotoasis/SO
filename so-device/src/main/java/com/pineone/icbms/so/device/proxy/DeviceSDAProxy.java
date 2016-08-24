@@ -92,7 +92,7 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
      * @return
      */
     @Override
-    public List<String> findDeivceServiceList(String requestUri){
+    public List<String> findDeviceServiceList(String requestUri){
         //
         List<String> deviceFunctionalityList = new ArrayList<>();
 

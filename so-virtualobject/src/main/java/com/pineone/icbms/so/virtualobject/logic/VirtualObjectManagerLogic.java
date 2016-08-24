@@ -51,7 +51,7 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
     @Override
     public void produceVirtualObject(VirtualObject virtualObject) {
 
-        // VirtualObjectdml Functionality 요청
+        // VirtualObject의 Functionality 요청
         String responseData = requestFunctionality(virtualObject);
 
         // VirtualObject의 Functionality 추가 설정

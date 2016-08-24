@@ -39,7 +39,7 @@ public class DeviceMemory implements DeviceStore {
 
     @Override
     public List<Device> retrieveByLocation(String location) {
-        // TODO : Device DB 적용후 적ㅇㅇ
+        // TODO : Device DB 적용후 적용
         List<Device> deviceList = new ArrayList<>();
 
         return deviceList;
@@ -47,7 +47,7 @@ public class DeviceMemory implements DeviceStore {
 
     @Override
     public List<String> retrieveDeviceService(String location) {
-        // TODO : Device DB 적용후 적ㅇㅇ
+        // TODO : Device DB 적용후 적용
         List<String> deviceServiceList = new ArrayList<>();
         return deviceServiceList;
     }
