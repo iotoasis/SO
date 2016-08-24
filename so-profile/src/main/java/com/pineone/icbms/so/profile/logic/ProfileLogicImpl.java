@@ -144,7 +144,9 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
                 for(Profile profile : profileList){
                     System.out.println(profile.getServiceModelId() + "extract");
                     //TODO : Profile 로 ServiceModel 찾아서 ServiceModel 에 전송
-                    serviceModelPresentation.executeEmergencyServiceModel(contextModel.getDomainIdList() ,profile.getServiceModelId());
+                    for(String domain : contextModel.getDomainIdList()){
+                        serviceModelPresentation.executeEmergencyServiceModel(domain ,profile.getServiceModelId());
+                    }
                 }
             }
         }
