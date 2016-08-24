@@ -131,12 +131,8 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         Profile profile = profileStore.retrieveProfileDetail(profileId);
         List<String> domainIdList = contextModelPresentation.isHappenContextModel(profile.getContextModelId());
         if(domainIdList != null){
-            for(String domainId : domainIdList){
-                System.out.println(profile.getServiceModelId());
-                System.out.println(domainId);
                 System.out.println("성공");
-                serviceModelPresentation.executeServiceModel(domainId, profile.getServiceModelId());
-            }
+                serviceModelPresentation.executeServiceModel(profile.getServiceModelId());
         }
         else{
             System.out.println("상황 발생하지 않음 ");
@@ -162,9 +158,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
                 for(Profile profile : profileList){
                     System.out.println(profile.getServiceModelId() + "extract");
                     //TODO : Profile 로 ServiceModel 찾아서 ServiceModel 에 전송
-                    for(String domain : contextModel.getDomainIdList()){
-                        serviceModelPresentation.executeServiceModel(domain ,profile.getServiceModelId());
-                    }
+                        serviceModelPresentation.executeServiceModel(profile.getServiceModelId());
                 }
             }
         }
