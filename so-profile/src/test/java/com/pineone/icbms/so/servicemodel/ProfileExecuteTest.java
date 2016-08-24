@@ -1,17 +1,14 @@
 package com.pineone.icbms.so.servicemodel;
 
-import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
 import com.pineone.icbms.so.contextmodel.ref.ResponseMessage;
-import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.profile.ProfileApplication;
 import com.pineone.icbms.so.profile.entity.Profile;
 import com.pineone.icbms.so.profile.logic.ProfileLogicImpl;
 import com.pineone.icbms.so.profile.pr.ProfilePresentation;
 import com.pineone.icbms.so.profile.store.ProfileStore;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +16,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -83,7 +79,7 @@ public class ProfileExecuteTest {
             System.out.println(profile.getPeriod());
 
             for(String domainId : contextModel.getDomainIdList()) {
-                serviceModelPresentation.executeEmergencyServiceModel(domainId, profile.getServiceModelId());
+                serviceModelPresentation.executeServiceModel(domainId, profile.getServiceModelId());
             }
         }
     }

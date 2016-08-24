@@ -37,6 +37,6 @@
 //        Status status = Status.Active;
 //
 ////        ServiceMessage serviceMessage = new ServiceMessage(domain, deviceObject, status);
-////        serviceModelLogic.executeEmergencyServiceModel(serviceMessage);
+////        serviceModelLogic.executeServiceModel(serviceMessage);
 //    }
 //}
