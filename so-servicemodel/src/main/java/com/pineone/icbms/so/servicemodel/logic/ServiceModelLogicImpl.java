@@ -1,9 +1,7 @@
 package com.pineone.icbms.so.servicemodel.logic;
 
-import com.pineone.icbms.so.service.entity.Service;
 import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
 import com.pineone.icbms.so.servicemodel.proxy.ServiceModelProxy;
-import com.pineone.icbms.so.servicemodel.ref.ExecuteDummyClass;
 import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
 import com.pineone.icbms.so.servicemodel.ref.ServiceMessage;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
@@ -71,10 +69,10 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
         List<String> serviceIdList = serviceModel.getServiceIdList();
         List<ServiceMessage> serviceMessageList = new ArrayList<>();
         for (String serviceId : serviceIdList) {
-            Service service = serviceModelProxy.retrieveServiceDetail(serviceId);
+//            Service service = serviceModelProxy.retrieveServiceDetail(serviceId);
 //            ServiceMessage serviceMessage = new ServiceMessage(domainId, service.getConceptServiceId(), service.getStatus());
 //            serviceMessageList.add(serviceMessage);
-            new ExecuteDummyClass().controlService(serviceMessageList);
+            serviceModelProxy.executeService(serviceId);
         }
     }
 

@@ -65,19 +65,19 @@ public class VirtualObjectPresentation {
         virtualObjectManager.deleteVirtualObject(id);
     }
 
-    private VirtualObject virtualObjectMapping(VirtualObjectTransFormObject eVirtulaObject)
+    private VirtualObject virtualObjectMapping(VirtualObjectTransFormObject eVirtualObject)
     {
         VirtualObject virtualObject = new VirtualObject();
-        virtualObject.setVoId(eVirtulaObject.getVoId());
-        virtualObject.setDeviceId(eVirtulaObject.getDeviceId());
-        virtualObject.setDeviceService(eVirtulaObject.getDeviceService());
-        virtualObject.setFunctionality(eVirtulaObject.getFunctionality());
-        virtualObject.setVoCommand(eVirtulaObject.getVoCommand());
-        virtualObject.setVoCreateTime(eVirtulaObject.getVoCreateTime());
-        virtualObject.setVoExpiredTime(eVirtulaObject.getVoExpiredTime());
-        virtualObject.setVoDescription(eVirtulaObject.getVoDescription());
-        virtualObject.setVoName(eVirtulaObject.getVoName());
-        virtualObject.setVoLocation(eVirtulaObject.getVoLocation());
+        virtualObject.setVoId(eVirtualObject.getVoId());
+        virtualObject.setDeviceId(eVirtualObject.getDeviceId());
+        virtualObject.setDeviceService(eVirtualObject.getDeviceService());
+        virtualObject.setFunctionality(eVirtualObject.getFunctionality());
+        virtualObject.setVoCommand(eVirtualObject.getVoCommand());
+        virtualObject.setVoCreateTime(eVirtualObject.getVoCreateTime());
+        virtualObject.setVoExpiredTime(eVirtualObject.getVoExpiredTime());
+        virtualObject.setVoDescription(eVirtualObject.getVoDescription());
+        virtualObject.setVoName(eVirtualObject.getVoName());
+        virtualObject.setVoLocation(eVirtualObject.getVoLocation());
         return virtualObject;
     }
 

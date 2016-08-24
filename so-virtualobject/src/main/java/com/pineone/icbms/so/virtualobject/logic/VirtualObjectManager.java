@@ -10,6 +10,6 @@ public interface VirtualObjectManager {
     void deleteVirtualObject(String id);
     List<VirtualObject> searchVirtualObjectList(String location);
     String requestControlDevice(String voId, String operation);
-    void produceVirtualObject(VirtualObject virtulaObject);
+    void produceVirtualObject(VirtualObject virtualObject);
     String controlDevice(List<ServiceControl> serviceControls);
 }

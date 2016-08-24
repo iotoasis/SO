@@ -38,4 +38,10 @@ public class ServiceModelInternalProxy implements ServiceModelProxy {
         List<String> serviceIdList = servicePresentation.retrieveServiceIdList();
         return serviceIdList;
     }
+
+    @Override
+    public void executeService(String serviceId) {
+        // 서비스 실행
+        servicePresentation.executeService(serviceId);
+    }
 }
