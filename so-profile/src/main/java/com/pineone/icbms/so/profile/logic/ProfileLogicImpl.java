@@ -135,7 +135,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
                 System.out.println(profile.getServiceModelId());
                 System.out.println(domainId);
                 System.out.println("성공");
-                serviceModelPresentation.executeEmergencyServiceModel(domainId, profile.getServiceModelId());
+                serviceModelPresentation.executeServiceModel(domainId, profile.getServiceModelId());
             }
         }
         else{
@@ -163,7 +163,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
                     System.out.println(profile.getServiceModelId() + "extract");
                     //TODO : Profile 로 ServiceModel 찾아서 ServiceModel 에 전송
                     for(String domain : contextModel.getDomainIdList()){
-                        serviceModelPresentation.executeEmergencyServiceModel(domain ,profile.getServiceModelId());
+                        serviceModelPresentation.executeServiceModel(domain ,profile.getServiceModelId());
                     }
                 }
             }

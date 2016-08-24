@@ -78,9 +78,9 @@ public class ServiceModelPresentation {
     //NOTE: 응급상황으로 발생하는 ContextModel 에 따른 ServiceModel 실행
     @RequestMapping(value = "/control", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public void executeEmergencyServiceModel(@RequestBody String domain, String serviceModelId) {
+    public void executeServiceModel(@RequestBody String serviceModelId) {
         //
-        serviceModelLogic.executeEmergencyServiceModel(domain, serviceModelId);
+        serviceModelLogic.executeServiceModel(serviceModelId);
     }
 
     //NOTE: 저장되어 있는 Service 들의 ID 조회
