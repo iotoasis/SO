@@ -22,7 +22,7 @@ public class VirtualObjectMongoStore implements VirtualObjectStore {
 
     private VirtualObjectDataObject virtualObjectToDataObject(VirtualObject virtualObject) {
         if(virtualObject == null) return null;
-        return new VirtualObjectDataObject(virtualObject.getVoId(), virtualObject.getVoName(), virtualObject.getFunctionality(), virtualObject.getVoDiscription(), virtualObject.getVoCreateTime(), virtualObject.getVoExfiredTime(), virtualObject.getDeviceService(), virtualObject.getDeviceId(), virtualObject.getVoCommand(), virtualObject.getVoLocation());
+        return new VirtualObjectDataObject(virtualObject.getVoId(), virtualObject.getVoName(), virtualObject.getFunctionality(), virtualObject.getVoDescription(), virtualObject.getVoCreateTime(), virtualObject.getVoExpiredTime(), virtualObject.getDeviceService(), virtualObject.getDeviceId(), virtualObject.getVoCommand(), virtualObject.getVoLocation());
     }
 
     @Override
@@ -36,13 +36,25 @@ public class VirtualObjectMongoStore implements VirtualObjectStore {
         {
             return null;
         }
-        return new VirtualObject(virtualObjectDataObject.getVoId(), virtualObjectDataObject.getVoName(), virtualObjectDataObject.getFunctionality(), virtualObjectDataObject.getVoDiscription(), virtualObjectDataObject.getVoCreateTime(), virtualObjectDataObject.getVoExfiredTime(), virtualObjectDataObject.getDeviceService(), virtualObjectDataObject.getDeviceId(), virtualObjectDataObject.getVoCommand(), virtualObjectDataObject.getVoLocation());
+        return new VirtualObject(virtualObjectDataObject.getVoId(), virtualObjectDataObject.getVoName(), virtualObjectDataObject.getFunctionality(), virtualObjectDataObject.getVoDescription(), virtualObjectDataObject.getVoCreateTime(), virtualObjectDataObject.getVoExpiredTime(), virtualObjectDataObject.getDeviceService(), virtualObjectDataObject.getDeviceId(), virtualObjectDataObject.getVoCommand(), virtualObjectDataObject.getVoLocation());
     }
 
     @Override
     public List<VirtualObject> retrieveByLocation(String location) {
         List<VirtualObject> virtualObjects = new ArrayList<>();
         List<VirtualObjectDataObject> virtualObjectDataObjects = virtualObjectRepostory.findByvoLocation(location);
+
+        for(VirtualObjectDataObject v : virtualObjectDataObjects) {
+            virtualObjects.add(DataObjectToVirtualObject(v));
+        }
+
+        return virtualObjects;
+    }
+
+    @Override
+    public List<VirtualObject> retrieveByLocationAndService(String location, String service) {
+        List<VirtualObject> virtualObjects = new ArrayList<>();
+        List<VirtualObjectDataObject> virtualObjectDataObjects = virtualObjectRepostory.findByvoLocationAndFunctionality(location, service);
 
         for(VirtualObjectDataObject v : virtualObjectDataObjects) {
             virtualObjects.add(DataObjectToVirtualObject(v));
