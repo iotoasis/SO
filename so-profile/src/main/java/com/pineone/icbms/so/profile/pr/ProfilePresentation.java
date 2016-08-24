@@ -1,5 +1,6 @@
 package com.pineone.icbms.so.profile.pr;
 
+import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 import com.pineone.icbms.so.profile.entity.Profile;
 import com.pineone.icbms.so.profile.logic.ProfileLogic;
 import com.pineone.icbms.so.profile.logic.ProfileLogicImpl;

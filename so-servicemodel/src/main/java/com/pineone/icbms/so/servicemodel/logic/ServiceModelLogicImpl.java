@@ -20,12 +20,12 @@ import java.util.Queue;
  */
 
 @org.springframework.stereotype.Service
-public class ServiceModelLogicImpl implements ServiceModelLogic, Runnable {
+public class ServiceModelLogicImpl implements ServiceModelLogic {
     //
     public static final Queue SERVICEMODEL_QUEUE = new LinkedList<>();
 
     @Autowired
-            ServiceModelProxy serviceModelProxy;
+    ServiceModelProxy serviceModelProxy;
 
     @Autowired
     ServiceModelStore serviceModelStore;
@@ -64,10 +64,19 @@ public class ServiceModelLogicImpl implements ServiceModelLogic, Runnable {
         return serviceModel;
     }
 
+    //NOTE: 즉시성 서비스 모델 실행
     @Override
-    //NOTE: ServiceModel 을 실행하기 위한 정보를 담은 객체를 수신 하고  각 서비스 실행
-    public void executeEmergencyServiceModel(ServiceMessage serviceMessage) {
-        SERVICEMODEL_QUEUE.offer(serviceMessage);
+    public void executeEmergencyServiceModel(List<String> domainIdList, String serviceModelId) {
+        //
+        ServiceModel serviceModel = serviceModelStore.retrieveServiceModelDetail(serviceModelId);
+        List<String> serviceIdList = serviceModel.getServiceIdList();
+        List<ServiceMessage> serviceMessageList = new ArrayList<>();
+        for (String serviceId : serviceIdList) {
+            Service service = serviceModelProxy.retrieveServiceDetail(serviceId);
+            ServiceMessage serviceMessage = new ServiceMessage(domainIdList, service.getConceptServiceId(), service.getStatus());
+            serviceMessageList.add(serviceMessage);
+            new ExecuteDummyClass().controlService(serviceMessageList);
+        }
     }
 
     @Override
@@ -80,35 +89,36 @@ public class ServiceModelLogicImpl implements ServiceModelLogic, Runnable {
     public List<String> retrieveServiceModelIdList() {
         List<String> serviceModelIdList = new ArrayList<>();
         List<ServiceModel> serviceModelList = serviceModelStore.retrieveServiceModelList();
-        for(ServiceModel serviceModel : serviceModelList){
+        for (ServiceModel serviceModel : serviceModelList) {
             serviceModelIdList.add(serviceModel.getId());
         }
         return serviceModelIdList;
     }
-
-    //NOTE : 서비스 실행 로직
-    @Override
-    public void run() {
-        //
-        while (true) {
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if (!(SERVICEMODEL_QUEUE.isEmpty())) {
-                ExecuteDummyClass executeDummyClass = new ExecuteDummyClass();
-                ServiceMessage serviceMessage = (ServiceMessage) SERVICEMODEL_QUEUE.poll();
-                ServiceModel serviceModel = this.retrieveServiceModelDetail(serviceMessage.getServiceModelName());
-                List<Domain> domainList = serviceMessage.getDomainList();
-                for (String serviceName : serviceModel.getServiceIdList()) {
-                    Service service = serviceModelProxy.retrieveServiceDetail(serviceName);
-                    for (Domain domain : domainList) {
-                        executeDummyClass.controlService(domain.getId(), service.getDeviceObjectId(), service.getStatus());
-                    }
-                }
-            }
-        }
-    }
 }
+
+//    //NOTE : 서비스 실행 로직
+//    @Override
+//    public void run() {
+//        //
+//        while (true) {
+//            try {
+//                Thread.sleep(500);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            if (!(SERVICEMODEL_QUEUE.isEmpty())) {
+//                ExecuteDummyClass executeDummyClass = new ExecuteDummyClass();
+//                ServiceMessage serviceMessage = (ServiceMessage) SERVICEMODEL_QUEUE.poll();
+////                ServiceModel serviceModel = this.retrieveServiceModelDetail(serviceMessage.getServiceModelName());
+////                List<Domain> domainList = serviceMessage.getDomainList();
+//                for (String serviceName : serviceModel.getServiceIdList()) {
+//                    Service service = serviceModelProxy.retrieveServiceDetail(serviceName);
+////                    for (Domain domain : domainList) {
+////                        executeDummyClass.controlService(domain.getId(), service.getDeviceObjectId(), service.getStatus());
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
 

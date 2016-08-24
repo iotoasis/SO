@@ -1,9 +1,8 @@
 package com.pineone.icbms.so.servicemodel.pr;
 
-import com.pineone.icbms.so.domain.entity.Domain;
+import com.pineone.icbms.so.service.entity.Service;
 import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
 import com.pineone.icbms.so.servicemodel.logic.ServiceModelLogic;
-import com.pineone.icbms.so.servicemodel.logic.ServiceModelLogicImpl;
 import com.pineone.icbms.so.servicemodel.ref.DataValidation;
 import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
 import com.pineone.icbms.so.servicemodel.ref.ServiceMessage;
@@ -76,10 +75,9 @@ public class ServiceModelPresentation {
     }
 
     //NOTE: 응급상황으로 발생하는 ContextModel 에 따른 ServiceModel 실행
-    public void executeEmergencyServiceModel(List<Domain> domainList, String serviceModelName) {
+    public void executeEmergencyServiceModel(List<String> domainIdList, String serviceModelId) {
         //
-        ServiceMessage serviceMessage = new ServiceMessage(domainList, serviceModelName);
-        serviceModelLogic.executeEmergencyServiceModel(serviceMessage);
+        serviceModelLogic.executeEmergencyServiceModel(domainIdList, serviceModelId);
     }
 
     //NOTE: 저장되어 있는 Service 들의 ID 조회

@@ -43,15 +43,25 @@ public class ProfileStoreMongoImpl implements ProfileStore {
         return dataObjectToProfile(profileDataObject);
     }
 
+    @Override
+    public List<Profile> findByContextModelId(String contextModelId) {
+        List<ProfileDataObject> profileDataObjectList = profileRepository.findByContextModelId(contextModelId);
+        List<Profile> profileList = new ArrayList<>();
+        for(ProfileDataObject profileDataObject : profileDataObjectList){
+            profileList.add(dataObjectToProfile(profileDataObject));
+        }
+        return profileList;
+    }
+
     private ProfileDataObject profileToDataObject(Profile profile) {
         if(profile == null) return null;
-        return new ProfileDataObject(profile.getId(), profile.getName(), profile.getContextModelName(), profile.getServiceModelName(),
+        return new ProfileDataObject(profile.getId(), profile.getName(), profile.getContextModelId(), profile.getServiceModelId(),
                 profile.getBizContextName(), profile.getPeriod());
     }
 
     private Profile dataObjectToProfile(ProfileDataObject profileDataObject){
         if(profileDataObject == null) return null;
-        return new Profile(profileDataObject.getId(), profileDataObject.getName(), profileDataObject.getContextModelName(),
-                profileDataObject.getServiceModelName(), profileDataObject.getBizContextName(), profileDataObject.getPeriod());
+        return new Profile(profileDataObject.getId(), profileDataObject.getName(), profileDataObject.getContextModelId(),
+                profileDataObject.getServiceModelId(), profileDataObject.getBizContextName(), profileDataObject.getPeriod());
     }
 }

@@ -48,6 +48,11 @@ public class ProfileMapStore implements ProfileStore {
         return profile;
     }
 
+    @Override
+    public List<Profile> findByContextModelId(String contextModelId) {
+        return null;
+    }
+
     public static ProfileMapStore getInstance(){
         if(instance == null)
             instance = new ProfileMapStore();
