@@ -65,7 +65,7 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
 
     //NOTE: 즉시성 서비스 모델 실행
     @Override
-    public void executeEmergencyServiceModel(String domainId, String serviceModelId) {
+    public void executeServiceModel(String serviceModelId) {
         //
         ServiceModel serviceModel = serviceModelStore.retrieveServiceModelDetail(serviceModelId);
         List<String> serviceIdList = serviceModel.getServiceIdList();
