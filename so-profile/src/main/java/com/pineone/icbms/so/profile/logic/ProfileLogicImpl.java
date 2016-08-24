@@ -7,6 +7,7 @@ import com.pineone.icbms.so.profile.entity.Profile;
 import com.pineone.icbms.so.profile.proxy.ProfileProxy;
 import com.pineone.icbms.so.profile.ref.ResponseMessage;
 import com.pineone.icbms.so.profile.store.ProfileStore;
+import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,9 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     //
     @Autowired
             ContextModelPresentation contextModelPresentation;
+
+    @Autowired
+    ServiceModelPresentation serviceModelPresentation;
 
     @Autowired
     ProfileProxy profileProxy;
@@ -71,7 +75,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
 //        ProfileStore profileStore = ProfileMapStore.getInstance();
 
         //NOTE: ScheduleType 인데 스케쥴이 설정 안되있는 경우
-        String contextModelType = contextModelPresentation.retrieveContextModelType(profile.getContextModelName());
+        String contextModelType = contextModelPresentation.retrieveContextModelType(profile.getContextModelId());
         if(contextModelType.equals(ContextType.ScheduleType.toString())){
             if(profile.getPeriod() == 0){
                 String profileResultMessage = "Input ScheduleTime";
@@ -102,10 +106,10 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
 
     //NOTE: DB에 저장된 Profile 상세 내역 조회
     @Override
-    public Profile retrieveProfileDetail(String profileName) {
+    public Profile retrieveProfileDetail(String profileId) {
         //
 //        ProfileStore profileStore = ProfileMapStore.getInstance();
-        Profile profile = profileStore.retrieveProfileDetail(profileName);
+        Profile profile = profileStore.retrieveProfileDetail(profileId);
         return profile;
     }
 
@@ -116,7 +120,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         List<Profile> profileList = profileStore.retrieveProfileList();
 
         for(Profile profile : profileList){
-            profileIdList.add(profile.getName());
+            profileIdList.add(profile.getId());
         }
         return profileIdList;
     }
@@ -134,9 +138,14 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
             }
             if(!(profileProxy.checkContextModelQueue())){
                 ContextModel contextModel = profileProxy.retrieveContextModelQueueData();
-                System.out.println(contextModel.getName());
+                System.out.println(contextModel.getName() + "Receive");
                 //TODO : 디비 연결후 contextModel 이름으로 Profile 조회 기능 구현 및 연결
-                //TODO : Profile 로 ServiceModel 찾아서 ServiceModel 에 전송
+                List<Profile> profileList = profileStore.findByContextModelId(contextModel.getId());
+                for(Profile profile : profileList){
+                    System.out.println(profile.getServiceModelId() + "extract");
+                    //TODO : Profile 로 ServiceModel 찾아서 ServiceModel 에 전송
+                    serviceModelPresentation.executeEmergencyServiceModel(contextModel.getDomainIdList() ,profile.getServiceModelId());
+                }
             }
         }
     }

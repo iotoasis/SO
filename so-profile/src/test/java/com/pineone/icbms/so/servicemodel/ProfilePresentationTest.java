@@ -5,6 +5,7 @@ import com.pineone.icbms.so.profile.ProfileApplication;
 import com.pineone.icbms.so.profile.entity.Profile;
 import com.pineone.icbms.so.profile.pr.ProfilePresentation;
 import com.pineone.icbms.so.profile.ref.ResponseMessage;
+import com.pineone.icbms.so.profile.store.ProfileStore;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +15,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,6 +34,9 @@ public class ProfilePresentationTest {
     @Autowired
     ContextModelPresentation contextModelPresentation;
 
+    @Autowired
+    ProfileStore profileStore;
+
     @Before
     public void 프로파일등록() throws Exception {
 
@@ -51,8 +54,8 @@ public class ProfilePresentationTest {
             System.out.println(serviceModelId);
         }
 
-        profile.setContextModelName("CM-FIRE-EMERGENCY");
-        profile.setServiceModelName("SM_IDEAL_COOL_TEMP");
+        profile.setContextModelId("CM-FIRE-EMERGENCY");
+        profile.setServiceModelId("SM_IDEAL_COOL_TEMP");
         profile.setPeriod(0);
 
         ResponseMessage responseMessage = profilePresentation.registerProfileController(profile);
@@ -75,9 +78,23 @@ public class ProfilePresentationTest {
         Profile profile = profilePresentation.retrieveProfileDetailController("PR-FIRE-ENV");
         System.out.println(profile.getId());
         System.out.println(profile.getName());
-        System.out.println(profile.getServiceModelName());
-        System.out.println(profile.getContextModelName());
+        System.out.println(profile.getServiceModelId());
+        System.out.println(profile.getContextModelId());
         System.out.println(profile.getPeriod());
+    }
 
+    @Test
+    public void findByContextModelIdTest() throws Exception {
+
+
+        List<Profile> profileList = profileStore.findByContextModelId("CM-FIRE-EMERGENCY");
+        System.out.println("************************* ProfileSearching *******************");
+        for(Profile profile : profileList){
+            System.out.println(profile.getId());
+            System.out.println(profile.getName());
+            System.out.println(profile.getServiceModelId());
+            System.out.println(profile.getContextModelId());
+            System.out.println(profile.getPeriod());
+        }
     }
 }

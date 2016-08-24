@@ -10,8 +10,8 @@ public class Profile {
 
     private String id;
     private String name;
-    private String contextModelName;
-    private String serviceModelName;
+    private String contextModelId;
+    private String serviceModelId;
     private String bizContextName;
     private int period;
     private int expirationTime;
@@ -38,20 +38,20 @@ public class Profile {
         this.id = id;
     }
 
-    public String getContextModelName() {
-        return contextModelName;
+    public String getContextModelId() {
+        return contextModelId;
     }
 
-    public void setContextModelName(String contextModelName) {
-        this.contextModelName = contextModelName;
+    public void setContextModelId(String contextModelId) {
+        this.contextModelId = contextModelId;
     }
 
-    public String getServiceModelName() {
-        return serviceModelName;
+    public String getServiceModelId() {
+        return serviceModelId;
     }
 
-    public void setServiceModelName(String serviceModelName) {
-        this.serviceModelName = serviceModelName;
+    public void setServiceModelId(String serviceModelId) {
+        this.serviceModelId = serviceModelId;
     }
 
     public boolean isHappenContextModel() {
@@ -78,11 +78,11 @@ public class Profile {
         this.expirationTime = expirationTime;
     }
 
-    public Profile(String id, String name, String contextModelName, String serviceModelName, String bizContextName, int period) {
+    public Profile(String id, String name, String contextModelId, String serviceModelId, String bizContextName, int period) {
         this.id = id;
         this.name = name;
-        this.contextModelName = contextModelName;
-        this.serviceModelName = serviceModelName;
+        this.contextModelId = contextModelId;
+        this.serviceModelId = serviceModelId;
         this.bizContextName = bizContextName;
         this.period = period;
     }

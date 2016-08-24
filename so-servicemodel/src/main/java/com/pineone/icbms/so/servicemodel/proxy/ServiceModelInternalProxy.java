@@ -31,8 +31,8 @@ public class ServiceModelInternalProxy extends AbstractServiceModelProxy {
 
     //NOTE: Service 모듈을 이용해서 Service 조회
     @Override
-    public Service retrieveServiceDetail(String serviceName) {
-        Service service = servicePresentation.retrieveServiceDetailController(serviceName);
+    public Service retrieveServiceDetail(String serviceId) {
+        Service service = servicePresentation.retrieveServiceDetailController(serviceId);
         return service;
     }
 
