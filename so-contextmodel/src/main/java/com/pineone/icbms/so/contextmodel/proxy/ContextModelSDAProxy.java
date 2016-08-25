@@ -83,7 +83,7 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
 
         List<String> domainIdList = new ArrayList<>();
         //TODO : 일시적 테스트
-        if(contextModelId.equals("CM-FIRE-EMERGENCY")){
+        if(contextModelId.equals("CM-COMFORT-AIR")){
             domainIdList.add("DO-CLASSROOM");
         }
         else {

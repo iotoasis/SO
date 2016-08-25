@@ -19,6 +19,10 @@ public class Profile {
     private String createTime;
     private String modifiedTime;
 
+    public Profile(String id) {
+        this.id = id;
+    }
+
     public Profile() {
     }
 
