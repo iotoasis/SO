@@ -5,6 +5,7 @@ import com.pineone.icbms.so.contextmodel.logic.ContextModelLogic;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.contextmodel.ref.DataValidation;
 import com.pineone.icbms.so.contextmodel.ref.ResponseMessage;
+import com.pineone.icbms.so.contextmodel.store.mongo.ContextModelDataObject;
 import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.util.exception.DataLossException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,10 +98,11 @@ public class ContextModelPresentation {
     @RequestMapping(value = "/occ", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public ResponseMessage emergencyContextModel(@RequestBody ContextModel contextModel){
+    public ResponseMessage emergencyContextModel(@RequestBody ContextModelTransFormObject contextModelTransFormObject){
         //
         DataValidation dataValidation = DataValidation.newDataValidation();
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
+        ContextModel contextModel = dataObjectToContextModel(contextModelTransFormObject);
         try {
             dataValidation.inspectContextModel(contextModel);
         } catch (DataLossException e) {
@@ -132,6 +134,12 @@ public class ContextModelPresentation {
         //
         List<String> contextModelNameList = contextModelLogic.retrieveContextModelIdList();
         return contextModelNameList;
+    }
+
+    private ContextModel dataObjectToContextModel(ContextModelTransFormObject contextModelDataObject){
+        if(contextModelDataObject == null) return null;
+        return new ContextModel(contextModelDataObject.getContextid(), contextModelDataObject.getDomains(), contextModelDataObject.getCmd(),
+                contextModelDataObject.getTime());
     }
 }
 
