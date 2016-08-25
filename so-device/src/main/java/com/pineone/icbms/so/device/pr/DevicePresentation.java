@@ -44,6 +44,16 @@ public class DevicePresentation {
     }
 
     /**
+     *  Device List 검색.
+     */
+    @RequestMapping(value = "",method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public List<Device> findDeviceList(){
+        // Search Device List
+        return deviceManager.searchDeviceList();
+    }
+
+    /**
      *  Device 검색. By ID
      */
     @RequestMapping(value = "/{deviceId}",method = RequestMethod.GET)

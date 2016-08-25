@@ -112,6 +112,11 @@ public class ServiceLogicImpl implements ServiceLogic{
         serviceProxy.voTestSetUp();
     }
 
+    @Override
+    public List<Service> retrieveServiceList() {
+        return serviceStore.retrieveServiceList();
+    }
+
     private void SetUpData(){
         Service service = new Service();
         service.setName("Pleasant Air Services");

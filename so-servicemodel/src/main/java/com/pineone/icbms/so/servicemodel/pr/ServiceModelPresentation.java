@@ -57,14 +57,23 @@ public class ServiceModelPresentation {
     }
 
 
-    //NOTE: ServiceModel List 퍼블리싱 -  Profile 생성시 사용
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    //NOTE: ServiceModel ID List 퍼블리싱 -  Profile 생성시 사용
+    @RequestMapping(value = "/id", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
-    public List<String> retrieveServiceModelList(){
+    public List<String> retrieveServiceModelIdList(){
         //
         List<String> serviceModelList = serviceModelLogic.retrieveServiceModelIdList();
         return serviceModelList;
     }
+
+    //NOTE: ServiceModel List
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public List<ServiceModel> retrieveServiceModelList(){
+        //
+        return serviceModelLogic.retrieveServiceModelList();
+    }
+
 
     //NOTE: DB 에서 ServiceModel 상세 조회
     @RequestMapping(value = "{serviceModelId}", method = RequestMethod.GET)

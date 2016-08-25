@@ -65,6 +65,12 @@ public class VirtualObjectPresentation {
         return virtualObjectManager.searchVirtualObjectList(location);
     }
 
+    @RequestMapping(value = "",method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<VirtualObject> searchVirtualObjectList(){
+        return virtualObjectManager.searchVirtualObjectList();
+    }
+
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     public void deleteVirtualObject(@PathVariable String id){

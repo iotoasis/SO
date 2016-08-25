@@ -15,4 +15,5 @@ public interface DeviceManager {
     List<Device> deviceSearchByLocation(String location);
     List<String> requestDeviceServiceList(String location);
     String searchOperation(String deviceId, String deviceService);
+    List<Device> searchDeviceList();
 }

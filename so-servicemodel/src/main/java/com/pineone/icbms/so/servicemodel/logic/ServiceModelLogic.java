@@ -16,4 +16,5 @@ public interface ServiceModelLogic {
     List<String> retrieveServiceIdList();
     List<String> retrieveServiceModelIdList();
     void testSetUp();
+    List<ServiceModel> retrieveServiceModelList();
 }

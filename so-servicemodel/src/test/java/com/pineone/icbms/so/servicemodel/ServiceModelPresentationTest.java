@@ -119,7 +119,7 @@ public class ServiceModelPresentationTest {
     @Test
     public void 서비스모델리스트조회() throws Exception {
 
-        List<String> serviceModelIdList = serviceModelPresentation.retrieveServiceModelList();
+        List<String> serviceModelIdList = serviceModelPresentation.retrieveServiceModelIdList();
         for(String serviceModelId : serviceModelIdList){
             System.out.println(serviceModelId);
         }

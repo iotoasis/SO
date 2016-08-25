@@ -114,6 +114,11 @@ public class DeviceManagerLogic implements DeviceManager {
         return responseData;
     }
 
+    @Override
+    public List<Device> searchDeviceList() {
+        return deviceStore.retrieveDeviceList();
+    }
+
 
     private DeviceControlMessage deviceDataConversion(String deviceId, String commandId, String deviceCommand){
         DeviceControlMessage deviceControlMessage = new DeviceControlMessage();

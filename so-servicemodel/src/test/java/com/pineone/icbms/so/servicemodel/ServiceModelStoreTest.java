@@ -65,7 +65,7 @@
 //
 //    @Test
 //    public void 서비스모델리스트조회() throws Exception {
-//        List<String> serviceModelList = serviceModelPresentation.retrieveServiceModelList();
+//        List<String> serviceModelList = serviceModelPresentation.retrieveServiceModelIdList();
 //        for(String contextModel : serviceModelList){
 //            System.out.println(contextModel);
 //        }

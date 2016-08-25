@@ -88,6 +88,15 @@ public class ServicePresentation {
         serviceLogic.executeService(serviceId);
     }
 
+    //NOTE : Service List 조회
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public List<Service> retrieveServiceList(){
+        //
+        return serviceLogic.retrieveServiceList();
+    }
+
+
     // NOTE: Service Component 의 DB에 접근해서 service Name 리스트 조회
     public List<String> retrieveServiceNameList(){
         //
