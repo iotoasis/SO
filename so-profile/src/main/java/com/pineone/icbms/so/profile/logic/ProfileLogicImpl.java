@@ -129,6 +129,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     @Override
     public void executeScheduleProfile(String profileId) {
         Profile profile = profileStore.retrieveProfileDetail(profileId);
+        System.out.println("*********** contextModelId추출 ****** :" + profile.getContextModelId());
         List<String> domainIdList = contextModelPresentation.isHappenContextModel(profile.getContextModelId());
         if(domainIdList != null){
                 System.out.println("성공");

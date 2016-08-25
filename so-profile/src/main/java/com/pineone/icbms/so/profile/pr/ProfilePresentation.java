@@ -8,6 +8,7 @@ import com.pineone.icbms.so.contextinformation.temp.device.TempConceptService;
 import com.pineone.icbms.so.contextinformation.temp.device.VirtualObject;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
+import com.pineone.icbms.so.contextmodel.pr.ContextModelTransFormObject;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.profile.entity.Profile;
 import com.pineone.icbms.so.profile.logic.ProfileLogic;
@@ -232,7 +233,14 @@ public class ProfilePresentation {
     @RequestMapping(value = "/schedule", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public void executeScheduleProfile(@RequestBody String profileId){
-        profileLogic.executeScheduleProfile(profileId);
+    public void executeScheduleProfile(@RequestBody ProfileTransFormData profileTransFormData){
+        System.out.println("************ profile 수신 : " + profileTransFormData.getId());
+        Profile profile = dataObjectToProfile(profileTransFormData);
+        profileLogic.executeScheduleProfile(profile.getId());
+    }
+
+    private Profile dataObjectToProfile(ProfileTransFormData profileTransFormData){
+        if(profileTransFormData == null) return null;
+        return new Profile(profileTransFormData.getId());
     }
 }
