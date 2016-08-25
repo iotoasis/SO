@@ -15,8 +15,16 @@ public class ContextModel {
     private String contextType;
     private String createTime;
     private String modifiedTime;
+    private String occTime;
 
     public ContextModel() {
+    }
+
+    public ContextModel(String id, List<String> domainIdList, String contextType, String occTime) {
+        this.id = id;
+        this.domainIdList = domainIdList;
+        this.contextType = contextType;
+        this.occTime = occTime;
     }
 
     public ContextModel(String id, String name, List<String> domainIdList, List<String> contextInformationIdList, String contextType) {
@@ -91,5 +99,13 @@ public class ContextModel {
 
     public void setModifiedTime(String modifiedTime) {
         this.modifiedTime = modifiedTime;
+    }
+
+    public String getOccTime() {
+        return occTime;
+    }
+
+    public void setOccTime(String occTime) {
+        this.occTime = occTime;
     }
 }
