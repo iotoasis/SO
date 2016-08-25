@@ -7,6 +7,7 @@ import com.pineone.icbms.so.profile.ProfileApplication;
 import com.pineone.icbms.so.profile.entity.Profile;
 import com.pineone.icbms.so.profile.logic.ProfileLogicImpl;
 import com.pineone.icbms.so.profile.pr.ProfilePresentation;
+import com.pineone.icbms.so.profile.pr.ProfileTransFormData;
 import com.pineone.icbms.so.profile.store.ProfileStore;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
 import org.junit.Test;
@@ -87,14 +88,15 @@ public class ProfileExecuteTest {
     @Test
     public void 일반상황응답테스트() throws Exception {
 
-        profilePresentation.executeScheduleProfile("PR-FIRE-ENV");
+        ProfileTransFormData profileTransFormData = new ProfileTransFormData("PR-IDEALAIR");
+        profilePresentation.executeScheduleProfile(profileTransFormData);
 
     }
 
     @Test
     public void 일반상황무응답테스트() throws Exception {
-
-        profilePresentation.executeScheduleProfile("PR-TEST");
+        ProfileTransFormData profileTransFormData = new ProfileTransFormData("PR-TEST");
+        profilePresentation.executeScheduleProfile(profileTransFormData);
 
     }
 

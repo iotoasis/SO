@@ -8,6 +8,13 @@ public class ProfileTransFormData {
 
     private String id;
 
+    public ProfileTransFormData(String id) {
+        this.id = id;
+    }
+
+    public ProfileTransFormData() {
+    }
+
     public String getId() {
         return id;
     }
