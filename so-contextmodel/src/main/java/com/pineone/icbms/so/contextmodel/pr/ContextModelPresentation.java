@@ -100,7 +100,7 @@ public class ContextModelPresentation {
     @ResponseBody
     public ResponseMessage emergencyContextModel(@RequestBody ContextModelTransFormObject contextModelTransFormObject){
         //
-        System.out.println("************ occ 수신 *********** Id : " + contextModelTransFormObject.getContextid());
+        System.out.println("************ occ 수신 *********** Id : " + contextModelTransFormObject.getContextId());
         DataValidation dataValidation = DataValidation.newDataValidation();
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
         ContextModel contextModel = dataObjectToContextModel(contextModelTransFormObject);
@@ -139,7 +139,7 @@ public class ContextModelPresentation {
 
     private ContextModel dataObjectToContextModel(ContextModelTransFormObject contextModelDataObject){
         if(contextModelDataObject == null) return null;
-        return new ContextModel(contextModelDataObject.getContextid(), contextModelDataObject.getDomains(), contextModelDataObject.getCmd(),
+        return new ContextModel(contextModelDataObject.getContextId(), contextModelDataObject.getDomains(), contextModelDataObject.getCmd(),
                 contextModelDataObject.getTime());
     }
 }
