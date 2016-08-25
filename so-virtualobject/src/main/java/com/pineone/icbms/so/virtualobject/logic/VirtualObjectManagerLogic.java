@@ -1,8 +1,10 @@
 package com.pineone.icbms.so.virtualobject.logic;
 
 import com.pineone.icbms.so.device.logic.DeviceManager;
+import com.pineone.icbms.so.device.pr.DevicePresentation;
 import com.pineone.icbms.so.virtualobject.entity.ServiceControl;
 import com.pineone.icbms.so.virtualobject.entity.VirtualObject;
+import com.pineone.icbms.so.virtualobject.proxy.VirtualObjectControlProxy;
 import com.pineone.icbms.so.virtualobject.proxy.VirtualObjectProxy;
 import com.pineone.icbms.so.virtualobject.store.VirtualObjectStore;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +19,16 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
     DeviceManager deviceManager;
 
     @Autowired
+    DevicePresentation devicePresentation;
+
+    @Autowired
     VirtualObjectStore virtualObjectStore;
 
     @Autowired
     VirtualObjectProxy virtualObjectProxy;
+
+    @Autowired
+    VirtualObjectControlProxy virtualObjectControlProxy;
 
     @Override
     public VirtualObject searchVirtualObject(String id) {
@@ -45,7 +53,8 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
         // 해당 Device ID를 도출
         String deviceId = virtualObject.getDeviceId();
     // operation -> command SDA 확인.고려.. 형식으로 변경.
-        return deviceManager.deviceExecute(deviceId, operation);
+//        return deviceManager.deviceExecute(deviceId, operation);
+        return virtualObjectControlProxy.executeDevice(deviceId, operation);
     }
 
     @Override

@@ -80,6 +80,8 @@ public class ServiceModelPresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public void executeServiceModel(@RequestBody String serviceModelId) {
         //
+        System.out.println("\n**********  ServiceModel Presentation RequestServiceModel  **********");
+        System.out.println("Response ServiceModelID = " + serviceModelId);
         serviceModelLogic.executeServiceModel(serviceModelId);
     }
 
