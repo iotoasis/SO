@@ -22,7 +22,7 @@ import java.util.HashMap;
 @Service
 public class ClientService
 {
-	public static final int DATA_TIMEOUT_VALUE = 9000;
+	public static final int DATA_TIMEOUT_VALUE = 90000;
 
 	private final Logger log = LoggerFactory.getLogger(ClientService.class);
 
