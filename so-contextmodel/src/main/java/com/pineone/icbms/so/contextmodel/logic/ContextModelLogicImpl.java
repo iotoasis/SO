@@ -117,6 +117,7 @@ public class ContextModelLogicImpl implements ContextModelLogic{
         //
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
 
+        System.out.println("************ Try inputQueue *********** name : " + contextModel.getId());
         CONTEXT_MODEL_QUEUE.offer(contextModel);
 
         String contextModelResultMessage = responseMessage.contextModelResultMessage(contextModel);

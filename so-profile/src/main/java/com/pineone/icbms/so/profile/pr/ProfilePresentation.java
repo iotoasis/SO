@@ -173,8 +173,8 @@ public class ProfilePresentation {
         }
 
         ContextModel contextModel = new ContextModel();
-        contextModel.setName("화재응급상황");
-        contextModel.setId("CM-FIRE-EMERGENCY");
+        contextModel.setName("공기이상");
+        contextModel.setId("CM-COMFORT-AIR");
         contextModel.setContextType(ContextType.EmergencyType.toString());
         contextModel.setContextInformationIdList(contextInformationIdList);
         List<String> chooseDomainList = new ArrayList<>();
@@ -183,9 +183,10 @@ public class ProfilePresentation {
 
         ContextModel contextModel1 = new ContextModel();
         contextModel1.setName("TEST");
-        contextModel1.setId("CM-TEST");
+        contextModel1.setId("CM-ANNOUNCEMENT-ON");
         contextModel1.setContextType(ContextType.EmergencyType.toString());
         contextModel1.setContextInformationIdList(contextInformationIdList);
+        contextModel1.setOccTime("20160825T101010");
         List<String> chooseDomainList1 = new ArrayList<>();
         chooseDomainList1.add("DO-CLASSROOM");
         contextModel1.setDomainIdList(chooseDomainList);
@@ -197,8 +198,8 @@ public class ProfilePresentation {
         System.out.println(responseMessage3.getMessage());
 
         Profile profile = new Profile();
-        profile.setId("PR-FIRE-ENV");
-        profile.setName("화재진압자동화");
+        profile.setId("PR-ANNOUNCEMENT");
+        profile.setName("발표도우미");
 
         List<String> contextModelIdList = contextModelPresentation.retrieveContextModelIdList();
         for(String contextModelId : contextModelIdList){
@@ -206,19 +207,19 @@ public class ProfilePresentation {
         }
 
 
-        profile.setContextModelId("CM-FIRE-EMERGENCY");
-        profile.setServiceModelId("SM_IDEAL_COOL_TEMP");
+        profile.setContextModelId("CM-ANNOUNCEMENT-ON");
+        profile.setServiceModelId("CLASSROOM-PRESENTATIONMODE-SERVICE");
         profile.setPeriod(0);
 
         ResponseMessage responseMessage4 = profilePresentation.registerProfileController(profile);
         System.out.println(responseMessage4.getMessage());
 
         Profile profile1 = new Profile();
-        profile1.setId("PR-TEST");
-        profile1.setName("화재진압자동화");
+        profile1.setId("PR-IDEALAIR");
+        profile1.setName("공기정화");
 
-        profile1.setContextModelId("CM-TEST");
-        profile1.setServiceModelId("SM_IDEAL_COOL_TEMP");
+        profile1.setContextModelId("CM-COMFORT-AIR");
+        profile1.setServiceModelId("CLASSROOM-AIRIDEAL-SERVICE");
         profile1.setPeriod(0);
 
         ResponseMessage responseMessage5 = profilePresentation.registerProfileController(profile1);
@@ -226,8 +227,12 @@ public class ProfilePresentation {
 
     }
 
+
     //NOTE: 스케줄러에서 체크가 필요한 프로파일을 알려줌
-    public void executeScheduleProfile(String profileId){
+    @RequestMapping(value = "/schedule", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public void executeScheduleProfile(@RequestBody String profileId){
         profileLogic.executeScheduleProfile(profileId);
     }
 }

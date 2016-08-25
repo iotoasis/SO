@@ -16,7 +16,7 @@ public class DataValidation {
     //NOTE : ContextModel 데이터 검증
     public void inspectContextModel(ContextModel contextModel) throws DataLossException {
         //
-        if(contextModel.getName() == null || contextModel.getContextType() == null ||
+        if(contextModel.getId() == null || contextModel.getContextType() == null ||
                 contextModel.getDomainIdList() == null){
             throw new DataLossException();
         }

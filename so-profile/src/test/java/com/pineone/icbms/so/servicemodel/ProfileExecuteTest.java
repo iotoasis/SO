@@ -59,8 +59,8 @@ public class ProfileExecuteTest {
         }
 
         ContextModel contextModel = contextModelPresentation.retrieveContextModelDetailController(profile.getContextModelId());
-        ResponseMessage responseMessage = contextModelPresentation.emergencyContextModel(contextModel);
-        System.out.println(responseMessage.getMessage());
+//        ResponseMessage responseMessage = contextModelPresentation.emergencyContextModel(contextModel);
+//        System.out.println(responseMessage.getMessage());
     }
 
     @Test
@@ -78,9 +78,9 @@ public class ProfileExecuteTest {
             System.out.println(profile.getContextModelId());
             System.out.println(profile.getPeriod());
 
-            for(String domainId : contextModel.getDomainIdList()) {
-                serviceModelPresentation.executeServiceModel(domainId, profile.getServiceModelId());
-            }
+//            for(String domainId : contextModel.getDomainIdList()) {
+//                serviceModelPresentation.executeServiceModel(domainId, profile.getServiceModelId());
+//            }
         }
     }
 
