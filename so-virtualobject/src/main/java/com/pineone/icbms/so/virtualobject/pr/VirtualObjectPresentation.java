@@ -81,4 +81,12 @@ public class VirtualObjectPresentation {
         return virtualObject;
     }
 
+    @RequestMapping(value = "/testSetUp",method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public void testSetUp(){
+        //
+        virtualObjectManager.testSetUp();
+    }
+
+
 }

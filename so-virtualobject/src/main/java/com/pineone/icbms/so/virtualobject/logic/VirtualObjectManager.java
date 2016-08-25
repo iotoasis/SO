@@ -12,4 +12,5 @@ public interface VirtualObjectManager {
     String requestControlDevice(String voId, String operation);
     void produceVirtualObject(VirtualObject virtualObject);
     String controlDevice(List<ServiceControl> serviceControls);
+    void testSetUp();
 }
