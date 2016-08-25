@@ -99,4 +99,16 @@ public class ServicePresentation {
         List<String> serviceIdList = serviceLogic.retrieveServiceIdList();
         return serviceIdList;
     }
+
+    //NOTE : testSetup
+    @RequestMapping(value = "/testsetup", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void testSetup(){
+        //
+        serviceLogic.testSetUp();
+    }
+
+
+
+
 }

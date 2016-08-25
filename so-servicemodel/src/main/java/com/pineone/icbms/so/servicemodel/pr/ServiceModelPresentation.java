@@ -95,5 +95,13 @@ public class ServiceModelPresentation {
         return new ServiceModel(serviceModelTransFormObject.getId(), serviceModelTransFormObject.getName(), serviceModelTransFormObject.getServiceIdList());
     }
 
+    //NOTE: TestSetUp
+    @RequestMapping(value = "/testsetup", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void testSetUp() {
+        //
+        serviceModelLogic.testSetUp();
+    }
+
 
 }

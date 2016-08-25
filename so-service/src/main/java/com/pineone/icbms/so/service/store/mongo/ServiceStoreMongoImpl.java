@@ -45,7 +45,7 @@ public class ServiceStoreMongoImpl implements ServiceStore {
 
     private ServiceDataObject serviceToDataObject(Service service) {
         if (service == null) return null;
-        return new ServiceDataObject(service.getId(), service.getName(), service.getDeviceObjectId(), service.getConceptServiceId(), service.getStatus());
+        return new ServiceDataObject(service.getId(), service.getName(), service.getVirtualObjectId(), service.getVirtualObjectService(), service.getStatus());
     }
 
     private Service dataObjectToService(ServiceDataObject serviceDataObject){

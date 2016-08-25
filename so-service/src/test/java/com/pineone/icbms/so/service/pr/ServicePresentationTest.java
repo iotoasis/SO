@@ -1,7 +1,7 @@
-package com.pineone.icbms.so.service;
+package com.pineone.icbms.so.service.pr;
 
+import com.pineone.icbms.so.service.ServiceApplication;
 import com.pineone.icbms.so.service.entity.Service;
-import com.pineone.icbms.so.service.pr.ServicePresentation;
 import com.pineone.icbms.so.service.ref.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,21 +61,22 @@ public class ServicePresentationTest {
     //NOTE : service 정보를 입력후 등록 과정
     public void Service등록() throws Exception {
         //
-        //User field
-        String name = "SonamooAircon_Control";
-        String id = "SONAMOOAIRCON_CONTROL";
-        DeviceObject deviceObject = VirtualObject.SonamooHeater; // 저작시 히터 선택
-        ConceptService conceptService = AirHeatingControlService.AirHeating_Control_service; // 히터 서비스 선택
-        Status status = Status.Active;
-
         Service service = new Service();
-        service.setName(name);
-        service.setId(id);
-        service.setDeviceObjectId(deviceObject.toString());
-        service.setConceptServiceId(conceptService.toString());
-        service.setStatus(status.toString());
+        service.setName("Pleasant Air Services");
+        service.setId("AIRCLEANER-POWER-CONTROL-SERVICE-001");
+        service.setVirtualObjectId("CR0001AirCleaner0001");
+        service.setVirtualObjectService("switch-control");
+        service.setStatus("ON");
+        service.setCreateTime("201608250930");
+        service.setModifiedTime("201608250930");
 
         ResponseMessage responseMessage = servicePresentation.registerServiceController(service);
+
+        servicePresentation.registerServiceController(new Service("SMARTLIGHT-POWER-CONTROL-SERVICE-001", "Lighting management services", "CR0001Illumination0001", "switch-control", "OFF", "201608250930","201608250930" ));
+        servicePresentation.registerServiceController(new Service("BLIND-POWER-CONTROL-SERVICE-001", "Blind management services.", "CR0001Blinder0001", "switch-control", "ON", "201608250930","201608250930" ));
+        servicePresentation.registerServiceController(new Service("BEAMPROJECTOR-POWER-CONTROL-SERVICE-001", "BeamProjector management services.", "CR0001BeamProjector0001", "switch-control", "ON", "201608250930","201608250930" ));
+        servicePresentation.registerServiceController(new Service("BEAMSCREEN-POWER-CONTROL-SERVICE-001", "BeamScreen management services.", "CR0001BeamProjectorScreen0001", "switch-control", "ON", "201608250930","201608250930" ));
+
         System.out.println(responseMessage.getMessage());
     }
 
@@ -84,8 +85,8 @@ public class ServicePresentationTest {
         Service service = servicePresentation.retrieveServiceDetailController("SONAMOOAIRCON_CONTROL");
         System.out.println(service.getName());
         System.out.println(service.getId());
-        System.out.println(service.getConceptServiceId());
-        System.out.println(service.getDeviceObjectId());
+        System.out.println(service.getVirtualObjectService());
+        System.out.println(service.getVirtualObjectId());
         System.out.println(service.getStatus());
     }
 
