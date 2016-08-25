@@ -19,7 +19,7 @@ import java.util.List;
  * NOTE: Profile 생성 및 실행 로직 포함
  */
 @Service
-public class ProfileLogicImpl implements ProfileLogic, Runnable{
+public class ProfileLogicImpl implements ProfileLogic{
     //
     @Autowired
             ContextModelPresentation contextModelPresentation;
@@ -140,11 +140,9 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         }
     }
 
-    //NOTE : ContextModel QUEUE 에 ContextModel 이 있다면 로직 실행
     @Override
-    public void run() {
+    public void extractQueueData() {
         //
-//        ProfileProxy profileProxy = ProfileInternalProxy.newProfileInternalProxy();
         while(true){
             try{
                 Thread.sleep(500);
@@ -153,13 +151,13 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
             }
             if(!(profileProxy.checkContextModelQueue())){
                 ContextModel contextModel = profileProxy.retrieveContextModelQueueData();
-                System.out.println(contextModel.getName() + "Receive");
+                System.out.println(contextModel.getId() + "Receive");
                 //TODO : 디비 연결후 contextModel 이름으로 Profile 조회 기능 구현 및 연결
                 List<Profile> profileList = profileStore.findByContextModelId(contextModel.getId());
                 for(Profile profile : profileList){
                     System.out.println(profile.getServiceModelId() + "extract");
                     //TODO : Profile 로 ServiceModel 찾아서 ServiceModel 에 전송
-                        serviceModelPresentation.executeServiceModel(profile.getServiceModelId());
+                    serviceModelPresentation.executeServiceModel(profile.getServiceModelId());
                 }
             }
         }
