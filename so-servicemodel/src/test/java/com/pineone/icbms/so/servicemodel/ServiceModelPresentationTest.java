@@ -43,22 +43,27 @@ public class ServiceModelPresentationTest {
     @Before
     public void 서비스모델등록() throws Exception {
         //
-        List<String> serviceIdList = serviceModelPresentation.retrieveServiceIdList();
-        for(String serviceId : serviceIdList){
-            System.out.println(serviceId);
-        }
-
-        List<String> chooseServiceList = new ArrayList<>();
-        chooseServiceList.add("SONAMOOAIRCON_CONTROL");
+        List<String> serviceList = new ArrayList<>();
+        serviceList.add("AIRCLEANER-POWER-CONTROL-SERVICE-001");
 
 
         ServiceModel serviceModel = new ServiceModel();
-        serviceModel.setId("SM_IDEAL_COOL_TEMP");
-        serviceModel.setName("최적온도제공");
-        serviceModel.setServiceIdList(chooseServiceList);
+        serviceModel.setId("CLASSROOM-AIRIDEAL-SERVICE");
+        serviceModel.setName("강의실 쾌적 공기제공 서비스");
+        serviceModel.setServiceIdList(serviceList);
+        serviceModel.setCreateTime("201608250930");
+        serviceModel.setModifiedTime("201608250930");
 
         ResponseMessage responseMessage = serviceModelPresentation.registerServiceModelController(ServiceModelToDataObject(serviceModel));
         System.out.println(responseMessage.getMessage());
+
+        List<String> serviceList1 = new ArrayList<>();
+        serviceList1.add("SMARTLIGHT-POWER-CONTROL-SERVICE-001");
+        serviceList1.add("BLIND-POWER-CONTROL-SERVICE-001");
+        serviceList1.add("BEAMPROJECTOR-POWER-CONTROL-SERVICE-001");
+        serviceList1.add("BEAMSCREEN-POWER-CONTROL-SERVICE-001");
+        serviceModelPresentation.registerServiceModelController(ServiceModelToDataObject(new ServiceModel("CRASSROOM-PRESENTATIONMODE-SERVICE","강의실 발표 도우미 서비스",serviceList1,"201608250930","201608250930")));
+
     }
 
     public ServiceModelTransFormObject ServiceModelToDataObject(ServiceModel serviceModel){

@@ -13,4 +13,5 @@ public interface ServiceModelProxy {
     Service retrieveServiceDetail(String serviceId);
     List<String> retrieveServiceIdList();
     void executeService(String serviceId);
+    void servicetestSetUp();
 }

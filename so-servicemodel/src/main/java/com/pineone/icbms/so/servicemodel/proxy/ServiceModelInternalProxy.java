@@ -44,4 +44,9 @@ public class ServiceModelInternalProxy implements ServiceModelProxy {
         // 서비스 실행
         servicePresentation.executeService(serviceId);
     }
+
+    @Override
+    public void servicetestSetUp() {
+        servicePresentation.testSetup();
+    }
 }

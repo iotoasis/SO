@@ -12,8 +12,8 @@ public class Service {
     }
     private String id;
     private String name;
-    private String deviceObjectId;
-    private String conceptServiceId;
+    private String VirtualObjectId;
+    private String VirtualObjectService;
     private String status;
     private String createTime;
     private String modifiedTime;
@@ -34,20 +34,20 @@ public class Service {
         this.name = name;
     }
 
-    public String getDeviceObjectId() {
-        return deviceObjectId;
+    public String getVirtualObjectId() {
+        return VirtualObjectId;
     }
 
-    public void setDeviceObjectId(String deviceObjectId) {
-        this.deviceObjectId = deviceObjectId;
+    public void setVirtualObjectId(String virtualObjectId) {
+        this.VirtualObjectId = virtualObjectId;
     }
 
-    public String getConceptServiceId() {
-        return conceptServiceId;
+    public String getVirtualObjectService() {
+        return VirtualObjectService;
     }
 
-    public void setConceptServiceId(String conceptServiceId) {
-        this.conceptServiceId = conceptServiceId;
+    public void setVirtualObjectService(String virtualObjectService) {
+        this.VirtualObjectService = virtualObjectService;
     }
 
     public String getStatus() {
@@ -58,12 +58,12 @@ public class Service {
         this.status = status;
     }
 
-    public Service(String id, String name, String deviceObjectId, String conceptServiceId, String status) {
+    public Service(String id, String name, String VirtualObjectId, String VirtualObjectService, String status) {
 
         this.id = id;
         this.name = name;
-        this.deviceObjectId = deviceObjectId;
-        this.conceptServiceId = conceptServiceId;
+        this.VirtualObjectId = VirtualObjectId;
+        this.VirtualObjectService = VirtualObjectService;
         this.status = status;
     }
 
@@ -83,11 +83,11 @@ public class Service {
         this.modifiedTime = modifiedTime;
     }
 
-    public Service(String id, String name, String deviceObjectId, String conceptServiceId, String status, String createTime, String modifiedTime) {
+    public Service(String id, String name, String VirtualObjectId, String VirtualObjectService, String status, String createTime, String modifiedTime) {
         this.id = id;
         this.name = name;
-        this.deviceObjectId = deviceObjectId;
-        this.conceptServiceId = conceptServiceId;
+        this.VirtualObjectId = VirtualObjectId;
+        this.VirtualObjectService = VirtualObjectService;
         this.status = status;
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
