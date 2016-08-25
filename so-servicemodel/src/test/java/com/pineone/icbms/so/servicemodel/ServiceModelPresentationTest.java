@@ -62,7 +62,7 @@ public class ServiceModelPresentationTest {
         serviceList1.add("BLIND-POWER-CONTROL-SERVICE-001");
         serviceList1.add("BEAMPROJECTOR-POWER-CONTROL-SERVICE-001");
         serviceList1.add("BEAMSCREEN-POWER-CONTROL-SERVICE-001");
-        serviceModelPresentation.registerServiceModelController(ServiceModelToDataObject(new ServiceModel("CRASSROOM-PRESENTATIONMODE-SERVICE","강의실 발표 도우미 서비스",serviceList1,"201608250930","201608250930")));
+        serviceModelPresentation.registerServiceModelController(ServiceModelToDataObject(new ServiceModel("CLASSROOM-PRESENTATIONMODE-SERVICE","강의실 발표 도우미 서비스",serviceList1,"201608250930","201608250930")));
 
     }
 
