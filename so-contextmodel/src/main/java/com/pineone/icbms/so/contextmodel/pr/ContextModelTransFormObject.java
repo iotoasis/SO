@@ -9,8 +9,9 @@ import java.util.List;
 public class ContextModelTransFormObject {
 
     private String cmd;
-    private String contextid;
+    private String contextId;
     private List<String> domains;
+    private String time;
 
     public String getTime() {
         return time;
@@ -20,8 +21,6 @@ public class ContextModelTransFormObject {
         this.time = time;
     }
 
-    private String time;
-
     public String getCmd() {
         return cmd;
     }
@@ -30,12 +29,12 @@ public class ContextModelTransFormObject {
         this.cmd = cmd;
     }
 
-    public String getContextid() {
-        return contextid;
+    public String getContextId() {
+        return contextId;
     }
 
-    public void setContextid(String contextid) {
-        this.contextid = contextid;
+    public void setContextId(String contextId) {
+        this.contextId = contextId;
     }
 
     public List<String> getDomains() {
