@@ -83,6 +83,8 @@ public class ServicePresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public void executeService(@RequestBody String serviceId){
         // 해당 서비스 아이디로 실행하기.
+        System.out.println("\n**********  Service Presentation RequestServiceControl  **********");
+        System.out.println("Response ServiceID = " + serviceId);
         serviceLogic.executeService(serviceId);
     }
 

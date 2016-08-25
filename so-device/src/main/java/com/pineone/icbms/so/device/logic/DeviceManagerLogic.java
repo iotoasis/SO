@@ -60,15 +60,16 @@ public class DeviceManagerLogic implements DeviceManager {
         String jsonString = convertObjectToJson(deviceControlMessage);
 
         // Device 제어 요청 보냄.
-        System.out.println("**********  Device Control  **********");
+        System.out.println("\n**********  Device Control  **********");
         System.out.println("Request Uri = " + ClientProfile.SI_CONTOL_URI);
-        System.out.println("Request Body = " + jsonString);
-        ResultMessage resultMessage = controlRequest(ClientProfile.SI_CONTOL_URI,jsonString);
-
+        System.out.println("Request Body = " + jsonString +"\n");
+//        ResultMessage resultMessage = controlRequest(ClientProfile.SI_CONTOL_URI,jsonString);
+//
         // Device 제어 결과 저장.
-        controlResultsStorage(deviceId, commandId, deviceCommand, resultMessage);
+//        controlResultsStorage(deviceId, commandId, deviceCommand, resultMessage);
 
-        return resultMessage.get_result();
+//        return resultMessage.get_result();
+        return "Test Success";
     }
 
     @Override

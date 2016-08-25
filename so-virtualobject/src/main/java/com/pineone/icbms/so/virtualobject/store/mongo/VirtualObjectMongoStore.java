@@ -27,7 +27,7 @@ public class VirtualObjectMongoStore implements VirtualObjectStore {
 
     @Override
     public VirtualObject retrieveByID(String id) {
-        VirtualObjectDataObject v = virtualObjectRepostory.findOne(id);
+        VirtualObjectDataObject v = virtualObjectRepostory.findByvoId(id);
         return DataObjectToVirtualObject(v);
     }
 

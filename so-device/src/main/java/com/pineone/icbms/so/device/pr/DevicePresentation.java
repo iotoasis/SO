@@ -37,6 +37,9 @@ public class DevicePresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public String deviceControl(@RequestBody String deviceId, String deviceCommand){
         // NOTE : Device Control
+        System.out.println("\n**********  Device Presentation RequestDeviceControl  **********");
+        System.out.println("Response DeviceId = " + deviceId);
+        System.out.println("Response DeviceCommand = " + deviceCommand);
         return deviceManager.deviceExecute(deviceId, deviceCommand);
     }
 

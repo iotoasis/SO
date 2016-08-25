@@ -2,6 +2,7 @@ package com.pineone.icbms.so.virtualobject.pr;
 
 import com.pineone.icbms.so.virtualobject.entity.ServiceControl;
 import com.pineone.icbms.so.virtualobject.entity.VirtualObject;
+import com.pineone.icbms.so.virtualobject.entity.VirtualObjectRequestControl;
 import com.pineone.icbms.so.virtualobject.entity.VirtualObjectTransFormObject;
 import com.pineone.icbms.so.virtualobject.logic.VirtualObjectManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,13 @@ public class VirtualObjectPresentation {
 
     @RequestMapping(value = "/requestcontrol",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public String requestControlVirtualObject(@RequestBody String voId,String operation){
-        return virtualObjectManager.requestControlDevice(voId, operation);
+    public String requestControlVirtualObject(@RequestBody VirtualObjectRequestControl virtualObjectRequestControl){
+        //
+        System.out.println("\n**********  VirtualObject Presentation RequestVOControl  **********");
+        System.out.println("Response virtualObjectID = " + virtualObjectRequestControl.getVoId());
+        System.out.println("Response virtualObjectOperation = " + virtualObjectRequestControl.getOperation());
+
+        return virtualObjectManager.requestControlDevice(virtualObjectRequestControl.getVoId(), virtualObjectRequestControl.getOperation());
     }
 
 
