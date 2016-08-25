@@ -1,6 +1,14 @@
 package com.pineone.icbms.so.profile.pr;
 
+import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
+import com.pineone.icbms.so.contextinformation.pr.ContextInformationPresentation;
+import com.pineone.icbms.so.contextinformation.temp.device.ConceptService;
+import com.pineone.icbms.so.contextinformation.temp.device.DeviceObject;
+import com.pineone.icbms.so.contextinformation.temp.device.TempConceptService;
+import com.pineone.icbms.so.contextinformation.temp.device.VirtualObject;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
+import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
+import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.profile.entity.Profile;
 import com.pineone.icbms.so.profile.logic.ProfileLogic;
 import com.pineone.icbms.so.profile.logic.ProfileLogicImpl;
@@ -12,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,10 +35,20 @@ public class ProfilePresentation {
     //
     @Autowired
             ProfileLogic profileLogic;
+
+    @Autowired
+    ContextInformationPresentation contextInformationPresentation;
+
+    @Autowired
+    ContextModelPresentation contextModelPresentation;
+
+    @Autowired
+    ProfilePresentation profilePresentation;
+
 //    ProfileLogic profileLogic = ProfileLogicImpl.newProfileLogic();
 
     //NOTE: 미리 등록되어 있는 ServiceModel 이름 조회
-    @RequestMapping(value = "/servicemodel")
+    @RequestMapping(value = "/servicemodel",method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public List<String> retrieveServiceModelNameList(){
@@ -39,7 +58,7 @@ public class ProfilePresentation {
     }
 
     //NOTE: 미리 등록되어 있는 contextModel 이름 조회
-    @RequestMapping(value = "/contextmodel")
+    @RequestMapping(value = "/contextmodel",method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public List<String> retrieveContextModelNameList(){
@@ -49,7 +68,7 @@ public class ProfilePresentation {
     }
 
     //NOTE: 미리 등록되어 있는 Bizcontext 이름 조회
-    @RequestMapping(value = "/bizcontext")
+    @RequestMapping(value = "/bizcontext",method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public List<String> retrieveBizContextNameList(){
@@ -79,7 +98,7 @@ public class ProfilePresentation {
     }
 
     //NOTE: Profile List 조회
-    @RequestMapping(value = "/profilelist")
+    @RequestMapping(value = "/profilelist",method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public List<String> retrieveProfileNameList(){
@@ -109,6 +128,102 @@ public class ProfilePresentation {
         //
         List<String> profileIdList = profileLogic.retrieveProfileIdList();
         return profileIdList;
+    }
+
+    //NOTE: DB 에서 profile 상세 조회
+    @RequestMapping(value = "/set", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public void retrieveProfileDetailController(){
+        //
+
+        String name = "EmergencyTempCon";
+        int minValue = 60;
+        int maxValue = 100;
+        String id = "CI-EMERGENCY-TEMP";
+        DeviceObject deviceObject = VirtualObject.TemperatureSensor001; // 저작시 온도 센서 선택
+        ConceptService conceptService = TempConceptService.temperature_measure_service; // 온도센서의 온도 측정 기능 선택
+
+        ContextInformation contextInformation = new ContextInformation();
+        contextInformation.setId(id);
+        contextInformation.setName(name);
+        contextInformation.setMinValue(minValue);
+        contextInformation.setMaxValue(maxValue);
+        contextInformation.setDeviceObjectName(deviceObject.toString());
+        contextInformation.setConceptServiceName(conceptService.toString());
+
+        // NOTE: DB에 저장
+        com.pineone.icbms.so.contextinformation.ref.ResponseMessage responseMessage = contextInformationPresentation.registerContextInformationController(contextInformation);
+        System.out.println(responseMessage.getMessage());
+
+        ContextInformation contextInformation1 = new ContextInformation();
+        contextInformation1.setId("CI-NOBODY");
+        contextInformation1.setName("사람없음");
+        contextInformation1.setMinValue(0);
+        contextInformation1.setMaxValue(0);
+        contextInformation1.setDeviceObjectName("재실센서");
+        contextInformation1.setConceptServiceName("재실측정");
+
+        com.pineone.icbms.so.contextinformation.ref.ResponseMessage responseMessage1 = contextInformationPresentation.registerContextInformationController(contextInformation1);
+        System.out.println(responseMessage1.getMessage());
+
+        List<String> contextInformationIdList = contextInformationPresentation.retrieveContextInformationIdList();
+        for(String id1 : contextInformationIdList){
+            System.out.println(id);
+        }
+
+        ContextModel contextModel = new ContextModel();
+        contextModel.setName("화재응급상황");
+        contextModel.setId("CM-FIRE-EMERGENCY");
+        contextModel.setContextType(ContextType.EmergencyType.toString());
+        contextModel.setContextInformationIdList(contextInformationIdList);
+        List<String> chooseDomainList = new ArrayList<>();
+        chooseDomainList.add("DO-CLASSROOM");
+        contextModel.setDomainIdList(chooseDomainList);
+
+        ContextModel contextModel1 = new ContextModel();
+        contextModel1.setName("TEST");
+        contextModel1.setId("CM-TEST");
+        contextModel1.setContextType(ContextType.EmergencyType.toString());
+        contextModel1.setContextInformationIdList(contextInformationIdList);
+        List<String> chooseDomainList1 = new ArrayList<>();
+        chooseDomainList1.add("DO-CLASSROOM");
+        contextModel1.setDomainIdList(chooseDomainList);
+
+        com.pineone.icbms.so.contextmodel.ref.ResponseMessage responseMessage2 = contextModelPresentation.registerGeneralContextController(contextModel);
+        com.pineone.icbms.so.contextmodel.ref.ResponseMessage responseMessage3 = contextModelPresentation.registerGeneralContextController(contextModel1);
+
+        System.out.println(responseMessage2.getMessage());
+        System.out.println(responseMessage3.getMessage());
+
+        Profile profile = new Profile();
+        profile.setId("PR-FIRE-ENV");
+        profile.setName("화재진압자동화");
+
+        List<String> contextModelIdList = contextModelPresentation.retrieveContextModelIdList();
+        for(String contextModelId : contextModelIdList){
+            System.out.println(contextModelId);
+        }
+
+
+        profile.setContextModelId("CM-FIRE-EMERGENCY");
+        profile.setServiceModelId("SM_IDEAL_COOL_TEMP");
+        profile.setPeriod(0);
+
+        ResponseMessage responseMessage4 = profilePresentation.registerProfileController(profile);
+        System.out.println(responseMessage4.getMessage());
+
+        Profile profile1 = new Profile();
+        profile1.setId("PR-TEST");
+        profile1.setName("화재진압자동화");
+
+        profile1.setContextModelId("CM-TEST");
+        profile1.setServiceModelId("SM_IDEAL_COOL_TEMP");
+        profile1.setPeriod(0);
+
+        ResponseMessage responseMessage5 = profilePresentation.registerProfileController(profile1);
+        System.out.println(responseMessage5.getMessage());
+
     }
 
     //NOTE: 스케줄러에서 체크가 필요한 프로파일을 알려줌
