@@ -8,88 +8,43 @@ import java.util.List;
  */
 public class ContextModelTransFormObject {
 
-    private String id;
-    private String name;
-    private List<String> domainIdList;
-    private List<String> contextInformationIdList;
-    private String contextType;
-    private String createTime;
-    private String modifiedTime;
+    private String cmd;
+    private String contextid;
+    private List<String> domains;
 
-    public ContextModelTransFormObject() {
+    public String getTime() {
+        return time;
     }
 
-    public ContextModelTransFormObject(String id, String name, List<String> domainIdList, List<String> contextInformationIdList, String contextType) {
-        this.id = id;
-        this.name = name;
-        this.domainIdList = domainIdList;
-        this.contextInformationIdList = contextInformationIdList;
-        this.contextType = contextType;
+    public void setTime(String time) {
+        this.time = time;
     }
 
-    public ContextModelTransFormObject(String id, String name, List<String> domainIdList, List<String> contextInformationIdList, String contextType, String createTime, String modifiedTime) {
-        this.id = id;
-        this.name = name;
-        this.domainIdList = domainIdList;
-        this.contextInformationIdList = contextInformationIdList;
-        this.contextType = contextType;
-        this.createTime = createTime;
-        this.modifiedTime = modifiedTime;
+    private String time;
+
+    public String getCmd() {
+        return cmd;
     }
 
-    public String getId() {
-        return id;
+    public void setCmd(String cmd) {
+        this.cmd = cmd;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getContextid() {
+        return contextid;
     }
 
-    public String getName() {
-        return name;
+    public void setContextid(String contextid) {
+        this.contextid = contextid;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public List<String> getDomains() {
+        return domains;
     }
 
-    public List<String> getDomainIdList() {
-        return domainIdList;
+    public void setDomains(List<String> domains) {
+        this.domains = domains;
     }
 
-    public void setDomainIdList(List<String> domainIdList) {
-        this.domainIdList = domainIdList;
-    }
 
-    public List<String> getContextInformationIdList() {
-        return contextInformationIdList;
-    }
-
-    public void setContextInformationIdList(List<String> contextInformationIdList) {
-        this.contextInformationIdList = contextInformationIdList;
-    }
-
-    public String getContextType() {
-        return contextType;
-    }
-
-    public void setContextType(String contextType) {
-        this.contextType = contextType;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getModifiedTime() {
-        return modifiedTime;
-    }
-
-    public void setModifiedTime(String modifiedTime) {
-        this.modifiedTime = modifiedTime;
-    }
 }
