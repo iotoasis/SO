@@ -46,6 +46,11 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
     }
 
     @Override
+    public List<VirtualObject> searchVirtualObjectList() {
+        return virtualObjectStore.retrieveVirtualObjectList();
+    }
+
+    @Override
     public String requestControlDevice(String voId, String operation) {
         // DB에서 VO를 검색
         VirtualObject virtualObject = searchVirtualObject(voId);

@@ -98,6 +98,11 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
         serviceModelProxy.servicetestSetUp();
     }
 
+    @Override
+    public List<ServiceModel> retrieveServiceModelList() {
+        return serviceModelStore.retrieveServiceModelList();
+    }
+
     private void setupData(){
         List<String> serviceList = new ArrayList<>();
         serviceList.add("AIRCLEANER-POWER-CONTROL-SERVICE-001");

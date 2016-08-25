@@ -64,6 +64,18 @@ public class VirtualObjectMongoStore implements VirtualObjectStore {
     }
 
     @Override
+    public List<VirtualObject> retrieveVirtualObjectList() {
+        List<VirtualObject> virtualObjects = new ArrayList<>();
+        List<VirtualObjectDataObject> virtualObjectDataObjects = virtualObjectRepostory.findAll();
+
+        for(VirtualObjectDataObject v : virtualObjectDataObjects) {
+            virtualObjects.add(DataObjectToVirtualObject(v));
+        }
+
+        return virtualObjects;
+    }
+
+    @Override
     public void update(VirtualObject virtualObject) {
         VirtualObjectDataObject v = virtualObjectToDataObject(virtualObject);
         virtualObjectRepostory.insert(v);

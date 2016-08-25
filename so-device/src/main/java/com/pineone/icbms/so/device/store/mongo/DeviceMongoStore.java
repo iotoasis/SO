@@ -60,6 +60,18 @@ public class DeviceMongoStore implements DeviceStore{
     }
 
     @Override
+    public List<Device> retrieveDeviceList() {
+        List<Device> deviceList = new ArrayList<>();
+        List<DeviceDataObject> deviceDataObjects = deviceRepository.findAll();
+
+        for(DeviceDataObject d : deviceDataObjects){
+            deviceList.add(DeviceObjectToDevice(d));
+        }
+
+        return deviceList;
+    }
+
+    @Override
     public void update(Device device) {
         DeviceDataObject d = deviceToDataObject(device);
         deviceRepository.insert(d);

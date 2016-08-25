@@ -21,4 +21,5 @@ public interface ServiceLogic {
     List<String> retrieveServiceIdList();
     void executeService(String serviceId);
     void testSetUp();
+    List<Service> retrieveServiceList();
 }

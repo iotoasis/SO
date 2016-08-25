@@ -45,7 +45,7 @@ public class ProfileInternalProxy extends AbstractProfileProxy {
     //NOTE: 서비스모델 모듈에 연결해서 저장되어 있는 서비스모델들의 이름을 조회
     @Override
     public List<String> retrieveServiceModelNameList() {
-        List<String> serviceModelNameList = serviceModelPresentation.retrieveServiceModelList();
+        List<String> serviceModelNameList = serviceModelPresentation.retrieveServiceModelIdList();
         return serviceModelNameList;
     }
 
