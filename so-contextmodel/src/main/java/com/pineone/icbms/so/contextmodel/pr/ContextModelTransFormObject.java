@@ -10,7 +10,7 @@ public class ContextModelTransFormObject {
 
     private String cmd;
     private String contextId;
-    private List<String> domains;
+    private List<Content> contents;
     private String time;
 
     public String getTime() {
@@ -37,13 +37,22 @@ public class ContextModelTransFormObject {
         this.contextId = contextId;
     }
 
-    public List<String> getDomains() {
-        return domains;
+    public List<Content> getContents() {
+        return contents;
     }
 
-    public void setDomains(List<String> domains) {
-        this.domains = domains;
+    public void setContents(List<Content> contents) {
+        this.contents = contents;
     }
 
+    public ContextModelTransFormObject() {
+    }
 
+    public ContextModelTransFormObject(String cmd, String contextId, List<Content> contents, String time) {
+        this.cmd = cmd;
+        this.contextId = contextId;
+        this.contents = contents;
+        this.time = time;
+    }
 }
+

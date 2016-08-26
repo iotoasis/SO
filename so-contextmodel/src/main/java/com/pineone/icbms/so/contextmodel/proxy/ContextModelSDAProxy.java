@@ -92,6 +92,7 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
             String readData = DataConversion.responseDataToString(message);
             Type type = new TypeToken<RetrieveData>(){}.getType();
             RetrieveData retrieveData = new Gson().fromJson(readData,type);
+            System.out.println(retrieveData.getTime());
             List<Content> contentList = retrieveData.getContent();
             for(Content content : contentList){
                 domains.add(content.getLoc());

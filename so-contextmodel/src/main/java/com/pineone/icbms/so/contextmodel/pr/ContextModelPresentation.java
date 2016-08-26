@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -139,8 +140,17 @@ public class ContextModelPresentation {
 
     private ContextModel dataObjectToContextModel(ContextModelTransFormObject contextModelDataObject){
         if(contextModelDataObject == null) return null;
-        return new ContextModel(contextModelDataObject.getContextId(), contextModelDataObject.getDomains(), contextModelDataObject.getCmd(),
-                contextModelDataObject.getTime());
+        return new ContextModel(contextModelDataObject.getContextId(), contentsToStringList(contextModelDataObject.getContents()),
+                contextModelDataObject.getCmd(), contextModelDataObject.getTime());
+    }
+
+    private List<String> contentsToStringList(List<Content> contentsList){
+
+        List<String> domains = new ArrayList<>();
+        for(Content content : contentsList){
+            domains.add(content.getUri());
+        }
+        return domains;
     }
 }
 
