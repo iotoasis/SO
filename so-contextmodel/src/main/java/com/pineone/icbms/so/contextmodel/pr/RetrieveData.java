@@ -7,13 +7,42 @@ import java.util.List;
  */
 public class RetrieveData {
 
-    List<Content> content;
+    String cmd;
+    List<Content> contents;
+    String time;
+    String contextId;
+
+    public String getContextId() {
+        return contextId;
+    }
+
+    public void setContextId(String contextId) {
+        this.contextId = contextId;
+    }
+
+    public String getCmd() {
+        return cmd;
+    }
+
+    public void setCmd(String cmd) {
+        this.cmd = cmd;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+
 
     public List<Content> getContent() {
-        return content;
+        return contents;
     }
 
     public void setContent(List<Content> content) {
-        this.content = content;
+        this.contents = content;
     }
 }
