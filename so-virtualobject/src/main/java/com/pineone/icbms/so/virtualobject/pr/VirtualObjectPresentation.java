@@ -2,7 +2,6 @@ package com.pineone.icbms.so.virtualobject.pr;
 
 import com.pineone.icbms.so.virtualobject.entity.ServiceControl;
 import com.pineone.icbms.so.virtualobject.entity.VirtualObject;
-import com.pineone.icbms.so.virtualobject.entity.VirtualObjectRequestControl;
 import com.pineone.icbms.so.virtualobject.entity.VirtualObjectTransFormObject;
 import com.pineone.icbms.so.virtualobject.logic.VirtualObjectManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +34,13 @@ public class VirtualObjectPresentation {
 
     @RequestMapping(value = "/requestcontrol",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public String requestControlVirtualObject(@RequestBody VirtualObjectRequestControl virtualObjectRequestControl){
+    public String requestControlVirtualObject(@RequestBody VirtualObjectTransFormObject virtualObjectTransFormObject){
         //
         System.out.println("\n**********  VirtualObject Presentation RequestVOControl  **********");
-        System.out.println("Response virtualObjectID = " + virtualObjectRequestControl.getVoId());
-        System.out.println("Response virtualObjectOperation = " + virtualObjectRequestControl.getOperation());
+        System.out.println("Response virtualObjectID = " + virtualObjectTransFormObject.getVoId());
+        System.out.println("Response virtualObjectOperation = " + virtualObjectTransFormObject.getVoCommand());
 
-        return virtualObjectManager.requestControlDevice(virtualObjectRequestControl.getVoId(), virtualObjectRequestControl.getOperation());
+        return virtualObjectManager.requestControlDevice(virtualObjectTransFormObject.getVoId(), virtualObjectTransFormObject.getVoCommand());
     }
 
 
@@ -98,6 +97,13 @@ public class VirtualObjectPresentation {
     public void testSetUp(){
         //
         virtualObjectManager.testSetUp();
+    }
+
+    public VirtualObjectTransFormObject settingVirtualObjectData(String id, String operation){
+        VirtualObjectTransFormObject object = new VirtualObjectTransFormObject();
+        object.setVoId(id);
+        object.setVoCommand(operation);
+        return object;
     }
 
 

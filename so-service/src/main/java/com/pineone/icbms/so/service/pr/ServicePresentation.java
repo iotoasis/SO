@@ -54,8 +54,9 @@ public class ServicePresentation {
     //NOTE: Service 의 입력 정보 작성 후 등록 -> 등록 결과 리턴
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseMessage registerServiceController(@RequestBody Service service){
+    public ResponseMessage registerServiceController(@RequestBody ServiceTransFormObject serviceTransFormObject){
         //
+        Service service = dataObjectToServiceModel(serviceTransFormObject);
         DataValidation dataValidation = DataValidation.newDataValidation();
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
         try {
@@ -81,11 +82,11 @@ public class ServicePresentation {
     //NOTE : Service 실행
     @RequestMapping(value = "/control", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public void executeService(@RequestBody String serviceId){
+    public void executeService(@RequestBody ServiceTransFormObject serviceTransFormObject){
         // 해당 서비스 아이디로 실행하기.
         System.out.println("\n**********  Service Presentation RequestServiceControl  **********");
-        System.out.println("Response ServiceID = " + serviceId);
-        serviceLogic.executeService(serviceId);
+        System.out.println("Response ServiceID = " + serviceTransFormObject.getId());
+        serviceLogic.executeService(serviceTransFormObject.getId());
     }
 
     //NOTE : Service List 조회
@@ -119,7 +120,16 @@ public class ServicePresentation {
         serviceLogic.testSetUp();
     }
 
+    public ServiceTransFormObject settingServiceId(String serviceId){
+        ServiceTransFormObject object = new ServiceTransFormObject();
+        object.setId(serviceId);
+        return object;
+    }
 
 
+    public Service dataObjectToServiceModel(ServiceTransFormObject serviceTransFormObject){
+        if(serviceTransFormObject == null) return null;
+        return new Service(serviceTransFormObject.getId(), serviceTransFormObject.getName(), serviceTransFormObject.getDeviceObjectId(), serviceTransFormObject.getConceptServiceId(), serviceTransFormObject.getStatus(), serviceTransFormObject.getCreateTime(), serviceTransFormObject.getModifiedTime());
+    }
 
 }

@@ -87,11 +87,11 @@ public class ServiceModelPresentation {
     //NOTE: 응급상황으로 발생하는 ContextModel 에 따른 ServiceModel 실행
     @RequestMapping(value = "/control", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public void executeServiceModel(@RequestBody String serviceModelId) {
+    public void executeServiceModel(@RequestBody ServiceModelTransFormObject serviceModelTransFormObject) {
         //
         System.out.println("\n**********  ServiceModel Presentation RequestServiceModel  **********");
-        System.out.println("Response ServiceModelID = " + serviceModelId);
-        serviceModelLogic.executeServiceModel(serviceModelId);
+        System.out.println("Response ServiceModelID = " + serviceModelTransFormObject.getId());
+        serviceModelLogic.executeServiceModel(serviceModelTransFormObject.getId());
     }
 
     //NOTE: 저장되어 있는 Service 들의 ID 조회
@@ -112,6 +112,12 @@ public class ServiceModelPresentation {
     public void testSetUp() {
         //
         serviceModelLogic.testSetUp();
+    }
+
+    public ServiceModelTransFormObject settingServiceModelId(String serviceModelId){
+        ServiceModelTransFormObject object = new ServiceModelTransFormObject();
+        object.setId(serviceModelId);
+        return object;
     }
 
 
