@@ -44,7 +44,7 @@ public class ServiceModelInternalProxy implements ServiceModelProxy {
         // 서비스 실행
         System.out.println("\n**********  ServiceModel Proxy RequestServiceControl  **********");
         System.out.println("Request ServiceID = " + serviceId);
-        servicePresentation.executeService(serviceId);
+        servicePresentation.executeService(servicePresentation.settingServiceId(serviceId));
     }
 
     @Override
