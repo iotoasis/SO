@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.device.pr;
 
 import com.pineone.icbms.so.device.entity.Device;
+import com.pineone.icbms.so.device.entity.DeviceTransFormObject;
 import com.pineone.icbms.so.device.entity.ResultMessage;
 import com.pineone.icbms.so.device.entity.deviceReleaseMessage;
 import com.pineone.icbms.so.device.logic.DeviceManager;
@@ -35,12 +36,12 @@ public class DevicePresentation {
      */
     @RequestMapping(value = "/control",method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public String deviceControl(@RequestBody String deviceId, String deviceCommand){
+    public String deviceControl(@RequestBody DeviceTransFormObject deviceTransFormObject){
         // NOTE : Device Control
         System.out.println("\n**********  Device Presentation RequestDeviceControl  **********");
-        System.out.println("Response DeviceId = " + deviceId);
-        System.out.println("Response DeviceCommand = " + deviceCommand);
-        return deviceManager.deviceExecute(deviceId, deviceCommand);
+        System.out.println("Response DeviceId = " + deviceTransFormObject.getDeviceId());
+        System.out.println("Response DeviceCommand = " + deviceTransFormObject.getDeviceCommand());
+        return deviceManager.deviceExecute(deviceTransFormObject.getDeviceId(), deviceTransFormObject.getDeviceCommand());
     }
 
     /**
@@ -120,8 +121,15 @@ public class DevicePresentation {
      */
     @RequestMapping(value ="/operation",method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public String findDeviceOperation(@RequestBody String deviceId, String deviceService){
+    public String findDeviceOperation(@RequestBody DeviceTransFormObject deviceTransFormObject){
 
-        return deviceManager.searchOperation(deviceId, deviceService);
+        return deviceManager.searchOperation(deviceTransFormObject.getDeviceId(), deviceTransFormObject.getDeviceServices());
+    }
+
+    public DeviceTransFormObject settingDeviceRequestData(String deviceid, String command){
+        DeviceTransFormObject object = new DeviceTransFormObject();
+        object.setDeviceId(deviceid);
+        object.setDeviceCommand(command);
+        return object;
     }
 }
