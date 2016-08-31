@@ -119,6 +119,7 @@ public class ContextModelLogicImpl implements ContextModelLogic{
 
         System.out.println("************ ContextModelComponent : Queue *********** ");
         System.out.println("Queue - ContextModel ID = " + contextModel.getId());
+        System.out.println();
         CONTEXT_MODEL_QUEUE.offer(contextModel);
 
         String contextModelResultMessage = responseMessage.contextModelResultMessage(contextModel);
