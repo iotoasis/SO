@@ -22,4 +22,5 @@ public interface ContextModelLogic {
     ContextModel retrieveQueueData();
     List<Domain> retrieveDomainList();
     List<String> retrieveContextModelIdList();
+    List<ContextModel> retrieveContextInformationList();
 }
