@@ -111,7 +111,7 @@ public class ContextModelLogicImpl implements ContextModelLogic{
         return contextModel.getContextType();
     }
 
-    //NOTE: EmergencyContextmodel 을 일시적으로 Queue 에 저장. Profile Component 에서 사용 할 수 QUEUE 에 삽입
+    //NOTE: EmergencyContextModel 을 일시적으로 Queue 에 저장. Profile Component 에서 사용 할 수 QUEUE 에 삽입
     @Override
     public String useQueueSaveContextModel(ContextModel contextModel) {
         //
@@ -152,5 +152,12 @@ public class ContextModelLogicImpl implements ContextModelLogic{
             contextModelIdList.add(contextModel.getId());
         }
         return contextModelIdList;
+    }
+
+    //NOTE: ContextModeList 조회
+    @Override
+    public List<ContextModel> retrieveContextInformationList() {
+        List<ContextModel> contextModelList = contextModelStore.retrieveContextModelList();
+        return contextModelList;
     }
 }

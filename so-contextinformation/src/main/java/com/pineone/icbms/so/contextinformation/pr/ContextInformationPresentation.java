@@ -69,6 +69,9 @@ public class ContextInformationPresentation {
     }
 
     // NOTE: ContextInformation Component 의 DB에 접근해서 CI Name 리스트 조회
+    @RequestMapping(value = "/name", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
     public List<String> retrieveContextInformationNameList() {
         //
         List<String> contextInformationList = contextInformationLogic.retrieveContextInformationNameList();
@@ -96,6 +99,9 @@ public class ContextInformationPresentation {
     }
 
     // NOTE: ContextInformation Component 의 DB에 접근해서 CI Id 리스트 조회
+    @RequestMapping(value = "/id", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
     public List<String> retrieveContextInformationIdList() {
         //
         List<String> contextInformationIdList = contextInformationLogic.retrieveContextInformationIdList();

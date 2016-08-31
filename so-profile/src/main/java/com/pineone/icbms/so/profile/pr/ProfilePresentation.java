@@ -98,8 +98,8 @@ public class ProfilePresentation {
         return responseMessage;
     }
 
-    //NOTE: Profile List 조회
-    @RequestMapping(value = "/profilelist",method = RequestMethod.GET)
+    //NOTE: Profile NameList 조회
+    @RequestMapping(value = "/name",method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public List<String> retrieveProfileNameList(){
@@ -125,6 +125,10 @@ public class ProfilePresentation {
         return profile;
     }
 
+    //NOTE: Profile IdList 조회
+    @RequestMapping(value = "/id", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
     public List<String> retrieveProfileIdList(){
         //
         List<String> profileIdList = profileLogic.retrieveProfileIdList();
@@ -233,16 +237,30 @@ public class ProfilePresentation {
     @RequestMapping(value = "/schedule", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public void executeScheduleProfile(@RequestBody ProfileTransFormData profileTransFormData){
+    public ResponseMessage executeScheduleProfile(@RequestBody ProfileTransFormData profileTransFormData){
+
+        ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
+
         System.out.println("************ Profile Presentation Receive Scheduled Profile ***********");
         System.out.println("Profile ID = " + profileTransFormData.getId());
         System.out.println();
         Profile profile = dataObjectToProfile(profileTransFormData);
-        profileLogic.executeScheduleProfile(profile.getId());
+        String resultMessage = profileLogic.executeScheduleProfile(profile.getId());
+        responseMessage.setMessage(resultMessage);
+        return responseMessage;
     }
 
     private Profile dataObjectToProfile(ProfileTransFormData profileTransFormData){
         if(profileTransFormData == null) return null;
         return new Profile(profileTransFormData.getId());
+    }
+
+    //NOTE: 미리 등록되어 있는 Profile 조회
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public List<Profile> retrieveProfileList(){
+        List<Profile> profileList = profileLogic.retrieveProfileList();
+        return profileList;
     }
 }
