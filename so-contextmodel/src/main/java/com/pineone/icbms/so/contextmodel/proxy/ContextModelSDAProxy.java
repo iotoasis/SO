@@ -77,6 +77,9 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
     //NOTE: ContextModel 의 상황이 발생했는지 질의, 발생한 도메인 리스트 수신
     @Override
     public List<String> retrieveContextModelEvent(String contextModelId) {
+        System.out.println("********* ContextModel Proxy Query to SDA ************");
+        System.out.println("ContextModel ID = " + contextModelId);
+
         //
 //        IHttpResponseMessage message = clientService.requestGetService(
 //                contextAddress.getAddress() + AddressStore.RETRIEVE_CONTEXTMODEL_EVENT + "/" + contextModelName);
@@ -92,11 +95,11 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
             String readData = DataConversion.responseDataToString(message);
             Type type = new TypeToken<RetrieveData>(){}.getType();
             RetrieveData retrieveData = new Gson().fromJson(readData,type);
-            System.out.println(retrieveData.getTime());
+            System.out.println("Time = " + retrieveData.getTime());
             List<Content> contentList = retrieveData.getContent();
             for(Content content : contentList){
                 domains.add(content.getLoc());
-                System.out.println(content.getLoc());
+                System.out.println("Location = " + content.getLoc());
             }
 //            domains = new ArrayList<>();
         }

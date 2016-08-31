@@ -101,7 +101,8 @@ public class ContextModelPresentation {
     @ResponseBody
     public ResponseMessage emergencyContextModel(@RequestBody ContextModelTransFormObject contextModelTransFormObject){
         //
-        System.out.println("************ occ 수신 *********** Id : " + contextModelTransFormObject.getContextId());
+        System.out.println("************ ContextModel Presentation Receive ContextModel ***********");
+        System.out.println("Receive ContextModel ID = " + contextModelTransFormObject.getContextId());
         DataValidation dataValidation = DataValidation.newDataValidation();
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
         ContextModel contextModel = dataObjectToContextModel(contextModelTransFormObject);
