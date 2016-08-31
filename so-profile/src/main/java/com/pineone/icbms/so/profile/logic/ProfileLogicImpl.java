@@ -129,14 +129,15 @@ public class ProfileLogicImpl implements ProfileLogic{
     @Override
     public void executeScheduleProfile(String profileId) {
         Profile profile = profileStore.retrieveProfileDetail(profileId);
-        System.out.println("*********** contextModelId추출 ****** :" + profile.getContextModelId());
+        System.out.println("*********** ProfileComponent Extract ContextModel ************");
+        System.out.println("ContextModel ID = "+ profile.getContextModelId());
         List<String> domainIdList = contextModelPresentation.isHappenContextModel(profile.getContextModelId());
         if(domainIdList != null){
-                System.out.println("성공");
+                System.out.println("*********** Occur ContextModel *************");
                 serviceModelPresentation.executeServiceModel(serviceModelPresentation.settingServiceModelId(profile.getServiceModelId()));
         }
         else{
-            System.out.println("상황 발생하지 않음 ");
+            System.out.println("************ Nothing was happened *************");
         }
     }
 
@@ -151,11 +152,13 @@ public class ProfileLogicImpl implements ProfileLogic{
             }
             if(!(profileProxy.checkContextModelQueue())){
                 ContextModel contextModel = profileProxy.retrieveContextModelQueueData();
-                System.out.println(contextModel.getId() + "Receive");
+                System.out.println("************ Profile Component Get ContextModel");
+                System.out.println(" ContextModel ID = " + contextModel.getId());
                 //TODO : 디비 연결후 contextModel 이름으로 Profile 조회 기능 구현 및 연결
                 List<Profile> profileList = profileStore.findByContextModelId(contextModel.getId());
                 for(Profile profile : profileList){
-                    System.out.println(profile.getServiceModelId() + "extract");
+                    System.out.println("************ Profile Component Extract ContextModel");
+                    System.out.println("ServiceModel ID = " + profile.getServiceModelId());
                     //TODO : Profile 로 ServiceModel 찾아서 ServiceModel 에 전송
                     serviceModelPresentation.executeServiceModel(serviceModelPresentation.settingServiceModelId(profile.getServiceModelId()));
                 }
