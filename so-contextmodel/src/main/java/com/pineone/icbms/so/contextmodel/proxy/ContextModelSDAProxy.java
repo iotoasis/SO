@@ -79,6 +79,7 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
     public List<String> retrieveContextModelEvent(String contextModelId) {
         System.out.println("********* ContextModel Proxy Query to SDA ************");
         System.out.println("ContextModel ID = " + contextModelId);
+        System.out.println();
 
         //
 //        IHttpResponseMessage message = clientService.requestGetService(

@@ -131,13 +131,16 @@ public class ProfileLogicImpl implements ProfileLogic{
         Profile profile = profileStore.retrieveProfileDetail(profileId);
         System.out.println("*********** ProfileComponent Extract ContextModel ************");
         System.out.println("ContextModel ID = "+ profile.getContextModelId());
+        System.out.println();
         List<String> domainIdList = contextModelPresentation.isHappenContextModel(profile.getContextModelId());
         if(domainIdList != null){
                 System.out.println("*********** Occur ContextModel *************");
+                System.out.println();
                 serviceModelPresentation.executeServiceModel(serviceModelPresentation.settingServiceModelId(profile.getServiceModelId()));
         }
         else{
             System.out.println("************ Nothing was happened *************");
+            System.out.println();
         }
     }
 
@@ -154,11 +157,13 @@ public class ProfileLogicImpl implements ProfileLogic{
                 ContextModel contextModel = profileProxy.retrieveContextModelQueueData();
                 System.out.println("************ Profile Component Get ContextModel");
                 System.out.println(" ContextModel ID = " + contextModel.getId());
+                System.out.println();
                 //TODO : 디비 연결후 contextModel 이름으로 Profile 조회 기능 구현 및 연결
                 List<Profile> profileList = profileStore.findByContextModelId(contextModel.getId());
                 for(Profile profile : profileList){
                     System.out.println("************ Profile Component Extract ContextModel");
                     System.out.println("ServiceModel ID = " + profile.getServiceModelId());
+                    System.out.println();
                     //TODO : Profile 로 ServiceModel 찾아서 ServiceModel 에 전송
                     serviceModelPresentation.executeServiceModel(serviceModelPresentation.settingServiceModelId(profile.getServiceModelId()));
                 }

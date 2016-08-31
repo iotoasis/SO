@@ -103,6 +103,7 @@ public class ContextModelPresentation {
         //
         System.out.println("************ ContextModel Presentation Receive ContextModel ***********");
         System.out.println("Receive ContextModel ID = " + contextModelTransFormObject.getContextId());
+        System.out.println();
         DataValidation dataValidation = DataValidation.newDataValidation();
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
         ContextModel contextModel = dataObjectToContextModel(contextModelTransFormObject);
