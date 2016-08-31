@@ -234,7 +234,7 @@ public class ProfilePresentation {
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public void executeScheduleProfile(@RequestBody ProfileTransFormData profileTransFormData){
-        System.out.println("************ profile Presentation Receive Scheduled Profile ***********");
+        System.out.println("************ Profile Presentation Receive Scheduled Profile ***********");
         System.out.println("Profile ID = " + profileTransFormData.getId());
         System.out.println();
         Profile profile = dataObjectToProfile(profileTransFormData);
