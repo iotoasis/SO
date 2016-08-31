@@ -9,7 +9,9 @@ public interface VirtualObjectManager {
     VirtualObject searchVirtualObject(String id);
     void deleteVirtualObject(String id);
     List<VirtualObject> searchVirtualObjectList(String location);
+    List<VirtualObject> searchVirtualObjectList();
     String requestControlDevice(String voId, String operation);
-    void produceVirtualObject(VirtualObject virtulaObject);
+    void produceVirtualObject(VirtualObject virtualObject);
     String controlDevice(List<ServiceControl> serviceControls);
+    void testSetUp();
 }

@@ -5,6 +5,7 @@ import com.pineone.icbms.so.contextmodel.logic.ContextModelLogic;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.contextmodel.ref.DataValidation;
 import com.pineone.icbms.so.contextmodel.ref.ResponseMessage;
+import com.pineone.icbms.so.contextmodel.store.mongo.ContextModelDataObject;
 import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.util.exception.DataLossException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -97,10 +99,14 @@ public class ContextModelPresentation {
     @RequestMapping(value = "/occ", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public ResponseMessage emergencyContextModel(@RequestBody ContextModel contextModel){
+    public ResponseMessage emergencyContextModel(@RequestBody ContextModelTransFormObject contextModelTransFormObject){
         //
+        System.out.println("************ ContextModel Presentation Receive ContextModel ***********");
+        System.out.println("Receive ContextModel ID = " + contextModelTransFormObject.getContextId());
+        System.out.println();
         DataValidation dataValidation = DataValidation.newDataValidation();
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
+        ContextModel contextModel = dataObjectToContextModel(contextModelTransFormObject);
         try {
             dataValidation.inspectContextModel(contextModel);
         } catch (DataLossException e) {
@@ -132,6 +138,21 @@ public class ContextModelPresentation {
         //
         List<String> contextModelNameList = contextModelLogic.retrieveContextModelIdList();
         return contextModelNameList;
+    }
+
+    private ContextModel dataObjectToContextModel(ContextModelTransFormObject contextModelDataObject){
+        if(contextModelDataObject == null) return null;
+        return new ContextModel(contextModelDataObject.getContextId(), contentsToStringList(contextModelDataObject.getContents()),
+                contextModelDataObject.getCmd(), contextModelDataObject.getTime());
+    }
+
+    private List<String> contentsToStringList(List<Content> contentsList){
+
+        List<String> domains = new ArrayList<>();
+        for(Content content : contentsList){
+            domains.add(content.getUri());
+        }
+        return domains;
     }
 }
 

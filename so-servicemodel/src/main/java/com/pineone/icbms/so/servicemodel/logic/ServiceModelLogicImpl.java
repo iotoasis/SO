@@ -1,9 +1,7 @@
 package com.pineone.icbms.so.servicemodel.logic;
 
-import com.pineone.icbms.so.service.entity.Service;
 import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
 import com.pineone.icbms.so.servicemodel.proxy.ServiceModelProxy;
-import com.pineone.icbms.so.servicemodel.ref.ExecuteDummyClass;
 import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
 import com.pineone.icbms.so.servicemodel.ref.ServiceMessage;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
@@ -71,10 +69,10 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
         List<String> serviceIdList = serviceModel.getServiceIdList();
         List<ServiceMessage> serviceMessageList = new ArrayList<>();
         for (String serviceId : serviceIdList) {
-            Service service = serviceModelProxy.retrieveServiceDetail(serviceId);
-//            ServiceMessage serviceMessage = new ServiceMessage(domainId, service.getConceptServiceId(), service.getStatus());
+//            Service service = serviceModelProxy.retrieveServiceDetail(serviceId);
+//            ServiceMessage serviceMessage = new ServiceMessage(domainId, service.getVirtualObjectService(), service.getStatus());
 //            serviceMessageList.add(serviceMessage);
-            new ExecuteDummyClass().controlService(serviceMessageList);
+            serviceModelProxy.executeService(serviceId);
         }
     }
 
@@ -93,6 +91,39 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
         }
         return serviceModelIdList;
     }
+
+    @Override
+    public void testSetUp() {
+        setupData();
+        serviceModelProxy.servicetestSetUp();
+    }
+
+    @Override
+    public List<ServiceModel> retrieveServiceModelList() {
+        return serviceModelStore.retrieveServiceModelList();
+    }
+
+    private void setupData(){
+        List<String> serviceList = new ArrayList<>();
+        serviceList.add("AIRCLEANER-POWER-CONTROL-SERVICE-001");
+
+        ServiceModel serviceModel = new ServiceModel();
+        serviceModel.setId("CLASSROOM-AIRIDEAL-SERVICE");
+        serviceModel.setName("강의실 쾌적 공기제공 서비스");
+        serviceModel.setServiceIdList(serviceList);
+        serviceModel.setCreateTime("201608250930");
+        serviceModel.setModifiedTime("201608250930");
+
+        registerServiceModel(serviceModel);
+
+        List<String> serviceList1 = new ArrayList<>();
+        serviceList1.add("SMARTLIGHT-POWER-CONTROL-SERVICE-001");
+        serviceList1.add("BLIND-POWER-CONTROL-SERVICE-001");
+        serviceList1.add("BEAMPROJECTOR-POWER-CONTROL-SERVICE-001");
+        serviceList1.add("BEAMSCREEN-POWER-CONTROL-SERVICE-001");
+        registerServiceModel(new ServiceModel("CLASSROOM-PRESENTATIONMODE-SERVICE","강의실 발표 도우미 서비스",serviceList1,"201608250930","201608250930"));
+    }
+
 }
 
 //    //NOTE : 서비스 실행 로직
@@ -113,7 +144,7 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
 //                for (String serviceName : serviceModel.getServiceIdList()) {
 //                    Service service = serviceModelProxy.retrieveServiceDetail(serviceName);
 ////                    for (Domain domain : domainList) {
-////                        executeDummyClass.controlService(domain.getId(), service.getDeviceObjectId(), service.getStatus());
+////                        executeDummyClass.controlService(domain.getId(), service.getVirtualObjectId(), service.getStatus());
 //                    }
 //                }
 //            }

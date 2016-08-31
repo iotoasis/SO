@@ -3,6 +3,8 @@ package com.pineone.icbms.so.contextmodel.proxy;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
+import com.pineone.icbms.so.contextmodel.pr.Content;
+import com.pineone.icbms.so.contextmodel.pr.RetrieveData;
 import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.util.address.AddressStore;
 import com.pineone.icbms.so.util.address.ContextAddress;
@@ -12,6 +14,7 @@ import com.withwiz.beach.network.http.message.IHttpResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +77,10 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
     //NOTE: ContextModel 의 상황이 발생했는지 질의, 발생한 도메인 리스트 수신
     @Override
     public List<String> retrieveContextModelEvent(String contextModelId) {
+        System.out.println("********* ContextModel Proxy Query to SDA ************");
+        System.out.println("ContextModel ID = " + contextModelId);
+        System.out.println();
+
         //
 //        IHttpResponseMessage message = clientService.requestGetService(
 //                contextAddress.getAddress() + AddressStore.RETRIEVE_CONTEXTMODEL_EVENT + "/" + contextModelName);
@@ -81,14 +88,25 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
 //        Type type = new TypeToken<List<String>>(){}.getType();
 //        List<String> domainIdList = new Gson().fromJson(readData,type);
 
-        List<String> domainIdList = new ArrayList<>();
+        List<String> domains = new ArrayList<>();
         //TODO : 일시적 테스트
-        if(contextModelId.equals("CM-FIRE-EMERGENCY")){
-            domainIdList.add("DO-CLASSROOM");
+        if(contextModelId.equals("CM-COMFORT-AIR")){
+            IHttpResponseMessage message = clientService.requestGetService(
+                    contextAddress.getAddress()  + contextModelId + "2/?p=," );
+            String readData = DataConversion.responseDataToString(message);
+            Type type = new TypeToken<RetrieveData>(){}.getType();
+            RetrieveData retrieveData = new Gson().fromJson(readData,type);
+            System.out.println("Time = " + retrieveData.getTime());
+            List<Content> contentList = retrieveData.getContent();
+            for(Content content : contentList){
+                domains.add(content.getLoc());
+                System.out.println("Location = " + content.getLoc());
+            }
+//            domains = new ArrayList<>();
         }
         else {
-            domainIdList = null;
+            domains = null;
         }
-        return domainIdList;
+        return domains;
     }
 }

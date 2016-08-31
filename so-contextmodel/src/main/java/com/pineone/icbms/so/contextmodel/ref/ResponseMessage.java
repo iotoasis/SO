@@ -17,7 +17,7 @@ public class ResponseMessage {
 
     // NOTE : contextModel 전달 메시지 생성
     public String contextModelResultMessage(ContextModel contextModel){
-        message = " Name : " + contextModel.getName() + " ContextType : " + contextModel.getContextType();
+        message = " Id : " + contextModel.getId() + " time: " + contextModel.getOccTime();
         return message;
     }
 

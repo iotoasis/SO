@@ -35,7 +35,7 @@ public class DeviceMongoStore implements DeviceStore{
 
     @Override
     public Device retrieveByID(String id) {
-        DeviceDataObject d = deviceRepository.findOne(id);
+        DeviceDataObject d = deviceRepository.findBydeviceId(id);
         return DeviceObjectToDevice(d);
     }
 
@@ -57,6 +57,18 @@ public class DeviceMongoStore implements DeviceStore{
         // 아니면 다른걸 보내줌.
         // TODO :
         return null;
+    }
+
+    @Override
+    public List<Device> retrieveDeviceList() {
+        List<Device> deviceList = new ArrayList<>();
+        List<DeviceDataObject> deviceDataObjects = deviceRepository.findAll();
+
+        for(DeviceDataObject d : deviceDataObjects){
+            deviceList.add(DeviceObjectToDevice(d));
+        }
+
+        return deviceList;
     }
 
     @Override

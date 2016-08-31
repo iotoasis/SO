@@ -19,6 +19,7 @@ public class ContextModelDataObject {
     private String contextType;
     private String createTime;
     private String modifiedTime;
+    private String occTime;
 
     public ContextModelDataObject() {
     }
@@ -95,5 +96,13 @@ public class ContextModelDataObject {
 
     public void setModifiedTime(String modifiedTime) {
         this.modifiedTime = modifiedTime;
+    }
+
+    public String getOccTime() {
+        return occTime;
+    }
+
+    public void setOccTime(String occTime) {
+        this.occTime = occTime;
     }
 }

@@ -9,6 +9,7 @@ public interface DeviceStore {
     Device retrieveByID(String id);
     List<Device> retrieveByLocation(String location);
     List<String> retrieveDeviceService(String location);
+    List<Device> retrieveDeviceList();
     void update(Device device);
     void delete(String id);
 }

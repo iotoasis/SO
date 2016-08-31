@@ -49,7 +49,7 @@ public class ProfilePresentationTest {
             System.out.println(contextModelId);
         }
 
-        List<String> serviceModelIdList = serviceModelPresentation.retrieveServiceModelList();
+        List<String> serviceModelIdList = serviceModelPresentation.retrieveServiceModelIdList();
         for(String serviceModelId : serviceModelIdList){
             System.out.println(serviceModelId);
         }

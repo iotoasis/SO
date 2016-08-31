@@ -34,8 +34,13 @@ public class VirtualObjectPresentation {
 
     @RequestMapping(value = "/requestcontrol",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public String requestControlVirtualObject(@RequestBody String voId,String operation){
-        return virtualObjectManager.requestControlDevice(voId, operation);
+    public String requestControlVirtualObject(@RequestBody VirtualObjectTransFormObject virtualObjectTransFormObject){
+        //
+        System.out.println("\n**********  VirtualObject Presentation RequestVOControl  **********");
+        System.out.println("Response virtualObjectID = " + virtualObjectTransFormObject.getVoId());
+        System.out.println("Response virtualObjectOperation = " + virtualObjectTransFormObject.getVoCommand());
+
+        return virtualObjectManager.requestControlDevice(virtualObjectTransFormObject.getVoId(), virtualObjectTransFormObject.getVoCommand());
     }
 
 
@@ -59,26 +64,47 @@ public class VirtualObjectPresentation {
         return virtualObjectManager.searchVirtualObjectList(location);
     }
 
+    @RequestMapping(value = "",method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<VirtualObject> searchVirtualObjectList(){
+        return virtualObjectManager.searchVirtualObjectList();
+    }
+
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     public void deleteVirtualObject(@PathVariable String id){
         virtualObjectManager.deleteVirtualObject(id);
     }
 
-    private VirtualObject virtualObjectMapping(VirtualObjectTransFormObject eVirtulaObject)
+    private VirtualObject virtualObjectMapping(VirtualObjectTransFormObject eVirtualObject)
     {
         VirtualObject virtualObject = new VirtualObject();
-        virtualObject.setVoId(eVirtulaObject.getVoId());
-        virtualObject.setDeviceId(eVirtulaObject.getDeviceId());
-        virtualObject.setDeviceService(eVirtulaObject.getDeviceService());
-        virtualObject.setFunctionality(eVirtulaObject.getFunctionality());
-        virtualObject.setVoCommand(eVirtulaObject.getVoCommand());
-        virtualObject.setVoCreateTime(eVirtulaObject.getVoCreateTime());
-        virtualObject.setVoExpiredTime(eVirtulaObject.getVoExpiredTime());
-        virtualObject.setVoDescription(eVirtulaObject.getVoDescription());
-        virtualObject.setVoName(eVirtulaObject.getVoName());
-        virtualObject.setVoLocation(eVirtulaObject.getVoLocation());
+        virtualObject.setVoId(eVirtualObject.getVoId());
+        virtualObject.setDeviceId(eVirtualObject.getDeviceId());
+        virtualObject.setDeviceService(eVirtualObject.getDeviceService());
+        virtualObject.setFunctionality(eVirtualObject.getFunctionality());
+        virtualObject.setVoCommand(eVirtualObject.getVoCommand());
+        virtualObject.setVoCreateTime(eVirtualObject.getVoCreateTime());
+        virtualObject.setVoExpiredTime(eVirtualObject.getVoExpiredTime());
+        virtualObject.setVoDescription(eVirtualObject.getVoDescription());
+        virtualObject.setVoName(eVirtualObject.getVoName());
+        virtualObject.setVoLocation(eVirtualObject.getVoLocation());
         return virtualObject;
     }
+
+    @RequestMapping(value = "/testSetUp",method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public void testSetUp(){
+        //
+        virtualObjectManager.testSetUp();
+    }
+
+    public VirtualObjectTransFormObject settingVirtualObjectData(String id, String operation){
+        VirtualObjectTransFormObject object = new VirtualObjectTransFormObject();
+        object.setVoId(id);
+        object.setVoCommand(operation);
+        return object;
+    }
+
 
 }

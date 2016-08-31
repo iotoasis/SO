@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.device.pr;
 
 import com.pineone.icbms.so.device.entity.Device;
+import com.pineone.icbms.so.device.entity.DeviceTransFormObject;
 import com.pineone.icbms.so.device.entity.ResultMessage;
 import com.pineone.icbms.so.device.entity.deviceReleaseMessage;
 import com.pineone.icbms.so.device.logic.DeviceManager;
@@ -33,11 +34,24 @@ public class DevicePresentation {
     /**
      *  Device 제어 요청
      */
-    @RequestMapping(value = "/contol",method = RequestMethod.POST)
+    @RequestMapping(value = "/control",method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public String deviceControl(@RequestBody String deviceId, String deviceCommand){
+    public String deviceControl(@RequestBody DeviceTransFormObject deviceTransFormObject){
         // NOTE : Device Control
-        return deviceManager.deviceExecute(deviceId, deviceCommand);
+        System.out.println("\n**********  Device Presentation RequestDeviceControl  **********");
+        System.out.println("Response DeviceId = " + deviceTransFormObject.getDeviceId());
+        System.out.println("Response DeviceCommand = " + deviceTransFormObject.getDeviceCommand());
+        return deviceManager.deviceExecute(deviceTransFormObject.getDeviceId(), deviceTransFormObject.getDeviceCommand());
+    }
+
+    /**
+     *  Device List 검색.
+     */
+    @RequestMapping(value = "",method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public List<Device> findDeviceList(){
+        // Search Device List
+        return deviceManager.searchDeviceList();
     }
 
     /**
@@ -95,7 +109,7 @@ public class DevicePresentation {
     /**
      *  Device 제어 결과 노티 SI -> SO
      */
-    @RequestMapping(value ="/moniter",method = RequestMethod.POST)
+    @RequestMapping(value ="/monitor",method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public String asynchronousControlResult(@RequestBody ResultMessage message){
         // NOTO : Device the result is stored in the data memory.
@@ -107,8 +121,15 @@ public class DevicePresentation {
      */
     @RequestMapping(value ="/operation",method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public String findDeviceOperation(@RequestBody String deviceId, String deviceService){
+    public String findDeviceOperation(@RequestBody DeviceTransFormObject deviceTransFormObject){
 
-        return deviceManager.searchOperation(deviceId, deviceService);
+        return deviceManager.searchOperation(deviceTransFormObject.getDeviceId(), deviceTransFormObject.getDeviceServices());
+    }
+
+    public DeviceTransFormObject settingDeviceRequestData(String deviceid, String command){
+        DeviceTransFormObject object = new DeviceTransFormObject();
+        object.setDeviceId(deviceid);
+        object.setDeviceCommand(command);
+        return object;
     }
 }

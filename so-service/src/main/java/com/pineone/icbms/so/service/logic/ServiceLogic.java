@@ -19,4 +19,7 @@ public interface ServiceLogic {
     Service retrieveServiceDetail(String serviceName);
     List<String> retrieveServiceNameList();
     List<String> retrieveServiceIdList();
+    void executeService(String serviceId);
+    void testSetUp();
+    List<Service> retrieveServiceList();
 }

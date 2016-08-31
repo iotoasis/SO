@@ -27,7 +27,7 @@ public class VirtualObjectMongoStore implements VirtualObjectStore {
 
     @Override
     public VirtualObject retrieveByID(String id) {
-        VirtualObjectDataObject v = virtualObjectRepostory.findOne(id);
+        VirtualObjectDataObject v = virtualObjectRepostory.findByvoId(id);
         return DataObjectToVirtualObject(v);
     }
 
@@ -55,6 +55,18 @@ public class VirtualObjectMongoStore implements VirtualObjectStore {
     public List<VirtualObject> retrieveByLocationAndService(String location, String service) {
         List<VirtualObject> virtualObjects = new ArrayList<>();
         List<VirtualObjectDataObject> virtualObjectDataObjects = virtualObjectRepostory.findByvoLocationAndFunctionality(location, service);
+
+        for(VirtualObjectDataObject v : virtualObjectDataObjects) {
+            virtualObjects.add(DataObjectToVirtualObject(v));
+        }
+
+        return virtualObjects;
+    }
+
+    @Override
+    public List<VirtualObject> retrieveVirtualObjectList() {
+        List<VirtualObject> virtualObjects = new ArrayList<>();
+        List<VirtualObjectDataObject> virtualObjectDataObjects = virtualObjectRepostory.findAll();
 
         for(VirtualObjectDataObject v : virtualObjectDataObjects) {
             virtualObjects.add(DataObjectToVirtualObject(v));

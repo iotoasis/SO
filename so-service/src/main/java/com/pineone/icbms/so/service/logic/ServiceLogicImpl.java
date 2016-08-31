@@ -2,6 +2,7 @@ package com.pineone.icbms.so.service.logic;
 
 
 import com.pineone.icbms.so.service.entity.Service;
+import com.pineone.icbms.so.service.proxy.ServiceProxy;
 import com.pineone.icbms.so.service.ref.*;
 import com.pineone.icbms.so.service.store.ServiceStore;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,8 @@ public class ServiceLogicImpl implements ServiceLogic{
     @Autowired
     ServiceStore serviceStore;
 
-    DeviceCenter deviceCenter = DeviceCenter.newDeviceCenter();
+    @Autowired
+    ServiceProxy serviceProxy;
 
     public static ServiceLogicImpl newServiceLogicImpl(){
         return new ServiceLogicImpl();
@@ -31,14 +33,17 @@ public class ServiceLogicImpl implements ServiceLogic{
     @Override
     public List<DeviceObject> retrieveDeviceObjectList() {
         //
-        return deviceCenter.retrieveDeviceObjectList();
+//        return deviceCenter.retrieveDeviceObjectList();
+        return null;
     }
+
 
     //NOTE: Service 에 사용할 ConceptService 를 선택하기 위해 가상 장치의 ConceptService List 조회
     @Override
     public List<ConceptService> retrieveConceptService(DeviceObject deviceObject) {
-        //
-        return deviceCenter.retrieveConceptServiceList(deviceObject);
+        // serviceProxy에서 VO로 DeviceConceptService 조회 하기
+//        return deviceCenter.retrieveConceptServiceList(deviceObject);
+        return null;
     }
 
     //NOTE: ConceptService 의 Status 조회 TODO : ConceptService 에 따른 Status 분기 필요 - 정해지면 적용
@@ -92,5 +97,41 @@ public class ServiceLogicImpl implements ServiceLogic{
             serviceIdList.add(service.getId());
         }
         return serviceIdList;
+    }
+
+    @Override
+    public void executeService(String serviceId) {
+        Service service = serviceStore.retrieveServiceDetail(serviceId);
+        serviceProxy.executeVirtualObject(service.getVirtualObjectId(), service.getStatus());
+        // 해당 서비스에서 operation을 얻어서 serviceId와 operation으로 VO에 제어 요청을 한다.
+    }
+
+    @Override
+    public void testSetUp() {
+        SetUpData();
+        serviceProxy.voTestSetUp();
+    }
+
+    @Override
+    public List<Service> retrieveServiceList() {
+        return serviceStore.retrieveServiceList();
+    }
+
+    private void SetUpData(){
+        Service service = new Service();
+        service.setName("Pleasant Air Services");
+        service.setId("AIRCLEANER-POWER-CONTROL-SERVICE-001");
+        service.setVirtualObjectId("CR0001AirCleaner0001");
+        service.setVirtualObjectService("switch-control");
+        service.setStatus("ON");
+        service.setCreateTime("201608250930");
+        service.setModifiedTime("201608250930");
+
+        registerService(service);
+
+        registerService(new Service("SMARTLIGHT-POWER-CONTROL-SERVICE-001", "Lighting management services", "CR0001Illumination0001", "switch-control", "OFF", "201608250930","201608250930" ));
+        registerService(new Service("BLIND-POWER-CONTROL-SERVICE-001", "Blind management services.", "CR0001Blinder0001", "switch-control", "ON", "201608250930","201608250930" ));
+        registerService(new Service("BEAMPROJECTOR-POWER-CONTROL-SERVICE-001", "BeamProjector management services.", "CR0001BeamProjector0001", "switch-control", "ON", "201608250930","201608250930" ));
+        registerService(new Service("BEAMSCREEN-POWER-CONTROL-SERVICE-001", "BeamScreen management services.", "CR0001BeamProjectorScreen0001", "switch-control", "ON", "201608250930","201608250930" ));
     }
 }
