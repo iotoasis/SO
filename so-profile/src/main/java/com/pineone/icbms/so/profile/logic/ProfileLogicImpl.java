@@ -134,12 +134,12 @@ public class ProfileLogicImpl implements ProfileLogic{
         System.out.println();
         List<String> domainIdList = contextModelPresentation.isHappenContextModel(profile.getContextModelId());
         if(domainIdList != null){
-                System.out.println("*********** Occur ContextModel *************");
+                System.out.println("Message : Happened ContextModel ");
                 System.out.println();
                 serviceModelPresentation.executeServiceModel(serviceModelPresentation.settingServiceModelId(profile.getServiceModelId()));
         }
         else{
-            System.out.println("************ Nothing was happened *************");
+            System.out.println("Message : Nothing was happened ");
             System.out.println();
         }
     }
