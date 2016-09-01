@@ -53,6 +53,9 @@ public class DomainPresentation {
         return domain;
     }
 
+    @RequestMapping(value = "/id", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
     public List<String> retrieveDomainIdList(){
         //
         List<String> domainIdList = domainLogic.retrieveDomainIdList();

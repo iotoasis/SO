@@ -127,20 +127,24 @@ public class ProfileLogicImpl implements ProfileLogic{
 
     //NOTE: 스케줄러로 부터 수신받은 프로파일 실행
     @Override
-    public void executeScheduleProfile(String profileId) {
+    public String executeScheduleProfile(String profileId) {
         Profile profile = profileStore.retrieveProfileDetail(profileId);
         System.out.println("*********** ProfileComponent Extract ContextModel ************");
         System.out.println("ContextModel ID = "+ profile.getContextModelId());
         System.out.println();
         List<String> domainIdList = contextModelPresentation.isHappenContextModel(profile.getContextModelId());
         if(domainIdList != null){
-                System.out.println("Message : Happened ContextModel ");
+                String message = "Message : Happened ContextModel";
+                System.out.println(message);
                 System.out.println();
                 serviceModelPresentation.executeServiceModel(serviceModelPresentation.settingServiceModelId(profile.getServiceModelId()));
+            return message + "," + profile.getServiceModelId() + " Execute";
         }
         else{
-            System.out.println("Message : Nothing was happened ");
+            String message = "Message : Nothing was happened";
+            System.out.println(message);
             System.out.println();
+            return message;
         }
     }
 
@@ -169,5 +173,11 @@ public class ProfileLogicImpl implements ProfileLogic{
                 }
             }
         }
+    }
+
+    @Override
+    public List<Profile> retrieveProfileList() {
+        List<Profile> profileList = profileStore.retrieveProfileList();
+        return profileList;
     }
 }
