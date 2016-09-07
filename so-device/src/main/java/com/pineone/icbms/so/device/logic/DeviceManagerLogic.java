@@ -1,8 +1,8 @@
 package com.pineone.icbms.so.device.logic;
 
 import com.pineone.icbms.so.device.entity.*;
-import com.pineone.icbms.so.device.proxy.DeviceICollectionProxy;
 import com.pineone.icbms.so.device.proxy.DeviceControlProxy;
+import com.pineone.icbms.so.device.proxy.DeviceICollectionProxy;
 import com.pineone.icbms.so.device.store.DeviceResultStore;
 import com.pineone.icbms.so.device.store.DeviceStore;
 import com.pineone.icbms.so.device.util.ClientProfile;

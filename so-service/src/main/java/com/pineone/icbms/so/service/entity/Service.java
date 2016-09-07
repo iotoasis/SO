@@ -1,5 +1,7 @@
 package com.pineone.icbms.so.service.entity;
 
+import java.util.List;
+
 /**
  * Created by melvin on 2016. 8. 5..
  */
@@ -12,8 +14,8 @@ public class Service {
     }
     private String id;
     private String name;
-    private String VirtualObjectId;
-    private String VirtualObjectService;
+    private List<String> virtualObjectIdList;
+    private String virtualObjectService;
     private String status;
     private String createTime;
     private String modifiedTime;
@@ -34,20 +36,20 @@ public class Service {
         this.name = name;
     }
 
-    public String getVirtualObjectId() {
-        return VirtualObjectId;
+    public List<String> getVirtualObjectIdList() {
+        return virtualObjectIdList;
     }
 
-    public void setVirtualObjectId(String virtualObjectId) {
-        this.VirtualObjectId = virtualObjectId;
+    public void setVirtualObjectIdList(List<String> virtualObjectIdList) {
+        this.virtualObjectIdList = virtualObjectIdList;
     }
 
     public String getVirtualObjectService() {
-        return VirtualObjectService;
+        return virtualObjectService;
     }
 
     public void setVirtualObjectService(String virtualObjectService) {
-        this.VirtualObjectService = virtualObjectService;
+        this.virtualObjectService = virtualObjectService;
     }
 
     public String getStatus() {
@@ -58,12 +60,12 @@ public class Service {
         this.status = status;
     }
 
-    public Service(String id, String name, String VirtualObjectId, String VirtualObjectService, String status) {
+    public Service(String id, String name, List<String> VirtualObjectIdList, String VirtualObjectService, String status) {
 
         this.id = id;
         this.name = name;
-        this.VirtualObjectId = VirtualObjectId;
-        this.VirtualObjectService = VirtualObjectService;
+        this.virtualObjectIdList = VirtualObjectIdList;
+        this.virtualObjectService = VirtualObjectService;
         this.status = status;
     }
 
@@ -83,15 +85,13 @@ public class Service {
         this.modifiedTime = modifiedTime;
     }
 
-    public Service(String id, String name, String VirtualObjectId, String VirtualObjectService, String status, String createTime, String modifiedTime) {
+    public Service(String id, String name, List<String> virtualObjectIdList, String virtualObjectService, String status, String createTime, String modifiedTime) {
         this.id = id;
         this.name = name;
-        this.VirtualObjectId = VirtualObjectId;
-        this.VirtualObjectService = VirtualObjectService;
+        this.virtualObjectIdList = virtualObjectIdList;
+        this.virtualObjectService = virtualObjectService;
         this.status = status;
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
     }
-
-
 }

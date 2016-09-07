@@ -45,12 +45,12 @@ public class ServiceStoreMongoImpl implements ServiceStore {
 
     private ServiceDataObject serviceToDataObject(Service service) {
         if (service == null) return null;
-        return new ServiceDataObject(service.getId(), service.getName(), service.getVirtualObjectId(), service.getVirtualObjectService(), service.getStatus());
+        return new ServiceDataObject(service.getId(), service.getName(), service.getVirtualObjectIdList(), service.getVirtualObjectService(), service.getStatus());
     }
 
     private Service dataObjectToService(ServiceDataObject serviceDataObject){
         if(serviceDataObject == null) return null;
-        return new Service(serviceDataObject.getId(), serviceDataObject.getName(), serviceDataObject.getDeviceObjectId(),
-                serviceDataObject.getConceptServiceId(), serviceDataObject.getStatus());
+        return new Service(serviceDataObject.getId(), serviceDataObject.getName(), serviceDataObject.getVirtualObjectIdList(),
+                serviceDataObject.getVirtualObjectService(), serviceDataObject.getStatus());
     }
 }

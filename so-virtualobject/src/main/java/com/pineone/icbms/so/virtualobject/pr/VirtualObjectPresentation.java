@@ -52,16 +52,16 @@ public class VirtualObjectPresentation {
 
 
 
-    @RequestMapping(value = "/resource/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public VirtualObject searchVirtualObject(@PathVariable String id){
         return virtualObjectManager.searchVirtualObject(id);
     }
 
-    @RequestMapping(value = "/{location}",method = RequestMethod.GET)
+    @RequestMapping(value = "/location/{place}",method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<VirtualObject> searchVirtualObjectList(@PathVariable String location){
-        return virtualObjectManager.searchVirtualObjectList(location);
+    public List<VirtualObject> searchVirtualObjectList(@PathVariable String place){
+        return virtualObjectManager.searchVirtualObjectList(place);
     }
 
     @RequestMapping(value = "",method = RequestMethod.GET)

@@ -101,15 +101,12 @@ public class ServiceLogicImpl implements ServiceLogic{
 
     @Override
     public void executeService(String serviceId) {
-        Service service = serviceStore.retrieveServiceDetail(serviceId);
-        serviceProxy.executeVirtualObject(service.getVirtualObjectId(), service.getStatus());
-        // 해당 서비스에서 operation을 얻어서 serviceId와 operation으로 VO에 제어 요청을 한다.
-    }
+        Service serviceData = serviceStore.retrieveServiceDetail(serviceId);
+        for(String service : serviceData.getVirtualObjectIdList()){
+            serviceProxy.executeVirtualObject(service, serviceData.getStatus());
+        }
 
-    @Override
-    public void testSetUp() {
-        SetUpData();
-        serviceProxy.voTestSetUp();
+        // 해당 서비스에서 operation을 얻어서 serviceId와 operation으로 VO에 제어 요청을 한다.
     }
 
     @Override
@@ -117,21 +114,4 @@ public class ServiceLogicImpl implements ServiceLogic{
         return serviceStore.retrieveServiceList();
     }
 
-    private void SetUpData(){
-        Service service = new Service();
-        service.setName("Pleasant Air Services");
-        service.setId("AIRCLEANER-POWER-CONTROL-SERVICE-001");
-        service.setVirtualObjectId("CR0001AirCleaner0001");
-        service.setVirtualObjectService("switch-control");
-        service.setStatus("ON");
-        service.setCreateTime("201608250930");
-        service.setModifiedTime("201608250930");
-
-        registerService(service);
-
-        registerService(new Service("SMARTLIGHT-POWER-CONTROL-SERVICE-001", "Lighting management services", "CR0001Illumination0001", "switch-control", "OFF", "201608250930","201608250930" ));
-        registerService(new Service("BLIND-POWER-CONTROL-SERVICE-001", "Blind management services.", "CR0001Blinder0001", "switch-control", "ON", "201608250930","201608250930" ));
-        registerService(new Service("BEAMPROJECTOR-POWER-CONTROL-SERVICE-001", "BeamProjector management services.", "CR0001BeamProjector0001", "switch-control", "ON", "201608250930","201608250930" ));
-        registerService(new Service("BEAMSCREEN-POWER-CONTROL-SERVICE-001", "BeamScreen management services.", "CR0001BeamProjectorScreen0001", "switch-control", "ON", "201608250930","201608250930" ));
-    }
 }

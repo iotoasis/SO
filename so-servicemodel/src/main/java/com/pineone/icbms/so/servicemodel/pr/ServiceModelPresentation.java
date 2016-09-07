@@ -58,7 +58,7 @@ public class ServiceModelPresentation {
 
 
     //NOTE: ServiceModel ID List 퍼블리싱 -  Profile 생성시 사용
-    @RequestMapping(value = "/id", method = RequestMethod.GET)
+    @RequestMapping(value = "/service/{id}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<String> retrieveServiceModelIdList(){
         //
@@ -76,7 +76,7 @@ public class ServiceModelPresentation {
 
 
     //NOTE: DB 에서 ServiceModel 상세 조회
-    @RequestMapping(value = "{serviceModelId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{serviceModelId}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public ServiceModel retrieveServiceModelDetailController(@PathVariable String serviceModelId){
         //
@@ -104,14 +104,6 @@ public class ServiceModelPresentation {
     public ServiceModel dataObjectToServiceModel(ServiceModelTransFormObject serviceModelTransFormObject){
         if(serviceModelTransFormObject == null) return null;
         return new ServiceModel(serviceModelTransFormObject.getId(), serviceModelTransFormObject.getName(), serviceModelTransFormObject.getServiceIdList());
-    }
-
-    //NOTE: TestSetUp
-    @RequestMapping(value = "/testsetup", method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    public void testSetUp() {
-        //
-        serviceModelLogic.testSetUp();
     }
 
     public ServiceModelTransFormObject settingServiceModelId(String serviceModelId){
