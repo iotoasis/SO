@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,21 +62,18 @@ public class ServicePresentationTest {
     //NOTE : service 정보를 입력후 등록 과정
     public void Service등록() throws Exception {
         //
+        List<String> serviceList = new ArrayList<>();
+        serviceList.add("CR0001AirCleaner0001");
         Service service = new Service();
         service.setName("Pleasant Air Services");
         service.setId("AIRCLEANER-POWER-CONTROL-SERVICE-001");
-        service.setVirtualObjectId("CR0001AirCleaner0001");
+        service.setVirtualObjectIdList(serviceList);
         service.setVirtualObjectService("switch-control");
         service.setStatus("ON");
         service.setCreateTime("201608250930");
         service.setModifiedTime("201608250930");
 
-        ResponseMessage responseMessage = servicePresentation.registerServiceController(service);
-
-        servicePresentation.registerServiceController(new Service("SMARTLIGHT-POWER-CONTROL-SERVICE-001", "Lighting management services", "CR0001Illumination0001", "switch-control", "OFF", "201608250930","201608250930" ));
-        servicePresentation.registerServiceController(new Service("BLIND-POWER-CONTROL-SERVICE-001", "Blind management services.", "CR0001Blinder0001", "switch-control", "ON", "201608250930","201608250930" ));
-        servicePresentation.registerServiceController(new Service("BEAMPROJECTOR-POWER-CONTROL-SERVICE-001", "BeamProjector management services.", "CR0001BeamProjector0001", "switch-control", "ON", "201608250930","201608250930" ));
-        servicePresentation.registerServiceController(new Service("BEAMSCREEN-POWER-CONTROL-SERVICE-001", "BeamScreen management services.", "CR0001BeamProjectorScreen0001", "switch-control", "ON", "201608250930","201608250930" ));
+        ResponseMessage responseMessage = servicePresentation.registerServiceController(dataObjectToServiceModel(service));
 
         System.out.println(responseMessage.getMessage());
     }
@@ -86,7 +84,7 @@ public class ServicePresentationTest {
         System.out.println(service.getName());
         System.out.println(service.getId());
         System.out.println(service.getVirtualObjectService());
-        System.out.println(service.getVirtualObjectId());
+        System.out.println(service.getVirtualObjectIdList().toString());
         System.out.println(service.getStatus());
     }
 
@@ -98,4 +96,10 @@ public class ServicePresentationTest {
         }
 
     }
+
+    public ServiceTransFormObject dataObjectToServiceModel(Service service){
+        if(service == null) return null;
+        return new ServiceTransFormObject(service.getId(), service.getName(), service.getVirtualObjectIdList(), service.getVirtualObjectService(), service.getStatus(), service.getCreateTime(), service.getModifiedTime());
+    }
+
 }

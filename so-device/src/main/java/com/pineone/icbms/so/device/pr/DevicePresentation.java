@@ -67,11 +67,11 @@ public class DevicePresentation {
     /**
      *  Device 검색. By Location
      */
-    @RequestMapping(value = "/location/{location}",method = RequestMethod.GET)
+    @RequestMapping(value = "/location/{place}",method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Device> findDeviceByLocation(String location){
+    public List<Device> findDeviceByLocation(@PathVariable String place){
         // Search Device By Location
-        return deviceManager.deviceSearchByLocation(location);
+        return deviceManager.deviceSearchByLocation(place);
     }
 
     /**

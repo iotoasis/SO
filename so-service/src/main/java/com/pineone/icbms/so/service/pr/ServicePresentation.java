@@ -25,7 +25,7 @@ public class ServicePresentation {
 //    ServiceLogic serviceLogic = ServiceLogicImpl.newServiceLogicImpl();
 
     //NOTE: Service 생성 요청  -> ServiceLogic 에서 사용할 가상객체 (VO - CVO) DeviceObject 리스트 리턴
-    @RequestMapping(value = "/deviceobject", method = RequestMethod.GET)
+    @RequestMapping(value = "/controlservice", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<DeviceObject> requestServiceMaking(){
         //
@@ -34,10 +34,10 @@ public class ServicePresentation {
     }
 
     //NOTE: Service 의 가상객체에서 사용할 ConceptService 목록 요청
-    @RequestMapping(value = "/conceptservice", method = RequestMethod.POST)
+    @RequestMapping(value = "/controlservice", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public List<ConceptService> retrieveConceptServiceController(@RequestBody DeviceObject deviceObject){
-        //
+        // TODO : functionality 목록들을 표시 된다.(저작시 필요)
         List<ConceptService> conceptServiceList = serviceLogic.retrieveConceptService(deviceObject);
         return conceptServiceList;
     }
@@ -112,14 +112,6 @@ public class ServicePresentation {
         return serviceIdList;
     }
 
-    //NOTE : testSetup
-    @RequestMapping(value = "/testsetup", method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    public void testSetup(){
-        //
-        serviceLogic.testSetUp();
-    }
-
     public ServiceTransFormObject settingServiceId(String serviceId){
         ServiceTransFormObject object = new ServiceTransFormObject();
         object.setId(serviceId);
@@ -129,7 +121,6 @@ public class ServicePresentation {
 
     public Service dataObjectToServiceModel(ServiceTransFormObject serviceTransFormObject){
         if(serviceTransFormObject == null) return null;
-        return new Service(serviceTransFormObject.getId(), serviceTransFormObject.getName(), serviceTransFormObject.getDeviceObjectId(), serviceTransFormObject.getConceptServiceId(), serviceTransFormObject.getStatus(), serviceTransFormObject.getCreateTime(), serviceTransFormObject.getModifiedTime());
+        return new Service(serviceTransFormObject.getId(), serviceTransFormObject.getName(), serviceTransFormObject.getVirtualObjectIdList(), serviceTransFormObject.getVirtualObjectService(), serviceTransFormObject.getStatus(), serviceTransFormObject.getCreateTime(), serviceTransFormObject.getModifiedTime());
     }
-
 }

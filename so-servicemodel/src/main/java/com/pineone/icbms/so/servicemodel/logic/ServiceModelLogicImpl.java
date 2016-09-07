@@ -93,12 +93,6 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
     }
 
     @Override
-    public void testSetUp() {
-        setupData();
-        serviceModelProxy.servicetestSetUp();
-    }
-
-    @Override
     public List<ServiceModel> retrieveServiceModelList() {
         return serviceModelStore.retrieveServiceModelList();
     }

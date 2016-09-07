@@ -1,6 +1,8 @@
 package com.pineone.icbms.so.service.pr;
 
 
+import java.util.List;
+
 /**
  * Created by melvin on 2016. 8. 22..
  */
@@ -13,8 +15,8 @@ public class ServiceTransFormObject {
     }
     private String id;
     private String name;
-    private String deviceObjectId;
-    private String conceptServiceId;
+    private List<String> virtualObjectIdList;
+    private String virtualObjectService;
     private String status;
     private String createTime;
     private String modifiedTime;
@@ -38,20 +40,20 @@ public class ServiceTransFormObject {
         this.name = name;
     }
 
-    public String getDeviceObjectId() {
-        return deviceObjectId;
+    public List<String> getVirtualObjectIdList() {
+        return virtualObjectIdList;
     }
 
-    public void setDeviceObjectId(String deviceObjectId) {
-        this.deviceObjectId = deviceObjectId;
+    public void setVirtualObjectIdList(List<String> virtualObjectIdList) {
+        this.virtualObjectIdList = virtualObjectIdList;
     }
 
-    public String getConceptServiceId() {
-        return conceptServiceId;
+    public String getVirtualObjectService() {
+        return virtualObjectService;
     }
 
-    public void setConceptServiceId(String conceptServiceId) {
-        this.conceptServiceId = conceptServiceId;
+    public void setVirtualObjectService(String virtualObjectService) {
+        this.virtualObjectService = virtualObjectService;
     }
 
     public void setStatus(String status) {
@@ -78,20 +80,19 @@ public class ServiceTransFormObject {
         this.modifiedTime = modifiedTime;
     }
 
-    public ServiceTransFormObject(String id, String name, String deviceObjectId, String conceptServiceId, String status) {
-
+    public ServiceTransFormObject(String id, String name, List<String> virtualObjectIdList, String virtualObjectService, String status) {
         this.id = id;
         this.name = name;
-        this.deviceObjectId = deviceObjectId;
-        this.conceptServiceId = conceptServiceId;
+        this.virtualObjectIdList = virtualObjectIdList;
+        this.virtualObjectService = virtualObjectService;
         this.status = status;
     }
 
-    public ServiceTransFormObject(String id, String name, String deviceObjectId, String conceptServiceId, String status, String createTime, String modifiedTime) {
+    public ServiceTransFormObject(String id, String name, List<String> virtualObjectIdList, String virtualObjectService, String status, String createTime, String modifiedTime) {
         this.id = id;
         this.name = name;
-        this.deviceObjectId = deviceObjectId;
-        this.conceptServiceId = conceptServiceId;
+        this.virtualObjectIdList = virtualObjectIdList;
+        this.virtualObjectService = virtualObjectService;
         this.status = status;
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
