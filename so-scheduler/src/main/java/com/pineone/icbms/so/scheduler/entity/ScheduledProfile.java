@@ -1,0 +1,34 @@
+package com.pineone.icbms.so.scheduler.entity;
+
+/**
+ * Created by melvin on 2016. 9. 6..
+ */
+public class ScheduledProfile {
+
+    String id;
+    int Period;
+
+    public ScheduledProfile() {
+    }
+
+    public ScheduledProfile(String id, int period) {
+        this.id = id;
+        Period = period;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getPeriod() {
+        return Period;
+    }
+
+    public void setPeriod(int period) {
+        Period = period;
+    }
+}

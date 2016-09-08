@@ -104,8 +104,13 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
             }
 //            domains = new ArrayList<>();
         }
-        else {
+        else if(contextModelId.equals("CM-TEST")){
             domains = null;
+        }
+        else{
+            String domain = "INSERT Domain";
+            domains.add(domain);
+            return domains;
         }
         return domains;
     }
