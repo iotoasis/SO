@@ -1,10 +1,7 @@
-package com.pineone.icbms.so.profile;
+package com.pineone.icbms.so.scheduler;
 
-import com.pineone.icbms.so.bizcontext.BizContextApplication;
-import com.pineone.icbms.so.contextmodel.ContextModelApplication;
-import com.pineone.icbms.so.domain.DomainApplication;
-import com.pineone.icbms.so.profile.logic.ProfileLogic;
-import com.pineone.icbms.so.servicemodel.ServiceModelApplication;
+import com.pineone.icbms.so.profile.ProfileApplication;
+import com.pineone.icbms.so.scheduler.logic.SchedulerLogic;
 import com.pineone.icbms.so.util.UtilApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -14,29 +11,30 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.ImportResource;
 
 import java.util.Arrays;
 
 /**
- * Created by melvin on 2016. 8. 11..
+ * Created by melvin on 2016. 9. 5..
  */
 @Configuration
 @ComponentScan("com.pineone.icbms.so")
-@Import({UtilApplication.class, ServiceModelApplication.class, ContextModelApplication.class, DomainApplication.class, BizContextApplication.class})
+@Import({UtilApplication.class, ProfileApplication.class})
 @EnableAutoConfiguration
-public class ProfileApplication implements CommandLineRunner
-{
+public class SchedulerApplication implements CommandLineRunner{
+
     @Autowired
-    ProfileLogic profileLogic;
+    SchedulerLogic schedulerLogic;
 
     public static void main( String[] args )
     {
-        SpringApplication.run(ProfileApplication.class, args);
+        SpringApplication.run(SchedulerApplication.class, args);
     }
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("profileRun");
-        profileLogic.extractContextModelQueueData();
+        System.out.println("Scheduler run???");
+        schedulerLogic.runScheduler();
     }
 }

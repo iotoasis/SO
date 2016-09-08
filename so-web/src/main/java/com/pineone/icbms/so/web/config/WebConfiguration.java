@@ -5,6 +5,7 @@ import com.pineone.icbms.so.contextinformation.ContextInformationApplication;
 import com.pineone.icbms.so.contextmodel.ContextModelApplication;
 import com.pineone.icbms.so.device.DeviceApplication;
 import com.pineone.icbms.so.domain.DomainApplication;
+import com.pineone.icbms.so.scheduler.SchedulerApplication;
 import com.pineone.icbms.so.profile.ProfileApplication;
 import com.pineone.icbms.so.service.ServiceApplication;
 import com.pineone.icbms.so.servicemodel.ServiceModelApplication;
@@ -22,7 +23,7 @@ import org.springframework.context.annotation.Import;
         ContextModelApplication.class, DeviceApplication.class,
         ServiceApplication.class, UtilApplication.class,
         ServiceModelApplication.class, DomainApplication.class, ProfileApplication.class,
-        ServiceModelApplication.class, VirtualObjectApplication.class})
+        ServiceModelApplication.class, VirtualObjectApplication.class, SchedulerApplication.class})
 @EnableAutoConfiguration
 @ComponentScan("com.pineone.icbms.so")
 public class WebConfiguration {
