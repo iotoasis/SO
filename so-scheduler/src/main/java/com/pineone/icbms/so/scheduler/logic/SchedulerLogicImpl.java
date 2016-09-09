@@ -70,4 +70,21 @@ public class SchedulerLogicImpl implements SchedulerLogic{
         scheduler.start();
         System.out.println(scheduler.isStarted());
     }
+
+    @Override
+    public void quitScheduler() throws SchedulerException {
+        scheduler.shutdown();
+    }
+
+    @Override
+    public void pauseScheduler() throws SchedulerException {
+        scheduler.pauseAll();
+    }
+
+    @Override
+    public void restartScheduler() throws SchedulerException {
+        scheduler.resumeAll();
+    }
+
+
 }

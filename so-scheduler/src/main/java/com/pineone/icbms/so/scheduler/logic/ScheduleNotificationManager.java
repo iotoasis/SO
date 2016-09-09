@@ -56,7 +56,6 @@ public class ScheduleNotificationManager implements Job{
 //        schedulerProxy.executeScheduledProfile(profileId);
 
         //
-        System.out.println("여기는넘어오니");
         ProfileTransFormData profileTransFormData = new ProfileTransFormData(profileId);
 
         String sendData = DataConversion.objectToString(profileTransFormData);
