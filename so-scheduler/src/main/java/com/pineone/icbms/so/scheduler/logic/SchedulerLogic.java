@@ -8,4 +8,7 @@ import org.quartz.SchedulerException;
 public interface SchedulerLogic {
     void registerScheduler(String profileId) throws SchedulerException;
     void runScheduler() throws SchedulerException;
+    void quitScheduler() throws SchedulerException;
+    void pauseScheduler() throws SchedulerException;
+    void restartScheduler() throws SchedulerException;
 }
