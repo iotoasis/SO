@@ -43,10 +43,8 @@ public class DevicePresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public String deviceControl(@RequestBody DeviceTransFormObject deviceTransFormObject){
         // NOTE : Device Control
-        logger.info(LogPrint.inputInfoLogPrint());
-        System.out.println("\n**********  Device Presentation RequestDeviceControl  **********");
-        System.out.println("Response DeviceId = " + deviceTransFormObject.getDeviceId());
-        System.out.println("Response DeviceCommand = " + deviceTransFormObject.getDeviceCommand());
+        logger.info(LogPrint.inputInfoLogPrint() + "Device ID = " + deviceTransFormObject.getDeviceId() + " DeviceCommand = " + deviceTransFormObject.getDeviceCommand());
+        logger.debug("Device ID = " + deviceTransFormObject.getDeviceId() + " DeviceCommand = " + deviceTransFormObject.getDeviceCommand());
         return deviceManager.deviceExecute(deviceTransFormObject.getDeviceId(), deviceTransFormObject.getDeviceCommand());
     }
 
@@ -57,8 +55,12 @@ public class DevicePresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public List<Device> findDeviceList(){
         // Search Device List
+        List<Device> deviceList = deviceManager.searchDeviceList();
         logger.info(LogPrint.inputInfoLogPrint());
-        return deviceManager.searchDeviceList();
+        for(Device device : deviceList){
+            logger.debug("Device = " + device.toString());
+        }
+        return deviceList;
     }
 
     /**
@@ -68,8 +70,10 @@ public class DevicePresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public Device findDeviceById(@PathVariable String deviceId){
         // Search Device By Id
-        logger.info(LogPrint.inputInfoLogPrint());
-        return deviceManager.deviceSearchById(deviceId);
+        logger.info(LogPrint.inputInfoLogPrint() + "DeviceID = " + deviceId);
+        Device device = deviceManager.deviceSearchById(deviceId);
+        logger.debug("Devoce = " + deviceId.toString());
+        return device;
     }
 
     /**
@@ -80,7 +84,11 @@ public class DevicePresentation {
     public List<Device> findDeviceByLocation(@PathVariable String place){
         // Search Device By Location
         logger.info(LogPrint.inputInfoLogPrint());
-        return deviceManager.deviceSearchByLocation(place);
+        List<Device> deviceList = deviceManager.deviceSearchByLocation(place);
+        for(Device device : deviceList){
+            logger.debug("Device = " + device.toString());
+        }
+        return deviceList;
     }
 
     /**
@@ -89,8 +97,10 @@ public class DevicePresentation {
     @RequestMapping(value = "/service/{location}",method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<String> deviceServiceList(@PathVariable String location) {
-        logger.info(LogPrint.inputInfoLogPrint());
-        return deviceManager.requestDeviceServiceList(location);
+        logger.info(LogPrint.inputInfoLogPrint() + "DeviceLocation = " + location);
+        List<String> deviceServiceList = deviceManager.requestDeviceServiceList(location);
+        logger.debug("DeviceServiceList = " + deviceServiceList.toString());
+        return deviceServiceList;
     }
 
 
@@ -101,7 +111,8 @@ public class DevicePresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public void deviceEnableNotification(@RequestBody deviceReleaseMessage message) {
         // NOTE : Register the device memory
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.inputInfoLogPrint() + "DeviceUri = " + message.getDeviceId());
+        logger.debug("DeviceReleaseMessage = " + message.toString());
         deviceManager.deviceRegister(message);
     }
 
@@ -113,7 +124,8 @@ public class DevicePresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public void deviceDisableNotification(@RequestBody deviceReleaseMessage message) {
         // NOTE : Unregister the device memory
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.inputInfoLogPrint() + "DeviceUri = " + message.getDeviceId());
+        logger.debug("DeviceReleaseMessage = " + message.toString());
         deviceManager.deviceRelease(message.getDeviceId());
     }
 
@@ -125,7 +137,8 @@ public class DevicePresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public String asynchronousControlResult(@RequestBody ResultMessage message){
         // NOTO : Device the result is stored in the data memory.
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.inputInfoLogPrint() + "Result = " + message.get_result());
+        logger.debug("ResultMessage = " + message.toString());
         return deviceManager.deviceControlResult(message);
     }
 
@@ -135,7 +148,8 @@ public class DevicePresentation {
     @RequestMapping(value ="/operation",method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public String findDeviceOperation(@RequestBody DeviceTransFormObject deviceTransFormObject){
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.inputInfoLogPrint() + "Device ID = " + deviceTransFormObject.getDeviceId());
+        logger.debug("Device = " + deviceTransFormObject.toString());
         return deviceManager.searchOperation(deviceTransFormObject.getDeviceId(), deviceTransFormObject.getDeviceServices());
     }
 

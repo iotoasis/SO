@@ -7,6 +7,8 @@ import com.pineone.icbms.so.device.store.DeviceResultStore;
 import com.pineone.icbms.so.device.store.DeviceStore;
 import com.pineone.icbms.so.device.util.ClientProfile;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ import java.util.List;
 
 @Service
 public class DeviceManagerLogic implements DeviceManager {
+
+    public static final Logger logger = LoggerFactory.getLogger(DeviceManagerLogic.class);
 
     @Autowired
     private DeviceStore deviceStore;
@@ -31,22 +35,24 @@ public class DeviceManagerLogic implements DeviceManager {
     @Override
     public void deviceRegister(deviceReleaseMessage deviceReleaseMessage){
         // NOTE : 디바이스 생성.
-
+        logger.debug("DeviceReleaseMessage = " + deviceReleaseMessage.toString());
         // 디바이스 ID로 SDA에 데이터 요청.
         Device device = deviceRequest(ClientProfile.SDA_DATAREQUEST_URI + ClientProfile.SDA_DEVICE + deviceReleaseMessage.getDeviceId());
-
+        logger.debug("Device = " + device.toString());
         // 디바이스 저장.
         deviceCreate(device);
-
     }
 
     @Override
     public void deviceRelease(String deviceId){
+        logger.debug("Device ID = " + deviceId);
         deviceStore.delete(deviceId);
     }
 
     @Override
     public String deviceExecute(String deviceId,String deviceCommand){
+
+        logger.debug("DeviceID = " + deviceId + " DeviceCommand = " + deviceCommand);
 
         String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
 
@@ -55,14 +61,11 @@ public class DeviceManagerLogic implements DeviceManager {
 
         // SI를 제어할수 있는 DeviceControlMessage로 변환
         DeviceControlMessage deviceControlMessage = deviceDataConversion(deviceId,commandId,deviceCommand);
-
+        logger.debug("DeviceControlMessage = " + deviceControlMessage.toString());
         // JsonData로 요청 메시지 변환
         String jsonString = convertObjectToJson(deviceControlMessage);
-
+        logger.debug("DeviceControlMessage to JSON = " + jsonString);
         // Device 제어 요청 보냄.
-        System.out.println("\n**********  Device Control  **********");
-        System.out.println("Request Uri = " + ClientProfile.SI_CONTOL_URI);
-        System.out.println("Request Body = " + jsonString +"\n");
 //        ResultMessage resultMessage = controlRequest(ClientProfile.SI_CONTOL_URI,jsonString);
 //
         // Device 제어 결과 저장.
@@ -74,7 +77,7 @@ public class DeviceManagerLogic implements DeviceManager {
 
     @Override
     public String deviceControlResult(ResultMessage resultMessage) {
-
+        logger.debug("ResultMessage = " + resultMessage.toString());
         DeviceResult deviceResult = deviceResultStore.retrieve(resultMessage.get_commandId());
 
         if(deviceResult != null && deviceResult.getCommandId() != null){
@@ -94,29 +97,37 @@ public class DeviceManagerLogic implements DeviceManager {
 
     @Override
     public Device deviceSearchById(String deviceId) {
+        logger.debug("Device ID = " + deviceId);
         return deviceStore.retrieveByID(deviceId);
     }
 
     @Override
     public List<Device> deviceSearchByLocation(String location) {
+        logger.debug("Location = " + location);
         return deviceStore.retrieveByLocation(location);
     }
 
     @Override
     public List<String> requestDeviceServiceList(String location) {
+        logger.debug("Location = " + location);
         return deviceStore.retrieveDeviceService(location);
     }
 
     @Override
     public String searchOperation(String deviceId, String deviceService) {
         //SDA에 DeviceId와 deviceService를 보낸다.
+        logger.debug("Device ID = " + deviceId + " DeviceService = " + deviceService);
         String responseData = deviceICollectionProxy.findDeviceOperation(deviceId,deviceService);
         return responseData;
     }
 
     @Override
     public List<Device> searchDeviceList() {
-        return deviceStore.retrieveDeviceList();
+        List<Device> deviceList = deviceStore.retrieveDeviceList();
+        for(Device device : deviceList){
+            logger.debug("Device = " + device.toString());
+        }
+        return deviceList;
     }
 
 

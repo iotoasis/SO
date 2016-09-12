@@ -43,10 +43,6 @@ public class VirtualObjectPresentation {
     public String requestControlVirtualObject(@RequestBody VirtualObjectTransFormObject virtualObjectTransFormObject){
         logger.info(LogPrint.inputInfoLogPrint());
         //
-        System.out.println("\n**********  VirtualObject Presentation RequestVOControl  **********");
-        System.out.println("Response virtualObjectID = " + virtualObjectTransFormObject.getVoId());
-        System.out.println("Response virtualObjectOperation = " + virtualObjectTransFormObject.getVoCommand());
-
         return virtualObjectManager.requestControlDevice(virtualObjectTransFormObject.getVoId(), virtualObjectTransFormObject.getVoCommand());
     }
 

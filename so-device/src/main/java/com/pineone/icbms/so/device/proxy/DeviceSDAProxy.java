@@ -39,11 +39,12 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
     @Override
     public List<String> findDomain(String requestUri){
         //
-        logger.info(LogPrint.outputInfoLogPrint());
+        logger.info(LogPrint.outputInfoLogPrint() + "RequestUri = " + requestUri);
+        logger.debug("RequestUri = " + requestUri);
         List<String> domainList = new ArrayList<>();
 
         String responseData = clientService.requestGetService(requestUri);
-
+        logger.debug("ResponseData = " + responseData);
         try {
             domainList = mapper.readValue(responseData, new TypeReference<List<String>>(){});
         } catch (IOException e) {
@@ -60,11 +61,12 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
     @Override
     public Device findDeviceByID(String requestUri){
         //
-        logger.info(LogPrint.outputInfoLogPrint());
+        logger.info(LogPrint.outputInfoLogPrint() + "RequestUri = " + requestUri);
+        logger.debug("RequestUri = " + requestUri);
         Device device = null;
 
         String responseData = clientService.requestGetService(requestUri);
-
+        logger.debug("ResponseData = " + responseData);
         try {
             device = mapper.readValue(responseData,Device.class);
         } catch (Exception e){
@@ -81,11 +83,12 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
      */
     @Override
     public List<Device> findDeviceByDomain(String requestUri){
-        logger.info((LogPrint.outputInfoLogPrint()));
+        logger.info((LogPrint.outputInfoLogPrint()) + "RequestUri = " + requestUri);
+        logger.debug("RequestUri = " + requestUri);
         List<Device> deviceList = new ArrayList<>();
 
         String responseData = clientService.requestGetService(requestUri);
-
+        logger.debug("ResponseData = " + responseData);
         try {
             deviceList = mapper.readValue(responseData, new TypeReference<List<Device>>(){});
         } catch (IOException e) {
@@ -102,11 +105,12 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
     @Override
     public List<String> findDeviceServiceList(String requestUri){
         //
-        logger.info((LogPrint.outputInfoLogPrint()));
+        logger.info((LogPrint.outputInfoLogPrint()) + "RequestUri = " + requestUri);
+        logger.debug("RequestUri = " + requestUri);
         List<String> deviceFunctionalityList = new ArrayList<>();
 
         String responseData = clientService.requestGetService(requestUri);
-
+        logger.debug("ResponseData = " + responseData);
         try {
             deviceFunctionalityList = mapper.readValue(responseData, new TypeReference<List<String>>(){});
         } catch (IOException e) {
@@ -122,7 +126,8 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
 
     @Override
     public String findDeviceOperation(String deviceId, String deviceService) {
-        logger.info((LogPrint.outputInfoLogPrint()));
+        logger.info((LogPrint.outputInfoLogPrint())+ "DeviceID = " + deviceId);
+        logger.debug("DeviceID = " + deviceId + "DeviceService = " + deviceService);
 
         String requestUri = ClientProfile.SDA_DATAREQUEST_URI + ClientProfile.SDA_DEVICE + ClientProfile.SDA_DEVICE_OPERATION;
         JSONObject obj = new JSONObject();
@@ -131,6 +136,7 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
         String requestData = obj.toString();
 
         String responseData = clientService.requestPostService(requestUri,requestData);
+        logger.debug("ResponseData = " + responseData);
         return responseData;
     }
 

@@ -21,6 +21,7 @@ public class VirtualObjectSDAProxy implements VirtualObjectProxy{
     @Override
     public String findFunctionality(String deviceId, String deviceService){
         logger.info(LogPrint.outputInfoLogPrint());
+        logger.debug("Device ID = " + deviceId + " DeviceService = " + deviceService);
         //
         String requestUri = ClientProfile.SDA_DATAREQUEST_URI + ClientProfile.SDA_DEVICE;
         JSONObject obj = new JSONObject();

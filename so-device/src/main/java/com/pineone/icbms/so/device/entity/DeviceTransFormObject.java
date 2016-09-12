@@ -68,4 +68,16 @@ public class DeviceTransFormObject {
     public void setDeviceServices(String deviceServices) {
         this.deviceServices = deviceServices;
     }
+
+    @Override
+    public String toString() {
+        return "DeviceTransFormObject{" +
+                "deviceId='" + deviceId + '\'' +
+                ", deviceName='" + deviceName + '\'' +
+                ", deviceLocation='" + deviceLocation + '\'' +
+                ", deviceUri='" + deviceUri + '\'' +
+                ", deviceCommand='" + deviceCommand + '\'' +
+                ", deviceServices='" + deviceServices + '\'' +
+                '}';
+    }
 }

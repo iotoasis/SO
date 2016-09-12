@@ -97,4 +97,17 @@ public class ServiceTransFormObject {
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
     }
+
+    @Override
+    public String toString() {
+        return "ServiceTransFormObject{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", virtualObjectIdList=" + virtualObjectIdList +
+                ", virtualObjectService='" + virtualObjectService + '\'' +
+                ", status='" + status + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", modifiedTime='" + modifiedTime + '\'' +
+                '}';
+    }
 }

@@ -30,10 +30,12 @@ public class DeviceSIProxy implements DeviceControlProxy {
     @Override
     public ResultMessage deviceControlRequest(String requestUrl,String requestBody) {
         //
-        logger.info(LogPrint.outputInfoLogPrint());
+        logger.info(LogPrint.outputInfoLogPrint() + "RequestUri = " + requestUrl + "RequestBody = " + requestBody);
+        logger.debug("RequestUri = " + requestUrl + "RequestBody = " + requestBody);
         ResultMessage resultMessage = new ResultMessage();
 
         String responseData = clientService.requestPostService(requestUrl, requestBody);
+        logger.debug("ResponseData = " + responseData);
         try {
             resultMessage = mapper.readValue(responseData, ResultMessage.class);
         } catch (IOException e) {

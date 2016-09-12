@@ -34,7 +34,7 @@ public class ServiceModelInternalProxy implements ServiceModelProxy {
     //NOTE: Service 모듈을 이용해서 Service 조회
     @Override
     public Service retrieveServiceDetail(String serviceId) {
-        logger.info(LogPrint.outputInfoLogPrint());
+        logger.info(LogPrint.outputInfoLogPrint() + "Service ID = " + serviceId);
         logger.debug("Retrieve Service ID = " + serviceId);
         Service service = servicePresentation.retrieveServiceDetailController(serviceId);
         logger.debug("Service = " + service.toString());
@@ -46,15 +46,15 @@ public class ServiceModelInternalProxy implements ServiceModelProxy {
     public List<String> retrieveServiceIdList() {
         logger.info(LogPrint.outputInfoLogPrint());
         List<String> serviceIdList = servicePresentation.retrieveServiceIdList();
+        logger.debug("ServiceIDList = " + serviceIdList.toString());
         return serviceIdList;
     }
 
     @Override
     public void executeService(String serviceId) {
-        logger.info(LogPrint.outputInfoLogPrint());
         // 서비스 실행
-        System.out.println("\n**********  ServiceModel Proxy RequestServiceControl  **********");
-        System.out.println("Request ServiceID = " + serviceId);
+        logger.info(LogPrint.outputInfoLogPrint() + "Service ID = " + serviceId);
+        logger.debug("Execute Service ID = " + serviceId);
         servicePresentation.executeService(servicePresentation.settingServiceId(serviceId));
     }
 

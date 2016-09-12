@@ -52,4 +52,16 @@ public class DeviceResultDataObject {
     public String getDeviceUrl() {
         return deviceUrl;
     }
+
+    @Override
+    public String toString() {
+        return "DeviceResultDataObject{" +
+                "sendMessage='" + sendMessage + '\'' +
+                ", result1='" + result1 + '\'' +
+                ", result2='" + result2 + '\'' +
+                ", commandId='" + commandId + '\'' +
+                ", value='" + value + '\'' +
+                ", deviceUrl='" + deviceUrl + '\'' +
+                '}';
+    }
 }

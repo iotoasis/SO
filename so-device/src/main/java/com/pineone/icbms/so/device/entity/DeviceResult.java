@@ -94,4 +94,16 @@ public class DeviceResult {
     public void setDeviceUrl(String deviceUrl) {
         this.deviceUrl = deviceUrl;
     }
+
+    @Override
+    public String toString() {
+        return "DeviceResult{" +
+                "sendMessage='" + sendMessage + '\'' +
+                ", result1='" + result1 + '\'' +
+                ", result2='" + result2 + '\'' +
+                ", commandId='" + commandId + '\'' +
+                ", value='" + value + '\'' +
+                ", deviceUrl='" + deviceUrl + '\'' +
+                '}';
+    }
 }
