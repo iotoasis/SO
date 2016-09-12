@@ -3,12 +3,16 @@ package com.pineone.icbms.so.contextmodel.pr;
 import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 import com.pineone.icbms.so.contextmodel.logic.ContextModelLogic;
+import com.pineone.icbms.so.contextmodel.proxy.ContextModelExProxy;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.contextmodel.ref.DataValidation;
 import com.pineone.icbms.so.contextmodel.ref.ResponseMessage;
 import com.pineone.icbms.so.contextmodel.store.mongo.ContextModelDataObject;
 import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.util.exception.DataLossException;
+import com.pineone.icbms.so.util.logprint.LogPrint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -26,6 +30,9 @@ import java.util.List;
 public class ContextModelPresentation {
     //
     @Autowired ContextModelLogic contextModelLogic;
+
+    public static final Logger logger = LoggerFactory.getLogger(ContextModelPresentation.class);
+
 //    ContextModelLogic contextModelLogic = ContextModelLogicImpl.newContextModelLogic();
 
     //NOTE: ContextModel 생성 요청 -> ContextInformation 리스트 리턴
@@ -34,6 +41,7 @@ public class ContextModelPresentation {
     @ResponseBody
     public List<String> requestContextModelMakingController(){
         //
+        logger.info(LogPrint.inputInfoLogPrint());
         List<String> contextInformationNameList = contextModelLogic.retrieveContextInformationNameList();
         return contextInformationNameList;
     }
@@ -44,6 +52,7 @@ public class ContextModelPresentation {
     @ResponseBody
     public List<ContextType> retrieveContextTypeListController(){
         //
+        logger.info(LogPrint.inputInfoLogPrint());
         List<ContextType> contextTypeList = contextModelLogic.retrieveContextTypeList();
         return contextTypeList;
     }
@@ -54,6 +63,8 @@ public class ContextModelPresentation {
     @ResponseBody
     public ResponseMessage registerGeneralContextController(@RequestBody ContextModel contextModel){
         //
+        logger.info(LogPrint.inputInfoLogPrint());
+        logger.debug("ContextModel = " + contextModel.toString());
         DataValidation dataValidation = DataValidation.newDataValidation();
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
         try {
@@ -73,6 +84,7 @@ public class ContextModelPresentation {
     @ResponseBody
     public List<String> retrieveContextModelList(){
         //
+        logger.info(LogPrint.inputInfoLogPrint());
         List<String> contextModelNameList = contextModelLogic.retrieveContextModelNameList();
         return contextModelNameList;
     }
@@ -83,18 +95,25 @@ public class ContextModelPresentation {
     @ResponseBody
     public ContextModel retrieveContextModelDetailController(@PathVariable("id")String contextModelId){
         //
+        logger.info(LogPrint.inputInfoLogPrint());
+        logger.debug("ContextModelId = " + contextModelId);
         ContextModel contextModel = contextModelLogic.retrieveContextModelDetail(contextModelId);
+
         return contextModel;
     }
 
     //NOTE: ContextModel 상황 발생 여부 질의
     public List<String> isHappenContextModel(String contextModelId){
+        logger.info(LogPrint.inputInfoLogPrint());
+        logger.debug("ContextModelId = " + contextModelId);
         List<String> domainIdList = contextModelLogic.isHappenContextModel(contextModelId);
         return domainIdList;
     }
 
     //NOTE: Profile 에서 ContextModel 의 타입을 알고 추가 정보 요청 판단을 위해 ContextModelName으로 contextTypeName 조회
     public String retrieveContextModelType(String contextModelName){
+        logger.info(LogPrint.inputInfoLogPrint());
+        logger.debug("ContextModelName = " + contextModelName);
         String contextModelType = contextModelLogic.retrieveContextModelType(contextModelName);
         return contextModelType;
     }
@@ -104,10 +123,10 @@ public class ContextModelPresentation {
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public ResponseMessage emergencyContextModel(@RequestBody ContextModelTransFormObject contextModelTransFormObject){
+
+        logger.info(LogPrint.inputInfoLogPrint());
+        logger.debug("ContextModel = " + contextModelTransFormObject.toString());
         //
-        System.out.println("************ ContextModel Presentation Receive ContextModel ***********");
-        System.out.println("Receive ContextModel ID = " + contextModelTransFormObject.getContextId());
-        System.out.println();
         DataValidation dataValidation = DataValidation.newDataValidation();
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
         ContextModel contextModel = dataObjectToContextModel(contextModelTransFormObject);
@@ -133,6 +152,7 @@ public class ContextModelPresentation {
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public List<Domain> retrieveDomain(){
+        logger.info(LogPrint.inputInfoLogPrint());
         List<Domain> domainList = contextModelLogic.retrieveDomainList();
         return domainList;
     }
@@ -143,6 +163,7 @@ public class ContextModelPresentation {
     @ResponseBody
     public List<String> retrieveContextModelIdList(){
         //
+        logger.info(LogPrint.inputInfoLogPrint());
         List<String> contextModelNameList = contextModelLogic.retrieveContextModelIdList();
         return contextModelNameList;
     }
@@ -168,6 +189,7 @@ public class ContextModelPresentation {
     @ResponseBody
     public List<ContextModel> retrieveContextInformationList() {
         //
+        logger.info(LogPrint.inputInfoLogPrint());
         List<ContextModel> contextModelList = contextModelLogic.retrieveContextInformationList();
         return contextModelList;
     }

@@ -1,7 +1,10 @@
 package com.pineone.icbms.so.contextinformation.store.mongo;
 
 import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
+import com.pineone.icbms.so.contextinformation.pr.ContextInformationPresentation;
 import com.pineone.icbms.so.contextinformation.store.ContextInformationStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,9 +22,12 @@ public class ContextInformationStoreMongoImpl implements ContextInformationStore
     @Autowired
     ContextInformationRepository contextInformationRepository;
 
+    public static final Logger logger = LoggerFactory.getLogger(ContextInformationStoreMongoImpl.class);
+
     // NOTE: CI 등록
     @Override
     public void createContextInformation(ContextInformation contextInformation) {
+        logger.debug("ContextInformation = " + contextInformation.toString());
         ContextInformationDataObject contextInformationDataObject = contextInformationToDataObject(contextInformation);
         contextInformationRepository.save(contextInformationDataObject);
     }
@@ -40,6 +46,7 @@ public class ContextInformationStoreMongoImpl implements ContextInformationStore
     // NOTE: CI 개별 조회
     @Override
     public ContextInformation retrieveContextInformationDetail(String contextId) {
+        logger.debug("ContextId = " + contextId);
         ContextInformationDataObject contextInformationDataObject = contextInformationRepository.findOne(contextId);
         return dataObjectToContextInformation(contextInformationDataObject);
     }

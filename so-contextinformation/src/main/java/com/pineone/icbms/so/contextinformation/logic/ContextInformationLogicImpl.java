@@ -1,12 +1,15 @@
 package com.pineone.icbms.so.contextinformation.logic;
 
 import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
+import com.pineone.icbms.so.contextinformation.pr.ContextInformationPresentation;
 import com.pineone.icbms.so.contextinformation.proxy.ContextInformationProxy;
 import com.pineone.icbms.so.contextinformation.ref.ResponseMessage;
 import com.pineone.icbms.so.contextinformation.store.ContextInformationStore;
 import com.pineone.icbms.so.contextinformation.temp.device.ConceptService;
 import com.pineone.icbms.so.contextinformation.temp.device.DeviceCenter;
 import com.pineone.icbms.so.contextinformation.temp.device.DeviceObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +23,8 @@ import java.util.List;
 
 @Service
 public class ContextInformationLogicImpl implements ContextInformationLogic {
+
+    public static final Logger logger = LoggerFactory.getLogger(ContextInformationLogicImpl.class);
 
     @Autowired DeviceCenter deviceCenter;
 
@@ -51,6 +56,7 @@ public class ContextInformationLogicImpl implements ContextInformationLogic {
 //        ContextInformationStore contextInformationStore = ContextInformationMapStore.getInstance();
 //        ContextInformationProxy contextInformationProxy = ContextInformationSDAProxy.newContextInformationProxy();
 //        contextInformation.setId("CI-" + contextInformation.getId());
+        logger.debug("ContextInformation = " + contextInformation.toString());
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
         String contextInformationStr = responseMessage.contextInformationResultMessage(contextInformation);
         contextInformationStore.createContextInformation(contextInformation);
@@ -60,6 +66,7 @@ public class ContextInformationLogicImpl implements ContextInformationLogic {
 
     //NOTE : ContextInformation 상세 조회
     public ContextInformation retrieveContextInformationDetail(String contextId) {
+        logger.debug("ContextId = " + contextId);
 //        ContextInformationStore contextStore = ContextInformationMapStore.getInstance();
         ContextInformation contextInformation = contextInformationStore.retrieveContextInformationDetail(contextId);
 //        SDA 이용할 경우 :
@@ -75,6 +82,7 @@ public class ContextInformationLogicImpl implements ContextInformationLogic {
         List<String> contextInformationNameList = new ArrayList<>();
         for(ContextInformation contextInformation : contextInformationList){
             contextInformationNameList.add(contextInformation.getName());
+            logger.debug("ContextInformation = " + contextInformation.toString());
         }
         // SDA 이용할 경우 :
         // ContextInformationProxy contextInformationProxy = new ContextInformationSDAProxy();
@@ -94,6 +102,7 @@ public class ContextInformationLogicImpl implements ContextInformationLogic {
         List<String> contextInformationIdList = new ArrayList<>();
         for(ContextInformation contextInformation : contextInformationList){
             contextInformationIdList.add(contextInformation.getId());
+            logger.debug("ContextInformation = " + contextInformation.toString());
         }
         return contextInformationIdList;
     }

@@ -54,5 +54,15 @@ public class ContextModelTransFormObject {
         this.contents = contents;
         this.time = time;
     }
+
+    @Override
+    public String toString() {
+        return "ContextModelTransFormObject{" +
+                "cmd='" + cmd + '\'' +
+                ", contextId='" + contextId + '\'' +
+                ", contents=" + contents +
+                ", time='" + time + '\'' +
+                '}';
+    }
 }
 

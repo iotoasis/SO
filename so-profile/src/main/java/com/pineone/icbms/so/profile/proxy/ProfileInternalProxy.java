@@ -4,7 +4,11 @@ import com.pineone.icbms.so.bizcontext.pr.BizContextPresentation;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 import com.pineone.icbms.so.contextmodel.logic.ContextModelLogicImpl;
 import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
+import com.pineone.icbms.so.profile.pr.ProfilePresentation;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
+import com.pineone.icbms.so.util.logprint.LogPrint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +22,8 @@ import java.util.List;
 @Service
 public class ProfileInternalProxy extends AbstractProfileProxy {
     //
+    public static final Logger logger = LoggerFactory.getLogger(ProfileInternalProxy.class);
+
     @Autowired
             ContextModelPresentation contextModelPresentation;
 
@@ -38,6 +44,8 @@ public class ProfileInternalProxy extends AbstractProfileProxy {
     //NOTE: 컨텍스트모델 모듈에 연결해서 저장되어 있는 컨텍스트 모델들의 이름을 조회
     @Override
     public List<String> retrieveContextModelNameList() {
+        //
+        logger.info(LogPrint.outputInfoLogPrint());
         List<String> contextModelNameList = contextModelPresentation.retrieveContextModelList();
         return contextModelNameList;
     }
@@ -45,6 +53,8 @@ public class ProfileInternalProxy extends AbstractProfileProxy {
     //NOTE: 서비스모델 모듈에 연결해서 저장되어 있는 서비스모델들의 이름을 조회
     @Override
     public List<String> retrieveServiceModelNameList() {
+        //
+        logger.info(LogPrint.outputInfoLogPrint());
         List<String> serviceModelNameList = serviceModelPresentation.retrieveServiceModelIdList();
         return serviceModelNameList;
     }
@@ -52,6 +62,8 @@ public class ProfileInternalProxy extends AbstractProfileProxy {
     //NOTE: 비즈컨텍스트 모듈에 연결해서 저장되어 있는 비즈컨텍스트들의 이름을 조회
     @Override
     public List<String> retrieveBizContextList() {
+        //
+        logger.info(LogPrint.outputInfoLogPrint());
         List<String> bizContextNameList = bizContextPresentation.retrieveBizContextList();
         return bizContextNameList;
     }
@@ -59,6 +71,7 @@ public class ProfileInternalProxy extends AbstractProfileProxy {
     //NOTE: 컨텍스트모델 모듈에 연결해서 수신받은 인자된 응급상황이 있는지 조회
     @Override
     public boolean checkContextModelQueue() {
+        //
         boolean flag = ContextModelLogicImpl.CONTEXT_MODEL_QUEUE.isEmpty();
         return flag;
     }
@@ -67,6 +80,7 @@ public class ProfileInternalProxy extends AbstractProfileProxy {
     @Override
     public ContextModel retrieveContextModelQueueData() {
         //
+        logger.info(LogPrint.outputInfoLogPrint());
         ContextModel contextModel = contextModelPresentation.retrieveContextModelQueueData();
         return contextModel;
     }

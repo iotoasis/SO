@@ -28,6 +28,7 @@ public class BizContextBasicLogic {
         List<String> bizContextList = new ArrayList<>();
         for(Biz_Note biz_note : Biz_Note.values()){
             bizContextList.add(biz_note.toString());
+
         }
         return bizContextList;
     }
