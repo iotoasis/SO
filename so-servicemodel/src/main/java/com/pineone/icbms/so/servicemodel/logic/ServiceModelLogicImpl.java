@@ -5,6 +5,8 @@ import com.pineone.icbms.so.servicemodel.proxy.ServiceModelProxy;
 import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
 import com.pineone.icbms.so.servicemodel.ref.ServiceMessage;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -20,6 +22,8 @@ import java.util.Queue;
 public class ServiceModelLogicImpl implements ServiceModelLogic {
     //
     public static final Queue SERVICEMODEL_QUEUE = new LinkedList<>();
+
+    public static final Logger logger = LoggerFactory.getLogger(ServiceModelLogicImpl.class);
 
     @Autowired
     ServiceModelProxy serviceModelProxy;
@@ -37,6 +41,7 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
     @Override
     public List<String> retrieveServiceNameList() {
         List<String> serviceNameList = serviceModelProxy.retrieveServiceNameList();
+        logger.debug("ServiceNameList = " + serviceNameList.toString());
         return serviceNameList;
     }
 
@@ -44,6 +49,7 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
     @Override
     public String registerServiceModel(ServiceModel serviceModel) {
         //
+        logger.debug("ServiceModel = " + serviceModel);
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
 //        ServiceModelStore serviceModelStore = ServiceModelMapStore.getInstance();
 
@@ -56,8 +62,10 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
     //NOTE: ServiceModel 상세 정보 조회 요청을 받고 디비에서 정보를 조회해서 반환
     public ServiceModel retrieveServiceModelDetail(String serviceModelId) {
         //
+        logger.debug("ServiceModel ID = " + serviceModelId);
 //        ServiceModelStore serviceModelStore = ServiceModelMapStore.getInstance();
         ServiceModel serviceModel = serviceModelStore.retrieveServiceModelDetail(serviceModelId);
+        logger.debug("ServiceModel = " + serviceModel);
         return serviceModel;
     }
 
@@ -65,13 +73,16 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
     @Override
     public void executeServiceModel(String serviceModelId) {
         //
+        logger.debug("Execute ServiceModel ID = " + serviceModelId);
         ServiceModel serviceModel = serviceModelStore.retrieveServiceModelDetail(serviceModelId);
+        logger.debug("Execute ServiceModel = " + serviceModel);
         List<String> serviceIdList = serviceModel.getServiceIdList();
         List<ServiceMessage> serviceMessageList = new ArrayList<>();
         for (String serviceId : serviceIdList) {
 //            Service service = serviceModelProxy.retrieveServiceDetail(serviceId);
 //            ServiceMessage serviceMessage = new ServiceMessage(domainId, service.getVirtualObjectService(), service.getStatus());
 //            serviceMessageList.add(serviceMessage);
+            logger.debug("Execute Service ID = " + serviceId);
             serviceModelProxy.executeService(serviceId);
         }
     }
@@ -79,6 +90,7 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
     @Override
     public List<String> retrieveServiceIdList() {
         List<String> serviceIdList = serviceModelProxy.retrieveServiceIdList();
+        logger.debug("ServiceIDList = " + serviceIdList);
         return serviceIdList;
     }
 
@@ -89,33 +101,17 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
         for (ServiceModel serviceModel : serviceModelList) {
             serviceModelIdList.add(serviceModel.getId());
         }
+        logger.debug("ServiceModelIDList = " + serviceModelIdList);
         return serviceModelIdList;
     }
 
     @Override
     public List<ServiceModel> retrieveServiceModelList() {
-        return serviceModelStore.retrieveServiceModelList();
-    }
-
-    private void setupData(){
-        List<String> serviceList = new ArrayList<>();
-        serviceList.add("AIRCLEANER-POWER-CONTROL-SERVICE-001");
-
-        ServiceModel serviceModel = new ServiceModel();
-        serviceModel.setId("CLASSROOM-AIRIDEAL-SERVICE");
-        serviceModel.setName("강의실 쾌적 공기제공 서비스");
-        serviceModel.setServiceIdList(serviceList);
-        serviceModel.setCreateTime("201608250930");
-        serviceModel.setModifiedTime("201608250930");
-
-        registerServiceModel(serviceModel);
-
-        List<String> serviceList1 = new ArrayList<>();
-        serviceList1.add("SMARTLIGHT-POWER-CONTROL-SERVICE-001");
-        serviceList1.add("BLIND-POWER-CONTROL-SERVICE-001");
-        serviceList1.add("BEAMPROJECTOR-POWER-CONTROL-SERVICE-001");
-        serviceList1.add("BEAMSCREEN-POWER-CONTROL-SERVICE-001");
-        registerServiceModel(new ServiceModel("CLASSROOM-PRESENTATIONMODE-SERVICE","강의실 발표 도우미 서비스",serviceList1,"201608250930","201608250930"));
+        List<ServiceModel> serviceModelList = serviceModelStore.retrieveServiceModelList();
+        for(ServiceModel serviceModel : serviceModelList){
+            logger.debug("ServiceModel = " + serviceModel.toString());
+        }
+        return serviceModelList;
     }
 
 }

@@ -5,6 +5,9 @@ import com.pineone.icbms.so.servicemodel.logic.ServiceModelLogic;
 import com.pineone.icbms.so.servicemodel.ref.DataValidation;
 import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
 import com.pineone.icbms.so.util.exception.DataLossException;
+import com.pineone.icbms.so.util.logprint.LogPrint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +22,9 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/servicemodel")
 public class ServiceModelPresentation {
-    //
+
+    public static final Logger logger = LoggerFactory.getLogger(ServiceModelPresentation.class);
+
     @Autowired
             ServiceModelLogic serviceModelLogic;
 //    ServiceModelLogic serviceModelLogic = ServiceModelLogicImpl.newServiceModelLogic();
@@ -29,7 +34,9 @@ public class ServiceModelPresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public List<String> requestServiceModelMakingController(){
         //
+        logger.info(LogPrint.inputInfoLogPrint());
         List<String> serviceNameList = serviceModelLogic.retrieveServiceNameList();
+        logger.debug("ServiceNameList = " + serviceNameList.toString());
         return serviceNameList;
     }
 
@@ -37,6 +44,9 @@ public class ServiceModelPresentation {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseMessage registerServiceModelController(@RequestBody ServiceModelTransFormObject serviceModelTransFormObject){
+        //
+        logger.info(LogPrint.inputInfoLogPrint());
+        logger.debug("ServiceModel = " + serviceModelTransFormObject.toString());
         // 외부 데이터 변환
         ServiceModel serviceModel = dataObjectToServiceModel(serviceModelTransFormObject);
 
@@ -62,7 +72,9 @@ public class ServiceModelPresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public List<String> retrieveServiceModelIdList(){
         //
+        logger.info(LogPrint.inputInfoLogPrint());
         List<String> serviceModelList = serviceModelLogic.retrieveServiceModelIdList();
+        logger.debug("ServiceModelList = " + serviceModelList.toString());
         return serviceModelList;
     }
 
@@ -71,7 +83,14 @@ public class ServiceModelPresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public List<ServiceModel> retrieveServiceModelList(){
         //
-        return serviceModelLogic.retrieveServiceModelList();
+        logger.info(LogPrint.inputInfoLogPrint());
+
+        List<ServiceModel> serviceModelList = serviceModelLogic.retrieveServiceModelList();
+
+        for(ServiceModel serviceModel : serviceModelList){
+            logger.debug("ServiceModelList = " + serviceModel.toString());
+        }
+        return serviceModelList;
     }
 
 
@@ -79,8 +98,10 @@ public class ServiceModelPresentation {
     @RequestMapping(value = "/{serviceModelId}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public ServiceModel retrieveServiceModelDetailController(@PathVariable String serviceModelId){
+        logger.info(LogPrint.inputInfoLogPrint());
         //
         ServiceModel serviceModel = serviceModelLogic.retrieveServiceModelDetail(serviceModelId);
+        logger.debug("ServiceModel = " + serviceModel);
         return serviceModel;
     }
 
@@ -89,8 +110,8 @@ public class ServiceModelPresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public void executeServiceModel(@RequestBody ServiceModelTransFormObject serviceModelTransFormObject) {
         //
-        System.out.println("\n**********  ServiceModel Presentation RequestServiceModel  **********");
-        System.out.println("Response ServiceModelID = " + serviceModelTransFormObject.getId());
+        logger.info(LogPrint.inputInfoLogPrint());
+        logger.debug("ServiceModel Id = " + serviceModelTransFormObject.getId());
         serviceModelLogic.executeServiceModel(serviceModelTransFormObject.getId());
     }
 

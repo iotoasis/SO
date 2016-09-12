@@ -63,7 +63,7 @@ public class DeviceManagerLogic implements DeviceManager {
         System.out.println("\n**********  Device Control  **********");
         System.out.println("Request Uri = " + ClientProfile.SI_CONTOL_URI);
         System.out.println("Request Body = " + jsonString +"\n");
-        ResultMessage resultMessage = controlRequest(ClientProfile.SI_CONTOL_URI,jsonString);
+//        ResultMessage resultMessage = controlRequest(ClientProfile.SI_CONTOL_URI,jsonString);
 //
         // Device 제어 결과 저장.
 //        controlResultsStorage(deviceId, commandId, deviceCommand, resultMessage);

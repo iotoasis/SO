@@ -3,7 +3,10 @@ package com.pineone.icbms.so.device.proxy;
 import com.pineone.icbms.so.device.entity.ResultMessage;
 import com.pineone.icbms.so.device.util.ClientProfile;
 import com.pineone.icbms.so.device.util.ClientService;
+import com.pineone.icbms.so.util.logprint.LogPrint;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -22,9 +25,12 @@ public class DeviceSIProxy implements DeviceControlProxy {
     private ClientService clientService = new ClientService();
     private ObjectMapper mapper = new ObjectMapper();
 
+    public static final Logger logger = LoggerFactory.getLogger(DeviceSIProxy.class);
+
     @Override
     public ResultMessage deviceControlRequest(String requestUrl,String requestBody) {
         //
+        logger.info(LogPrint.outputInfoLogPrint());
         ResultMessage resultMessage = new ResultMessage();
 
         String responseData = clientService.requestPostService(requestUrl, requestBody);

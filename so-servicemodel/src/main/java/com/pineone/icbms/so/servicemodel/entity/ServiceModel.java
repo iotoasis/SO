@@ -72,4 +72,15 @@ public class ServiceModel {
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
     }
+
+    @Override
+    public String toString() {
+        return "ServiceModel{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", serviceIdList=" + serviceIdList +
+                ", createTime='" + createTime + '\'' +
+                ", modifiedTime='" + modifiedTime + '\'' +
+                '}';
+    }
 }
