@@ -80,8 +80,8 @@ public class ProfileInternalProxy extends AbstractProfileProxy {
     @Override
     public ContextModel retrieveContextModelQueueData() {
         //
-        logger.info(LogPrint.outputInfoLogPrint());
         ContextModel contextModel = contextModelPresentation.retrieveContextModelQueueData();
+        logger.info(LogPrint.outputInfoLogPrint() + ", contextModelId = " + contextModel.getId());
         return contextModel;
     }
 }

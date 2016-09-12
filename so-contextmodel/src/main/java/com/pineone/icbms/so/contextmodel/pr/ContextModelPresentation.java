@@ -63,7 +63,7 @@ public class ContextModelPresentation {
     @ResponseBody
     public ResponseMessage registerGeneralContextController(@RequestBody ContextModel contextModel){
         //
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.inputInfoLogPrint() + ", ContextModelId = " + contextModel.getId());
         logger.debug("ContextModel = " + contextModel.toString());
         DataValidation dataValidation = DataValidation.newDataValidation();
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
@@ -95,7 +95,7 @@ public class ContextModelPresentation {
     @ResponseBody
     public ContextModel retrieveContextModelDetailController(@PathVariable("id")String contextModelId){
         //
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.inputInfoLogPrint() + ", ContextModelId = " +  contextModelId);
         logger.debug("ContextModelId = " + contextModelId);
         ContextModel contextModel = contextModelLogic.retrieveContextModelDetail(contextModelId);
 
@@ -104,7 +104,7 @@ public class ContextModelPresentation {
 
     //NOTE: ContextModel 상황 발생 여부 질의
     public List<String> isHappenContextModel(String contextModelId){
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.inputInfoLogPrint() + ", ContextModelId = " + contextModelId);
         logger.debug("ContextModelId = " + contextModelId);
         List<String> domainIdList = contextModelLogic.isHappenContextModel(contextModelId);
         return domainIdList;
@@ -112,7 +112,7 @@ public class ContextModelPresentation {
 
     //NOTE: Profile 에서 ContextModel 의 타입을 알고 추가 정보 요청 판단을 위해 ContextModelName으로 contextTypeName 조회
     public String retrieveContextModelType(String contextModelName){
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.inputInfoLogPrint() + ", ContextModelId = " + contextModelName);
         logger.debug("ContextModelName = " + contextModelName);
         String contextModelType = contextModelLogic.retrieveContextModelType(contextModelName);
         return contextModelType;
@@ -124,7 +124,7 @@ public class ContextModelPresentation {
     @ResponseBody
     public ResponseMessage emergencyContextModel(@RequestBody ContextModelTransFormObject contextModelTransFormObject){
 
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.inputInfoLogPrint() + ", ContextModelId = " + contextModelTransFormObject.getContextId());
         logger.debug("ContextModel = " + contextModelTransFormObject.toString());
         //
         DataValidation dataValidation = DataValidation.newDataValidation();
@@ -144,6 +144,8 @@ public class ContextModelPresentation {
     //NOTE: ContextModel Queue 에 있는 데이터를 Read
     public ContextModel retrieveContextModelQueueData(){
         ContextModel contextModel = contextModelLogic.retrieveQueueData();
+        logger.info(LogPrint.inputInfoLogPrint() + ", ContextModelId = " + contextModel.getId());
+        logger.debug("ContextModel = " + contextModel.toString());
         return contextModel;
     }
 

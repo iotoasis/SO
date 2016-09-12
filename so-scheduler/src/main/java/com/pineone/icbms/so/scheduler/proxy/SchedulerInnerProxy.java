@@ -26,7 +26,7 @@ public class SchedulerInnerProxy implements SchedulerProxy {
     @Override
     public Profile retrieveProfile(String profileId) {
         //
-        logger.info(LogPrint.outputInfoLogPrint());
+        logger.info(LogPrint.outputInfoLogPrint() + ", ProfileId = " + profileId);
         logger.debug("ProfileId = " + profileId);
         Profile profile = profilePresentation.retrieveProfileDetailController(profileId);
         return profile;
@@ -35,7 +35,7 @@ public class SchedulerInnerProxy implements SchedulerProxy {
     @Override
     public void executeScheduledProfile(String profileId) {
         //
-        logger.info(LogPrint.outputInfoLogPrint());
+        logger.info(LogPrint.outputInfoLogPrint() + ", ProfileId = " + profileId);
         logger.debug("ProfileId = " + profileId);
         System.out.println("여기는넘어오니");
 //        ProfileTransFormData profileTransFormData = new ProfileTransFormData(profileId);
