@@ -100,4 +100,17 @@ public class ServiceDataObject {
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
     }
+
+    @Override
+    public String toString() {
+        return "ServiceDataObject{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", virtualObjectIdList=" + virtualObjectIdList +
+                ", virtualObjectService='" + virtualObjectService + '\'' +
+                ", status='" + status + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", modifiedTime='" + modifiedTime + '\'' +
+                '}';
+    }
 }

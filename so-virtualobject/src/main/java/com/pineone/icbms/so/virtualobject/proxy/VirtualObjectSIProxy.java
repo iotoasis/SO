@@ -17,10 +17,8 @@ public class VirtualObjectSIProxy implements VirtualObjectControlProxy {
 
     @Override
     public String executeDevice(String deviceId, String deviceCommand) {
-        logger.info(LogPrint.outputInfoLogPrint());
-        System.out.println("\n**********  VirtualObject Proxy RequestDeviceControl  **********");
-        System.out.println("Request DeviceID = " + deviceId);
-        System.out.println("Request DeviceCommand = " + deviceCommand);
+        logger.info(LogPrint.outputInfoLogPrint() + "Device ID = " + deviceId + " DeviceCommand = " + deviceCommand);
+        logger.debug("Device ID = " + deviceId + " DeviceCommand = " + deviceCommand);
         return devicePresentation.deviceControl(devicePresentation.settingDeviceRequestData(deviceId, deviceCommand));
     }
 }

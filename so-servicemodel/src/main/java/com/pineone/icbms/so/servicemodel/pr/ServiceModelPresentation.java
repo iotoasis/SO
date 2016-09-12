@@ -45,7 +45,7 @@ public class ServiceModelPresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseMessage registerServiceModelController(@RequestBody ServiceModelTransFormObject serviceModelTransFormObject){
         //
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.inputInfoLogPrint() + "ServiceModel ID = " + serviceModelTransFormObject.getId());
         logger.debug("ServiceModel = " + serviceModelTransFormObject.toString());
         // 외부 데이터 변환
         ServiceModel serviceModel = dataObjectToServiceModel(serviceModelTransFormObject);
@@ -98,7 +98,7 @@ public class ServiceModelPresentation {
     @RequestMapping(value = "/{serviceModelId}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public ServiceModel retrieveServiceModelDetailController(@PathVariable String serviceModelId){
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.inputInfoLogPrint() + "ServiceModel ID = " + serviceModelId);
         //
         ServiceModel serviceModel = serviceModelLogic.retrieveServiceModelDetail(serviceModelId);
         logger.debug("ServiceModel = " + serviceModel);
@@ -110,7 +110,7 @@ public class ServiceModelPresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public void executeServiceModel(@RequestBody ServiceModelTransFormObject serviceModelTransFormObject) {
         //
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.inputInfoLogPrint() + "ServiceModel ID = " + serviceModelTransFormObject.getId());
         logger.debug("ServiceModel Id = " + serviceModelTransFormObject.getId());
         serviceModelLogic.executeServiceModel(serviceModelTransFormObject.getId());
     }

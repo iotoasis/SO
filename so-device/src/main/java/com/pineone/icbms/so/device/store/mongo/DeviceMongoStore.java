@@ -2,6 +2,8 @@ package com.pineone.icbms.so.device.store.mongo;
 
 import com.pineone.icbms.so.device.entity.Device;
 import com.pineone.icbms.so.device.store.DeviceStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +12,8 @@ import java.util.List;
 
 @Repository
 public class DeviceMongoStore implements DeviceStore{
+
+    public static final Logger logger = LoggerFactory.getLogger(DeviceMongoStore.class);
 
     @Autowired
     DeviceRepository deviceRepository;
@@ -29,25 +33,32 @@ public class DeviceMongoStore implements DeviceStore{
 
     @Override
     public void create(Device device) {
+        logger.debug("Device  = " + device.toString());
         DeviceDataObject d = deviceToDataObject(device);
         deviceRepository.save(d);
     }
 
     @Override
     public Device retrieveByID(String id) {
+        logger.debug("Device  ID = " + id);
         DeviceDataObject d = deviceRepository.findBydeviceId(id);
-        return DeviceObjectToDevice(d);
+        Device device = DeviceObjectToDevice(d);
+        logger.debug("Device = " + device.toString());
+        return device;
     }
 
     @Override
     public List<Device> retrieveByLocation(String deviceLocation) {
+        logger.debug("DeviceLocation  = " + deviceLocation);
         List<Device> deviceList = new ArrayList<>();
         List<DeviceDataObject> deviceDataObjects = deviceRepository.findBydeviceLocation(deviceLocation);
 
         for(DeviceDataObject d : deviceDataObjects){
             deviceList.add(DeviceObjectToDevice(d));
         }
-
+        for(Device device : deviceList){
+            logger.debug("Device = " + device.toString());
+        }
         return deviceList;
     }
 
@@ -67,18 +78,22 @@ public class DeviceMongoStore implements DeviceStore{
         for(DeviceDataObject d : deviceDataObjects){
             deviceList.add(DeviceObjectToDevice(d));
         }
-
+        for(Device device : deviceList){
+            logger.debug("Device = " + device.toString());
+        }
         return deviceList;
     }
 
     @Override
     public void update(Device device) {
+        logger.debug("Device = " + device.toString());
         DeviceDataObject d = deviceToDataObject(device);
         deviceRepository.insert(d);
     }
 
     @Override
     public void delete(String id) {
+        logger.debug("Device ID = " + id);
         deviceRepository.delete(id);
     }
 

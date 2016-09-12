@@ -72,6 +72,18 @@ public class DeviceControlMessage {
         this._commandId = _commandId;
     }
 
+    @Override
+    public String toString() {
+        return "DeviceControlMessage{" +
+                "_uri='" + _uri + '\'' +
+                ", _notificationUri='" + _notificationUri + '\'' +
+                ", _commandId='" + _commandId + '\'' +
+                ", _command='" + _command + '\'' +
+                ", cnf='" + cnf + '\'' +
+                ", con='" + con + '\'' +
+                '}';
+    }
+
     /**
      * {"_uri":"/herit-in/herit-cse/Siren_LB0001SR0001","_notificationUri":"http://166.104.122.45:10080/so/resources/vdcm/VDCM-TEST-MESSAGE-120301","_commandId":"VDCM-TEST-MESSAGE-120301","_command":"action","cnf":"text/plain:0","con":"SIREN"}
      */

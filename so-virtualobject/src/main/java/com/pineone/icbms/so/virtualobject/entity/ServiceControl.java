@@ -38,4 +38,13 @@ public class ServiceControl {
     public void setOperation(String operation) {
         this.operation = operation;
     }
+
+    @Override
+    public String toString() {
+        return "ServiceControl{" +
+                "domain='" + domain + '\'' +
+                ", voService='" + voService + '\'' +
+                ", operation='" + operation + '\'' +
+                '}';
+    }
 }

@@ -61,4 +61,18 @@ public class DeviceDataObject {
     public String getDeviceExfiredTime() {
         return deviceExfiredTime;
     }
+
+    @Override
+    public String toString() {
+        return "DeviceDataObject{" +
+                "deviceId='" + deviceId + '\'' +
+                ", deviceName='" + deviceName + '\'' +
+                ", deviceLocation='" + deviceLocation + '\'' +
+                ", deviceUri='" + deviceUri + '\'' +
+                ", deviceCommand=" + deviceCommand +
+                ", deviceServices=" + deviceServices +
+                ", deviceCreateTime='" + deviceCreateTime + '\'' +
+                ", deviceExfiredTime='" + deviceExfiredTime + '\'' +
+                '}';
+    }
 }

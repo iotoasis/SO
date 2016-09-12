@@ -55,15 +55,17 @@ public class ServicePresentation {
     public List<Status> retrieveStatusController(@RequestBody ConceptService conceptService){
         logger.info(LogPrint.inputInfoLogPrint());
         //
-        List<Status> statusLis = serviceLogic.retrieveStatusList(conceptService);
-        return statusLis;
+        List<Status> statusList = serviceLogic.retrieveStatusList(conceptService);
+        logger.debug("StatusList = " + statusList.toString());
+        return statusList;
     }
 
     //NOTE: Service 의 입력 정보 작성 후 등록 -> 등록 결과 리턴
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseMessage registerServiceController(@RequestBody ServiceTransFormObject serviceTransFormObject){
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.inputInfoLogPrint() +" Service ID = " + serviceTransFormObject.getId());
+        logger.debug("Service = " + serviceTransFormObject.toString());
         //
         Service service = dataObjectToServiceModel(serviceTransFormObject);
         DataValidation dataValidation = DataValidation.newDataValidation();
@@ -83,9 +85,10 @@ public class ServicePresentation {
     @RequestMapping(value = "/{serviceId}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public Service retrieveServiceDetailController(@PathVariable String serviceId){
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.inputInfoLogPrint() + "Service ID = " + serviceId);
         //
         Service service = serviceLogic.retrieveServiceDetail(serviceId);
+        logger.debug("Service = " + service.toString());
         return service;
     }
 
@@ -93,10 +96,9 @@ public class ServicePresentation {
     @RequestMapping(value = "/control", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public void executeService(@RequestBody ServiceTransFormObject serviceTransFormObject){
-        logger.info(LogPrint.inputInfoLogPrint());
         // 해당 서비스 아이디로 실행하기.
-        System.out.println("\n**********  Service Presentation RequestServiceControl  **********");
-        System.out.println("Response ServiceID = " + serviceTransFormObject.getId());
+        logger.info(LogPrint.inputInfoLogPrint() + " Service ID = " + serviceTransFormObject.getId());
+        logger.debug("Service ID = " + serviceTransFormObject.getId());
         serviceLogic.executeService(serviceTransFormObject.getId());
     }
 
@@ -104,9 +106,13 @@ public class ServicePresentation {
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<Service> retrieveServiceList(){
-        logger.info(LogPrint.inputInfoLogPrint());
         //
-        return serviceLogic.retrieveServiceList();
+        logger.info(LogPrint.inputInfoLogPrint());
+        List<Service> serviceList = serviceLogic.retrieveServiceList();
+        for(Service service : serviceList){
+            logger.debug("ServiceList = " + service.toString());
+        }
+        return serviceList;
     }
 
 

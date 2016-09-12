@@ -17,10 +17,8 @@ public class ServiceControlProxy implements ServiceProxy {
 
     @Override
     public void executeVirtualObject(String virtualObjectId, String operation) {
-        logger.info(LogPrint.outputInfoLogPrint());
-        System.out.println("\n**********  Service Proxy RequestVirtualObjectControl  **********");
-        System.out.println("Request virtualObjectID = " + virtualObjectId);
-        System.out.println("Request operation = " + operation);
+        logger.info(LogPrint.outputInfoLogPrint() + " VirtualObject ID = " + virtualObjectId + " Operation = " + operation);
+        logger.debug(" VirtualObject ID = " + virtualObjectId + " Operation = " + operation);
         virtualObjectPresentation.requestControlVirtualObject(virtualObjectPresentation.settingVirtualObjectData(virtualObjectId, operation));
     }
 }
