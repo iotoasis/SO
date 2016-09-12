@@ -7,6 +7,9 @@ import com.pineone.icbms.so.contextinformation.ref.ResponseMessage;
 import com.pineone.icbms.so.contextinformation.temp.device.ConceptService;
 import com.pineone.icbms.so.contextinformation.temp.device.DeviceObject;
 import com.pineone.icbms.so.util.exception.DataLossException;
+import com.pineone.icbms.so.util.logprint.LogPrint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -24,6 +27,8 @@ import java.util.List;
 @ResponseBody
 public class ContextInformationPresentation {
 
+    public static final Logger logger = LoggerFactory.getLogger(ContextInformationPresentation.class);
+
     @Autowired
     ContextInformationLogic contextInformationLogic;
 
@@ -35,6 +40,7 @@ public class ContextInformationPresentation {
     @ResponseBody
     public List<DeviceObject> requestContextInformationMaking() {
         //
+        logger.info(LogPrint.inputInfoLogPrint());
         List<DeviceObject> deviceObjectList = contextInformationLogic.retrieveDeviceObjectList();
         return deviceObjectList;
     }
@@ -45,6 +51,7 @@ public class ContextInformationPresentation {
     @ResponseBody
     public List<ConceptService> retrieveConceptServiceController(@PathVariable("deviceobject") DeviceObject deviceObject) {
         //
+        logger.info(LogPrint.inputInfoLogPrint());
         List<ConceptService> conceptServiceList = contextInformationLogic.retrieveConceptService(deviceObject);
         return conceptServiceList;
     }
@@ -55,6 +62,7 @@ public class ContextInformationPresentation {
     @ResponseBody
     public ResponseMessage registerContextInformationController(@RequestBody ContextInformation contextInformation) {
         //
+        logger.info(LogPrint.inputInfoLogPrint());
         DataValidation dataValidation = DataValidation.newDataValidation();
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
         try {
@@ -74,6 +82,7 @@ public class ContextInformationPresentation {
     @ResponseBody
     public List<String> retrieveContextInformationNameList() {
         //
+        logger.info(LogPrint.inputInfoLogPrint());
         List<String> contextInformationList = contextInformationLogic.retrieveContextInformationNameList();
         return contextInformationList;
     }
@@ -84,6 +93,7 @@ public class ContextInformationPresentation {
     @ResponseBody
     public ContextInformation retrieveGeneralContextController(@PathVariable("id") String contextId) {
         //
+        logger.info(LogPrint.inputInfoLogPrint());
         ContextInformation contextInformation = contextInformationLogic.retrieveContextInformationDetail(contextId);
         return contextInformation;
     }
@@ -94,6 +104,7 @@ public class ContextInformationPresentation {
     @ResponseBody
     public List<ContextInformation> retrieveContextInformationList() {
         //
+        logger.info(LogPrint.inputInfoLogPrint());
         List<ContextInformation> contextInformationList = contextInformationLogic.retrieveContextInformationList();
         return contextInformationList;
     }
@@ -104,7 +115,9 @@ public class ContextInformationPresentation {
     @ResponseBody
     public List<String> retrieveContextInformationIdList() {
         //
+        logger.info(LogPrint.inputInfoLogPrint());
         List<String> contextInformationIdList = contextInformationLogic.retrieveContextInformationIdList();
         return contextInformationIdList;
     }
+
 }
