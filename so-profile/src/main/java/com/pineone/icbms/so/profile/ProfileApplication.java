@@ -36,7 +36,7 @@ public class ProfileApplication implements CommandLineRunner
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("profileRun");
+//        System.out.println("profileRun");
         profileLogic.extractContextModelQueueData();
     }
 }
