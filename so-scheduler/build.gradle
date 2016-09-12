@@ -19,11 +19,13 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
     compile project (":so-util")
-    compile project (":so-servicemodel")
-    compile project (":so-contextmodel")
-    compile project (":so-bizcontext")
+    compile project (":so-profile")
 
     compile "com.withwiz:httpclientservice:0.1.1"
+    compile "org.quartz-scheduler:quartz:2.2.1"
+    // https://mvnrepository.com/artifact/org.liquibase/liquibase-core
+    compile group: 'org.liquibase', name: 'liquibase-core', version: '3.4.2'
+
 
 //    //spring
 //    compile "org.springframework:spring-context:$springVersion"

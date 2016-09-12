@@ -149,7 +149,7 @@ public class ProfileLogicImpl implements ProfileLogic{
     }
 
     @Override
-    public void extractQueueData() {
+    public void extractContextModelQueueData() {
         //
         while(true){
             try{
