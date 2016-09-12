@@ -111,4 +111,18 @@ public class ContextInformation {
     public void setModifiedTime(String modifiedTime) {
         this.modifiedTime = modifiedTime;
     }
+
+    @Override
+    public String toString() {
+        return "ContextInformation{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", deviceObjectName='" + deviceObjectName + '\'' +
+                ", minValue=" + minValue +
+                ", maxValue=" + maxValue +
+                ", conceptServiceName='" + conceptServiceName + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", modifiedTime='" + modifiedTime + '\'' +
+                '}';
+    }
 }

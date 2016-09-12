@@ -1,11 +1,14 @@
 package com.pineone.icbms.so.bizcontext.proxy;
 
 import com.google.gson.Gson;
+import com.pineone.icbms.so.bizcontext.pr.BizContextPresentation;
 import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.util.address.AddressStore;
 import com.pineone.icbms.so.util.address.ContextAddress;
 import com.pineone.icbms.so.util.http.ClientService;
 import com.withwiz.beach.network.http.message.IHttpResponseMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BizContextSDAProxy implements BizContextProxy{
+
+    public static final Logger logger = LoggerFactory.getLogger(BizContextPresentation.class);
 
     @Autowired
     ContextAddress contextAddress;

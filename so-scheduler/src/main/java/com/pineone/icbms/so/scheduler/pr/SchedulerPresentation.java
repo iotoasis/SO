@@ -58,7 +58,4 @@ public class SchedulerPresentation {
     public void restartSchedulerController() throws SchedulerException {
         schedulerLogic.restartScheduler();
     }
-
-
-
 }
