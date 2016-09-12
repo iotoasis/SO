@@ -10,6 +10,15 @@ public class Content {
     String uri;
     String type;
     String deg;
+    String place;
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
 
     public String getDeg() {
         return deg;

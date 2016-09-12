@@ -1,0 +1,436 @@
+2016-09-12 13:58:11,086  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 1317 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 13:58:11,090 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 13:58:11,091  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 14:00:04,493  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextInformationPresentation : requestContextInformationMaking 
+2016-09-12 14:03:27,945  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 1354 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 14:03:27,950 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 14:03:27,951  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 14:05:28,337  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextInformationPresentation : registerContextInformationController : received ContextInformation{id='ci-nobody', name='nobody', deviceObjectName='재실센서', minValue=0, maxValue=0, conceptServiceName='재실측정', createTime='null', modifiedTime='null'} 
+2016-09-12 14:22:42,847  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 1404 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 14:22:42,851 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 14:22:42,852  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 14:23:20,863  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 1407 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 14:23:20,868 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 14:23:20,868  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 14:23:59,264  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextInformationPresentation : infoLogPrintrequested 
+2016-09-12 15:46:25,267  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 1488 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 15:46:25,271 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 15:46:25,271  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 15:46:34,574  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextInformationPresentation : inputInfoLogPrint Method : requested 
+2016-09-12 15:47:18,748  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 1494 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 15:47:18,751 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 15:47:18,752  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 15:47:27,219  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextInformationPresentation : registerContextInformationController Method : requested 
+2016-09-12 16:09:45,972  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 2714 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 16:09:45,975 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 16:09:45,976  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 16:09:51,820  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:52,324  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:52,829  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:53,331  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:53,835  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:54,340  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:54,844  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:55,349  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:55,853  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:56,357  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:56,863  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:57,366  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:57,867  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:58,370  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:58,872  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:59,376  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:59,879  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:00,384  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:00,460  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : emergencyContextModel Method : requested 
+2016-09-12 16:10:00,885  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:00,885  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : retrieveContextModelQueueData Method : response 
+2016-09-12 16:10:00,886  INFO [           main] c.p.i.s.c.p.ContextModelPresentation : retrieveContextModelQueueData Method : requested 
+2016-09-12 16:10:02,268  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:02,773  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:03,278  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:03,782  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:04,284  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:04,785  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:05,287  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:05,792  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:06,295  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:06,798  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:07,303  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:07,806  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:08,308  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:08,809  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:09,313  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:09,819  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:10,321  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:10,822  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:11,326  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:11,832  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:12,336  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:12,839  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:13,341  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:13,843  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:14,348  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:14,850  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:15,354  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:15,856  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:16,361  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:16,865  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:17,369  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:17,874  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:18,379  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:18,884  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:19,394  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:19,898  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:20,401  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:20,904  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:21,408  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:21,914  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:22,419  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:22,923  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:23,428  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:23,930  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:24,435  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:24,939  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:25,445  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:25,949  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:26,454  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:26,959  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:27,464  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:27,968  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:28,471  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:28,976  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:29,481  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:29,985  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:30,488  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:30,992  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:31,497  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:32,001  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:32,506  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:33,011  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:33,515  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:34,018  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:34,522  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:35,028  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:35,532  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:36,037  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:36,542  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:37,047  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:37,552  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:38,054  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:38,556  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:39,061  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:39,565  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:40,070  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:40,573  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:41,074  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:41,579  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:42,080  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:42,584  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:43,088  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:43,590  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:44,094  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:44,595  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:45,101  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:45,601  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:46,102  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:46,608  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:47,113  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:47,617  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:48,122  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:48,624  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:49,128  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:49,630  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:50,133  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:50,638  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:51,141  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:51,647  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:52,151  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:52,656  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:53,159  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:53,664  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:54,168  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:54,673  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:55,177  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:55,681  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:56,184  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:56,688  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:57,193  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:57,696  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:58,199  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:58,705  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:59,209  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:59,713  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:00,215  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:00,716  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:01,219  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:01,722  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:02,224  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:02,728  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:03,233  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:03,737  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:04,242  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:04,746  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:05,247  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:05,747  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:06,252  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:06,756  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:07,260  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:07,765  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:08,271  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:08,775  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:09,277  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:09,782  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:10,283  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:10,789  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:11,293  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:11,796  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:12,299  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:12,804  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:13,308  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:13,814  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:14,318  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:14,821  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:15,325  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:15,828  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:16,330  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:16,834  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:17,335  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:17,836  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:18,338  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:18,841  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:19,342  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:19,847  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:20,351  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:20,857  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:21,359  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:21,864  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:22,368  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:22,872  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:23,375  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:23,878  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:24,383  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:24,887  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:25,388  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:25,890  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:26,391  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:26,895  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:27,400  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:27,902  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:28,406  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:28,909  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:29,413  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:29,918  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:30,424  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:30,929  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:31,429  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:31,932  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:32,437  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:32,943  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:33,447  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:33,949  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:28,351  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 2722 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 16:12:28,355 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 16:12:28,355  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 16:12:34,262  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:34,764  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:35,268  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:35,770  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:36,274  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:36,778  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:37,279  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:37,784  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:38,290  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:38,791  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:39,293  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:39,796  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:40,298  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:40,804  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:41,306  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:41,807  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:42,311  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:42,814  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:43,318  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:43,823  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:44,328  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:44,833  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:45,335  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:45,836  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:46,341  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:46,845  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:47,349  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:47,852  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:48,356  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:48,861  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:49,366  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:49,869  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:50,372  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:50,877  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:51,379  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:51,884  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:52,386  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:52,890  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:53,395  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:53,897  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:54,402  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:54,905  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:55,409  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:55,912  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:56,417  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:56,923  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:57,426  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:57,929  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:58,433  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:58,935  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:59,440  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:59,944  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:00,449  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:00,953  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:01,458  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:01,962  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:02,467  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:02,975  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:03,476  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:03,982  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:04,487  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:04,991  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:05,496  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:05,998  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:06,503  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:07,008  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:07,512  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:08,016  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:14,265  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 2728 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 16:13:14,270 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 16:13:14,271  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 16:13:24,233  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : emergencyContextModel Method : requested 
+2016-09-12 16:13:24,284  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : retrieveContextModelQueueData Method : response 
+2016-09-12 16:16:28,344  INFO [http-nio-10080-exec-2] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:16:28,358  INFO [http-nio-10080-exec-2] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:16:28,358  INFO [http-nio-10080-exec-2] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:16:50,102  INFO [http-nio-10080-exec-3] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:16:50,110  INFO [http-nio-10080-exec-3] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:16:50,111  INFO [http-nio-10080-exec-3] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:17:02,210  INFO [http-nio-10080-exec-4] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:17:02,221  INFO [http-nio-10080-exec-4] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:17:02,221  INFO [http-nio-10080-exec-4] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:18:42,110  INFO [http-nio-10080-exec-5] c.p.i.s.s.pr.SchedulerPresentation  : registerSchedulerController Method : response 
+2016-09-12 16:18:42,111  INFO [http-nio-10080-exec-5] c.p.i.s.s.pr.SchedulerPresentation  : retrieveProfile Method : response 
+2016-09-12 16:18:42,111  INFO [http-nio-10080-exec-5] c.p.i.s.p.pr.ProfilePresentation    : retrieveProfileDetailController Method : requested 
+2016-09-12 16:18:42,206  INFO [DefaultQuartzScheduler_Worker-1] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:18:42,206  INFO [DefaultQuartzScheduler_Worker-1] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:18:42,211  INFO [http-nio-10080-exec-6] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:18:42,220  INFO [http-nio-10080-exec-6] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:18:42,221  INFO [http-nio-10080-exec-6] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:18:44,199  INFO [DefaultQuartzScheduler_Worker-2] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:18:44,200  INFO [DefaultQuartzScheduler_Worker-2] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:18:44,205  INFO [http-nio-10080-exec-7] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:18:44,213  INFO [http-nio-10080-exec-7] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:18:44,213  INFO [http-nio-10080-exec-7] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:18:46,197  INFO [DefaultQuartzScheduler_Worker-3] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:18:46,197  INFO [DefaultQuartzScheduler_Worker-3] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:18:46,202  INFO [http-nio-10080-exec-8] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:18:46,210  INFO [http-nio-10080-exec-8] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:18:46,210  INFO [http-nio-10080-exec-8] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:18:48,198  INFO [DefaultQuartzScheduler_Worker-4] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:18:48,199  INFO [DefaultQuartzScheduler_Worker-4] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:18:48,203  INFO [http-nio-10080-exec-9] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:18:48,210  INFO [http-nio-10080-exec-9] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:18:48,211  INFO [http-nio-10080-exec-9] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:18:50,197  INFO [DefaultQuartzScheduler_Worker-5] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:18:50,198  INFO [DefaultQuartzScheduler_Worker-5] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:18:50,202  INFO [http-nio-10080-exec-10] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:18:50,212  INFO [http-nio-10080-exec-10] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:18:50,212  INFO [http-nio-10080-exec-10] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:18:52,195  INFO [DefaultQuartzScheduler_Worker-6] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:18:52,196  INFO [DefaultQuartzScheduler_Worker-6] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:18:52,201  INFO [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:18:52,209  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:18:52,209  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:18:54,197  INFO [DefaultQuartzScheduler_Worker-7] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:18:54,197  INFO [DefaultQuartzScheduler_Worker-7] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:18:54,202  INFO [http-nio-10080-exec-2] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:18:54,210  INFO [http-nio-10080-exec-2] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:18:54,210  INFO [http-nio-10080-exec-2] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:18:56,194  INFO [DefaultQuartzScheduler_Worker-8] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:18:56,195  INFO [DefaultQuartzScheduler_Worker-8] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:18:56,199  INFO [http-nio-10080-exec-3] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:18:56,207  INFO [http-nio-10080-exec-3] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:18:56,207  INFO [http-nio-10080-exec-3] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:18:58,198  INFO [DefaultQuartzScheduler_Worker-9] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:18:58,198  INFO [DefaultQuartzScheduler_Worker-9] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:18:58,202  INFO [http-nio-10080-exec-4] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:18:58,210  INFO [http-nio-10080-exec-4] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:18:58,211  INFO [http-nio-10080-exec-4] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:00,197  INFO [DefaultQuartzScheduler_Worker-10] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:00,198  INFO [DefaultQuartzScheduler_Worker-10] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:00,202  INFO [http-nio-10080-exec-5] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:00,210  INFO [http-nio-10080-exec-5] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:00,211  INFO [http-nio-10080-exec-5] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:02,198  INFO [DefaultQuartzScheduler_Worker-1] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:02,198  INFO [DefaultQuartzScheduler_Worker-1] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:02,203  INFO [http-nio-10080-exec-6] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:02,212  INFO [http-nio-10080-exec-6] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:02,213  INFO [http-nio-10080-exec-6] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:04,199  INFO [DefaultQuartzScheduler_Worker-2] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:04,199  INFO [DefaultQuartzScheduler_Worker-2] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:04,204  INFO [http-nio-10080-exec-7] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:04,215  INFO [http-nio-10080-exec-7] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:04,216  INFO [http-nio-10080-exec-7] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:06,196  INFO [DefaultQuartzScheduler_Worker-3] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:06,196  INFO [DefaultQuartzScheduler_Worker-3] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:06,201  INFO [http-nio-10080-exec-8] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:06,217  INFO [http-nio-10080-exec-8] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:06,218  INFO [http-nio-10080-exec-8] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:08,197  INFO [DefaultQuartzScheduler_Worker-4] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:08,197  INFO [DefaultQuartzScheduler_Worker-4] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:08,201  INFO [http-nio-10080-exec-9] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:08,249  INFO [http-nio-10080-exec-9] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:08,249  INFO [http-nio-10080-exec-9] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:10,195  INFO [DefaultQuartzScheduler_Worker-5] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:10,196  INFO [DefaultQuartzScheduler_Worker-5] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:10,200  INFO [http-nio-10080-exec-10] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:10,208  INFO [http-nio-10080-exec-10] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:10,209  INFO [http-nio-10080-exec-10] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:12,199  INFO [DefaultQuartzScheduler_Worker-6] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:12,200  INFO [DefaultQuartzScheduler_Worker-6] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:12,203  INFO [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:12,211  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:12,212  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:14,197  INFO [DefaultQuartzScheduler_Worker-7] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:14,197  INFO [DefaultQuartzScheduler_Worker-7] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:14,202  INFO [http-nio-10080-exec-2] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:14,210  INFO [http-nio-10080-exec-2] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:14,211  INFO [http-nio-10080-exec-2] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:16,199  INFO [DefaultQuartzScheduler_Worker-8] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:16,200  INFO [DefaultQuartzScheduler_Worker-8] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:16,205  INFO [http-nio-10080-exec-3] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:16,212  INFO [http-nio-10080-exec-3] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:16,213  INFO [http-nio-10080-exec-3] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:18,195  INFO [DefaultQuartzScheduler_Worker-9] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:18,195  INFO [DefaultQuartzScheduler_Worker-9] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:18,199  INFO [http-nio-10080-exec-4] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:18,208  INFO [http-nio-10080-exec-4] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:18,209  INFO [http-nio-10080-exec-4] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:20,196  INFO [DefaultQuartzScheduler_Worker-10] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:20,197  INFO [DefaultQuartzScheduler_Worker-10] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:20,201  INFO [http-nio-10080-exec-5] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:20,209  INFO [http-nio-10080-exec-5] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:20,209  INFO [http-nio-10080-exec-5] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:22,197  INFO [DefaultQuartzScheduler_Worker-1] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:22,197  INFO [DefaultQuartzScheduler_Worker-1] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:22,200  INFO [http-nio-10080-exec-6] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:22,211  INFO [http-nio-10080-exec-6] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:22,211  INFO [http-nio-10080-exec-6] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:24,197  INFO [DefaultQuartzScheduler_Worker-2] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:24,198  INFO [DefaultQuartzScheduler_Worker-2] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:24,202  INFO [http-nio-10080-exec-7] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:24,209  INFO [http-nio-10080-exec-7] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:24,209  INFO [http-nio-10080-exec-7] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:24,242  INFO [http-nio-10080-exec-8] c.p.i.s.s.pr.SchedulerPresentation  : pauseSchedulerController Method : response 
+2016-09-12 16:52:46,709  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 2832 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 16:52:46,715 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 16:52:46,716  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 16:53:21,677  INFO [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:53:21,781  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:53:21,781  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 

@@ -1,8 +1,12 @@
 package com.pineone.icbms.so.scheduler.pr;
 
 import com.pineone.icbms.so.profile.pr.ProfileTransFormData;
+import com.pineone.icbms.so.profile.proxy.ProfileInternalProxy;
 import com.pineone.icbms.so.scheduler.logic.SchedulerLogic;
+import com.pineone.icbms.so.util.logprint.LogPrint;
 import org.quartz.SchedulerException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -16,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/scheduler")
 public class SchedulerPresentation {
 
+    public static final Logger logger = LoggerFactory.getLogger(SchedulerPresentation.class);
+
     @Autowired
     SchedulerLogic schedulerLogic;
 
@@ -25,13 +31,15 @@ public class SchedulerPresentation {
     @ResponseBody
     public void registerSchedulerController(@RequestBody ProfileTransFormData profileTransFormData) throws SchedulerException {
         //
+        logger.info(LogPrint.outputInfoLogPrint());
+        logger.debug("Profile = " + profileTransFormData.toString());
         schedulerLogic.registerScheduler(profileTransFormData.getId());
-        System.out.println(profileTransFormData.getId());
     }
 
     //NOTE: Scheduler 시작 -> 시작시 스케줄러 디비에 있는 모든 내용을 이용하여 스케줄러를 실행
     public void startSchedulerController() throws SchedulerException {
         //
+        logger.info(LogPrint.outputInfoLogPrint());
         schedulerLogic.runScheduler();
     }
 
@@ -48,6 +56,7 @@ public class SchedulerPresentation {
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public void pauseSchedulerController() throws SchedulerException {
+        logger.info(LogPrint.outputInfoLogPrint());
         schedulerLogic.pauseScheduler();
     }
 
@@ -56,6 +65,7 @@ public class SchedulerPresentation {
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public void restartSchedulerController() throws SchedulerException {
+        logger.info(LogPrint.outputInfoLogPrint());
         schedulerLogic.restartScheduler();
     }
 }

@@ -108,4 +108,18 @@ public class ContextModel {
     public void setOccTime(String occTime) {
         this.occTime = occTime;
     }
+
+    @Override
+    public String toString() {
+        return "ContextModel{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", domainIdList=" + domainIdList +
+                ", contextInformationIdList=" + contextInformationIdList +
+                ", contextType='" + contextType + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", modifiedTime='" + modifiedTime + '\'' +
+                ", occTime='" + occTime + '\'' +
+                '}';
+    }
 }

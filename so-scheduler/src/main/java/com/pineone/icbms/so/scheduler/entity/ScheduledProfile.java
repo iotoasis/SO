@@ -31,4 +31,12 @@ public class ScheduledProfile {
     public void setPeriod(int period) {
         Period = period;
     }
+
+    @Override
+    public String toString() {
+        return "ScheduledProfile{" +
+                "id='" + id + '\'' +
+                ", Period=" + Period +
+                '}';
+    }
 }

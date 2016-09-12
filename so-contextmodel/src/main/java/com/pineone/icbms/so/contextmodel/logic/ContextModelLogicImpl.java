@@ -1,12 +1,15 @@
 package com.pineone.icbms.so.contextmodel.logic;
 
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
+import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
 import com.pineone.icbms.so.contextmodel.proxy.ContextModelExProxy;
 import com.pineone.icbms.so.contextmodel.proxy.ContextModelInProxy;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.contextmodel.ref.ResponseMessage;
 import com.pineone.icbms.so.contextmodel.store.ContextModelStore;
 import com.pineone.icbms.so.domain.entity.Domain;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +34,7 @@ public class ContextModelLogicImpl implements ContextModelLogic{
     @Autowired
     ContextModelInProxy contextModelInProxy;
 
+    public static final Logger logger = LoggerFactory.getLogger(ContextModelLogicImpl.class);
 
     public static final Queue CONTEXT_MODEL_QUEUE = new LinkedList<>();
 
@@ -78,16 +82,19 @@ public class ContextModelLogicImpl implements ContextModelLogic{
         //List<ContextModel> contextModelList = contextModelExProxy.retrieveContextModelListFromSDA();
         List<String> contextModelNameList = new ArrayList<>();
         for(ContextModel contextModel : contextModelList){
+            logger.debug("ContextModel = " + contextModel.toString());
             contextModelNameList.add(contextModel.getName());
         }
         return contextModelNameList;
     }
 
     // NOTE : DB 에서 ContextModel 상세 조회
-    public ContextModel retrieveContextModelDetail(String contextModelName) {
+    public ContextModel retrieveContextModelDetail(String contextModelId) {
         //
 //        ContextModelStore contextModelStore = ContextModelMapStore.getInstance();
-        ContextModel contextModel = contextModelStore.retrieveContextModelDetail(contextModelName);
+
+        logger.debug("ContextModelId = " + contextModelId);
+        ContextModel contextModel = contextModelStore.retrieveContextModelDetail(contextModelId);
         //SDA 에서 조회할 경우
         //ContextModelExProxy contextModelExProxy = ContextModelSDAProxy.newContextModelProxy();
         //ContextModel contextModel = contextModelExProxy.retrieveContextModelDetail(contextModelName);
@@ -98,6 +105,7 @@ public class ContextModelLogicImpl implements ContextModelLogic{
     public List<String> isHappenContextModel(String contextModelId){
         //
 //        ContextModelExProxy contextModelExProxy = ContextModelSDAProxy.newContextModelProxy();
+        logger.debug("ContextModelId = " + contextModelId);
         List<String> domainIdList = contextModelExProxy.retrieveContextModelEvent(contextModelId);
         return domainIdList;
     }
@@ -117,9 +125,7 @@ public class ContextModelLogicImpl implements ContextModelLogic{
         //
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
 
-        System.out.println("************ ContextModelComponent : Queue *********** ");
-        System.out.println("Queue - ContextModel ID = " + contextModel.getId());
-        System.out.println();
+        logger.debug("ContextModel = " + contextModel.toString());
         CONTEXT_MODEL_QUEUE.offer(contextModel);
 
         String contextModelResultMessage = responseMessage.contextModelResultMessage(contextModel);
@@ -129,6 +135,7 @@ public class ContextModelLogicImpl implements ContextModelLogic{
     @Override
     public ContextModel retrieveQueueData() {
         ContextModel contextModel = (ContextModel) ContextModelLogicImpl.CONTEXT_MODEL_QUEUE.poll();
+        logger.debug("ContextModel = " + contextModel.toString());
         return contextModel;
     }
 
@@ -150,6 +157,7 @@ public class ContextModelLogicImpl implements ContextModelLogic{
         List<String> contextModelIdList = new ArrayList<>();
         for(ContextModel contextModel : contextModelList){
             contextModelIdList.add(contextModel.getId());
+            logger.debug("ContextModel = " + contextModel.toString());
         }
         return contextModelIdList;
     }

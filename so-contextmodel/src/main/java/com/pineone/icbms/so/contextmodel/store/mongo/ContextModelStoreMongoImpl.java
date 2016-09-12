@@ -2,6 +2,8 @@ package com.pineone.icbms.so.contextmodel.store.mongo;
 
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 import com.pineone.icbms.so.contextmodel.store.ContextModelStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,9 +21,12 @@ public class ContextModelStoreMongoImpl implements ContextModelStore {
     @Autowired
     ContextModelRepository contextModelRepository;
 
+    public static final Logger logger = LoggerFactory.getLogger(ContextModelStoreMongoImpl.class);
+
     //NOTE : CM 등록
     @Override
     public void createContextModel(ContextModel contextModel) {
+        logger.debug("ContextModel = " + contextModel.toString());
         ContextModelDataObject contextModelDataObject = contextModelToDataObject(contextModel);
         contextModelRepository.save(contextModelDataObject);
     }
@@ -32,6 +37,7 @@ public class ContextModelStoreMongoImpl implements ContextModelStore {
         List<ContextModelDataObject> contextModelDataObjectList = contextModelRepository.findAll();
         List<ContextModel> contextModelList = new ArrayList<>();
         for(ContextModelDataObject contextModelDataObject : contextModelDataObjectList){
+            logger.debug("ContextModel = " + dataObjectToContextModel(contextModelDataObject));
             contextModelList.add(dataObjectToContextModel(contextModelDataObject));
         }
         return contextModelList;
@@ -42,6 +48,7 @@ public class ContextModelStoreMongoImpl implements ContextModelStore {
     public ContextModel retrieveContextModelDetail(String contextModelId) {
         ContextModelDataObject contextModelDataObject = contextModelRepository.findOne(contextModelId);
         ContextModel contextModel = dataObjectToContextModel(contextModelDataObject);
+        logger.debug("ContextModel = " + contextModel.toString());
         return contextModel;
     }
 
