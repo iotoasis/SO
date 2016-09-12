@@ -262,11 +262,10 @@ public class ProfilePresentation {
         logger.info(LogPrint.inputInfoLogPrint());
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
 
-        System.out.println("************ Profile Presentation Receive Scheduled Profile ***********");
-        System.out.println("Profile ID = " + profileTransFormData.getId());
-        System.out.println();
+//        System.out.println("Profile ID = " + profileTransFormData.getId());
+//        System.out.println();
         Profile profile = dataObjectToProfile(profileTransFormData);
-        logger.debug("Profile = " + profile.toString());
+        logger.debug("Profile = " + profileTransFormData.toString());
         String resultMessage = profileLogic.executeScheduleProfile(profile.getId());
         responseMessage.setMessage(resultMessage);
         return responseMessage;

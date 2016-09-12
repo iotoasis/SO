@@ -434,3 +434,295 @@
 2016-09-12 16:53:21,677  INFO [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
 2016-09-12 16:53:21,781  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
 2016-09-12 16:53:21,781  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 18:14:12,314  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 5088 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 18:14:12,318 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 18:14:12,319  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 18:15:12,505  INFO [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 18:15:12,506 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : Profile = com.pineone.icbms.so.profile.entity.Profile@2f46eb62 
+2016-09-12 18:15:12,631 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.s.m.ProfileStoreMongoImpl : Profile = com.pineone.icbms.so.profile.entity.Profile@5a20ebeb 
+2016-09-12 18:15:12,631 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.logic.ProfileLogicImpl    : Profile = com.pineone.icbms.so.profile.entity.Profile@1ef97557 
+2016-09-12 18:15:12,632  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 18:15:12,632 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : ContextModelId = cm-announcement-on 
+2016-09-12 18:15:12,632 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.l.ContextModelLogicImpl   : ContextModelId = cm-announcement-on 
+2016-09-12 18:15:12,633  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 18:15:12,633 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : ContextModelId = cm-announcement-on 
+2016-09-12 18:15:13,721  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelPresentation : executeServiceModel Method : requested 
+2016-09-12 18:15:13,721 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelPresentation : ServiceModel Id = sm-announcement-on 
+2016-09-12 18:15:13,721 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute ServiceModel ID = sm-announcement-on 
+2016-09-12 18:15:13,745 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute ServiceModel = ServiceModel{id='sm-announcement-on', name='강의실 스마트 발표 시작 서비스모델', serviceIdList=[si-classroom-light-off, si-classroom-blind-on, si-classroom-beamscreen-on], createTime='null', modifiedTime='null'} 
+2016-09-12 18:15:13,746 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-light-off 
+2016-09-12 18:15:13,746  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:15:13,747  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:15:13,765  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,766  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,804  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,805  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,864  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,865  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,873  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,873  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,876  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,877  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,884  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,885  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,887  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,888  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,896  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,897  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,898  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,899  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,906  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,907  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,909  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,910  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,918  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,919  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,922  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,926  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,936  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,937  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,938  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,939  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,948  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,948  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,950 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-blind-on 
+2016-09-12 18:15:13,950  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:15:13,951  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:15:13,958  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,959  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,967  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,968  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,970  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,971  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,979  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,979  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,981  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,982  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,990  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,991  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,992 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-beamscreen-on 
+2016-09-12 18:15:13,993  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:15:13,993  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:15:14,001  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:14,001  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:14,009  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:14,009  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:27,328  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 5098 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 18:16:27,332 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 18:16:27,333  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 18:16:46,260  INFO [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 18:16:46,261 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : Profile = com.pineone.icbms.so.profile.entity.Profile@673c6fd4 
+2016-09-12 18:16:46,364 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.s.m.ProfileStoreMongoImpl : Profile = com.pineone.icbms.so.profile.entity.Profile@229e97c7 
+2016-09-12 18:16:46,365 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.logic.ProfileLogicImpl    : Profile = com.pineone.icbms.so.profile.entity.Profile@7e5e8a0c 
+2016-09-12 18:16:46,366  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 18:16:46,366 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : ContextModelId = cm-announcement-on 
+2016-09-12 18:16:46,366 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.l.ContextModelLogicImpl   : ContextModelId = cm-announcement-on 
+2016-09-12 18:16:46,367  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 18:16:46,367 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : ContextModelId = cm-announcement-on 
+2016-09-12 18:16:46,694  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelPresentation : executeServiceModel Method : requested 
+2016-09-12 18:16:46,694 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelPresentation : ServiceModel Id = sm-announcement-on 
+2016-09-12 18:16:46,694 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute ServiceModel ID = sm-announcement-on 
+2016-09-12 18:16:46,711 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute ServiceModel = ServiceModel{id='sm-announcement-on', name='강의실 스마트 발표 시작 서비스모델', serviceIdList=[si-classroom-light-off, si-classroom-blind-on, si-classroom-beamscreen-on], createTime='null', modifiedTime='null'} 
+2016-09-12 18:16:46,712 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-light-off 
+2016-09-12 18:16:46,713  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:16:46,714  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:16:46,731  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,732  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,767  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,768  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,801  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,802  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,809  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,810  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,813  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,813  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,821  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,822  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,824  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,825  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,833  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,834  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,837  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,837  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,845  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,846  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,848  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,848  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,857  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,859  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,861  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,862  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,870  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,870  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,872  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,873  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,880  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,881  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,883 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-blind-on 
+2016-09-12 18:16:46,883  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:16:46,883  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:16:46,890  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,891  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,898  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,899  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,901  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,902  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,909  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,910  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,914  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,915  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,922  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,923  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,925 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-beamscreen-on 
+2016-09-12 18:16:46,925  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:16:46,926  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:16:46,934  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,934  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,942  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,942  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:17:51,343  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 5106 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 18:17:51,347 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 18:17:51,348  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 18:18:10,558  INFO [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 18:18:10,559 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : Profile = com.pineone.icbms.so.profile.entity.Profile@344cf892 
+2016-09-12 18:18:10,661 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.s.m.ProfileStoreMongoImpl : Profile = com.pineone.icbms.so.profile.entity.Profile@1758b7fa 
+2016-09-12 18:18:10,661 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.logic.ProfileLogicImpl    : Profile = com.pineone.icbms.so.profile.entity.Profile@6dd5ed9c 
+2016-09-12 18:18:10,662  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 18:18:10,662 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : ContextModelId = cm-announcement-on 
+2016-09-12 18:18:10,662 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.l.ContextModelLogicImpl   : ContextModelId = cm-announcement-on 
+2016-09-12 18:18:10,662  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 18:18:10,663 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : ContextModelId = cm-announcement-on 
+2016-09-12 18:18:10,963  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelPresentation : executeServiceModel Method : requested 
+2016-09-12 18:18:10,964 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelPresentation : ServiceModel Id = sm-announcement-on 
+2016-09-12 18:18:10,964 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute ServiceModel ID = sm-announcement-on 
+2016-09-12 18:18:10,980 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute ServiceModel = ServiceModel{id='sm-announcement-on', name='강의실 스마트 발표 시작 서비스모델', serviceIdList=[si-classroom-light-off, si-classroom-blind-on, si-classroom-beamscreen-on], createTime='null', modifiedTime='null'} 
+2016-09-12 18:18:10,981 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-light-off 
+2016-09-12 18:18:10,981  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:18:10,982  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:18:10,999  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,001  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,036  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,037  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,072  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,072  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,081  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,081  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,083  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,084  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,092  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,093  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,095  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,095  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,106  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,107  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,110  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,111  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,120  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,120  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,122  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,123  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,131  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,132  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,134  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,135  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,143  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,144  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,146  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,146  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,154  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,155  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,157 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-blind-on 
+2016-09-12 18:18:11,157  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:18:11,158  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:18:11,166  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,167  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,175  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,176  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,178  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,179  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,187  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,187  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,189  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,190  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,198  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,199  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,200 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-beamscreen-on 
+2016-09-12 18:18:11,201  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:18:11,201  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:18:11,212  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,212  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,219  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,220  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:07,303  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 5120 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 18:21:07,307 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 18:21:07,308  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 18:21:17,587  INFO [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 18:21:17,589 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : Profile = ProfileTransFormData{id='pr-announcement-on'} 
+2016-09-12 18:21:17,693 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.s.m.ProfileStoreMongoImpl : Profile = Profile{id='pr-announcement-on', name='공기정화', contextModelId='cm-announcement-on', serviceModelId='sm-announcement-on', bizContextName='null', period=10, expirationTime=0, happenContextModel=false, createTime='null', modifiedTime='null'} 
+2016-09-12 18:21:17,694 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.logic.ProfileLogicImpl    : Profile = Profile{id='pr-announcement-on', name='공기정화', contextModelId='cm-announcement-on', serviceModelId='sm-announcement-on', bizContextName='null', period=10, expirationTime=0, happenContextModel=false, createTime='null', modifiedTime='null'} 
+2016-09-12 18:21:17,695  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 18:21:17,695 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : ContextModelId = cm-announcement-on 
+2016-09-12 18:21:17,696 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.l.ContextModelLogicImpl   : ContextModelId = cm-announcement-on 
+2016-09-12 18:21:17,696  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 18:21:17,696 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : ContextModelId = cm-announcement-on 
+2016-09-12 18:21:18,372  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelPresentation : executeServiceModel Method : requested 
+2016-09-12 18:21:18,372 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelPresentation : ServiceModel Id = sm-announcement-on 
+2016-09-12 18:21:18,373 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute ServiceModel ID = sm-announcement-on 
+2016-09-12 18:21:18,389 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute ServiceModel = ServiceModel{id='sm-announcement-on', name='강의실 스마트 발표 시작 서비스모델', serviceIdList=[si-classroom-light-off, si-classroom-blind-on, si-classroom-beamscreen-on], createTime='null', modifiedTime='null'} 
+2016-09-12 18:21:18,390 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-light-off 
+2016-09-12 18:21:18,391  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:21:18,392  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:21:18,412  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,413  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,442  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,443  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,482  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,483  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,492  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,492  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,494  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,495  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,505  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,505  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,508  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,508  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,516  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,517  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,519  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,519  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,528  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,528  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,530  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,532  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,541  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,542  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,544  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,545  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,553  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,554  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,556  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,559  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,567  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,568  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,569 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-blind-on 
+2016-09-12 18:21:18,570  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:21:18,570  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:21:18,578  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,579  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,587  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,588  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,590  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,590  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,598  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,599  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,601  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,602  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,611  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,611  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,613 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-beamscreen-on 
+2016-09-12 18:21:18,613  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:21:18,614  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:21:18,622  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,622  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,630  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,631  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
