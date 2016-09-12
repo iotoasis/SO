@@ -5,6 +5,9 @@ import com.pineone.icbms.so.service.entity.Service;
 import com.pineone.icbms.so.service.logic.ServiceLogic;
 import com.pineone.icbms.so.service.ref.*;
 import com.pineone.icbms.so.util.exception.DataLossException;
+import com.pineone.icbms.so.util.logprint.LogPrint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +23,8 @@ import java.util.List;
 @ResponseStatus(value = HttpStatus.OK)
 public class ServicePresentation {
 
+    public static final Logger logger = LoggerFactory.getLogger(ServicePresentation.class);
+
     @Autowired
     ServiceLogic serviceLogic;
 //    ServiceLogic serviceLogic = ServiceLogicImpl.newServiceLogicImpl();
@@ -28,6 +33,7 @@ public class ServicePresentation {
     @RequestMapping(value = "/controlservice", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<DeviceObject> requestServiceMaking(){
+        logger.info(LogPrint.inputInfoLogPrint());
         //
         List<DeviceObject> deviceObjectList = serviceLogic.retrieveDeviceObjectList();
         return deviceObjectList;
@@ -37,6 +43,7 @@ public class ServicePresentation {
     @RequestMapping(value = "/controlservice", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public List<ConceptService> retrieveConceptServiceController(@RequestBody DeviceObject deviceObject){
+        logger.info(LogPrint.inputInfoLogPrint());
         // TODO : functionality 목록들을 표시 된다.(저작시 필요)
         List<ConceptService> conceptServiceList = serviceLogic.retrieveConceptService(deviceObject);
         return conceptServiceList;
@@ -46,6 +53,7 @@ public class ServicePresentation {
     @RequestMapping(value = "/status", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public List<Status> retrieveStatusController(@RequestBody ConceptService conceptService){
+        logger.info(LogPrint.inputInfoLogPrint());
         //
         List<Status> statusLis = serviceLogic.retrieveStatusList(conceptService);
         return statusLis;
@@ -55,6 +63,7 @@ public class ServicePresentation {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseMessage registerServiceController(@RequestBody ServiceTransFormObject serviceTransFormObject){
+        logger.info(LogPrint.inputInfoLogPrint());
         //
         Service service = dataObjectToServiceModel(serviceTransFormObject);
         DataValidation dataValidation = DataValidation.newDataValidation();
@@ -74,6 +83,7 @@ public class ServicePresentation {
     @RequestMapping(value = "/{serviceId}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public Service retrieveServiceDetailController(@PathVariable String serviceId){
+        logger.info(LogPrint.inputInfoLogPrint());
         //
         Service service = serviceLogic.retrieveServiceDetail(serviceId);
         return service;
@@ -83,6 +93,7 @@ public class ServicePresentation {
     @RequestMapping(value = "/control", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public void executeService(@RequestBody ServiceTransFormObject serviceTransFormObject){
+        logger.info(LogPrint.inputInfoLogPrint());
         // 해당 서비스 아이디로 실행하기.
         System.out.println("\n**********  Service Presentation RequestServiceControl  **********");
         System.out.println("Response ServiceID = " + serviceTransFormObject.getId());
@@ -93,6 +104,7 @@ public class ServicePresentation {
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<Service> retrieveServiceList(){
+        logger.info(LogPrint.inputInfoLogPrint());
         //
         return serviceLogic.retrieveServiceList();
     }

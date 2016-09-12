@@ -71,4 +71,15 @@ public class ServiceModelTransFormObject {
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
     }
+
+    @Override
+    public String toString() {
+        return "ServiceModelTransFormObject{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", serviceIdList=" + serviceIdList +
+                ", createTime='" + createTime + '\'' +
+                ", modifiedTime='" + modifiedTime + '\'' +
+                '}';
+    }
 }

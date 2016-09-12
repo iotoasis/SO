@@ -3,9 +3,12 @@ package com.pineone.icbms.so.device.proxy;
 import com.pineone.icbms.so.device.entity.Device;
 import com.pineone.icbms.so.device.util.ClientProfile;
 import com.pineone.icbms.so.device.util.ClientService;
+import com.pineone.icbms.so.util.logprint.LogPrint;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.json.simple.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -26,6 +29,8 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
     private ClientService clientService = new ClientService();
     private ObjectMapper mapper = new ObjectMapper();
 
+    public static final Logger logger = LoggerFactory.getLogger(DeviceSDAProxy.class);
+
     /**
      * 1. Domain 조회(get)
      * @param requestUri
@@ -34,6 +39,7 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
     @Override
     public List<String> findDomain(String requestUri){
         //
+        logger.info(LogPrint.outputInfoLogPrint());
         List<String> domainList = new ArrayList<>();
 
         String responseData = clientService.requestGetService(requestUri);
@@ -54,6 +60,7 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
     @Override
     public Device findDeviceByID(String requestUri){
         //
+        logger.info(LogPrint.outputInfoLogPrint());
         Device device = null;
 
         String responseData = clientService.requestGetService(requestUri);
@@ -74,6 +81,7 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
      */
     @Override
     public List<Device> findDeviceByDomain(String requestUri){
+        logger.info((LogPrint.outputInfoLogPrint()));
         List<Device> deviceList = new ArrayList<>();
 
         String responseData = clientService.requestGetService(requestUri);
@@ -94,6 +102,7 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
     @Override
     public List<String> findDeviceServiceList(String requestUri){
         //
+        logger.info((LogPrint.outputInfoLogPrint()));
         List<String> deviceFunctionalityList = new ArrayList<>();
 
         String responseData = clientService.requestGetService(requestUri);
@@ -113,6 +122,7 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
 
     @Override
     public String findDeviceOperation(String deviceId, String deviceService) {
+        logger.info((LogPrint.outputInfoLogPrint()));
 
         String requestUri = ClientProfile.SDA_DATAREQUEST_URI + ClientProfile.SDA_DEVICE + ClientProfile.SDA_DEVICE_OPERATION;
         JSONObject obj = new JSONObject();
