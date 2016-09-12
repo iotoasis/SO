@@ -31,7 +31,7 @@ public class SchedulerPresentation {
     @ResponseBody
     public void registerSchedulerController(@RequestBody ProfileTransFormData profileTransFormData) throws SchedulerException {
         //
-        logger.info(LogPrint.outputInfoLogPrint());
+        logger.info(LogPrint.outputInfoLogPrint() + ", ProfileId = " + profileTransFormData.getId());
         logger.debug("Profile = " + profileTransFormData.toString());
         schedulerLogic.registerScheduler(profileTransFormData.getId());
     }

@@ -47,7 +47,7 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
     @Override
     public String registerContextModel(ContextModel contextModel) {
         //
-        logger.info(LogPrint.outputInfoLogPrint());
+        logger.info(LogPrint.outputInfoLogPrint() + ", ContextModelId = " + contextModel.getId());
         logger.debug("ContextModel = " + contextModel.toString());
 
         String sendData = DataConversion.objectToString(contextModel);
@@ -75,7 +75,7 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
     @Override
     public ContextModel retrieveContextModelDetail(String contextModelId) {
         //
-        logger.info(LogPrint.outputInfoLogPrint());
+        logger.info(LogPrint.outputInfoLogPrint() + ", ContextModelId = " + contextModelId);
         logger.debug("ContextModelId = " + contextModelId);
         IHttpResponseMessage message = clientService.requestGetService(
                 contextAddress.getAddress() + AddressStore.RETRIEVE_CONTEXTMODEL + "/" + contextModelId);
@@ -89,7 +89,7 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
     //NOTE: ContextModel 의 상황이 발생했는지 질의, 발생한 도메인 리스트 수신
     @Override
     public List<String> retrieveContextModelEvent(String contextModelId) {
-        logger.info(LogPrint.outputInfoLogPrint());
+        logger.info(LogPrint.outputInfoLogPrint() + ", ContextModelId = " +  contextModelId);
         logger.debug("ContextModelId = " + contextModelId);
 
         //

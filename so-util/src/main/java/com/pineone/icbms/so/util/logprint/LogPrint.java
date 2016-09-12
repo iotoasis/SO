@@ -6,10 +6,10 @@ package com.pineone.icbms.so.util.logprint;
 public class LogPrint {
 
     public static String inputInfoLogPrint(){
-        return Thread.currentThread().getStackTrace()[2].getMethodName() + " Method : requested";
+        return Thread.currentThread().getStackTrace()[2].getMethodName() + " Method : requested ";
     }
 
     public static String outputInfoLogPrint(){
-        return Thread.currentThread().getStackTrace()[2].getMethodName() + " Method : response";
+        return Thread.currentThread().getStackTrace()[2].getMethodName() + " Method : response ";
     }
 }

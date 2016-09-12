@@ -93,7 +93,7 @@ public class ProfilePresentation {
     @ResponseBody
     public ResponseMessage registerProfileController(@RequestBody Profile profile){
         //
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.inputInfoLogPrint() + ", ProfileId = " + profile.getId());
         logger.debug("Profile = " + profile.toString());
 
         DataValidation dataValidation = DataValidation.newDataValidation();
@@ -127,7 +127,7 @@ public class ProfilePresentation {
     @ResponseBody
     public Profile retrieveProfileDetailController(@PathVariable("id")String profileId){
         //
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.inputInfoLogPrint() + ", ProfileId = " + profileId);
         logger.debug("ProfileId = " + profileId);
         Profile profile = profileLogic.retrieveProfileDetail(profileId);
         logger.debug("Profile = " + profile.toString());
@@ -137,7 +137,7 @@ public class ProfilePresentation {
     //NOTE: ContextModelName 으로 프로파일 조회
     public Profile retrieveProfileConnectDetailController(String contextModelName){
         //
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.inputInfoLogPrint() + ", contextModelId = " + contextModelName);
         Profile profile = profileLogic.retrieveProfileDetail(contextModelName);
         logger.debug("Profile = " + profile.toString());
         return profile;
@@ -259,7 +259,7 @@ public class ProfilePresentation {
     @ResponseBody
     public ResponseMessage executeScheduleProfile(@RequestBody ProfileTransFormData profileTransFormData){
 
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.inputInfoLogPrint() + ", ProfileId = " + profileTransFormData.getId());
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
 
 //        System.out.println("Profile ID = " + profileTransFormData.getId());
