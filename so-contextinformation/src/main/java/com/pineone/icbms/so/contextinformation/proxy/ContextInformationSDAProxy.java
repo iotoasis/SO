@@ -42,6 +42,7 @@ public class ContextInformationSDAProxy implements ContextInformationProxy{
         //
         String sendData = DataConversion.objectToString(contextInformation);
         logger.info(LogPrint.outputInfoLogPrint());
+        logger.debug("ContextInformation = " + contextInformation.toString());
 //        contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestPostService
                 (contextAddress.getAddress() + AddressStore.REGISTER_CONTEXTINFORMATION, sendData);
@@ -62,11 +63,12 @@ public class ContextInformationSDAProxy implements ContextInformationProxy{
     }
 
     //NOTE : SDA 의 ContextInformationLogic 상세 조회
-    public ContextInformation retrieveGeneralContextDetail(String contextName){
+    public ContextInformation retrieveGeneralContextDetail(String contextId){
         //
         logger.info(LogPrint.outputInfoLogPrint());
+        logger.debug("ContextId = " + contextId);
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getAddress() + AddressStore.RETRIEVE_CONTEXTINFORMATION + "/" + contextName);
+                contextAddress.getAddress() + AddressStore.RETRIEVE_CONTEXTINFORMATION + "/" + contextId);
         String readData = new Gson().toJson(message);
         Type type = new TypeToken<ContextInformation>(){}.getType();
         ContextInformation contextInformation = new Gson().fromJson(readData,type);

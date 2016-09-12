@@ -63,6 +63,7 @@ public class ContextInformationPresentation {
     public ResponseMessage registerContextInformationController(@RequestBody ContextInformation contextInformation) {
         //
         logger.info(LogPrint.inputInfoLogPrint());
+        logger.debug("ContextInformation = " + contextInformation.toString());;
         DataValidation dataValidation = DataValidation.newDataValidation();
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
         try {

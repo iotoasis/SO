@@ -6,6 +6,8 @@ import com.pineone.icbms.so.scheduler.store.SchedulerStore;
 import com.pineone.icbms.so.profile.entity.Profile;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SchedulerLogicImpl implements SchedulerLogic{
+
+    public static final Logger logger = LoggerFactory.getLogger(SchedulerLogicImpl.class);
 
     @Autowired
     SchedulerProxy schedulerProxy;
@@ -31,10 +35,10 @@ public class SchedulerLogicImpl implements SchedulerLogic{
     public void registerScheduler(String profileId) throws SchedulerException {
 
         scheduler.start();
-        System.out.println("registerScheduler : " + profileId);
+        logger.debug("ProfileId = " + profileId);
         Profile profile = schedulerProxy.retrieveProfile(profileId);
         ScheduledProfile scheduledProfile = new ScheduledProfile(profile.getId(), profile.getPeriod());
-
+        logger.debug("ScheduledProfile = " + scheduledProfile.toString());
 
 //        schedulerStore.createScheduledProfile(scheduledProfile);
 
@@ -46,7 +50,6 @@ public class SchedulerLogicImpl implements SchedulerLogic{
             }
         }
 
-        System.out.println("job : profileId = " + scheduledProfile.getId());
         JobDetail job = JobBuilder.newJob(ScheduleNotificationManager.class)
                 .withIdentity(scheduledProfile.getId(),groupName)
                 .build();
@@ -59,7 +62,6 @@ public class SchedulerLogicImpl implements SchedulerLogic{
                         .withIntervalInSeconds(scheduledProfile.getPeriod()).repeatForever()
                 ).build();
 
-        System.out.println("start schedule");
         scheduler.scheduleJob(job, trigger);
         System.out.println(scheduler.isStarted());
     }

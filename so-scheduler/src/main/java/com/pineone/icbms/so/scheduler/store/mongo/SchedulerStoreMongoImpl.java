@@ -2,6 +2,8 @@ package com.pineone.icbms.so.scheduler.store.mongo;
 
 import com.pineone.icbms.so.scheduler.entity.ScheduledProfile;
 import com.pineone.icbms.so.scheduler.store.SchedulerStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -15,12 +17,15 @@ import java.util.List;
 @Repository
 public class SchedulerStoreMongoImpl implements SchedulerStore {
 
+    public static final Logger logger = LoggerFactory.getLogger(SchedulerStoreMongoImpl.class);
+
     @Autowired
     SchedulerRepository schedulerRepository;
 
 
     @Override
     public void createScheduledProfile(ScheduledProfile scheduledProfile) {
+        logger.debug("ScheduledProfile = " + scheduledProfile.toString());
         ScheduledProfileDataObject scheduledProfileDataObject = scheduledProfileToDataObject(scheduledProfile);
         schedulerRepository.save(scheduledProfileDataObject);
     }
@@ -31,6 +36,7 @@ public class SchedulerStoreMongoImpl implements SchedulerStore {
         List<ScheduledProfile> scheduledProfileList = new ArrayList<>();
         for(ScheduledProfileDataObject scheduledProfileDataObject : scheduledProfileDataObjectList){
             scheduledProfileList.add(dataObjectToSchedulerDataObject(scheduledProfileDataObject));
+            logger.debug("ScheduledProfile = " + dataObjectToSchedulerDataObject(scheduledProfileDataObject));
         }
         return scheduledProfileList;
     }
@@ -38,6 +44,7 @@ public class SchedulerStoreMongoImpl implements SchedulerStore {
     @Override
     public boolean isExistScheduledProfile(String profileId) {
         boolean checker = schedulerRepository.exists(profileId);
+        logger.debug("ProfileId = " + profileId);
         return checker;
     }
 
