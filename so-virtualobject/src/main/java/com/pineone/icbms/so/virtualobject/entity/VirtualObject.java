@@ -109,5 +109,21 @@ public class VirtualObject {
     public void setVoLocation(String voLocation) {
         this.voLocation = voLocation;
     }
+
+    @Override
+    public String toString() {
+        return "VirtualObject{" +
+                "voId='" + voId + '\'' +
+                ", voName='" + voName + '\'' +
+                ", functionality='" + functionality + '\'' +
+                ", voDescription='" + voDescription + '\'' +
+                ", voCreateTime='" + voCreateTime + '\'' +
+                ", voExpiredTime='" + voExpiredTime + '\'' +
+                ", deviceService='" + deviceService + '\'' +
+                ", deviceId='" + deviceId + '\'' +
+                ", voCommand='" + voCommand + '\'' +
+                ", voLocation='" + voLocation + '\'' +
+                '}';
+    }
 }
 

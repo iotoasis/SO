@@ -4,13 +4,17 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 import com.pineone.icbms.so.contextmodel.pr.Content;
+import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
 import com.pineone.icbms.so.contextmodel.pr.RetrieveData;
 import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.util.address.AddressStore;
 import com.pineone.icbms.so.util.address.ContextAddress;
 import com.pineone.icbms.so.util.conversion.DataConversion;
 import com.pineone.icbms.so.util.http.ClientService;
+import com.pineone.icbms.so.util.logprint.LogPrint;
 import com.withwiz.beach.network.http.message.IHttpResponseMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +31,8 @@ import java.util.List;
 @Service
 public class ContextModelSDAProxy implements ContextModelExProxy {
 
+    public static final Logger logger = LoggerFactory.getLogger(ContextModelSDAProxy.class);
+
     @Autowired
     private ClientService clientService;
 
@@ -41,6 +47,9 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
     @Override
     public String registerContextModel(ContextModel contextModel) {
         //
+        logger.info(LogPrint.outputInfoLogPrint() + ", ContextModelId = " + contextModel.getId());
+        logger.debug("ContextModel = " + contextModel.toString());
+
         String sendData = DataConversion.objectToString(contextModel);
         IHttpResponseMessage message = clientService.requestPostService
                 (contextAddress.getAddress() + AddressStore.REGISTER_CONTEXTMODEL, sendData);
@@ -52,6 +61,7 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
     @Override
     public List<ContextModel> retrieveContextModelListFromSDA() {
         //
+        logger.info(LogPrint.outputInfoLogPrint());
         IHttpResponseMessage message = clientService.requestGetService(
                 contextAddress.getAddress() + AddressStore.RETRIEVE_CONTEXTMODEL);
         String readData = new Gson().toJson(message);
@@ -63,10 +73,12 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
 
     //NOTE : SDA 의 ContextModel 상세조회
     @Override
-    public ContextModel retrieveContextModelDetail(String contextModelName) {
+    public ContextModel retrieveContextModelDetail(String contextModelId) {
         //
+        logger.info(LogPrint.outputInfoLogPrint() + ", ContextModelId = " + contextModelId);
+        logger.debug("ContextModelId = " + contextModelId);
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getAddress() + AddressStore.RETRIEVE_CONTEXTMODEL + "/" + contextModelName);
+                contextAddress.getAddress() + AddressStore.RETRIEVE_CONTEXTMODEL + "/" + contextModelId);
         String readData = DataConversion.responseDataToString(message);
         Type type = new TypeToken<ContextModel>(){}.getType();
         ContextModel contextModel = new Gson().fromJson(readData, type);
@@ -77,9 +89,8 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
     //NOTE: ContextModel 의 상황이 발생했는지 질의, 발생한 도메인 리스트 수신
     @Override
     public List<String> retrieveContextModelEvent(String contextModelId) {
-        System.out.println("********* ContextModel Proxy Query to SDA ************");
-        System.out.println("ContextModel ID = " + contextModelId);
-        System.out.println();
+        logger.info(LogPrint.outputInfoLogPrint() + ", ContextModelId = " +  contextModelId);
+        logger.debug("ContextModelId = " + contextModelId);
 
         //
 //        IHttpResponseMessage message = clientService.requestGetService(
@@ -90,22 +101,27 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
 
         List<String> domains = new ArrayList<>();
         //TODO : 일시적 테스트
-        if(contextModelId.equals("CM-COMFORT-AIR")){
+        if(contextModelId.equals("cm-announcement-on")){
             IHttpResponseMessage message = clientService.requestGetService(
-                    contextAddress.getAddress()  + contextModelId + "2/?p=," );
+                    contextAddress.getAddress()  + contextModelId + "/?p=," );
             String readData = DataConversion.responseDataToString(message);
             Type type = new TypeToken<RetrieveData>(){}.getType();
             RetrieveData retrieveData = new Gson().fromJson(readData,type);
             System.out.println("Time = " + retrieveData.getTime());
             List<Content> contentList = retrieveData.getContent();
             for(Content content : contentList){
-                domains.add(content.getLoc());
-                System.out.println("Location = " + content.getLoc());
+                domains.add(content.getPlace());
+                System.out.println("Location = " + content.getPlace());
             }
 //            domains = new ArrayList<>();
         }
-        else {
+        else if(contextModelId.equals("CM-TEST")){
             domains = null;
+        }
+        else{
+            String domain = "INSERT Domain";
+            domains.add(domain);
+            return domains;
         }
         return domains;
     }

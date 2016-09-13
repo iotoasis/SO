@@ -10,12 +10,16 @@ import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
 import com.pineone.icbms.so.contextmodel.pr.ContextModelTransFormObject;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
+import com.pineone.icbms.so.domain.proxy.DomainProxy;
 import com.pineone.icbms.so.profile.entity.Profile;
 import com.pineone.icbms.so.profile.logic.ProfileLogic;
 import com.pineone.icbms.so.profile.logic.ProfileLogicImpl;
 import com.pineone.icbms.so.profile.ref.DataValidation;
 import com.pineone.icbms.so.profile.ref.ResponseMessage;
 import com.pineone.icbms.so.util.exception.DataLossException;
+import com.pineone.icbms.so.util.logprint.LogPrint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -34,6 +38,8 @@ import java.util.List;
 @RequestMapping(value = "/profile")
 public class ProfilePresentation {
     //
+    public static final Logger logger = LoggerFactory.getLogger(ProfilePresentation.class);
+
     @Autowired
             ProfileLogic profileLogic;
 
@@ -54,6 +60,7 @@ public class ProfilePresentation {
     @ResponseBody
     public List<String> retrieveServiceModelNameList(){
         //
+        logger.info(LogPrint.inputInfoLogPrint());
         List<String> serviceModelNameList = profileLogic.retrieveServiceModelNameList();
         return serviceModelNameList;
     }
@@ -64,6 +71,7 @@ public class ProfilePresentation {
     @ResponseBody
     public List<String> retrieveContextModelNameList(){
         //
+        logger.info(LogPrint.inputInfoLogPrint());
         List<String> contextModelNameList = profileLogic.retrieveContextModelNameList();
         return contextModelNameList;
     }
@@ -74,6 +82,7 @@ public class ProfilePresentation {
     @ResponseBody
     public List<String> retrieveBizContextNameList(){
         //
+        logger.info(LogPrint.inputInfoLogPrint());
         List<String> BizContextNameList = profileLogic.retrieveBizContextNameList();
         return BizContextNameList;
     }
@@ -84,6 +93,9 @@ public class ProfilePresentation {
     @ResponseBody
     public ResponseMessage registerProfileController(@RequestBody Profile profile){
         //
+        logger.info(LogPrint.inputInfoLogPrint() + ", ProfileId = " + profile.getId());
+        logger.debug("Profile = " + profile.toString());
+
         DataValidation dataValidation = DataValidation.newDataValidation();
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
 
@@ -104,6 +116,7 @@ public class ProfilePresentation {
     @ResponseBody
     public List<String> retrieveProfileNameList(){
         //
+        logger.info(LogPrint.inputInfoLogPrint());
         List<String> profileNameList = profileLogic.retrieveProfileNameList();
         return profileNameList;
     }
@@ -114,14 +127,19 @@ public class ProfilePresentation {
     @ResponseBody
     public Profile retrieveProfileDetailController(@PathVariable("id")String profileId){
         //
+        logger.info(LogPrint.inputInfoLogPrint() + ", ProfileId = " + profileId);
+        logger.debug("ProfileId = " + profileId);
         Profile profile = profileLogic.retrieveProfileDetail(profileId);
+        logger.debug("Profile = " + profile.toString());
         return profile;
     }
 
     //NOTE: ContextModelName 으로 프로파일 조회
     public Profile retrieveProfileConnectDetailController(String contextModelName){
         //
+        logger.info(LogPrint.inputInfoLogPrint() + ", contextModelId = " + contextModelName);
         Profile profile = profileLogic.retrieveProfileDetail(contextModelName);
+        logger.debug("Profile = " + profile.toString());
         return profile;
     }
 
@@ -131,16 +149,18 @@ public class ProfilePresentation {
     @ResponseBody
     public List<String> retrieveProfileIdList(){
         //
+        logger.info(LogPrint.inputInfoLogPrint());
         List<String> profileIdList = profileLogic.retrieveProfileIdList();
         return profileIdList;
     }
 
-    //NOTE: DB 에서 profile 상세 조회
+    //NOTE: 테스트데이터 셋팅
     @RequestMapping(value = "/set", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public void retrieveProfileDetailController(){
         //
+        logger.info(LogPrint.inputInfoLogPrint());
 
         String name = "EmergencyTempCon";
         int minValue = 60;
@@ -239,12 +259,13 @@ public class ProfilePresentation {
     @ResponseBody
     public ResponseMessage executeScheduleProfile(@RequestBody ProfileTransFormData profileTransFormData){
 
+        logger.info(LogPrint.inputInfoLogPrint() + ", ProfileId = " + profileTransFormData.getId());
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
 
-        System.out.println("************ Profile Presentation Receive Scheduled Profile ***********");
-        System.out.println("Profile ID = " + profileTransFormData.getId());
-        System.out.println();
+//        System.out.println("Profile ID = " + profileTransFormData.getId());
+//        System.out.println();
         Profile profile = dataObjectToProfile(profileTransFormData);
+        logger.debug("Profile = " + profileTransFormData.toString());
         String resultMessage = profileLogic.executeScheduleProfile(profile.getId());
         responseMessage.setMessage(resultMessage);
         return responseMessage;
@@ -260,6 +281,7 @@ public class ProfilePresentation {
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public List<Profile> retrieveProfileList(){
+        logger.info(LogPrint.inputInfoLogPrint());
         List<Profile> profileList = profileLogic.retrieveProfileList();
         return profileList;
     }

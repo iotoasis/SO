@@ -8,6 +8,8 @@ import com.pineone.icbms.so.profile.proxy.ProfileProxy;
 import com.pineone.icbms.so.profile.ref.ResponseMessage;
 import com.pineone.icbms.so.profile.store.ProfileStore;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,9 @@ import java.util.List;
 @Service
 public class ProfileLogicImpl implements ProfileLogic{
     //
+
+    public static final Logger logger = LoggerFactory.getLogger(ProfileLogicImpl.class);
+
     @Autowired
             ContextModelPresentation contextModelPresentation;
 
@@ -71,6 +76,7 @@ public class ProfileLogicImpl implements ProfileLogic{
     @Override
     public String registerProfile(Profile profile) {
         //
+        logger.debug("Profile = " + profile.toString());
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
 //        ProfileStore profileStore = ProfileMapStore.getInstance();
 
@@ -99,6 +105,7 @@ public class ProfileLogicImpl implements ProfileLogic{
         List<Profile> profileList = profileStore.retrieveProfileList();
 
         for(Profile profile : profileList){
+            logger.debug("Profile = " + profile.toString());
             profileNameList.add(profile.getName());
         }
         return profileNameList;
@@ -110,6 +117,7 @@ public class ProfileLogicImpl implements ProfileLogic{
         //
 //        ProfileStore profileStore = ProfileMapStore.getInstance();
         Profile profile = profileStore.retrieveProfileDetail(profileId);
+        logger.debug("Profile = " + profile.toString());
         return profile;
     }
 
@@ -120,6 +128,7 @@ public class ProfileLogicImpl implements ProfileLogic{
         List<Profile> profileList = profileStore.retrieveProfileList();
 
         for(Profile profile : profileList){
+            logger.debug("Profile = " + profile.toString());
             profileIdList.add(profile.getId());
         }
         return profileIdList;
@@ -129,9 +138,7 @@ public class ProfileLogicImpl implements ProfileLogic{
     @Override
     public String executeScheduleProfile(String profileId) {
         Profile profile = profileStore.retrieveProfileDetail(profileId);
-        System.out.println("*********** ProfileComponent Extract ContextModel ************");
-        System.out.println("ContextModel ID = "+ profile.getContextModelId());
-        System.out.println();
+        logger.debug("Profile = " + profile.toString());
         List<String> domainIdList = contextModelPresentation.isHappenContextModel(profile.getContextModelId());
         if(domainIdList != null){
                 String message = "Message : Happened ContextModel";
@@ -149,7 +156,7 @@ public class ProfileLogicImpl implements ProfileLogic{
     }
 
     @Override
-    public void extractQueueData() {
+    public void extractContextModelQueueData() {
         //
         while(true){
             try{
@@ -159,15 +166,11 @@ public class ProfileLogicImpl implements ProfileLogic{
             }
             if(!(profileProxy.checkContextModelQueue())){
                 ContextModel contextModel = profileProxy.retrieveContextModelQueueData();
-                System.out.println("************ Profile Component Get ContextModel");
-                System.out.println(" ContextModel ID = " + contextModel.getId());
-                System.out.println();
+                logger.debug("ContextModel = " + contextModel.toString());
                 //TODO : 디비 연결후 contextModel 이름으로 Profile 조회 기능 구현 및 연결
                 List<Profile> profileList = profileStore.findByContextModelId(contextModel.getId());
                 for(Profile profile : profileList){
-                    System.out.println("************ Profile Component Extract ContextModel");
-                    System.out.println("ServiceModel ID = " + profile.getServiceModelId());
-                    System.out.println();
+                    logger.debug("Profile = " + profile.toString());
                     //TODO : Profile 로 ServiceModel 찾아서 ServiceModel 에 전송
                     serviceModelPresentation.executeServiceModel(serviceModelPresentation.settingServiceModelId(profile.getServiceModelId()));
                 }

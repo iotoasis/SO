@@ -2,6 +2,8 @@ package com.pineone.icbms.so.profile.store.mongo;
 
 import com.pineone.icbms.so.profile.entity.Profile;
 import com.pineone.icbms.so.profile.store.ProfileStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,9 +20,12 @@ public class ProfileStoreMongoImpl implements ProfileStore {
     @Autowired
     ProfileRepository profileRepository;
 
+    public static final Logger logger = LoggerFactory.getLogger(ProfileStoreMongoImpl.class);
+
     //NOTE: PR 등록
     @Override
     public void createProfile(Profile profile) {
+        logger.debug("Profile = " + profile.toString());
         ProfileDataObject profileDataObject = profileToDataObject(profile);
         profileRepository.save(profileDataObject);
     }
@@ -31,6 +36,7 @@ public class ProfileStoreMongoImpl implements ProfileStore {
         List<ProfileDataObject> profileDataObjectList = profileRepository.findAll();
         List<Profile> profileList = new ArrayList<>();
         for(ProfileDataObject profileDataObject : profileDataObjectList){
+            logger.debug("Profile = " + dataObjectToProfile(profileDataObject));
             profileList.add(dataObjectToProfile(profileDataObject));
         }
         return profileList;
@@ -40,6 +46,7 @@ public class ProfileStoreMongoImpl implements ProfileStore {
     @Override
     public Profile retrieveProfileDetail(String profileId) {
         ProfileDataObject profileDataObject = profileRepository.findOne(profileId);
+        logger.debug("Profile = " + dataObjectToProfile(profileDataObject));
         return dataObjectToProfile(profileDataObject);
     }
 
@@ -48,6 +55,7 @@ public class ProfileStoreMongoImpl implements ProfileStore {
         List<ProfileDataObject> profileDataObjectList = profileRepository.findByContextModelId(contextModelId);
         List<Profile> profileList = new ArrayList<>();
         for(ProfileDataObject profileDataObject : profileDataObjectList){
+            logger.debug("Profile = " + dataObjectToProfile(profileDataObject));
             profileList.add(dataObjectToProfile(profileDataObject));
         }
         return profileList;

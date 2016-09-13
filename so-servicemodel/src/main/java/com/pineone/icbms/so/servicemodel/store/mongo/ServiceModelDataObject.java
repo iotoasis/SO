@@ -74,4 +74,15 @@ public class ServiceModelDataObject {
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
     }
+
+    @Override
+    public String toString() {
+        return "ServiceModelDataObject{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", serviceIdList=" + serviceIdList +
+                ", createTime='" + createTime + '\'' +
+                ", modifiedTime='" + modifiedTime + '\'' +
+                '}';
+    }
 }

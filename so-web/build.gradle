@@ -19,6 +19,7 @@ dependencies {
     compile project (":so-domain")
     compile project (":so-profile")
     compile project (":so-virtualobject")
+    compile project (":so-scheduler")
 
     //providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     

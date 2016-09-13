@@ -28,4 +28,12 @@ public class deviceReleaseMessage {
     public void setRegisterTime(String registerTime) {
         this.registerTime = registerTime;
     }
+
+    @Override
+    public String toString() {
+        return "deviceReleaseMessage{" +
+                "deviceId='" + deviceId + '\'' +
+                ", registerTime='" + registerTime + '\'' +
+                '}';
+    }
 }

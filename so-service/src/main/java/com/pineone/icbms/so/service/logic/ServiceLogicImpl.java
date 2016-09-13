@@ -5,6 +5,8 @@ import com.pineone.icbms.so.service.entity.Service;
 import com.pineone.icbms.so.service.proxy.ServiceProxy;
 import com.pineone.icbms.so.service.ref.*;
 import com.pineone.icbms.so.service.store.ServiceStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -18,6 +20,8 @@ import java.util.List;
 
 @org.springframework.stereotype.Service
 public class ServiceLogicImpl implements ServiceLogic{
+
+    public static final Logger logger = LoggerFactory.getLogger(ServiceLogicImpl.class);
 
     @Autowired
     ServiceStore serviceStore;
@@ -65,6 +69,7 @@ public class ServiceLogicImpl implements ServiceLogic{
     public String registerService(Service service) {
 //        ServiceStore serviceStore = ServiceMapStore.getInstance();
 //        service.setId("SERVICE-" + service.getId());
+        logger.debug("Service = " + service.toString());
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
         String serviceMessageStr = responseMessage.serviceResultMessage(service);
         serviceStore.createService(service);
@@ -74,6 +79,7 @@ public class ServiceLogicImpl implements ServiceLogic{
     @Override
     public Service retrieveServiceDetail(String serviceId) {
 //        ServiceStore serviceStore = ServiceMapStore.getInstance();
+        logger.debug("Service ID = " + serviceId);
         Service service = serviceStore.retrieveServiceDetail(serviceId);
         return service;
     }
@@ -86,6 +92,7 @@ public class ServiceLogicImpl implements ServiceLogic{
         for(Service service : serviceList){
             serviceNameList.add(service.getName());
         }
+        logger.debug("ServiceNameList = " + serviceNameList.toString());
         return serviceNameList;
     }
 
@@ -96,42 +103,26 @@ public class ServiceLogicImpl implements ServiceLogic{
         for(Service service : serviceList){
             serviceIdList.add(service.getId());
         }
+        logger.debug("ServiceIDList = " + serviceIdList.toString());
         return serviceIdList;
     }
 
     @Override
     public void executeService(String serviceId) {
-        Service service = serviceStore.retrieveServiceDetail(serviceId);
-        serviceProxy.executeVirtualObject(service.getVirtualObjectId(), service.getStatus());
+        logger.debug("Execute Service ID = " + serviceId);
+        Service serviceData = serviceStore.retrieveServiceDetail(serviceId);
+        for(String service : serviceData.getVirtualObjectIdList()){
+            serviceProxy.executeVirtualObject(service, serviceData.getStatus());
+        }
+
         // 해당 서비스에서 operation을 얻어서 serviceId와 operation으로 VO에 제어 요청을 한다.
     }
 
     @Override
-    public void testSetUp() {
-        SetUpData();
-        serviceProxy.voTestSetUp();
-    }
-
-    @Override
     public List<Service> retrieveServiceList() {
-        return serviceStore.retrieveServiceList();
+        List<Service> services = serviceStore.retrieveServiceList();
+        logger.debug("Service List = " + services.toString());
+        return services;
     }
 
-    private void SetUpData(){
-        Service service = new Service();
-        service.setName("Pleasant Air Services");
-        service.setId("AIRCLEANER-POWER-CONTROL-SERVICE-001");
-        service.setVirtualObjectId("CR0001AirCleaner0001");
-        service.setVirtualObjectService("switch-control");
-        service.setStatus("ON");
-        service.setCreateTime("201608250930");
-        service.setModifiedTime("201608250930");
-
-        registerService(service);
-
-        registerService(new Service("SMARTLIGHT-POWER-CONTROL-SERVICE-001", "Lighting management services", "CR0001Illumination0001", "switch-control", "OFF", "201608250930","201608250930" ));
-        registerService(new Service("BLIND-POWER-CONTROL-SERVICE-001", "Blind management services.", "CR0001Blinder0001", "switch-control", "ON", "201608250930","201608250930" ));
-        registerService(new Service("BEAMPROJECTOR-POWER-CONTROL-SERVICE-001", "BeamProjector management services.", "CR0001BeamProjector0001", "switch-control", "ON", "201608250930","201608250930" ));
-        registerService(new Service("BEAMSCREEN-POWER-CONTROL-SERVICE-001", "BeamScreen management services.", "CR0001BeamProjectorScreen0001", "switch-control", "ON", "201608250930","201608250930" ));
-    }
 }

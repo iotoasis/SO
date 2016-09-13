@@ -2,6 +2,8 @@ package com.pineone.icbms.so.service.store.mongo;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 /**
  * Created by melvin on 2016. 8. 22..
  */
@@ -17,8 +19,8 @@ public class ServiceDataObject {
 
     private String id;
     private String name;
-    private String deviceObjectId;
-    private String conceptServiceId;
+    private List<String> virtualObjectIdList;
+    private String virtualObjectService;
     private String status;
     private String createTime;
     private String modifiedTime;
@@ -41,20 +43,20 @@ public class ServiceDataObject {
         this.name = name;
     }
 
-    public String getDeviceObjectId() {
-        return deviceObjectId;
+    public List<String> getVirtualObjectIdList() {
+        return virtualObjectIdList;
     }
 
-    public void setDeviceObjectId(String deviceObjectId) {
-        this.deviceObjectId = deviceObjectId;
+    public void setVirtualObjectIdList(List<String> virtualObjectIdList) {
+        this.virtualObjectIdList = virtualObjectIdList;
     }
 
-    public String getConceptServiceId() {
-        return conceptServiceId;
+    public String getVirtualObjectService() {
+        return virtualObjectService;
     }
 
-    public void setConceptServiceId(String conceptServiceId) {
-        this.conceptServiceId = conceptServiceId;
+    public void setVirtualObjectService(String virtualObjectService) {
+        this.virtualObjectService = virtualObjectService;
     }
 
     public void setStatus(String status) {
@@ -81,22 +83,34 @@ public class ServiceDataObject {
         this.modifiedTime = modifiedTime;
     }
 
-    public ServiceDataObject(String id, String name, String deviceObjectId, String conceptServiceId, String status) {
-
+    public ServiceDataObject(String id, String name, List<String> virtualObjectIdList, String virtualObjectService, String status) {
         this.id = id;
         this.name = name;
-        this.deviceObjectId = deviceObjectId;
-        this.conceptServiceId = conceptServiceId;
+        this.virtualObjectIdList = virtualObjectIdList;
+        this.virtualObjectService = virtualObjectService;
         this.status = status;
     }
 
-    public ServiceDataObject(String id, String name, String deviceObjectId, String conceptServiceId, String status, String createTime, String modifiedTime) {
+    public ServiceDataObject(String id, String name, List<String> virtualObjectIdList, String virtualObjectService, String status, String createTime, String modifiedTime) {
         this.id = id;
         this.name = name;
-        this.deviceObjectId = deviceObjectId;
-        this.conceptServiceId = conceptServiceId;
+        this.virtualObjectIdList = virtualObjectIdList;
+        this.virtualObjectService = virtualObjectService;
         this.status = status;
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
+    }
+
+    @Override
+    public String toString() {
+        return "ServiceDataObject{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", virtualObjectIdList=" + virtualObjectIdList +
+                ", virtualObjectService='" + virtualObjectService + '\'' +
+                ", status='" + status + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", modifiedTime='" + modifiedTime + '\'' +
+                '}';
     }
 }

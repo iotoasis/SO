@@ -23,7 +23,6 @@ dependencies {
     compile project (":so-contextmodel")
     compile project (":so-bizcontext")
 
-
     compile "com.withwiz:httpclientservice:0.1.1"
 
 //    //spring

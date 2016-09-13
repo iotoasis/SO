@@ -115,4 +115,20 @@ public class Profile {
     public void setModifiedTime(String modifiedTime) {
         this.modifiedTime = modifiedTime;
     }
+
+    @Override
+    public String toString() {
+        return "Profile{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", contextModelId='" + contextModelId + '\'' +
+                ", serviceModelId='" + serviceModelId + '\'' +
+                ", bizContextName='" + bizContextName + '\'' +
+                ", period=" + period +
+                ", expirationTime=" + expirationTime +
+                ", happenContextModel=" + happenContextModel +
+                ", createTime='" + createTime + '\'' +
+                ", modifiedTime='" + modifiedTime + '\'' +
+                '}';
+    }
 }

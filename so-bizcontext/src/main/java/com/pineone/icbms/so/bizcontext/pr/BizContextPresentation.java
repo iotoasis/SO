@@ -1,13 +1,14 @@
 package com.pineone.icbms.so.bizcontext.pr;
 
-import com.pineone.icbms.so.bizcontext.entity.CurrentElectricBiz;
-import com.pineone.icbms.so.bizcontext.entity.InefficientElectricBiz;
 import com.pineone.icbms.so.bizcontext.logic.*;
 import com.pineone.icbms.so.bizcontext.ref.Biz_Note;
 import com.pineone.icbms.so.bizcontext.ref.DataValidation;
 import com.pineone.icbms.so.bizcontext.ref.ResponseMessage;
 import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.util.exception.DataLossException;
+import com.pineone.icbms.so.util.logprint.LogPrint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,8 @@ import java.util.List;
 @ResponseStatus(value = HttpStatus.OK)
 @ResponseBody
 public class BizContextPresentation {
+
+    public static final Logger logger = LoggerFactory.getLogger(BizContextPresentation.class);
 
     @Autowired
     BizContextBasicLogic bizContextBasicLogic;
@@ -58,6 +61,7 @@ public class BizContextPresentation {
     @ResponseBody
     public List<String> retrieveBizContextList(){
         //
+        logger.info(LogPrint.inputInfoLogPrint());
         List<String> bizContextList = bizContextBasicLogic.retrieveBizContextList();
         return bizContextList;
     }
@@ -70,6 +74,7 @@ public class BizContextPresentation {
         //
 //        DataValidation dataValidation = DataValidation.newDataValidation();
 //        ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
+        logger.info(LogPrint.inputInfoLogPrint());
         try {
             dataValidation.inspectBizContext(bizContextName);
         } catch (DataLossException e) {
@@ -85,6 +90,7 @@ public class BizContextPresentation {
     public boolean isBizContextHappen(String bizContextName, Domain domain){
         boolean checkPoint = true;
 
+        logger.info(LogPrint.inputInfoLogPrint());
         if(bizContextName.equals(Biz_Note.CURRENT_ELECTRIC.toString())){
             // NOTE : 현재 전력 사용량에 관한 데이터를 수신받기 위한 프레젠테이션 필요시 추가
             // NOTE : ex) Parameter : "ASPECT: 전력" + name 등..
@@ -111,6 +117,8 @@ public class BizContextPresentation {
 
     //NOTE: BIZ Context 결과 필요한 수량 판단
     public String neededQuantity(String bizContextName, Domain domain){
+
+        logger.info(LogPrint.inputInfoLogPrint());
         // NOTE : 기자재부족에 관한 데이터를 수신받기위한 프레젠테이션 필요시 추가
         // NOTE : ex) Parameter : "ASPECT: 기자재이름(mouse)" + name 등..
         // NOTE : 데이터 수신후 LackBiz Entity 에 Set 해서 전달.

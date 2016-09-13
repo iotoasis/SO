@@ -1,8 +1,9 @@
 package com.pineone.icbms.so.servicemodel.store.mongo;
 
-import com.pineone.icbms.so.service.store.mongo.ServiceDataObject;
 import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,12 +17,15 @@ import java.util.List;
 @Repository
 public class ServiceModelStoreMongoImpl implements ServiceModelStore {
 
+    public static final Logger logger = LoggerFactory.getLogger(ServiceModelStoreMongoImpl.class);
+
     @Autowired
     ServiceModelRepository serviceModelRepository;
 
     //NOTE : SM 등록
     @Override
     public void createServiceModel(ServiceModel serviceModel) {
+        logger.debug("CreateServiceModel in Data = " + serviceModel.toString());
         ServiceModelDataObject serviceModelDataObject = serviceModelToDataObject(serviceModel);
         serviceModelRepository.save(serviceModelDataObject);
     }
@@ -34,14 +38,19 @@ public class ServiceModelStoreMongoImpl implements ServiceModelStore {
         for(ServiceModelDataObject serviceModelDataObject : serviceModelDataObjectList){
             serviceModelList.add(dataObjectToServiceModel(serviceModelDataObject));
         }
+        for(ServiceModel serviceModel : serviceModelList){
+            logger.debug("Retrieve ServiceModel List is ServiceModel = " + serviceModel.toString());
+        }
         return serviceModelList;
     }
 
     //NOTE : SM 개별 조회
     @Override
     public ServiceModel retrieveServiceModelDetail(String serviceModelId) {
+        logger.debug("RetrieveServiceModel Detail is ServiceModelID = " + serviceModelId);
         ServiceModelDataObject serviceModelDataObject = serviceModelRepository.findOne(serviceModelId);
         ServiceModel serviceModel = dataObjectToServiceModel(serviceModelDataObject);
+        logger.debug("RetrieveServiceModel Detail is ServiceModel = " + serviceModel.toString());
         return serviceModel;
     }
 

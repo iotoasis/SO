@@ -22,4 +22,11 @@ public class ProfileTransFormData {
     public void setId(String id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "ProfileTransFormData{" +
+                "id='" + id + '\'' +
+                '}';
+    }
 }

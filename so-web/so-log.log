@@ -1,0 +1,813 @@
+2016-09-12 13:58:11,086  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 1317 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 13:58:11,090 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 13:58:11,091  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 14:00:04,493  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextInformationPresentation : requestContextInformationMaking 
+2016-09-12 14:03:27,945  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 1354 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 14:03:27,950 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 14:03:27,951  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 14:05:28,337  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextInformationPresentation : registerContextInformationController : received ContextInformation{id='ci-nobody', name='nobody', deviceObjectName='재실센서', minValue=0, maxValue=0, conceptServiceName='재실측정', createTime='null', modifiedTime='null'} 
+2016-09-12 14:22:42,847  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 1404 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 14:22:42,851 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 14:22:42,852  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 14:23:20,863  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 1407 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 14:23:20,868 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 14:23:20,868  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 14:23:59,264  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextInformationPresentation : infoLogPrintrequested 
+2016-09-12 15:46:25,267  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 1488 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 15:46:25,271 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 15:46:25,271  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 15:46:34,574  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextInformationPresentation : inputInfoLogPrint Method : requested 
+2016-09-12 15:47:18,748  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 1494 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 15:47:18,751 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 15:47:18,752  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 15:47:27,219  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextInformationPresentation : registerContextInformationController Method : requested 
+2016-09-12 16:09:45,972  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 2714 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 16:09:45,975 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 16:09:45,976  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 16:09:51,820  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:52,324  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:52,829  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:53,331  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:53,835  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:54,340  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:54,844  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:55,349  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:55,853  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:56,357  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:56,863  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:57,366  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:57,867  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:58,370  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:58,872  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:59,376  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:09:59,879  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:00,384  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:00,460  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : emergencyContextModel Method : requested 
+2016-09-12 16:10:00,885  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:00,885  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : retrieveContextModelQueueData Method : response 
+2016-09-12 16:10:00,886  INFO [           main] c.p.i.s.c.p.ContextModelPresentation : retrieveContextModelQueueData Method : requested 
+2016-09-12 16:10:02,268  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:02,773  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:03,278  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:03,782  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:04,284  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:04,785  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:05,287  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:05,792  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:06,295  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:06,798  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:07,303  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:07,806  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:08,308  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:08,809  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:09,313  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:09,819  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:10,321  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:10,822  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:11,326  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:11,832  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:12,336  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:12,839  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:13,341  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:13,843  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:14,348  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:14,850  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:15,354  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:15,856  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:16,361  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:16,865  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:17,369  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:17,874  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:18,379  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:18,884  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:19,394  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:19,898  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:20,401  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:20,904  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:21,408  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:21,914  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:22,419  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:22,923  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:23,428  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:23,930  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:24,435  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:24,939  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:25,445  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:25,949  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:26,454  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:26,959  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:27,464  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:27,968  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:28,471  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:28,976  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:29,481  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:29,985  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:30,488  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:30,992  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:31,497  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:32,001  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:32,506  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:33,011  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:33,515  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:34,018  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:34,522  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:35,028  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:35,532  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:36,037  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:36,542  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:37,047  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:37,552  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:38,054  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:38,556  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:39,061  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:39,565  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:40,070  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:40,573  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:41,074  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:41,579  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:42,080  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:42,584  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:43,088  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:43,590  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:44,094  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:44,595  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:45,101  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:45,601  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:46,102  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:46,608  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:47,113  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:47,617  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:48,122  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:48,624  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:49,128  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:49,630  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:50,133  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:50,638  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:51,141  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:51,647  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:52,151  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:52,656  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:53,159  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:53,664  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:54,168  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:54,673  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:55,177  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:55,681  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:56,184  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:56,688  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:57,193  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:57,696  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:58,199  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:58,705  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:59,209  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:10:59,713  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:00,215  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:00,716  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:01,219  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:01,722  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:02,224  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:02,728  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:03,233  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:03,737  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:04,242  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:04,746  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:05,247  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:05,747  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:06,252  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:06,756  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:07,260  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:07,765  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:08,271  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:08,775  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:09,277  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:09,782  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:10,283  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:10,789  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:11,293  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:11,796  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:12,299  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:12,804  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:13,308  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:13,814  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:14,318  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:14,821  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:15,325  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:15,828  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:16,330  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:16,834  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:17,335  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:17,836  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:18,338  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:18,841  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:19,342  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:19,847  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:20,351  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:20,857  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:21,359  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:21,864  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:22,368  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:22,872  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:23,375  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:23,878  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:24,383  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:24,887  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:25,388  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:25,890  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:26,391  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:26,895  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:27,400  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:27,902  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:28,406  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:28,909  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:29,413  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:29,918  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:30,424  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:30,929  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:31,429  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:31,932  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:32,437  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:32,943  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:33,447  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:11:33,949  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:28,351  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 2722 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 16:12:28,355 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 16:12:28,355  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 16:12:34,262  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:34,764  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:35,268  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:35,770  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:36,274  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:36,778  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:37,279  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:37,784  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:38,290  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:38,791  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:39,293  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:39,796  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:40,298  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:40,804  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:41,306  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:41,807  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:42,311  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:42,814  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:43,318  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:43,823  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:44,328  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:44,833  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:45,335  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:45,836  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:46,341  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:46,845  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:47,349  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:47,852  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:48,356  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:48,861  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:49,366  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:49,869  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:50,372  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:50,877  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:51,379  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:51,884  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:52,386  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:52,890  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:53,395  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:53,897  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:54,402  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:54,905  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:55,409  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:55,912  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:56,417  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:56,923  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:57,426  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:57,929  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:58,433  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:58,935  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:59,440  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:12:59,944  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:00,449  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:00,953  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:01,458  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:01,962  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:02,467  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:02,975  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:03,476  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:03,982  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:04,487  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:04,991  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:05,496  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:05,998  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:06,503  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:07,008  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:07,512  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:08,016  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : checkContextModelQueue Method : response 
+2016-09-12 16:13:14,265  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 2728 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 16:13:14,270 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 16:13:14,271  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 16:13:24,233  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : emergencyContextModel Method : requested 
+2016-09-12 16:13:24,284  INFO [           main] c.p.i.s.p.p.ProfileInternalProxy    : retrieveContextModelQueueData Method : response 
+2016-09-12 16:16:28,344  INFO [http-nio-10080-exec-2] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:16:28,358  INFO [http-nio-10080-exec-2] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:16:28,358  INFO [http-nio-10080-exec-2] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:16:50,102  INFO [http-nio-10080-exec-3] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:16:50,110  INFO [http-nio-10080-exec-3] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:16:50,111  INFO [http-nio-10080-exec-3] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:17:02,210  INFO [http-nio-10080-exec-4] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:17:02,221  INFO [http-nio-10080-exec-4] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:17:02,221  INFO [http-nio-10080-exec-4] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:18:42,110  INFO [http-nio-10080-exec-5] c.p.i.s.s.pr.SchedulerPresentation  : registerSchedulerController Method : response 
+2016-09-12 16:18:42,111  INFO [http-nio-10080-exec-5] c.p.i.s.s.pr.SchedulerPresentation  : retrieveProfile Method : response 
+2016-09-12 16:18:42,111  INFO [http-nio-10080-exec-5] c.p.i.s.p.pr.ProfilePresentation    : retrieveProfileDetailController Method : requested 
+2016-09-12 16:18:42,206  INFO [DefaultQuartzScheduler_Worker-1] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:18:42,206  INFO [DefaultQuartzScheduler_Worker-1] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:18:42,211  INFO [http-nio-10080-exec-6] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:18:42,220  INFO [http-nio-10080-exec-6] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:18:42,221  INFO [http-nio-10080-exec-6] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:18:44,199  INFO [DefaultQuartzScheduler_Worker-2] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:18:44,200  INFO [DefaultQuartzScheduler_Worker-2] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:18:44,205  INFO [http-nio-10080-exec-7] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:18:44,213  INFO [http-nio-10080-exec-7] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:18:44,213  INFO [http-nio-10080-exec-7] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:18:46,197  INFO [DefaultQuartzScheduler_Worker-3] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:18:46,197  INFO [DefaultQuartzScheduler_Worker-3] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:18:46,202  INFO [http-nio-10080-exec-8] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:18:46,210  INFO [http-nio-10080-exec-8] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:18:46,210  INFO [http-nio-10080-exec-8] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:18:48,198  INFO [DefaultQuartzScheduler_Worker-4] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:18:48,199  INFO [DefaultQuartzScheduler_Worker-4] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:18:48,203  INFO [http-nio-10080-exec-9] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:18:48,210  INFO [http-nio-10080-exec-9] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:18:48,211  INFO [http-nio-10080-exec-9] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:18:50,197  INFO [DefaultQuartzScheduler_Worker-5] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:18:50,198  INFO [DefaultQuartzScheduler_Worker-5] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:18:50,202  INFO [http-nio-10080-exec-10] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:18:50,212  INFO [http-nio-10080-exec-10] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:18:50,212  INFO [http-nio-10080-exec-10] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:18:52,195  INFO [DefaultQuartzScheduler_Worker-6] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:18:52,196  INFO [DefaultQuartzScheduler_Worker-6] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:18:52,201  INFO [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:18:52,209  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:18:52,209  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:18:54,197  INFO [DefaultQuartzScheduler_Worker-7] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:18:54,197  INFO [DefaultQuartzScheduler_Worker-7] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:18:54,202  INFO [http-nio-10080-exec-2] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:18:54,210  INFO [http-nio-10080-exec-2] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:18:54,210  INFO [http-nio-10080-exec-2] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:18:56,194  INFO [DefaultQuartzScheduler_Worker-8] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:18:56,195  INFO [DefaultQuartzScheduler_Worker-8] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:18:56,199  INFO [http-nio-10080-exec-3] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:18:56,207  INFO [http-nio-10080-exec-3] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:18:56,207  INFO [http-nio-10080-exec-3] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:18:58,198  INFO [DefaultQuartzScheduler_Worker-9] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:18:58,198  INFO [DefaultQuartzScheduler_Worker-9] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:18:58,202  INFO [http-nio-10080-exec-4] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:18:58,210  INFO [http-nio-10080-exec-4] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:18:58,211  INFO [http-nio-10080-exec-4] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:00,197  INFO [DefaultQuartzScheduler_Worker-10] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:00,198  INFO [DefaultQuartzScheduler_Worker-10] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:00,202  INFO [http-nio-10080-exec-5] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:00,210  INFO [http-nio-10080-exec-5] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:00,211  INFO [http-nio-10080-exec-5] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:02,198  INFO [DefaultQuartzScheduler_Worker-1] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:02,198  INFO [DefaultQuartzScheduler_Worker-1] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:02,203  INFO [http-nio-10080-exec-6] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:02,212  INFO [http-nio-10080-exec-6] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:02,213  INFO [http-nio-10080-exec-6] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:04,199  INFO [DefaultQuartzScheduler_Worker-2] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:04,199  INFO [DefaultQuartzScheduler_Worker-2] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:04,204  INFO [http-nio-10080-exec-7] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:04,215  INFO [http-nio-10080-exec-7] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:04,216  INFO [http-nio-10080-exec-7] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:06,196  INFO [DefaultQuartzScheduler_Worker-3] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:06,196  INFO [DefaultQuartzScheduler_Worker-3] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:06,201  INFO [http-nio-10080-exec-8] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:06,217  INFO [http-nio-10080-exec-8] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:06,218  INFO [http-nio-10080-exec-8] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:08,197  INFO [DefaultQuartzScheduler_Worker-4] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:08,197  INFO [DefaultQuartzScheduler_Worker-4] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:08,201  INFO [http-nio-10080-exec-9] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:08,249  INFO [http-nio-10080-exec-9] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:08,249  INFO [http-nio-10080-exec-9] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:10,195  INFO [DefaultQuartzScheduler_Worker-5] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:10,196  INFO [DefaultQuartzScheduler_Worker-5] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:10,200  INFO [http-nio-10080-exec-10] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:10,208  INFO [http-nio-10080-exec-10] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:10,209  INFO [http-nio-10080-exec-10] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:12,199  INFO [DefaultQuartzScheduler_Worker-6] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:12,200  INFO [DefaultQuartzScheduler_Worker-6] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:12,203  INFO [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:12,211  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:12,212  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:14,197  INFO [DefaultQuartzScheduler_Worker-7] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:14,197  INFO [DefaultQuartzScheduler_Worker-7] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:14,202  INFO [http-nio-10080-exec-2] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:14,210  INFO [http-nio-10080-exec-2] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:14,211  INFO [http-nio-10080-exec-2] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:16,199  INFO [DefaultQuartzScheduler_Worker-8] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:16,200  INFO [DefaultQuartzScheduler_Worker-8] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:16,205  INFO [http-nio-10080-exec-3] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:16,212  INFO [http-nio-10080-exec-3] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:16,213  INFO [http-nio-10080-exec-3] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:18,195  INFO [DefaultQuartzScheduler_Worker-9] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:18,195  INFO [DefaultQuartzScheduler_Worker-9] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:18,199  INFO [http-nio-10080-exec-4] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:18,208  INFO [http-nio-10080-exec-4] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:18,209  INFO [http-nio-10080-exec-4] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:20,196  INFO [DefaultQuartzScheduler_Worker-10] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:20,197  INFO [DefaultQuartzScheduler_Worker-10] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:20,201  INFO [http-nio-10080-exec-5] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:20,209  INFO [http-nio-10080-exec-5] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:20,209  INFO [http-nio-10080-exec-5] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:22,197  INFO [DefaultQuartzScheduler_Worker-1] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:22,197  INFO [DefaultQuartzScheduler_Worker-1] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:22,200  INFO [http-nio-10080-exec-6] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:22,211  INFO [http-nio-10080-exec-6] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:22,211  INFO [http-nio-10080-exec-6] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:24,197  INFO [DefaultQuartzScheduler_Worker-2] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService uri]] http://localhost:10080/so/profile/schedule 
+2016-09-12 16:19:24,198  INFO [DefaultQuartzScheduler_Worker-2] c.p.i.so.util.http.ClientService    : [[Client Service requestPostService data]] {"id":"pr-lack-equipment-noti"} 
+2016-09-12 16:19:24,202  INFO [http-nio-10080-exec-7] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:19:24,209  INFO [http-nio-10080-exec-7] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:19:24,209  INFO [http-nio-10080-exec-7] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 16:19:24,242  INFO [http-nio-10080-exec-8] c.p.i.s.s.pr.SchedulerPresentation  : pauseSchedulerController Method : response 
+2016-09-12 16:52:46,709  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 2832 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 16:52:46,715 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 16:52:46,716  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 16:53:21,677  INFO [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 16:53:21,781  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 16:53:21,781  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 18:14:12,314  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 5088 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 18:14:12,318 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 18:14:12,319  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 18:15:12,505  INFO [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 18:15:12,506 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : Profile = com.pineone.icbms.so.profile.entity.Profile@2f46eb62 
+2016-09-12 18:15:12,631 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.s.m.ProfileStoreMongoImpl : Profile = com.pineone.icbms.so.profile.entity.Profile@5a20ebeb 
+2016-09-12 18:15:12,631 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.logic.ProfileLogicImpl    : Profile = com.pineone.icbms.so.profile.entity.Profile@1ef97557 
+2016-09-12 18:15:12,632  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 18:15:12,632 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : ContextModelId = cm-announcement-on 
+2016-09-12 18:15:12,632 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.l.ContextModelLogicImpl   : ContextModelId = cm-announcement-on 
+2016-09-12 18:15:12,633  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 18:15:12,633 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : ContextModelId = cm-announcement-on 
+2016-09-12 18:15:13,721  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelPresentation : executeServiceModel Method : requested 
+2016-09-12 18:15:13,721 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelPresentation : ServiceModel Id = sm-announcement-on 
+2016-09-12 18:15:13,721 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute ServiceModel ID = sm-announcement-on 
+2016-09-12 18:15:13,745 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute ServiceModel = ServiceModel{id='sm-announcement-on', name='강의실 스마트 발표 시작 서비스모델', serviceIdList=[si-classroom-light-off, si-classroom-blind-on, si-classroom-beamscreen-on], createTime='null', modifiedTime='null'} 
+2016-09-12 18:15:13,746 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-light-off 
+2016-09-12 18:15:13,746  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:15:13,747  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:15:13,765  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,766  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,804  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,805  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,864  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,865  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,873  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,873  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,876  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,877  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,884  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,885  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,887  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,888  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,896  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,897  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,898  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,899  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,906  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,907  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,909  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,910  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,918  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,919  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,922  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,926  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,936  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,937  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,938  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,939  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,948  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,948  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,950 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-blind-on 
+2016-09-12 18:15:13,950  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:15:13,951  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:15:13,958  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,959  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,967  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,968  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,970  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,971  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,979  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,979  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,981  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:13,982  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:13,990  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:13,991  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:15:13,992 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-beamscreen-on 
+2016-09-12 18:15:13,993  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:15:13,993  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:15:14,001  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:15:14,001  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:15:14,009  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:15:14,009  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:27,328  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 5098 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 18:16:27,332 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 18:16:27,333  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 18:16:46,260  INFO [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 18:16:46,261 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : Profile = com.pineone.icbms.so.profile.entity.Profile@673c6fd4 
+2016-09-12 18:16:46,364 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.s.m.ProfileStoreMongoImpl : Profile = com.pineone.icbms.so.profile.entity.Profile@229e97c7 
+2016-09-12 18:16:46,365 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.logic.ProfileLogicImpl    : Profile = com.pineone.icbms.so.profile.entity.Profile@7e5e8a0c 
+2016-09-12 18:16:46,366  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 18:16:46,366 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : ContextModelId = cm-announcement-on 
+2016-09-12 18:16:46,366 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.l.ContextModelLogicImpl   : ContextModelId = cm-announcement-on 
+2016-09-12 18:16:46,367  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 18:16:46,367 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : ContextModelId = cm-announcement-on 
+2016-09-12 18:16:46,694  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelPresentation : executeServiceModel Method : requested 
+2016-09-12 18:16:46,694 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelPresentation : ServiceModel Id = sm-announcement-on 
+2016-09-12 18:16:46,694 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute ServiceModel ID = sm-announcement-on 
+2016-09-12 18:16:46,711 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute ServiceModel = ServiceModel{id='sm-announcement-on', name='강의실 스마트 발표 시작 서비스모델', serviceIdList=[si-classroom-light-off, si-classroom-blind-on, si-classroom-beamscreen-on], createTime='null', modifiedTime='null'} 
+2016-09-12 18:16:46,712 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-light-off 
+2016-09-12 18:16:46,713  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:16:46,714  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:16:46,731  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,732  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,767  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,768  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,801  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,802  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,809  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,810  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,813  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,813  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,821  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,822  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,824  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,825  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,833  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,834  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,837  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,837  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,845  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,846  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,848  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,848  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,857  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,859  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,861  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,862  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,870  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,870  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,872  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,873  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,880  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,881  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,883 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-blind-on 
+2016-09-12 18:16:46,883  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:16:46,883  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:16:46,890  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,891  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,898  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,899  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,901  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,902  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,909  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,910  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,914  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,915  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,922  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,923  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:16:46,925 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-beamscreen-on 
+2016-09-12 18:16:46,925  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:16:46,926  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:16:46,934  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:16:46,934  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:16:46,942  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:16:46,942  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:17:51,343  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 5106 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 18:17:51,347 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 18:17:51,348  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 18:18:10,558  INFO [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 18:18:10,559 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : Profile = com.pineone.icbms.so.profile.entity.Profile@344cf892 
+2016-09-12 18:18:10,661 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.s.m.ProfileStoreMongoImpl : Profile = com.pineone.icbms.so.profile.entity.Profile@1758b7fa 
+2016-09-12 18:18:10,661 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.logic.ProfileLogicImpl    : Profile = com.pineone.icbms.so.profile.entity.Profile@6dd5ed9c 
+2016-09-12 18:18:10,662  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 18:18:10,662 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : ContextModelId = cm-announcement-on 
+2016-09-12 18:18:10,662 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.l.ContextModelLogicImpl   : ContextModelId = cm-announcement-on 
+2016-09-12 18:18:10,662  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 18:18:10,663 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : ContextModelId = cm-announcement-on 
+2016-09-12 18:18:10,963  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelPresentation : executeServiceModel Method : requested 
+2016-09-12 18:18:10,964 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelPresentation : ServiceModel Id = sm-announcement-on 
+2016-09-12 18:18:10,964 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute ServiceModel ID = sm-announcement-on 
+2016-09-12 18:18:10,980 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute ServiceModel = ServiceModel{id='sm-announcement-on', name='강의실 스마트 발표 시작 서비스모델', serviceIdList=[si-classroom-light-off, si-classroom-blind-on, si-classroom-beamscreen-on], createTime='null', modifiedTime='null'} 
+2016-09-12 18:18:10,981 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-light-off 
+2016-09-12 18:18:10,981  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:18:10,982  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:18:10,999  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,001  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,036  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,037  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,072  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,072  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,081  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,081  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,083  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,084  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,092  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,093  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,095  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,095  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,106  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,107  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,110  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,111  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,120  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,120  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,122  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,123  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,131  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,132  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,134  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,135  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,143  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,144  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,146  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,146  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,154  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,155  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,157 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-blind-on 
+2016-09-12 18:18:11,157  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:18:11,158  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:18:11,166  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,167  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,175  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,176  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,178  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,179  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,187  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,187  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,189  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,190  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,198  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,199  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:18:11,200 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-beamscreen-on 
+2016-09-12 18:18:11,201  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:18:11,201  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:18:11,212  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:18:11,212  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:18:11,219  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:18:11,220  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:07,303  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 5120 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 18:21:07,307 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 18:21:07,308  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 18:21:17,587  INFO [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested 
+2016-09-12 18:21:17,589 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : Profile = ProfileTransFormData{id='pr-announcement-on'} 
+2016-09-12 18:21:17,693 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.s.m.ProfileStoreMongoImpl : Profile = Profile{id='pr-announcement-on', name='공기정화', contextModelId='cm-announcement-on', serviceModelId='sm-announcement-on', bizContextName='null', period=10, expirationTime=0, happenContextModel=false, createTime='null', modifiedTime='null'} 
+2016-09-12 18:21:17,694 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.logic.ProfileLogicImpl    : Profile = Profile{id='pr-announcement-on', name='공기정화', contextModelId='cm-announcement-on', serviceModelId='sm-announcement-on', bizContextName='null', period=10, expirationTime=0, happenContextModel=false, createTime='null', modifiedTime='null'} 
+2016-09-12 18:21:17,695  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested 
+2016-09-12 18:21:17,695 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : ContextModelId = cm-announcement-on 
+2016-09-12 18:21:17,696 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.l.ContextModelLogicImpl   : ContextModelId = cm-announcement-on 
+2016-09-12 18:21:17,696  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response 
+2016-09-12 18:21:17,696 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : ContextModelId = cm-announcement-on 
+2016-09-12 18:21:18,372  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelPresentation : executeServiceModel Method : requested 
+2016-09-12 18:21:18,372 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelPresentation : ServiceModel Id = sm-announcement-on 
+2016-09-12 18:21:18,373 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute ServiceModel ID = sm-announcement-on 
+2016-09-12 18:21:18,389 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute ServiceModel = ServiceModel{id='sm-announcement-on', name='강의실 스마트 발표 시작 서비스모델', serviceIdList=[si-classroom-light-off, si-classroom-blind-on, si-classroom-beamscreen-on], createTime='null', modifiedTime='null'} 
+2016-09-12 18:21:18,390 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-light-off 
+2016-09-12 18:21:18,391  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:21:18,392  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:21:18,412  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,413  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,442  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,443  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,482  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,483  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,492  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,492  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,494  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,495  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,505  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,505  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,508  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,508  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,516  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,517  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,519  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,519  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,528  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,528  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,530  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,532  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,541  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,542  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,544  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,545  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,553  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,554  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,556  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,559  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,567  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,568  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,569 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-blind-on 
+2016-09-12 18:21:18,570  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:21:18,570  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:21:18,578  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,579  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,587  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,588  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,590  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,590  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,598  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,599  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,601  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,602  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,611  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,611  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:21:18,613 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-beamscreen-on 
+2016-09-12 18:21:18,613  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response 
+2016-09-12 18:21:18,614  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested 
+2016-09-12 18:21:18,622  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response 
+2016-09-12 18:21:18,622  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested 
+2016-09-12 18:21:18,630  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response 
+2016-09-12 18:21:18,631  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested 
+2016-09-12 18:40:58,609  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 5972 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 18:40:58,613 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 18:40:58,614  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 18:41:09,961  INFO [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested pr-announcement-on 
+2016-09-12 18:41:09,963 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : Profile = ProfileTransFormData{id='pr-announcement-on'} 
+2016-09-12 18:41:10,077 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.s.m.ProfileStoreMongoImpl : Profile = Profile{id='pr-announcement-on', name='공기정화', contextModelId='cm-announcement-on', serviceModelId='sm-announcement-on', bizContextName='null', period=10, expirationTime=0, happenContextModel=false, createTime='null', modifiedTime='null'} 
+2016-09-12 18:41:10,077 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.logic.ProfileLogicImpl    : Profile = Profile{id='pr-announcement-on', name='공기정화', contextModelId='cm-announcement-on', serviceModelId='sm-announcement-on', bizContextName='null', period=10, expirationTime=0, happenContextModel=false, createTime='null', modifiedTime='null'} 
+2016-09-12 18:41:10,078  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested cm-announcement-on 
+2016-09-12 18:41:10,078 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : ContextModelId = cm-announcement-on 
+2016-09-12 18:41:10,079 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.l.ContextModelLogicImpl   : ContextModelId = cm-announcement-on 
+2016-09-12 18:41:10,079  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response cm-announcement-on 
+2016-09-12 18:41:10,079 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : ContextModelId = cm-announcement-on 
+2016-09-12 18:46:21,385  INFO [           main] c.p.i.s.web.config.WebConfiguration : Starting WebConfiguration on Melvin-ui-MacBook-Pro.local with PID 6311 (/Users/melvin/SO/so-web/build/classes/main started by melvin in /Users/melvin/SO/so-web) 
+2016-09-12 18:46:21,389 DEBUG [           main] c.p.i.s.web.config.WebConfiguration : Running with Spring Boot v1.4.0.RELEASE, Spring v4.3.2.RELEASE 
+2016-09-12 18:46:21,390  INFO [           main] c.p.i.s.web.config.WebConfiguration : No active profile set, falling back to default profiles: default 
+2016-09-12 18:46:31,611  INFO [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : executeScheduleProfile Method : requested , ProfileId = pr-announcement-on 
+2016-09-12 18:46:31,614 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.pr.ProfilePresentation    : Profile = ProfileTransFormData{id='pr-announcement-on'} 
+2016-09-12 18:46:31,977 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.s.m.ProfileStoreMongoImpl : Profile = Profile{id='pr-announcement-on', name='공기정화', contextModelId='cm-announcement-on', serviceModelId='sm-announcement-on', bizContextName='null', period=10, expirationTime=0, happenContextModel=false, createTime='null', modifiedTime='null'} 
+2016-09-12 18:46:31,978 DEBUG [http-nio-10080-exec-1] c.p.i.s.p.logic.ProfileLogicImpl    : Profile = Profile{id='pr-announcement-on', name='공기정화', contextModelId='cm-announcement-on', serviceModelId='sm-announcement-on', bizContextName='null', period=10, expirationTime=0, happenContextModel=false, createTime='null', modifiedTime='null'} 
+2016-09-12 18:46:31,978  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : isHappenContextModel Method : requested , ContextModelId = cm-announcement-on 
+2016-09-12 18:46:31,979 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelPresentation : ContextModelId = cm-announcement-on 
+2016-09-12 18:46:31,979 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.l.ContextModelLogicImpl   : ContextModelId = cm-announcement-on 
+2016-09-12 18:46:31,979  INFO [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : retrieveContextModelEvent Method : response , ContextModelId = cm-announcement-on 
+2016-09-12 18:46:31,979 DEBUG [http-nio-10080-exec-1] c.p.i.s.c.p.ContextModelSDAProxy    : ContextModelId = cm-announcement-on 
+2016-09-12 18:46:32,506  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelPresentation : executeServiceModel Method : requested  
+2016-09-12 18:46:32,507 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelPresentation : ServiceModel Id = sm-announcement-on 
+2016-09-12 18:46:32,507 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute ServiceModel ID = sm-announcement-on 
+2016-09-12 18:46:32,526 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute ServiceModel = ServiceModel{id='sm-announcement-on', name='강의실 스마트 발표 시작 서비스모델', serviceIdList=[si-classroom-light-off, si-classroom-blind-on, si-classroom-beamscreen-on], createTime='null', modifiedTime='null'} 
+2016-09-12 18:46:32,526 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-light-off 
+2016-09-12 18:46:32,527  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response  
+2016-09-12 18:46:32,527  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested  
+2016-09-12 18:46:32,547  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response  
+2016-09-12 18:46:32,548  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested  
+2016-09-12 18:46:32,612  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response  
+2016-09-12 18:46:32,614  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested  
+2016-09-12 18:46:32,654  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response  
+2016-09-12 18:46:32,655  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested  
+2016-09-12 18:46:32,677  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response  
+2016-09-12 18:46:32,677  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested  
+2016-09-12 18:46:32,680  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response  
+2016-09-12 18:46:32,680  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested  
+2016-09-12 18:46:32,705  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response  
+2016-09-12 18:46:32,706  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested  
+2016-09-12 18:46:32,708  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response  
+2016-09-12 18:46:32,709  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested  
+2016-09-12 18:46:32,737  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response  
+2016-09-12 18:46:32,738  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested  
+2016-09-12 18:46:32,740  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response  
+2016-09-12 18:46:32,740  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested  
+2016-09-12 18:46:32,986  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response  
+2016-09-12 18:46:32,987  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested  
+2016-09-12 18:46:32,988  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response  
+2016-09-12 18:46:32,989  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested  
+2016-09-12 18:46:33,017  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response  
+2016-09-12 18:46:33,017  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested  
+2016-09-12 18:46:33,019  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response  
+2016-09-12 18:46:33,019  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested  
+2016-09-12 18:46:33,246  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response  
+2016-09-12 18:46:33,247  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested  
+2016-09-12 18:46:33,249  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response  
+2016-09-12 18:46:33,249  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested  
+2016-09-12 18:46:33,266  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response  
+2016-09-12 18:46:33,266  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested  
+2016-09-12 18:46:33,267 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-blind-on 
+2016-09-12 18:46:33,268  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response  
+2016-09-12 18:46:33,268  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested  
+2016-09-12 18:46:33,288  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response  
+2016-09-12 18:46:33,289  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested  
+2016-09-12 18:46:33,319  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response  
+2016-09-12 18:46:33,319  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested  
+2016-09-12 18:46:33,322  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response  
+2016-09-12 18:46:33,322  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested  
+2016-09-12 18:46:33,362  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response  
+2016-09-12 18:46:33,363  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested  
+2016-09-12 18:46:33,364  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response  
+2016-09-12 18:46:33,365  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested  
+2016-09-12 18:46:33,411  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response  
+2016-09-12 18:46:33,411  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested  
+2016-09-12 18:46:33,413 DEBUG [http-nio-10080-exec-1] c.p.i.s.s.l.ServiceModelLogicImpl   : Execute Service ID = si-classroom-beamscreen-on 
+2016-09-12 18:46:33,414  INFO [http-nio-10080-exec-1] c.p.i.s.s.p.ServiceModelInternalProxy : executeService Method : response  
+2016-09-12 18:46:33,414  INFO [http-nio-10080-exec-1] c.p.i.s.s.pr.ServicePresentation    : executeService Method : requested  
+2016-09-12 18:46:33,456  INFO [http-nio-10080-exec-1] c.p.i.s.s.proxy.ServiceControlProxy : executeVirtualObject Method : response  
+2016-09-12 18:46:33,456  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectPresentation : requestControlVirtualObject Method : requested  
+2016-09-12 18:46:33,479  INFO [http-nio-10080-exec-1] c.p.i.s.v.p.VirtualObjectSIProxy    : executeDevice Method : response  
+2016-09-12 18:46:33,480  INFO [http-nio-10080-exec-1] c.p.i.s.d.pr.DevicePresentation     : deviceControl Method : requested  
