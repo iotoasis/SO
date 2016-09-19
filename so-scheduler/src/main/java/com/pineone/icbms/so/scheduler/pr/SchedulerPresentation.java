@@ -4,6 +4,7 @@ import com.pineone.icbms.so.profile.pr.ProfileTransFormData;
 import com.pineone.icbms.so.profile.proxy.ProfileInternalProxy;
 import com.pineone.icbms.so.scheduler.logic.SchedulerLogic;
 import com.pineone.icbms.so.util.logprint.LogPrint;
+import org.apache.commons.logging.Log;
 import org.quartz.SchedulerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,24 +36,24 @@ public class SchedulerPresentation {
         logger.debug("Profile = " + profileTransFormData.toString());
         schedulerLogic.registerScheduler(profileTransFormData.getId());
     }
-
-    //NOTE: Scheduler 시작 -> 시작시 스케줄러 디비에 있는 모든 내용을 이용하여 스케줄러를 실행
-    public void startSchedulerController() throws SchedulerException {
-        //
-        logger.info(LogPrint.outputInfoLogPrint());
-        schedulerLogic.runScheduler();
-    }
-
-//    //NOTE: Scheduler 종료
-//    @RequestMapping(value = "/quit",method = RequestMethod.GET)
-//    @ResponseStatus(value = HttpStatus.OK)
-//    @ResponseBody
-//    public void quitSchedulerController() throws SchedulerException {
-//        schedulerLogic.quitScheduler();
+//
+//    //NOTE: Scheduler 시작 -> 시작시 스케줄러 디비에 있는 모든 내용을 이용하여 스케줄러를 실행
+//    public void startSchedulerController() throws SchedulerException {
+//        //
+//        logger.info(LogPrint.outputInfoLogPrint());
+//        schedulerLogic.();
 //    }
 
+    //NOTE: Scheduler 종료
+    @RequestMapping(value = "/quit",method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public void quitSchedulerController() throws SchedulerException {
+        schedulerLogic.quitScheduler();
+    }
+
     //NOTE: Scheduler 일시 정지
-    @RequestMapping(value = "/pause",method = RequestMethod.GET)
+    @RequestMapping(value = "/pause", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public void pauseSchedulerController() throws SchedulerException {
@@ -61,11 +62,29 @@ public class SchedulerPresentation {
     }
 
     //NOTE: 일시정지된 Scheduler 재시작
-    @RequestMapping(value = "/restart",method = RequestMethod.GET)
+    @RequestMapping(value = "/restart", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public void restartSchedulerController() throws SchedulerException {
         logger.info(LogPrint.outputInfoLogPrint());
         schedulerLogic.restartScheduler();
+    }
+
+    //NOTE: Scheduler 개별 일시 정지
+    @RequestMapping(value = "/pause", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public void pauseProfileSchedule(@RequestBody ProfileTransFormData profileTransFormData) throws SchedulerException {
+        logger.info(LogPrint.outputInfoLogPrint());
+        schedulerLogic.pauseProfileScheduler(profileTransFormData.getId());
+    }
+
+    //NOTE: Scheduler 개별 일시 정지
+    @RequestMapping(value = "/restart", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public void restartProfileSchedule(@RequestBody ProfileTransFormData profileTransFormData) throws SchedulerException {
+        logger.info(LogPrint.outputInfoLogPrint());
+        schedulerLogic.restartProfileScheduler(profileTransFormData.getId());
     }
 }
