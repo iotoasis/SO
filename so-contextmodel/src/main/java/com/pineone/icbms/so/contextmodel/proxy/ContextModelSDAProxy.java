@@ -104,11 +104,17 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
         if(contextModelId.equals("cm-announcement-on")){
             IHttpResponseMessage message = clientService.requestGetService(
                     contextAddress.getAddress()  + contextModelId + "/?p=," );
+            logger.debug("ResponseMessage : " + message);
             String readData = DataConversion.responseDataToString(message);
             Type type = new TypeToken<RetrieveData>(){}.getType();
             RetrieveData retrieveData = new Gson().fromJson(readData,type);
             System.out.println("Time = " + retrieveData.getTime());
             List<Content> contentList = retrieveData.getContent();
+
+            if(contentList.isEmpty()){
+                domains = null;
+                return domains;
+            }
             for(Content content : contentList){
                 domains.add(content.getPlace());
                 System.out.println("Location = " + content.getPlace());
