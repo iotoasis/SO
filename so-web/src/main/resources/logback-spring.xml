@@ -23,7 +23,7 @@
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>
-            <pattern>%d{ISO8601} %5level [%15thread] %-35logger{35} : %msg %n</pattern>
+            <pattern>%d{YYMMdd HHmmss.SSS} %5level [%15thread{15}] %-35logger{35} : %msg %n</pattern>
         </encoder>
     </appender>
     <logger name="com.pineone.icbms.so" level="DEBUG">
