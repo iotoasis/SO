@@ -18,6 +18,5 @@ public interface ProfileLogic {
     Profile retrieveProfileDetail(String profileId);
     List<String> retrieveProfileIdList();
     String executeScheduleProfile(String profileId);
-    void extractContextModelQueueData();
     List<Profile> retrieveProfileList();
 }
