@@ -21,7 +21,7 @@ import java.util.List;
  * NOTE: Profile 생성 및 실행 로직 포함
  */
 @Service
-public class ProfileLogicImpl implements ProfileLogic{
+public class ProfileLogicImpl implements ProfileLogic, Runnable{
     //
 
     public static final Logger logger = LoggerFactory.getLogger(ProfileLogicImpl.class);
@@ -38,7 +38,18 @@ public class ProfileLogicImpl implements ProfileLogic{
     @Autowired
     ProfileStore profileStore;
 
+    private Thread thread;
+
 //    ContextModelPresentation contextModelPresentation = new ContextModelPresentation();
+
+    public ProfileLogicImpl() {
+        if(thread == null){
+            thread = new Thread(this);
+        }
+        if(!thread.isAlive()){
+            thread.start();
+        }
+    }
 
     public static ProfileLogicImpl newProfileLogic() {
         return new ProfileLogicImpl();
@@ -155,9 +166,16 @@ public class ProfileLogicImpl implements ProfileLogic{
         }
     }
 
+
     @Override
-    public void extractContextModelQueueData() {
-        //
+    public List<Profile> retrieveProfileList() {
+        List<Profile> profileList = profileStore.retrieveProfileList();
+        return profileList;
+    }
+
+    @Override
+    public void run() {
+        System.out.println("???");
         while(true){
             try{
                 Thread.sleep(500);
@@ -176,11 +194,5 @@ public class ProfileLogicImpl implements ProfileLogic{
                 }
             }
         }
-    }
-
-    @Override
-    public List<Profile> retrieveProfileList() {
-        List<Profile> profileList = profileStore.retrieveProfileList();
-        return profileList;
     }
 }
