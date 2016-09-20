@@ -152,9 +152,9 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
     public void run() {
         try {
             Thread.sleep(3000);
-
+            scheduler.start();
             if(!getProperties().equals("false")) {
-                scheduler.start();
+
                 List<ScheduledProfile> scheduledProfileList = schedulerStore.retrieveScheduledProfile();
                 for (ScheduledProfile scheduledProfile : scheduledProfileList) {
                     JobDetail job = JobBuilder.newJob(ScheduleNotificationManager.class)
