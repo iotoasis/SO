@@ -1,13 +1,10 @@
 package com.pineone.icbms.so.contextmodel.pr;
 
-import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 import com.pineone.icbms.so.contextmodel.logic.ContextModelLogic;
-import com.pineone.icbms.so.contextmodel.proxy.ContextModelExProxy;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.contextmodel.ref.DataValidation;
 import com.pineone.icbms.so.contextmodel.ref.ResponseMessage;
-import com.pineone.icbms.so.contextmodel.store.mongo.ContextModelDataObject;
 import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.util.exception.DataLossException;
 import com.pineone.icbms.so.util.logprint.LogPrint;

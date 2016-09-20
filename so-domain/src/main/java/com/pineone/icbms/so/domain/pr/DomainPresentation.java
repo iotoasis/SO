@@ -62,6 +62,7 @@ public class DomainPresentation {
         return domain;
     }
 
+    //NOTE: 도메인 Id 리스트 조회
     @RequestMapping(value = "/id", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody

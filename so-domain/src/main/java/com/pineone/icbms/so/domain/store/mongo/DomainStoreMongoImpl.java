@@ -18,12 +18,14 @@ public class DomainStoreMongoImpl implements DomainStore {
     @Autowired
     DomainRepository domainRepository;
 
+    //NOTE: 디비에 도메인 데이터 생성
     @Override
     public void createDomain(Domain domain) {
         DomainDataObject domainDataObject = domainToDataObject(domain);
         domainRepository.save(domainDataObject);
     }
 
+    //NOTE: 디비의 도메인 리스트 조회
     @Override
     public List<Domain> retrieveDomainList() {
         List<DomainDataObject> domainDataObjectList = domainRepository.findAll();

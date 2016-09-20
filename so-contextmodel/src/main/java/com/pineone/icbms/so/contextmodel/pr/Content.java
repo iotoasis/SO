@@ -1,10 +1,9 @@
 package com.pineone.icbms.so.contextmodel.pr;
 
-import java.util.List;
-
 /**
  * Created by melvin on 2016. 8. 25..
  */
+//NOTE: SDA 에서 수신받는 데이터 중 Content 내부의 Key 값 형성
 public class Content {
     String loc;
     String uri;

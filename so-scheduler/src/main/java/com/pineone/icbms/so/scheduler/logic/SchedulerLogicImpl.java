@@ -41,6 +41,7 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
     String groupName = "soGroup";
     Scheduler scheduler;
 
+    //NOTE : Properties 내용이 false 이면 스케줄러 동작하지 않음 (테스트때 사용)
     private String getProperties(){
         Properties properties = new Properties();
         InputStream in = SchedulerLogicImpl.class.getClassLoader().getResourceAsStream("scheduler.properties");
@@ -54,7 +55,7 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
         return executeScheduler;
     }
 
-
+    //NOTE : SO 구동시 스케줄러 DB의 내용을 스케줄러에 올려 실행하기 위한 쓰레드 생성
     public SchedulerLogicImpl() {
         try {
             scheduler = new StdSchedulerFactory().getScheduler();
@@ -69,6 +70,7 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
         }
     }
 
+    //NOTE : 구동되고 있는 스케줄러에 새로운 스케줄 내용 등록
     @Override
     public void registerScheduler(String profileId) throws SchedulerException {
 
@@ -104,21 +106,25 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
 
     }
 
+    //NOTE : 스케줄러 종료
     @Override
     public void quitScheduler() throws SchedulerException {
         scheduler.shutdown();
     }
 
+    //NOTE : 스케줄러 정지
     @Override
     public void pauseScheduler() throws SchedulerException {
         scheduler.pauseAll();
     }
 
+    //NOTE : 스케줄러 재시작
     @Override
     public void restartScheduler() throws SchedulerException {
         scheduler.resumeAll();
     }
 
+    //NOTE : 개별 스케줄 정지
     @Override
     public void pauseProfileScheduler(String profileId) throws SchedulerException {
         //
@@ -130,6 +136,7 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
         logger.debug("PauseScheduledProfile = " + jobKey.getName());
     }
 
+    //NOTE : 개별 스케줄 재시작
     @Override
     public void restartProfileScheduler(String profileId) throws SchedulerException {
         logger.info(LogPrint.outputInfoLogPrint());
@@ -140,13 +147,14 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
         logger.debug("RestartScheduledProfile = " + jobKey.getName());
     }
 
+    //NOTE : SO 실행시 스케줄러 작동 시키는 쓰레드 - 프로퍼니 파일 내용이 false 외에 자동 작동
     @Override
     public void run() {
         try {
             Thread.sleep(3000);
-
+            scheduler.start();
             if(!getProperties().equals("false")) {
-                scheduler.start();
+
                 List<ScheduledProfile> scheduledProfileList = schedulerStore.retrieveScheduledProfile();
                 for (ScheduledProfile scheduledProfile : scheduledProfileList) {
                     JobDetail job = JobBuilder.newJob(ScheduleNotificationManager.class)

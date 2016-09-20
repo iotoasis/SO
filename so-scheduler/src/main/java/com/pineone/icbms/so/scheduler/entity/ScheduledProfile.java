@@ -3,6 +3,7 @@ package com.pineone.icbms.so.scheduler.entity;
 /**
  * Created by melvin on 2016. 9. 6..
  */
+//NOTE : 프로파일에서 스케줄관련 내용만 추출
 public class ScheduledProfile {
 
     String id;

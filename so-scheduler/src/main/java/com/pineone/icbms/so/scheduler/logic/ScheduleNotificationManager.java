@@ -21,8 +21,7 @@ import java.text.SimpleDateFormat;
 /**
  * Created by melvin on 2016. 9. 5..
  */
-
-
+//NOTE : ScheduledProfile 의 주기로 스케줄 실행 > Profile 에 전송
 public class ScheduleNotificationManager implements Job{
 
     @Autowired

@@ -5,6 +5,7 @@ import java.util.List;
 /**
  * Created by melvin on 2016. 8. 25..
  */
+//NOTE: SDA 에서 수신받는 데이터 형태 반영
 public class RetrieveData {
 
     String cmd;

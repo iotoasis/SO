@@ -31,6 +31,7 @@ public class ContextModelInternalProxy implements ContextModelInProxy {
     @Autowired
     DomainPresentation domainPresentation;
 
+    //NOTE: CI 이름 리스트 조회
     @Override
     public List<String> retrieveContextInformationNameList(){
         //
@@ -40,6 +41,7 @@ public class ContextModelInternalProxy implements ContextModelInProxy {
         return contextInformationList;
     }
 
+    //NOTE: 도메인 리스트 조회
     @Override
     public List<Domain> retrieveDomainList(){
         //

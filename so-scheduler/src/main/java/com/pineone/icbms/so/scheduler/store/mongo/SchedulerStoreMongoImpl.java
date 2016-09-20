@@ -41,6 +41,7 @@ public class SchedulerStoreMongoImpl implements SchedulerStore {
         return scheduledProfileList;
     }
 
+    //NOTE : 디비에 해당 프로파일 내용이 있는지 확인
     @Override
     public boolean isExistScheduledProfile(String profileId) {
         boolean checker = schedulerRepository.exists(profileId);
