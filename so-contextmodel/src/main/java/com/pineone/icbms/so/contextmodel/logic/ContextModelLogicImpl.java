@@ -1,7 +1,6 @@
 package com.pineone.icbms.so.contextmodel.logic;
 
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
-import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
 import com.pineone.icbms.so.contextmodel.proxy.ContextModelExProxy;
 import com.pineone.icbms.so.contextmodel.proxy.ContextModelInProxy;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
@@ -132,6 +131,7 @@ public class ContextModelLogicImpl implements ContextModelLogic{
         return contextModelResultMessage;
     }
 
+    //NOTE: SDA 에서 수신받는 ContextModel 이 Queue 에 저장되어 있는지 확인
     @Override
     public ContextModel retrieveQueueData() {
         ContextModel contextModel = (ContextModel) ContextModelLogicImpl.CONTEXT_MODEL_QUEUE.poll();
@@ -139,6 +139,7 @@ public class ContextModelLogicImpl implements ContextModelLogic{
         return contextModel;
     }
 
+    //NOTE: 도메인리스트 조회
     @Override
     public List<Domain> retrieveDomainList() {
 //        ContextModelExProxy contextModelExProxy = ContextModelInternalProxy.newContextModelInternalProxy();
@@ -146,6 +147,7 @@ public class ContextModelLogicImpl implements ContextModelLogic{
         return domainList;
     }
 
+    //NOTE: CM 조회 로직 (SDA 에서 조회 or SO 내부 조회 선택)
     @Override
     public List<String> retrieveContextModelIdList() {
         //

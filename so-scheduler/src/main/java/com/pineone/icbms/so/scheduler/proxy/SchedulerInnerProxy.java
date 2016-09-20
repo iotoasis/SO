@@ -32,13 +32,13 @@ public class SchedulerInnerProxy implements SchedulerProxy {
         return profile;
     }
 
-    @Override
-    public void executeScheduledProfile(String profileId) {
-        //
-        logger.info(LogPrint.outputInfoLogPrint() + ", ProfileId = " + profileId);
-        logger.debug("ProfileId = " + profileId);
-        System.out.println("여기는넘어오니");
-//        ProfileTransFormData profileTransFormData = new ProfileTransFormData(profileId);
+//    @Override
+//    public void executeScheduledProfile(String profileId) {
+//        //
+//        logger.info(LogPrint.outputInfoLogPrint() + ", ProfileId = " + profileId);
+//        logger.debug("ProfileId = " + profileId);
+//        System.out.println("여기는넘어오니");
+////        ProfileTransFormData profileTransFormData = new ProfileTransFormData(profileId);
 //        profilePresentation.executeScheduleProfile(profileTransFormData);
-    }
+//    }
 }

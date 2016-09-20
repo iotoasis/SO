@@ -5,6 +5,7 @@ import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 /**
  * Created by melvin on 2016. 8. 9..
  */
+//NOTE: SO 에서 리턴해주는 메세지 형태 제공
 public class ResponseMessage {
 
     private String exceptionMessage;

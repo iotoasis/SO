@@ -86,7 +86,7 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
         return contextModel;
     }
 
-    //NOTE: ContextModel 의 상황이 발생했는지 질의, 발생한 도메인 리스트 수신
+    //NOTE: ContextModel 의 상황이 발생했는지 SDA 에 질의, 발생한 도메인 리스트 수신
     @Override
     public List<String> retrieveContextModelEvent(String contextModelId) {
         logger.info(LogPrint.outputInfoLogPrint() + ", ContextModelId = " +  contextModelId);

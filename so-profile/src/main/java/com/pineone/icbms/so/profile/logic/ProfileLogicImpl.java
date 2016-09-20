@@ -42,6 +42,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
 
 //    ContextModelPresentation contextModelPresentation = new ContextModelPresentation();
 
+    //NOTE : Occurrence 수신기를 위한 쓰레드 생성
     public ProfileLogicImpl() {
         if(thread == null){
             thread = new Thread(this);
@@ -166,16 +167,16 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         }
     }
 
-
+    //NOTE : Profile List 조회
     @Override
     public List<Profile> retrieveProfileList() {
         List<Profile> profileList = profileStore.retrieveProfileList();
         return profileList;
     }
 
+    //NOTE : Occ 수신 기능 - 응급상황 발생 > 수신 > 프로파일 검색 > 서비스모델 연결
     @Override
     public void run() {
-        System.out.println("???");
         while(true){
             try{
                 Thread.sleep(500);

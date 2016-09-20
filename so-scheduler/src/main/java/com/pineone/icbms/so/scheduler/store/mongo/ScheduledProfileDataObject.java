@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 /**
  * Created by melvin on 2016. 9. 6..
  */
+//NOTE : 디비에 저장하기 위한 형태의 scheduleProfile
 @Document(collection = "scheduler")
 public class ScheduledProfileDataObject {
     //

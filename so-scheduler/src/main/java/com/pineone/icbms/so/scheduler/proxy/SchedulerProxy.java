@@ -7,5 +7,4 @@ import com.pineone.icbms.so.profile.entity.Profile;
  */
 public interface SchedulerProxy {
     Profile retrieveProfile(String profileId);
-    void executeScheduledProfile(String profileId);
 }
