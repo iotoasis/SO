@@ -82,11 +82,17 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
 
 //        schedulerStore.createScheduledProfile(scheduledProfile);
 
+        //NOTE: 스케줄러 DB 가 비어있거나
         if(schedulerStore.retrieveScheduledProfile().isEmpty()){
             schedulerStore.createScheduledProfile(scheduledProfile);
+            schedulerStore.updateStatus(scheduledProfile, 1);
+
+            //NOTE: 스케줄러 내용이 중복되지 않을때
         }else {
             if(!(schedulerStore.isExistScheduledProfile(scheduledProfile.getId()))){
                 schedulerStore.createScheduledProfile(scheduledProfile);
+                schedulerStore.updateStatus(scheduledProfile, 1);
+
             }
         }
 
@@ -115,13 +121,23 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
     //NOTE : 스케줄러 정지
     @Override
     public void pauseScheduler() throws SchedulerException {
-        scheduler.pauseAll();
+        List<ScheduledProfile> scheduledProfileList = schedulerStore.retrieveScheduledProfileByStatus(1);
+        for(ScheduledProfile scheduledProfile : scheduledProfileList){
+            JobKey jobKey = JobKey.jobKey(scheduledProfile.getId(), groupName);
+            scheduler.pauseJob(jobKey);
+            logger.debug("PauseScheduledProfile = " + jobKey.getName());
+        }
     }
 
     //NOTE : 스케줄러 재시작
     @Override
     public void restartScheduler() throws SchedulerException {
-        scheduler.resumeAll();
+        List<ScheduledProfile> scheduledProfileList = schedulerStore.retrieveScheduledProfileByStatus(1);
+        for(ScheduledProfile scheduledProfile : scheduledProfileList){
+            JobKey jobKey = JobKey.jobKey(scheduledProfile.getId(), groupName);
+            scheduler.resumeJob(jobKey);
+            logger.debug("RestartScheduledProfile = " + jobKey.getName());
+        }
     }
 
     //NOTE : 개별 스케줄 정지
@@ -131,6 +147,7 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
         logger.info(LogPrint.outputInfoLogPrint());
         Profile profile = schedulerProxy.retrieveProfile(profileId);
         ScheduledProfile scheduledProfile = new ScheduledProfile(profile.getId(), profile.getPeriod());
+        schedulerStore.updateStatus(scheduledProfile, 0);
         JobKey jobKey = JobKey.jobKey(scheduledProfile.getId(), groupName);
         scheduler.pauseJob(jobKey);
         logger.debug("PauseScheduledProfile = " + jobKey.getName());
@@ -142,10 +159,28 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
         logger.info(LogPrint.outputInfoLogPrint());
         Profile profile = schedulerProxy.retrieveProfile(profileId);
         ScheduledProfile scheduledProfile = new ScheduledProfile(profile.getId(), profile.getPeriod());
+        schedulerStore.updateStatus(scheduledProfile, 1);
         JobKey jobKey = JobKey.jobKey(scheduledProfile.getId(), groupName);
         scheduler.resumeJob(jobKey);
         logger.debug("RestartScheduledProfile = " + jobKey.getName());
     }
+
+    //NOTE : 현재 작동중인 스케줄 목록 조회
+    @Override
+    public List<ScheduledProfile> retrieveExecuteScheduleList() {
+        List<ScheduledProfile> scheduledProfileList = schedulerStore.retrieveScheduledProfileByStatus(1);
+        logger.debug("ExecuteScheduleProfileList = " + scheduledProfileList.toString());
+        return scheduledProfileList;
+    }
+
+    //NOTE : 현재 대기중인 스케줄 목록 조회
+    @Override
+    public List<ScheduledProfile> retrieveReadyScheduleList() {
+        List<ScheduledProfile> scheduledProfileList = schedulerStore.retrieveScheduledProfileByStatus(0);
+        logger.debug("ReadyScheduleProfileList = " + scheduledProfileList.toString());
+        return scheduledProfileList;
+    }
+
 
     //NOTE : SO 실행시 스케줄러 작동 시키는 쓰레드 - 프로퍼니 파일 내용이 false 외에 자동 작동
     @Override
@@ -155,7 +190,7 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
             scheduler.start();
             if(!getProperties().equals("false")) {
 
-                List<ScheduledProfile> scheduledProfileList = schedulerStore.retrieveScheduledProfile();
+                List<ScheduledProfile> scheduledProfileList = schedulerStore.retrieveScheduledProfileByStatus(1);
                 for (ScheduledProfile scheduledProfile : scheduledProfileList) {
                     JobDetail job = JobBuilder.newJob(ScheduleNotificationManager.class)
                             .withIdentity(scheduledProfile.getId(), groupName)

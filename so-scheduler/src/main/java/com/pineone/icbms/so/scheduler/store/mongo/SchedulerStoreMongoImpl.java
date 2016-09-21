@@ -23,6 +23,7 @@ public class SchedulerStoreMongoImpl implements SchedulerStore {
     SchedulerRepository schedulerRepository;
 
 
+    //NOTE : DB에 스케줄 프로파일 데이터 등록
     @Override
     public void createScheduledProfile(ScheduledProfile scheduledProfile) {
         logger.debug("ScheduledProfile = " + scheduledProfile.toString());
@@ -30,13 +31,14 @@ public class SchedulerStoreMongoImpl implements SchedulerStore {
         schedulerRepository.save(scheduledProfileDataObject);
     }
 
+    //NOTE : 스케줄 목록 조회
     @Override
     public List<ScheduledProfile> retrieveScheduledProfile() {
         List<ScheduledProfileDataObject> scheduledProfileDataObjectList = schedulerRepository.findAll();
         List<ScheduledProfile> scheduledProfileList = new ArrayList<>();
         for(ScheduledProfileDataObject scheduledProfileDataObject : scheduledProfileDataObjectList){
             scheduledProfileList.add(dataObjectToSchedulerDataObject(scheduledProfileDataObject));
-            logger.debug("ScheduledProfile = " + dataObjectToSchedulerDataObject(scheduledProfileDataObject));
+            logger.debug("ScheduledProfile = " + dataObjectToSchedulerDataObject(scheduledProfileDataObject).toString());
         }
         return scheduledProfileList;
     }
@@ -49,9 +51,30 @@ public class SchedulerStoreMongoImpl implements SchedulerStore {
         return checker;
     }
 
+    //NOTE : 스케쥴 상태로 목록 조회
+    @Override
+    public List<ScheduledProfile> retrieveScheduledProfileByStatus(int status) {
+        List<ScheduledProfileDataObject> scheduledProfileDataObjectList = schedulerRepository.findByStatus(status);
+        List<ScheduledProfile> scheduledProfileList = new ArrayList<>();
+        for(ScheduledProfileDataObject scheduledProfileDataObject : scheduledProfileDataObjectList){
+            scheduledProfileList.add(dataObjectToSchedulerDataObject(scheduledProfileDataObject));
+        }
+        return scheduledProfileList;
+    }
+
+    //NOTE : 스케줄 목록에 있는 상태 업데이트
+    @Override
+    public void updateStatus(ScheduledProfile scheduledProfile, int status) {
+        ScheduledProfileDataObject scheduledProfileDataObject = schedulerRepository.findById(scheduledProfile.getId());
+        scheduledProfileDataObject.setStatus(status);
+        schedulerRepository.save(scheduledProfileDataObject);
+        logger.debug("scheduledProfile : " + scheduledProfileDataObject.toString());
+    }
+
+
     private ScheduledProfileDataObject scheduledProfileToDataObject(ScheduledProfile scheduledProfile) {
         if(scheduledProfile == null) return null;
-        return new ScheduledProfileDataObject(scheduledProfile.getId(), scheduledProfile.getPeriod());
+        return new ScheduledProfileDataObject(scheduledProfile.getId(), scheduledProfile.getPeriod(), 0);
     }
 
     private ScheduledProfile dataObjectToSchedulerDataObject(ScheduledProfileDataObject schedulerDataObject){

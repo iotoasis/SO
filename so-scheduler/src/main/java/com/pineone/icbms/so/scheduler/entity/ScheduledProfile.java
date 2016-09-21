@@ -7,14 +7,14 @@ package com.pineone.icbms.so.scheduler.entity;
 public class ScheduledProfile {
 
     String id;
-    int Period;
+    int period;
 
     public ScheduledProfile() {
     }
 
     public ScheduledProfile(String id, int period) {
         this.id = id;
-        Period = period;
+        this.period = period;
     }
 
     public String getId() {
@@ -26,18 +26,18 @@ public class ScheduledProfile {
     }
 
     public int getPeriod() {
-        return Period;
+        return period;
     }
 
     public void setPeriod(int period) {
-        Period = period;
+        this.period = period;
     }
 
     @Override
     public String toString() {
         return "ScheduledProfile{" +
                 "id='" + id + '\'' +
-                ", Period=" + Period +
+                ", period=" + period +
                 '}';
     }
 }
