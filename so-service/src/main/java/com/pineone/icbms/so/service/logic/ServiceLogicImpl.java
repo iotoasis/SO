@@ -111,11 +111,13 @@ public class ServiceLogicImpl implements ServiceLogic{
     public void executeService(String serviceId) {
         logger.debug("Execute Service ID = " + serviceId);
         Service serviceData = serviceStore.retrieveServiceDetail(serviceId);
-        for(String service : serviceData.getVirtualObjectIdList()){
-            serviceProxy.executeVirtualObject(service, serviceData.getStatus());
+        for(String virtualObjectId : serviceData.getVirtualObjectIdList()){
+            if(virtualObjectId.startsWith("cvo")) {
+                serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus());
+            } else {
+                serviceProxy.executeVirtualObject(virtualObjectId, serviceData.getStatus());
+            }
         }
-
-        // 해당 서비스에서 operation을 얻어서 serviceId와 operation으로 VO에 제어 요청을 한다.
     }
 
     @Override

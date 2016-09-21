@@ -7,7 +7,7 @@ import java.util.List;
 public interface CompositeVirtualObjectStore {
     void create(CompositeVirtualObject compositeVirtualObject);
     CompositeVirtualObject retrieveByID(String id);
-    List<CompositeVirtualObject> retrieveByLocation(String location);
+    List<CompositeVirtualObject> retrieveByLocationCompositeVirtualObjectList(String location);
     List<CompositeVirtualObject> retrieveCompositeVirtualObjectList();
     void update(CompositeVirtualObject compositeVirtualObject);
     void delete(String id);

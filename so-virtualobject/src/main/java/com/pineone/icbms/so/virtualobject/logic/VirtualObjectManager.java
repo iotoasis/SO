@@ -1,6 +1,5 @@
 package com.pineone.icbms.so.virtualobject.logic;
 
-import com.pineone.icbms.so.virtualobject.entity.ServiceControl;
 import com.pineone.icbms.so.virtualobject.entity.VirtualObject;
 
 import java.util.List;
@@ -12,5 +11,5 @@ public interface VirtualObjectManager {
     List<VirtualObject> searchVirtualObjectList();
     String requestControlDevice(String voId, String operation);
     void produceVirtualObject(VirtualObject virtualObject);
-    String controlDevice(List<ServiceControl> serviceControls);
+//    String controlDevice(List<ServiceControl> serviceControls);
 }

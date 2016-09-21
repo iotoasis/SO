@@ -6,8 +6,7 @@ public class CompositeVirtualObject {
     //
     private String id;
     private String name;
-    private List<String> voList;
-    private String voFunctionality;
+    private List<String> voIdList;
     private String location;
     private String createTime;
     private String modifiedTime;
@@ -16,11 +15,10 @@ public class CompositeVirtualObject {
     public CompositeVirtualObject() {
     }
 
-    public CompositeVirtualObject(String id, String name, List<String> voList, String voFunctionality, String location, String createTime, String modifiedTime, String description) {
+    public CompositeVirtualObject(String id, String name, List<String> voIdList, String location, String createTime, String modifiedTime, String description) {
         this.id = id;
         this.name = name;
-        this.voList = voList;
-        this.voFunctionality = voFunctionality;
+        this.voIdList = voIdList;
         this.location = location;
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
@@ -43,20 +41,12 @@ public class CompositeVirtualObject {
         this.name = name;
     }
 
-    public List<String> getVoList() {
-        return voList;
+    public List<String> getVoIdList() {
+        return voIdList;
     }
 
-    public void setVoList(List<String> voList) {
-        this.voList = voList;
-    }
-
-    public String getVoFunctionality() {
-        return voFunctionality;
-    }
-
-    public void setVoFunctionality(String voFunctionality) {
-        this.voFunctionality = voFunctionality;
+    public void setVoIdList(List<String> voIdList) {
+        this.voIdList = voIdList;
     }
 
     public String getLocation() {
@@ -96,8 +86,7 @@ public class CompositeVirtualObject {
         return "CompositeVirtualObject{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", voList=" + voList +
-                ", voFunctionality='" + voFunctionality + '\'' +
+                ", voIdList=" + voIdList +
                 ", location='" + location + '\'' +
                 ", createTime='" + createTime + '\'' +
                 ", modifiedTime='" + modifiedTime + '\'' +

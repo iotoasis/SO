@@ -27,7 +27,7 @@ public class CompositeVirtualObjectMongoStore implements CompositeVirtualObjectS
     }
 
     @Override
-    public List<CompositeVirtualObject> retrieveByLocation(String location) {
+    public List<CompositeVirtualObject> retrieveByLocationCompositeVirtualObjectList(String location) {
         List<CompositeVirtualObject> cvoList = new ArrayList<>();
         List<CompositeVirtualObjectDataObject> cvoDataObjects = compositeVirtualObjectRepository.findByLocation(location);
 
@@ -63,11 +63,11 @@ public class CompositeVirtualObjectMongoStore implements CompositeVirtualObjectS
 
     private CompositeVirtualObjectDataObject CompositeVirtualObjectToDataObject(CompositeVirtualObject compositeVirtualObject){
         if(compositeVirtualObject == null) return null;
-        return new CompositeVirtualObjectDataObject(compositeVirtualObject.getId(),compositeVirtualObject.getName(),compositeVirtualObject.getVoList(),compositeVirtualObject.getVoFunctionality(),compositeVirtualObject.getLocation(),compositeVirtualObject.getCreateTime(),compositeVirtualObject.getModifiedTime(),compositeVirtualObject.getDescription());
+        return new CompositeVirtualObjectDataObject(compositeVirtualObject.getId(),compositeVirtualObject.getName(),compositeVirtualObject.getVoIdList(),compositeVirtualObject.getLocation(),compositeVirtualObject.getCreateTime(),compositeVirtualObject.getModifiedTime(),compositeVirtualObject.getDescription());
     }
 
     private CompositeVirtualObject CompositeVirtualObjectDataObjectToCVO(CompositeVirtualObjectDataObject dataObject){
         if(dataObject == null) return null;
-        return new CompositeVirtualObject(dataObject.getId(),dataObject.getName(),dataObject.getVoList(),dataObject.getVoFunctionality(),dataObject.getLocation(),dataObject.getCreateTime(),dataObject.getModifiedTime(),dataObject.getDescription());
+        return new CompositeVirtualObject(dataObject.getId(),dataObject.getName(),dataObject.getVoIdList(),dataObject.getLocation(),dataObject.getCreateTime(),dataObject.getModifiedTime(),dataObject.getDescription());
     }
 }
