@@ -2,7 +2,6 @@ package com.pineone.icbms.so.virtualobject.logic;
 
 import com.pineone.icbms.so.device.logic.DeviceManager;
 import com.pineone.icbms.so.device.pr.DevicePresentation;
-import com.pineone.icbms.so.virtualobject.entity.ServiceControl;
 import com.pineone.icbms.so.virtualobject.entity.VirtualObject;
 import com.pineone.icbms.so.virtualobject.proxy.VirtualObjectControlProxy;
 import com.pineone.icbms.so.virtualobject.proxy.VirtualObjectProxy;
@@ -97,12 +96,13 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
 
     }
 
+/*
     @Override
     public String controlDevice(List<ServiceControl> serviceControls) {
         // DB에서 domain과 VOService로 해당 VO들 조회.
         logger.debug("ServiceControl = " +  serviceControls.toString());
         for(ServiceControl control : serviceControls){
-            List<VirtualObject> virtualObjects = virtualObjectStore.retrieveByLocationAndService(control.getDomain(),control.getVoService());
+            List<VirtualObject> virtualObjects = virtualObjectStore.retrieveByLocationAndService(control.getDomain(),control.getFunctionality());
             // DB에서 조회된 VO 실행.
             for(VirtualObject vo : virtualObjects){
                 logger.debug("VirtualObject ID = " + vo.getVoId() + " Device ID = " + vo.getDeviceId() + " Operation = " + vo.getVoCommand());
@@ -113,6 +113,7 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
         //VO 제어
         return null;
     }
+*/
 
     private void saveVirtualDevice(VirtualObject virtualObject){
         virtualObjectStore.create(virtualObject);

@@ -1,22 +1,21 @@
-package com.pineone.icbms.so.virtualobject;
+package com.pineone.icbms.so.compositevo;
 
 import com.pineone.icbms.so.util.UtilApplication;
+import com.pineone.icbms.so.virtualobject.VirtualObjectApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import com.pineone.icbms.so.device.DeviceApplication;
-
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
-@Import({DeviceApplication.class, UtilApplication.class})
-public class VirtualObjectApplication
+@Import({VirtualObjectApplication.class,UtilApplication.class})
+public class CompositeVirtualObjectApplication
 {
     public static void main( String[] args )
     {
-        SpringApplication.run(VirtualObjectApplication.class, args);
+        SpringApplication.run(CompositeVirtualObjectApplication.class, args);
     }
 }
