@@ -2,6 +2,7 @@ package com.pineone.icbms.so.scheduler.pr;
 
 import com.pineone.icbms.so.profile.pr.ProfileTransFormData;
 import com.pineone.icbms.so.profile.proxy.ProfileInternalProxy;
+import com.pineone.icbms.so.scheduler.entity.ScheduledProfile;
 import com.pineone.icbms.so.scheduler.logic.SchedulerLogic;
 import com.pineone.icbms.so.util.logprint.LogPrint;
 import org.apache.commons.logging.Log;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by melvin on 2016. 9. 5..
@@ -86,5 +89,25 @@ public class SchedulerPresentation {
     public void restartProfileSchedule(@RequestBody ProfileTransFormData profileTransFormData) throws SchedulerException {
         logger.info(LogPrint.outputInfoLogPrint());
         schedulerLogic.restartProfileScheduler(profileTransFormData.getId());
+    }
+
+    //NOTE: 작동중인 Schedule 목록 조회
+    @RequestMapping(value = "/execute", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public List<ScheduledProfile> retrieveExecuteScheduleList() throws SchedulerException {
+        logger.info(LogPrint.outputInfoLogPrint());
+        List<ScheduledProfile> scheduledProfileList = schedulerLogic.retrieveExecuteScheduleList();
+        return scheduledProfileList;
+    }
+
+    //NOTE: 대기중인 Schedule 목록 조회
+    @RequestMapping(value = "/ready", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public List<ScheduledProfile> retrieveReadyScheduleList() throws SchedulerException {
+        logger.info(LogPrint.outputInfoLogPrint());
+        List<ScheduledProfile> scheduledProfileList = schedulerLogic.retrieveReadyScheduleList();
+        return scheduledProfileList;
     }
 }

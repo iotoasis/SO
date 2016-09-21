@@ -13,13 +13,28 @@ public class ScheduledProfileDataObject {
     public ScheduledProfileDataObject() {
     }
 
-    public ScheduledProfileDataObject(String profileId, int period) {
-        this.id = profileId;
-        Period = period;
+    public ScheduledProfileDataObject(String id, int period, int status) {
+        this.id = id;
+        this.period = period;
+        this.status = status;
+    }
+
+    public ScheduledProfileDataObject(String id, int period) {
+        this.id = id;
+        this.period = period;
     }
 
     String id;
-    int Period;
+    int period;
+    int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public String getId() {
         return id;
@@ -30,10 +45,10 @@ public class ScheduledProfileDataObject {
     }
 
     public int getPeriod() {
-        return Period;
+        return period;
     }
 
     public void setPeriod(int period) {
-        Period = period;
+        this.period = period;
     }
 }
