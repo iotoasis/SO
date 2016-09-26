@@ -9,6 +9,8 @@ public class ClientProfile {
     public static final String  SI_CONTOL_URI               = "http://166.104.112.34:8081/si/command";
     public static final String  SI_COMMAND_ID               = "cmd_";
 
+    public static final String SO_DEVICE_STATUS_URI         = "http://166.104.112.42:10080/so/device/status";
+
 
     //SDA Data
     public static final String  SDA_DATAREQUEST_URI         = "http://oasia.org/sda/hanyang";

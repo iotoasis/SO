@@ -6,13 +6,11 @@ import com.pineone.icbms.so.device.proxy.DeviceICollectionProxy;
 import com.pineone.icbms.so.device.store.DeviceResultStore;
 import com.pineone.icbms.so.device.store.DeviceStore;
 import com.pineone.icbms.so.device.util.ClientProfile;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -62,11 +60,8 @@ public class DeviceManagerLogic implements DeviceManager {
         // SI를 제어할수 있는 DeviceControlMessage로 변환
         DeviceControlMessage deviceControlMessage = deviceDataConversion(deviceId,commandId,deviceCommand);
         logger.debug("DeviceControlMessage = " + deviceControlMessage.toString());
-        // JsonData로 요청 메시지 변환
-        String jsonString = convertObjectToJson(deviceControlMessage);
-        logger.debug("DeviceControlMessage to JSON = " + jsonString);
         // Device 제어 요청 보냄.
-//        ResultMessage resultMessage = controlRequest(ClientProfile.SI_CONTOL_URI,jsonString);
+        ResultMessage resultMessage = deviceControlProxy.deviceControlRequest(ClientProfile.SI_CONTOL_URI,deviceControlMessage);
 //
         // Device 제어 결과 저장.
 //        controlResultsStorage(deviceId, commandId, deviceCommand, resultMessage);
@@ -130,6 +125,20 @@ public class DeviceManagerLogic implements DeviceManager {
         return deviceList;
     }
 
+    @Override
+    public void deviceUpdate(Device device) {
+        deviceStore.update(device);
+    }
+
+    @Override
+    public String deviceSubscription(String uri) {
+        DeviceSubscriptionData deviceSubscriptionData = new DeviceSubscriptionData();
+        deviceSubscriptionData.set_uri(uri);
+        deviceSubscriptionData.set_notificationuri(ClientProfile.SO_DEVICE_STATUS_URI);
+
+        return deviceControlProxy.deviceSubscriptionRequest(ClientProfile.SI_CONTOL_URI,deviceSubscriptionData);
+    }
+
 
     private DeviceControlMessage deviceDataConversion(String deviceId, String commandId, String deviceCommand){
         DeviceControlMessage deviceControlMessage = new DeviceControlMessage();
@@ -142,24 +151,6 @@ public class DeviceManagerLogic implements DeviceManager {
         deviceControlMessage.setCon(deviceCommand);
 
         return deviceControlMessage;
-    }
-
-    private String convertObjectToJson(DeviceControlMessage deviceControlMessage){
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonString = null;
-        try {
-            jsonString = mapper.writeValueAsString(deviceControlMessage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return jsonString;
-    }
-
-    private ResultMessage controlRequest(String uri,String body){
-        //
-        ResultMessage resultMessage= deviceControlProxy.deviceControlRequest(uri,body);
-        return resultMessage;
     }
 
     private Device deviceRequest(String uri){

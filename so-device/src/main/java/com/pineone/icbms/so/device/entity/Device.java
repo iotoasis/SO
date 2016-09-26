@@ -13,11 +13,12 @@ public class Device {
     private List<String>    deviceServices;
     private String          deviceCreateTime;
     private String          deviceExfiredTime;
+    private String          status;
 
     public Device() {
     }
 
-    public Device(String deviceId, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, String deviceCreateTime, String deviceExfiredTime) {
+    public Device(String deviceId, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, String deviceCreateTime, String deviceExfiredTime, String status) {
         this.deviceId = deviceId;
         this.deviceName = deviceName;
         this.deviceLocation = deviceLocation;
@@ -26,6 +27,7 @@ public class Device {
         this.deviceServices = deviceServices;
         this.deviceCreateTime = deviceCreateTime;
         this.deviceExfiredTime = deviceExfiredTime;
+        this.status = status;
     }
 
     public String getDeviceId() {
@@ -92,6 +94,14 @@ public class Device {
         this.deviceExfiredTime = deviceExfiredTime;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Device{" +
@@ -103,6 +113,7 @@ public class Device {
                 ", deviceServices=" + deviceServices +
                 ", deviceCreateTime='" + deviceCreateTime + '\'' +
                 ", deviceExfiredTime='" + deviceExfiredTime + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }
