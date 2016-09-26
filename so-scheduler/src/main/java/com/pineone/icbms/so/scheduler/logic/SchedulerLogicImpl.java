@@ -71,7 +71,7 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
 
 
         logger.debug("ProfileId = " + profileId + " ,Period = " + period);
-        ScheduledProfile scheduledProfile = new ScheduledProfile(profileId, period);
+        ScheduledProfile scheduledProfile = new ScheduledProfile(profileId, period, 1);
         logger.debug("ScheduledProfile = " + scheduledProfile.toString());
 
 //        schedulerStore.createScheduledProfile(scheduledProfile);

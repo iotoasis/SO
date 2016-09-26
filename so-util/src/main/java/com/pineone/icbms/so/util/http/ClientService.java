@@ -107,7 +107,7 @@ public class ClientService
 			httpResponseMessage = res
 					.getValue(HttpClientService.KEY_HTTP_RESPONSE);
 			// print a response
-			System.out.println(res);
+			//System.out.println(res);
 		}
 		catch (ServiceException e)
 		{
