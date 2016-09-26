@@ -8,17 +8,19 @@ public class DeviceTransFormObject {
     private String          deviceUri;
     private String          deviceCommand;
     private String          deviceServices;
+    private String          status;
 
     public DeviceTransFormObject() {
     }
 
-    public DeviceTransFormObject(String deviceId, String deviceName, String deviceLocation, String deviceUri, String deviceCommand, String deviceServices) {
+    public DeviceTransFormObject(String deviceId, String deviceName, String deviceLocation, String deviceUri, String deviceCommand, String deviceServices, String status) {
         this.deviceId = deviceId;
         this.deviceName = deviceName;
         this.deviceLocation = deviceLocation;
         this.deviceUri = deviceUri;
         this.deviceCommand = deviceCommand;
         this.deviceServices = deviceServices;
+        this.status = status;
     }
 
     public String getDeviceId() {
@@ -69,6 +71,14 @@ public class DeviceTransFormObject {
         this.deviceServices = deviceServices;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "DeviceTransFormObject{" +
@@ -78,6 +88,7 @@ public class DeviceTransFormObject {
                 ", deviceUri='" + deviceUri + '\'' +
                 ", deviceCommand='" + deviceCommand + '\'' +
                 ", deviceServices='" + deviceServices + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

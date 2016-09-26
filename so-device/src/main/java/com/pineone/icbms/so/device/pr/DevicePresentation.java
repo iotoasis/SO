@@ -1,9 +1,6 @@
 package com.pineone.icbms.so.device.pr;
 
-import com.pineone.icbms.so.device.entity.Device;
-import com.pineone.icbms.so.device.entity.DeviceTransFormObject;
-import com.pineone.icbms.so.device.entity.ResultMessage;
-import com.pineone.icbms.so.device.entity.deviceReleaseMessage;
+import com.pineone.icbms.so.device.entity.*;
 import com.pineone.icbms.so.device.logic.DeviceManager;
 import com.pineone.icbms.so.util.logprint.LogPrint;
 import org.slf4j.Logger;
@@ -23,12 +20,13 @@ public class DevicePresentation {
      * Device 제어 요청
      * Device 등록 요청
      * Device 해제 요청
-     * Device 제어 결과 요청
+     * Device 제어 결과 요청 --> 2차년도에 SI구조 변경으로 사용 안함.
      *
      * Device 검색 요청(By ID)
      * Device 검색 요청(By Location)
      * Device Service들 요청.
      * Device Operation 요청
+     * Device 상태 저장.
      */
 
     public static final Logger logger = LoggerFactory.getLogger(DevicePresentation.class);
@@ -152,6 +150,22 @@ public class DevicePresentation {
         logger.debug("Device = " + deviceTransFormObject.toString());
         return deviceManager.searchOperation(deviceTransFormObject.getDeviceId(), deviceTransFormObject.getDeviceServices());
     }
+
+    @RequestMapping(value = "/status", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public void updateDeviceStatus(@RequestBody DeviceStatusData deviceStatusData){
+        logger.info(LogPrint.inputInfoLogPrint() + "DeviceStatusData = " + deviceStatusData.toString());
+        logger.debug("DeviceStatusData = " + deviceStatusData.toString());
+
+        if(!deviceStatusData.get_uri().isEmpty()){
+            Device device = deviceManager.deviceSearchById(deviceStatusData.get_uri());
+            if(!deviceStatusData.getStatus().isEmpty() && !deviceStatusData.checkDeviceStatus(device.getStatus())) {
+                device.setStatus(deviceStatusData.getStatus());
+                deviceManager.deviceUpdate(device);
+            }
+        }
+    }
+
 
     public DeviceTransFormObject settingDeviceRequestData(String deviceid, String command){
         DeviceTransFormObject object = new DeviceTransFormObject();
