@@ -1,7 +1,6 @@
 package com.pineone.icbms.so.scheduler.logic;
 
 import com.pineone.icbms.so.profile.pr.ProfileTransFormData;
-import com.pineone.icbms.so.scheduler.proxy.SchedulerInnerProxy;
 import com.pineone.icbms.so.scheduler.proxy.SchedulerProxy;
 import com.pineone.icbms.so.util.conversion.DataConversion;
 import com.pineone.icbms.so.util.http.ClientService;
@@ -9,11 +8,6 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.scheduling.quartz.JobDetailFactoryBean;
-import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;

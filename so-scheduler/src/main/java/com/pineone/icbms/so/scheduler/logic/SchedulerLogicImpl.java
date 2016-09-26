@@ -3,23 +3,18 @@ package com.pineone.icbms.so.scheduler.logic;
 import com.pineone.icbms.so.scheduler.entity.ScheduledProfile;
 import com.pineone.icbms.so.scheduler.proxy.SchedulerProxy;
 import com.pineone.icbms.so.scheduler.store.SchedulerStore;
-import com.pineone.icbms.so.profile.entity.Profile;
 import com.pineone.icbms.so.util.logprint.LogPrint;
 import org.quartz.*;
-import org.quartz.impl.StdScheduler;
 import org.quartz.impl.StdSchedulerFactory;
-import org.quartz.impl.matchers.GroupMatcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.InputStreamEditor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
-import java.util.Set;
 
 /**
  * Created by melvin on 2016. 9. 5..
@@ -72,12 +67,11 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
 
     //NOTE : 구동되고 있는 스케줄러에 새로운 스케줄 내용 등록
     @Override
-    public void registerScheduler(String profileId) throws SchedulerException {
+    public void registerScheduler(String profileId, int period) throws SchedulerException {
 
 
-        logger.debug("ProfileId = " + profileId);
-        Profile profile = schedulerProxy.retrieveProfile(profileId);
-        ScheduledProfile scheduledProfile = new ScheduledProfile(profile.getId(), profile.getPeriod());
+        logger.debug("ProfileId = " + profileId + " ,Period = " + period);
+        ScheduledProfile scheduledProfile = new ScheduledProfile(profileId, period);
         logger.debug("ScheduledProfile = " + scheduledProfile.toString());
 
 //        schedulerStore.createScheduledProfile(scheduledProfile);
@@ -87,15 +81,15 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
             schedulerStore.createScheduledProfile(scheduledProfile);
             schedulerStore.updateStatus(scheduledProfile, 1);
 
-            //NOTE: 스케줄러 내용이 중복되지 않을때
         }else {
+            //NOTE: 스케줄러 내용이 중복되지 않을때
             if(!(schedulerStore.isExistScheduledProfile(scheduledProfile.getId()))){
                 schedulerStore.createScheduledProfile(scheduledProfile);
                 schedulerStore.updateStatus(scheduledProfile, 1);
-
             }
         }
 
+        //NOTE: 스케줄러 생성
         JobDetail job = JobBuilder.newJob(ScheduleNotificationManager.class)
                 .withIdentity(scheduledProfile.getId(),groupName)
                 .build();
@@ -109,7 +103,64 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
                 ).build();
 
         scheduler.scheduleJob(job, trigger);
+    }
 
+    //NOTE : 스케줄러 period 업데이트
+    @Override
+    public void updateScheduler(String schedulerProfileId, int period) throws SchedulerException {
+        ScheduledProfile scheduledProfile = new ScheduledProfile(schedulerProfileId, period);
+        schedulerStore.updatePeriod(scheduledProfile);
+        logger.debug("ScheduledProfileId = " + schedulerProfileId + " ,  Period = " + period + " Update");
+
+        JobKey jobKey = JobKey.jobKey(scheduledProfile.getId(), groupName);
+        scheduler.deleteJob(jobKey);
+
+        JobDetail job = JobBuilder.newJob(ScheduleNotificationManager.class)
+                .withIdentity(scheduledProfile.getId(),groupName)
+                .build();
+
+        Trigger trigger = TriggerBuilder
+                .newTrigger()
+                .withIdentity(scheduledProfile.getId(),groupName)
+                .withSchedule(
+                        SimpleScheduleBuilder.simpleSchedule()
+                                .withIntervalInSeconds(scheduledProfile.getPeriod()).repeatForever()
+                ).build();
+
+        scheduler.scheduleJob(job, trigger);
+
+
+//        Trigger oldTrigger = scheduler.getTrigger(TriggerKey.triggerKey(scheduledProfile.getId(), groupName));
+//
+//        TriggerBuilder triggerBuilder = oldTrigger.getTriggerBuilder();
+//
+//        Trigger newTrigger = triggerBuilder.withSchedule(SimpleScheduleBuilder.simpleSchedule()
+//            .withIntervalInSeconds(scheduledProfile.getPeriod()))
+//            .build();
+//
+//        scheduler.rescheduleJob(oldTrigger.getKey() , newTrigger);
+
+
+
+//
+//        TriggerKey triggerKey = TriggerKey.triggerKey(schedulerProfileId);
+//
+//        Trigger trigger = TriggerBuilder
+//                .newTrigger()
+//                .withIdentity(scheduledProfile.getId(),groupName)
+//                .withSchedule(
+//                        SimpleScheduleBuilder.simpleSchedule()
+//                                .withIntervalInSeconds(scheduledProfile.getPeriod()).repeatForever()
+//                ).build();
+//
+//        scheduler.rescheduleJob(triggerKey, trigger);
+    }
+
+    //NOTE : 스케줄러 목록 조회
+    @Override
+    public List<ScheduledProfile> retrieveSchedulerList() {
+        List<ScheduledProfile> scheduledProfileList = schedulerStore.retrieveScheduledProfile();
+        return scheduledProfileList;
     }
 
     //NOTE : 스케줄러 종료
@@ -145,8 +196,7 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
     public void pauseProfileScheduler(String profileId) throws SchedulerException {
         //
         logger.info(LogPrint.outputInfoLogPrint());
-        Profile profile = schedulerProxy.retrieveProfile(profileId);
-        ScheduledProfile scheduledProfile = new ScheduledProfile(profile.getId(), profile.getPeriod());
+        ScheduledProfile scheduledProfile = new ScheduledProfile(profileId);
         schedulerStore.updateStatus(scheduledProfile, 0);
         JobKey jobKey = JobKey.jobKey(scheduledProfile.getId(), groupName);
         scheduler.pauseJob(jobKey);
@@ -157,8 +207,7 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
     @Override
     public void restartProfileScheduler(String profileId) throws SchedulerException {
         logger.info(LogPrint.outputInfoLogPrint());
-        Profile profile = schedulerProxy.retrieveProfile(profileId);
-        ScheduledProfile scheduledProfile = new ScheduledProfile(profile.getId(), profile.getPeriod());
+        ScheduledProfile scheduledProfile = new ScheduledProfile(profileId);
         schedulerStore.updateStatus(scheduledProfile, 1);
         JobKey jobKey = JobKey.jobKey(scheduledProfile.getId(), groupName);
         scheduler.resumeJob(jobKey);

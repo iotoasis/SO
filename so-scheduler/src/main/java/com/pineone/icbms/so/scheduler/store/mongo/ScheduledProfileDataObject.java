@@ -24,6 +24,10 @@ public class ScheduledProfileDataObject {
         this.period = period;
     }
 
+    public ScheduledProfileDataObject(String id) {
+        this.id = id;
+    }
+
     String id;
     int period;
     int status;
@@ -50,5 +54,14 @@ public class ScheduledProfileDataObject {
 
     public void setPeriod(int period) {
         this.period = period;
+    }
+
+    @Override
+    public String toString() {
+        return "ScheduledProfileDataObject{" +
+                "id='" + id + '\'' +
+                ", period=" + period +
+                ", status=" + status +
+                '}';
     }
 }

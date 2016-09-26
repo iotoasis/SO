@@ -9,7 +9,7 @@ import java.util.List;
  * Created by melvin on 2016. 9. 5..
  */
 public interface SchedulerLogic {
-    void registerScheduler(String profileId) throws SchedulerException;
+    void registerScheduler(String profileId, int period) throws SchedulerException;
     void quitScheduler() throws SchedulerException;
     void pauseScheduler() throws SchedulerException;
     void restartScheduler() throws SchedulerException;
@@ -17,4 +17,6 @@ public interface SchedulerLogic {
     void restartProfileScheduler(String profileId) throws SchedulerException;
     List<ScheduledProfile> retrieveExecuteScheduleList();
     List<ScheduledProfile> retrieveReadyScheduleList();
+    void updateScheduler(String id, int period) throws SchedulerException;
+    List<ScheduledProfile> retrieveSchedulerList();
 }

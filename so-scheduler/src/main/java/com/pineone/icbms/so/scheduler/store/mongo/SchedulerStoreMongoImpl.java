@@ -71,6 +71,15 @@ public class SchedulerStoreMongoImpl implements SchedulerStore {
         logger.debug("scheduledProfile : " + scheduledProfileDataObject.toString());
     }
 
+    //NOTE : 스케줄 디비의 주기 업데이트
+    @Override
+    public void updatePeriod(ScheduledProfile schedulerProfile) {
+        ScheduledProfileDataObject scheduledProfileDataObject = schedulerRepository.findById(schedulerProfile.getId());
+        scheduledProfileDataObject.setPeriod(schedulerProfile.getPeriod());
+        schedulerRepository.save(scheduledProfileDataObject);
+        logger.debug("scheduledProfile : " + scheduledProfileDataObject.toString());
+    }
+
 
     private ScheduledProfileDataObject scheduledProfileToDataObject(ScheduledProfile scheduledProfile) {
         if(scheduledProfile == null) return null;
@@ -79,6 +88,6 @@ public class SchedulerStoreMongoImpl implements SchedulerStore {
 
     private ScheduledProfile dataObjectToSchedulerDataObject(ScheduledProfileDataObject schedulerDataObject){
         if(schedulerDataObject == null) return null;
-        return new ScheduledProfile(schedulerDataObject.getId(), schedulerDataObject.getPeriod());
+        return new ScheduledProfile(schedulerDataObject.getId(), schedulerDataObject.getPeriod(), schedulerDataObject.getStatus());
     }
 }

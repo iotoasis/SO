@@ -1,11 +1,9 @@
 package com.pineone.icbms.so.scheduler.pr;
 
 import com.pineone.icbms.so.profile.pr.ProfileTransFormData;
-import com.pineone.icbms.so.profile.proxy.ProfileInternalProxy;
 import com.pineone.icbms.so.scheduler.entity.ScheduledProfile;
 import com.pineone.icbms.so.scheduler.logic.SchedulerLogic;
 import com.pineone.icbms.so.util.logprint.LogPrint;
-import org.apache.commons.logging.Log;
 import org.quartz.SchedulerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +35,7 @@ public class SchedulerPresentation {
         //
         logger.info(LogPrint.outputInfoLogPrint() + ", ProfileId = " + profileTransFormData.getId());
         logger.debug("Profile = " + profileTransFormData.toString());
-        schedulerLogic.registerScheduler(profileTransFormData.getId());
+        schedulerLogic.registerScheduler(profileTransFormData.getId(), profileTransFormData.getPeriod());
     }
 //
 //    //NOTE: Scheduler 시작 -> 시작시 스케줄러 디비에 있는 모든 내용을 이용하여 스케줄러를 실행
@@ -109,5 +107,27 @@ public class SchedulerPresentation {
         logger.info(LogPrint.outputInfoLogPrint());
         List<ScheduledProfile> scheduledProfileList = schedulerLogic.retrieveReadyScheduleList();
         return scheduledProfileList;
+    }
+
+    //NOTE: 모든 Schedule 목록 조회
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public List<ScheduledProfile> retrieveAllSchedulerLIst() throws SchedulerException {
+        //
+        logger.info(LogPrint.outputInfoLogPrint());
+        List<ScheduledProfile> scheduledProfileList = schedulerLogic.retrieveSchedulerList();
+        return scheduledProfileList;
+    }
+
+    //NOTE: Profile 을 Scheduler 에 등록
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public void updateSchedulerPeriod(@RequestBody ProfileTransFormData profileTransFormData) throws SchedulerException {
+        //
+        logger.info(LogPrint.outputInfoLogPrint() + ", ProfileId = " + profileTransFormData.getId());
+        logger.debug("Profile = " + profileTransFormData.toString());
+        schedulerLogic.updateScheduler(profileTransFormData.getId(), profileTransFormData.getPeriod());
     }
 }

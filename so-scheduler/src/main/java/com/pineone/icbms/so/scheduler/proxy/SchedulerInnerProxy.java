@@ -2,13 +2,11 @@ package com.pineone.icbms.so.scheduler.proxy;
 
 import com.pineone.icbms.so.profile.entity.Profile;
 import com.pineone.icbms.so.profile.pr.ProfilePresentation;
-import com.pineone.icbms.so.profile.pr.ProfileTransFormData;
 import com.pineone.icbms.so.scheduler.pr.SchedulerPresentation;
 import com.pineone.icbms.so.util.logprint.LogPrint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 /**

@@ -14,4 +14,5 @@ public interface SchedulerStore {
     boolean isExistScheduledProfile(String profileId);
     List<ScheduledProfile> retrieveScheduledProfileByStatus(int status);
     void updateStatus(ScheduledProfile scheduledProfile, int status);
+    void updatePeriod(ScheduledProfile schedulerProfile);
 }

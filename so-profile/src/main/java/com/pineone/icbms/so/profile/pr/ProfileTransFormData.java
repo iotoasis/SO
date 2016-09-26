@@ -7,12 +7,26 @@ package com.pineone.icbms.so.profile.pr;
 public class ProfileTransFormData {
 
     private String id;
+    private int period;
+
+    public ProfileTransFormData() {
+    }
 
     public ProfileTransFormData(String id) {
         this.id = id;
     }
 
-    public ProfileTransFormData() {
+    public ProfileTransFormData(String id, int period) {
+        this.id = id;
+        this.period = period;
+    }
+
+    public int getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(int period) {
+        this.period = period;
     }
 
     public String getId() {
@@ -27,6 +41,7 @@ public class ProfileTransFormData {
     public String toString() {
         return "ProfileTransFormData{" +
                 "id='" + id + '\'' +
+                ", period=" + period +
                 '}';
     }
 }
