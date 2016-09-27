@@ -26,7 +26,7 @@ public class DevicePresentation {
      * Device 검색 요청(By Location)
      * Device Service들 요청.
      * Device Operation 요청
-     * Device 상태 저장.
+     * Device 상태 응답.
      */
 
     public static final Logger logger = LoggerFactory.getLogger(DevicePresentation.class);
@@ -151,6 +151,9 @@ public class DevicePresentation {
         return deviceManager.searchOperation(deviceTransFormObject.getDeviceId(), deviceTransFormObject.getDeviceServices());
     }
 
+    /**
+     * Device Status 응답
+     */
     @RequestMapping(value = "/status", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public void updateDeviceStatus(@RequestBody DeviceStatusData deviceStatusData){

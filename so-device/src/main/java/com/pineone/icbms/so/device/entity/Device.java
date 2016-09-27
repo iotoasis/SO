@@ -5,14 +5,68 @@ import java.util.List;
 public class Device {
 
     // Command Device Parameter
+
+    /**
+     * Device의 식별자
+     * format : CSE relative uri
+     * ex) /herit-in/herit-cse/ONDB_BeamProjector01_001
+     */
     private String          deviceId;
+
+    /**
+     * Device의 이름
+     * format : DeviceID
+     * ex) ONDB_BeamProjector01_001
+     */
     private String          deviceName;
+
+    /**
+     * Device의 설치 위치
+     * format : free
+     * ex) T1ENG_605_HUB01
+     */
     private String          deviceLocation;
+
+    /**
+     * Device의 제어 가능한 Uri
+     * format : CSE relative uri
+     * ex) /herit-in/herit-cse/ONDB_BeamProjector01_001
+     */
     private String          deviceUri;
+
+    /**
+     * Device의 명령어 List
+     * format : Device Command
+     * ex) ON,OFF
+     */
     private List<String>    deviceCommand;
+
+    /**
+     * Device의 서비스 List
+     * format : Device Service
+     * ex) BeamProjector_PowerControl_ON, BeamProjector_PowerControl_OFF
+     */
     private List<String>    deviceServices;
+
+    /**
+     * Device의 생성 시간
+     * format : yyyymmddhhmm
+     * ex) 201608250930
+     */
     private String          deviceCreateTime;
+
+    /**
+     * Device의 생성 만기 시간
+     * format : yyyymmddhhmm
+     * ex) 201708250930
+     */
     private String          deviceExfiredTime;
+
+    /**
+     * Device의 상태
+     * format : Device Status
+     * ex) ON
+     */
     private String          status;
 
     public Device() {

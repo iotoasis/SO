@@ -4,12 +4,53 @@ import java.util.List;
 
 public class CompositeVirtualObject {
     //
+    /**
+     * Composite VirtualObject의 식별자.
+     * format : cvo-(cvo제어식별자)-(제어서비스)
+     * ex) cvo-airconditioner02001-control
+     */
     private String id;
+
+    /**
+     * Composite VirtualObject의 이름
+     * format : free
+     * ex) airconditioner02001 device CVO
+     */
     private String name;
+
+    /**
+     * Composite VirtualObject가 제어 가능한 VirtualObject의 ID List
+     * format : vo의 ID list
+     * ex) "vo-airconditioner02-001-power-control", "vo-airconditioner02-001-temp-control"
+     */
     private List<String> voIdList;
+
+    /**
+     * Composite VirtualObject의 서비스 위치
+     * format : free
+     * ex) ITBT_606_001
+     */
     private String location;
+
+    /**
+     * Composite VirtualObject의 생성 시간
+     * format : yyyymmddhhmm
+     * ex) 201608250930
+     */
     private String createTime;
+
+    /**
+     * Composite VirtualObject의 수정 시간
+     * format : yyyymmddhhmm
+     * ex) 201608250930
+     */
     private String modifiedTime;
+
+    /**
+     * Composite VirtualObject의 설명
+     * format : free
+     * ex) airconditioner device cvo
+     */
     private String description;
 
     public CompositeVirtualObject() {

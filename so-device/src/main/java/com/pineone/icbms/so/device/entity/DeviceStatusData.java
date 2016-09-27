@@ -1,11 +1,33 @@
 package com.pineone.icbms.so.device.entity;
 
+/**
+ * SI로 부터 전달 받는 Device 상태 DataSet
+ */
 public class DeviceStatusData {
     //
+    /**
+     * Device를 제어 했을시 제어 명령커멘드 식별자
+     */
     private String          _commandId;
+
+    /**
+     * Device를 제어 했을시 디바이스 Uri
+     */
     private String          _uri;
+
+    /**
+     * Device를 제어 했을시 제어 항목
+     */
     private String          _command;
+
+    /**
+     * Device의 상태 값
+     */
     private String          status;
+
+    /**
+     * Device의 상태 값의 변경 되었을시 시간
+     */
     private String          timestamp;
 
     public DeviceStatusData() {
