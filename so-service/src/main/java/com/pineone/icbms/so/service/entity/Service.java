@@ -12,12 +12,54 @@ public class Service {
     public Service(String name){
         this.name = name;
     }
+
+    /**
+     * Service 식별자
+     * format : si-(장소명)-(vo명)-(status)
+     * ex : 'si-classroom-blind-off'
+     */
     private String id;
+
+    /**
+     * Service 이름
+     * format : free
+     * ex : 'turnoff-blind-service'
+     */
     private String name;
+
+    /**
+     * Service 가 포함하고 있는 virtualObject 들의 식별자 리스트
+     * format : vo-(디바이스명)-(제어명)
+     * ex : 'vo-blind01-001-open-control'
+     */
     private List<String> virtualObjectIdList;
+
+    /**
+     * Vo 가 가지고 있는 기능서비스
+     * format : SDA 에서 제공하는 형태
+     * ex : 'power-control'
+     */
     private String virtualObjectService;
+
+    /**
+     * Vo 의 기능서비스를 실행시키기 위한 명령 상태
+     * format : 실제 디바이스 명령 형태
+     * ex : 'OFF'
+     */
     private String status;
+
+    /**
+     * 서비스 생성 시간
+     * format : yyyymmddhhmm
+     * ex : '201608250930'
+     */
     private String createTime;
+
+    /**
+     * 서비스 변경 시간
+     * format : yyyymmddhhmm
+     * ex : '201608250930'
+     */
     private String modifiedTime;
 
     public String getId() {

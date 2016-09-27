@@ -8,11 +8,37 @@ import java.util.List;
  * NOTE: 복수의 서비스를 포함하고 있는 서비스 모델 객체
  */
 public class ServiceModel {
-    //
+    /**
+     * ServiceModel 식별자
+     * format : sm-(free)
+     * ex : 'sm-electric-waste-classroom'
+     */
     private String id;
+
+    /**
+     * ServiceModel 이름
+     * format : free
+     * ex : '불필요한 디바이스 전력낭비 체크 서비스 모델'
+     */
     private String name;
+
+    /**
+     * ServiceModel 이 포함하고 있는 Service 들의 식별자 리스트
+     */
     private List<String> serviceIdList;
+
+    /**
+     * ServiceModel 생성 시간
+     * format : yyyymmddhhmm
+     * ex : '201608250930'
+     */
     private String createTime;
+
+    /**
+     * ServiceModel 변경 시간
+     * format : yyyymmddhhmm
+     * ex : '201608250930'
+     */
     private String modifiedTime;
 
 
