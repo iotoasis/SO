@@ -5,19 +5,36 @@ package com.pineone.icbms.so.device.entity;
  */
 public class DeviceControlMessage {
 
-    String _uri;                  // CSE relative uri
-    String _notificationUri;    // Control result noti url
-    String _commandId;          // Control the command Id
-    String _command;             // Control the command name
-    String cnf;                   // content-type and encoding
-    String con;                   // data/content
+    /**
+     * CSE relative uri         ex) /herit-in/herit-cse/ONDB_BeamProjector01_001
+     */
+    String _uri;
+
+    /**
+     * Device를 제어할 Command의 ID      ex) cmd_20160927001
+     */
+    String _commandId;
+
+    /**
+     * Device를 제어 항목 이름            ex) Power
+     */
+    String _command;
+
+    /**
+     * Device를 제어시 컨텐츠 타입 및 인코딩 타입      ex) text/plain:0
+     */
+    String cnf;
+
+    /**
+     * Device를 제어할 명령어.     ex) ON
+     */
+    String con;
 
     public DeviceControlMessage() {
     }
 
-    public DeviceControlMessage(String _uri, String _notificationUri, String _commandId, String _command, String cnf, String con) {
+    public DeviceControlMessage(String _uri, String _commandId, String _command, String cnf, String con) {
         this._uri = _uri;
-        this._notificationUri = _notificationUri;
         this._commandId = _commandId;
         this._command = _command;
         this.cnf = cnf;
@@ -30,14 +47,6 @@ public class DeviceControlMessage {
 
     public void set_uri(String _uri) {
         this._uri = _uri;
-    }
-
-    public String get_notificationUri() {
-        return _notificationUri;
-    }
-
-    public void set_notificationUri(String _notificationUri) {
-        this._notificationUri = _notificationUri;
     }
 
     public String get_command() {
@@ -76,7 +85,6 @@ public class DeviceControlMessage {
     public String toString() {
         return "DeviceControlMessage{" +
                 "_uri='" + _uri + '\'' +
-                ", _notificationUri='" + _notificationUri + '\'' +
                 ", _commandId='" + _commandId + '\'' +
                 ", _command='" + _command + '\'' +
                 ", cnf='" + cnf + '\'' +
@@ -85,6 +93,6 @@ public class DeviceControlMessage {
     }
 
     /**
-     * {"_uri":"/herit-in/herit-cse/Siren_LB0001SR0001","_notificationUri":"http://166.104.122.45:10080/so/resources/vdcm/VDCM-TEST-MESSAGE-120301","_commandId":"VDCM-TEST-MESSAGE-120301","_command":"action","cnf":"text/plain:0","con":"SIREN"}
+     * {"_uri":"/herit-in/herit-cse/Siren_LB0001SR0001","_commandId":"VDCM-TEST-MESSAGE-120301","_command":"action","cnf":"text/plain:0","con":"SIREN"}
      */
 }
