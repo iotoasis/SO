@@ -10,6 +10,7 @@ import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.util.address.AddressStore;
 import com.pineone.icbms.so.util.address.ContextAddress;
 import com.pineone.icbms.so.util.conversion.DataConversion;
+import com.pineone.icbms.so.util.exception.BadRequestException;
 import com.pineone.icbms.so.util.http.ClientService;
 import com.pineone.icbms.so.util.logprint.LogPrint;
 import com.withwiz.beach.network.http.message.IHttpResponseMessage;
@@ -102,14 +103,12 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
         List<String> domains = new ArrayList<>();
         //TODO : 일시적 테스트
         if(contextModelId.equals("cm-announcement-on")){
-            IHttpResponseMessage message = clientService.requestGetService(
-                    contextAddress.getAddress()  + contextModelId + "/?p=," );
-            logger.debug("ResponseMessage : " + message);
-            String readData = DataConversion.responseDataToString(message);
-            Type type = new TypeToken<RetrieveData>(){}.getType();
-            RetrieveData retrieveData = new Gson().fromJson(readData,type);
-            System.out.println("Time = " + retrieveData.getTime());
-            List<Content> contentList = retrieveData.getContent();
+            List<Content> contentList = null;
+            try {
+                contentList = getContents(contextModelId);
+            } catch (BadRequestException e) {
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+            }
 
             if(contentList.isEmpty()){
                 domains = null;
@@ -121,6 +120,25 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
             }
 //            domains = new ArrayList<>();
         }
+        else if(contextModelId.equals("cm-announcement-off")){
+            List<Content> contentList = null;
+            try {
+                contentList = getContents(contextModelId);
+            } catch (BadRequestException e) {
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+            }
+
+            if(contentList == null || contentList.isEmpty() ){
+                domains = null;
+                return domains;
+            }
+            for(Content content : contentList){
+                domains.add(content.getPlace());
+                System.out.println("Location = " + content.getPlace());
+            }
+//            domains = new ArrayList<>();
+        }
+
         else if(contextModelId.equals("CM-TEST")){
             domains = null;
         }
@@ -130,5 +148,22 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
             return domains;
         }
         return domains;
+    }
+
+    private List<Content> getContents(String contextModelId) throws BadRequestException {
+        IHttpResponseMessage message = clientService.requestGetService(
+                contextAddress.getAddress()  + contextModelId + "/?p=," );
+        if(message.getStatusCode() == 200) {
+            logger.debug("ResponseMessage : " + message);
+            String readData = DataConversion.responseDataToString(message);
+            Type type = new TypeToken<RetrieveData>() {
+            }.getType();
+            RetrieveData retrieveData = new Gson().fromJson(readData, type);
+            System.out.println("Time = " + retrieveData.getTime());
+            return retrieveData.getContent();
+        }
+        else{
+            throw new BadRequestException();
+        }
     }
 }
