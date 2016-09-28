@@ -144,7 +144,6 @@ public class DeviceManagerLogic implements DeviceManager {
         DeviceControlMessage deviceControlMessage = new DeviceControlMessage();
 
         deviceControlMessage.set_uri(deviceId);
-        deviceControlMessage.set_notificationUri(ClientProfile.SO_CONTROL_NOTIFICATON_URI);
         deviceControlMessage.set_commandId(commandId);
         deviceControlMessage.set_command(ClientProfile.SI_CONTROL_ACTION);
         deviceControlMessage.setCnf(ClientProfile.SO_CONTROL_TYPE);

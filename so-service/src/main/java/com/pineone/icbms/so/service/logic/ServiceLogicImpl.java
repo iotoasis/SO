@@ -1,9 +1,12 @@
 package com.pineone.icbms.so.service.logic;
 
 
+import com.pineone.icbms.so.compositevo.ref.CompositeProfile;
 import com.pineone.icbms.so.service.entity.Service;
+import com.pineone.icbms.so.service.entity.ServiceControlRecord;
 import com.pineone.icbms.so.service.proxy.ServiceProxy;
 import com.pineone.icbms.so.service.ref.*;
+import com.pineone.icbms.so.service.store.ServiceControlRecordStore;
 import com.pineone.icbms.so.service.store.ServiceStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +28,9 @@ public class ServiceLogicImpl implements ServiceLogic{
 
     @Autowired
     ServiceStore serviceStore;
+
+    @Autowired
+    ServiceControlRecordStore serviceControlRecordStore;
 
     @Autowired
     ServiceProxy serviceProxy;
@@ -110,14 +116,40 @@ public class ServiceLogicImpl implements ServiceLogic{
     @Override
     public void executeService(String serviceId) {
         logger.debug("Execute Service ID = " + serviceId);
-        Service serviceData = serviceStore.retrieveServiceDetail(serviceId);
-        for(String virtualObjectId : serviceData.getVirtualObjectIdList()){
-            if(virtualObjectId.startsWith("cvo")) {
-                serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus());
-            } else {
-                serviceProxy.executeVirtualObject(virtualObjectId, serviceData.getStatus());
-            }
+
+        // Service Filter 추가.
+
+        // Service Control Record 검색
+        // serviceControlRecord가 없으면 ServiceControlRecord 생성
+        //
+
+        long currentTime = System.currentTimeMillis();
+
+        ServiceControlRecord serviceControlRecord = serviceControlRecordStore.retrieveServiceControlRecordDetail(serviceId);
+        if(serviceControlRecord == null || serviceControlRecord.getId() == null){
+            serviceControlRecord = new ServiceControlRecord();
+            serviceControlRecord.setId(serviceId);
+            serviceControlRecord.setPeriod(ServiceControlRecord.DEFAULTTIME);
+            serviceControlRecord.setCreateTime(currentTime);
+            serviceControlRecordStore.createServiceControlRecord(serviceControlRecord);
         }
+
+        if(serviceControlRecord.checkActivedService(currentTime) || serviceControlRecord.getModifiedTime() == 0){
+            Service serviceData = serviceStore.retrieveServiceDetail(serviceId);
+            for(String virtualObjectId : serviceData.getVirtualObjectIdList()){
+                if(virtualObjectId.startsWith(CompositeProfile.COMPOSITE_ID)) {
+                    serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus());
+                } else {
+                    serviceProxy.executeVirtualObject(virtualObjectId, serviceData.getStatus());
+                }
+            }
+            serviceControlRecord.setResult(ServiceControlRecord.SERIVCE_ACTIVED);
+        } else {
+            serviceControlRecord.setResult(ServiceControlRecord.SERIVCE_IGNORE);
+        }
+        serviceControlRecord.setModifiedTime(currentTime);
+        serviceControlRecordStore.updateServiceControlRecord(serviceControlRecord);
+
     }
 
     @Override
