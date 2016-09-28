@@ -102,14 +102,7 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
         List<String> domains = new ArrayList<>();
         //TODO : 일시적 테스트
         if(contextModelId.equals("cm-announcement-on")){
-            IHttpResponseMessage message = clientService.requestGetService(
-                    contextAddress.getAddress()  + contextModelId + "/?p=," );
-            logger.debug("ResponseMessage : " + message);
-            String readData = DataConversion.responseDataToString(message);
-            Type type = new TypeToken<RetrieveData>(){}.getType();
-            RetrieveData retrieveData = new Gson().fromJson(readData,type);
-            System.out.println("Time = " + retrieveData.getTime());
-            List<Content> contentList = retrieveData.getContent();
+            List<Content> contentList = getContents(contextModelId);
 
             if(contentList.isEmpty()){
                 domains = null;
@@ -121,6 +114,20 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
             }
 //            domains = new ArrayList<>();
         }
+        else if(contextModelId.equals("cm-announcement-off")){
+            List<Content> contentList = getContents(contextModelId);
+
+            if(contentList.isEmpty()){
+                domains = null;
+                return domains;
+            }
+            for(Content content : contentList){
+                domains.add(content.getPlace());
+                System.out.println("Location = " + content.getPlace());
+            }
+//            domains = new ArrayList<>();
+        }
+
         else if(contextModelId.equals("CM-TEST")){
             domains = null;
         }
@@ -130,5 +137,16 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
             return domains;
         }
         return domains;
+    }
+
+    private List<Content> getContents(String contextModelId) {
+        IHttpResponseMessage message = clientService.requestGetService(
+                contextAddress.getAddress()  + contextModelId + "/?p=," );
+        logger.debug("ResponseMessage : " + message);
+        String readData = DataConversion.responseDataToString(message);
+        Type type = new TypeToken<RetrieveData>(){}.getType();
+        RetrieveData retrieveData = new Gson().fromJson(readData,type);
+        System.out.println("Time = " + retrieveData.getTime());
+        return retrieveData.getContent();
     }
 }
