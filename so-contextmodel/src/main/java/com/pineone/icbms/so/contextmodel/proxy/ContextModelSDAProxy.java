@@ -110,13 +110,14 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
                 logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
             }
 
-            if(contentList.isEmpty()){
+            if(contentList == null || contentList.isEmpty() ){
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
                 domains = null;
                 return domains;
             }
             for(Content content : contentList){
-                domains.add(content.getPlace());
-                System.out.println("Location = " + content.getPlace());
+                domains.add(content.getLoc());
+                System.out.println("Location = " + content.getLoc());
             }
 //            domains = new ArrayList<>();
         }
@@ -129,12 +130,13 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
             }
 
             if(contentList == null || contentList.isEmpty() ){
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
                 domains = null;
                 return domains;
             }
             for(Content content : contentList){
-                domains.add(content.getPlace());
-                System.out.println("Location = " + content.getPlace());
+                domains.add(content.getLoc());
+                System.out.println("Location = " + content.getLoc());
             }
 //            domains = new ArrayList<>();
         }
@@ -154,6 +156,7 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
         IHttpResponseMessage message = clientService.requestGetService(
                 contextAddress.getAddress()  + contextModelId + "/?p=," );
         if(message.getStatusCode() == 200) {
+            System.out.println(message.getBodyByteArray().toString());
             logger.debug("ResponseMessage : " + message);
             String readData = DataConversion.responseDataToString(message);
             Type type = new TypeToken<RetrieveData>() {
