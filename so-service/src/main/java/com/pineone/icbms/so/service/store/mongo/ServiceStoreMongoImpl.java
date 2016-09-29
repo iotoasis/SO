@@ -52,14 +52,20 @@ public class ServiceStoreMongoImpl implements ServiceStore {
         return service;
     }
 
+    @Override
+    public void updateService(Service service) {
+        ServiceDataObject serviceDataObject = serviceToDataObject(service);
+        serviceRepository.save(serviceDataObject);
+    }
+
     private ServiceDataObject serviceToDataObject(Service service) {
         if (service == null) return null;
-        return new ServiceDataObject(service.getId(), service.getName(), service.getVirtualObjectIdList(), service.getVirtualObjectService(), service.getStatus());
+        return new ServiceDataObject(service.getId(),service.getName(),service.getVirtualObjectIdList(),service.getVirtualObjectService(),service.getStatus(),service.getCreateTime(),service.getModifiedTime(),service.getPeriod());
     }
 
     private Service dataObjectToService(ServiceDataObject serviceDataObject){
         if(serviceDataObject == null) return null;
-        return new Service(serviceDataObject.getId(), serviceDataObject.getName(), serviceDataObject.getVirtualObjectIdList(),
-                serviceDataObject.getVirtualObjectService(), serviceDataObject.getStatus());
+        return new Service(serviceDataObject.getId(),serviceDataObject.getName(),serviceDataObject.getVirtualObjectIdList(),serviceDataObject.getVirtualObjectService(),serviceDataObject.getStatus(),serviceDataObject.getCreateTime(),serviceDataObject.getModifiedTime(),serviceDataObject.getPeriod());
+
     }
 }
