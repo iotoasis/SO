@@ -45,6 +45,11 @@ public class ServiceMapStore implements ServiceStore {
         return service;
     }
 
+    @Override
+    public void updateService(Service service) {
+
+    }
+
     public static ServiceMapStore getInstance(){
         if(instance == null)
             instance = new ServiceMapStore();

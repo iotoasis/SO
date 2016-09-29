@@ -64,10 +64,9 @@ public class DeviceManagerLogic implements DeviceManager {
         ResultMessage resultMessage = deviceControlProxy.deviceControlRequest(ClientProfile.SI_CONTOL_URI,deviceControlMessage);
 //
         // Device 제어 결과 저장.
-//        controlResultsStorage(deviceId, commandId, deviceCommand, resultMessage);
+        controlResultsStorage(deviceId, commandId, deviceCommand, resultMessage);
 
-//        return resultMessage.get_result();
-        return "Test Success";
+        return resultMessage.getCode();
     }
 
     @Override
@@ -77,14 +76,14 @@ public class DeviceManagerLogic implements DeviceManager {
 
         if(deviceResult != null && deviceResult.getCommandId() != null){
             // It has been confirmed for the linked data.
-            if(ClientProfile.RESPONSE_SUCCESS_CODE.equals(resultMessage.get_resultCode()) ||
-                    ClientProfile.RESPONSE_SUCCESS.equals(resultMessage.get_resultCode()) ||
-                    ClientProfile.RESPONSE_SUCCESS_ONEM2MCODE.equals(resultMessage.get_resultCode())){
+            if(ClientProfile.RESPONSE_SUCCESS_CODE.equals(resultMessage.getCode()) ||
+                    ClientProfile.RESPONSE_SUCCESS.equals(resultMessage.getCode()) ||
+                    ClientProfile.RESPONSE_SUCCESS_ONEM2MCODE.equals(resultMessage.getCode())){
 
-                deviceResult.setResult2(resultMessage.get_resultCode());
+                deviceResult.setResult2(resultMessage.getCode());
                 deviceResultStore.update(deviceResult);
             }
-            return resultMessage.get_resultCode();
+            return resultMessage.getCode();
         } else {
             return "No device Control Message.";
         }
@@ -166,7 +165,7 @@ public class DeviceManagerLogic implements DeviceManager {
         deviceResult.setSendMessage(deviceId + deviceCommand);
         deviceResult.setDeviceUrl(deviceId);
         deviceResult.setValue(deviceCommand);
-        deviceResult.setResult1(resultMessage.get_result());
+        deviceResult.setResult1(resultMessage.getCode());
         deviceResult.setResult2("");
 
         deviceResultStore.create(deviceResult);
