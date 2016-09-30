@@ -144,7 +144,11 @@ public class DeviceManagerLogic implements DeviceManager {
 
         deviceControlMessage.set_uri(deviceId);
         deviceControlMessage.set_commandId(commandId);
-        deviceControlMessage.set_command(ClientProfile.SI_CONTROL_ACTION);
+        if(deviceId != null && (deviceId.contains("Blind") || deviceId.contains("BeamScreen"))){
+            deviceControlMessage.set_command(ClientProfile.SI_CONTROL_ACTION);
+        }else {
+            deviceControlMessage.set_command(ClientProfile.SI_CONTROL_POWER);
+        }
         deviceControlMessage.setCnf(ClientProfile.SO_CONTROL_TYPE);
         deviceControlMessage.setCon(deviceCommand);
 
