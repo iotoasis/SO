@@ -139,6 +139,6 @@ public class ServicePresentation {
 
     public Service dataObjectToServiceModel(ServiceTransFormObject serviceTransFormObject){
         if(serviceTransFormObject == null) return null;
-        return new Service(serviceTransFormObject.getName(),serviceTransFormObject.getName(),serviceTransFormObject.getVirtualObjectIdList(),serviceTransFormObject.getVirtualObjectService(),serviceTransFormObject.getStatus(),serviceTransFormObject.getCreateTime(),serviceTransFormObject.getModifiedTime(),serviceTransFormObject.getPeriod());
+        return new Service(serviceTransFormObject.getName(),serviceTransFormObject.getName(),serviceTransFormObject.getVirtualObjectIdList(),serviceTransFormObject.getVirtualObjectService(),serviceTransFormObject.getStatus(),serviceTransFormObject.getCreateTime(),serviceTransFormObject.getModifiedTime(),serviceTransFormObject.getFilterTime());
     }
 }
