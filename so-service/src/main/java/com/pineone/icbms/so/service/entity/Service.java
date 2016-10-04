@@ -67,7 +67,7 @@ public class Service {
      * format : milisecound
      * ex : 5000
      */
-    private long period;
+    private long filterTime;
 
     public String getId() {
         return id;
@@ -134,15 +134,22 @@ public class Service {
         this.modifiedTime = modifiedTime;
     }
 
-    public long getPeriod() {
-        return period;
+    public long getFilterTime() {
+        return filterTime;
     }
 
-    public void setPeriod(long period) {
-        this.period = period;
+    public void setFilterTime(long filterTime) {
+        this.filterTime = filterTime;
     }
 
-    public Service(String id, String name, List<String> virtualObjectIdList, String virtualObjectService, String status, long createTime, long modifiedTime, long period) {
+    public boolean checkActivedPeriod(long currentTime){
+        if(this.modifiedTime == 0 || this.modifiedTime + this.filterTime < currentTime){
+            return true;
+        }
+        return false;
+    }
+
+    public Service(String id, String name, List<String> virtualObjectIdList, String virtualObjectService, String status, long createTime, long modifiedTime, long filterTime) {
         this.id = id;
         this.name = name;
         this.virtualObjectIdList = virtualObjectIdList;
@@ -150,14 +157,7 @@ public class Service {
         this.status = status;
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
-        this.period = period;
-    }
-
-    public boolean checkActivedPeriod(long currentTime){
-        if(this.modifiedTime == 0 || this.modifiedTime + this.period < currentTime){
-            return true;
-        }
-        return false;
+        this.filterTime = filterTime;
     }
 
     @Override
@@ -168,9 +168,9 @@ public class Service {
                 ", virtualObjectIdList=" + virtualObjectIdList +
                 ", virtualObjectService='" + virtualObjectService + '\'' +
                 ", status='" + status + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", modifiedTime='" + modifiedTime + '\'' +
-                ", period=" + period +
+                ", createTime=" + createTime +
+                ", modifiedTime=" + modifiedTime +
+                ", filterTime=" + filterTime +
                 '}';
     }
 }

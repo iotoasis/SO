@@ -68,7 +68,7 @@ public class ServiceTransFormObject {
      * format : milisecound
      * ex : 5000
      */
-    private long period;
+    private long filterTime;
 
     public String getId() {
         return id;
@@ -135,15 +135,15 @@ public class ServiceTransFormObject {
         this.modifiedTime = modifiedTime;
     }
 
-    public long getPeriod() {
-        return period;
+    public long getFilterTime() {
+        return filterTime;
     }
 
-    public void setPeriod(long period) {
-        this.period = period;
+    public void setFilterTime(long filterTime) {
+        this.filterTime = filterTime;
     }
 
-    public ServiceTransFormObject(String id, String name, List<String> virtualObjectIdList, String virtualObjectService, String status, long createTime, long modifiedTime, long period) {
+    public ServiceTransFormObject(String id, String name, List<String> virtualObjectIdList, String virtualObjectService, String status, long createTime, long modifiedTime, long filterTime) {
         this.id = id;
         this.name = name;
         this.virtualObjectIdList = virtualObjectIdList;
@@ -151,7 +151,7 @@ public class ServiceTransFormObject {
         this.status = status;
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
-        this.period = period;
+        this.filterTime = filterTime;
     }
 
     @Override
@@ -164,7 +164,7 @@ public class ServiceTransFormObject {
                 ", status='" + status + '\'' +
                 ", createTime='" + createTime + '\'' +
                 ", modifiedTime='" + modifiedTime + '\'' +
-                ", period=" + period +
+                ", filterTime=" + filterTime +
                 '}';
     }
 }
