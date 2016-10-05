@@ -1,4 +1,4 @@
-package com.pineone.icbms.so.provider;
+package com.pineone.icbms.so.creator;
 
 import com.pineone.icbms.so.bizcontext.BizContextApplication;
 import com.pineone.icbms.so.compositevo.CompositeVirtualObjectApplication;
@@ -27,9 +27,9 @@ import org.springframework.context.annotation.Import;
         UtilApplication.class, ServiceModelApplication.class, DomainApplication.class, BizContextApplication.class
         ,VirtualObjectApplication.class, CompositeVirtualObjectApplication.class, ProfileApplication.class, SchedulerApplication.class})
 @EnableAutoConfiguration
-public class ProviderApplication {
+public class CreatorApplication {
     public static void main( String[] args )
     {
-        SpringApplication.run(ProviderApplication.class, args);
+        SpringApplication.run(CreatorApplication.class, args);
     }
 }
