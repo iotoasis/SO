@@ -3,9 +3,11 @@ package com.pineone.icbms.so.service.logic;
 
 import com.pineone.icbms.so.compositevo.ref.CompositeProfile;
 import com.pineone.icbms.so.service.entity.Service;
-import com.pineone.icbms.so.service.entity.ServiceControlRecord;
 import com.pineone.icbms.so.service.proxy.ServiceProxy;
-import com.pineone.icbms.so.service.ref.*;
+import com.pineone.icbms.so.service.ref.ConceptService;
+import com.pineone.icbms.so.service.ref.DeviceObject;
+import com.pineone.icbms.so.service.ref.ResponseMessage;
+import com.pineone.icbms.so.service.ref.Status;
 import com.pineone.icbms.so.service.store.ServiceControlRecordStore;
 import com.pineone.icbms.so.service.store.ServiceStore;
 import org.slf4j.Logger;
@@ -125,6 +127,28 @@ public class ServiceLogicImpl implements ServiceLogic{
 
         long currentTime = System.currentTimeMillis();
 
+        Service serviceData = serviceStore.retrieveServiceDetail(serviceId);
+
+        // 제어 하면 modifiTime 수정
+
+
+        if(serviceData.checkActivedPeriod(currentTime)){
+            logger.info("Execute Service Start");
+            for(String virtualObjectId : serviceData.getVirtualObjectIdList()){
+                if(virtualObjectId.startsWith(CompositeProfile.COMPOSITE_ID)) {
+                    serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus());
+                } else {
+                    serviceProxy.executeVirtualObject(virtualObjectId, serviceData.getStatus());
+                }
+                serviceData.setModifiedTime(currentTime);
+            }
+            serviceStore.updateService(serviceData);
+        } else {
+            logger.info("Execute Service Ignore");
+        }
+
+
+        /*
         ServiceControlRecord serviceControlRecord = serviceControlRecordStore.retrieveServiceControlRecordDetail(serviceId);
         if(serviceControlRecord == null || serviceControlRecord.getId() == null){
             serviceControlRecord = new ServiceControlRecord();
@@ -149,6 +173,7 @@ public class ServiceLogicImpl implements ServiceLogic{
         }
         serviceControlRecord.setModifiedTime(currentTime);
         serviceControlRecordStore.updateServiceControlRecord(serviceControlRecord);
+        */
 
     }
 

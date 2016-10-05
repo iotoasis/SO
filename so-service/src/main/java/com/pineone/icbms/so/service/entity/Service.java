@@ -53,14 +53,21 @@ public class Service {
      * format : yyyymmddhhmm
      * ex : '201608250930'
      */
-    private String createTime;
+    private long createTime;
 
     /**
      * 서비스 변경 시간
      * format : yyyymmddhhmm
      * ex : '201608250930'
      */
-    private String modifiedTime;
+    private long modifiedTime;
+
+    /**
+     * 서비스 실행 필터 주기
+     * format : milisecound
+     * ex : 5000
+     */
+    private long period;
 
     public String getId() {
         return id;
@@ -111,23 +118,31 @@ public class Service {
         this.status = status;
     }
 
-    public String getCreateTime() {
+    public long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
     }
 
-    public String getModifiedTime() {
+    public long getModifiedTime() {
         return modifiedTime;
     }
 
-    public void setModifiedTime(String modifiedTime) {
+    public void setModifiedTime(long modifiedTime) {
         this.modifiedTime = modifiedTime;
     }
 
-    public Service(String id, String name, List<String> virtualObjectIdList, String virtualObjectService, String status, String createTime, String modifiedTime) {
+    public long getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(long period) {
+        this.period = period;
+    }
+
+    public Service(String id, String name, List<String> virtualObjectIdList, String virtualObjectService, String status, long createTime, long modifiedTime, long period) {
         this.id = id;
         this.name = name;
         this.virtualObjectIdList = virtualObjectIdList;
@@ -135,6 +150,14 @@ public class Service {
         this.status = status;
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
+        this.period = period;
+    }
+
+    public boolean checkActivedPeriod(long currentTime){
+        if(this.modifiedTime == 0 || this.modifiedTime + this.period < currentTime){
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -147,6 +170,7 @@ public class Service {
                 ", status='" + status + '\'' +
                 ", createTime='" + createTime + '\'' +
                 ", modifiedTime='" + modifiedTime + '\'' +
+                ", period=" + period +
                 '}';
     }
 }

@@ -4,12 +4,15 @@ import com.google.gson.Gson;
 import com.pineone.icbms.so.device.entity.DeviceControlMessage;
 import com.pineone.icbms.so.device.entity.DeviceSubscriptionData;
 import com.pineone.icbms.so.device.entity.ResultMessage;
+import com.pineone.icbms.so.device.util.ClientProfile;
 import com.pineone.icbms.so.device.util.ClientService;
 import com.pineone.icbms.so.util.logprint.LogPrint;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 @Service
 public class DeviceSIProxy implements DeviceControlProxy {
@@ -36,20 +39,16 @@ public class DeviceSIProxy implements DeviceControlProxy {
         String requestBody = new Gson().toJson(deviceControlMessage);
         logger.debug("DeviceControlMessage to JSON = " + requestBody);
 
-        return null;
-
-        /*
         String responseData = clientService.requestPostService(requestUrl, requestBody);
         logger.debug("ResponseData = " + responseData);
         try {
             resultMessage = mapper.readValue(responseData, ResultMessage.class);
         } catch (IOException e) {
             e.printStackTrace();
-            resultMessage.set_resultCode(ClientProfile.RESPONSE_FIALURE_CODE);
+            resultMessage.setCode(ClientProfile.RESPONSE_FIALURE_CODE);
         } finally {
             return resultMessage;
         }
-        */
 
     }
 

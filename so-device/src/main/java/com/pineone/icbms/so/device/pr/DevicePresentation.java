@@ -135,7 +135,7 @@ public class DevicePresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public String asynchronousControlResult(@RequestBody ResultMessage message){
         // NOTO : Device the result is stored in the data memory.
-        logger.info(LogPrint.inputInfoLogPrint() + "Result = " + message.get_result());
+        logger.info(LogPrint.inputInfoLogPrint() + "Result = " + message.getCode());
         logger.debug("ResultMessage = " + message.toString());
         return deviceManager.deviceControlResult(message);
     }
