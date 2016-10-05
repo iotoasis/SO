@@ -9,13 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
-@RestController
-@RequestMapping(value ="/virtualobject")
+@Service
 public class VirtualObjectPresentation {
 
     /**
@@ -31,15 +31,15 @@ public class VirtualObjectPresentation {
     @Autowired
     private VirtualObjectManager virtualObjectManager;
 
-    @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.OK)
+//    @RequestMapping(method = RequestMethod.POST)
+//    @ResponseStatus(HttpStatus.OK)
     public void createVirtualObject(@RequestBody VirtualObjectTransFormObject virtulaObject){
         logger.info(LogPrint.inputInfoLogPrint());
         virtualObjectManager.produceVirtualObject(virtualObjectMapping(virtulaObject));
     }
 
-    @RequestMapping(value = "/control",method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.OK)
+//    @RequestMapping(value = "/control",method = RequestMethod.POST)
+//    @ResponseStatus(HttpStatus.OK)
     public String requestControlVirtualObject(@RequestBody VirtualObjectTransFormObject virtualObjectTransFormObject){
         logger.info(LogPrint.inputInfoLogPrint());
         //
@@ -57,29 +57,29 @@ public class VirtualObjectPresentation {
 
 
 
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
+//    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+//    @ResponseStatus(HttpStatus.OK)
     public VirtualObject searchVirtualObject(@PathVariable String id){
         logger.info(LogPrint.inputInfoLogPrint());
         return virtualObjectManager.searchVirtualObject(id);
     }
 
-    @RequestMapping(value = "/location/{place}",method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
+//    @RequestMapping(value = "/location/{place}",method = RequestMethod.GET)
+//    @ResponseStatus(HttpStatus.OK)
     public List<VirtualObject> searchVirtualObjectList(@PathVariable String place){
         logger.info(LogPrint.inputInfoLogPrint());
         return virtualObjectManager.searchVirtualObjectList(place);
     }
 
-    @RequestMapping(value = "",method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
+//    @RequestMapping(value = "",method = RequestMethod.GET)
+//    @ResponseStatus(HttpStatus.OK)
     public List<VirtualObject> searchVirtualObjectList(){
         logger.info(LogPrint.inputInfoLogPrint());
         return virtualObjectManager.searchVirtualObjectList();
     }
 
-    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.OK)
+//    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
+//    @ResponseStatus(HttpStatus.OK)
     public void deleteVirtualObject(@PathVariable String id){
         logger.info(LogPrint.inputInfoLogPrint());
         virtualObjectManager.deleteVirtualObject(id);
