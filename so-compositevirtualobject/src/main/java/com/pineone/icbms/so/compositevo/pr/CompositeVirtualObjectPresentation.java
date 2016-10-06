@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Service
-//@RestController
-//@RequestMapping(value ="/compositevo")
+@RestController
+@RequestMapping(value ="/compositevo")
 public class CompositeVirtualObjectPresentation {
     //
     /**
@@ -35,53 +34,53 @@ public class CompositeVirtualObjectPresentation {
     @Autowired
     CompositeVirtualObjectManager compositeVirtualObjectManager;
 
-//    @RequestMapping(value = "",method = RequestMethod.POST)
-//    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "",method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
     public void createCompositeVirtualObjectList(@RequestBody CompositeVirtualObjectTransFormObject dataObject){
         logger.info(LogPrint.inputInfoLogPrint() + " createCompositeVirtualObjectList");
         compositeVirtualObjectManager.createCompositeVO(compositeVirtualObjectMapping(dataObject));
     }
 
-//    @RequestMapping(value = "",method = RequestMethod.GET)
-//    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "",method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
     public List<CompositeVirtualObject> findCompositeVirtualObjectList(){
         logger.info(LogPrint.inputInfoLogPrint() + " findCompositeVirtualObjectList");
         return compositeVirtualObjectManager.searchCompositeVOList();
     }
 
-//    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-//    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
     public CompositeVirtualObject findCompostieVirtualObject(@PathVariable String id){
         logger.info(LogPrint.inputInfoLogPrint() + " findCompostieVirtualObject");
         return compositeVirtualObjectManager.searchCompositeVO(id);
     }
 
-//    @RequestMapping(value = "/location/{place}",method = RequestMethod.GET)
-//    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/location/{place}",method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
     public List<CompositeVirtualObject> findLocationCompostieVirtualObject(@PathVariable String place){
         logger.info(LogPrint.inputInfoLogPrint() + " findLocationCompostieVirtualObject");
         return compositeVirtualObjectManager.searchLocationCompositeVO(place);
     }
 
 
-//    @RequestMapping(value = "",method = RequestMethod.PUT)
-//    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "",method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK)
     public void updateCompostieVirtualObject(@RequestBody CompositeVirtualObjectTransFormObject dataObject){
         logger.info(LogPrint.inputInfoLogPrint() + " updateCompostieVirtualObject");
         if(dataObject == null) return;
         compositeVirtualObjectManager.updateCompositeVO(compositeVirtualObjectMapping(dataObject));
     }
 
-//    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
-//    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
     public void deleteCompostieVirtualObject(@PathVariable String id){
         logger.info(LogPrint.inputInfoLogPrint() + " deleteCompostieVirtualObject");
         if(id == null) return;
         compositeVirtualObjectManager.deleteCompositeVO(id);
     }
 
-//    @RequestMapping(value = "/control",method = RequestMethod.POST)
-//    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/control",method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
     public void controlCompostieVirtualObject(@RequestBody VirtualObjectControlData virtualObjectControlData){
         logger.info(LogPrint.inputInfoLogPrint() + " controlCompostieVirtualObject");
         if(virtualObjectControlData == null) return;

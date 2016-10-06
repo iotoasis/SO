@@ -17,7 +17,7 @@ import java.util.List;
  * NOTE : GeneralObject(VO + CVO) 저작시 필요한 내용들을 노출
  */
 @RestController
-@RequestMapping(value = "/generalobject")
+@RequestMapping(value = "/generalobject1")
 @ResponseStatus(value = HttpStatus.OK)
 public class GeneralObjectCreator {
 

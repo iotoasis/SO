@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping(value ="/compositevo")
+@RequestMapping(value ="/compositevo1")
 @ResponseStatus(value = HttpStatus.OK)
 public class CompositeVirtualObjectCreator {
 

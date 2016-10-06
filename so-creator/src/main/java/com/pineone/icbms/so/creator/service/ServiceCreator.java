@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
-@RequestMapping(value = "/service")
+@RequestMapping(value = "/service1")
 @ResponseStatus(value = HttpStatus.OK)
 public class ServiceCreator {
 

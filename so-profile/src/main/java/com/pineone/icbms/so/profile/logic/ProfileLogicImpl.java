@@ -8,6 +8,7 @@ import com.pineone.icbms.so.profile.proxy.ProfileProxy;
 import com.pineone.icbms.so.profile.ref.ResponseMessage;
 import com.pineone.icbms.so.profile.store.ProfileStore;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
+import com.pineone.icbms.so.util.priority.Priority;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,6 +152,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     public String executeScheduleProfile(String profileId) {
         Profile profile = profileStore.retrieveProfileDetail(profileId);
         logger.debug("Profile = " + profile.toString());
+        profileStore.addPriority(profile, Priority.LOW.toString());
         List<String> domainIdList = contextModelPresentation.isHappenContextModel(profile.getContextModelId());
         if(domainIdList != null){
                 String message = "Message : Happened ContextModel";
@@ -189,6 +191,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
                 //TODO : 디비 연결후 contextModel 이름으로 Profile 조회 기능 구현 및 연결
                 List<Profile> profileList = profileStore.findByContextModelId(contextModel.getId());
                 for(Profile profile : profileList){
+                    profileStore.addPriority(profile, Priority.HIGH.toString());
                     logger.debug("Profile = " + profile.toString());
                     //TODO : Profile 로 ServiceModel 찾아서 ServiceModel 에 전송
                     serviceModelPresentation.executeServiceModel(serviceModelPresentation.settingServiceModelId(profile.getServiceModelId()));
