@@ -62,6 +62,7 @@ public class ServicePresentationTest {
     //NOTE : service 정보를 입력후 등록 과정
     public void Service등록() throws Exception {
         //
+        long currentTime = System.currentTimeMillis();
         List<String> serviceList = new ArrayList<>();
         serviceList.add("CR0001AirCleaner0001");
         Service service = new Service();
@@ -70,8 +71,8 @@ public class ServicePresentationTest {
         service.setVirtualObjectIdList(serviceList);
         service.setVirtualObjectService("switch-control");
         service.setStatus("ON");
-        service.setCreateTime("201608250930");
-        service.setModifiedTime("201608250930");
+        service.setCreateTime(currentTime);
+        service.setModifiedTime(currentTime);
 
         ResponseMessage responseMessage = servicePresentation.registerServiceController(dataObjectToServiceModel(service));
 
@@ -99,7 +100,7 @@ public class ServicePresentationTest {
 
     public ServiceTransFormObject dataObjectToServiceModel(Service service){
         if(service == null) return null;
-        return new ServiceTransFormObject(service.getId(), service.getName(), service.getVirtualObjectIdList(), service.getVirtualObjectService(), service.getStatus(), service.getCreateTime(), service.getModifiedTime());
+        return new ServiceTransFormObject(service.getId(), service.getName(), service.getVirtualObjectIdList(),service.getVirtualObjectService(),service.getStatus(),service.getCreateTime(),service.getModifiedTime(),service.getFilterTime());
     }
 
 }
