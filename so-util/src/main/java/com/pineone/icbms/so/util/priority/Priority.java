@@ -4,9 +4,9 @@ package com.pineone.icbms.so.util.priority;
  * Created by melvin on 2016. 10. 6..
  */
 public enum Priority {
-    EMERGENCY (1),
-    IMMEDEATELY (2),
-    SCHEDULE(3);
+    HIGH (1),
+    MEDIUM (2),
+    LOW (3);
 
     int priorityNum;
 
@@ -14,9 +14,9 @@ public enum Priority {
         this.priorityNum = priorityNum;
     }
 
-    public boolean isHigherPriority(Priority currentData , Priority pastData){
+    public boolean isHigherPriority(Priority priority){
         boolean inspector = false;
-        if(currentData.priorityNum < pastData.priorityNum){
+        if(this.priorityNum > priority.priorityNum){
             inspector = true;
         }
         return inspector;
