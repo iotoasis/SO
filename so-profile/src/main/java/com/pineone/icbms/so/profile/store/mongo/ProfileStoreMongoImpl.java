@@ -61,6 +61,14 @@ public class ProfileStoreMongoImpl implements ProfileStore {
         return profileList;
     }
 
+    @Override
+    public void addPriority(Profile profile, String priority){
+        ProfileDataObject profileDataObject = profileRepository.findOne(profile.getId());
+        profileDataObject.setPriority(priority);
+        profileRepository.save(profileDataObject);
+        logger.debug("profile : " + profileDataObject.toString());
+    }
+
     private ProfileDataObject profileToDataObject(Profile profile) {
         if(profile == null) return null;
         return new ProfileDataObject(profile.getId(), profile.getName(), profile.getContextModelId(), profile.getServiceModelId(),

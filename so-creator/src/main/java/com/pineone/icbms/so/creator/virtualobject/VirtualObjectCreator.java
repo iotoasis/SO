@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping(value ="/virtualobject")
+@RequestMapping(value ="/virtualobject1")
 @ResponseStatus(value = HttpStatus.OK)
 public class VirtualObjectCreator {
 

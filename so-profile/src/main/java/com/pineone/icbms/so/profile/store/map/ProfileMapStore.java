@@ -53,6 +53,11 @@ public class ProfileMapStore implements ProfileStore {
         return null;
     }
 
+    @Override
+    public void addPriority(Profile profile, String priority) {
+
+    }
+
     public static ProfileMapStore getInstance(){
         if(instance == null)
             instance = new ProfileMapStore();
