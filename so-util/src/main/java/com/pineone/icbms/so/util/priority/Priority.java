@@ -4,9 +4,9 @@ package com.pineone.icbms.so.util.priority;
  * Created by melvin on 2016. 10. 6..
  */
 public enum Priority {
-    HIGH (1),
-    MEDIUM (2),
-    LOW (3);
+    emergency (1),
+    immediately (2),
+    schedule(3);
 
     private final int priorityNum;
 
