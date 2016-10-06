@@ -18,8 +18,9 @@ import java.util.List;
  * Created by melvin on 2016. 8. 5..
  * NOTE: Service 관련 Interface 제공
  */
+
 @RestController
-@RequestMapping(value = "/service")
+@RequestMapping(value ="/service")
 @ResponseStatus(value = HttpStatus.OK)
 public class ServicePresentation {
 

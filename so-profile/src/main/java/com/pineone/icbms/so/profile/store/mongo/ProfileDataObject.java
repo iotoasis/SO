@@ -15,6 +15,7 @@ public class ProfileDataObject {
     private String contextModelId;
     private String serviceModelId;
     private String bizContextName;
+    private String priority;
     private int period;
     private int expirationTime;
     private boolean happenContextModel;
@@ -80,6 +81,14 @@ public class ProfileDataObject {
     public int getPeriod() {
 
         return period;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
     }
 
     public void setPeriod(int period) {

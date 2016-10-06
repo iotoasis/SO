@@ -10,6 +10,7 @@ import com.pineone.icbms.so.service.ref.ResponseMessage;
 import com.pineone.icbms.so.service.ref.Status;
 import com.pineone.icbms.so.service.store.ServiceControlRecordStore;
 import com.pineone.icbms.so.service.store.ServiceStore;
+import com.pineone.icbms.so.util.TimeStamp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,7 +134,7 @@ public class ServiceLogicImpl implements ServiceLogic{
 
 
         if(serviceData.checkActivedPeriod(currentTime)){
-            logger.info("Execute Service Start");
+            logger.info("Execute Service Start" + TimeStamp.currentTime());
             for(String virtualObjectId : serviceData.getVirtualObjectIdList()){
                 if(virtualObjectId.startsWith(CompositeProfile.COMPOSITE_ID)) {
                     serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus());
@@ -144,7 +145,7 @@ public class ServiceLogicImpl implements ServiceLogic{
             }
             serviceStore.updateService(serviceData);
         } else {
-            logger.info("Execute Service Ignore");
+            logger.info("Execute Service Ignore : " + "ServiceActiveTime = " + TimeStamp.currentTime(serviceData.getModifiedTime()) + " FilterTime = " + serviceData.getFilterTime()/1000);
         }
 
 
