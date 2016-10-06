@@ -10,14 +10,14 @@ public enum Priority {
 
     int priorityNum;
 
-    Priority(int priority) {
-        this.priorityNum = priority;
+    Priority(int priorityNum) {
+        this.priorityNum = priorityNum;
     }
 
     public boolean isHigherPriority(Priority currentData , Priority pastData){
         boolean inspector = false;
         if(currentData.priorityNum < pastData.priorityNum){
-            return true;
+            inspector = true;
         }
         return inspector;
     }
