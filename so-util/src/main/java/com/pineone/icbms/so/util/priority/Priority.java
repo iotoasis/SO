@@ -18,7 +18,7 @@ public enum Priority {
 
     public boolean isImportantPriority(Priority priority){
         boolean inspector = false;
-        if(this.priorityNum < priority.priorityNum){
+        if(this.priorityNum > priority.priorityNum){
             inspector = true;
         }
         return inspector;
