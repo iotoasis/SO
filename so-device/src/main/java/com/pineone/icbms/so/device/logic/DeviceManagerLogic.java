@@ -18,6 +18,8 @@ public class DeviceManagerLogic implements DeviceManager {
 
     public static final Logger logger = LoggerFactory.getLogger(DeviceManagerLogic.class);
 
+    public static final String DEVICE_SERVICE_NOTI_TYPE = "admin-noti";
+
     @Autowired
     private DeviceStore deviceStore;
 
@@ -54,9 +56,10 @@ public class DeviceManagerLogic implements DeviceManager {
 
         String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
 
-        // DB에서 Device를 얻음.
-        // Device device = makeDeviceData(deviceId, deviceService, deviceCommand);
-
+        Device device = deviceSearchById(deviceId);
+        if(device != null && device.getDeviceServices() != null && device.getDeviceServices().equals("DEVICE_SERVICE_NOTI_TYPE")){
+            return DEVICE_SERVICE_NOTI_TYPE;
+        }
         // SI를 제어할수 있는 DeviceControlMessage로 변환
         DeviceControlMessage deviceControlMessage = deviceDataConversion(deviceId,commandId,deviceCommand);
         logger.debug("DeviceControlMessage = " + deviceControlMessage.toString());
