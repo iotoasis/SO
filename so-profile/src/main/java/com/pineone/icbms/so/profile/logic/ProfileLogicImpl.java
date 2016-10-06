@@ -152,7 +152,8 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     public String executeScheduleProfile(String profileId) {
         Profile profile = profileStore.retrieveProfileDetail(profileId);
         logger.debug("Profile = " + profile.toString());
-        profileStore.addPriority(profile, Priority.schedule.toString());
+        profileStore.addPriority(profile, Priority.SCHEDULE.toString());
+        Priority priority = Priority.SCHEDULE;
         List<String> domainIdList = contextModelPresentation.isHappenContextModel(profile.getContextModelId());
         if(domainIdList != null){
                 String message = "Message : Happened ContextModel";
@@ -191,7 +192,8 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
                 //TODO : 디비 연결후 contextModel 이름으로 Profile 조회 기능 구현 및 연결
                 List<Profile> profileList = profileStore.findByContextModelId(contextModel.getId());
                 for(Profile profile : profileList){
-                    profileStore.addPriority(profile, Priority.emergency.toString());
+                    Priority priority = Priority.EMERGENCY;
+                    profileStore.addPriority(profile, Priority.EMERGENCY.toString());
                     logger.debug("Profile = " + profile.toString());
                     //TODO : Profile 로 ServiceModel 찾아서 ServiceModel 에 전송
                     serviceModelPresentation.executeServiceModel(serviceModelPresentation.settingServiceModelId(profile.getServiceModelId()));
