@@ -11,6 +11,8 @@ import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
 import com.pineone.icbms.so.util.priority.Priority;
 import com.pineone.icbms.so.util.session.DefaultSession;
 import com.pineone.icbms.so.util.session.Session;
+import com.pineone.icbms.so.util.session.store.SessionStore;
+import com.pineone.icbms.so.util.session.store.mongo.SessionMongoImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     //
 
     public static final Logger logger = LoggerFactory.getLogger(ProfileLogicImpl.class);
+
+    @Autowired
+    SessionStore sessionStore;
 
     @Autowired
             ContextModelPresentation contextModelPresentation;
@@ -160,7 +165,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         Session session = new DefaultSession();
         String sessionId = session.getId();
         session.insertSessionData(DefaultSession.PROFILE_KEY, profileId);
-        session.insertSessionData(DefaultSession.PRIORITY_KEY, priority.toString());
+        sessionConfig(profileId, priority, session);
         List<String> domainIdList = contextModelPresentation.isHappenContextModel(profile.getContextModelId());
         if(domainIdList != null){
                 String message = "Message : Happened ContextModel";
@@ -175,6 +180,13 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
             System.out.println();
             return message;
         }
+    }
+
+    private void sessionConfig(String profileId, Priority priority, Session session) {
+        sessionStore.createSession(session);
+        sessionStore.addProfileId(session, profileId);
+        sessionStore.addPriority(session, priority.toString());
+        session.insertSessionData(DefaultSession.PRIORITY_KEY, priority.toString());
     }
 
     //NOTE : Profile List 조회
@@ -205,6 +217,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
                     session.insertSessionData(DefaultSession.PROFILE_KEY, profile.getId());
                     session.insertSessionData(DefaultSession.PRIORITY_KEY, priority.toString());
                     profileStore.addPriority(profile, Priority.HIGH.toString());
+                    sessionConfig(profile.getId(), priority, session);
                     logger.debug("Profile = " + profile.toString());
                     //TODO : Profile 로 ServiceModel 찾아서 ServiceModel 에 전송
                     serviceModelPresentation.executeServiceModel(serviceModelPresentation.settingServiceModelId(profile.getServiceModelId(),sessionId));

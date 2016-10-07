@@ -18,6 +18,10 @@ public class DefaultSession implements Session {
      */
     private String id;
 
+    public DefaultSession(String id) {
+        this.id = id;
+    }
+
     /**
      *  The sessionData is pair of key, value.
      */
