@@ -127,7 +127,7 @@ public class ServiceModelPresentation {
         return new ServiceModel(serviceModelTransFormObject.getId(), serviceModelTransFormObject.getName(), serviceModelTransFormObject.getServiceIdList());
     }
 
-    public ServiceModelTransFormObject settingServiceModelId(String serviceModelId){
+    public ServiceModelTransFormObject settingServiceModelId(String serviceModelId, String sessionId){
         ServiceModelTransFormObject object = new ServiceModelTransFormObject();
         object.setId(serviceModelId);
         return object;

@@ -9,11 +9,14 @@ import com.pineone.icbms.so.profile.ref.ResponseMessage;
 import com.pineone.icbms.so.profile.store.ProfileStore;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
 import com.pineone.icbms.so.util.priority.Priority;
+import com.pineone.icbms.so.util.session.DefaultSession;
+import com.pineone.icbms.so.util.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -153,13 +156,15 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         Profile profile = profileStore.retrieveProfileDetail(profileId);
         logger.debug("Profile = " + profile.toString());
         profileStore.addPriority(profile, Priority.LOW.toString());
-        Priority priority = Priority.LOW  ;
+        Priority priority = Priority.LOW;
+        Session session = new DefaultSession();
+        session.insertSessionData(DefaultSession.PROFILE_ID_KEY)
         List<String> domainIdList = contextModelPresentation.isHappenContextModel(profile.getContextModelId());
         if(domainIdList != null){
                 String message = "Message : Happened ContextModel";
                 System.out.println(message);
                 System.out.println();
-                serviceModelPresentation.executeServiceModel(serviceModelPresentation.settingServiceModelId(profile.getServiceModelId()));
+                serviceModelPresentation.executeServiceModel(serviceModelPresentation.settingServiceModelId(profile.getServiceModelId(),));
             return message + "," + profile.getServiceModelId() + " Execute";
         }
         else{

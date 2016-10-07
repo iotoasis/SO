@@ -9,6 +9,9 @@ import java.util.UUID;
  */
 public class DefaultSession implements Session {
 
+    public static final String PROFILE_ID_KEY = "profileId";
+    public static final String PRIORITY_KEY = "priorityName";
+
     /**
      *  The session unique id.
      */
