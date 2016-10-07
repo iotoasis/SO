@@ -158,13 +158,15 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         profileStore.addPriority(profile, Priority.LOW.toString());
         Priority priority = Priority.LOW;
         Session session = new DefaultSession();
-        session.insertSessionData(DefaultSession.PROFILE_ID_KEY)
+        String sessionId = session.getId();
+        session.insertSessionData(DefaultSession.PROFILE_KEY, profileId);
+        session.insertSessionData(DefaultSession.PRIORITY_KEY, priority.toString());
         List<String> domainIdList = contextModelPresentation.isHappenContextModel(profile.getContextModelId());
         if(domainIdList != null){
                 String message = "Message : Happened ContextModel";
                 System.out.println(message);
                 System.out.println();
-                serviceModelPresentation.executeServiceModel(serviceModelPresentation.settingServiceModelId(profile.getServiceModelId(),));
+                serviceModelPresentation.executeServiceModel(serviceModelPresentation.settingServiceModelId(profile.getServiceModelId(), sessionId));
             return message + "," + profile.getServiceModelId() + " Execute";
         }
         else{
@@ -198,10 +200,14 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
                 List<Profile> profileList = profileStore.findByContextModelId(contextModel.getId());
                 for(Profile profile : profileList){
                     Priority priority = Priority.HIGH;
+                    Session session = new DefaultSession();
+                    String sessionId = session.getId();
+                    session.insertSessionData(DefaultSession.PROFILE_KEY, profile.getId());
+                    session.insertSessionData(DefaultSession.PRIORITY_KEY, priority.toString());
                     profileStore.addPriority(profile, Priority.HIGH.toString());
                     logger.debug("Profile = " + profile.toString());
                     //TODO : Profile 로 ServiceModel 찾아서 ServiceModel 에 전송
-                    serviceModelPresentation.executeServiceModel(serviceModelPresentation.settingServiceModelId(profile.getServiceModelId()));
+                    serviceModelPresentation.executeServiceModel(serviceModelPresentation.settingServiceModelId(profile.getServiceModelId(),sessionId));
                 }
             }
         }
