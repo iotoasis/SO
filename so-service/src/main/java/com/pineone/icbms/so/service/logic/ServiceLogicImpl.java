@@ -144,15 +144,15 @@ public class ServiceLogicImpl implements ServiceLogic{
         }
 
         // TODO : Session에서 serviceIdList를 얻는다.
-        List<String> serviceIdList = null;
+        List<String> sessionServiceIdList = null;
         if(session.isExistSessionData(DefaultSession.SERVICE_KEY)){
-            serviceIdList = DataConversion.stringDataToList(session.findSessionData(DefaultSession.SERVICE_KEY));
+            sessionServiceIdList = DataConversion.stringDataToList(session.findSessionData(DefaultSession.SERVICE_KEY));
         }
-        if(serviceIdList == null){
-            serviceIdList = new ArrayList<>();
+        if(sessionServiceIdList == null){
+            sessionServiceIdList = new ArrayList<>();
         }
-        serviceIdList.add(serviceId);
-        session.insertSessionData(DefaultSession.SERVICE_KEY, DataConversion.listDataToString(serviceIdList));
+        sessionServiceIdList.add(serviceId);
+        session.insertSessionData(DefaultSession.SERVICE_KEY, DataConversion.listDataToString(sessionServiceIdList));
 
         long currentTime = System.currentTimeMillis();
 
@@ -163,7 +163,7 @@ public class ServiceLogicImpl implements ServiceLogic{
             sessionStore.updateSession(session);
             return;
         }
-
+        sessionStore.updateSession(session);
         // 제어 하면 modifiTime 수정
 
         if(serviceData.checkActivedPeriod(currentTime)){
@@ -177,9 +177,11 @@ public class ServiceLogicImpl implements ServiceLogic{
                 serviceData.setModifiedTime(currentTime);
             }
             serviceStore.updateService(serviceData);
+            session = sessionStore.retrieveSessionDetail(sessionId);
             session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_EXECUTION);
         } else {
             logger.info("Execute Service Ignore : " + "ServiceActiveTime = " + TimeStamp.currentTime(serviceData.getModifiedTime()) + " FilterTime = " + serviceData.getFilterTime()/1000);
+            session = sessionStore.retrieveSessionDetail(sessionId);
             session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_IGNORE);
         }
 
