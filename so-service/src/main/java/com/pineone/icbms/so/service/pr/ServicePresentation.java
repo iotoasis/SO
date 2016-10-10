@@ -98,8 +98,8 @@ public class ServicePresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public void executeService(@RequestBody ServiceTransFormObject serviceTransFormObject){
         // 해당 서비스 아이디로 실행하기.
-        logger.info(LogPrint.inputInfoLogPrint() + " Service ID = " + serviceTransFormObject.getId());
-        logger.debug("Service ID = " + serviceTransFormObject.getId());
+        logger.info(LogPrint.inputInfoLogPrint() + " Service ID = " + serviceTransFormObject.getId() + " Session ID = " + serviceTransFormObject.getSessionId());
+        logger.debug("Service ID = " + serviceTransFormObject.getId() + " Session ID = " + serviceTransFormObject.getSessionId());
         serviceLogic.executeService(serviceTransFormObject.getId(), serviceTransFormObject.getSessionId());
     }
 
