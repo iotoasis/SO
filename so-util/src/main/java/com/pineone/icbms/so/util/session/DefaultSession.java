@@ -55,9 +55,6 @@ public class DefaultSession implements Session {
         this.sessionData = sessionData;
     }
 
-    public Map<String, String> getSessionData() {
-        return sessionData;
-    }
 
     @Override
     public String getId() {
@@ -81,6 +78,11 @@ public class DefaultSession implements Session {
     @Override
     public String removeSessionData(String key) {
         return sessionData.remove(key);
+    }
+
+    @Override
+    public Map<String, String> getSessionData() {
+        return this.sessionData;
     }
 
     @Override

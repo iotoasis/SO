@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.util.session.store.mongo;
 
 import com.pineone.icbms.so.util.session.DefaultSession;
+import com.pineone.icbms.so.util.session.Session;
 import com.pineone.icbms.so.util.session.store.SessionStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,16 +24,16 @@ public class SessionMongoImpl implements SessionStore{
 
     //NOTE : DB에 세션 데이터 등록
     @Override
-    public void createSession(DefaultSession session) {
+    public void createSession(Session session) {
         logger.debug("Session = " + session.toString());
         SessionDataObject sessionDataObject = sessionToDataObject(session);
         sessionRepository.save(sessionDataObject);
     }
 
     @Override
-    public List<DefaultSession> retrieveSessionList() {
+    public List<Session> retrieveSessionList() {
         List<SessionDataObject> sessionDataObjectList = sessionRepository.findAll();
-        List<DefaultSession> sessionList = new ArrayList<>();
+        List<Session> sessionList = new ArrayList<>();
         for(SessionDataObject sessionDataObject : sessionDataObjectList){
             sessionList.add(dataObjectToSession(sessionDataObject));
             logger.debug("Session = " + dataObjectToSession(sessionDataObject));
@@ -48,12 +49,12 @@ public class SessionMongoImpl implements SessionStore{
     }
 
     @Override
-    public void updateSession(DefaultSession session) {
+    public void updateSession(Session session) {
         SessionDataObject sessionDataObject = sessionToDataObject(session);
         sessionRepository.save(sessionDataObject);
     }
 
-    private SessionDataObject sessionToDataObject(DefaultSession session){
+    private SessionDataObject sessionToDataObject(Session session){
         if(session == null) return null;
         return new SessionDataObject(session.getId(), session.getSessionData());
 
