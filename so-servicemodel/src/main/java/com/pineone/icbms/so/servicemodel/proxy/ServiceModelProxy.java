@@ -12,5 +12,5 @@ public interface ServiceModelProxy {
     List<String> retrieveServiceNameList();
     Service retrieveServiceDetail(String serviceId);
     List<String> retrieveServiceIdList();
-    void executeService(String serviceId);
+    void executeService(String serviceId, String sessionId);
 }

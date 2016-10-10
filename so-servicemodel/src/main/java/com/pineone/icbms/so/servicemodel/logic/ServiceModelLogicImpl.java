@@ -5,6 +5,8 @@ import com.pineone.icbms.so.servicemodel.proxy.ServiceModelProxy;
 import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
 import com.pineone.icbms.so.servicemodel.ref.ServiceMessage;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
+import com.pineone.icbms.so.util.session.DefaultSession;
+import com.pineone.icbms.so.util.session.store.SessionStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
 
     @Autowired
     ServiceModelStore serviceModelStore;
+
+    @Autowired
+    SessionStore sessionStore;
 
 //    ServiceModelProxy serviceModelProxy = ServiceModelInternalProxy.newServiceModelSDAProxy();
 
@@ -71,11 +76,31 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
 
     //NOTE: 즉시성 서비스 모델 실행
     @Override
-    public void executeServiceModel(String serviceModelId) {
+    public void executeServiceModel(String serviceModelId, String sessionId) {
         //
-        logger.debug("Execute ServiceModel ID = " + serviceModelId);
+        logger.debug("Execute ServiceModel ID = " + serviceModelId + "SesseionID = " + sessionId);
         ServiceModel serviceModel = serviceModelStore.retrieveServiceModelDetail(serviceModelId);
-        logger.debug("Execute ServiceModel = " + serviceModel);
+
+        // DB에서 Session을 검색
+        DefaultSession session = null;
+        if(sessionId != null){
+            session = sessionStore.retrieveSessionDetail(sessionId);
+        }
+
+        // Session이 없으면 Session을 생성. 외부에서 ServiceModel을 제어서 Session이 없을수 있음.
+        if(session == null){
+            session = new DefaultSession();
+        }
+
+        session.insertSessionData(DefaultSession.SERVICEMODEL_KEY,serviceModelId);
+        if(serviceModel == null){
+            session.insertSessionData(DefaultSession.SERVICEMODEL_RESULT, DefaultSession.CONTROL_ERROR);
+            // DB에 Session을 저장.
+            sessionStore.updateSession(session);
+            return;
+        }
+
+        logger.debug("Execute ServiceModel = " + serviceModel.toString());
         List<String> serviceIdList = serviceModel.getServiceIdList();
         List<ServiceMessage> serviceMessageList = new ArrayList<>();
         for (String serviceId : serviceIdList) {
@@ -83,8 +108,15 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
 //            ServiceMessage serviceMessage = new ServiceMessage(domainId, service.getVirtualObjectService(), service.getStatus());
 //            serviceMessageList.add(serviceMessage);
             logger.debug("Execute Service ID = " + serviceId);
-            serviceModelProxy.executeService(serviceId);
+            serviceModelProxy.executeService(serviceId, sessionId);
         }
+
+        // ServiceModel의 Session 결과를 저장
+        session.insertSessionData(DefaultSession.SERVICEMODEL_RESULT,DefaultSession.CONTROL_EXECUTION);
+
+        // DB에 Session을 저장.
+        sessionStore.updateSession(session);
+
     }
 
     @Override

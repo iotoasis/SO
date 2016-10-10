@@ -1,5 +1,7 @@
 package com.pineone.icbms.so.util.conversion;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.withwiz.beach.network.http.message.IHttpResponseMessage;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -10,6 +12,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * Data Conversion Class<BR/>
@@ -91,5 +95,17 @@ public class DataConversion
 
         return result;
     }
+
+    static public String listDataToString(List<String> list){
+        String data = new Gson().toJson(list);
+        return data;
+    }
+
+    static public List<String> stringDataToList(String data){
+        Type type = new TypeToken<List<String>>(){}.getType();
+        List<String> list = new Gson().fromJson(data,type);
+        return list;
+    }
+
 
 }

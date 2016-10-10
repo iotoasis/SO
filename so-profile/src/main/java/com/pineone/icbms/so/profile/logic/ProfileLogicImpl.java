@@ -12,13 +12,11 @@ import com.pineone.icbms.so.util.priority.Priority;
 import com.pineone.icbms.so.util.session.DefaultSession;
 import com.pineone.icbms.so.util.session.Session;
 import com.pineone.icbms.so.util.session.store.SessionStore;
-import com.pineone.icbms.so.util.session.store.mongo.SessionMongoImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -183,9 +181,9 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     }
 
     private void sessionConfig(String profileId, Priority priority, Session session) {
-        sessionStore.createSession(session);
-        sessionStore.addProfileId(session, profileId);
-        sessionStore.addPriority(session, priority.toString());
+//        sessionStore.createSession(session);
+//        sessionStore.addProfileId(session, profileId);
+//        sessionStore.addPriority(session, priority.toString());
         session.insertSessionData(DefaultSession.PRIORITY_KEY, priority.toString());
     }
 

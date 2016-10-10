@@ -100,7 +100,7 @@ public class ServicePresentation {
         // 해당 서비스 아이디로 실행하기.
         logger.info(LogPrint.inputInfoLogPrint() + " Service ID = " + serviceTransFormObject.getId());
         logger.debug("Service ID = " + serviceTransFormObject.getId());
-        serviceLogic.executeService(serviceTransFormObject.getId());
+        serviceLogic.executeService(serviceTransFormObject.getId(), serviceTransFormObject.getSessionId());
     }
 
     //NOTE : Service List 조회
@@ -131,9 +131,10 @@ public class ServicePresentation {
         return serviceIdList;
     }
 
-    public ServiceTransFormObject settingServiceId(String serviceId){
+    public ServiceTransFormObject settingServiceId(String serviceId, String sessionId){
         ServiceTransFormObject object = new ServiceTransFormObject();
         object.setId(serviceId);
+        object.setSessionId(sessionId);
         return object;
     }
 

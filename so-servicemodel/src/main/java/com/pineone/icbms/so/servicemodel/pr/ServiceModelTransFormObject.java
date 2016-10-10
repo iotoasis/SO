@@ -13,6 +13,7 @@ public class ServiceModelTransFormObject {
     private List<String> serviceIdList;
     private String createTime;
     private String modifiedTime;
+    private String sessionId;
 
 
     public String getName() {
@@ -55,6 +56,14 @@ public class ServiceModelTransFormObject {
         this.modifiedTime = modifiedTime;
     }
 
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
     public ServiceModelTransFormObject() {
     }
 
@@ -72,6 +81,15 @@ public class ServiceModelTransFormObject {
         this.modifiedTime = modifiedTime;
     }
 
+    public ServiceModelTransFormObject(String id, String name, List<String> serviceIdList, String createTime, String modifiedTime, String sessionId) {
+        this.id = id;
+        this.name = name;
+        this.serviceIdList = serviceIdList;
+        this.createTime = createTime;
+        this.modifiedTime = modifiedTime;
+        this.sessionId = sessionId;
+    }
+
     @Override
     public String toString() {
         return "ServiceModelTransFormObject{" +
@@ -80,6 +98,7 @@ public class ServiceModelTransFormObject {
                 ", serviceIdList=" + serviceIdList +
                 ", createTime='" + createTime + '\'' +
                 ", modifiedTime='" + modifiedTime + '\'' +
+                ", sessionId='" + sessionId + '\'' +
                 '}';
     }
 }
