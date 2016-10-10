@@ -101,6 +101,10 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
             return;
         }
 
+        // ServiceModel의 Session 결과를 저장
+        session.insertSessionData(DefaultSession.SERVICEMODEL_RESULT,DefaultSession.CONTROL_EXECUTION);
+
+        // DB에 Session을 저장.
         sessionStore.updateSession(session);
 
         logger.debug("Execute ServiceModel = " + serviceModel.toString());
@@ -113,13 +117,6 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
             logger.debug("Execute Service ID = " + serviceId);
             serviceModelProxy.executeService(serviceId, sessionId);
         }
-
-        // ServiceModel의 Session 결과를 저장
-        session.insertSessionData(DefaultSession.SERVICEMODEL_RESULT,DefaultSession.CONTROL_EXECUTION);
-
-        // DB에 Session을 저장.
-        sessionStore.updateSession(session);
-
     }
 
     @Override
