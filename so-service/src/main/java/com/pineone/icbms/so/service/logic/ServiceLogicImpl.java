@@ -13,6 +13,7 @@ import com.pineone.icbms.so.service.store.ServiceStore;
 import com.pineone.icbms.so.util.TimeStamp;
 import com.pineone.icbms.so.util.conversion.DataConversion;
 import com.pineone.icbms.so.util.session.DefaultSession;
+import com.pineone.icbms.so.util.session.Session;
 import com.pineone.icbms.so.util.session.store.SessionStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -133,7 +134,7 @@ public class ServiceLogicImpl implements ServiceLogic{
         //
 
         // DB에서 Session을 검색
-        DefaultSession session = null;
+        Session session = null;
         if(sessionId != null){
             session = sessionStore.retrieveSessionDetail(sessionId);
         }

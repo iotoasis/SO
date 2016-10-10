@@ -6,6 +6,7 @@ import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
 import com.pineone.icbms.so.servicemodel.ref.ServiceMessage;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
 import com.pineone.icbms.so.util.session.DefaultSession;
+import com.pineone.icbms.so.util.session.Session;
 import com.pineone.icbms.so.util.session.store.SessionStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,11 +79,11 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
     @Override
     public void executeServiceModel(String serviceModelId, String sessionId) {
         //
-        logger.debug("Execute ServiceModel ID = " + serviceModelId + "SesseionID = " + sessionId);
+        logger.debug("Execute ServiceModel ID = " + serviceModelId + " Sesseion ID = " + sessionId);
         ServiceModel serviceModel = serviceModelStore.retrieveServiceModelDetail(serviceModelId);
 
         // DB에서 Session을 검색
-        DefaultSession session = null;
+        Session session = null;
         if(sessionId != null){
             session = sessionStore.retrieveSessionDetail(sessionId);
         }
@@ -99,6 +100,8 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
             sessionStore.updateSession(session);
             return;
         }
+
+        sessionStore.updateSession(session);
 
         logger.debug("Execute ServiceModel = " + serviceModel.toString());
         List<String> serviceIdList = serviceModel.getServiceIdList();
