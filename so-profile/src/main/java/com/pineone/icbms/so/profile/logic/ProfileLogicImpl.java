@@ -205,13 +205,15 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
             }
             if(!(profileProxy.checkContextModelQueue())){
                 ContextModel contextModel = profileProxy.retrieveContextModelQueueData();
+                Session session = new DefaultSession();
+                String sessionId = session.getId();
+                session.insertSessionData(DefaultSession.CONTEXTMODEL_KEY, contextModel.getId());
+                session.insertSessionData(DefaultSession.CONTEXTMODEL_RESULT, "Happen");
                 logger.debug("ContextModel = " + contextModel.toString());
                 //TODO : 디비 연결후 contextModel 이름으로 Profile 조회 기능 구현 및 연결
                 List<Profile> profileList = profileStore.findByContextModelId(contextModel.getId());
                 for(Profile profile : profileList){
                     Priority priority = Priority.HIGH;
-                    Session session = new DefaultSession();
-                    String sessionId = session.getId();
                     session.insertSessionData(DefaultSession.PROFILE_KEY, profile.getId());
                     session.insertSessionData(DefaultSession.PRIORITY_KEY, priority.toString());
                     sessionStore.updateSession(session);
