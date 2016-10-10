@@ -163,7 +163,8 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         Session session = new DefaultSession();
         String sessionId = session.getId();
         session.insertSessionData(DefaultSession.PROFILE_KEY, profileId);
-        sessionConfig(profileId, priority, session);
+        session.insertSessionData(DefaultSession.PRIORITY_KEY, priority.toString());
+        sessionStore.updateSession(session);
         List<String> domainIdList = contextModelPresentation.isHappenContextModel(profile.getContextModelId());
         if(domainIdList != null){
                 String message = "Message : Happened ContextModel";
@@ -180,12 +181,6 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         }
     }
 
-    private void sessionConfig(String profileId, Priority priority, Session session) {
-//        sessionStore.createSession(session);
-//        sessionStore.addProfileId(session, profileId);
-//        sessionStore.addPriority(session, priority.toString());
-        session.insertSessionData(DefaultSession.PRIORITY_KEY, priority.toString());
-    }
 
     //NOTE : Profile List 조회
     @Override
@@ -214,8 +209,8 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
                     String sessionId = session.getId();
                     session.insertSessionData(DefaultSession.PROFILE_KEY, profile.getId());
                     session.insertSessionData(DefaultSession.PRIORITY_KEY, priority.toString());
+                    sessionStore.updateSession(session);
                     profileStore.addPriority(profile, Priority.HIGH.toString());
-                    sessionConfig(profile.getId(), priority, session);
                     logger.debug("Profile = " + profile.toString());
                     //TODO : Profile 로 ServiceModel 찾아서 ServiceModel 에 전송
                     serviceModelPresentation.executeServiceModel(serviceModelPresentation.settingServiceModelId(profile.getServiceModelId(),sessionId));

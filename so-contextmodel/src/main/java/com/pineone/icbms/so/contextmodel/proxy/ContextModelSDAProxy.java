@@ -138,7 +138,24 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
                 domains.add(content.getLoc());
                 System.out.println("Location = " + content.getLoc());
             }
-//            domains = new ArrayList<>();
+        }
+        else if(contextModelId.equals("cm-notideal-light-lecture")){
+            List<Content> contentList = null;
+            try {
+                contentList = getContents(contextModelId);
+            } catch (BadRequestException e) {
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+            }
+
+            if(contentList == null || contentList.isEmpty() ){
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+                domains = null;
+                return domains;
+            }
+            for(Content content : contentList){
+                domains.add(content.getLoc());
+                System.out.println("Location = " + content.getLoc());
+            }
         }
 
         else if(contextModelId.equals("CM-TEST")){
