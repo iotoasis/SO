@@ -11,6 +11,9 @@ import com.pineone.icbms.so.service.ref.Status;
 import com.pineone.icbms.so.service.store.ServiceControlRecordStore;
 import com.pineone.icbms.so.service.store.ServiceStore;
 import com.pineone.icbms.so.util.TimeStamp;
+import com.pineone.icbms.so.util.conversion.DataConversion;
+import com.pineone.icbms.so.util.session.DefaultSession;
+import com.pineone.icbms.so.util.session.store.SessionStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,9 @@ public class ServiceLogicImpl implements ServiceLogic{
 
     @Autowired
     ServiceStore serviceStore;
+
+    @Autowired
+    SessionStore sessionStore;
 
     @Autowired
     ServiceControlRecordStore serviceControlRecordStore;
@@ -117,8 +123,8 @@ public class ServiceLogicImpl implements ServiceLogic{
     }
 
     @Override
-    public void executeService(String serviceId) {
-        logger.debug("Execute Service ID = " + serviceId);
+    public void executeService(String serviceId, String sessionId) {
+        logger.debug("Execute Service ID = " + serviceId + " Session ID = " + sessionId);
 
         // Service Filter 추가.
 
@@ -126,12 +132,38 @@ public class ServiceLogicImpl implements ServiceLogic{
         // serviceControlRecord가 없으면 ServiceControlRecord 생성
         //
 
+        // DB에서 Session을 검색
+        DefaultSession session = null;
+        if(sessionId != null){
+            session = sessionStore.retrieveSessionDetail(sessionId);
+        }
+
+        if(session == null){
+            session = new DefaultSession();
+        }
+
+        // TODO : Session에서 serviceIdList를 얻는다.
+        List<String> serviceIdList = null;
+        if(session.isExistSessionData(DefaultSession.SERVICE_KEY)){
+            serviceIdList = DataConversion.stringDataToList(session.findSessionData(DefaultSession.SERVICE_KEY));
+        }
+        if(serviceIdList == null){
+            serviceIdList = new ArrayList<>();
+        }
+        serviceIdList.add(serviceId);
+        session.insertSessionData(DefaultSession.SERVICE_KEY, DataConversion.listDataToString(serviceIdList));
+
         long currentTime = System.currentTimeMillis();
 
         Service serviceData = serviceStore.retrieveServiceDetail(serviceId);
+        if(serviceData == null){
+            session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_ERROR);
+            // DB에 Session을 저장.
+            sessionStore.updateSession(session);
+            return;
+        }
 
         // 제어 하면 modifiTime 수정
-
 
         if(serviceData.checkActivedPeriod(currentTime)){
             logger.info("Execute Service Start" + TimeStamp.currentTime());
@@ -144,10 +176,14 @@ public class ServiceLogicImpl implements ServiceLogic{
                 serviceData.setModifiedTime(currentTime);
             }
             serviceStore.updateService(serviceData);
+            session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_EXECUTION);
         } else {
             logger.info("Execute Service Ignore : " + "ServiceActiveTime = " + TimeStamp.currentTime(serviceData.getModifiedTime()) + " FilterTime = " + serviceData.getFilterTime()/1000);
+            session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_IGNORE);
         }
 
+        // DB에 Session을 저장.
+        sessionStore.updateSession(session);
 
         /*
         ServiceControlRecord serviceControlRecord = serviceControlRecordStore.retrieveServiceControlRecordDetail(serviceId);
@@ -175,7 +211,6 @@ public class ServiceLogicImpl implements ServiceLogic{
         serviceControlRecord.setModifiedTime(currentTime);
         serviceControlRecordStore.updateServiceControlRecord(serviceControlRecord);
         */
-
     }
 
     @Override

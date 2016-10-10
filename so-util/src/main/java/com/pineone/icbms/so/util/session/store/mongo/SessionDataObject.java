@@ -2,6 +2,8 @@ package com.pineone.icbms.so.util.session.store.mongo;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Map;
+
 /**
  * Created by melvin on 2016. 10. 7..
  */
@@ -9,17 +11,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "session")
 public class SessionDataObject {
 
-    String id;
-    String profileId;
-    String priority;
+    private String id;
+
+    private Map<String, String> sessionData;
+
 
     public SessionDataObject() {
-    }
-
-    public SessionDataObject(String id, String profileId, String priority) {
-        this.id = id;
-        this.profileId = profileId;
-        this.priority = priority;
     }
 
 
@@ -27,20 +24,9 @@ public class SessionDataObject {
         this.id = id;
     }
 
-    public String getProfileId() {
-        return profileId;
-    }
-
-    public void setProfileId(String profileId) {
-        this.profileId = profileId;
-    }
-
-    public String getPriority() {
-        return priority;
-    }
-
-    public void setPriority(String priority) {
-        this.priority = priority;
+    public SessionDataObject(String id, Map<String, String> sessionData) {
+        this.id = id;
+        this.sessionData = sessionData;
     }
 
     public String getId() {
@@ -49,5 +35,21 @@ public class SessionDataObject {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Map<String, String> getSessionData() {
+        return sessionData;
+    }
+
+    public void setSessionData(Map<String, String> sessionData) {
+        this.sessionData = sessionData;
+    }
+
+    @Override
+    public String toString() {
+        return "SessionDataObject{" +
+                "id='" + id + '\'' +
+                ", sessionData=" + sessionData +
+                '}';
     }
 }

@@ -112,7 +112,7 @@ public class ServiceModelPresentation {
         //
         logger.info(LogPrint.inputInfoLogPrint() + "ServiceModel ID = " + serviceModelTransFormObject.getId());
         logger.debug("ServiceModel Id = " + serviceModelTransFormObject.getId());
-        serviceModelLogic.executeServiceModel(serviceModelTransFormObject.getId());
+        serviceModelLogic.executeServiceModel(serviceModelTransFormObject.getId(), serviceModelTransFormObject.getSessionId());
     }
 
     //NOTE: 저장되어 있는 Service 들의 ID 조회
@@ -130,6 +130,7 @@ public class ServiceModelPresentation {
     public ServiceModelTransFormObject settingServiceModelId(String serviceModelId, String sessionId){
         ServiceModelTransFormObject object = new ServiceModelTransFormObject();
         object.setId(serviceModelId);
+        object.setSessionId(sessionId);
         return object;
     }
 

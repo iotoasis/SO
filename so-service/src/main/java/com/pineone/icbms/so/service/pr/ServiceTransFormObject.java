@@ -70,6 +70,13 @@ public class ServiceTransFormObject {
      */
     private long filterTime;
 
+    /**
+     * 세션의 아이디
+     * format : String
+     * ex :
+     */
+    private String sessionId;
+
     public String getId() {
         return id;
     }
@@ -143,7 +150,15 @@ public class ServiceTransFormObject {
         this.filterTime = filterTime;
     }
 
-    public ServiceTransFormObject(String id, String name, List<String> virtualObjectIdList, String virtualObjectService, String status, long createTime, long modifiedTime, long filterTime) {
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public ServiceTransFormObject(String id, String name, List<String> virtualObjectIdList, String virtualObjectService, String status, long createTime, long modifiedTime, long filterTime, String sessionId) {
         this.id = id;
         this.name = name;
         this.virtualObjectIdList = virtualObjectIdList;
@@ -152,19 +167,22 @@ public class ServiceTransFormObject {
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
         this.filterTime = filterTime;
+        this.sessionId = sessionId;
     }
 
     @Override
     public String toString() {
-        return "Service{" +
+        return "ServiceTransFormObject{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", virtualObjectIdList=" + virtualObjectIdList +
                 ", virtualObjectService='" + virtualObjectService + '\'' +
                 ", status='" + status + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", modifiedTime='" + modifiedTime + '\'' +
+                ", createTime=" + createTime +
+                ", modifiedTime=" + modifiedTime +
                 ", filterTime=" + filterTime +
+                ", sessionId='" + sessionId + '\'' +
                 '}';
     }
+
 }

@@ -19,6 +19,6 @@ public interface ServiceLogic {
     Service retrieveServiceDetail(String serviceName);
     List<String> retrieveServiceNameList();
     List<String> retrieveServiceIdList();
-    void executeService(String serviceId);
+    void executeService(String serviceId, String sessionId);
     List<Service> retrieveServiceList();
 }

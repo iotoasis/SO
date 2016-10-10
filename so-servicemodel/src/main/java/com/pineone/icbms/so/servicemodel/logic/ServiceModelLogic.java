@@ -12,7 +12,7 @@ public interface ServiceModelLogic {
     List<String> retrieveServiceNameList();
     String registerServiceModel(ServiceModel serviceModel);
     ServiceModel retrieveServiceModelDetail(String serviceModelId);
-    void executeServiceModel(String serviceModelId);
+    void executeServiceModel(String serviceModelId, String sessionId);
     List<String> retrieveServiceIdList();
     List<String> retrieveServiceModelIdList();
     List<ServiceModel> retrieveServiceModelList();
