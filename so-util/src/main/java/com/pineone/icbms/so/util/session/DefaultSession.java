@@ -11,6 +11,7 @@ public class DefaultSession implements Session {
 
     public static final String PROFILE_KEY = "PROFILE_KYE";
     public static final String PRIORITY_KEY = "PRIORITY_KEY";
+    public static final String CONTEXTMODEL_KEY = "CONTEXTMODEL_KEY";
 
     public static final String SERVICEMODEL_KEY                 =   "SERVICEMODEL_ID_KEY";
     public static final String SERVICEMODEL_RESULT              =   "SERVICEMODEL_RESULT";

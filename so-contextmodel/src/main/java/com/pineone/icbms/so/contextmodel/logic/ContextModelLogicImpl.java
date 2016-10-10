@@ -7,6 +7,8 @@ import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.contextmodel.ref.ResponseMessage;
 import com.pineone.icbms.so.contextmodel.store.ContextModelStore;
 import com.pineone.icbms.so.domain.entity.Domain;
+import com.pineone.icbms.so.util.session.DefaultSession;
+import com.pineone.icbms.so.util.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,6 +125,8 @@ public class ContextModelLogicImpl implements ContextModelLogic{
     public String useQueueSaveContextModel(ContextModel contextModel) {
         //
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
+        Session session = new DefaultSession();
+        session.insertSessionData(DefaultSession.CONTEXTMODEL_KEY, contextModel.getId());
 
         logger.debug("ContextModel = " + contextModel.toString());
         CONTEXT_MODEL_QUEUE.offer(contextModel);
