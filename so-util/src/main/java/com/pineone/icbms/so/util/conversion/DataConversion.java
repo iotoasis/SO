@@ -26,12 +26,6 @@ public class DataConversion
 	private static final Logger log = LoggerFactory
 			.getLogger(DataConversion.class);
 
-    public static final String	RESPONSE_SUCCESS			= "success";
-    public static final String	RESPONSE_FAILURE			= "failure";
-    public static final String	RESPONSE_SUCCESS_CODE		= "200";
-    public static final String	RESPONSE_FIALURE_CODE		= "400";
-    public static final String	RESPONSE_SUCCESS_ONEM2MCODE	= "2000";
-
     /**
      * Object Data to String.<BR/>
      * @param o

@@ -6,11 +6,16 @@ import com.pineone.icbms.so.device.proxy.DeviceICollectionProxy;
 import com.pineone.icbms.so.device.store.DeviceResultStore;
 import com.pineone.icbms.so.device.store.DeviceStore;
 import com.pineone.icbms.so.device.util.ClientProfile;
+import com.pineone.icbms.so.util.conversion.DataConversion;
+import com.pineone.icbms.so.util.session.DefaultSession;
+import com.pineone.icbms.so.util.session.Session;
+import com.pineone.icbms.so.util.session.store.SessionStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,6 +30,9 @@ public class DeviceManagerLogic implements DeviceManager {
 
     @Autowired
     private DeviceResultStore deviceResultStore;
+
+    @Autowired
+    private SessionStore sessionStore;
 
     @Autowired
     private DeviceICollectionProxy deviceICollectionProxy;
@@ -50,22 +58,55 @@ public class DeviceManagerLogic implements DeviceManager {
     }
 
     @Override
-    public String deviceExecute(String deviceId,String deviceCommand){
+    public String deviceExecute(String deviceId,String deviceCommand, String sessionId){
 
-        logger.debug("DeviceID = " + deviceId + " DeviceCommand = " + deviceCommand);
+        logger.debug("DeviceID = " + deviceId + " DeviceCommand = " + deviceCommand + " Session Id = " + sessionId);
+
+        // DB에서 Session을 검색
+        Session session = null;
+        if(sessionId != null){
+            session = sessionStore.retrieveSessionDetail(sessionId);
+        }
+
+        if(session == null){
+            session = new DefaultSession();
+        }
+
+        List<String> sessionDeviceIdList = null;
+        if(session.isExistSessionData(DefaultSession.DEVICE_KEY)){
+            sessionDeviceIdList = DataConversion.stringDataToList(session.findSessionData(DefaultSession.DEVICE_KEY));
+        }
+        if(sessionDeviceIdList == null){
+            sessionDeviceIdList = new ArrayList<>();
+        }
+        sessionDeviceIdList.add(deviceId);
+        session.insertSessionData(DefaultSession.DEVICE_KEY, DataConversion.listDataToString(sessionDeviceIdList));
+        sessionStore.updateSession(session);
 
         String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
-
         Device device = deviceSearchById(deviceId);
-        if(device != null && device.getDeviceServices() != null && device.getDeviceServices().equals("DEVICE_SERVICE_NOTI_TYPE")){
+        if(device == null){
+            session.insertSessionData(DefaultSession.DEVICE_RESULT, DefaultSession.CONTROL_ERROR);
+            // DB에 Session을 저장.
+            sessionStore.updateSession(session);
+            logger.debug("The device does not exist.");
+            return "The device does not exist.";
+        } else if(device != null && device.getDeviceServices() != null && device.getDeviceServices().equals("DEVICE_SERVICE_NOTI_TYPE")){
+            session.insertSessionData(DefaultSession.DEVICE_RESULT, DefaultSession.CONTROL_EXECUTION);
+            // DB에 Session을 저장.
+            sessionStore.updateSession(session);
             return DEVICE_SERVICE_NOTI_TYPE;
         }
+
         // SI를 제어할수 있는 DeviceControlMessage로 변환
         DeviceControlMessage deviceControlMessage = deviceDataConversion(deviceId,commandId,deviceCommand);
         logger.debug("DeviceControlMessage = " + deviceControlMessage.toString());
+
+        session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_EXECUTION);
+        sessionStore.updateSession(session);
         // Device 제어 요청 보냄.
         ResultMessage resultMessage = deviceControlProxy.deviceControlRequest(ClientProfile.SI_CONTOL_URI,deviceControlMessage);
-//
+
         // Device 제어 결과 저장.
         controlResultsStorage(deviceId, commandId, deviceCommand, resultMessage);
 

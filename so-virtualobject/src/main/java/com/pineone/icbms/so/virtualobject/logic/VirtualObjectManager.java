@@ -9,7 +9,7 @@ public interface VirtualObjectManager {
     void deleteVirtualObject(String id);
     List<VirtualObject> searchVirtualObjectList(String location);
     List<VirtualObject> searchVirtualObjectList();
-    String requestControlDevice(String voId, String operation);
+    String requestControlDevice(String voId, String operation, String sessionId);
     void produceVirtualObject(VirtualObject virtualObject);
 //    String controlDevice(List<ServiceControl> serviceControls);
 }

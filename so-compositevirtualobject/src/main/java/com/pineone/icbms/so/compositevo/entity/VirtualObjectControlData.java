@@ -34,14 +34,21 @@ public class VirtualObjectControlData {
      */
     private String operation;
 
+    /**
+     * Session의 식별자
+     * format : session ID
+     */
+    private String sessionId;
+
     public VirtualObjectControlData() {
     }
 
-    public VirtualObjectControlData(String id, String domain, String functionality, String operation) {
+    public VirtualObjectControlData(String id, String domain, String functionality, String operation, String sessionId) {
         this.id = id;
         this.domain = domain;
         this.functionality = functionality;
         this.operation = operation;
+        this.sessionId = sessionId;
     }
 
     public String getId() {
@@ -76,6 +83,14 @@ public class VirtualObjectControlData {
         this.operation = operation;
     }
 
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
     @Override
     public String toString() {
         return "VirtualObjectControlData{" +
@@ -83,6 +98,7 @@ public class VirtualObjectControlData {
                 ", domain='" + domain + '\'' +
                 ", functionality='" + functionality + '\'' +
                 ", operation='" + operation + '\'' +
+                ", sessionId='" + sessionId + '\'' +
                 '}';
     }
 }
