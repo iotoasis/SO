@@ -12,6 +12,7 @@ import com.pineone.icbms.so.service.store.ServiceControlRecordStore;
 import com.pineone.icbms.so.service.store.ServiceStore;
 import com.pineone.icbms.so.util.TimeStamp;
 import com.pineone.icbms.so.util.conversion.DataConversion;
+import com.pineone.icbms.so.util.priority.Priority;
 import com.pineone.icbms.so.util.session.DefaultSession;
 import com.pineone.icbms.so.util.session.Session;
 import com.pineone.icbms.so.util.session.store.SessionStore;
@@ -165,8 +166,16 @@ public class ServiceLogicImpl implements ServiceLogic{
         }
         sessionStore.updateSession(session);
 
-        // 제어 하면 modifiTime 수정
-        if(serviceData.checkActivedPeriod(currentTime)){
+        /**
+         * Service Filter
+         * - 우선 순위,
+         *   1. Priority
+         *    - Priority가 없으면 외부 요청으로 간주하여 우선순위가 우선.
+         *   2. Period
+         *   3. ContextLocation
+         */
+        if(!session.isExistSessionData(DefaultSession.PRIORITY_KEY) || Priority.HIGH.equals(session.getSessionData().get(DefaultSession.PRIORITY_KEY)) ||
+                serviceData.checkActivedPeriod(currentTime)){
             logger.info("Execute Service Start" + TimeStamp.currentTime());
             for(String virtualObjectId : serviceData.getVirtualObjectIdList()){
                 if(virtualObjectId.startsWith(CompositeProfile.COMPOSITE_ID)) {
@@ -188,32 +197,8 @@ public class ServiceLogicImpl implements ServiceLogic{
         // DB에 Session을 저장.
         sessionStore.updateSession(session);
 
-        /*
-        ServiceControlRecord serviceControlRecord = serviceControlRecordStore.retrieveServiceControlRecordDetail(serviceId);
-        if(serviceControlRecord == null || serviceControlRecord.getId() == null){
-            serviceControlRecord = new ServiceControlRecord();
-            serviceControlRecord.setId(serviceId);
-            serviceControlRecord.setPeriod(ServiceControlRecord.DEFAULTTIME);
-            serviceControlRecord.setCreateTime(currentTime);
-            serviceControlRecordStore.createServiceControlRecord(serviceControlRecord);
-        }
 
-        if(serviceControlRecord.checkActivedService(currentTime) || serviceControlRecord.getModifiedTime() == 0){
-            Service serviceData = serviceStore.retrieveServiceDetail(serviceId);
-            for(String virtualObjectId : serviceData.getVirtualObjectIdList()){
-                if(virtualObjectId.startsWith(CompositeProfile.COMPOSITE_ID)) {
-                    serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus());
-                } else {
-                    serviceProxy.executeVirtualObject(virtualObjectId, serviceData.getStatus());
-                }
-            }
-            serviceControlRecord.setResult(ServiceControlRecord.SERIVCE_ACTIVED);
-        } else {
-            serviceControlRecord.setResult(ServiceControlRecord.SERIVCE_IGNORE);
-        }
-        serviceControlRecord.setModifiedTime(currentTime);
-        serviceControlRecordStore.updateServiceControlRecord(serviceControlRecord);
-        */
+
     }
 
     @Override
