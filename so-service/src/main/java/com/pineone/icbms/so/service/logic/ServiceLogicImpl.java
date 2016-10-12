@@ -164,15 +164,15 @@ public class ServiceLogicImpl implements ServiceLogic{
             return;
         }
         sessionStore.updateSession(session);
-        // 제어 하면 modifiTime 수정
 
+        // 제어 하면 modifiTime 수정
         if(serviceData.checkActivedPeriod(currentTime)){
             logger.info("Execute Service Start" + TimeStamp.currentTime());
             for(String virtualObjectId : serviceData.getVirtualObjectIdList()){
                 if(virtualObjectId.startsWith(CompositeProfile.COMPOSITE_ID)) {
-                    serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus());
+                    serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus(), sessionId);
                 } else {
-                    serviceProxy.executeVirtualObject(virtualObjectId, serviceData.getStatus());
+                    serviceProxy.executeVirtualObject(virtualObjectId, serviceData.getStatus(), sessionId);
                 }
                 serviceData.setModifiedTime(currentTime);
             }

@@ -3,7 +3,6 @@ package com.pineone.icbms.so.servicemodel.logic;
 import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
 import com.pineone.icbms.so.servicemodel.proxy.ServiceModelProxy;
 import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
-import com.pineone.icbms.so.servicemodel.ref.ServiceMessage;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
 import com.pineone.icbms.so.util.session.DefaultSession;
 import com.pineone.icbms.so.util.session.Session;
@@ -80,7 +79,6 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
     public void executeServiceModel(String serviceModelId, String sessionId) {
         //
         logger.debug("Execute ServiceModel ID = " + serviceModelId + " Sesseion ID = " + sessionId);
-        ServiceModel serviceModel = serviceModelStore.retrieveServiceModelDetail(serviceModelId);
 
         // DB에서 Session을 검색
         Session session = null;
@@ -94,6 +92,9 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
         }
 
         session.insertSessionData(DefaultSession.SERVICEMODEL_KEY,serviceModelId);
+
+        ServiceModel serviceModel = serviceModelStore.retrieveServiceModelDetail(serviceModelId);
+
         if(serviceModel == null){
             session.insertSessionData(DefaultSession.SERVICEMODEL_RESULT, DefaultSession.CONTROL_ERROR);
             // DB에 Session을 저장.
@@ -109,12 +110,12 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
 
         logger.debug("Execute ServiceModel = " + serviceModel.toString());
         List<String> serviceIdList = serviceModel.getServiceIdList();
-        List<ServiceMessage> serviceMessageList = new ArrayList<>();
+//        List<ServiceMessage> serviceMessageList = new ArrayList<>();
         for (String serviceId : serviceIdList) {
 //            Service service = serviceModelProxy.retrieveServiceDetail(serviceId);
 //            ServiceMessage serviceMessage = new ServiceMessage(domainId, service.getVirtualObjectService(), service.getStatus());
 //            serviceMessageList.add(serviceMessage);
-            logger.debug("Execute Service ID = " + serviceId);
+            logger.debug("Execute Service ID = " + serviceId + " Session Id = " + sessionId);
             serviceModelProxy.executeService(serviceId, sessionId);
         }
     }

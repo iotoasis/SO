@@ -2,6 +2,10 @@ package com.pineone.icbms.so.virtualobject.logic;
 
 import com.pineone.icbms.so.device.logic.DeviceManager;
 import com.pineone.icbms.so.device.pr.DevicePresentation;
+import com.pineone.icbms.so.util.conversion.DataConversion;
+import com.pineone.icbms.so.util.session.DefaultSession;
+import com.pineone.icbms.so.util.session.Session;
+import com.pineone.icbms.so.util.session.store.SessionStore;
 import com.pineone.icbms.so.virtualobject.entity.VirtualObject;
 import com.pineone.icbms.so.virtualobject.proxy.VirtualObjectControlProxy;
 import com.pineone.icbms.so.virtualobject.proxy.VirtualObjectProxy;
@@ -11,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,6 +31,9 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
 
     @Autowired
     VirtualObjectStore virtualObjectStore;
+
+    @Autowired
+    SessionStore sessionStore;
 
     @Autowired
     VirtualObjectProxy virtualObjectProxy;
@@ -67,18 +75,46 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
     }
 
     @Override
-    public String requestControlDevice(String voId, String operation) {
+    public String requestControlDevice(String voId, String operation, String sessionId) {
         // DB에서 VO를 검색
-        logger.debug("VirtualObject Id = " + voId + " Operation = " + operation);
+        logger.debug("VirtualObject Id = " + voId + " Operation = " + operation + " Session ID = " + sessionId);
 
+        // DB에서 Session을 검색
+        Session session = null;
+        if(sessionId != null){
+            session = sessionStore.retrieveSessionDetail(sessionId);
+        }
+
+        if(session == null){
+            session = new DefaultSession();
+        }
+
+        List<String> virtulaobjectIdList = null;
+        if(session.isExistSessionData(DefaultSession.VIRTUALOBJECT_KEY)){
+            virtulaobjectIdList = DataConversion.stringDataToList(session.findSessionData(DefaultSession.VIRTUALOBJECT_KEY));
+        }
+        if(virtulaobjectIdList == null){
+            virtulaobjectIdList = new ArrayList<>();
+        }
+        virtulaobjectIdList.add(voId);
+        session.insertSessionData(DefaultSession.VIRTUALOBJECT_KEY, DataConversion.listDataToString(virtulaobjectIdList));
+        sessionStore.updateSession(session);
         VirtualObject virtualObject = searchVirtualObject(voId);
+        if(virtualObject == null){
+            session.insertSessionData(DefaultSession.VIRTUALOBJECT_RESULT, DefaultSession.CONTROL_ERROR);
+            // DB에 Session을 저장.
+            sessionStore.updateSession(session);
+            return DefaultSession.CONTROL_ERROR;
+        }
 
         // 해당 Device ID를 도출
         String deviceId = virtualObject.getDeviceId();
-    // operation -> command SDA 확인.고려.. 형식으로 변경.
-//        return deviceManager.deviceExecute(deviceId, operation);
-        logger.debug("Device ID = " + deviceId + " Operation = " + operation);
-        return virtualObjectControlProxy.executeDevice(deviceId, operation);
+        // operation -> command SDA 확인.고려.. 형식으로 변경.
+        //        return deviceManager.deviceExecute(deviceId, operation);
+        logger.debug("Device ID = " + deviceId + " Operation = " + operation + " Session ID = " + sessionId);
+        session.insertSessionData(DefaultSession.VIRTUALOBJECT_RESULT, DefaultSession.CONTROL_EXECUTION);
+        sessionStore.updateSession(session);
+        return virtualObjectControlProxy.executeDevice(deviceId, operation, sessionId);
     }
 
     @Override

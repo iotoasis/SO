@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,7 +44,7 @@ public class VirtualObjectPresentation {
     public String requestControlVirtualObject(@RequestBody VirtualObjectTransFormObject virtualObjectTransFormObject){
         logger.info(LogPrint.inputInfoLogPrint());
         //
-        return virtualObjectManager.requestControlDevice(virtualObjectTransFormObject.getVoId(), virtualObjectTransFormObject.getVoCommand());
+        return virtualObjectManager.requestControlDevice(virtualObjectTransFormObject.getVoId(), virtualObjectTransFormObject.getVoCommand(), virtualObjectTransFormObject.getSessionId());
     }
 
 /*
@@ -98,10 +97,11 @@ public class VirtualObjectPresentation {
         return virtualObject;
     }
 
-    public VirtualObjectTransFormObject settingVirtualObjectData(String id, String operation){
+    public VirtualObjectTransFormObject settingVirtualObjectData(String id, String operation,String sessionId){
         VirtualObjectTransFormObject object = new VirtualObjectTransFormObject();
         object.setVoId(id);
         object.setVoCommand(operation);
+        object.setSessionId(sessionId);
         return object;
     }
 
