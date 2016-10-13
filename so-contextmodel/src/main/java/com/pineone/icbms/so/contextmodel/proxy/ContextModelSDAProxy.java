@@ -147,7 +147,7 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
                 logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
             }
 
-            if(contentList == null || contentList.isEmpty() ){
+            if(contentList == null || contentList.isEmpty()){
                 logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
                 domains = null;
                 return domains;

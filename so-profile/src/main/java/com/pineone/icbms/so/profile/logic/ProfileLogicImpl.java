@@ -169,6 +169,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         sessionStore.updateSession(session);
         if(domainIdList != null){
                 session.insertSessionData(DefaultSession.CONTEXTMODEL_RESULT, "Happen");
+                session.insertSessionData(DefaultSession.LOCATION_ID, domainIdList.toString());
                 sessionStore.updateSession(session);
                 String message = "Message : Happened ContextModel";
                 System.out.println(message);
@@ -208,6 +209,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
                 Session session = new DefaultSession();
                 String sessionId = session.getId();
                 session.insertSessionData(DefaultSession.CONTEXTMODEL_KEY, contextModel.getId());
+                session.insertSessionData(DefaultSession.LOCATION_ID, contextModel.getDomainIdList().toString());
                 session.insertSessionData(DefaultSession.CONTEXTMODEL_RESULT, "Happen");
                 sessionStore.updateSession(session);
                 logger.debug("ContextModel = " + contextModel.toString());

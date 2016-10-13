@@ -177,7 +177,7 @@ public class ContextModelPresentation {
 
         List<String> domains = new ArrayList<>();
         for(Content content : contentsList){
-            domains.add(content.getUri());
+            domains.add(content.getLoc());
         }
         return domains;
     }
