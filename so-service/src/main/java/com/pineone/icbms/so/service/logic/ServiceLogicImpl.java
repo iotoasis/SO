@@ -170,7 +170,7 @@ public class ServiceLogicImpl implements ServiceLogic{
          * Service Filter
          * - 우선 순위,
          *   1. Priority
-         *    - Priority가 없으면 외부 요청으로 간주하여 우선순위가 우선.
+         *    - Priority가 없으면 외부 요청으로 간주하여 우선순위가 HIGH.
          *   2. Period
          *   3. ContextLocation
          */
@@ -196,8 +196,6 @@ public class ServiceLogicImpl implements ServiceLogic{
 
         // DB에 Session을 저장.
         sessionStore.updateSession(session);
-
-
 
     }
 
