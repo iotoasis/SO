@@ -9,7 +9,7 @@ import java.util.List;
 public interface DeviceManager {
     void deviceRegister(deviceReleaseMessage deviceReleaseMessage);
     void deviceRelease(String deviceId);
-    String deviceExecute(String deviceId,String deviceCommand);
+    String deviceExecute(String deviceId,String deviceCommand, String sessionId);
     String deviceControlResult(ResultMessage resultMessage);
     Device deviceSearchById(String deviceId);
     List<Device> deviceSearchByLocation(String location);

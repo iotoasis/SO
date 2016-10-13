@@ -20,17 +20,17 @@ public class ServiceControlProxy implements ServiceProxy {
     CompositeVirtualObjectPresentation compositeVirtualObjectPresentation;
 
     @Override
-    public void executeVirtualObject(String virtualObjectId, String operation) {
-        logger.info(LogPrint.outputInfoLogPrint() + " VirtualObject ID = " + virtualObjectId + " Operation = " + operation);
-        logger.debug(" VirtualObject ID = " + virtualObjectId + " Operation = " + operation);
-        virtualObjectPresentation.requestControlVirtualObject(virtualObjectPresentation.settingVirtualObjectData(virtualObjectId, operation));
+    public void executeVirtualObject(String virtualObjectId, String operation,String sessionId) {
+        logger.info(LogPrint.outputInfoLogPrint() + " VirtualObject ID = " + virtualObjectId + " Operation = " + operation + " Session ID = " + sessionId);
+        logger.debug(" VirtualObject ID = " + virtualObjectId + " Operation = " + operation + " Session ID = " + sessionId);
+        virtualObjectPresentation.requestControlVirtualObject(virtualObjectPresentation.settingVirtualObjectData(virtualObjectId, operation,sessionId));
     }
 
     @Override
-    public void executeCompositeVirtualObject(String compositevoId, String functionality, String operation) {
-        logger.info(LogPrint.outputInfoLogPrint() + " CompositeVirtualObject ID = " + compositevoId + " Operation = " + operation);
-        logger.debug(" CompositeVirtualObject ID = " + compositevoId + " Operation = " + operation);
-        compositeVirtualObjectPresentation.controlCompostieVirtualObject(compositeVirtualObjectPresentation.settingVirtualObjectData(compositevoId, functionality, operation));
+    public void executeCompositeVirtualObject(String compositevoId, String functionality, String operation,String sessionId) {
+        logger.info(LogPrint.outputInfoLogPrint() + " CompositeVirtualObject ID = " + compositevoId + " Operation = " + operation + " Session ID = " + sessionId);
+        logger.debug(" CompositeVirtualObject ID = " + compositevoId + " Operation = " + operation + " Session ID = " + sessionId);
+        compositeVirtualObjectPresentation.controlCompostieVirtualObject(compositeVirtualObjectPresentation.settingVirtualObjectData(compositevoId, functionality, operation, sessionId));
     }
 
 }

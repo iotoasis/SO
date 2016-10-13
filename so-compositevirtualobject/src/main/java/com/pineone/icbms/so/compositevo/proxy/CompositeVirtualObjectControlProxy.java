@@ -17,10 +17,10 @@ public class CompositeVirtualObjectControlProxy implements CompositeVirtualObjec
     VirtualObjectPresentation virtualObjectPresentation;
 
     @Override
-    public void executeCompositeVO(String virtualObjectId, String operation) {
+    public void executeCompositeVO(String virtualObjectId, String operation, String sessionId) {
         logger.info(LogPrint.outputInfoLogPrint() + " VirtualObject ID = " + virtualObjectId + " Operation = " + operation);
         logger.debug("executeCompositeVO is VirtualObject ID = " + virtualObjectId + " Operation = " + operation);
-        virtualObjectPresentation.requestControlVirtualObject(virtualObjectPresentation.settingVirtualObjectData(virtualObjectId, operation));
+        virtualObjectPresentation.requestControlVirtualObject(virtualObjectPresentation.settingVirtualObjectData(virtualObjectId, operation, sessionId));
     }
 
     @Override

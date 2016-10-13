@@ -12,12 +12,13 @@ public class VirtualObjectTransFormObject {
     private String deviceId;
     private String voCommand;
     private String voLocation;
+    private String sessionId;
 
 
     public VirtualObjectTransFormObject() {
     }
 
-    public VirtualObjectTransFormObject(String voId, String voName, String functionality, String voDescription, String voCreateTime, String voExpiredTime, String deviceService, String deviceId, String voCommand, String voLocation) {
+    public VirtualObjectTransFormObject(String voId, String voName, String functionality, String voDescription, String voCreateTime, String voExpiredTime, String deviceService, String deviceId, String voCommand, String voLocation, String sessionId) {
         this.voId = voId;
         this.voName = voName;
         this.functionality = functionality;
@@ -28,6 +29,7 @@ public class VirtualObjectTransFormObject {
         this.deviceId = deviceId;
         this.voCommand = voCommand;
         this.voLocation = voLocation;
+        this.sessionId = sessionId;
     }
 
     public String getVoId() {
@@ -110,6 +112,14 @@ public class VirtualObjectTransFormObject {
         this.voLocation = voLocation;
     }
 
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
     @Override
     public String toString() {
         return "VirtualObjectTransFormObject{" +
@@ -123,6 +133,8 @@ public class VirtualObjectTransFormObject {
                 ", deviceId='" + deviceId + '\'' +
                 ", voCommand='" + voCommand + '\'' +
                 ", voLocation='" + voLocation + '\'' +
+                ", sessionId='" + sessionId + '\'' +
                 '}';
     }
+
 }

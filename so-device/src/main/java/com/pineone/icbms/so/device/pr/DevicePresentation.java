@@ -41,9 +41,9 @@ public class DevicePresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public String deviceControl(@RequestBody DeviceTransFormObject deviceTransFormObject){
         // NOTE : Device Control
-        logger.info(LogPrint.inputInfoLogPrint() + "Device ID = " + deviceTransFormObject.getDeviceId() + " DeviceCommand = " + deviceTransFormObject.getDeviceCommand());
-        logger.debug("Device ID = " + deviceTransFormObject.getDeviceId() + " DeviceCommand = " + deviceTransFormObject.getDeviceCommand());
-        return deviceManager.deviceExecute(deviceTransFormObject.getDeviceId(), deviceTransFormObject.getDeviceCommand());
+        logger.info(LogPrint.inputInfoLogPrint() + "Device ID = " + deviceTransFormObject.getDeviceId() + " DeviceCommand = " + deviceTransFormObject.getDeviceCommand() + "Session ID = " + deviceTransFormObject.getSessionId());
+        logger.debug("Device ID = " + deviceTransFormObject.getDeviceId() + " DeviceCommand = " + deviceTransFormObject.getDeviceCommand() + "Session ID = " + deviceTransFormObject.getSessionId());
+        return deviceManager.deviceExecute(deviceTransFormObject.getDeviceId(), deviceTransFormObject.getDeviceCommand(), deviceTransFormObject.getSessionId());
     }
 
     /**
@@ -170,10 +170,11 @@ public class DevicePresentation {
     }
 
 
-    public DeviceTransFormObject settingDeviceRequestData(String deviceid, String command){
+    public DeviceTransFormObject settingDeviceRequestData(String deviceid, String command, String sessionId){
         DeviceTransFormObject object = new DeviceTransFormObject();
         object.setDeviceId(deviceid);
         object.setDeviceCommand(command);
+        object.setSessionId(sessionId);
         return object;
     }
 }
