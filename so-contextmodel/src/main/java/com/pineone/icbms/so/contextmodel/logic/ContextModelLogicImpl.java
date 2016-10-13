@@ -1,6 +1,8 @@
 package com.pineone.icbms.so.contextmodel.logic;
 
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
+import com.pineone.icbms.so.contextmodel.pr.Content;
+import com.pineone.icbms.so.contextmodel.pr.RetrieveData;
 import com.pineone.icbms.so.contextmodel.proxy.ContextModelExProxy;
 import com.pineone.icbms.so.contextmodel.proxy.ContextModelInProxy;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
@@ -138,7 +140,21 @@ public class ContextModelLogicImpl implements ContextModelLogic{
     //NOTE: SDA 에서 수신받는 ContextModel 이 Queue 에 저장되어 있는지 확인
     @Override
     public ContextModel retrieveQueueData() {
+        System.out.println(ContextModelLogicImpl.CONTEXT_MODEL_QUEUE.peek().toString());
         ContextModel contextModel = (ContextModel) ContextModelLogicImpl.CONTEXT_MODEL_QUEUE.poll();
+
+
+//        RetrieveData retrieveData = (RetrieveData) ContextModelLogicImpl.CONTEXT_MODEL_QUEUE.poll();
+//        List<String> domainList = new ArrayList<>();
+//        if(retrieveData.getContent() != null) {
+//            for (Content content : retrieveData.getContent()) {
+//                domainList.add(content.getLoc());
+//            }
+//        }
+//        else{
+//            domainList = null;
+//        }
+//        ContextModel contextModel = new ContextModel(retrieveData.getContextId(), domainList, retrieveData.getCmd(), retrieveData.getTime());
         logger.debug("ContextModel = " + contextModel.toString());
         return contextModel;
     }
