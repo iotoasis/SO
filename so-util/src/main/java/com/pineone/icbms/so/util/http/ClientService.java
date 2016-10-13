@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.io.ByteArrayInputStream;
+import java.io.*;
 import java.util.HashMap;
 
 /**
@@ -115,5 +115,63 @@ public class ClientService
 		}
 		return httpResponseMessage;
 	}
+
+	public String requestPostServiceReceiveString(String uri, String data) {
+		return requestPostServiceReceiveString(uri,data,false);
+	}
+
+	public String requestPostServiceReceiveString(String uri, String data, boolean onlyResultValue) {
+		IHttpResponseMessage httpResponseMessage = requestPostService(uri, data);
+		String returnData = null;
+		if (onlyResultValue) {
+			returnData = String.valueOf(httpResponseMessage.getStatusCode());
+		} else {
+			returnData = responseDataToString(httpResponseMessage);
+		}
+		return returnData;
+	}
+
+
+	public String requestGetServiceReceiveString(String uri) {
+		IHttpResponseMessage httpResponseMessage = requestGetService(uri);
+		String returnData = responseDataToString(httpResponseMessage);
+		return returnData;
+	}
+
+	/**
+	 * response Data to String.<BR/>
+	 *
+	 * @param message
+	 * @return String
+	 */
+	private String responseDataToString(IHttpResponseMessage message)
+	{
+		String result = null;
+
+		BufferedReader reader = null;
+		try
+		{
+			reader = new BufferedReader(new InputStreamReader(
+					message.getBodyInputStream()), 8);
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			while ((line = reader.readLine()) != null)
+			{
+				sb.append(line);
+			}
+			result = sb.toString();
+		}
+		catch (UnsupportedEncodingException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
 
 }

@@ -2,7 +2,7 @@ package com.pineone.icbms.so.device.proxy;
 
 import com.pineone.icbms.so.device.entity.Device;
 import com.pineone.icbms.so.device.util.ClientProfile;
-import com.pineone.icbms.so.device.util.ClientService;
+import com.pineone.icbms.so.util.http.ClientService;
 import com.pineone.icbms.so.util.logprint.LogPrint;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
@@ -43,7 +43,7 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
         logger.debug("RequestUri = " + requestUri);
         List<String> domainList = new ArrayList<>();
 
-        String responseData = clientService.requestGetService(requestUri);
+        String responseData = clientService.requestGetServiceReceiveString(requestUri);
         logger.debug("ResponseData = " + responseData);
         try {
             domainList = mapper.readValue(responseData, new TypeReference<List<String>>(){});
@@ -65,7 +65,7 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
         logger.debug("RequestUri = " + requestUri);
         Device device = null;
 
-        String responseData = clientService.requestGetService(requestUri);
+        String responseData = clientService.requestGetServiceReceiveString(requestUri);
         logger.debug("ResponseData = " + responseData);
         try {
             device = mapper.readValue(responseData,Device.class);
@@ -87,7 +87,7 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
         logger.debug("RequestUri = " + requestUri);
         List<Device> deviceList = new ArrayList<>();
 
-        String responseData = clientService.requestGetService(requestUri);
+        String responseData = clientService.requestGetServiceReceiveString(requestUri);
         logger.debug("ResponseData = " + responseData);
         try {
             deviceList = mapper.readValue(responseData, new TypeReference<List<Device>>(){});
@@ -109,7 +109,7 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
         logger.debug("RequestUri = " + requestUri);
         List<String> deviceFunctionalityList = new ArrayList<>();
 
-        String responseData = clientService.requestGetService(requestUri);
+        String responseData = clientService.requestGetServiceReceiveString(requestUri);
         logger.debug("ResponseData = " + responseData);
         try {
             deviceFunctionalityList = mapper.readValue(responseData, new TypeReference<List<String>>(){});
@@ -135,7 +135,7 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
         obj.put("deviceService", deviceService);
         String requestData = obj.toString();
 
-        String responseData = clientService.requestPostService(requestUri,requestData);
+        String responseData = clientService.requestPostServiceReceiveString(requestUri,requestData);
         logger.debug("ResponseData = " + responseData);
         return responseData;
     }

@@ -1,7 +1,6 @@
 package com.pineone.icbms.so.virtualobject.proxy;
 
 import com.pineone.icbms.so.device.util.ClientProfile;
-import com.pineone.icbms.so.device.util.ClientService;
 import com.pineone.icbms.so.util.logprint.LogPrint;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
