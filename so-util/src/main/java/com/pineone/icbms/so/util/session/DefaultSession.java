@@ -1,5 +1,6 @@
 package com.pineone.icbms.so.util.session;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -48,6 +49,30 @@ public class DefaultSession implements Session {
      */
     private Map<String, String> sessionData;
 
+    private String createDate;
+
+    private Date mongoTime;
+
+    private Long calculateTime;
+
+    public DefaultSession(String id, Map<String, String> sessionData, String createDate, Date mongoTime , Long calculateTime) {
+        this.id = id;
+        this.sessionData = sessionData;
+        this.createDate = createDate;
+        this.mongoTime = mongoTime;
+        this.calculateTime = calculateTime;
+    }
+
+    @Override
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    @Override
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
     public DefaultSession() {
         id = UUID.randomUUID().toString();
         sessionData = new HashMap<>();
@@ -58,10 +83,29 @@ public class DefaultSession implements Session {
         this.sessionData = sessionData;
     }
 
+    @Override
+    public Long getCalculateTime() {
+        return calculateTime;
+    }
+
+    @Override
+    public void setCalculateTime(Long calculateTime) {
+        this.calculateTime = calculateTime;
+    }
 
     @Override
     public String getId() {
         return id;
+    }
+
+    @Override
+    public Date getMongoTime() {
+        return mongoTime;
+    }
+
+    @Override
+    public void setMongoTime(Date mongoTime) {
+        this.mongoTime = mongoTime;
     }
 
     @Override

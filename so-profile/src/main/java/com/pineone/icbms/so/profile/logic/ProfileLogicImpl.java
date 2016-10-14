@@ -17,8 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by melvin on 2016. 8. 11..
@@ -46,6 +45,14 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     ProfileStore profileStore;
 
     private Thread thread;
+
+//    private Calendar calendar = Calendar.getInstance(Locale.KOREA);
+//    private Date currentTime = calendar.getTime();
+
+    private Date time = new Date();
+    private String currentTime = time.toString();
+
+//      private Date currentTime = System.currentTimeMillis();
 
 //    ContextModelPresentation contextModelPresentation = new ContextModelPresentation();
 
@@ -162,6 +169,9 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         Priority priority = Priority.LOW;
         Session session = new DefaultSession();
         String sessionId = session.getId();
+        session.setMongoTime(time);
+        session.setCreateDate(currentTime);
+        session.setCalculateTime(System.currentTimeMillis());
         session.insertSessionData(DefaultSession.PROFILE_KEY, profileId);
         session.insertSessionData(DefaultSession.PRIORITY_KEY, priority.toString());
         List<String> domainIdList = contextModelPresentation.isHappenContextModel(profile.getContextModelId());
@@ -208,6 +218,9 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
                 ContextModel contextModel = profileProxy.retrieveContextModelQueueData();
                 Session session = new DefaultSession();
                 String sessionId = session.getId();
+                session.setMongoTime(time);
+                session.setCreateDate(currentTime);
+                session.setCalculateTime(System.currentTimeMillis());
                 session.insertSessionData(DefaultSession.CONTEXTMODEL_KEY, contextModel.getId());
                 session.insertSessionData(DefaultSession.LOCATION_ID, contextModel.getDomainIdList().toString());
                 session.insertSessionData(DefaultSession.CONTEXTMODEL_RESULT, "Happen");
