@@ -13,4 +13,6 @@ public interface SessionStore {
     List<Session> retrieveSessionList();
     DefaultSession retrieveSessionDetail(String sessionId);
     void updateSession(Session session);
+    List<Session> retrieveRecentlyDataList(int num);
+    List<Session> retrieveRecentlyDataListByTime(int time);
 }
