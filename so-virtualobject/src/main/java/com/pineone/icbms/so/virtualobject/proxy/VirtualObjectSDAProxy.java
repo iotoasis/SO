@@ -1,6 +1,8 @@
 package com.pineone.icbms.so.virtualobject.proxy;
 
 import com.pineone.icbms.so.device.util.ClientProfile;
+import com.pineone.icbms.so.util.conversion.DataConversion;
+import com.pineone.icbms.so.util.http.ClientService;
 import com.pineone.icbms.so.util.logprint.LogPrint;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -28,7 +30,7 @@ public class VirtualObjectSDAProxy implements VirtualObjectProxy{
         obj.put("deviceService", deviceService);
         String requestData = obj.toString();
 
-        String responseData = clientService.requestPostService(requestUri, requestData);
+        String responseData = DataConversion.objectToString(clientService.requestPostService(requestUri, requestData));
 
         return responseData;
     }
