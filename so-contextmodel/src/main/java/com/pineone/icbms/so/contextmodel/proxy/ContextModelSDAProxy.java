@@ -100,46 +100,98 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
         List<String> domains = new ArrayList<>();
         //TODO : 일시적 테스트
         if(contextModelId.equals("cm-announcement-on")){
-//            List<Content> contentList = null;
-//            try {
-//                contentList = getContents(contextModelId);
-//            } catch (BadRequestException e) {
-//                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
-//            }
-//
-//            if(contentList == null || contentList.isEmpty() ){
-//                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
-//                domains = null;
-//                return domains;
-//            }
-//            for(Content content : contentList){
-//                domains.add(content.getLoc());
-//                System.out.println("Location = " + content.getLoc());
-//            }
-            CheckHappenContextModel checkHappenContextModel = new CheckHappenContextModel(contextModelId, domains).invoke();
-            if (checkHappenContextModel.is()) return domains;
-            domains = checkHappenContextModel.getDomains();
+            List<Content> contentList = null;
+            try {
+                contentList = getContents(contextModelId);
+            } catch (BadRequestException e) {
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+            }
+
+            if(contentList == null || contentList.isEmpty() ){
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+                domains = null;
+                return domains;
+            }
+            for(Content content : contentList){
+                domains.add(content.getLoc());
+                System.out.println("Location = " + content.getLoc());
+            }
+//            CheckHappenContextModel checkHappenContextModel = new CheckHappenContextModel(contextModelId, domains).invoke();
+//            if (checkHappenContextModel.is()) return domains;
+//            domains = checkHappenContextModel.getDomains();
 //            domains = new ArrayList<>();
         }
         else if(contextModelId.equals("cm-announcement-off")){
-            CheckHappenContextModel checkHappenContextModel = new CheckHappenContextModel(contextModelId, domains).invoke();
-            if (checkHappenContextModel.is()) return domains;
-            domains = checkHappenContextModel.getDomains();
+            List<Content> contentList = null;
+            try {
+                contentList = getContents(contextModelId);
+            } catch (BadRequestException e) {
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+            }
+
+            if(contentList == null || contentList.isEmpty() ){
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+                domains = null;
+                return domains;
+            }
+            for(Content content : contentList){
+                domains.add(content.getLoc());
+                System.out.println("Location = " + content.getLoc());
+            }
         }
         else if(contextModelId.equals("cm-notideal-light-lecture")){
-            CheckHappenContextModel checkHappenContextModel = new CheckHappenContextModel(contextModelId, domains).invoke();
-            if (checkHappenContextModel.is()) return domains;
-            domains = checkHappenContextModel.getDomains();
+            List<Content> contentList = null;
+            try {
+                contentList = getContents(contextModelId);
+            } catch (BadRequestException e) {
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+            }
+
+            if(contentList == null || contentList.isEmpty() ){
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+                domains = null;
+                return domains;
+            }
+            for(Content content : contentList){
+                domains.add(content.getLoc());
+                System.out.println("Location = " + content.getLoc());
+            }
         }
         else if(contextModelId.equals("cm-electric-inefficiency")){
-            CheckHappenContextModel checkHappenContextModel = new CheckHappenContextModel(contextModelId, domains).invoke();
-            if (checkHappenContextModel.is()) return domains;
-            domains = checkHappenContextModel.getDomains();
+            List<Content> contentList = null;
+            try {
+                contentList = getContents(contextModelId);
+            } catch (BadRequestException e) {
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+            }
+
+            if(contentList == null || contentList.isEmpty() ){
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+                domains = null;
+                return domains;
+            }
+            for(Content content : contentList){
+                domains.add(content.getLoc());
+                System.out.println("Location = " + content.getLoc());
+            }
         }
         else if(contextModelId.equals("cm-electric-waste")){
-            CheckHappenContextModel checkHappenContextModel = new CheckHappenContextModel(contextModelId, domains).invoke();
-            if (checkHappenContextModel.is()) return domains;
-            domains = checkHappenContextModel.getDomains();
+            List<Content> contentList = null;
+            try {
+                contentList = getContents(contextModelId);
+            } catch (BadRequestException e) {
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+            }
+
+            if(contentList == null || contentList.isEmpty() ){
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+                domains = null;
+                return domains;
+            }
+            for(Content content : contentList){
+                domains.add(content.getLoc());
+                System.out.println("Location = " + content.getLoc());
+            }
         }
 
         else if(contextModelId.equals("CM-TEST")){
