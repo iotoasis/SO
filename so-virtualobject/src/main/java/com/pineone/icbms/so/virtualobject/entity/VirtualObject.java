@@ -2,6 +2,16 @@ package com.pineone.icbms.so.virtualobject.entity;
 
 public class VirtualObject {
     //
+
+    /**
+     * Device functionality definition
+     */
+    public static final String DEVICE_FUNCTIONLITY_TEMP_CONTROL                 =   "temp-control";
+    public static final String DEVICE_FUNCTIONLITY_POWER_CONTROL                =   "power-control";
+    public static final String DEVICE_FUNCTIONLITY_OPEN_CONTROL                 =   "open-control";
+    public static final String DEVICE_FUNCTIONLITY_ADMIN_NOTI                   =   "admin-noti";
+
+
     /**
      * VirtualObject 식별자
      * format : vo-(devicename)-(service)

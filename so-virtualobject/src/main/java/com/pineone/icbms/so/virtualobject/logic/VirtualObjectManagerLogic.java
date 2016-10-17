@@ -44,7 +44,15 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
     @Override
     public VirtualObject searchVirtualObject(String id) {
         logger.debug("VirtualObject ID = " + id);
+        if(id == null || id.isEmpty()){
+            logger.debug("VirtualObject id is null");
+            return null;
+        }
         VirtualObject virtualObject = virtualObjectStore.retrieveByID(id);
+        if(virtualObject == null){
+            logger.debug("VirtualObject data is null");
+            return null;
+        }
         logger.debug("VirtualObject = " + virtualObject.toString());
         return virtualObject;
     }
