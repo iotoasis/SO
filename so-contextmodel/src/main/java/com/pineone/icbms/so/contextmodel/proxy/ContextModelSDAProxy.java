@@ -136,13 +136,17 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
             if (checkHappenContextModel.is()) return domains;
             domains = checkHappenContextModel.getDomains();
         }
+        else if(contextModelId.equals("cm-electric-waste")){
+            CheckHappenContextModel checkHappenContextModel = new CheckHappenContextModel(contextModelId, domains).invoke();
+            if (checkHappenContextModel.is()) return domains;
+            domains = checkHappenContextModel.getDomains();
+        }
 
         else if(contextModelId.equals("CM-TEST")){
             domains = null;
         }
         else{
-            String domain = "INSERT Domain";
-            domains.add(domain);
+            domains.add(null);
             return domains;
         }
         return domains;
@@ -192,7 +196,8 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
                 logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
             }
 
-            if(contentList == null || contentList.isEmpty()){
+            if(contentList == null || contentList.isEmpty()|| contentList.get(0).equals("")
+                || contentList.get(0) == null) {
                 logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
                 domains = null;
                 myResult = true;

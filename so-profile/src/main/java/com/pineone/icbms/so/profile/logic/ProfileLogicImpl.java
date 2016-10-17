@@ -49,8 +49,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
 //    private Calendar calendar = Calendar.getInstance(Locale.KOREA);
 //    private Date currentTime = calendar.getTime();
 
-    private Date time = new Date();
-    private String currentTime = time.toString();
+
 
 //      private Date currentTime = System.currentTimeMillis();
 
@@ -163,6 +162,8 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     //NOTE: 스케줄러로 부터 수신받은 프로파일 실행
     @Override
     public String executeScheduleProfile(String profileId) {
+        Date time = new Date();
+        String currentTime = time.toString();
         Profile profile = profileStore.retrieveProfileDetail(profileId);
         logger.debug("Profile = " + profile.toString());
         profileStore.addPriority(profile, Priority.LOW.toString());
@@ -215,6 +216,8 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
                 e.printStackTrace();
             }
             if(!(profileProxy.checkContextModelQueue())){
+                Date time = new Date();
+                String currentTime = time.toString();
                 ContextModel contextModel = profileProxy.retrieveContextModelQueueData();
                 Session session = new DefaultSession();
                 String sessionId = session.getId();
