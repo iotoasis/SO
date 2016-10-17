@@ -2,6 +2,7 @@ package com.pineone.icbms.so.service.proxy;
 
 import com.pineone.icbms.so.compositevo.pr.CompositeVirtualObjectPresentation;
 import com.pineone.icbms.so.util.logprint.LogPrint;
+import com.pineone.icbms.so.virtualobject.entity.VirtualObject;
 import com.pineone.icbms.so.virtualobject.pr.VirtualObjectPresentation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,16 @@ public class ServiceControlProxy implements ServiceProxy {
         logger.info(LogPrint.outputInfoLogPrint() + " CompositeVirtualObject ID = " + compositevoId + " Operation = " + operation + " Session ID = " + sessionId);
         logger.debug(" CompositeVirtualObject ID = " + compositevoId + " Operation = " + operation + " Session ID = " + sessionId);
         compositeVirtualObjectPresentation.controlCompostieVirtualObject(compositeVirtualObjectPresentation.settingVirtualObjectData(compositevoId, functionality, operation, sessionId));
+    }
+
+    @Override
+    public VirtualObject findVirtualObject(String virtualObjectId) {
+        logger.info(LogPrint.outputInfoLogPrint() + " VirtualObject ID = " + virtualObjectId);
+        logger.debug(" VirtualObject ID = " + virtualObjectId);
+        VirtualObject virtualObject = null;
+
+        virtualObject = virtualObjectPresentation.searchVirtualObject(virtualObjectId);
+        return virtualObject;
     }
 
 }

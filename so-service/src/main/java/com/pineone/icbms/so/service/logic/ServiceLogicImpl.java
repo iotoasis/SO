@@ -4,6 +4,7 @@ package com.pineone.icbms.so.service.logic;
 import com.pineone.icbms.so.compositevo.ref.CompositeProfile;
 import com.pineone.icbms.so.service.entity.Service;
 import com.pineone.icbms.so.service.proxy.ServiceProxy;
+import com.pineone.icbms.so.service.proxy.ServiceSDAProxy;
 import com.pineone.icbms.so.service.ref.ConceptService;
 import com.pineone.icbms.so.service.ref.DeviceObject;
 import com.pineone.icbms.so.service.ref.ResponseMessage;
@@ -16,6 +17,7 @@ import com.pineone.icbms.so.util.priority.Priority;
 import com.pineone.icbms.so.util.session.DefaultSession;
 import com.pineone.icbms.so.util.session.Session;
 import com.pineone.icbms.so.util.session.store.SessionStore;
+import com.pineone.icbms.so.virtualobject.entity.VirtualObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,9 @@ public class ServiceLogicImpl implements ServiceLogic{
 
     @Autowired
     ServiceProxy serviceProxy;
+
+    @Autowired
+    ServiceSDAProxy serviceSDAProxy;
 
     public static ServiceLogicImpl newServiceLogicImpl(){
         return new ServiceLogicImpl();
@@ -179,7 +184,25 @@ public class ServiceLogicImpl implements ServiceLogic{
             logger.info("Execute Service Start" + TimeStamp.currentTime());
             for(String virtualObjectId : serviceData.getVirtualObjectIdList()){
                 if(virtualObjectId.startsWith(CompositeProfile.COMPOSITE_ID)) {
-                    serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus(), sessionId);
+                    // functionality중 특별히 SDA에 물어야 하는 것들에 대해서 정의 필요.
+
+                    VirtualObject virtualObject = serviceProxy.findVirtualObject(virtualObjectId);
+
+                    if(virtualObject != null && VirtualObject.DEVICE_FUNCTIONLITY_ADMIN_NOTI.equals(virtualObject.getFunctionality())){
+                        // admin-noti에 따른 추가 적인 로직 적용.
+                        // PC 부족 알림
+                        // 마우스 부족 알림
+                        // 키보드 부족 알림.
+
+                        // 각각 ServiceModel과 Service들을 어떻게 나눌것인가? 그걸로 조건으로 수정할것인가? 
+
+//                        serviceSDAProxy.getPCCountUri();
+
+
+
+                    } else {
+                        serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus(), sessionId);
+                    }
                 } else {
                     serviceProxy.executeVirtualObject(virtualObjectId, serviceData.getStatus(), sessionId);
                 }
