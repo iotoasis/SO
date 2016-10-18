@@ -198,8 +198,7 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
             domains = null;
         }
         else{
-            domains.add(null);
-            return domains;
+            domains = null;
         }
         return domains;
     }
