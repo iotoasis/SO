@@ -4,9 +4,9 @@ import com.pineone.icbms.so.util.session.Session;
 import com.pineone.icbms.so.util.session.store.SessionStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,9 +23,9 @@ public class SessionPresentation {
 
     @RequestMapping(value = "/{number}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Session> retrieveSessionData(@PathVariable int number){
+    public List<SessionTransFormObject> retrieveSessionData(@PathVariable int number){
         List<Session> sessionList = sessionStore.retrieveRecentlyDataList(number);
-        return sessionList;
+        return sessionToTransFormObject(sessionList);
     }
 
     @RequestMapping(value = "/time/{time}", method = RequestMethod.GET)
@@ -34,4 +34,13 @@ public class SessionPresentation {
         List<Session> sessionList = sessionStore.retrieveRecentlyDataListByTime(time);
         return sessionList;
     }
+
+    private List<SessionTransFormObject> sessionToTransFormObject(List<Session> sessionList){
+        List<SessionTransFormObject> sessionTransFormObjects = new ArrayList<>();
+        for(Session session : sessionList){
+            sessionTransFormObjects.add(new SessionTransFormObject(session.getId(),session.getCreateDate(),session.getSessionData()));
+        }
+        return sessionTransFormObjects;
+    }
+
 }

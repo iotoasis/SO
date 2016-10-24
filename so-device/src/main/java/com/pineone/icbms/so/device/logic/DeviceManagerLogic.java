@@ -102,7 +102,8 @@ public class DeviceManagerLogic implements DeviceManager {
         DeviceControlMessage deviceControlMessage = deviceDataConversion(deviceId,commandId,deviceCommand);
         logger.debug("DeviceControlMessage = " + deviceControlMessage.toString());
 
-        session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_EXECUTION);
+        session = sessionStore.retrieveSessionDetail(sessionId);
+        session.insertSessionData(DefaultSession.DEVICE_RESULT, DefaultSession.CONTROL_EXECUTION);
         sessionStore.updateSession(session);
         // Device 제어 요청 보냄.
         ResultMessage resultMessage = deviceControlProxy.deviceControlRequest(ClientProfile.SI_CONTOL_URI,deviceControlMessage);
