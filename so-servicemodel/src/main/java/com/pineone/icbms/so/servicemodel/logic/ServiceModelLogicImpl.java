@@ -4,6 +4,7 @@ import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
 import com.pineone.icbms.so.servicemodel.proxy.ServiceModelProxy;
 import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
+import com.pineone.icbms.so.util.conversion.DataConversion;
 import com.pineone.icbms.so.util.session.DefaultSession;
 import com.pineone.icbms.so.util.session.Session;
 import com.pineone.icbms.so.util.session.store.SessionStore;
@@ -123,7 +124,6 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
             sessionStore.updateSession(session);
             return;
         }
-
         // ServiceModel의 Session 결과를 저장
         session.insertSessionData(DefaultSession.SERVICEMODEL_RESULT,DefaultSession.CONTROL_EXECUTION);
 
@@ -178,12 +178,20 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
     }
 
     private boolean locationCompare(Session session, String serviceModelLocation){
-        String contextLocation = session.getSessionData().get(DefaultSession.LOCATION_ID);
-        if(contextLocation != null && contextLocation.equals(serviceModelLocation)){
-            return true;
-        } else {
+        List<String> contextLocation = null;
+        if(session.isExistSessionData(DefaultSession.LOCATION_ID)){
+            contextLocation = DataConversion.stringDataToList(session.findSessionData(DefaultSession.LOCATION_ID));
+        }
+
+        if(contextLocation == null){
             return false;
         }
+        for(String location : contextLocation){
+            if(serviceModelLocation.equals(location)){
+                return true;
+            }
+        }
+        return false;
     }
 
 }
