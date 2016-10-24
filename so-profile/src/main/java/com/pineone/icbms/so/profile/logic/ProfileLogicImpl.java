@@ -8,6 +8,7 @@ import com.pineone.icbms.so.profile.proxy.ProfileProxy;
 import com.pineone.icbms.so.profile.ref.ResponseMessage;
 import com.pineone.icbms.so.profile.store.ProfileStore;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
+import com.pineone.icbms.so.util.conversion.DataConversion;
 import com.pineone.icbms.so.util.priority.Priority;
 import com.pineone.icbms.so.util.session.DefaultSession;
 import com.pineone.icbms.so.util.session.Session;
@@ -17,7 +18,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by melvin on 2016. 8. 11..
@@ -180,7 +183,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         sessionStore.updateSession(session);
         if(domainIdList != null){
                 session.insertSessionData(DefaultSession.CONTEXTMODEL_RESULT, "Happen");
-                session.insertSessionData(DefaultSession.LOCATION_ID, domainIdList.toString());
+                session.insertSessionData(DefaultSession.LOCATION_ID, DataConversion.listDataToString(domainIdList));
                 sessionStore.updateSession(session);
                 String message = "Message : Happened ContextModel";
                 System.out.println(message);
@@ -225,7 +228,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
                 session.setCreateDate(currentTime);
                 session.setCalculateTime(System.currentTimeMillis());
                 session.insertSessionData(DefaultSession.CONTEXTMODEL_KEY, contextModel.getId());
-                session.insertSessionData(DefaultSession.LOCATION_ID, contextModel.getDomainIdList().toString());
+                session.insertSessionData(DefaultSession.LOCATION_ID, DataConversion.listDataToString(contextModel.getDomainIdList()));
                 session.insertSessionData(DefaultSession.CONTEXTMODEL_RESULT, "Happen");
                 sessionStore.updateSession(session);
                 logger.debug("ContextModel = " + contextModel.toString());
