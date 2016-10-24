@@ -230,6 +230,24 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
         return scheduledProfileList;
     }
 
+    //NOTE : 전체 스케줄 정지 (일시 정지 아닌 Status 값 변환)
+    @Override
+    public void stopScheduler(){
+        List<ScheduledProfile> scheduledProfileList = schedulerStore.retrieveScheduledProfileByStatus(1);
+        for(ScheduledProfile scheduledProfile : scheduledProfileList){
+            schedulerStore.updateStatus(scheduledProfile,0);
+        }
+    }
+
+    //NOTE : 전체 스케줄 시작 (재시작이 아닌 모든 스케줄 Status 값 변환후 시작)
+    @Override
+    public void startScheduler(){
+        List<ScheduledProfile> scheduledProfileList = schedulerStore.retrieveScheduledProfileByStatus(0);
+        for(ScheduledProfile scheduledProfile : scheduledProfileList){
+            schedulerStore.updateStatus(scheduledProfile,1);
+        }
+    }
+
 
     //NOTE : SO 실행시 스케줄러 작동 시키는 쓰레드 - 프로퍼니 파일 내용이 false 외에 자동 작동
     @Override

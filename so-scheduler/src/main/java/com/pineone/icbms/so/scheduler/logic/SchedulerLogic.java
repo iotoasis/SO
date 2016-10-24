@@ -19,4 +19,6 @@ public interface SchedulerLogic {
     List<ScheduledProfile> retrieveReadyScheduleList();
     void updateScheduler(String id, int period) throws SchedulerException;
     List<ScheduledProfile> retrieveSchedulerList();
+    void stopScheduler();
+    void startScheduler();
 }
