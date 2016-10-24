@@ -17,6 +17,7 @@ public class ServiceModelDataObject {
     private List<String> serviceIdList;
     private String createTime;
     private String modifiedTime;
+    private String location;
 
     public String getName() {
         return name;
@@ -58,6 +59,14 @@ public class ServiceModelDataObject {
         this.modifiedTime = modifiedTime;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public ServiceModelDataObject() {
     }
 
@@ -67,12 +76,13 @@ public class ServiceModelDataObject {
         this.serviceIdList = serviceIdList;
     }
 
-    public ServiceModelDataObject(String id, String name, List<String> serviceIdList, String createTime, String modifiedTime) {
+    public ServiceModelDataObject(String id, String name, List<String> serviceIdList, String createTime, String modifiedTime, String location) {
         this.id = id;
         this.name = name;
         this.serviceIdList = serviceIdList;
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
+        this.location = location;
     }
 
     @Override
@@ -83,6 +93,7 @@ public class ServiceModelDataObject {
                 ", serviceIdList=" + serviceIdList +
                 ", createTime='" + createTime + '\'' +
                 ", modifiedTime='" + modifiedTime + '\'' +
+                ", location='" + location + '\'' +
                 '}';
     }
 }

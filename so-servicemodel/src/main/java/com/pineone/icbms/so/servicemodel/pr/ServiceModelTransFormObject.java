@@ -13,6 +13,7 @@ public class ServiceModelTransFormObject {
     private List<String> serviceIdList;
     private String createTime;
     private String modifiedTime;
+    private String location;
     private String sessionId;
 
 
@@ -64,6 +65,14 @@ public class ServiceModelTransFormObject {
         this.sessionId = sessionId;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public ServiceModelTransFormObject() {
     }
 
@@ -73,21 +82,13 @@ public class ServiceModelTransFormObject {
         this.serviceIdList = serviceIdList;
     }
 
-    public ServiceModelTransFormObject(String id, String name, List<String> serviceIdList, String createTime, String modifiedTime) {
+    public ServiceModelTransFormObject(String id, String name, List<String> serviceIdList, String createTime, String modifiedTime, String location) {
         this.id = id;
         this.name = name;
         this.serviceIdList = serviceIdList;
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
-    }
-
-    public ServiceModelTransFormObject(String id, String name, List<String> serviceIdList, String createTime, String modifiedTime, String sessionId) {
-        this.id = id;
-        this.name = name;
-        this.serviceIdList = serviceIdList;
-        this.createTime = createTime;
-        this.modifiedTime = modifiedTime;
-        this.sessionId = sessionId;
+        this.location = location;
     }
 
     @Override
@@ -98,6 +99,7 @@ public class ServiceModelTransFormObject {
                 ", serviceIdList=" + serviceIdList +
                 ", createTime='" + createTime + '\'' +
                 ", modifiedTime='" + modifiedTime + '\'' +
+                ", location='" + location + '\'' +
                 ", sessionId='" + sessionId + '\'' +
                 '}';
     }

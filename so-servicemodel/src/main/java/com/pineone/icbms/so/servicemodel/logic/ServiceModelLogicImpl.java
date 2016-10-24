@@ -54,6 +54,10 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
     @Override
     public String registerServiceModel(ServiceModel serviceModel) {
         //
+        if(serviceModel == null){
+            logger.warn("You can not register a service model. serviceModel is Null");
+            return null;
+        }
         logger.debug("ServiceModel = " + serviceModel);
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
 //        ServiceModelStore serviceModelStore = ServiceModelMapStore.getInstance();
@@ -67,9 +71,17 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
     //NOTE: ServiceModel 상세 정보 조회 요청을 받고 디비에서 정보를 조회해서 반환
     public ServiceModel retrieveServiceModelDetail(String serviceModelId) {
         //
+        if(serviceModelId == null){
+            logger.warn("You can not view the service model. serviceModelID is Null");
+            return null;
+        }
         logger.debug("ServiceModel ID = " + serviceModelId);
 //        ServiceModelStore serviceModelStore = ServiceModelMapStore.getInstance();
         ServiceModel serviceModel = serviceModelStore.retrieveServiceModelDetail(serviceModelId);
+        if(serviceModel == null){
+            logger.warn("You can not view the service model. serviceModelID is Null");
+            return null;
+        }
         logger.debug("ServiceModel = " + serviceModel);
         return serviceModel;
     }
@@ -97,7 +109,17 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
 
         if(serviceModel == null){
             session.insertSessionData(DefaultSession.SERVICEMODEL_RESULT, DefaultSession.CONTROL_ERROR);
+            logger.warn("You can not run a service model. serviceModel is Null");
             // DB에 Session을 저장.
+            sessionStore.updateSession(session);
+            return;
+        }
+
+        //ServiceModel Filter
+        // 서비스 발생 상황과 서비스 모델의 발생 상황이 다르면 무시 한다.
+        if(!locationCompare(session, serviceModel.getLocaton())){
+            logger.info("Where the difference occurs.");
+            session.insertSessionData(DefaultSession.SERVICEMODEL_RESULT,DefaultSession.CONTROL_IGNORE);
             sessionStore.updateSession(session);
             return;
         }
@@ -123,7 +145,11 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
     @Override
     public List<String> retrieveServiceIdList() {
         List<String> serviceIdList = serviceModelProxy.retrieveServiceIdList();
-        logger.debug("ServiceIDList = " + serviceIdList);
+        if(serviceIdList == null){
+            logger.warn("You can not view the serviceIDList. serviceIDList is Null");
+            return null;
+        }
+        logger.debug("ServiceIDList = " + serviceIdList.toString());
         return serviceIdList;
     }
 
@@ -141,10 +167,23 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
     @Override
     public List<ServiceModel> retrieveServiceModelList() {
         List<ServiceModel> serviceModelList = serviceModelStore.retrieveServiceModelList();
+        if(serviceModelList == null){
+            logger.warn("You can not view the serviceModelList. serviceModelList is Null");
+            return null;
+        }
         for(ServiceModel serviceModel : serviceModelList){
             logger.debug("ServiceModel = " + serviceModel.toString());
         }
         return serviceModelList;
+    }
+
+    private boolean locationCompare(Session session, String serviceModelLocation){
+        String contextLocation = session.getSessionData().get(DefaultSession.LOCATION_ID);
+        if(contextLocation != null && contextLocation.equals(serviceModelLocation)){
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
