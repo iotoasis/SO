@@ -4,9 +4,7 @@ import com.pineone.icbms.so.service.pr.ServicePresentation;
 import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelTransFormObject;
-import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +37,7 @@ public class ServiceModelPresentationTest {
 
 //    ServiceModelPresentation serviceModelPresentation = new ServiceModelPresentation();
 
-    @Before
+    /*@Before
     public void 서비스모델등록() throws Exception {
         //
         List<String> serviceList = new ArrayList<>();
@@ -64,11 +61,11 @@ public class ServiceModelPresentationTest {
         serviceList1.add("BEAMSCREEN-POWER-CONTROL-SERVICE-001");
         serviceModelPresentation.registerServiceModelController(ServiceModelToDataObject(new ServiceModel("CLASSROOM-PRESENTATIONMODE-SERVICE","강의실 발표 도우미 서비스",serviceList1,"201608250930","201608250930")));
 
-    }
+    }*/
 
     public ServiceModelTransFormObject ServiceModelToDataObject(ServiceModel serviceModel){
         if(serviceModel == null) return null;
-        ServiceModelTransFormObject object = new ServiceModelTransFormObject(serviceModel.getId(), serviceModel.getName(), serviceModel.getServiceIdList());
+        ServiceModelTransFormObject object = new ServiceModelTransFormObject(serviceModel.getId(), serviceModel.getName(), serviceModel.getServiceIdList(), serviceModel.getCreateTime(), serviceModel.getModifiedTime(), serviceModel.getLocaton());
         return object;
     }
 

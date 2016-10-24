@@ -36,6 +36,10 @@ public class ServiceModelPresentation {
         //
         logger.info(LogPrint.inputInfoLogPrint());
         List<String> serviceNameList = serviceModelLogic.retrieveServiceNameList();
+        if(serviceNameList == null){
+            logger.warn("You can not create a service model. ServiceNameList is Null");
+            return null;
+        }
         logger.debug("ServiceNameList = " + serviceNameList.toString());
         return serviceNameList;
     }
@@ -45,6 +49,10 @@ public class ServiceModelPresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseMessage registerServiceModelController(@RequestBody ServiceModelTransFormObject serviceModelTransFormObject){
         //
+        if(serviceModelTransFormObject == null){
+            logger.warn("You can not run a service model. serviceModel is Null");
+            return null;
+        }
         logger.info(LogPrint.inputInfoLogPrint() + "ServiceModel ID = " + serviceModelTransFormObject.getId());
         logger.debug("ServiceModel = " + serviceModelTransFormObject.toString());
         // 외부 데이터 변환
@@ -124,7 +132,7 @@ public class ServiceModelPresentation {
 
     public ServiceModel dataObjectToServiceModel(ServiceModelTransFormObject serviceModelTransFormObject){
         if(serviceModelTransFormObject == null) return null;
-        return new ServiceModel(serviceModelTransFormObject.getId(), serviceModelTransFormObject.getName(), serviceModelTransFormObject.getServiceIdList());
+        return new ServiceModel(serviceModelTransFormObject.getId(), serviceModelTransFormObject.getName(), serviceModelTransFormObject.getServiceIdList(), serviceModelTransFormObject.getCreateTime(), serviceModelTransFormObject.getModifiedTime(), serviceModelTransFormObject.getLocation());
     }
 
     public ServiceModelTransFormObject settingServiceModelId(String serviceModelId, String sessionId){

@@ -53,7 +53,7 @@ public class ServiceModelInternalProxy implements ServiceModelProxy {
     @Override
     public void executeService(String serviceId, String sessionId) {
         // 서비스 실행
-        logger.info(LogPrint.outputInfoLogPrint() + "Service ID = " + serviceId + "Session ID = " + sessionId);
+        logger.info(LogPrint.outputInfoLogPrint() + "Service ID = " + serviceId + " Session ID = " + sessionId);
         logger.debug("Execute Service ID = " + serviceId + "Session ID = " + sessionId);
         servicePresentation.executeService(servicePresentation.settingServiceId(serviceId, sessionId));
     }

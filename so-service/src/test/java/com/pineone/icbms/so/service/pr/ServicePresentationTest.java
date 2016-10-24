@@ -100,7 +100,7 @@ public class ServicePresentationTest {
 
     public ServiceTransFormObject dataObjectToServiceModel(Service service){
         if(service == null) return null;
-        return new ServiceTransFormObject(service.getId(), service.getName(), service.getVirtualObjectIdList(),service.getVirtualObjectService(),service.getStatus(),service.getCreateTime(),service.getModifiedTime(),service.getFilterTime());
+        return new ServiceTransFormObject(service.getId(), service.getName(), service.getVirtualObjectIdList(),service.getVirtualObjectService(),service.getStatus(),service.getCreateTime(),service.getModifiedTime(),service.getFilterTime(), "");
     }
 
 }
