@@ -8,7 +8,6 @@ import com.pineone.icbms.so.profile.proxy.ProfileProxy;
 import com.pineone.icbms.so.profile.ref.ResponseMessage;
 import com.pineone.icbms.so.profile.store.ProfileStore;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
-import com.pineone.icbms.so.util.conversion.DataConversion;
 import com.pineone.icbms.so.util.priority.Priority;
 import com.pineone.icbms.so.util.session.DefaultSession;
 import com.pineone.icbms.so.util.session.Session;
@@ -18,9 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by melvin on 2016. 8. 11..
@@ -183,7 +180,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         sessionStore.updateSession(session);
         if(domainIdList != null){
                 session.insertSessionData(DefaultSession.CONTEXTMODEL_RESULT, "Happen");
-                session.insertSessionData(DefaultSession.LOCATION_ID, DataConversion.listDataToString(domainIdList));
+                session.insertSessionData(DefaultSession.LOCATION_ID, domainIdList.toString());
                 sessionStore.updateSession(session);
                 String message = "Message : Happened ContextModel";
                 System.out.println(message);
@@ -222,19 +219,18 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
                 Date time = new Date();
                 String currentTime = time.toString();
                 ContextModel contextModel = profileProxy.retrieveContextModelQueueData();
-                Session session = new DefaultSession();
-                String sessionId = session.getId();
-                session.setMongoTime(time);
-                session.setCreateDate(currentTime);
-                session.setCalculateTime(System.currentTimeMillis());
-                session.insertSessionData(DefaultSession.CONTEXTMODEL_KEY, contextModel.getId());
-                session.insertSessionData(DefaultSession.LOCATION_ID, DataConversion.listDataToString(contextModel.getDomainIdList()));
-                session.insertSessionData(DefaultSession.CONTEXTMODEL_RESULT, "Happen");
-                sessionStore.updateSession(session);
                 logger.debug("ContextModel = " + contextModel.toString());
                 //TODO : 디비 연결후 contextModel 이름으로 Profile 조회 기능 구현 및 연결
                 List<Profile> profileList = profileStore.findByContextModelId(contextModel.getId());
                 for(Profile profile : profileList){
+                    Session session = new DefaultSession();
+                    String sessionId = session.getId();
+                    session.setMongoTime(time);
+                    session.setCreateDate(currentTime);
+                    session.setCalculateTime(System.currentTimeMillis());
+                    session.insertSessionData(DefaultSession.CONTEXTMODEL_KEY, contextModel.getId());
+                    session.insertSessionData(DefaultSession.LOCATION_ID, contextModel.getDomainIdList().toString());
+                    session.insertSessionData(DefaultSession.CONTEXTMODEL_RESULT, "Happen");
                     Priority priority = Priority.HIGH;
                     session.insertSessionData(DefaultSession.PROFILE_KEY, profile.getId());
                     session.insertSessionData(DefaultSession.PRIORITY_KEY, priority.toString());
