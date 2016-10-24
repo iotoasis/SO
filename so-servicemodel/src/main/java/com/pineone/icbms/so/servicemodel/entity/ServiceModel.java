@@ -100,12 +100,6 @@ public class ServiceModel {
         this.locaton = locaton;
     }
 
-    public ServiceModel(String id, String name, List<String> serviceIdList) {
-        this.id = id;
-        this.name = name;
-        this.serviceIdList = serviceIdList;
-    }
-
     public ServiceModel(String id, String name, List<String> serviceIdList, String createTime, String modifiedTime, String locaton) {
         this.id = id;
         this.name = name;
