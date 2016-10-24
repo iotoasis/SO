@@ -62,7 +62,7 @@ public class SchedulerPresentation {
         schedulerLogic.pauseScheduler();
     }
 
-    //NOTE: 일시정지된 Scheduler 재시작
+    //NOTE: 일시 정지된 전체 Scheduler 재시작
     @RequestMapping(value = "/restart", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
@@ -71,7 +71,7 @@ public class SchedulerPresentation {
         schedulerLogic.restartScheduler();
     }
 
-    //NOTE: Scheduler 개별 일시 정지
+    //NOTE: Scheduler 개별 정지
     @RequestMapping(value = "/pause", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
@@ -80,7 +80,7 @@ public class SchedulerPresentation {
         schedulerLogic.pauseProfileScheduler(profileTransFormData.getId());
     }
 
-    //NOTE: Scheduler 개별 일시 정지
+    //NOTE: Scheduler 개별 재시작
     @RequestMapping(value = "/restart", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
@@ -129,5 +129,25 @@ public class SchedulerPresentation {
         logger.info(LogPrint.outputInfoLogPrint() + ", ProfileId = " + profileTransFormData.getId());
         logger.debug("Profile = " + profileTransFormData.toString());
         schedulerLogic.updateScheduler(profileTransFormData.getId(), profileTransFormData.getPeriod());
+    }
+
+    //NOTE: Scheduler 전체 정지 (일시 정지 아님)
+    @RequestMapping(value = "/stop", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public void stopSchedulerPeriod() throws SchedulerException {
+        //
+        logger.info(LogPrint.outputInfoLogPrint());
+        schedulerLogic.stopScheduler();
+    }
+
+    //NOTE: Scheduler 전체 시작 ( 모든 스케줄러 시작 - Status 값 변경)
+    @RequestMapping(value = "/start", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public void startSchedulerPeriod() throws SchedulerException {
+        //
+        logger.info(LogPrint.outputInfoLogPrint());
+        schedulerLogic.startScheduler();
     }
 }

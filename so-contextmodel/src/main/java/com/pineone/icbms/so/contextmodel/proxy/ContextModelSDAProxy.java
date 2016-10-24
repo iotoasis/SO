@@ -98,102 +98,79 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
 //        List<String> domainIdList = new Gson().fromJson(readData,type);
 
         List<String> domains = new ArrayList<>();
+        List<Content> contentList = null;
         //TODO : 일시적 테스트
         if(contextModelId.equals("cm-announcement-on")){
-            List<Content> contentList = null;
             try {
                 contentList = getContents(contextModelId);
             } catch (BadRequestException e) {
                 logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
             }
-
-            if(contentList == null || contentList.isEmpty() ){
-                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
-                domains = null;
-                return domains;
-            }
-            for(Content content : contentList){
-                domains.add(content.getLoc());
-                System.out.println("Location = " + content.getLoc());
-            }
+            domains = validateContentList(contentList, contextModelId);
 //            CheckHappenContextModel checkHappenContextModel = new CheckHappenContextModel(contextModelId, domains).invoke();
 //            if (checkHappenContextModel.is()) return domains;
 //            domains = checkHappenContextModel.getDomains();
 //            domains = new ArrayList<>();
         }
         else if(contextModelId.equals("cm-announcement-off")){
-            List<Content> contentList = null;
             try {
                 contentList = getContents(contextModelId);
             } catch (BadRequestException e) {
                 logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
             }
-
-            if(contentList == null || contentList.isEmpty() ){
-                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
-                domains = null;
-                return domains;
-            }
-            for(Content content : contentList){
-                domains.add(content.getLoc());
-                System.out.println("Location = " + content.getLoc());
-            }
+            domains = validateContentList(contentList, contextModelId);
         }
         else if(contextModelId.equals("cm-notideal-light-lecture")){
-            List<Content> contentList = null;
             try {
                 contentList = getContents(contextModelId);
             } catch (BadRequestException e) {
                 logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
             }
-
-            if(contentList == null || contentList.isEmpty() ){
-                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
-                domains = null;
-                return domains;
-            }
-            for(Content content : contentList){
-                domains.add(content.getLoc());
-                System.out.println("Location = " + content.getLoc());
-            }
+            domains = validateContentList(contentList, contextModelId);
         }
         else if(contextModelId.equals("cm-electric-inefficiency")){
-            List<Content> contentList = null;
             try {
                 contentList = getContents(contextModelId);
             } catch (BadRequestException e) {
                 logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
             }
-
-            if(contentList == null || contentList.isEmpty() ){
-                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
-                domains = null;
-                return domains;
-            }
-            for(Content content : contentList){
-                domains.add(content.getLoc());
-                System.out.println("Location = " + content.getLoc());
-            }
+            domains = validateContentList(contentList, contextModelId);
         }
         else if(contextModelId.equals("cm-electric-waste")){
-            List<Content> contentList = null;
             try {
                 contentList = getContents(contextModelId);
             } catch (BadRequestException e) {
                 logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
             }
-
-            if(contentList == null || contentList.isEmpty() ){
-                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
-                domains = null;
-                return domains;
-            }
-            for(Content content : contentList){
-                domains.add(content.getLoc());
-                System.out.println("Location = " + content.getLoc());
-            }
+            domains = validateContentList(contentList, contextModelId);
         }
 
+        else if(contextModelId.equals("cm-bustle-overtemp")){
+            try {
+                contentList = getContents(contextModelId);
+            } catch (BadRequestException e) {
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+            }
+            domains = validateContentList(contentList, contextModelId);
+        }
+
+        else if(contextModelId.equals("cm-forecast-electric")){
+            try {
+                contentList = getContents(contextModelId);
+            } catch (BadRequestException e) {
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+            }
+            domains = validateContentList(contentList, contextModelId);
+        }
+
+        else if(contextModelId.equals("cm-lack-equipment")){
+            try {
+                contentList = getContents(contextModelId);
+            } catch (BadRequestException e) {
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+            }
+            domains = validateContentList(contentList, contextModelId);
+        }
         else if(contextModelId.equals("CM-TEST")){
             domains = null;
         }
@@ -262,4 +239,22 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
             return this;
         }
     }
+
+
+    private List<String> validateContentList(List<Content> contentList, String contextModelId){
+        List<String> domains = new ArrayList<>();
+        if(contentList == null || contentList.isEmpty() ){
+            logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+            domains = null;
+        }
+
+        else {
+            for (Content content : contentList) {
+                domains.add(content.getLoc());
+                System.out.println("Location = " + content.getLoc());
+            }
+        }
+        return domains;
+    }
+
 }
