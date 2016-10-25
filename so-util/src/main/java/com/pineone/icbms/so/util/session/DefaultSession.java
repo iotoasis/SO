@@ -17,7 +17,7 @@ public class DefaultSession implements Session {
     public static final String CONTEXTMODEL_RESULT              =   "CONTEXTMODEL_RESULT";
     public static final String LOCATION_ID                      =   "LOCATION_ID";
 
-    public static final String SERVICEMODEL_KEY                 =   "SERVICEMODEL_ID_KEY";
+    public static final String SERVICEMODEL_KEY                 =   "SERVICEMODEL_KEY";
     public static final String SERVICEMODEL_RESULT              =   "SERVICEMODEL_RESULT";
     public static final String SERVICE_KEY                      =   "SERVICE_KEY";
     public static final String SERVICE_RESULT                   =   "SERVICE_RESULT";

@@ -1,52 +1,63 @@
 package com.pineone.icbms.so.service.proxy;
 
-/**
- * Created by melvin on 2016. 10. 13..
- */
+import java.util.List;
+
 public class RequestData {
-    private String deviceUri;
-    private String count;
-    private String forecastelectric;
+    //
+    private String cmd;
+    private String contextId;
+    private String time;
+    private List<LackEquipment> contents;
 
     public RequestData() {
     }
 
-    public RequestData(String deviceUri, String count, String forecastelectric) {
-        this.deviceUri = deviceUri;
-        this.count = count;
-        this.forecastelectric = forecastelectric;
+    public RequestData(String cmd, String contextId, String time, List<LackEquipment> contents) {
+        this.cmd = cmd;
+        this.contextId = contextId;
+        this.time = time;
+        this.contents = contents;
     }
 
-    public String getDeviceUri() {
-        return deviceUri;
+    public String getCmd() {
+        return cmd;
     }
 
-    public void setDeviceUri(String deviceUri) {
-        this.deviceUri = deviceUri;
+    public void setCmd(String cmd) {
+        this.cmd = cmd;
     }
 
-    public String getCount() {
-        return count;
+    public String getContextId() {
+        return contextId;
     }
 
-    public void setCount(String count) {
-        this.count = count;
+    public void setContextId(String contextId) {
+        this.contextId = contextId;
     }
 
-    public String getForecastelectric() {
-        return forecastelectric;
+    public String getTime() {
+        return time;
     }
 
-    public void setForecastelectric(String forecastelectric) {
-        this.forecastelectric = forecastelectric;
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public List<LackEquipment> getContents() {
+        return contents;
+    }
+
+    public void setContents(List<LackEquipment> contents) {
+        this.contents = contents;
     }
 
     @Override
     public String toString() {
         return "RequestData{" +
-                "deviceUri='" + deviceUri + '\'' +
-                ", count='" + count + '\'' +
-                ", forecastelectric='" + forecastelectric + '\'' +
+                "cmd='" + cmd + '\'' +
+                ", contextId='" + contextId + '\'' +
+                ", time='" + time + '\'' +
+                ", contents=" + contents +
                 '}';
     }
 }
