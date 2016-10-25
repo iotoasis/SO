@@ -154,15 +154,6 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
             domains = validateContentList(contentList, contextModelId);
         }
 
-        else if(contextModelId.equals("cm-forecast-electric")){
-            try {
-                contentList = getContents(contextModelId);
-            } catch (BadRequestException e) {
-                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
-            }
-            domains = validateContentList(contentList, contextModelId);
-        }
-
         else if(contextModelId.equals("cm-lack-equipment")){
             try {
                 contentList = getContents(contextModelId);
@@ -171,6 +162,25 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
             }
             domains = validateContentList(contentList, contextModelId);
         }
+
+        else if(contextModelId.equals("cm-heat-forecast-electric")){
+            try {
+                contentList = getContents(contextModelId);
+            } catch (BadRequestException e) {
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+            }
+            domains = validateContentList(contentList, contextModelId);
+        }
+
+        else if(contextModelId.equals("cm-cold-forecast-electric")){
+            try {
+                contentList = getContents(contextModelId);
+            } catch (BadRequestException e) {
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+            }
+            domains = validateContentList(contentList, contextModelId);
+        }
+
         else if(contextModelId.equals("CM-TEST")){
             domains = null;
         }
