@@ -144,8 +144,27 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
             }
             domains = validateContentList(contentList, contextModelId);
         }
-
+        /*
         else if(contextModelId.equals("cm-bustle-overtemp")){
+            try {
+                contentList = getContents(contextModelId);
+            } catch (BadRequestException e) {
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+            }
+            domains = validateContentList(contentList, contextModelId);
+        }
+        */
+
+        else if(contextModelId.equals("cm-heat-lab")){
+            try {
+                contentList = getContents(contextModelId);
+            } catch (BadRequestException e) {
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+            }
+            domains = validateContentList(contentList, contextModelId);
+        }
+
+        else if(contextModelId.equals("cm-cold-lab")){
             try {
                 contentList = getContents(contextModelId);
             } catch (BadRequestException e) {

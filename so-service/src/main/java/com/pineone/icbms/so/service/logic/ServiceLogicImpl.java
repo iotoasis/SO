@@ -189,13 +189,30 @@ public class ServiceLogicImpl implements ServiceLogic{
 
                     VirtualObject virtualObject = serviceProxy.findVirtualObject(virtualObjectId);
 
-                    if(virtualObject != null && VirtualObject.DEVICE_FUNCTIONLITY_ADMIN_NOTI.equals(virtualObject.getFunctionality())){
+                    if(virtualObject != null && "vo-lack-equipment".equals(virtualObject.getVoId())){
                         // admin-noti에 따른 추가 적인 로직 적용.
                         // PC 부족 알림
                         // 마우스 부족 알림
                         // 키보드 부족 알림.
 
                         // 각각 ServiceModel과 Service들을 어떻게 나눌것인가? 그걸로 조건으로 수정할것인가? 
+                        /*String operation = "";
+                        try {
+                            operation = serviceSDAProxy.getPCCountUri(session);
+                        } catch (BadRequestException e) {
+                            logger.warn("operation is not Count");
+                            session = sessionStore.retrieveSessionDetail(sessionId);
+                            session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_ERROR + " operation is null");
+                        }
+                        serviceProxy.executeVirtualObject(virtualObjectId, operation, sessionId);
+                        */
+                        serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus(), sessionId);
+                    } else {
+                        serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus(), sessionId);
+                    }
+                } else {
+                    VirtualObject virtualObject = serviceProxy.findVirtualObject(virtualObjectId);
+                    if(virtualObject != null && "vo-lack-equipment".equals(virtualObject.getVoId())){
                         String operation = "";
                         try {
                             operation = serviceSDAProxy.getPCCountUri(session);
@@ -204,14 +221,10 @@ public class ServiceLogicImpl implements ServiceLogic{
                             session = sessionStore.retrieveSessionDetail(sessionId);
                             session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_ERROR + " operation is null");
                         }
-
                         serviceProxy.executeVirtualObject(virtualObjectId, operation, sessionId);
-
                     } else {
-                        serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus(), sessionId);
+                        serviceProxy.executeVirtualObject(virtualObjectId, serviceData.getStatus(), sessionId);
                     }
-                } else {
-                    serviceProxy.executeVirtualObject(virtualObjectId, serviceData.getStatus(), sessionId);
                 }
                 serviceData.setModifiedTime(currentTime);
             }
