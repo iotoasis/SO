@@ -1,9 +1,12 @@
 package com.pineone.icbms.so.service.pr;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.pineone.icbms.so.service.ServiceApplication;
 import com.pineone.icbms.so.service.entity.Service;
-import com.pineone.icbms.so.service.ref.*;
-import org.junit.Before;
+import com.pineone.icbms.so.service.proxy.RequestData;
+import com.pineone.icbms.so.service.proxy.ServiceSDAProxy;
+import com.pineone.icbms.so.service.ref.ResponseMessage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +29,9 @@ public class ServicePresentationTest {
 
     @Autowired
     ServicePresentation servicePresentation;
+
+    @Autowired
+    ServiceSDAProxy serviceSDAProxy;
 
 //    @Test
 //    public void 가상객체목록조회 () throws Exception {
@@ -58,7 +65,7 @@ public class ServicePresentationTest {
 //        System.out.println();
 //    }
 
-    @Before
+//    @Before
     //NOTE : service 정보를 입력후 등록 과정
     public void Service등록() throws Exception {
         //
@@ -101,6 +108,17 @@ public class ServicePresentationTest {
     public ServiceTransFormObject dataObjectToServiceModel(Service service){
         if(service == null) return null;
         return new ServiceTransFormObject(service.getId(), service.getName(), service.getVirtualObjectIdList(),service.getVirtualObjectService(),service.getStatus(),service.getCreateTime(),service.getModifiedTime(),service.getFilterTime(), "");
+    }
+
+    @Test
+    public void SDA데이터요청확인(){
+        String tempData = "{\"cmd\":\"query\",\"contextId\":\"cm-lack-equipment-count\",\"time\":\"20161025T133726\",\"LackEquipment\":[{\"inv\":\"http://www.iotoasis.org/ontology/inventoryKeyboard_ITBT_606_001\",\"qnt\":\"-49\"},{\"inv\":\"http://www.iotoasis.org/ontology/inventoryPC_ITBT_606_001\",\"qnt\":\"-49\"},{\"inv\":\"http://www.iotoasis.org/ontology/inventoryMouse_ITBT_606_001\",\"qnt\":\"-49\"}]}";
+        Type type = new TypeToken<RequestData>() {
+        }.getType();
+        RequestData requestData = new Gson().fromJson(tempData, type);
+        System.out.println("ahn");
+        System.out.println(requestData.toString());
+        System.out.println("ahn");
     }
 
 }

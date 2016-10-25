@@ -13,6 +13,7 @@ import com.pineone.icbms.so.service.store.ServiceControlRecordStore;
 import com.pineone.icbms.so.service.store.ServiceStore;
 import com.pineone.icbms.so.util.TimeStamp;
 import com.pineone.icbms.so.util.conversion.DataConversion;
+import com.pineone.icbms.so.util.exception.BadRequestException;
 import com.pineone.icbms.so.util.priority.Priority;
 import com.pineone.icbms.so.util.session.DefaultSession;
 import com.pineone.icbms.so.util.session.Session;
@@ -195,10 +196,16 @@ public class ServiceLogicImpl implements ServiceLogic{
                         // 키보드 부족 알림.
 
                         // 각각 ServiceModel과 Service들을 어떻게 나눌것인가? 그걸로 조건으로 수정할것인가? 
+                        String operation = "";
+                        try {
+                            operation = serviceSDAProxy.getPCCountUri(session);
+                        } catch (BadRequestException e) {
+                            logger.warn("operation is not Count");
+                            session = sessionStore.retrieveSessionDetail(sessionId);
+                            session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_ERROR + " operation is null");
+                        }
 
-//                        serviceSDAProxy.getPCCountUri();
-
-
+                        serviceProxy.executeVirtualObject(virtualObjectId, operation, sessionId);
 
                     } else {
                         serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus(), sessionId);

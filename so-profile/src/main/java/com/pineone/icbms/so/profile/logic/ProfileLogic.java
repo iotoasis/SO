@@ -1,7 +1,6 @@
 package com.pineone.icbms.so.profile.logic;
 
 import com.pineone.icbms.so.profile.entity.Profile;
-import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
 
 import java.util.List;
 

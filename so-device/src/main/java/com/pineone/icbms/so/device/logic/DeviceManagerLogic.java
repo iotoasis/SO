@@ -91,8 +91,8 @@ public class DeviceManagerLogic implements DeviceManager {
             sessionStore.updateSession(session);
             logger.debug("The device does not exist.");
             return "The device does not exist.";
-        } else if(device != null && device.getDeviceServices() != null && device.getDeviceServices().equals("DEVICE_SERVICE_NOTI_TYPE")){
-            session.insertSessionData(DefaultSession.DEVICE_RESULT, DefaultSession.CONTROL_EXECUTION);
+        } else if(device != null && device.getDeviceServices() != null && DEVICE_SERVICE_NOTI_TYPE.equals(device.getDeviceServices())){
+            session.insertSessionData(DefaultSession.DEVICE_RESULT, DefaultSession.CONTROL_EXECUTION + "_" + DEVICE_SERVICE_NOTI_TYPE);
             // DB에 Session을 저장.
             sessionStore.updateSession(session);
             return DEVICE_SERVICE_NOTI_TYPE;
