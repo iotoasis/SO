@@ -113,6 +113,11 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
             // DB에 Session을 저장.
             sessionStore.updateSession(session);
             return DefaultSession.CONTROL_ERROR;
+        } else if(VirtualObject.DEVICE_FUNCTIONLITY_ADMIN_NOTI.equals(virtualObject.getDeviceService())) {
+            session.insertSessionData(DefaultSession.VIRTUALOBJECT_RESULT, VirtualObject.DEVICE_FUNCTIONLITY_ADMIN_NOTI);
+            // DB에 Session을 저장.
+            sessionStore.updateSession(session);
+            return VirtualObject.DEVICE_FUNCTIONLITY_ADMIN_NOTI;
         }
 
         // 해당 Device ID를 도출
