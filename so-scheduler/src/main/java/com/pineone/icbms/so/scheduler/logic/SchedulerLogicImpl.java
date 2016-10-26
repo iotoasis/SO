@@ -77,7 +77,7 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
 //        schedulerStore.createScheduledProfile(scheduledProfile);
 
         //NOTE: 스케줄러 DB 가 비어있거나
-        if(schedulerStore.retrieveScheduledProfile().isEmpty()){
+        if(schedulerStore.retrieveScheduledProfileList().isEmpty()){
             schedulerStore.createScheduledProfile(scheduledProfile);
             schedulerStore.updateStatus(scheduledProfile, 1);
 
@@ -159,7 +159,7 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
     //NOTE : 스케줄러 목록 조회
     @Override
     public List<ScheduledProfile> retrieveSchedulerList() {
-        List<ScheduledProfile> scheduledProfileList = schedulerStore.retrieveScheduledProfile();
+        List<ScheduledProfile> scheduledProfileList = schedulerStore.retrieveScheduledProfileList();
         return scheduledProfileList;
     }
 
@@ -207,11 +207,24 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
     @Override
     public void restartProfileScheduler(String profileId) throws SchedulerException {
         logger.info(LogPrint.outputInfoLogPrint());
-        ScheduledProfile scheduledProfile = new ScheduledProfile(profileId);
-        schedulerStore.updateStatus(scheduledProfile, 1);
+        ScheduledProfile scheduledProfile = schedulerStore.retrieveScheduledProfile(profileId);
         JobKey jobKey = JobKey.jobKey(scheduledProfile.getId(), groupName);
-        scheduler.resumeJob(jobKey);
-        logger.debug("RestartScheduledProfile = " + jobKey.getName());
+        scheduler.deleteJob(jobKey);
+        schedulerStore.updateStatus(scheduledProfile, 1);
+//        JobKey jobKey = JobKey.jobKey(scheduledProfile.getId(), groupName);
+        JobDetail job = JobBuilder.newJob(ScheduleNotificationManager.class)
+                .withIdentity(scheduledProfile.getId(),groupName)
+                .build();
+        Trigger trigger = TriggerBuilder
+                .newTrigger()
+                .withIdentity(scheduledProfile.getId(),groupName)
+                .withSchedule(
+                        SimpleScheduleBuilder.simpleSchedule()
+                                .withIntervalInSeconds(scheduledProfile.getPeriod()).repeatForever()
+                ).build();
+
+        scheduler.scheduleJob(job, trigger);
+        logger.debug("RestartScheduledProfile = " + job.getKey().getName());
     }
 
     //NOTE : 현재 작동중인 스케줄 목록 조회

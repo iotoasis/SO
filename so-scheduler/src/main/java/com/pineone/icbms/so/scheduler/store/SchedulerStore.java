@@ -10,9 +10,11 @@ import java.util.List;
 public interface SchedulerStore {
 
     void createScheduledProfile(ScheduledProfile scheduledProfile);
-    List<ScheduledProfile> retrieveScheduledProfile();
+    List<ScheduledProfile> retrieveScheduledProfileList();
     boolean isExistScheduledProfile(String profileId);
     List<ScheduledProfile> retrieveScheduledProfileByStatus(int status);
     void updateStatus(ScheduledProfile scheduledProfile, int status);
     void updatePeriod(ScheduledProfile schedulerProfile);
+    ScheduledProfile retrieveScheduledProfile(String profileId);
+
 }

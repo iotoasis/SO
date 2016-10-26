@@ -33,7 +33,7 @@ public class SchedulerStoreMongoImpl implements SchedulerStore {
 
     //NOTE : 스케줄 목록 조회
     @Override
-    public List<ScheduledProfile> retrieveScheduledProfile() {
+    public List<ScheduledProfile> retrieveScheduledProfileList() {
         List<ScheduledProfileDataObject> scheduledProfileDataObjectList = schedulerRepository.findAll();
         List<ScheduledProfile> scheduledProfileList = new ArrayList<>();
         for(ScheduledProfileDataObject scheduledProfileDataObject : scheduledProfileDataObjectList){
@@ -78,6 +78,14 @@ public class SchedulerStoreMongoImpl implements SchedulerStore {
         scheduledProfileDataObject.setPeriod(schedulerProfile.getPeriod());
         schedulerRepository.save(scheduledProfileDataObject);
         logger.debug("scheduledProfile : " + scheduledProfileDataObject.toString());
+    }
+
+    //NOTE : 스케줄 내역 상세조회
+    @Override
+    public ScheduledProfile retrieveScheduledProfile(String profileId) {
+        ScheduledProfileDataObject scheduledProfileDataObject = schedulerRepository.findById(profileId);
+        ScheduledProfile scheduledProfile = dataObjectToSchedulerDataObject(scheduledProfileDataObject);
+        return scheduledProfile;
     }
 
 
