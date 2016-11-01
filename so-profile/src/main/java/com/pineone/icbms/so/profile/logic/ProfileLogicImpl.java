@@ -116,6 +116,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
                 return profileResultMessage;
             }
             else{
+                profileProxy.registerScheduler(profile.getId(), profile.getPeriod());
                 // TODO : 스케쥴러에 등록 - (Profile 이름, 스케쥴)
             }
         }
