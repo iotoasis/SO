@@ -87,7 +87,7 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
     //NOTE: ContextModel 의 상황이 발생했는지 SDA 에 질의, 발생한 도메인 리스트 수신
     @Override
     public List<String> retrieveContextModelEvent(String contextModelId) {
-        logger.info(LogPrint.outputInfoLogPrint() + ", ContextModelId = " +  contextModelId);
+        logger.info(LogPrint.outputInfoLogPrint() + ", ContextModelId = " + contextModelId);
         logger.debug("ContextModelId = " + contextModelId);
 
         //
@@ -99,114 +99,126 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
 
         List<String> domains = new ArrayList<>();
         List<Content> contentList = null;
-        //TODO : 일시적 테스트
-        if(contextModelId.equals("cm-announcement-on")){
-            try {
-                contentList = getContents(contextModelId);
-            } catch (BadRequestException e) {
-                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
-            }
-            domains = validateContentList(contentList, contextModelId);
-//            CheckHappenContextModel checkHappenContextModel = new CheckHappenContextModel(contextModelId, domains).invoke();
-//            if (checkHappenContextModel.is()) return domains;
-//            domains = checkHappenContextModel.getDomains();
-//            domains = new ArrayList<>();
-        }
-        else if(contextModelId.equals("cm-announcement-off")){
-            try {
-                contentList = getContents(contextModelId);
-            } catch (BadRequestException e) {
-                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
-            }
-            domains = validateContentList(contentList, contextModelId);
-        }
-        else if(contextModelId.equals("cm-notideal-light-lecture")){
-            try {
-                contentList = getContents(contextModelId);
-            } catch (BadRequestException e) {
-                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
-            }
-            domains = validateContentList(contentList, contextModelId);
-        }
-        else if(contextModelId.equals("cm-electric-inefficiency")){
-            try {
-                contentList = getContents(contextModelId);
-            } catch (BadRequestException e) {
-                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
-            }
-            domains = validateContentList(contentList, contextModelId);
-        }
-        else if(contextModelId.equals("cm-electric-waste")){
-            try {
-                contentList = getContents(contextModelId);
-            } catch (BadRequestException e) {
-                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
-            }
-            domains = validateContentList(contentList, contextModelId);
-        }
-        /*
-        else if(contextModelId.equals("cm-bustle-overtemp")){
-            try {
-                contentList = getContents(contextModelId);
-            } catch (BadRequestException e) {
-                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
-            }
-            domains = validateContentList(contentList, contextModelId);
-        }
-        */
 
-        else if(contextModelId.equals("cm-heat-lab")){
-            try {
-                contentList = getContents(contextModelId);
-            } catch (BadRequestException e) {
-                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
-            }
-            domains = validateContentList(contentList, contextModelId);
-        }
-
-        else if(contextModelId.equals("cm-cold-lab")){
-            try {
-                contentList = getContents(contextModelId);
-            } catch (BadRequestException e) {
-                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
-            }
-            domains = validateContentList(contentList, contextModelId);
-        }
-
-        else if(contextModelId.equals("cm-lack-equipment")){
-            try {
-                contentList = getContents(contextModelId);
-            } catch (BadRequestException e) {
-                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
-            }
-            domains = validateContentList(contentList, contextModelId);
-        }
-
-        else if(contextModelId.equals("cm-heat-forecast-electric")){
-            try {
-                contentList = getContents(contextModelId);
-            } catch (BadRequestException e) {
-                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
-            }
-            domains = validateContentList(contentList, contextModelId);
-        }
-
-        else if(contextModelId.equals("cm-cold-forecast-electric")){
-            try {
-                contentList = getContents(contextModelId);
-            } catch (BadRequestException e) {
-                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
-            }
-            domains = validateContentList(contentList, contextModelId);
-        }
-
-        else if(contextModelId.equals("CM-TEST")){
+        if (contextModelId.equals("CM-TEST")) {
             domains = null;
-        }
-        else{
-            domains = null;
+        } else {
+            try {
+                contentList = getContents(contextModelId);
+            } catch (BadRequestException e) {
+                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+            }
+            domains = validateContentList(contentList, contextModelId);
         }
         return domains;
+
+//        if(contextModelId.equals("cm-announcement-on")){
+//            try {
+//                contentList = getContents(contextModelId);
+//            } catch (BadRequestException e) {
+//                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+//            }
+//            domains = validateContentList(contentList, contextModelId);
+////            CheckHappenContextModel checkHappenContextModel = new CheckHappenContextModel(contextModelId, domains).invoke();
+////            if (checkHappenContextModel.is()) return domains;
+////            domains = checkHappenContextModel.getDomains();
+////            domains = new ArrayList<>();
+//        }
+//        else if(contextModelId.equals("cm-announcement-off")){
+//            try {
+//                contentList = getContents(contextModelId);
+//            } catch (BadRequestException e) {
+//                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+//            }
+//            domains = validateContentList(contentList, contextModelId);
+//        }
+//        else if(contextModelId.equals("cm-notideal-light-lecture")){
+//            try {
+//                contentList = getContents(contextModelId);
+//            } catch (BadRequestException e) {
+//                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+//            }
+//            domains = validateContentList(contentList, contextModelId);
+//        }
+//        else if(contextModelId.equals("cm-electric-inefficiency")){
+//            try {
+//                contentList = getContents(contextModelId);
+//            } catch (BadRequestException e) {
+//                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+//            }
+//            domains = validateContentList(contentList, contextModelId);
+//        }
+//        else if(contextModelId.equals("cm-electric-waste")){
+//            try {
+//                contentList = getContents(contextModelId);
+//            } catch (BadRequestException e) {
+//                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+//            }
+//            domains = validateContentList(contentList, contextModelId);
+//        }
+//        /*
+//        else if(contextModelId.equals("cm-bustle-overtemp")){
+//            try {
+//                contentList = getContents(contextModelId);
+//            } catch (BadRequestException e) {
+//                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+//            }
+//            domains = validateContentList(contentList, contextModelId);
+//        }
+//        */
+//
+//        else if(contextModelId.equals("cm-heat-lab")){
+//            try {
+//                contentList = getContents(contextModelId);
+//            } catch (BadRequestException e) {
+//                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+//            }
+//            domains = validateContentList(contentList, contextModelId);
+//        }
+//
+//        else if(contextModelId.equals("cm-cold-lab")){
+//            try {
+//                contentList = getContents(contextModelId);
+//            } catch (BadRequestException e) {
+//                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+//            }
+//            domains = validateContentList(contentList, contextModelId);
+//        }
+//
+//        else if(contextModelId.equals("cm-lack-equipment")){
+//            try {
+//                contentList = getContents(contextModelId);
+//            } catch (BadRequestException e) {
+//                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+//            }
+//            domains = validateContentList(contentList, contextModelId);
+//        }
+//
+//        else if(contextModelId.equals("cm-heat-forecast-electric")){
+//            try {
+//                contentList = getContents(contextModelId);
+//            } catch (BadRequestException e) {
+//                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+//            }
+//            domains = validateContentList(contentList, contextModelId);
+//        }
+//
+//        else if(contextModelId.equals("cm-cold-forecast-electric")){
+//            try {
+//                contentList = getContents(contextModelId);
+//            } catch (BadRequestException e) {
+//                logger.warn("ContextModelId = " + contextModelId + "is not Happened ");
+//            }
+//            domains = validateContentList(contentList, contextModelId);
+//        }
+//
+//        else if(contextModelId.equals("CM-TEST")){
+//            domains = null;
+//        }
+//        else{
+//            domains = null;
+//        }
+//        return domains;
     }
 
     private List<Content> getContents(String contextModelId) throws BadRequestException {

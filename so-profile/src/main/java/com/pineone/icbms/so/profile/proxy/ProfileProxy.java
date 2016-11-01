@@ -17,4 +17,6 @@ public interface ProfileProxy {
     boolean checkContextModelQueue();
 
     ContextModel retrieveContextModelQueueData();
+
+    void registerScheduler(String profileId, int period);
 }

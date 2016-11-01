@@ -5,7 +5,10 @@ import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 import com.pineone.icbms.so.contextmodel.logic.ContextModelLogicImpl;
 import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
 import com.pineone.icbms.so.profile.pr.ProfilePresentation;
+import com.pineone.icbms.so.profile.pr.ProfileTransFormData;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
+import com.pineone.icbms.so.util.conversion.DataConversion;
+import com.pineone.icbms.so.util.http.ClientService;
 import com.pineone.icbms.so.util.logprint.LogPrint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,5 +86,14 @@ public class ProfileInternalProxy extends AbstractProfileProxy {
         ContextModel contextModel = contextModelPresentation.retrieveContextModelQueueData();
         logger.info(LogPrint.outputInfoLogPrint() + ", contextModelId = " + contextModel.getId());
         return contextModel;
+    }
+
+
+    @Override
+    public void registerScheduler(String profileId, int period) {
+        ProfileTransFormData profileTransFormData = new ProfileTransFormData(profileId, period);
+        String sendData = DataConversion.objectToString(profileTransFormData);
+        ClientService clientService = new ClientService();
+        clientService.requestPostService("http://localhost:10080/so/scheduler",sendData);
     }
 }
