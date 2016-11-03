@@ -178,6 +178,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         session.setCreateDate(currentTime);
         session.setCalculateTime(System.currentTimeMillis());
         session.insertSessionData(DefaultSession.PROFILE_KEY, profileId);
+        session.insertSessionData(DefaultSession.PROFILE_NAME, profile.getName());
         session.insertSessionData(DefaultSession.PRIORITY_KEY, priority.toString());
         List<String> domainIdList = contextModelPresentation.isHappenContextModel(profile.getContextModelId());
         session.insertSessionData(DefaultSession.CONTEXTMODEL_KEY, profile.getContextModelId());
@@ -242,6 +243,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
                     session.insertSessionData(DefaultSession.CONTEXTMODEL_RESULT, "Happen");
                     Priority priority = Priority.HIGH;
                     session.insertSessionData(DefaultSession.PROFILE_KEY, profile.getId());
+                    session.insertSessionData(DefaultSession.PROFILE_NAME, profile.getName());
                     session.insertSessionData(DefaultSession.PRIORITY_KEY, priority.toString());
                     sessionStore.updateSession(session);
                     profileStore.addPriority(profile, Priority.HIGH.toString());
