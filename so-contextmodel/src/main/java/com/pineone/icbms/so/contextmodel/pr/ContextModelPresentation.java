@@ -192,6 +192,14 @@ public class ContextModelPresentation {
         List<ContextModel> contextModelList = contextModelLogic.retrieveContextInformationList();
         return contextModelList;
     }
+
+    //NOTE: ContextModelName 조회
+    public String retrieveContextModelName(String contextModelId) {
+        //
+        logger.info(LogPrint.inputInfoLogPrint());
+        ContextModel contextModel = contextModelLogic.retrieveContextModelDetail(contextModelId);
+        return contextModel.getName();
+    }
 }
 
 

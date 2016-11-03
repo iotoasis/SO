@@ -36,7 +36,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     SessionStore sessionStore;
 
     @Autowired
-            ContextModelPresentation contextModelPresentation;
+    ContextModelPresentation contextModelPresentation;
 
     @Autowired
     ServiceModelPresentation serviceModelPresentation;
@@ -181,6 +181,9 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         session.insertSessionData(DefaultSession.PRIORITY_KEY, priority.toString());
         List<String> domainIdList = contextModelPresentation.isHappenContextModel(profile.getContextModelId());
         session.insertSessionData(DefaultSession.CONTEXTMODEL_KEY, profile.getContextModelId());
+        session.insertSessionData(
+                DefaultSession.CONTEXTMODEL_NAME,
+                contextModelPresentation.retrieveContextModelName(profile.getContextModelId()));
         sessionStore.updateSession(session);
         if(domainIdList != null){
                 session.insertSessionData(DefaultSession.CONTEXTMODEL_RESULT, "Happen");
@@ -224,7 +227,6 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
                 String currentTime = time.toString();
                 ContextModel contextModel = profileProxy.retrieveContextModelQueueData();
                 logger.debug("ContextModel = " + contextModel.toString());
-                //TODO : 디비 연결후 contextModel 이름으로 Profile 조회 기능 구현 및 연결
                 List<Profile> profileList = profileStore.findByContextModelId(contextModel.getId());
                 for(Profile profile : profileList){
                     Session session = new DefaultSession();
@@ -233,6 +235,9 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
                     session.setCreateDate(currentTime);
                     session.setCalculateTime(System.currentTimeMillis());
                     session.insertSessionData(DefaultSession.CONTEXTMODEL_KEY, contextModel.getId());
+                    session.insertSessionData(
+                            DefaultSession.CONTEXTMODEL_NAME,
+                            contextModelPresentation.retrieveContextModelName(profile.getContextModelId()));
                     session.insertSessionData(DefaultSession.LOCATION_ID, DataConversion.listDataToString(contextModel.getDomainIdList()));
                     session.insertSessionData(DefaultSession.CONTEXTMODEL_RESULT, "Happen");
                     Priority priority = Priority.HIGH;

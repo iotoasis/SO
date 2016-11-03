@@ -127,9 +127,6 @@ public class ContextModelLogicImpl implements ContextModelLogic{
     public String useQueueSaveContextModel(ContextModel contextModel) {
         //
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
-        Session session = new DefaultSession();
-        session.insertSessionData(DefaultSession.CONTEXTMODEL_KEY, contextModel.getId());
-
         logger.debug("ContextModel = " + contextModel.toString());
         CONTEXT_MODEL_QUEUE.offer(contextModel);
 
