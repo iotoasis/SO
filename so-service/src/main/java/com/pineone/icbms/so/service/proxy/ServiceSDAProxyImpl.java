@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by melvin on 2016. 10. 13..
  */
@@ -34,7 +36,9 @@ public class ServiceSDAProxyImpl implements ServiceSDAProxy{
 
         String location = "";
         if(session.isExistSessionData(DefaultSession.LOCATION_ID)){
-            location =  session.getSessionData().get(DefaultSession.LOCATION_ID);
+            String responseLocation =  session.getSessionData().get(DefaultSession.LOCATION_ID);
+            List<String> locationList = DataConversion.stringDataToList(responseLocation);
+            location = locationList.get(0);
         } else {
             throw new BadRequestException();
         }
