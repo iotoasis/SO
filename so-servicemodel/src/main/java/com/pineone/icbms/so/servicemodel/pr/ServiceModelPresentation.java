@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Created by melvin on 2016. 8. 9..
  * NOTE : 서비스 모델에서 제공하는 기능이나 저작을 위한 기능 정의
  */
 
@@ -23,13 +22,24 @@ import java.util.List;
 @RequestMapping(value = "/servicemodel")
 public class ServiceModelPresentation {
 
+    /**
+     * ServiceModel 등록
+     * ServiceModel List 검색
+     * ServiceModel 상세 검색
+     * ServiceModel ID List 조회
+     * ServiceModel 실행
+     * Service Name List 조회
+     */
+
     public static final Logger logger = LoggerFactory.getLogger(ServiceModelPresentation.class);
 
     @Autowired
             ServiceModelLogic serviceModelLogic;
 //    ServiceModelLogic serviceModelLogic = ServiceModelLogicImpl.newServiceModelLogic();
 
-    //NOTE: ServiceModel 생성 요청 -> ServiceList 리턴
+    /**
+     * Service Name을 조회
+     */
     @RequestMapping(value = "/service")
     @ResponseStatus(value = HttpStatus.OK)
     public List<String> requestServiceModelMakingController(){
@@ -44,7 +54,9 @@ public class ServiceModelPresentation {
         return serviceNameList;
     }
 
-    //NOTE: ServiceModel 입력 정보 작성 후 등록 -> 등록 결과 리턴
+    /**
+     * ServiceModel 등록
+     */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseMessage registerServiceModelController(@RequestBody ServiceModelTransFormObject serviceModelTransFormObject){
@@ -75,8 +87,10 @@ public class ServiceModelPresentation {
     }
 
 
-    //NOTE: ServiceModel ID List 퍼블리싱 -  Profile 생성시 사용
-    @RequestMapping(value = "/service/{id}", method = RequestMethod.GET)
+    /**
+     * ServiceModel ID List 조회
+     */
+    @RequestMapping(value = "/ids", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<String> retrieveServiceModelIdList(){
         //
@@ -86,7 +100,9 @@ public class ServiceModelPresentation {
         return serviceModelList;
     }
 
-    //NOTE: ServiceModel List
+    /**
+     * ServiceModel List 조회
+     */
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<ServiceModel> retrieveServiceModelList(){
@@ -102,7 +118,9 @@ public class ServiceModelPresentation {
     }
 
 
-    //NOTE: DB 에서 ServiceModel 상세 조회
+    /**
+     * ServiceModel 상세 조회 By ID
+     */
     @RequestMapping(value = "/{serviceModelId}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public ServiceModel retrieveServiceModelDetailController(@PathVariable String serviceModelId){
@@ -121,13 +139,6 @@ public class ServiceModelPresentation {
         logger.info(LogPrint.inputInfoLogPrint() + "ServiceModel ID = " + serviceModelTransFormObject.getId() + " Session ID = " + serviceModelTransFormObject.getSessionId());
         logger.debug("ServiceModel Id = " + serviceModelTransFormObject.getId() + " Session ID = " + serviceModelTransFormObject.getSessionId());
         serviceModelLogic.executeServiceModel(serviceModelTransFormObject.getId(), serviceModelTransFormObject.getSessionId());
-    }
-
-    //NOTE: 저장되어 있는 Service 들의 ID 조회
-    public List<String> retrieveServiceIdList(){
-        //
-        List<String> serviceIdList = serviceModelLogic.retrieveServiceIdList();
-        return serviceIdList;
     }
 
     public ServiceModel dataObjectToServiceModel(ServiceModelTransFormObject serviceModelTransFormObject){

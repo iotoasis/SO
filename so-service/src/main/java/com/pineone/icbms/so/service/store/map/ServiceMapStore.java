@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by melvin on 2016. 8. 8..
  * NOTE: MAP 을 이용한 ContextInformation Create , Retrieve 기능 구현
  */
 

@@ -9,10 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-/**
- * Created by melvin on 2016. 8. 9..
- */
-
 @org.springframework.stereotype.Service
 public class ServiceModelInternalProxy implements ServiceModelProxy {
 

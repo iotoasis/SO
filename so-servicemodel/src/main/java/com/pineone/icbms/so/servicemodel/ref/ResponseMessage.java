@@ -2,9 +2,6 @@ package com.pineone.icbms.so.servicemodel.ref;
 
 import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
 
-/**
- * Created by melvin on 2016. 8. 9..
- */
 public class ResponseMessage {
 
     private String exceptionMessage;

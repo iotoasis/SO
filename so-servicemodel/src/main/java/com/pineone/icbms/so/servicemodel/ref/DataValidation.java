@@ -3,9 +3,6 @@ package com.pineone.icbms.so.servicemodel.ref;
 import com.pineone.icbms.so.servicemodel.entity.ServiceModel;
 import com.pineone.icbms.so.util.exception.DataLossException;
 
-/**
- * Created by melvin on 2016. 8. 9..
- */
 public class DataValidation {
 
     public static DataValidation newDataValidation(){

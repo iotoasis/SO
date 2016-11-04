@@ -1,12 +1,9 @@
 package com.pineone.icbms.so.servicemodel.ref;
 
-import com.pineone.icbms.so.domain.entity.Domain;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by melvin on 2016. 8. 16..
  * NOTE: ServiceModel 이름과 DomainList 를 포함한 객체. Queue 에 넣기위해 사용
  */
 public class ServiceMessage {

@@ -5,7 +5,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
 /**
- * Created by melvin on 2016. 8. 23..
  * NOTE: 내부 저장소 에서 사용할 ContextModel Data
  */
 

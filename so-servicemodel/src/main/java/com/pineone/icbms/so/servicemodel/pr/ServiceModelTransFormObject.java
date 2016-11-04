@@ -3,7 +3,6 @@ package com.pineone.icbms.so.servicemodel.pr;
 import java.util.List;
 
 /**
- * Created by melvin on 2016. 8. 23..
  * NOTE: 외부에 노출될 ServiceModel Data - Presentation, Controller 에서 사용
  */
 public class ServiceModelTransFormObject {

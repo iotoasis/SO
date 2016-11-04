@@ -17,10 +17,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-/**
- * Created by melvin on 2016. 8. 9..
- */
-
 @org.springframework.stereotype.Service
 public class ServiceModelLogicImpl implements ServiceModelLogic {
     //
@@ -115,6 +111,8 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
             sessionStore.updateSession(session);
             return;
         }
+
+        session.insertSessionData(DefaultSession.SERVICEMODEL_NAME,serviceModel.getName());
 
         //ServiceModel Filter
         // 서비스 발생 상황과 서비스 모델의 발생 상황이 다르면 무시 한다.
