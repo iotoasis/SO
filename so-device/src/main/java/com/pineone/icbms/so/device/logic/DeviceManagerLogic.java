@@ -72,6 +72,16 @@ public class DeviceManagerLogic implements DeviceManager {
             session = new DefaultSession();
         }
 
+        List<String> sessionDeviceIdList = null;
+        if(session.isExistSessionData(DefaultSession.DEVICE_KEY)){
+            sessionDeviceIdList = DataConversion.stringDataToList(session.findSessionData(DefaultSession.DEVICE_KEY));
+        }
+        if(sessionDeviceIdList == null){
+            sessionDeviceIdList = new ArrayList<>();
+        }
+        sessionDeviceIdList.add(deviceId);
+        session.insertSessionData(DefaultSession.DEVICE_KEY, DataConversion.listDataToString(sessionDeviceIdList));
+
         sessionStore.updateSession(session);
 
         String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
