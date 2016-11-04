@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by melvin on 2016. 8. 23..
  * NOTE: Mongo DB를 - ServiceModel 정보 연결
  */
 @Repository

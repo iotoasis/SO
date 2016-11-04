@@ -20,6 +20,7 @@ public class DefaultSession implements Session {
     public static final String LOCATION_ID                      =   "LOCATION_ID";
 
     public static final String SERVICEMODEL_KEY                 =   "SERVICEMODEL_KEY";
+    public static final String SERVICEMODEL_NAME                =   "SERVICEMODEL_NAME";
     public static final String SERVICEMODEL_RESULT              =   "SERVICEMODEL_RESULT";
     public static final String SERVICE_KEY                      =   "SERVICE_KEY";
     public static final String SERVICE_RESULT                   =   "SERVICE_RESULT";
@@ -28,6 +29,7 @@ public class DefaultSession implements Session {
     public static final String VIRTUALOBJECT_KEY                =   "VIRTUALOBJECT_KEY";
     public static final String VIRTUALOBJECT_RESULT             =   "VIRTUALOBJECT_RESULT";
     public static final String DEVICE_KEY                       =   "DEVICE_KEY";
+    public static final String DEVICE_LOCATION                  =   "DEVICE_LOCATION";
     public static final String DEVICE_RESULT                    =   "DEVICE_RESULT";
 
     /**

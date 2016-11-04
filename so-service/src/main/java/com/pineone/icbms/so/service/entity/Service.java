@@ -2,9 +2,6 @@ package com.pineone.icbms.so.service.entity;
 
 import java.util.List;
 
-/**
- * Created by melvin on 2016. 8. 5..
- */
 public class Service {
 
     public Service(){};

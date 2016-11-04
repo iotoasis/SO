@@ -4,7 +4,6 @@ package com.pineone.icbms.so.servicemodel.entity;
 import java.util.List;
 
 /**
- * Created by melvin on 2016. 8. 9..
  * NOTE: 복수의 서비스를 포함하고 있는 서비스 모델 객체
  */
 public class ServiceModel {

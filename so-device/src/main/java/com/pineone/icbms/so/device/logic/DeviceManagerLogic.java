@@ -72,15 +72,6 @@ public class DeviceManagerLogic implements DeviceManager {
             session = new DefaultSession();
         }
 
-        List<String> sessionDeviceIdList = null;
-        if(session.isExistSessionData(DefaultSession.DEVICE_KEY)){
-            sessionDeviceIdList = DataConversion.stringDataToList(session.findSessionData(DefaultSession.DEVICE_KEY));
-        }
-        if(sessionDeviceIdList == null){
-            sessionDeviceIdList = new ArrayList<>();
-        }
-        sessionDeviceIdList.add(deviceId);
-        session.insertSessionData(DefaultSession.DEVICE_KEY, DataConversion.listDataToString(sessionDeviceIdList));
         sessionStore.updateSession(session);
 
         String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
@@ -92,6 +83,7 @@ public class DeviceManagerLogic implements DeviceManager {
             logger.debug("The device does not exist.");
             return "The device does not exist.";
         } else if(device != null && device.getDeviceServices() != null && DEVICE_SERVICE_NOTI_TYPE.equals(device.getDeviceServices())){
+            sessionDataUpdate(sessionStore, session, device.getDeviceLocation(),DefaultSession.DEVICE_LOCATION);
             session.insertSessionData(DefaultSession.DEVICE_RESULT, DefaultSession.CONTROL_EXECUTION + "_" + DEVICE_SERVICE_NOTI_TYPE);
             // DB에 Session을 저장.
             sessionStore.updateSession(session);
@@ -103,6 +95,7 @@ public class DeviceManagerLogic implements DeviceManager {
         logger.debug("DeviceControlMessage = " + deviceControlMessage.toString());
 
         session = sessionStore.retrieveSessionDetail(sessionId);
+        sessionDataUpdate(sessionStore, session, device.getDeviceLocation(),DefaultSession.DEVICE_LOCATION);
         session.insertSessionData(DefaultSession.DEVICE_RESULT, DefaultSession.CONTROL_EXECUTION);
         sessionStore.updateSession(session);
         // Device 제어 요청 보냄.
@@ -223,6 +216,19 @@ public class DeviceManagerLogic implements DeviceManager {
 
     private void deviceCreate(Device device){
         deviceStore.create(device);
+    }
+
+    private void sessionDataUpdate(SessionStore sessionStore, Session session, String data, String key){
+        List<String> sessionDeviceLocationList = null;
+        if(session.isExistSessionData(key)){
+            sessionDeviceLocationList = DataConversion.stringDataToList(session.findSessionData(key));
+        }
+        if(sessionDeviceLocationList == null){
+            sessionDeviceLocationList = new ArrayList<>();
+        }
+        sessionDeviceLocationList.add(data);
+        session.insertSessionData(key, DataConversion.listDataToString(sessionDeviceLocationList));
+        sessionStore.updateSession(session);
     }
 
 }

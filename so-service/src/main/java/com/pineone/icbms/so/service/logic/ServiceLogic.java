@@ -8,9 +8,6 @@ import com.pineone.icbms.so.service.ref.Status;
 
 import java.util.List;
 
-/**
- * Created by melvin on 2016. 8. 5..
- */
 public interface ServiceLogic {
     List<DeviceObject> retrieveDeviceObjectList();
     List<ConceptService> retrieveConceptService(DeviceObject deviceObject);

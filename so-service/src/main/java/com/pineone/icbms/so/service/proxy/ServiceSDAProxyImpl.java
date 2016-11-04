@@ -14,9 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by melvin on 2016. 10. 13..
- */
 @Service
 public class ServiceSDAProxyImpl implements ServiceSDAProxy{
 

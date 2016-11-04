@@ -4,9 +4,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-/**
- * Created by melvin on 2016. 8. 22..
- */
 
 @Document(collection = "service")
 public class ServiceDataObject {

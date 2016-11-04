@@ -3,9 +3,6 @@ package com.pineone.icbms.so.service.pr;
 
 import java.util.List;
 
-/**
- * Created by melvin on 2016. 8. 22..
- */
 public class ServiceTransFormObject {
 
     public ServiceTransFormObject(){};
