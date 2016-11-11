@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Created by melvin on 2016. 8. 5..
  * NOTE: Service 관련 Interface 제공
  */
 
@@ -24,11 +23,18 @@ import java.util.List;
 @ResponseStatus(value = HttpStatus.OK)
 public class ServicePresentation {
 
+    /**
+     * Service 등록
+     * Service List 조회
+     * Service 상세 조회
+     * Service 실행
+     */
+
     public static final Logger logger = LoggerFactory.getLogger(ServicePresentation.class);
 
     @Autowired
     ServiceLogic serviceLogic;
-//    ServiceLogic serviceLogic = ServiceLogicImpl.newServiceLogicImpl();
+
 
     //NOTE: Service 생성 요청  -> ServiceLogic 에서 사용할 가상객체 (VO - CVO) DeviceObject 리스트 리턴
     @RequestMapping(value = "/controlservice", method = RequestMethod.GET)
@@ -61,7 +67,9 @@ public class ServicePresentation {
         return statusList;
     }
 
-    //NOTE: Service 의 입력 정보 작성 후 등록 -> 등록 결과 리턴
+    /**
+     * Service 등록
+     */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseMessage registerServiceController(@RequestBody ServiceTransFormObject serviceTransFormObject){
@@ -82,7 +90,9 @@ public class ServicePresentation {
         return responseMessage;
     }
 
-    //NOTE: Service 상세 정보 조회 -> 상세정보 리턴
+    /**
+     * Service 상세 조회
+     */
     @RequestMapping(value = "/{serviceId}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public Service retrieveServiceDetailController(@PathVariable String serviceId){
@@ -93,7 +103,9 @@ public class ServicePresentation {
         return service;
     }
 
-    //NOTE : Service 실행
+    /**
+     * Service 실행
+     */
     @RequestMapping(value = "/control", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public void executeService(@RequestBody ServiceTransFormObject serviceTransFormObject){
@@ -103,7 +115,9 @@ public class ServicePresentation {
         serviceLogic.executeService(serviceTransFormObject.getId(), serviceTransFormObject.getSessionId());
     }
 
-    //NOTE : Service List 조회
+    /**
+     * Service List 조회
+     */
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<Service> retrieveServiceList(){

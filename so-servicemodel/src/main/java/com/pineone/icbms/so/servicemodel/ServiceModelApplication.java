@@ -9,9 +9,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-/**
- * Created by existmater on 2016. 8. 9..
- */
 @Configuration
 @ComponentScan
 @Import({ UtilApplication.class, DomainApplication.class, ServiceApplication.class})

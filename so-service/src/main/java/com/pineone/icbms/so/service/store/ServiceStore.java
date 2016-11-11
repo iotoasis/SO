@@ -4,9 +4,6 @@ import com.pineone.icbms.so.service.entity.Service;
 
 import java.util.List;
 
-/**
- * Created by melvin on 2016. 8. 8..
- */
 public interface ServiceStore {
     //
     void createService(Service service);

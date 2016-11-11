@@ -28,7 +28,6 @@ import java.util.List;
 
 
 /**
- * Created by melvin on 2016. 8. 5..
  * NOTE : ServiceLogic 에 연관된 로직 및 서비스들을 수행하기 위한 객체
  */
 

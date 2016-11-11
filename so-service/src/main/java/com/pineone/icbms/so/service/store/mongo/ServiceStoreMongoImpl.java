@@ -10,9 +10,6 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by melvin on 2016. 8. 22..
- */
 @Repository
 public class ServiceStoreMongoImpl implements ServiceStore {
 
