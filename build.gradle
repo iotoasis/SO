@@ -42,7 +42,7 @@ subprojects {
     apply plugin: 'spring-boot'
     apply plugin: 'io.spring.dependency-management'
 
-    version = '2.0.0-SNAPSHOT'
+//    version = '2.0.0-SNAPSHOT'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
