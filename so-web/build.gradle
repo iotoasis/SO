@@ -1,9 +1,10 @@
 group 'com.pineone.icbms.so'
 
+apply plugin: 'war'
 apply plugin: 'java'
 apply plugin: 'spring-boot'
 
-jar {
+war {
     baseName = 'service-orchestration'
     version = '2.0.0-SANPSHOT'
 }
