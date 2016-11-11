@@ -5,8 +5,8 @@ apply plugin: 'java'
 apply plugin: 'spring-boot'
 
 war {
-    baseName = 'service-orchestration'
-    version = '2.0.0-SANPSHOT'
+    baseName = 'so'
+//    version = '2.0.0-SANPSHOT'
 }
 
 dependencies {
