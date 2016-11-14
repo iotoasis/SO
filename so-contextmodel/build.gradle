@@ -42,7 +42,7 @@ dependencies {
 
 
     //test
-    Compile "org.mock-server:mockserver-netty:3.10.1"
+    compile "org.mock-server:mockserver-netty:3.10.1"
 
 
 
