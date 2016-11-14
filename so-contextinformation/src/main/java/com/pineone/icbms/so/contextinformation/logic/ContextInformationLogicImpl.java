@@ -28,7 +28,7 @@ public class ContextInformationLogicImpl implements ContextInformationLogic {
 
     @Autowired DeviceCenter deviceCenter;
 
-    @Autowired ContextInformationLogic contextInformationLogic;
+//    @Autowired ContextInformationLogic contextInformationLogic;
 
     @Autowired ContextInformationStore contextInformationStore;
 
