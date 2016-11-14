@@ -57,6 +57,6 @@ subprojects {
         compile("org.springframework.boot:spring-boot-starter-web:${SPRING_BOOT_VERSION}")
         compile("org.springframework.boot:spring-boot-starter-data-mongodb:${SPRING_BOOT_VERSION}")
         compile("org.springframework.boot:spring-boot-starter-actuator:${SPRING_BOOT_VERSION}")
-        Compile("org.springframework.boot:spring-boot-starter-test")
+        compile("org.springframework.boot:spring-boot-starter-test")
     }
 }
