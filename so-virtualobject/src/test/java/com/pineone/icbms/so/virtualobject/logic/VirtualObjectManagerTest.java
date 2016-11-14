@@ -1,5 +1,5 @@
-package com.pineone.icbms.so.virtualobject.logic;
-
-public class VirtualObjectManagerTest {
-
-}
+//package com.pineone.icbms.so.virtualobject.logic;
+//
+//public class VirtualObjectManagerTest {
+//
+//}

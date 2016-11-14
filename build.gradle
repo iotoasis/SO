@@ -52,6 +52,10 @@ subprojects {
         jcenter()
     }
 
+    bootRepackage {
+        bootRepackage.enabled = false
+    }
+
     dependencies {
         compile "com.withwiz:httpclientservice:0.1.1"
         compile("org.springframework.boot:spring-boot-starter-web:${SPRING_BOOT_VERSION}")

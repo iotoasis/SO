@@ -28,6 +28,10 @@ dependencies {
     compile "com.googlecode.json-simple:json-simple:$jsonVersion"
 
 
+    bootRepackage {
+        bootRepackage.enabled = false
+    }
+
     //spring
     compile "org.springframework:spring-context:$springVersion"
     compile "org.springframework:spring-context-support:$springVersion"

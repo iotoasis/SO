@@ -10,18 +10,24 @@ repositories {
 }
 
 dependencies {
-
     def springVersion = "4.0.5.RELEASE"
     def jacksonVersion = "1.9.13"
     def jsonVersion = "1.1.1"
 
-    compile group: 'junit', name: 'junit', version: '4.12'
-
-    compile project (":so-util")
     compile project (":so-contextinformation")
+    compile project (":so-util")
     compile project (":so-domain")
-    
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    //Http client service
     compile "com.withwiz:httpclientservice:0.1.1"
+
+    //json
+    compile "org.codehaus.jackson:jackson-mapper-asl:$jacksonVersion"
+    compile "org.codehaus.jackson:jackson-core-asl:$jacksonVersion"
+    compile "com.googlecode.json-simple:json-simple:$jsonVersion"
+
 
     //spring
     compile "org.springframework:spring-context:$springVersion"
@@ -33,17 +39,13 @@ dependencies {
     compile "org.springframework:spring-core:$springVersion"
     compile "org.springframework:spring-jdbc:$springVersion"
     compile "org.springframework:spring-tx:$springVersion"
-
-    //json
-    compile "org.codehaus.jackson:jackson-mapper-asl:$jacksonVersion"
-    compile "org.codehaus.jackson:jackson-core-asl:$jacksonVersion"
-    compile "com.googlecode.json-simple:json-simple:$jsonVersion"
-    compile "com.google.code.gson:gson:2.6.2"
+    compile "org.springframework:spring-test:$springVersion"
 
 
-    //test
-    compile "org.mock-server:mockserver-netty:3.10.1"
+    // https://mvnrepository.com/artifact/com.google.code.svenson/svenson
+    compile group: 'com.google.code.svenson', name: 'svenson', version: '1.5.4'
 
-
+    // https://mvnrepository.com/artifact/org.mockito/mockito-all
+    compile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
 
 }
