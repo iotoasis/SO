@@ -15,7 +15,7 @@ dependencies {
     def jacksonVersion = "1.9.13"
     def jsonVersion = "1.1.1"
 
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'junit', name: 'junit', version: '4.12'
 
     compile project (":so-util")
 
@@ -40,7 +40,7 @@ dependencies {
 
 
     //test
-    testCompile "org.mock-server:mockserver-netty:3.10.1"
+    compile "org.mock-server:mockserver-netty:3.10.1"
 
 
 
