@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,8 +21,9 @@ import java.util.List;
 /**
  * Created by melvin on 2016. 8. 1..
  */
-@Controller
+@RestController
 @RequestMapping(value = "/cm")
+@ResponseStatus(value = HttpStatus.OK)
 public class ContextModelPresentation {
     //
     @Autowired ContextModelLogic contextModelLogic;
@@ -34,8 +34,6 @@ public class ContextModelPresentation {
 
     //NOTE: ContextModel 생성 요청 -> ContextInformation 리스트 리턴
     @RequestMapping(value = "/ci", method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
     public List<String> requestContextModelMakingController(){
         //
         logger.info(LogPrint.inputInfoLogPrint());
@@ -45,8 +43,6 @@ public class ContextModelPresentation {
 
     //NOTE : ContextType 조회
     @RequestMapping(value = "/type", method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
     public List<ContextType> retrieveContextTypeListController(){
         //
         logger.info(LogPrint.inputInfoLogPrint());
@@ -56,8 +52,6 @@ public class ContextModelPresentation {
 
     //NOTE: ContextModel 입력 정보 작성 후 등록 -> 등록 결과 리턴
     @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
     public ResponseMessage registerGeneralContextController(@RequestBody ContextModel contextModel){
         //
         logger.info(LogPrint.inputInfoLogPrint() + ", ContextModelId = " + contextModel.getId());
@@ -77,8 +71,6 @@ public class ContextModelPresentation {
 
     //NOTE: ContextModel List 퍼블리싱 -  Profile 생성시 사용
     @RequestMapping(value = "/name", method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
     public List<String> retrieveContextModelList(){
         //
         logger.info(LogPrint.inputInfoLogPrint());
@@ -88,8 +80,6 @@ public class ContextModelPresentation {
 
     //NOTE: ContextModel 싱세 조회
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
     public ContextModel retrieveContextModelDetailController(@PathVariable("id")String contextModelId){
         //
         logger.info(LogPrint.inputInfoLogPrint() + ", ContextModelId = " +  contextModelId);
@@ -117,8 +107,6 @@ public class ContextModelPresentation {
 
     //NOTE: SDA 에서 사용할 Emergency ContextModel 을 수신 받기 위한 인터페이스 제공
     @RequestMapping(value = "/occ", method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
     public ResponseMessage emergencyContextModel(@RequestBody ContextModelTransFormObject contextModelTransFormObject){
 
         logger.info(LogPrint.inputInfoLogPrint() + ", ContextModelId = " + contextModelTransFormObject.getContextId());
@@ -148,8 +136,6 @@ public class ContextModelPresentation {
 
     //NOTE : DomainList 조회
     @RequestMapping(value = "/domain" , method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
     public List<Domain> retrieveDomain(){
         logger.info(LogPrint.inputInfoLogPrint());
         List<Domain> domainList = contextModelLogic.retrieveDomainList();
@@ -158,8 +144,6 @@ public class ContextModelPresentation {
 
     //NOTE: ContextModelId List 퍼블리싱 -  Profile 생성시 사용
     @RequestMapping(value = "/id", method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
     public List<String> retrieveContextModelIdList(){
         //
         logger.info(LogPrint.inputInfoLogPrint());
@@ -184,8 +168,6 @@ public class ContextModelPresentation {
 
     //NOTE: ContextModelList 조회
     @RequestMapping(method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
     public List<ContextModel> retrieveContextInformationList() {
         //
         logger.info(LogPrint.inputInfoLogPrint());
