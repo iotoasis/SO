@@ -1,11 +1,10 @@
 package com.pineone.icbms.so.contextmodel;
 
 
-
+import com.pineone.icbms.so.contextinformation.ContextInformationApplication;
 import com.pineone.icbms.so.domain.DomainApplication;
 import com.pineone.icbms.so.util.UtilApplication;
 import org.springframework.boot.SpringApplication;
-import com.pineone.icbms.so.contextinformation.ContextInformationApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +16,7 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
-@Import({UtilApplication.class,ContextInformationApplication.class,DomainApplication.class})
+@Import({UtilApplication.class, DomainApplication.class, ContextInformationApplication.class})
 public class ContextModelApplication
 {
     public static void main( String[] args )
