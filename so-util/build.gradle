@@ -29,4 +29,16 @@ dependencies {
     //test
     testCompile "org.mock-server:mockserver-netty:3.10.1"
 
+    //spring
+    compile "org.springframework:spring-context:$springVersion"
+    compile "org.springframework:spring-context-support:$springVersion"
+    compile "org.springframework:spring-web:$springVersion"
+    compile "org.springframework:spring-webmvc:$springVersion"
+    compile "org.springframework:spring-aop:$springVersion"
+    compile "org.springframework:spring-beans:$springVersion"
+    compile "org.springframework:spring-core:$springVersion"
+    compile "org.springframework:spring-jdbc:$springVersion"
+    compile "org.springframework:spring-tx:$springVersion"
+    compile "org.springframework:spring-test:$springVersion"
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb:1.4.0.RELEASE")
 }

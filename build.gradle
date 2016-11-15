@@ -64,3 +64,60 @@ subprojects {
         compile("org.springframework.boot:spring-boot-starter-test")
     }
 }
+
+
+//group 'com.pineone.icbms.so'
+//
+//apply plugin: 'war'
+//apply plugin: 'java'
+//apply plugin: 'spring-boot'
+//apply plugin: 'idea'
+//apply plugin: 'io.spring.dependency-management'
+//
+//war {
+//    baseName = 'so'
+////    version = '2.0.0-SANPSHOT'
+//}
+//
+///*
+//    Main build file create by existmaster.
+// */
+//buildscript {
+//    ext {
+//        //springBootVersion = '1.4.0.RELEASE'
+//    }
+//    repositories {
+//        mavenCentral()
+//        //jcenter()
+//    }
+//    dependencies {
+//        classpath("org.springframework.boot:spring-boot-gradle-plugin:${SPRING_BOOT_VERSION}")
+//        classpath("io.spring.gradle:dependency-management-plugin:0.5.7.RELEASE")
+//    }
+//}
+//
+//dependencies {
+//    compile project (":so-bizcontext")
+//    compile project (":so-service")
+//    compile project (":so-contextinformation")
+//    compile project (":so-contextmodel")
+//    compile project (":so-device")
+//
+//    compile project (":so-util")
+//    compile project (":so-servicemodel")
+//    compile project (":so-domain")
+//    compile project (":so-profile")
+//    compile project (":so-virtualobject")
+//    compile project (":so-scheduler")
+//    compile project (":so-compositevirtualobject")
+//    compile project (":so-creator")
+//
+//    //providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+//
+//    testCompile group: 'junit', name: 'junit', version: '4.11'
+//    compile "com.withwiz:httpclientservice:0.1.1"
+//    compile("org.springframework.boot:spring-boot-starter-web:${SPRING_BOOT_VERSION}")
+//    compile("org.springframework.boot:spring-boot-starter-data-mongodb:1.4.0.RELEASE")
+//    compile("org.springframework.boot:spring-boot-starter-actuator:${SPRING_BOOT_VERSION}")
+//    compile("org.springframework.boot:spring-boot-starter-test")
+//}

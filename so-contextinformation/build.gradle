@@ -38,9 +38,9 @@ dependencies {
     compile "org.springframework:spring-tx:$springVersion"
 
 
-    bootRepackage {
-        bootRepackage.enabled = false
-    }
+//    bootRepackage {
+//        bootRepackage.enabled = false
+//    }
 
     //test
     compile "org.mock-server:mockserver-netty:3.10.1"
