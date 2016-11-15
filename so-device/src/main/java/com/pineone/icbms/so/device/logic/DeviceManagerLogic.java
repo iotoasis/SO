@@ -159,8 +159,7 @@ public class DeviceManagerLogic implements DeviceManager {
     public String searchOperation(String deviceId, String deviceService) {
         //SDA에 DeviceId와 deviceService를 보낸다.
         logger.debug("Device ID = " + deviceId + " DeviceService = " + deviceService);
-        String responseData = deviceICollectionProxy.findDeviceOperation(deviceId,deviceService);
-        return responseData;
+        return deviceICollectionProxy.findDeviceOperation(deviceId,deviceService);
     }
 
     @Override
@@ -205,8 +204,7 @@ public class DeviceManagerLogic implements DeviceManager {
 
     private Device deviceRequest(String uri){
         //
-        Device device = deviceICollectionProxy.findDeviceByID(uri);
-        return device;
+        return deviceICollectionProxy.findDeviceByID(uri);
     }
 
     private void controlResultsStorage(String deviceId, String commandId, String deviceCommand, ResultMessage resultMessage){
