@@ -61,10 +61,10 @@ subprojects {
         bootRepackage.enabled = false
     }
 
-    jar {
-    baseName = 'service-orchestration'
-    version = '2.0.0-SANPSHOT'
-    }
+//    jar {
+//    baseName = 'service-orchestration'
+//    version = '2.0.0-SANPSHOT'
+//    }
 
     dependencies {
 
