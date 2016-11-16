@@ -1,5 +1,5 @@
 group 'com.pineone.icbms.so'
-version '1.0.0-SNAPSHOT'
+//version '1.0.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'maven'
@@ -33,16 +33,16 @@ dependencies {
 
     compile "com.withwiz:httpclientservice:0.1.1"
 
-//    //spring
-//    compile "org.springframework:spring-context:$springVersion"
-//    compile "org.springframework:spring-context-support:$springVersion"
-//    compile "org.springframework:spring-web:$springVersion"
-//    compile "org.springframework:spring-webmvc:$springVersion"
-//    compile "org.springframework:spring-aop:$springVersion"
-//    compile "org.springframework:spring-beans:$springVersion"
-//    compile "org.springframework:spring-core:$springVersion"
-//    compile "org.springframework:spring-jdbc:$springVersion"
-//    compile "org.springframework:spring-tx:$springVersion"
+    //spring
+    compile "org.springframework:spring-context:$springVersion"
+    compile "org.springframework:spring-context-support:$springVersion"
+    compile "org.springframework:spring-web:$springVersion"
+    compile "org.springframework:spring-webmvc:$springVersion"
+    compile "org.springframework:spring-aop:$springVersion"
+    compile "org.springframework:spring-beans:$springVersion"
+    compile "org.springframework:spring-core:$springVersion"
+    compile "org.springframework:spring-jdbc:$springVersion"
+    compile "org.springframework:spring-tx:$springVersion"
 
     //json
     compile "org.codehaus.jackson:jackson-mapper-asl:$jacksonVersion"
