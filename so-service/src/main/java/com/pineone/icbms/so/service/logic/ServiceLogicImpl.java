@@ -68,7 +68,6 @@ public class ServiceLogicImpl implements ServiceLogic{
     @Override
     public List<ConceptService> retrieveConceptService(DeviceObject deviceObject) {
         // serviceProxy에서 VO로 DeviceConceptService 조회 하기
-//        return deviceCenter.retrieveConceptServiceList(deviceObject);
         return null;
     }
 
@@ -100,7 +99,6 @@ public class ServiceLogicImpl implements ServiceLogic{
 
     @Override
     public Service retrieveServiceDetail(String serviceId) {
-//        ServiceStore serviceStore = ServiceMapStore.getInstance();
         logger.debug("Service ID = " + serviceId);
         Service service = serviceStore.retrieveServiceDetail(serviceId);
         return service;
@@ -108,7 +106,6 @@ public class ServiceLogicImpl implements ServiceLogic{
 
     @Override
     public List<String> retrieveServiceNameList() {
-//        ServiceStore serviceStore = ServiceMapStore.getInstance();
         List<String> serviceNameList = new ArrayList<>();
         List<Service> serviceList = serviceStore.retrieveServiceList();
         for(Service service : serviceList){
