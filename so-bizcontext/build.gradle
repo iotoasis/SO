@@ -46,3 +46,8 @@ dependencies {
 
 
 }
+
+//jar {
+//    baseName = 'so-bizcontext'
+//    version = '2.0.0-SANPSHOT'
+//}

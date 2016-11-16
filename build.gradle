@@ -7,13 +7,18 @@ buildscript {
     }
     repositories {
         mavenCentral()
-        //jcenter()
+        jcenter()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${SPRING_BOOT_VERSION}")
         classpath("io.spring.gradle:dependency-management-plugin:0.5.7.RELEASE")
     }
 }
+
+//war {
+//    baseName = 'so'
+//    version = '2.0.0-SANPSHOT'
+//}
 
 //apply plugin: 'java'
 //apply plugin: 'idea'
@@ -52,11 +57,26 @@ subprojects {
         jcenter()
     }
 
-    bootRepackage {
-        bootRepackage.enabled = false
-    }
+//    bootRepackage {
+//        bootRepackage.enabled = false
+//    }
 
     dependencies {
+
+//        compile project (":so-bizcontext")
+//        compile project (":so-compositevirtualobject")
+//        compile project (":so-contextinformation")
+//        compile project (":so-contextmodel")
+//        compile project (":so-device")
+//        compile project (":so-service")
+//        compile project (":so-util")
+//        compile project (":so-servicemodel")
+//        compile project (":so-domain")
+//        compile project (":so-profile")
+//        compile project (":so-virtualobject")
+//        compile project (":so-scheduler")
+//        compile project (":so-creator")
+
         compile "com.withwiz:httpclientservice:0.1.1"
         compile("org.springframework.boot:spring-boot-starter-web:${SPRING_BOOT_VERSION}")
         compile("org.springframework.boot:spring-boot-starter-data-mongodb:${SPRING_BOOT_VERSION}")
