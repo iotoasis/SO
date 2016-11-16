@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,10 +20,9 @@ import java.util.List;
  * Created by melvin on 2016. 7. 29..
  *  * NOTE: ContextInformation 저작 관련 User Interface 제공
  */
-@Controller
+@RestController
 @RequestMapping(value = "/ci")
 @ResponseStatus(value = HttpStatus.OK)
-@ResponseBody
 public class ContextInformationPresentation {
 
     public static final Logger logger = LoggerFactory.getLogger(ContextInformationPresentation.class);
@@ -36,8 +34,6 @@ public class ContextInformationPresentation {
 
     //NOTE: ContextInformation 생성 요청  -> ContextInformationLogic 에 사용할 가상객체 (VO - CVO) DeviceObject 리스트 리턴
     @RequestMapping(value = "/deviceobject", method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
     public List<DeviceObject> requestContextInformationMaking() {
         //
         logger.info(LogPrint.inputInfoLogPrint());
@@ -47,8 +43,6 @@ public class ContextInformationPresentation {
 
     //NOTE: ContextInformation 의 가상객체에서 사용할 ConceptService 목록 요청
     @RequestMapping(value = "/conceptservice/{deviceobject}", method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
     public List<ConceptService> retrieveConceptServiceController(@PathVariable("deviceobject") DeviceObject deviceObject) {
         //
         logger.info(LogPrint.inputInfoLogPrint());
@@ -58,8 +52,6 @@ public class ContextInformationPresentation {
 
     //NOTE: ContextInformation 의 입력 정보 작성 후 등록 -> 등록 결과 리턴
     @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
     public ResponseMessage registerContextInformationController(@RequestBody ContextInformation contextInformation) {
         //
         logger.info(LogPrint.inputInfoLogPrint());
@@ -79,8 +71,6 @@ public class ContextInformationPresentation {
 
     // NOTE: ContextInformation Component 의 DB에 접근해서 CI Name 리스트 조회
     @RequestMapping(value = "/name", method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
     public List<String> retrieveContextInformationNameList() {
         //
         logger.info(LogPrint.inputInfoLogPrint());
@@ -90,8 +80,6 @@ public class ContextInformationPresentation {
 
     //NOTE: ContextInformation 상세 정보 조회 -> 상세정보 리턴
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
     public ContextInformation retrieveGeneralContextController(@PathVariable("id") String contextId) {
         //
         logger.info(LogPrint.inputInfoLogPrint());
@@ -101,8 +89,6 @@ public class ContextInformationPresentation {
 
     //NOTE: ContextInformationList 조회
     @RequestMapping(method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
     public List<ContextInformation> retrieveContextInformationList() {
         //
         logger.info(LogPrint.inputInfoLogPrint());
@@ -112,8 +98,6 @@ public class ContextInformationPresentation {
 
     // NOTE: ContextInformation Component 의 DB에 접근해서 CI Id 리스트 조회
     @RequestMapping(value = "/id", method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
     public List<String> retrieveContextInformationIdList() {
         //
         logger.info(LogPrint.inputInfoLogPrint());

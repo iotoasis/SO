@@ -92,7 +92,7 @@ public class DeviceManagerLogic implements DeviceManager {
             sessionStore.updateSession(session);
             logger.debug("The device does not exist.");
             return "The device does not exist.";
-        } else if(device != null && device.getDeviceServices() != null && DEVICE_SERVICE_NOTI_TYPE.equals(device.getDeviceServices())){
+        } else if(device.getDeviceServices() != null && DEVICE_SERVICE_NOTI_TYPE.equals(device.getDeviceServices().get(0))){
             sessionDataUpdate(sessionStore, session, device.getDeviceLocation(),DefaultSession.DEVICE_LOCATION);
             session.insertSessionData(DefaultSession.DEVICE_RESULT, DefaultSession.CONTROL_EXECUTION + "_" + DEVICE_SERVICE_NOTI_TYPE);
             // DB에 Session을 저장.
@@ -159,8 +159,7 @@ public class DeviceManagerLogic implements DeviceManager {
     public String searchOperation(String deviceId, String deviceService) {
         //SDA에 DeviceId와 deviceService를 보낸다.
         logger.debug("Device ID = " + deviceId + " DeviceService = " + deviceService);
-        String responseData = deviceICollectionProxy.findDeviceOperation(deviceId,deviceService);
-        return responseData;
+        return deviceICollectionProxy.findDeviceOperation(deviceId,deviceService);
     }
 
     @Override
@@ -205,8 +204,7 @@ public class DeviceManagerLogic implements DeviceManager {
 
     private Device deviceRequest(String uri){
         //
-        Device device = deviceICollectionProxy.findDeviceByID(uri);
-        return device;
+        return deviceICollectionProxy.findDeviceByID(uri);
     }
 
     private void controlResultsStorage(String deviceId, String commandId, String deviceCommand, ResultMessage resultMessage){
