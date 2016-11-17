@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Import;
  * Created by existmater on 2016. 8. 9..
  */
 @Configuration
-@ComponentScan
+@ComponentScan("com.pineone.icbms.so")
 @Import(UtilApplication.class)
 @EnableAutoConfiguration
 public class BizContextApplication
@@ -20,4 +20,5 @@ public class BizContextApplication
     {
         SpringApplication.run(BizContextApplication.class, args);
     }
+
 }
