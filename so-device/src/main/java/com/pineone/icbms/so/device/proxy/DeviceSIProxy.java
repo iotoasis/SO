@@ -46,23 +46,44 @@ public class DeviceSIProxy implements DeviceControlProxy {
         } catch (IOException e) {
             e.printStackTrace();
             resultMessage.setCode(ClientProfile.RESPONSE_FIALURE_CODE);
-        } finally {
-            return resultMessage;
         }
-
+        return resultMessage;
     }
 
     @Override
-    public String deviceSubscriptionRequest(String requestUri, DeviceSubscriptionData deviceSubscriptionData) {
+    public String deviceSubscriptionRequest(String deviceUri) {
         //
-        logger.info(LogPrint.outputInfoLogPrint() + "RequestUri = " + requestUri + "DeviceSubscriptionData = " + deviceSubscriptionData.toString());
-        logger.debug("RequestUri = " + requestUri + "DeviceSubscriptionData = " + deviceSubscriptionData.toString());
+        logger.info(LogPrint.outputInfoLogPrint() + "DeviceUri = " + deviceUri);
+        logger.debug("DeviceUri = " + deviceUri);
+
+        DeviceSubscriptionData deviceSubscriptionData = new DeviceSubscriptionData();
+        deviceSubscriptionData.set_notificationUri(ClientProfile.SO_DEVICE_STATUS_URI);
+        deviceSubscriptionData.set_uri(deviceUri);
 
         String requestBody = new Gson().toJson(deviceSubscriptionData);
         // DeviceLogic에 생성되거나 제어되면 서브스크립트 걸어야 겠군.
         // 현제 정책이 안되어 있어서. 등록되면 걸지.. 제어시 걸지는 고려 필요.
 
-        String responseData = clientService.requestPostServiceReceiveString(requestUri, requestBody);
+        String responseData = clientService.requestPostServiceReceiveString(ClientProfile.SI_SUBSCRIPTION_URI, requestBody);
+        logger.debug("ResponseData = " + responseData);
+
+        return responseData;
+    }
+
+    @Override
+    public String deviceSubscriptionReleaseRequest(String deviceUri) {
+        //
+        logger.info(LogPrint.outputInfoLogPrint() + "DeviceUri = " + deviceUri);
+        logger.debug("DeviceUri = " + deviceUri);
+
+        DeviceSubscriptionData deviceSubscriptionData = new DeviceSubscriptionData();
+        deviceSubscriptionData.set_uri(deviceUri);
+
+        String requestBody = new Gson().toJson(deviceSubscriptionData);
+        // DeviceLogic에 생성되거나 제어되면 서브스크립트 걸어야 겠군.
+        // 현제 정책이 안되어 있어서. 등록되면 걸지.. 제어시 걸지는 고려 필요.
+
+        String responseData = clientService.requestPostServiceReceiveString(ClientProfile.SI_SUBSCRIPTION_RELEASE_URI, requestBody);
         logger.debug("ResponseData = " + responseData);
 
         return responseData;

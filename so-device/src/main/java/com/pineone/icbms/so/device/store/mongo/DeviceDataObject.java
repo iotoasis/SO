@@ -13,14 +13,14 @@ public class DeviceDataObject {
     private String          deviceUri;
     private List<String> deviceCommand;
     private List<String>    deviceServices;
-    private String          deviceCreateTime;
-    private String          deviceExfiredTime;
+    private long            deviceCreateTime;
+    private long            deviceExfiredTime;
     private String          status;
 
     public DeviceDataObject() {
     }
 
-    public DeviceDataObject(String deviceId, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, String deviceCreateTime, String deviceExfiredTime, String status) {
+    public DeviceDataObject(String deviceId, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, long deviceCreateTime, long deviceExfiredTime, String status) {
         this.deviceId = deviceId;
         this.deviceName = deviceName;
         this.deviceLocation = deviceLocation;
@@ -56,11 +56,11 @@ public class DeviceDataObject {
         return deviceServices;
     }
 
-    public String getDeviceCreateTime() {
+    public long getDeviceCreateTime() {
         return deviceCreateTime;
     }
 
-    public String getDeviceExfiredTime() {
+    public long getDeviceExfiredTime() {
         return deviceExfiredTime;
     }
 

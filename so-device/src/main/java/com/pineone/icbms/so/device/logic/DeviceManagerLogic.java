@@ -17,13 +17,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class DeviceManagerLogic implements DeviceManager {
 
     public static final Logger logger = LoggerFactory.getLogger(DeviceManagerLogic.class);
 
-    public static final String DEVICE_SERVICE_NOTI_TYPE = "admin-noti";
+    public static final String DEVICE_SERVICE_NOTI_TYPE     = "admin-noti";
+    public static final String DEVICE_PRE                   = "device-";
 
     @Autowired
     private DeviceStore deviceStore;
@@ -41,11 +44,12 @@ public class DeviceManagerLogic implements DeviceManager {
     private DeviceControlProxy deviceControlProxy;
 
     @Override
-    public void deviceRegister(deviceReleaseMessage deviceReleaseMessage){
+    public void deviceRegister(String deviceUri, String time){
         // NOTE : 디바이스 생성.
-        logger.debug("DeviceReleaseMessage = " + deviceReleaseMessage.toString());
+        logger.debug("Device Uri = " + deviceUri + " Time = " + time);
         // 디바이스 ID로 SDA에 데이터 요청.
-        Device device = deviceRequest(ClientProfile.SDA_DATAREQUEST_URI + ClientProfile.SDA_DEVICE + deviceReleaseMessage.getDeviceId());
+        // TODO: SDA에 Device Uri만으로 Device정보 연동 규격 필요.
+        Device device = deviceRequest(ClientProfile.SDA_DATAREQUEST_URI + ClientProfile.SDA_DEVICE + deviceUri);
         logger.debug("Device = " + device.toString());
         // 디바이스 저장.
         deviceCreate(device);
@@ -110,9 +114,39 @@ public class DeviceManagerLogic implements DeviceManager {
         sessionStore.updateSession(session);
         // Device 제어 요청 보냄.
         ResultMessage resultMessage = deviceControlProxy.deviceControlRequest(ClientProfile.SI_CONTOL_URI,deviceControlMessage);
+        logger.info("Device Control : Device Uri = " + device.getDeviceUri() + "Result : " + resultMessage);
+        /**
+         * Device 제어 후 제어 결과가 Success면 Device Subscription 요청
+         */
+        if(resultMessage.getCode().equals(ResultMessage.RESPONSE_SUCCESS_ONEM2MCODE)) {
+            String response = deviceSubscription(device.getDeviceUri());
+            logger.info("Device Subscription : Device Uri = " + device.getDeviceUri()  + " Result : " + response);
+            if(response.equals(ResultMessage.RESPONSE_SUCCESS_CODE)){
+                /**
+                 * Device Subscription이 성공이면 30초 후 Subscription 해지 요청.
+                 * 시간은 정책으로 수정 가능.
+                 */
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            TimeUnit.SECONDS.sleep(30);
+                            String responese = deviceSubscriptionRelease(device.getDeviceUri());
+                            logger.info(String.format("Device SubscriptionRelease : Device Uri = %s DeviceRelease result = %s", device.getDeviceUri(), responese));
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                thread.start();
+            }
+        }
+
+
 
         // Device 제어 결과 저장.
-        controlResultsStorage(deviceId, commandId, deviceCommand, resultMessage);
+        // 2차년도 제어 결과 저장을 session으로 대처.
+//        controlResultsStorage(deviceId, commandId, deviceCommand, resultMessage);
 
         return resultMessage.getCode();
     }
@@ -171,18 +205,32 @@ public class DeviceManagerLogic implements DeviceManager {
         return deviceList;
     }
 
+    /**
+     * Device 상태값 Update
+     * @param deviceStatusData
+     */
     @Override
-    public void deviceUpdate(Device device) {
-        deviceStore.update(device);
+    public void deviceUpdate(DeviceStatusData deviceStatusData) {
+        //
+        if(!deviceStatusData.get_uri().isEmpty()){
+            Device device = deviceSearchById(deviceStatusData.get_uri());
+            if(!deviceStatusData.getStatus().isEmpty() && !deviceStatusData.checkDeviceStatus(device.getStatus())) {
+                device.setStatus(deviceStatusData.getStatus());
+                deviceStore.update(device);
+            }
+        }
     }
 
     @Override
     public String deviceSubscription(String uri) {
-        DeviceSubscriptionData deviceSubscriptionData = new DeviceSubscriptionData();
-        deviceSubscriptionData.set_uri(uri);
-        deviceSubscriptionData.set_notificationuri(ClientProfile.SO_DEVICE_STATUS_URI);
+        //
+        return deviceControlProxy.deviceSubscriptionRequest(uri);
+    }
 
-        return deviceControlProxy.deviceSubscriptionRequest(ClientProfile.SI_CONTOL_URI,deviceSubscriptionData);
+    @Override
+    public String deviceSubscriptionRelease(String uri) {
+        //
+        return deviceControlProxy.deviceSubscriptionReleaseRequest(uri);
     }
 
 
@@ -207,6 +255,13 @@ public class DeviceManagerLogic implements DeviceManager {
         return deviceICollectionProxy.findDeviceByID(uri);
     }
 
+    /**
+     * Device 제어 결과 저장. 2차년도에는 Device Subscription으로 불필요.
+     * @param deviceId
+     * @param commandId
+     * @param deviceCommand
+     * @param resultMessage
+     */
     private void controlResultsStorage(String deviceId, String commandId, String deviceCommand, ResultMessage resultMessage){
 
         DeviceResult deviceResult = new DeviceResult();
@@ -222,7 +277,19 @@ public class DeviceManagerLogic implements DeviceManager {
 
     }
 
+    /**
+     * Device 생성
+     * Device Id, createTime,exfitedTime 추가
+     * @param device
+     */
     private void deviceCreate(Device device){
+
+        long currentTime = System.currentTimeMillis();
+        long modifiedTime = currentTime + 30240000000L;
+        device.setDeviceId(DEVICE_PRE + UUID.randomUUID().toString());
+        device.setDeviceCreateTime(currentTime);
+        device.setDeviceExfiredTime(modifiedTime);
+        // TODO : Device Command는 언제 요청으로 얻어 올까??
         deviceStore.create(device);
     }
 
