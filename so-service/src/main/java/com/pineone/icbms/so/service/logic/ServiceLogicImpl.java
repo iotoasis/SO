@@ -144,6 +144,7 @@ public class ServiceLogicImpl implements ServiceLogic{
 
         if(session == null){
             session = new DefaultSession();
+            sessionId =  session.getId();
         }
 
         // TODO : Session에서 serviceIdList를 얻는다.

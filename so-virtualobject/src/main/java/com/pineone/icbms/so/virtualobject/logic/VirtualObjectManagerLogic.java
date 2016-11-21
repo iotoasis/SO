@@ -95,6 +95,7 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
 
         if(session == null){
             session = new DefaultSession();
+            sessionId =  session.getId();
         }
 
         List<String> virtulaobjectIdList = null;

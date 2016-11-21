@@ -65,7 +65,6 @@ public class DeviceManagerLogic implements DeviceManager {
     public String deviceExecute(String deviceId,String deviceCommand, String sessionId){
 
         logger.debug("DeviceID = " + deviceId + " DeviceCommand = " + deviceCommand + " Session Id = " + sessionId);
-
         // DB에서 Session을 검색
         Session session = null;
         if(sessionId != null){
@@ -74,6 +73,7 @@ public class DeviceManagerLogic implements DeviceManager {
 
         if(session == null){
             session = new DefaultSession();
+            sessionId =  session.getId();
         }
 
         List<String> sessionDeviceIdList = null;

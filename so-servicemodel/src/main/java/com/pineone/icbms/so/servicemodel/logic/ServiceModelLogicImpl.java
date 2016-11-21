@@ -98,8 +98,8 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
         // Session이 없으면 Session을 생성. 외부에서 ServiceModel을 제어서 Session이 없을수 있음.
         if(session == null){
             session = new DefaultSession();
+            sessionId =  session.getId();
         }
-
         session.insertSessionData(DefaultSession.SERVICEMODEL_KEY,serviceModelId);
 
         ServiceModel serviceModel = serviceModelStore.retrieveServiceModelDetail(serviceModelId);

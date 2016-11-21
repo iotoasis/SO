@@ -65,6 +65,7 @@ public class DeviceSIProxy implements DeviceControlProxy {
         // 현제 정책이 안되어 있어서. 등록되면 걸지.. 제어시 걸지는 고려 필요.
 
         String responseData = clientService.requestPostServiceReceiveString(ClientProfile.SI_SUBSCRIPTION_URI, requestBody);
+
         logger.debug("ResponseData = " + responseData);
 
         return responseData;
