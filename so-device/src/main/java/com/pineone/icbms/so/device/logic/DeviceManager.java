@@ -1,13 +1,13 @@
 package com.pineone.icbms.so.device.logic;
 
 import com.pineone.icbms.so.device.entity.Device;
+import com.pineone.icbms.so.device.entity.DeviceStatusData;
 import com.pineone.icbms.so.device.entity.ResultMessage;
-import com.pineone.icbms.so.device.entity.deviceReleaseMessage;
 
 import java.util.List;
 
 public interface DeviceManager {
-    void deviceRegister(deviceReleaseMessage deviceReleaseMessage);
+    void deviceRegister(String deviceUri, String time);
     void deviceRelease(String deviceId);
     String deviceExecute(String deviceId,String deviceCommand, String sessionId);
     String deviceControlResult(ResultMessage resultMessage);
@@ -16,6 +16,7 @@ public interface DeviceManager {
     List<String> requestDeviceServiceList(String location);
     String searchOperation(String deviceId, String deviceService);
     List<Device> searchDeviceList();
-    void deviceUpdate(Device device);
+    void deviceUpdate(DeviceStatusData deviceStatusData);
     String deviceSubscription(String uri);
+    String deviceSubscriptionRelease(String uri);
 }

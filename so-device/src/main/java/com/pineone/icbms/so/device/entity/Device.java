@@ -53,14 +53,14 @@ public class Device {
      * format : yyyymmddhhmm
      * ex) 201608250930
      */
-    private String          deviceCreateTime;
+    private long          deviceCreateTime;
 
     /**
      * Device의 생성 만기 시간
      * format : yyyymmddhhmm
      * ex) 201708250930
      */
-    private String          deviceExfiredTime;
+    private long          deviceExfiredTime;
 
     /**
      * Device의 상태
@@ -72,7 +72,7 @@ public class Device {
     public Device() {
     }
 
-    public Device(String deviceId, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, String deviceCreateTime, String deviceExfiredTime, String status) {
+    public Device(String deviceId, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, long deviceCreateTime, long deviceExfiredTime, String status) {
         this.deviceId = deviceId;
         this.deviceName = deviceName;
         this.deviceLocation = deviceLocation;
@@ -132,19 +132,19 @@ public class Device {
         this.deviceServices = deviceServices;
     }
 
-    public String getDeviceCreateTime() {
+    public long getDeviceCreateTime() {
         return deviceCreateTime;
     }
 
-    public void setDeviceCreateTime(String deviceCreateTime) {
+    public void setDeviceCreateTime(long deviceCreateTime) {
         this.deviceCreateTime = deviceCreateTime;
     }
 
-    public String getDeviceExfiredTime() {
+    public long getDeviceExfiredTime() {
         return deviceExfiredTime;
     }
 
-    public void setDeviceExfiredTime(String deviceExfiredTime) {
+    public void setDeviceExfiredTime(long deviceExfiredTime) {
         this.deviceExfiredTime = deviceExfiredTime;
     }
 

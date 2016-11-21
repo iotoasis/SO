@@ -105,20 +105,20 @@ public class DevicePresentation {
     /**
      *  Device 등록 노티 SI -> SO
      */
-    @RequestMapping(value = "",method = RequestMethod.POST)
+    @RequestMapping(value = "/condition",method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public void deviceEnableNotification(@RequestBody deviceReleaseMessage message) {
         // NOTE : Register the device memory
         logger.info(LogPrint.inputInfoLogPrint() + "DeviceUri = " + message.getDeviceId());
         logger.debug("DeviceReleaseMessage = " + message.toString());
-        deviceManager.deviceRegister(message);
+        deviceManager.deviceRegister(message.getDeviceId(), message.getRegisterTime());
     }
 
 
     /**
      *  Device 해제 노티 SI -> SO
      */
-    @RequestMapping(value ="",method = RequestMethod.DELETE)
+    @RequestMapping(value ="/condition",method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deviceDisableNotification(@RequestBody deviceReleaseMessage message) {
         // NOTE : Unregister the device memory
@@ -159,14 +159,7 @@ public class DevicePresentation {
     public void updateDeviceStatus(@RequestBody DeviceStatusData deviceStatusData){
         logger.info(LogPrint.inputInfoLogPrint() + "DeviceStatusData = " + deviceStatusData.toString());
         logger.debug("DeviceStatusData = " + deviceStatusData.toString());
-
-        if(!deviceStatusData.get_uri().isEmpty()){
-            Device device = deviceManager.deviceSearchById(deviceStatusData.get_uri());
-            if(!deviceStatusData.getStatus().isEmpty() && !deviceStatusData.checkDeviceStatus(device.getStatus())) {
-                device.setStatus(deviceStatusData.getStatus());
-                deviceManager.deviceUpdate(device);
-            }
-        }
+        deviceManager.deviceUpdate(deviceStatusData);
     }
 
 
