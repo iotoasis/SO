@@ -67,13 +67,14 @@ public class DeviceManagerLogic implements DeviceManager {
         logger.debug("DeviceID = " + deviceId + " DeviceCommand = " + deviceCommand + " Session Id = " + sessionId);
         // DB에서 Session을 검색
         Session session = null;
-        if(sessionId != null){
-            session = sessionStore.retrieveSessionDetail(sessionId);
+        String localSessionId = sessionId;
+        if(localSessionId != null){
+            session = sessionStore.retrieveSessionDetail(localSessionId);
         }
 
         if(session == null){
             session = new DefaultSession();
-            sessionId =  session.getId();
+            localSessionId =  session.getId();
         }
 
         List<String> sessionDeviceIdList = null;
@@ -108,7 +109,7 @@ public class DeviceManagerLogic implements DeviceManager {
         DeviceControlMessage deviceControlMessage = deviceDataConversion(deviceId,commandId,deviceCommand);
         logger.debug("DeviceControlMessage = " + deviceControlMessage.toString());
 
-        session = sessionStore.retrieveSessionDetail(sessionId);
+        session = sessionStore.retrieveSessionDetail(localSessionId);
         sessionDataUpdate(sessionStore, session, device.getDeviceLocation(),DefaultSession.DEVICE_LOCATION);
         session.insertSessionData(DefaultSession.DEVICE_RESULT, DefaultSession.CONTROL_EXECUTION);
         sessionStore.updateSession(session);
@@ -121,7 +122,7 @@ public class DeviceManagerLogic implements DeviceManager {
         if(resultMessage.getCode().equals(ResultMessage.RESPONSE_SUCCESS_ONEM2MCODE)) {
             String response = deviceSubscription(device.getDeviceUri());
             logger.info("Device Subscription : Device Uri = " + device.getDeviceUri()  + " Result : " + response);
-            if(response.equals(ResultMessage.RESPONSE_SUCCESS_CODE)){
+            if(response.equals(ResultMessage.RESPONSE_SUCCESS_ONEM2MCODE)){
                 /**
                  * Device Subscription이 성공이면 30초 후 Subscription 해지 요청.
                  * 시간은 정책으로 수정 가능.
@@ -130,7 +131,7 @@ public class DeviceManagerLogic implements DeviceManager {
                     @Override
                     public void run() {
                         try {
-                            TimeUnit.SECONDS.sleep(30);
+                            TimeUnit.SECONDS.sleep(30000);
                             String responese = deviceSubscriptionRelease(device.getDeviceUri());
                             logger.info(String.format("Device SubscriptionRelease : Device Uri = %s DeviceRelease result = %s", device.getDeviceUri(), responese));
                         } catch (InterruptedException e) {
