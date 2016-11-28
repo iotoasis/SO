@@ -113,8 +113,13 @@ public class DeviceManagerLogic implements DeviceManager {
         sessionDataUpdate(sessionStore, session, device.getDeviceLocation(),DefaultSession.DEVICE_LOCATION);
         session.insertSessionData(DefaultSession.DEVICE_RESULT, DefaultSession.CONTROL_EXECUTION);
         sessionStore.updateSession(session);
+
+        if(device.checkStatus(deviceCommand)){
+            return "same device state to is.";
+        }
+
         // Device 제어 요청 보냄.
-        ResultMessage resultMessage = deviceControlProxy.deviceControlRequest(ClientProfile.SI_CONTOL_URI,deviceControlMessage);
+        ResultMessage resultMessage = deviceControlProxy.deviceControlRequest(ClientProfile.SI_DEV_CONTOL_URI,deviceControlMessage);
         logger.info("Device Control : Device Uri = " + device.getDeviceUri() + "Result : " + resultMessage);
         /**
          * Device 제어 후 제어 결과가 Success면 Device Subscription 요청
@@ -131,7 +136,9 @@ public class DeviceManagerLogic implements DeviceManager {
                     @Override
                     public void run() {
                         try {
-                            TimeUnit.SECONDS.sleep(30000);
+
+                            logger.info("Subscription 대기");
+                            TimeUnit.SECONDS.sleep(300);
                             String responese = deviceSubscriptionRelease(device.getDeviceUri());
                             logger.info(String.format("Device SubscriptionRelease : Device Uri = %s DeviceRelease result = %s", device.getDeviceUri(), responese));
                         } catch (InterruptedException e) {
@@ -215,8 +222,8 @@ public class DeviceManagerLogic implements DeviceManager {
         //
         if(!deviceStatusData.get_uri().isEmpty()){
             Device device = deviceSearchById(deviceStatusData.get_uri());
-            if(!deviceStatusData.getStatus().isEmpty() && !deviceStatusData.checkDeviceStatus(device.getStatus())) {
-                device.setStatus(deviceStatusData.getStatus());
+            if(!deviceStatusData.getStatus().isEmpty() && !deviceStatusData.checkDeviceStatus(device.getDevicestatus())) {
+                device.setDevicestatus(deviceStatusData.getStatus());
                 deviceStore.update(device);
             }
         }

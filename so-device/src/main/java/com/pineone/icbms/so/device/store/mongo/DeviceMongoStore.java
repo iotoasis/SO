@@ -100,12 +100,12 @@ public class DeviceMongoStore implements DeviceStore{
 
     private DeviceDataObject deviceToDataObject(Device device){
         if(device == null) return null;
-        return new DeviceDataObject(device.getDeviceId(),device.getDeviceName(),device.getDeviceLocation(),device.getDeviceUri(),device.getDeviceCommand(),device.getDeviceServices(),device.getDeviceCreateTime(),device.getDeviceExfiredTime(),device.getStatus());
+        return new DeviceDataObject(device.getDeviceId(),device.getDeviceName(),device.getDeviceLocation(),device.getDeviceUri(),device.getDeviceCommand(),device.getDeviceServices(),device.getDeviceCreateTime(),device.getDeviceExfiredTime(),device.getDevicestatus());
     }
 
     private Device DeviceObjectToDevice(DeviceDataObject deviceDataObject) {
         if(deviceDataObject == null) return null;
-        return new Device(deviceDataObject.getDeviceId(),deviceDataObject.getDeviceName(),deviceDataObject.getDeviceLocation(),deviceDataObject.getDeviceUri(),deviceDataObject.getDeviceCommand(),deviceDataObject.getDeviceServices(),deviceDataObject.getDeviceCreateTime(),deviceDataObject.getDeviceExfiredTime(),deviceDataObject.getStatus());
+        return new Device(deviceDataObject.getDeviceId(),deviceDataObject.getDeviceName(),deviceDataObject.getDeviceLocation(),deviceDataObject.getDeviceUri(),deviceDataObject.getDeviceCommand(),deviceDataObject.getDeviceServices(),deviceDataObject.getDeviceCreateTime(),deviceDataObject.getDeviceExfiredTime(),deviceDataObject.getDevicestatus());
     }
 
 }
