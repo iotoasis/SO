@@ -14,7 +14,7 @@ public interface DeviceManager {
     Device deviceSearchById(String deviceId);
     List<Device> deviceSearchByLocation(String location);
     List<String> requestDeviceServiceList(String location);
-    String searchOperation(String deviceId, String deviceService);
+    String searchOperation(String de, String deviceService);
     List<Device> searchDeviceList();
     void deviceUpdate(DeviceStatusData deviceStatusData);
     String deviceSubscription(String uri);

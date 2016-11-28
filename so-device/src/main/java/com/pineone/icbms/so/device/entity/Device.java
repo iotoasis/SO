@@ -67,12 +67,12 @@ public class Device {
      * format : Device Status
      * ex) ON
      */
-    private String          status;
+    private String devicestatus;
 
     public Device() {
     }
 
-    public Device(String deviceId, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, long deviceCreateTime, long deviceExfiredTime, String status) {
+    public Device(String deviceId, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, long deviceCreateTime, long deviceExfiredTime, String devicestatus) {
         this.deviceId = deviceId;
         this.deviceName = deviceName;
         this.deviceLocation = deviceLocation;
@@ -81,7 +81,7 @@ public class Device {
         this.deviceServices = deviceServices;
         this.deviceCreateTime = deviceCreateTime;
         this.deviceExfiredTime = deviceExfiredTime;
-        this.status = status;
+        this.devicestatus = devicestatus;
     }
 
     public String getDeviceId() {
@@ -148,12 +148,16 @@ public class Device {
         this.deviceExfiredTime = deviceExfiredTime;
     }
 
-    public String getStatus() {
-        return status;
+    public String getDevicestatus() {
+        return devicestatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDevicestatus(String devicestatus) {
+        this.devicestatus = devicestatus;
+    }
+
+    public boolean checkStatus(String status){
+        return this.devicestatus.equals(status);
     }
 
     @Override
@@ -167,7 +171,7 @@ public class Device {
                 ", deviceServices=" + deviceServices +
                 ", deviceCreateTime='" + deviceCreateTime + '\'' +
                 ", deviceExfiredTime='" + deviceExfiredTime + '\'' +
-                ", status='" + status + '\'' +
+                ", devicestatus='" + devicestatus + '\'' +
                 '}';
     }
 }
