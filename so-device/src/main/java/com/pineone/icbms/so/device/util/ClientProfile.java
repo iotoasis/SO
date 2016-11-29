@@ -8,8 +8,11 @@ public class ClientProfile {
     public static final String  SI_CONTROL_POWER            = "Power";
     public static final String  SI_CONTROL_ACTION           = "Action";
     public static final String  SI_CONTOL_URI               = "http://166.104.112.34:8081/si/control";
+    public static final String  SI_DEV_CONTOL_URI           = "http://218.153.68.53:8081/si/control";
     public static final String  SI_SUBSCRIPTION_URI         = "http://166.104.112.34:8081/si/subscription/add";
     public static final String  SI_SUBSCRIPTION_RELEASE_URI = "http://166.104.112.34:8081/si/subscription/del";
+    public static final String  SI_DEV_SUBSCRIPTION_URI         = "http://218.153.68.53:8081/si/subscription/add";
+    public static final String  SI_DEV_SUBSCRIPTION_RELEASE_URI = "http://218.153.68.53:8081/si/subscription/del";
     public static final String  SI_COMMAND_ID               = "cmd_";
 
     public static final String SO_DEVICE_STATUS_URI         = "http://166.104.112.42:10080/so/device/status";
