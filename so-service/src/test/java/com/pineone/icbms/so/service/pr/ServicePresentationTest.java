@@ -77,7 +77,7 @@
 //        service.setId("AIRCLEANER-POWER-CONTROL-SERVICE-001");
 //        service.setVirtualObjectIdList(serviceList);
 //        service.setVirtualObjectService("switch-control");
-//        service.setStatus("ON");
+//        service.setDeviceStatus("ON");
 //        service.setCreateTime(currentTime);
 //        service.setModifiedTime(currentTime);
 //
@@ -93,7 +93,7 @@
 //        System.out.println(service.getId());
 //        System.out.println(service.getVirtualObjectService());
 //        System.out.println(service.getVirtualObjectIdList().toString());
-//        System.out.println(service.getStatus());
+//        System.out.println(service.getDeviceStatus());
 //    }
 //
 //    @Test
@@ -107,7 +107,7 @@
 //
 //    public ServiceTransFormObject dataObjectToServiceModel(Service service){
 //        if(service == null) return null;
-//        return new ServiceTransFormObject(service.getId(), service.getName(), service.getVirtualObjectIdList(),service.getVirtualObjectService(),service.getStatus(),service.getCreateTime(),service.getModifiedTime(),service.getFilterTime(), "");
+//        return new ServiceTransFormObject(service.getId(), service.getName(), service.getVirtualObjectIdList(),service.getVirtualObjectService(),service.getDeviceStatus(),service.getCreateTime(),service.getModifiedTime(),service.getFilterTime(), "");
 //    }
 //
 //    @Test

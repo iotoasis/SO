@@ -64,9 +64,9 @@ public class DeviceSIProxy implements DeviceControlProxy {
         // DeviceLogic에 생성되거나 제어되면 서브스크립트 걸어야 겠군.
         // 현제 정책이 안되어 있어서. 등록되면 걸지.. 제어시 걸지는 고려 필요.
 
-        String responseData = clientService.requestPostServiceReceiveString(ClientProfile.SI_SUBSCRIPTION_URI, requestBody);
+        String responseData = clientService.requestPostServiceReceiveString(ClientProfile.SI_DEV_SUBSCRIPTION_URI, requestBody);
         // ResponseData{ "code" : "2000", "message" : "", "content" : "" }
-        logger.info("Device SubscriptionRequest ResponseData : DeviceUri = " + deviceUri + " ResponseData = "+ responseData);
+        logger.debug(LogPrint.LogMethodNamePrint() + " | Subscription Request : Response Data  = " + responseData);
         ResultMessage resultMessage = new ResultMessage();
         try {
             resultMessage = mapper.readValue(responseData, ResultMessage.class);
@@ -92,9 +92,9 @@ public class DeviceSIProxy implements DeviceControlProxy {
         // DeviceLogic에 생성되거나 제어되면 서브스크립트 걸어야 겠군.
         // 현제 정책이 안되어 있어서. 등록되면 걸지.. 제어시 걸지는 고려 필요.
 
-        String responseData = clientService.requestPostServiceReceiveString(ClientProfile.SI_SUBSCRIPTION_RELEASE_URI, requestBody);
-        logger.debug("ResponseData = " + responseData);
-
+        String responseData = clientService.requestPostServiceReceiveString(ClientProfile.SI_DEV_SUBSCRIPTION_RELEASE_URI, requestBody);
+        logger.debug(LogPrint.LogMethodNamePrint() + " | Device SubscriptionRelease Request Result = " + responseData);
+        logger.info("<================ Device SubscriptionRelease Request End ================>");
         return responseData;
     }
 }
