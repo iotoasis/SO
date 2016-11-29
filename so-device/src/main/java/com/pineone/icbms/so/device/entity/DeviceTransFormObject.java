@@ -8,20 +8,20 @@ public class DeviceTransFormObject {
     private String          deviceUri;
     private String          deviceCommand;
     private String          deviceServices;
-    private String          status;
+    private String deviceStatus;
     private String          sessionId;
 
     public DeviceTransFormObject() {
     }
 
-    public DeviceTransFormObject(String deviceId, String deviceName, String deviceLocation, String deviceUri, String deviceCommand, String deviceServices, String status, String sessionId) {
+    public DeviceTransFormObject(String deviceId, String deviceName, String deviceLocation, String deviceUri, String deviceCommand, String deviceServices, String deviceStatus, String sessionId) {
         this.deviceId = deviceId;
         this.deviceName = deviceName;
         this.deviceLocation = deviceLocation;
         this.deviceUri = deviceUri;
         this.deviceCommand = deviceCommand;
         this.deviceServices = deviceServices;
-        this.status = status;
+        this.deviceStatus = deviceStatus;
         this.sessionId = sessionId;
     }
 
@@ -73,12 +73,12 @@ public class DeviceTransFormObject {
         this.deviceServices = deviceServices;
     }
 
-    public String getStatus() {
-        return status;
+    public String getDeviceStatus() {
+        return deviceStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDeviceStatus(String deviceStatus) {
+        this.deviceStatus = deviceStatus;
     }
 
     public String getSessionId() {
@@ -98,7 +98,7 @@ public class DeviceTransFormObject {
                 ", deviceUri='" + deviceUri + '\'' +
                 ", deviceCommand='" + deviceCommand + '\'' +
                 ", deviceServices='" + deviceServices + '\'' +
-                ", status='" + status + '\'' +
+                ", deviceStatus='" + deviceStatus + '\'' +
                 ", sessionId='" + sessionId + '\'' +
                 '}';
     }

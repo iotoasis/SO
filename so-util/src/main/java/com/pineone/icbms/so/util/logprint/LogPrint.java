@@ -12,4 +12,9 @@ public class LogPrint {
     public static String outputInfoLogPrint(){
         return Thread.currentThread().getStackTrace()[2].getMethodName() + " Method : response ";
     }
+
+    public static String LogMethodNamePrint(){
+        return Thread.currentThread().getStackTrace()[2].getMethodName();
+    }
+
 }

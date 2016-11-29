@@ -36,8 +36,8 @@ public class ClientService
 	 */
 	public IHttpResponseMessage requestPostService(String serviceUrl, String body)
 	{
-		log.info("[[Client Service requestPostService uri]] " + serviceUrl);
-		log.info("[[Client Service requestPostService data]] " + body);
+		log.info("Client Service requestPostService uri " + serviceUrl);
+		log.info("Client Service requestPostService data " + body);
 		// request delivery message
 		HttpClientServiceRequestDeliveryMessage req = new HttpClientServiceRequestDeliveryMessage();
 		// add key-value list.
