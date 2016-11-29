@@ -67,12 +67,12 @@ public class Device {
      * format : Device Status
      * ex) ON
      */
-    private String devicestatus;
+    private String deviceStatus;
 
     public Device() {
     }
 
-    public Device(String deviceId, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, long deviceCreateTime, long deviceExfiredTime, String devicestatus) {
+    public Device(String deviceId, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, long deviceCreateTime, long deviceExfiredTime, String deviceStatus) {
         this.deviceId = deviceId;
         this.deviceName = deviceName;
         this.deviceLocation = deviceLocation;
@@ -81,7 +81,7 @@ public class Device {
         this.deviceServices = deviceServices;
         this.deviceCreateTime = deviceCreateTime;
         this.deviceExfiredTime = deviceExfiredTime;
-        this.devicestatus = devicestatus;
+        this.deviceStatus = deviceStatus;
     }
 
     public String getDeviceId() {
@@ -148,16 +148,16 @@ public class Device {
         this.deviceExfiredTime = deviceExfiredTime;
     }
 
-    public String getDevicestatus() {
-        return devicestatus;
+    public String getDeviceStatus() {
+        return deviceStatus;
     }
 
-    public void setDevicestatus(String devicestatus) {
-        this.devicestatus = devicestatus;
+    public void setDeviceStatus(String deviceStatus) {
+        this.deviceStatus = deviceStatus;
     }
 
     public boolean checkStatus(String status){
-        return this.devicestatus.equals(status);
+        return this.deviceStatus.equals(status);
     }
 
     @Override
@@ -171,7 +171,7 @@ public class Device {
                 ", deviceServices=" + deviceServices +
                 ", deviceCreateTime='" + deviceCreateTime + '\'' +
                 ", deviceExfiredTime='" + deviceExfiredTime + '\'' +
-                ", devicestatus='" + devicestatus + '\'' +
+                ", deviceStatus='" + deviceStatus + '\'' +
                 '}';
     }
 }

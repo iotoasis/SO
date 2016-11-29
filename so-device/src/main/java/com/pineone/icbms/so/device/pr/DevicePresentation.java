@@ -41,9 +41,14 @@ public class DevicePresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public String deviceControl(@RequestBody DeviceTransFormObject deviceTransFormObject){
         // NOTE : Device Control
-        logger.info(LogPrint.inputInfoLogPrint() + "Device ID = " + deviceTransFormObject.getDeviceId() + " DeviceCommand = " + deviceTransFormObject.getDeviceCommand() + "Session ID = " + deviceTransFormObject.getSessionId());
-        logger.debug("Device ID = " + deviceTransFormObject.getDeviceId() + " DeviceCommand = " + deviceTransFormObject.getDeviceCommand() + "Session ID = " + deviceTransFormObject.getSessionId());
-        return deviceManager.deviceExecute(deviceTransFormObject.getDeviceId(), deviceTransFormObject.getDeviceCommand(), deviceTransFormObject.getSessionId());
+
+        logger.info("<================ Device Control Start ================>");
+        logger.debug(LogPrint.LogMethodNamePrint() + " |  Device ID = " + deviceTransFormObject.getDeviceId() + " , DeviceCommand = " + deviceTransFormObject.getDeviceCommand() + " , Session ID = " + deviceTransFormObject.getSessionId());
+
+        String result = deviceManager.deviceExecute(deviceTransFormObject.getDeviceId(), deviceTransFormObject.getDeviceCommand(), deviceTransFormObject.getSessionId());
+        logger.debug(LogPrint.LogMethodNamePrint() + " |  Result = " + result);
+        logger.info("<================ Device Control End ================>");
+        return result;
     }
 
     /**

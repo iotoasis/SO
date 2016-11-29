@@ -23,7 +23,7 @@ public class DeviceStatusData {
     /**
      * Device의 상태 값
      */
-    private String          status;
+    private String deviceStatus;
 
     /**
      * Device의 상태 값의 변경 되었을시 시간
@@ -33,11 +33,11 @@ public class DeviceStatusData {
     public DeviceStatusData() {
     }
 
-    public DeviceStatusData(String _commandId, String _uri, String _command, String status, String timestamp) {
+    public DeviceStatusData(String _commandId, String _uri, String _command, String deviceStatus, String timestamp) {
         this._commandId = _commandId;
         this._uri = _uri;
         this._command = _command;
-        this.status = status;
+        this.deviceStatus = deviceStatus;
         this.timestamp = timestamp;
     }
 
@@ -65,12 +65,12 @@ public class DeviceStatusData {
         this._command = _command;
     }
 
-    public String getStatus() {
-        return status;
+    public String getDeviceStatus() {
+        return deviceStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDeviceStatus(String deviceStatus) {
+        this.deviceStatus = deviceStatus;
     }
 
     public String getTimestamp() {
@@ -82,7 +82,7 @@ public class DeviceStatusData {
     }
 
     public boolean checkDeviceStatus(String deviceStatus){
-        return this.status.equals(deviceStatus);
+        return this.deviceStatus.equals(deviceStatus);
     }
 
 
@@ -92,7 +92,7 @@ public class DeviceStatusData {
                 "_commandId='" + _commandId + '\'' +
                 ", _uri='" + _uri + '\'' +
                 ", _command='" + _command + '\'' +
-                ", status='" + status + '\'' +
+                ", deviceStatus='" + deviceStatus + '\'' +
                 ", timestamp='" + timestamp + '\'' +
                 '}';
     }

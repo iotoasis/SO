@@ -33,28 +33,28 @@ public class DeviceSIProxy implements DeviceControlProxy {
     @Override
     public ResultMessage deviceControlRequest(String requestUrl, DeviceControlMessage deviceControlMessage) {
         //
-        logger.info(LogPrint.outputInfoLogPrint() + "RequestUri = " + requestUrl + "deviceControlMessage = " + deviceControlMessage.toString());
-        logger.debug("RequestUri = " + requestUrl + "deviceControlMessage = " + deviceControlMessage.toString());
+        logger.info("<================ Device Control Request Start ================>");
+        logger.debug(LogPrint.LogMethodNamePrint() + " | RequestUri = " + requestUrl + " , deviceControlMessage = " + deviceControlMessage.toString());
         ResultMessage resultMessage = new ResultMessage();
         String requestBody = new Gson().toJson(deviceControlMessage);
-        logger.debug("DeviceControlMessage to JSON = " + requestBody);
-
         String responseData = clientService.requestPostServiceReceiveString(requestUrl, requestBody);
-        logger.debug("ResponseData = " + responseData);
+        logger.debug(LogPrint.LogMethodNamePrint() + " | Device Control Request responseData = " + responseData);
         try {
             resultMessage = mapper.readValue(responseData, ResultMessage.class);
         } catch (IOException e) {
             e.printStackTrace();
             resultMessage.setCode(ClientProfile.RESPONSE_FIALURE_CODE);
         }
+        logger.debug(LogPrint.LogMethodNamePrint() + " | Device Control Request Result = " + resultMessage);
+        logger.info("<================ Device Control Request End ================>");
         return resultMessage;
     }
 
     @Override
     public String deviceSubscriptionRequest(String deviceUri) {
         //
-        logger.info(LogPrint.outputInfoLogPrint() + "DeviceUri = " + deviceUri);
-        logger.debug("DeviceUri = " + deviceUri);
+        logger.info("<================ Device Subscription Request Start ================>");
+        logger.debug(LogPrint.LogMethodNamePrint() + " | DeviceUri = " + deviceUri);
 
         DeviceSubscriptionData deviceSubscriptionData = new DeviceSubscriptionData();
         deviceSubscriptionData.set_notificationUri(ClientProfile.SO_DEVICE_STATUS_URI);
@@ -74,15 +74,16 @@ public class DeviceSIProxy implements DeviceControlProxy {
             e.printStackTrace();
             resultMessage.setCode(ClientProfile.RESPONSE_FIALURE_CODE);
         }
-
+        logger.debug(LogPrint.LogMethodNamePrint() + " | Device Subscription Request Result = " + resultMessage.getCode());
+        logger.info("<================ Device Subscription Request End ================>");
         return resultMessage.getCode();
     }
 
     @Override
     public String deviceSubscriptionReleaseRequest(String deviceUri) {
         //
-        logger.info(LogPrint.outputInfoLogPrint() + "DeviceUri = " + deviceUri);
-        logger.debug("DeviceUri = " + deviceUri);
+        logger.info("<================ Device SubscriptionRelease Request Start ================>");
+        logger.debug(LogPrint.LogMethodNamePrint() + " | DeviceUri = " + deviceUri);
 
         DeviceSubscriptionData deviceSubscriptionData = new DeviceSubscriptionData();
         deviceSubscriptionData.set_uri(deviceUri);

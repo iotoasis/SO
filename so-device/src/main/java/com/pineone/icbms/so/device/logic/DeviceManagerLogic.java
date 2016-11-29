@@ -7,6 +7,7 @@ import com.pineone.icbms.so.device.store.DeviceResultStore;
 import com.pineone.icbms.so.device.store.DeviceStore;
 import com.pineone.icbms.so.device.util.ClientProfile;
 import com.pineone.icbms.so.util.conversion.DataConversion;
+import com.pineone.icbms.so.util.logprint.LogPrint;
 import com.pineone.icbms.so.util.session.DefaultSession;
 import com.pineone.icbms.so.util.session.Session;
 import com.pineone.icbms.so.util.session.store.SessionStore;
@@ -57,14 +58,15 @@ public class DeviceManagerLogic implements DeviceManager {
 
     @Override
     public void deviceRelease(String deviceId){
-        logger.debug("Device ID = " + deviceId);
+        logger.debug(LogPrint.LogMethodNamePrint() + " | Device ID = " + deviceId);
         deviceStore.delete(deviceId);
     }
 
     @Override
     public String deviceExecute(String deviceId,String deviceCommand, String sessionId){
 
-        logger.debug("DeviceID = " + deviceId + " DeviceCommand = " + deviceCommand + " Session Id = " + sessionId);
+        logger.debug(LogPrint.LogMethodNamePrint() + " | DeviceID = " + deviceId + " , DeviceCommand = " + deviceCommand + " , Session Id = " + sessionId);
+
         // DB에서 Session을 검색
         Session session = null;
         String localSessionId = sessionId;
@@ -95,7 +97,7 @@ public class DeviceManagerLogic implements DeviceManager {
             session.insertSessionData(DefaultSession.DEVICE_RESULT, DefaultSession.CONTROL_ERROR);
             // DB에 Session을 저장.
             sessionStore.updateSession(session);
-            logger.debug("The device does not exist.");
+            logger.info("The device does not exist.");
             return "The device does not exist.";
         } else if(device.getDeviceServices() != null && DEVICE_SERVICE_NOTI_TYPE.equals(device.getDeviceServices().get(0))){
             sessionDataUpdate(sessionStore, session, device.getDeviceLocation(),DefaultSession.DEVICE_LOCATION);
@@ -120,13 +122,14 @@ public class DeviceManagerLogic implements DeviceManager {
 
         // Device 제어 요청 보냄.
         ResultMessage resultMessage = deviceControlProxy.deviceControlRequest(ClientProfile.SI_DEV_CONTOL_URI,deviceControlMessage);
-        logger.info("Device Control : Device Uri = " + device.getDeviceUri() + "Result : " + resultMessage);
+        logger.debug(LogPrint.LogMethodNamePrint() + " | Device Control Result : " + " , Device Uri = " + device.getDeviceUri() + " , Result : " + resultMessage + " , Session ID = " + sessionId);
+
         /**
          * Device 제어 후 제어 결과가 Success면 Device Subscription 요청
          */
         if(resultMessage.getCode().equals(ResultMessage.RESPONSE_SUCCESS_ONEM2MCODE)) {
             String response = deviceSubscription(device.getDeviceUri());
-            logger.info("Device Subscription : Device Uri = " + device.getDeviceUri()  + " Result : " + response);
+            logger.debug(LogPrint.LogMethodNamePrint() + " | Device Subscription : " + " , Device Uri = " + device.getDeviceUri() + " , Result : " + response + " , Session ID = " + sessionId);
             if(response.equals(ResultMessage.RESPONSE_SUCCESS_ONEM2MCODE)){
                 /**
                  * Device Subscription이 성공이면 30초 후 Subscription 해지 요청.
@@ -181,26 +184,26 @@ public class DeviceManagerLogic implements DeviceManager {
 
     @Override
     public Device deviceSearchById(String deviceId) {
-        logger.debug("Device ID = " + deviceId);
+        logger.debug(LogPrint.LogMethodNamePrint() + " | Device ID = " + deviceId);
         return deviceStore.retrieveByID(deviceId);
     }
 
     @Override
     public List<Device> deviceSearchByLocation(String location) {
-        logger.debug("Location = " + location);
+        logger.debug(LogPrint.LogMethodNamePrint() + " | Location = " + location);
         return deviceStore.retrieveByLocation(location);
     }
 
     @Override
     public List<String> requestDeviceServiceList(String location) {
-        logger.debug("Location = " + location);
+        logger.debug(LogPrint.LogMethodNamePrint() + " | Location = " + location);
         return deviceStore.retrieveDeviceService(location);
     }
 
     @Override
     public String searchOperation(String deviceId, String deviceService) {
         //SDA에 DeviceId와 deviceService를 보낸다.
-        logger.debug("Device ID = " + deviceId + " DeviceService = " + deviceService);
+        logger.debug(LogPrint.LogMethodNamePrint() + " | Device ID = " + deviceId + " , DeviceService = " + deviceService);
         return deviceICollectionProxy.findDeviceOperation(deviceId,deviceService);
     }
 
@@ -208,7 +211,7 @@ public class DeviceManagerLogic implements DeviceManager {
     public List<Device> searchDeviceList() {
         List<Device> deviceList = deviceStore.retrieveDeviceList();
         for(Device device : deviceList){
-            logger.debug("Device = " + device.toString());
+            logger.debug(LogPrint.LogMethodNamePrint() + " | Device = " + device.toString());
         }
         return deviceList;
     }
@@ -222,8 +225,8 @@ public class DeviceManagerLogic implements DeviceManager {
         //
         if(!deviceStatusData.get_uri().isEmpty()){
             Device device = deviceSearchById(deviceStatusData.get_uri());
-            if(!deviceStatusData.getStatus().isEmpty() && !deviceStatusData.checkDeviceStatus(device.getDevicestatus())) {
-                device.setDevicestatus(deviceStatusData.getStatus());
+            if(!deviceStatusData.getDeviceStatus().isEmpty() && !deviceStatusData.checkDeviceStatus(device.getDeviceStatus())) {
+                device.setDeviceStatus(deviceStatusData.getDeviceStatus());
                 deviceStore.update(device);
             }
         }
