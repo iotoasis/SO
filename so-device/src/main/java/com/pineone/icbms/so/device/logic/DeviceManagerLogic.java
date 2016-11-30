@@ -121,7 +121,7 @@ public class DeviceManagerLogic implements DeviceManager {
         }
 
         // Device 제어 요청 보냄.
-        ResultMessage resultMessage = deviceControlProxy.deviceControlRequest(ClientProfile.SI_DEV_CONTOL_URI,deviceControlMessage);
+        ResultMessage resultMessage = deviceControlProxy.deviceControlRequest(ClientProfile.SI_CONTOL_URI,deviceControlMessage);
         logger.debug(LogPrint.LogMethodNamePrint() + " | Device Control Result : " + " , Device Uri = " + device.getDeviceUri() + " , Result : " + resultMessage + " , Session ID = " + sessionId);
 
         /**
