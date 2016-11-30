@@ -11,7 +11,7 @@ public class Device {
      * format : CSE relative uri
      * ex) /herit-in/herit-cse/ONDB_BeamProjector01_001
      */
-    private String          deviceId;
+    private String id;
 
     /**
      * Device의 이름
@@ -72,8 +72,8 @@ public class Device {
     public Device() {
     }
 
-    public Device(String deviceId, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, long deviceCreateTime, long deviceExfiredTime, String deviceStatus) {
-        this.deviceId = deviceId;
+    public Device(String id, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, long deviceCreateTime, long deviceExfiredTime, String deviceStatus) {
+        this.id = id;
         this.deviceName = deviceName;
         this.deviceLocation = deviceLocation;
         this.deviceUri = deviceUri;
@@ -84,12 +84,12 @@ public class Device {
         this.deviceStatus = deviceStatus;
     }
 
-    public String getDeviceId() {
-        return deviceId;
+    public String getId() {
+        return id;
     }
 
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDeviceName() {
@@ -163,7 +163,7 @@ public class Device {
     @Override
     public String toString() {
         return "Device{" +
-                "deviceId='" + deviceId + '\'' +
+                "id='" + id + '\'' +
                 ", deviceName='" + deviceName + '\'' +
                 ", deviceLocation='" + deviceLocation + '\'' +
                 ", deviceUri='" + deviceUri + '\'' +

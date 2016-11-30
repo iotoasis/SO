@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "VirtualObject")
 public class VirtualObjectDataObject {
     //
-    private String voId;
+    private String id;
     private String voName;
     private String functionality;
     private String voDescription;
@@ -20,8 +20,8 @@ public class VirtualObjectDataObject {
     public VirtualObjectDataObject() {
     }
 
-    public VirtualObjectDataObject(String voId, String voName, String functionality, String voDescription, String voCreateTime, String voExpiredTime, String deviceService, String deviceId, String voCommand, String voLocation) {
-        this.voId = voId;
+    public VirtualObjectDataObject(String id, String voName, String functionality, String voDescription, String voCreateTime, String voExpiredTime, String deviceService, String deviceId, String voCommand, String voLocation) {
+        this.id = id;
         this.voName = voName;
         this.functionality = functionality;
         this.voDescription = voDescription;
@@ -33,12 +33,12 @@ public class VirtualObjectDataObject {
         this.voLocation = voLocation;
     }
 
-    public String getVoId() {
-        return voId;
+    public String getId() {
+        return id;
     }
 
-    public void setVoId(String voId) {
-        this.voId = voId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getVoName() {
@@ -116,7 +116,7 @@ public class VirtualObjectDataObject {
     @Override
     public String toString() {
         return "VirtualObjectDataObject{" +
-                "voId='" + voId + '\'' +
+                "id='" + id + '\'' +
                 ", voName='" + voName + '\'' +
                 ", functionality='" + functionality + '\'' +
                 ", voDescription='" + voDescription + '\'' +

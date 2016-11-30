@@ -179,6 +179,11 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
         List<String> contextLocation = null;
         if(session.isExistSessionData(DefaultSession.LOCATION_ID)){
             contextLocation = DataConversion.stringDataToList(session.findSessionData(DefaultSession.LOCATION_ID));
+        } else {
+            /**
+             * 외부 요청으로 인한 Session의 Location이 null일 경우 ServiceModel의 Location 비교는 무시한다.
+             */
+            return true;
         }
 
         if(contextLocation == null){

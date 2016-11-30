@@ -28,7 +28,7 @@ public class VirtualObjectMongoStore implements VirtualObjectStore {
     @Override
     public VirtualObject retrieveByID(String id) {
         logger.debug("VirtualObject ID = " + id);
-        VirtualObjectDataObject v = virtualObjectRepostory.findByvoId(id);
+        VirtualObjectDataObject v = virtualObjectRepostory.findOne(id);
         return DataObjectToVirtualObject(v);
     }
 
@@ -96,7 +96,7 @@ public class VirtualObjectMongoStore implements VirtualObjectStore {
 
     private VirtualObjectDataObject virtualObjectToDataObject(VirtualObject virtualObject) {
         if(virtualObject == null) return null;
-        return new VirtualObjectDataObject(virtualObject.getVoId(), virtualObject.getVoName(), virtualObject.getFunctionality(), virtualObject.getVoDescription(), virtualObject.getVoCreateTime(), virtualObject.getVoExpiredTime(), virtualObject.getDeviceService(), virtualObject.getDeviceId(), virtualObject.getVoCommand(), virtualObject.getVoLocation());
+        return new VirtualObjectDataObject(virtualObject.getId(), virtualObject.getVoName(), virtualObject.getFunctionality(), virtualObject.getVoDescription(), virtualObject.getVoCreateTime(), virtualObject.getVoExpiredTime(), virtualObject.getDeviceService(), virtualObject.getDeviceId(), virtualObject.getVoCommand(), virtualObject.getVoLocation());
     }
 
     private VirtualObject DataObjectToVirtualObject(VirtualObjectDataObject virtualObjectDataObject) {
@@ -104,6 +104,6 @@ public class VirtualObjectMongoStore implements VirtualObjectStore {
         {
             return null;
         }
-        return new VirtualObject(virtualObjectDataObject.getVoId(), virtualObjectDataObject.getVoName(), virtualObjectDataObject.getFunctionality(), virtualObjectDataObject.getVoDescription(), virtualObjectDataObject.getVoCreateTime(), virtualObjectDataObject.getVoExpiredTime(), virtualObjectDataObject.getDeviceService(), virtualObjectDataObject.getDeviceId(), virtualObjectDataObject.getVoCommand(), virtualObjectDataObject.getVoLocation());
+        return new VirtualObject(virtualObjectDataObject.getId(), virtualObjectDataObject.getVoName(), virtualObjectDataObject.getFunctionality(), virtualObjectDataObject.getVoDescription(), virtualObjectDataObject.getVoCreateTime(), virtualObjectDataObject.getVoExpiredTime(), virtualObjectDataObject.getDeviceService(), virtualObjectDataObject.getDeviceId(), virtualObjectDataObject.getVoCommand(), virtualObjectDataObject.getVoLocation());
     }
 }

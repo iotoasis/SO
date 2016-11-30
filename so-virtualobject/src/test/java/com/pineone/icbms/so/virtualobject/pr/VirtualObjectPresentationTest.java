@@ -28,14 +28,14 @@
 //        //
 //        VirtualObject virtualObject = new VirtualObject();
 //
-//        virtualObject.setVoId("CR0001AirCleaner0001");
+//        virtualObject.setId("CR0001AirCleaner0001");
 //        virtualObject.setVoName("공기청정기 VO");
 //        virtualObject.setFunctionality("switch-control");
 //        virtualObject.setVoDescription("강의실 공기청정기 제어 서비스");
 //        virtualObject.setVoCreateTime("201608250930");
 //        virtualObject.setVoExpiredTime("201708250930");
 //        virtualObject.setDeviceService("aircleaner-power-switch-control-service");
-//        virtualObject.setDeviceId("/herit-in/herit-cse/Device_AirCleaner_001");
+//        virtualObject.setId("/herit-in/herit-cse/Device_AirCleaner_001");
 //        virtualObject.setVoCommand("ON");
 //        virtualObject.setVoLocation("CLASSROOM001");
 //

@@ -2,7 +2,6 @@ package com.pineone.icbms.so.creator.generalobject;
 
 import com.pineone.icbms.so.compositevo.entity.CompositeVirtualObject;
 import com.pineone.icbms.so.compositevo.pr.CompositeVirtualObjectPresentation;
-import com.pineone.icbms.so.service.entity.Service;
 import com.pineone.icbms.so.virtualobject.entity.VirtualObject;
 import com.pineone.icbms.so.virtualobject.pr.VirtualObjectPresentation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,7 @@ public class GeneralObjectCreator {
         List<CompositeVirtualObject> compositeVirtualObjectList = compositeVirtualObjectPresentation.findCompositeVirtualObjectList();
 
         for (VirtualObject virtualObject : virtualObjectList) {
-            generalObjectIdList.add(virtualObject.getVoId());
+            generalObjectIdList.add(virtualObject.getId());
         }
         for (CompositeVirtualObject compositeVirtualObject : compositeVirtualObjectList) {
             generalObjectIdList.add(compositeVirtualObject.getId());

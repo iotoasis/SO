@@ -186,7 +186,7 @@ public class ServiceLogicImpl implements ServiceLogic{
 
                     VirtualObject virtualObject = serviceProxy.findVirtualObject(virtualObjectId);
 
-                    if(virtualObject != null && "vo-lack-equipment".equals(virtualObject.getVoId())){
+                    if(virtualObject != null && "vo-lack-equipment".equals(virtualObject.getId())){
                         // admin-noti에 따른 추가 적인 로직 적용.
                         // PC 부족 알림
                         // 마우스 부족 알림
@@ -209,7 +209,7 @@ public class ServiceLogicImpl implements ServiceLogic{
                     }
                 } else {
                     VirtualObject virtualObject = serviceProxy.findVirtualObject(virtualObjectId);
-                    if(virtualObject != null && "vo-lack-equipment".equals(virtualObject.getVoId())){
+                    if(virtualObject != null && "vo-lack-equipment".equals(virtualObject.getId())){
                         String operation = "";
                         try {
                             operation = serviceSDAProxy.getPCCountUri(session);

@@ -41,7 +41,7 @@ public class DeviceMongoStore implements DeviceStore{
     @Override
     public Device retrieveByID(String id) {
         logger.debug("Device  ID = " + id);
-        DeviceDataObject d = deviceRepository.findBydeviceId(id);
+        DeviceDataObject d = deviceRepository.findOne(id);
         Device device = DeviceObjectToDevice(d);
         logger.debug("Device = " + device.toString());
         return device;
@@ -100,12 +100,12 @@ public class DeviceMongoStore implements DeviceStore{
 
     private DeviceDataObject deviceToDataObject(Device device){
         if(device == null) return null;
-        return new DeviceDataObject(device.getDeviceId(),device.getDeviceName(),device.getDeviceLocation(),device.getDeviceUri(),device.getDeviceCommand(),device.getDeviceServices(),device.getDeviceCreateTime(),device.getDeviceExfiredTime(),device.getDeviceStatus());
+        return new DeviceDataObject(device.getId(),device.getDeviceName(),device.getDeviceLocation(),device.getDeviceUri(),device.getDeviceCommand(),device.getDeviceServices(),device.getDeviceCreateTime(),device.getDeviceExfiredTime(),device.getDeviceStatus());
     }
 
     private Device DeviceObjectToDevice(DeviceDataObject deviceDataObject) {
         if(deviceDataObject == null) return null;
-        return new Device(deviceDataObject.getDeviceId(),deviceDataObject.getDeviceName(),deviceDataObject.getDeviceLocation(),deviceDataObject.getDeviceUri(),deviceDataObject.getDeviceCommand(),deviceDataObject.getDeviceServices(),deviceDataObject.getDeviceCreateTime(),deviceDataObject.getDeviceExfiredTime(),deviceDataObject.getDeviceStatus());
+        return new Device(deviceDataObject.getId(),deviceDataObject.getDeviceName(),deviceDataObject.getDeviceLocation(),deviceDataObject.getDeviceUri(),deviceDataObject.getDeviceCommand(),deviceDataObject.getDeviceServices(),deviceDataObject.getDeviceCreateTime(),deviceDataObject.getDeviceExfiredTime(),deviceDataObject.getDeviceStatus());
     }
 
 }

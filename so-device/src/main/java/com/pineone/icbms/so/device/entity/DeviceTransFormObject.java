@@ -2,7 +2,7 @@ package com.pineone.icbms.so.device.entity;
 
 public class DeviceTransFormObject {
 
-    private String          deviceId;
+    private String id;
     private String          deviceName;
     private String          deviceLocation;
     private String          deviceUri;
@@ -14,8 +14,8 @@ public class DeviceTransFormObject {
     public DeviceTransFormObject() {
     }
 
-    public DeviceTransFormObject(String deviceId, String deviceName, String deviceLocation, String deviceUri, String deviceCommand, String deviceServices, String deviceStatus, String sessionId) {
-        this.deviceId = deviceId;
+    public DeviceTransFormObject(String id, String deviceName, String deviceLocation, String deviceUri, String deviceCommand, String deviceServices, String deviceStatus, String sessionId) {
+        this.id = id;
         this.deviceName = deviceName;
         this.deviceLocation = deviceLocation;
         this.deviceUri = deviceUri;
@@ -25,12 +25,12 @@ public class DeviceTransFormObject {
         this.sessionId = sessionId;
     }
 
-    public String getDeviceId() {
-        return deviceId;
+    public String getId() {
+        return id;
     }
 
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDeviceName() {
@@ -92,7 +92,7 @@ public class DeviceTransFormObject {
     @Override
     public String toString() {
         return "DeviceTransFormObject{" +
-                "deviceId='" + deviceId + '\'' +
+                "id='" + id + '\'' +
                 ", deviceName='" + deviceName + '\'' +
                 ", deviceLocation='" + deviceLocation + '\'' +
                 ", deviceUri='" + deviceUri + '\'' +
