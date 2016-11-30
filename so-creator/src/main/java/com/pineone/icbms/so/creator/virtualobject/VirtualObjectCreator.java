@@ -32,7 +32,7 @@ public class VirtualObjectCreator {
         List<String> voIdList = new ArrayList<>();
         List<VirtualObject> virtualObjectList = virtualObjectPresentation.searchVirtualObjectList();
         for(VirtualObject virtualObject : virtualObjectList){
-            voIdList.add(virtualObject.getVoId());
+            voIdList.add(virtualObject.getId());
         }
         return voIdList;
     }

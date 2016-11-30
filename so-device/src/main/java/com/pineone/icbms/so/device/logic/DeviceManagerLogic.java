@@ -297,7 +297,7 @@ public class DeviceManagerLogic implements DeviceManager {
 
         long currentTime = System.currentTimeMillis();
         long modifiedTime = currentTime + 30240000000L;
-        device.setDeviceId(DEVICE_PRE + UUID.randomUUID().toString());
+        device.setId(DEVICE_PRE + UUID.randomUUID().toString());
         device.setDeviceCreateTime(currentTime);
         device.setDeviceExfiredTime(modifiedTime);
         // TODO : Device Command는 언제 요청으로 얻어 올까??

@@ -25,7 +25,7 @@ public class DeviceMemory{
 
     public void create(Device device) {
         //
-        deviceRepository.put(device.getDeviceId(),device);
+        deviceRepository.put(device.getId(),device);
     }
 
     public Device retrieveByID(String id) {
@@ -49,7 +49,7 @@ public class DeviceMemory{
 
     public void update(Device device) {
         //
-        deviceRepository.put(device.getDeviceId(),device);
+        deviceRepository.put(device.getId(),device);
     }
 
     public void delete(String id) {

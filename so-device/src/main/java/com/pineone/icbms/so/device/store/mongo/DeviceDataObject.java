@@ -7,7 +7,7 @@ import java.util.List;
 @Document(collection = "Device")
 public class DeviceDataObject {
 
-    private String          deviceId;
+    private String          id;
     private String          deviceName;
     private String          deviceLocation;
     private String          deviceUri;
@@ -20,8 +20,8 @@ public class DeviceDataObject {
     public DeviceDataObject() {
     }
 
-    public DeviceDataObject(String deviceId, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, long deviceCreateTime, long deviceExfiredTime, String deviceStatus) {
-        this.deviceId = deviceId;
+    public DeviceDataObject(String id, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, long deviceCreateTime, long deviceExfiredTime, String deviceStatus) {
+        this.id = id;
         this.deviceName = deviceName;
         this.deviceLocation = deviceLocation;
         this.deviceUri = deviceUri;
@@ -32,8 +32,8 @@ public class DeviceDataObject {
         this.deviceStatus = deviceStatus;
     }
 
-    public String getDeviceId() {
-        return deviceId;
+    public String getId() {
+        return id;
     }
 
     public String getDeviceName() {
@@ -71,7 +71,7 @@ public class DeviceDataObject {
     @Override
     public String toString() {
         return "DeviceDataObject{" +
-                "deviceId='" + deviceId + '\'' +
+                "id='" + id + '\'' +
                 ", deviceName='" + deviceName + '\'' +
                 ", deviceLocation='" + deviceLocation + '\'' +
                 ", deviceUri='" + deviceUri + '\'' +

@@ -40,7 +40,7 @@ public class DeviceSDAProxyTest {
         Device device = new Device();
         Device deviceTest = new Device();
         deviceTest.setDeviceName("JunitTestDevice");
-        deviceTest.setDeviceId("deviceT001");
+        deviceTest.setId("deviceT001");
 
         when(deviceSDAProxy.findDeviceByID(ClientProfile.SDA_DATAREQUEST_URI + "device/deviceT001")).thenReturn(deviceTest);
         device = deviceSDAProxy.findDeviceByID(ClientProfile.SDA_DATAREQUEST_URI + "device/deviceT001");
@@ -53,7 +53,7 @@ public class DeviceSDAProxyTest {
         List<Device> deviceTestList = new ArrayList<>();
         Device deviceTemp = new Device();
         deviceTemp.setDeviceName("JunitTestDevice");
-        deviceTemp.setDeviceId("deviceT001");
+        deviceTemp.setId("deviceT001");
         deviceTestList.add(deviceTemp);
 
         when(deviceSDAProxy.findDeviceByDomain(ClientProfile.SDA_DATAREQUEST_URI + "device/")).thenReturn(deviceTestList);

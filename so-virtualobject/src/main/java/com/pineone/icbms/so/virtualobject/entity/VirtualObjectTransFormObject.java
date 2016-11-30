@@ -2,7 +2,7 @@ package com.pineone.icbms.so.virtualobject.entity;
 
 public class VirtualObjectTransFormObject {
 
-    private String voId;
+    private String id;
     private String voName;
     private String functionality;
     private String voDescription;
@@ -18,8 +18,8 @@ public class VirtualObjectTransFormObject {
     public VirtualObjectTransFormObject() {
     }
 
-    public VirtualObjectTransFormObject(String voId, String voName, String functionality, String voDescription, String voCreateTime, String voExpiredTime, String deviceService, String deviceId, String voCommand, String voLocation, String sessionId) {
-        this.voId = voId;
+    public VirtualObjectTransFormObject(String id, String voName, String functionality, String voDescription, String voCreateTime, String voExpiredTime, String deviceService, String deviceId, String voCommand, String voLocation, String sessionId) {
+        this.id = id;
         this.voName = voName;
         this.functionality = functionality;
         this.voDescription = voDescription;
@@ -32,12 +32,12 @@ public class VirtualObjectTransFormObject {
         this.sessionId = sessionId;
     }
 
-    public String getVoId() {
-        return voId;
+    public String getId() {
+        return id;
     }
 
-    public void setVoId(String voId) {
-        this.voId = voId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getVoName() {
@@ -123,7 +123,7 @@ public class VirtualObjectTransFormObject {
     @Override
     public String toString() {
         return "VirtualObjectTransFormObject{" +
-                "voId='" + voId + '\'' +
+                "id='" + id + '\'' +
                 ", voName='" + voName + '\'' +
                 ", functionality='" + functionality + '\'' +
                 ", voDescription='" + voDescription + '\'' +

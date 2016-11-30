@@ -155,8 +155,8 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
             List<VirtualObject> virtualObjects = virtualObjectStore.retrieveByLocationAndService(control.getDomain(),control.getFunctionality());
             // DB에서 조회된 VO 실행.
             for(VirtualObject vo : virtualObjects){
-                logger.debug("VirtualObject ID = " + vo.getVoId() + " Device ID = " + vo.getDeviceId() + " Operation = " + vo.getVoCommand());
-                deviceManager.deviceExecute(vo.getDeviceId(),control.getOperation());
+                logger.debug("VirtualObject ID = " + vo.getId() + " Device ID = " + vo.getId() + " Operation = " + vo.getVoCommand());
+                deviceManager.deviceExecute(vo.getId(),control.getOperation());
             }
         }
 

@@ -74,11 +74,11 @@ public class DevicePresentationTest {
     public void deviceDisableNotificationTest(){
         //
         deviceReleaseMessage deviceReleaseMessage = new deviceReleaseMessage();
-        deviceReleaseMessage.setDeviceId("JuintTestDeviceDisable001");
+        deviceReleaseMessage.setId("JuintTestDeviceDisable001");
         deviceReleaseMessage.setRegisterTime("20160808T153028");
 
         devicePresentation.deviceDisableNotification(deviceReleaseMessage);
-        Device device = deviceStore.retrieveByID(deviceReleaseMessage.getDeviceId());
+        Device device = deviceStore.retrieveByID(deviceReleaseMessage.getId());
 
         Assert.assertNull(device);
 

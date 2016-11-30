@@ -26,7 +26,7 @@ public class VirtualObjectMemory {
     }
 
     public void create(VirtualObject virtualObject) {
-        virtualObjectRepository.put(virtualObject.getVoId(),virtualObject);
+        virtualObjectRepository.put(virtualObject.getId(),virtualObject);
     }
 
     public VirtualObject retrieveByID(String id) {
@@ -41,7 +41,7 @@ public class VirtualObjectMemory {
     }
 
     public void update(VirtualObject virtualObject) {
-        virtualObjectRepository.put(virtualObject.getVoId(),virtualObject);
+        virtualObjectRepository.put(virtualObject.getId(),virtualObject);
     }
 
     public void delete(String id) {

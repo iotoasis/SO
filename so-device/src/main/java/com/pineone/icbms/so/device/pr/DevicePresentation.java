@@ -43,9 +43,9 @@ public class DevicePresentation {
         // NOTE : Device Control
 
         logger.info("<================ Device Control Start ================>");
-        logger.debug(LogPrint.LogMethodNamePrint() + " |  Device ID = " + deviceTransFormObject.getDeviceId() + " , DeviceCommand = " + deviceTransFormObject.getDeviceCommand() + " , Session ID = " + deviceTransFormObject.getSessionId());
+        logger.debug(LogPrint.LogMethodNamePrint() + " |  Device ID = " + deviceTransFormObject.getId() + " , DeviceCommand = " + deviceTransFormObject.getDeviceCommand() + " , Session ID = " + deviceTransFormObject.getSessionId());
 
-        String result = deviceManager.deviceExecute(deviceTransFormObject.getDeviceId(), deviceTransFormObject.getDeviceCommand(), deviceTransFormObject.getSessionId());
+        String result = deviceManager.deviceExecute(deviceTransFormObject.getId(), deviceTransFormObject.getDeviceCommand(), deviceTransFormObject.getSessionId());
         logger.debug(LogPrint.LogMethodNamePrint() + " |  Result = " + result);
         logger.info("<================ Device Control End ================>");
         return result;
@@ -151,9 +151,9 @@ public class DevicePresentation {
     @RequestMapping(value ="/operation",method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public String findDeviceOperation(@RequestBody DeviceTransFormObject deviceTransFormObject){
-        logger.info(LogPrint.inputInfoLogPrint() + "Device ID = " + deviceTransFormObject.getDeviceId());
+        logger.info(LogPrint.inputInfoLogPrint() + "Device ID = " + deviceTransFormObject.getId());
         logger.debug("Device = " + deviceTransFormObject.toString());
-        return deviceManager.searchOperation(deviceTransFormObject.getDeviceId(), deviceTransFormObject.getDeviceServices());
+        return deviceManager.searchOperation(deviceTransFormObject.getId(), deviceTransFormObject.getDeviceServices());
     }
 
     /**
@@ -170,7 +170,7 @@ public class DevicePresentation {
 
     public DeviceTransFormObject settingDeviceRequestData(String deviceid, String command, String sessionId){
         DeviceTransFormObject object = new DeviceTransFormObject();
-        object.setDeviceId(deviceid);
+        object.setId(deviceid);
         object.setDeviceCommand(command);
         object.setSessionId(sessionId);
         return object;
