@@ -6,6 +6,8 @@ import com.pineone.icbms.so.device.proxy.DeviceICollectionProxy;
 import com.pineone.icbms.so.device.store.DeviceResultStore;
 import com.pineone.icbms.so.device.store.DeviceStore;
 import com.pineone.icbms.so.device.util.ClientProfile;
+import com.pineone.icbms.so.util.address.AddressStore;
+import com.pineone.icbms.so.util.address.ContextAddress;
 import com.pineone.icbms.so.util.conversion.DataConversion;
 import com.pineone.icbms.so.util.logprint.LogPrint;
 import com.pineone.icbms.so.util.session.DefaultSession;
@@ -44,13 +46,16 @@ public class DeviceManagerLogic implements DeviceManager {
     @Autowired
     private DeviceControlProxy deviceControlProxy;
 
+    @Autowired
+    ContextAddress contextAddress;
+
     @Override
     public void deviceRegister(String deviceUri, String time){
         // NOTE : 디바이스 생성.
         logger.debug("Device Uri = " + deviceUri + " Time = " + time);
         // 디바이스 ID로 SDA에 데이터 요청.
         // TODO: SDA에 Device Uri만으로 Device정보 연동 규격 필요.
-        Device device = deviceRequest(ClientProfile.SDA_DATAREQUEST_URI + ClientProfile.SDA_DEVICE + deviceUri);
+        Device device = deviceRequest(contextAddress.getSIAddress() + AddressStore.SDA_DEVICE + deviceUri);
         logger.debug("Device = " + device.toString());
         // 디바이스 저장.
         deviceCreate(device);
@@ -121,7 +126,7 @@ public class DeviceManagerLogic implements DeviceManager {
         }
 
         // Device 제어 요청 보냄.
-        ResultMessage resultMessage = deviceControlProxy.deviceControlRequest(ClientProfile.SI_CONTOL_URI,deviceControlMessage);
+        ResultMessage resultMessage = deviceControlProxy.deviceControlRequest(contextAddress.getSIAddress() + AddressStore.SI_CONTOL_URI,deviceControlMessage);
         logger.debug(LogPrint.LogMethodNamePrint() + " | Device Control Result : " + " , Device Uri = " + device.getDeviceUri() + " , Result : " + resultMessage + " , Session ID = " + sessionId);
 
         /**

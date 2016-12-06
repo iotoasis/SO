@@ -37,7 +37,6 @@ public class DeviceResultMongoStore implements DeviceResultStore {
         logger.debug("DeviceResult = " + deviceResult.toString());
         DeviceResultDataObject d = deviceResultToDataObject(deviceResult);
         deviceResultRepository.save(d);
-//        deviceResultRepository.insert(d);
     }
 
     @Override

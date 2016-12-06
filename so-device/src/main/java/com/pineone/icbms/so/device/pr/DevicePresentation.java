@@ -75,7 +75,7 @@ public class DevicePresentation {
         // Search Device By Id
         logger.info(LogPrint.inputInfoLogPrint() + "DeviceID = " + deviceId);
         Device device = deviceManager.deviceSearchById(deviceId);
-        logger.debug("Devoce = " + deviceId.toString());
+        logger.debug("Device ID = " + deviceId);
         return device;
     }
 

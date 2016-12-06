@@ -2,26 +2,11 @@ package com.pineone.icbms.so.device.util;
 
 public class ClientProfile {
 
-    // SI Command Data
-    public static final String	SO_CONTROL_NOTIFICATON_URI	= "http://219.248.137.7:10080/so/device/resources/dcm";
     public static final String	SO_CONTROL_TYPE				= "text/plain:0";
     public static final String  SI_CONTROL_POWER            = "Power";
     public static final String  SI_CONTROL_ACTION           = "Action";
-    public static final String  SI_CONTOL_URI               = "http://166.104.112.34:8081/si/control";
-    public static final String  SI_DEV_CONTOL_URI           = "http://218.153.68.53:8081/si/control";
-    public static final String  SI_SUBSCRIPTION_URI         = "http://166.104.112.34:8081/si/subscription/add";
-    public static final String  SI_SUBSCRIPTION_RELEASE_URI = "http://166.104.112.34:8081/si/subscription/del";
-    public static final String  SI_DEV_SUBSCRIPTION_URI         = "http://218.153.68.53:8081/si/subscription/add";
-    public static final String  SI_DEV_SUBSCRIPTION_RELEASE_URI = "http://218.153.68.53:8081/si/subscription/del";
+
     public static final String  SI_COMMAND_ID               = "cmd_";
-
-    public static final String SO_DEVICE_STATUS_URI         = "http://166.104.112.42:10080/so/device/status";
-
-
-    //SDA Data
-    public static final String  SDA_DATAREQUEST_URI         = "http://oasia.org/sda/hanyang";
-    public static final String  SDA_DEVICE                  = "/device";
-    public static final String  SDA_DEVICE_OPERATION        = "/operation";
 
     // Presentation Data
     public static final String	RESPONSE_SUCCESS			= "success";

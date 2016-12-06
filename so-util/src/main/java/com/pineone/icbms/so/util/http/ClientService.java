@@ -144,7 +144,7 @@ public class ClientService
 	 * @param message
 	 * @return String
 	 */
-	private String responseDataToString(IHttpResponseMessage message)
+	public String responseDataToString(IHttpResponseMessage message)
 	{
 		String result = null;
 

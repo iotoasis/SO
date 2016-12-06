@@ -25,7 +25,6 @@ public class SessionDataObject {
     public SessionDataObject() {
     }
 
-
     public SessionDataObject(String id) {
         this.id = id;
     }

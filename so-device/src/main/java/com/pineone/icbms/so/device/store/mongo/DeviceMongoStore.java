@@ -18,19 +18,6 @@ public class DeviceMongoStore implements DeviceStore{
     @Autowired
     DeviceRepository deviceRepository;
 
-//    private static DeviceMongoStore instance;
-//
-//    public DeviceMongoStore() {
-//    }
-
-//    public static DeviceMongoStore getInstance(){
-//        if(instance == null) {
-//            instance = new DeviceMongoStore();
-//        }
-//        return instance;
-//    }
-
-
     @Override
     public void create(Device device) {
         logger.debug("Device  = " + device.toString());
@@ -64,10 +51,14 @@ public class DeviceMongoStore implements DeviceStore{
 
     @Override
     public List<String> retrieveDeviceService(String location) {
-        // Device들을 가지고 온 뒤 1차 가공해서 Service만 도출하여 보내줌.
-        // 아니면 다른걸 보내줌.
-        // TODO :
-        return null;
+        List<DeviceDataObject> deviceDataObjects = deviceRepository.findBydeviceLocation(location);
+        List<String> deviceServiceList = new ArrayList<>();
+        for(DeviceDataObject deviceDataObject : deviceDataObjects){
+            List<String> deviceList = deviceDataObject.getDeviceServices();
+            for(String deviceService : deviceList)
+            deviceServiceList.add(deviceService);
+        }
+        return deviceServiceList;
     }
 
     @Override
@@ -99,12 +90,16 @@ public class DeviceMongoStore implements DeviceStore{
 
 
     private DeviceDataObject deviceToDataObject(Device device){
-        if(device == null) return null;
+        if(device == null){
+            return null;
+        }
         return new DeviceDataObject(device.getId(),device.getDeviceName(),device.getDeviceLocation(),device.getDeviceUri(),device.getDeviceCommand(),device.getDeviceServices(),device.getDeviceCreateTime(),device.getDeviceExfiredTime(),device.getDeviceStatus());
     }
 
     private Device DeviceObjectToDevice(DeviceDataObject deviceDataObject) {
-        if(deviceDataObject == null) return null;
+        if(deviceDataObject == null){
+            return null;
+        }
         return new Device(deviceDataObject.getId(),deviceDataObject.getDeviceName(),deviceDataObject.getDeviceLocation(),deviceDataObject.getDeviceUri(),deviceDataObject.getDeviceCommand(),deviceDataObject.getDeviceServices(),deviceDataObject.getDeviceCreateTime(),deviceDataObject.getDeviceExfiredTime(),deviceDataObject.getDeviceStatus());
     }
 

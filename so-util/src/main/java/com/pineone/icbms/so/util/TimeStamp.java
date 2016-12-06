@@ -5,6 +5,10 @@ import java.util.Date;
 
 public class TimeStamp {
 
+    private TimeStamp() {
+        throw new IllegalAccessError("Utility class");
+    }
+
     public static String currentTime(){
         return new SimpleDateFormat("yyyy-MM-dd HH-mm:ss").format(new Date(System.currentTimeMillis()));
     }

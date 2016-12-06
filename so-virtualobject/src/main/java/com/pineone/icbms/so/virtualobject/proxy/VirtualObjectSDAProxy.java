@@ -1,11 +1,13 @@
 package com.pineone.icbms.so.virtualobject.proxy;
 
-import com.pineone.icbms.so.device.util.ClientProfile;
+import com.pineone.icbms.so.util.address.AddressStore;
+import com.pineone.icbms.so.util.address.ContextAddress;
 import com.pineone.icbms.so.util.http.ClientService;
 import com.pineone.icbms.so.util.logprint.LogPrint;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,12 +20,15 @@ public class VirtualObjectSDAProxy implements VirtualObjectProxy{
 
     private ClientService clientService = new ClientService();
 
+    @Autowired
+    ContextAddress contextAddress;
+
     @Override
     public String findFunctionality(String deviceId, String deviceService){
         logger.info(LogPrint.outputInfoLogPrint());
         logger.debug("Device ID = " + deviceId + " DeviceService = " + deviceService);
         //
-        String requestUri = ClientProfile.SDA_DATAREQUEST_URI + ClientProfile.SDA_DEVICE;
+        String requestUri = contextAddress.getSDAAddress() + AddressStore.SDA_DEVICE;
         JSONObject obj = new JSONObject();
         obj.put("deviceId", deviceId);
         obj.put("deviceService", deviceService);
