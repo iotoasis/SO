@@ -88,7 +88,9 @@ public class VirtualObjectPresentation {
 
     private VirtualObject virtualObjectMapping(VirtualObjectTransFormObject virtualObjectDataObject)
     {
-        if(virtualObjectDataObject == null)return null;
+        if(virtualObjectDataObject == null){
+            return null;
+        }
         VirtualObject virtualObject = new VirtualObject(virtualObjectDataObject.getId(),virtualObjectDataObject.getVoName(),virtualObjectDataObject.getFunctionality(),virtualObjectDataObject.getVoDescription(),virtualObjectDataObject.getVoCreateTime(),virtualObjectDataObject.getVoExpiredTime(),virtualObjectDataObject.getDeviceService(),virtualObjectDataObject.getDeviceId(),virtualObjectDataObject.getVoCommand(),virtualObjectDataObject.getVoLocation());
         if(!virtualObject.getId().startsWith(VirtualObjectProfile.VIRTUALOBJECT_ID)){
             String voId = virtualObject.getId();

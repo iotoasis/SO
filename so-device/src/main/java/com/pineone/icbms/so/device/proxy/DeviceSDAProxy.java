@@ -135,7 +135,7 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
         logger.info((LogPrint.outputInfoLogPrint())+ "DeviceID = " + deviceId);
         logger.debug("DeviceID = " + deviceId + "DeviceService = " + deviceService);
 
-        String requestUri = contextAddress.getSDAAddress() + AddressStore.SDA_DEVICE + AddressStore.SDA_DEVICE_OPERATION;
+        String requestUri = contextAddress.getServerAddress(ContextAddress.SDA_SERVER) + AddressStore.SDA_DEVICE + AddressStore.SDA_DEVICE_OPERATION;
         JSONObject obj = new JSONObject();
         obj.put("deviceId", deviceId);
         obj.put("deviceService", deviceService);

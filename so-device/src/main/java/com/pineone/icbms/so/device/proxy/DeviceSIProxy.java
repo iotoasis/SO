@@ -63,14 +63,14 @@ public class DeviceSIProxy implements DeviceControlProxy {
         logger.debug(LogPrint.LogMethodNamePrint() + " | DeviceUri = " + deviceUri);
 
         DeviceSubscriptionData deviceSubscriptionData = new DeviceSubscriptionData();
-        deviceSubscriptionData.set_notificationUri(contextAddress.getSOAddress() + AddressStore.SO_DEVICE_STATUS);
+        deviceSubscriptionData.set_notificationUri(contextAddress.getServerAddress(ContextAddress.SO_SERVER) + AddressStore.SO_DEVICE_STATUS);
         deviceSubscriptionData.set_uri(deviceUri);
 
         String requestBody = new Gson().toJson(deviceSubscriptionData);
         // DeviceLogic에 생성되거나 제어되면 서브스크립트 걸어야 겠군.
         // 현제 정책이 안되어 있어서. 등록되면 걸지.. 제어시 걸지는 고려 필요.
 
-        String responseData = clientService.requestPostServiceReceiveString(contextAddress.getSIAddress() + AddressStore.SI_SUBSCRIPTION_URI, requestBody);
+        String responseData = clientService.requestPostServiceReceiveString(contextAddress.getServerAddress(ContextAddress.SI_SERVER) + AddressStore.SI_SUBSCRIPTION_URI, requestBody);
         // ResponseData{ "code" : "2000", "message" : "", "content" : "" }
         logger.debug(LogPrint.LogMethodNamePrint() + " | Subscription Request : Response Data  = " + responseData);
         ResultMessage resultMessage = new ResultMessage();
@@ -97,7 +97,7 @@ public class DeviceSIProxy implements DeviceControlProxy {
         String requestBody = new Gson().toJson(deviceSubscriptionData);
         // DeviceLogic에 생성되거나 제어되면 서브스크립트 걸어야 겠군.
         // 현제 정책이 안되어 있어서. 등록되면 걸지.. 제어시 걸지는 고려 필요.
-        String responseData = clientService.requestPostServiceReceiveString(contextAddress.getSIAddress() + AddressStore.SI_SUBSCRIPTION_RELEASE_URI, requestBody);
+        String responseData = clientService.requestPostServiceReceiveString(contextAddress.getServerAddress(ContextAddress.SI_SERVER) + AddressStore.SI_SUBSCRIPTION_RELEASE_URI, requestBody);
         logger.debug(LogPrint.LogMethodNamePrint() + " | Device SubscriptionRelease Request Result = " + responseData);
         logger.info("<================ Device SubscriptionRelease Request End ================>");
         return responseData;

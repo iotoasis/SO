@@ -41,7 +41,7 @@ public class ServiceSDAProxyImpl implements ServiceSDAProxy{
         }
 
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getSDAAddress()  + "cm-lack-equipment-count/?p=" + location );
+                contextAddress.getServerAddress(ContextAddress.SDA_SERVER)  + "cm-lack-equipment-count/?p=" + location );
         if(message.getStatusCode() == 200) {
             System.out.println(message.getBodyByteArray().toString());
             logger.debug("ResponseMessage : " + message);

@@ -39,7 +39,7 @@ public class BizContextSDAProxy implements BizContextProxy{
 //        contextAddress = ContextAddress.newContextAddress();
         logger.info(LogPrint.outputInfoLogPrint());
         IHttpResponseMessage message = clientService.requestGetService
-                (contextAddress.getSDAAddress() + AddressStore.RETRIEVE_CURRENT_VALUE + "/" + domain.getName());
+                (contextAddress.getServerAddress(ContextAddress.SDA_SERVER) + AddressStore.RETRIEVE_CURRENT_VALUE + "/" + domain.getName());
         String response = new Gson().toJson(message);
         int currentValue = Integer.parseInt(response);
         return currentValue;
@@ -52,7 +52,7 @@ public class BizContextSDAProxy implements BizContextProxy{
 //        contextAddress = ContextAddress.newContextAddress();
         logger.info(LogPrint.outputInfoLogPrint());
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getSDAAddress() + AddressStore.RETRIEVE_PAST_VALUE + "/" + domain.getName());
+                contextAddress.getServerAddress(ContextAddress.SDA_SERVER) + AddressStore.RETRIEVE_PAST_VALUE + "/" + domain.getName());
         String response = new Gson().toJson(message);
         int pastValue = Integer.parseInt(response);
         return pastValue;
@@ -65,7 +65,7 @@ public class BizContextSDAProxy implements BizContextProxy{
 //        contextAddress = ContextAddress.newContextAddress();
         logger.info(LogPrint.outputInfoLogPrint());
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getSDAAddress() + AddressStore.RETRIEVE_USE_AMOUNT + "/" + domain.getName());
+                contextAddress.getServerAddress(ContextAddress.SDA_SERVER) + AddressStore.RETRIEVE_USE_AMOUNT + "/" + domain.getName());
         String response = new Gson().toJson(message);
         int useAmount = Integer.parseInt(response);
         return useAmount;
@@ -77,7 +77,7 @@ public class BizContextSDAProxy implements BizContextProxy{
         //
 //        contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getSDAAddress() + AddressStore.RETRIEVE_OBJECT_VALUE + "/" + domain.getName());
+                contextAddress.getServerAddress(ContextAddress.SDA_SERVER) + AddressStore.RETRIEVE_OBJECT_VALUE + "/" + domain.getName());
         String response = new Gson().toJson(message);
         int objectValue = Integer.parseInt(response);
         return objectValue;
@@ -90,7 +90,7 @@ public class BizContextSDAProxy implements BizContextProxy{
 //        contextAddress = ContextAddress.newContextAddress();
         logger.info(LogPrint.outputInfoLogPrint());
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getSDAAddress() + AddressStore.RETRIEVE_CURRENT_PC + "/" + domain.getName());
+                contextAddress.getServerAddress(ContextAddress.SDA_SERVER) + AddressStore.RETRIEVE_CURRENT_PC + "/" + domain.getName());
         String response = new Gson().toJson(message);
         int currentPC = Integer.parseInt(response);
         return currentPC;
@@ -103,7 +103,7 @@ public class BizContextSDAProxy implements BizContextProxy{
 //        contextAddress = ContextAddress.newContextAddress();
         logger.info(LogPrint.outputInfoLogPrint());
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getSDAAddress() + AddressStore.RETRIEVE_NEXT_PC + "/" + domain.getName());
+                contextAddress.getServerAddress(ContextAddress.SDA_SERVER) + AddressStore.RETRIEVE_NEXT_PC + "/" + domain.getName());
         String response = new Gson().toJson(message);
         int nextPC = Integer.parseInt(response);
         return nextPC;
@@ -116,7 +116,7 @@ public class BizContextSDAProxy implements BizContextProxy{
 //        contextAddress = ContextAddress.newContextAddress();
         logger.info(LogPrint.outputInfoLogPrint());
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getSDAAddress() + AddressStore.RETRIEVE_CURRENT_MOUSE + "/" + domain.getName());
+                contextAddress.getServerAddress(ContextAddress.SDA_SERVER) + AddressStore.RETRIEVE_CURRENT_MOUSE + "/" + domain.getName());
         String response = new Gson().toJson(message);
         int currentMouse = Integer.parseInt(response);
         return currentMouse;
@@ -129,7 +129,7 @@ public class BizContextSDAProxy implements BizContextProxy{
 //        contextAddress = ContextAddress.newContextAddress();
         logger.info(LogPrint.outputInfoLogPrint());
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getSDAAddress() + AddressStore.RETRIEVE_NEXT_MOUSE + "/" + domain.getName());
+                contextAddress.getServerAddress(ContextAddress.SDA_SERVER) + AddressStore.RETRIEVE_NEXT_MOUSE + "/" + domain.getName());
         String response = new Gson().toJson(message);
         int nextMouse = Integer.parseInt(response);
         return nextMouse;
@@ -142,7 +142,7 @@ public class BizContextSDAProxy implements BizContextProxy{
 //        contextAddress = ContextAddress.newContextAddress();
         logger.info(LogPrint.outputInfoLogPrint());
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getSDAAddress() + AddressStore.RETRIEVE_CURRENT_KEYBOARD + "/" + domain.getName());
+                contextAddress.getServerAddress(ContextAddress.SDA_SERVER) + AddressStore.RETRIEVE_CURRENT_KEYBOARD + "/" + domain.getName());
         String response = new Gson().toJson(message);
         int currentKeyBoard = Integer.parseInt(response);
         return currentKeyBoard;
@@ -155,7 +155,7 @@ public class BizContextSDAProxy implements BizContextProxy{
 //        contextAddress = ContextAddress.newContextAddress();
         logger.info(LogPrint.outputInfoLogPrint());
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getSDAAddress() + AddressStore.RETRIEVE_NEXT_KEYBOARD + "/" + domain.getName());
+                contextAddress.getServerAddress(ContextAddress.SDA_SERVER) + AddressStore.RETRIEVE_NEXT_KEYBOARD + "/" + domain.getName());
         String response = new Gson().toJson(message);
         int nextKeyBoard = Integer.parseInt(response);
         return nextKeyBoard;

@@ -39,5 +39,7 @@ public class AddressStore {
     //SO Data
     public static final String SO_DEVICE_STATUS              = "/so/device/status";
 
-
+    private AddressStore() {
+        throw new IllegalAccessError("AddressStore class");
+    }
 }

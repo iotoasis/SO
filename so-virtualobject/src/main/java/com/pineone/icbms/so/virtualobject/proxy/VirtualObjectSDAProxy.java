@@ -28,15 +28,13 @@ public class VirtualObjectSDAProxy implements VirtualObjectProxy{
         logger.info(LogPrint.outputInfoLogPrint());
         logger.debug("Device ID = " + deviceId + " DeviceService = " + deviceService);
         //
-        String requestUri = contextAddress.getSDAAddress() + AddressStore.SDA_DEVICE;
+        String requestUri = contextAddress.getServerAddress(ContextAddress.SDA_SERVER) + AddressStore.SDA_DEVICE;
         JSONObject obj = new JSONObject();
         obj.put("deviceId", deviceId);
         obj.put("deviceService", deviceService);
         String requestData = obj.toString();
 
-        String responseData = clientService.requestPostServiceReceiveString(requestUri, requestData);
-
-        return responseData;
+        return clientService.requestPostServiceReceiveString(requestUri, requestData);
     }
 
 }
