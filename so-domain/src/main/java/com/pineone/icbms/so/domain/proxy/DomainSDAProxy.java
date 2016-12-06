@@ -3,7 +3,6 @@ package com.pineone.icbms.so.domain.proxy;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pineone.icbms.so.domain.entity.Domain;
-import com.pineone.icbms.so.domain.pr.DomainPresentation;
 import com.pineone.icbms.so.util.address.AddressStore;
 import com.pineone.icbms.so.util.address.ContextAddress;
 import com.pineone.icbms.so.util.http.ClientService;
@@ -44,7 +43,7 @@ public class DomainSDAProxy {
         logger.info(LogPrint.outputInfoLogPrint());
 //        contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestGetService
-                (contextAddress.getAddress() + AddressStore.REGISTER_CONTEXTINFORMATION);
+                (contextAddress.getSDAAddress() + AddressStore.REGISTER_CONTEXTINFORMATION);
         String readData = new Gson().toJson(message);
         Type type = new TypeToken<List<Domain>>(){}.getType();
         List<Domain> domainList = new Gson().fromJson(readData,type);

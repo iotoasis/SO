@@ -20,11 +20,11 @@ public class ContextAddress {
 //        return contextAddress;
 //    }
 
-    public String getAddress(){
+    public String getSDAAddress(){
         //
         String sdaConnection = null;
         Properties sdaInfo = new Properties();
-        InputStream inputStream = ContextAddress.class.getClassLoader().getResourceAsStream("sda.properties");
+        InputStream inputStream = ContextAddress.class.getClassLoader().getResourceAsStream("server.properties");
         try{
             sdaInfo.load(inputStream);
             sdaConnection = sdaInfo.getProperty("Sda_Connection");
@@ -33,4 +33,33 @@ public class ContextAddress {
         }
         return sdaConnection;
     }
+
+    public String getSIAddress(){
+        //
+        String siConnection = null;
+        Properties siInfo = new Properties();
+        InputStream inputStream = ContextAddress.class.getClassLoader().getResourceAsStream("server.properties");
+        try{
+            siInfo.load(inputStream);
+            siConnection = siInfo.getProperty("SI_Connection");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return siConnection;
+    }
+
+    public String getSOAddress(){
+        //
+        String soConnection = null;
+        Properties siInfo = new Properties();
+        InputStream inputStream = ContextAddress.class.getClassLoader().getResourceAsStream("server.properties");
+        try{
+            siInfo.load(inputStream);
+            soConnection = siInfo.getProperty("SO_Connection");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return soConnection;
+    }
+
 }

@@ -1,17 +1,12 @@
 package com.pineone.icbms.so.util.conversion;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.withwiz.beach.network.http.message.IHttpResponseMessage;
-import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -23,10 +18,11 @@ import java.util.List;
 public class DataConversion
 {
 
-	private static final Logger log = LoggerFactory
-			.getLogger(DataConversion.class);
+	private DataConversion() {
+		throw new IllegalAccessError("Utility class");
+	}
 
-    /**
+	/**
      * Object Data to String.<BR/>
      * @param o
      * @return
@@ -43,7 +39,7 @@ public class DataConversion
 		{
 			data = mapper.writeValueAsString(o);
 		}
-		catch (JsonProcessingException e)
+		catch (JsonMappingException |JsonGenerationException e)
 		{
 			e.printStackTrace();
 		}
@@ -54,51 +50,13 @@ public class DataConversion
 		return data;
 	}
 
-    /**
-     * response Data to String.<BR/>
-     *
-     * @param message
-     * @return String
-     * NOTE: 외부와 통신 한 결과를 String 데이터 형태로 변환
-     */
-    static public String responseDataToString(IHttpResponseMessage message)
-    {
-        String result = null;
-
-        BufferedReader reader = null;
-        try
-        {
-            reader = new BufferedReader(new InputStreamReader(
-                    message.getBodyInputStream()), 8);
-            StringBuilder sb = new StringBuilder();
-            String line = null;
-            while ((line = reader.readLine()) != null)
-            {
-                sb.append(line);
-            }
-            result = sb.toString();
-        }
-        catch (UnsupportedEncodingException e)
-        {
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-        return result;
+    public static String listDataToString(List<String> list){
+        return new Gson().toJson(list);
     }
 
-    static public String listDataToString(List<String> list){
-        String data = new Gson().toJson(list);
-        return data;
-    }
-
-    static public List<String> stringDataToList(String data){
+    public static List<String> stringDataToList(String data){
         Type type = new TypeToken<List<String>>(){}.getType();
-        List<String> list = new Gson().fromJson(data,type);
-        return list;
+        return new Gson().fromJson(data,type);
     }
 
 

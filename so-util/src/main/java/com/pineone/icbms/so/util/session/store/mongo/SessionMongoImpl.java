@@ -7,14 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.InvalidMongoDbApiUsageException;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,14 +22,12 @@ import java.util.List;
 public class SessionMongoImpl implements SessionStore {
 
     public static final Logger logger = LoggerFactory.getLogger(SessionMongoImpl.class);
+    public static final String CALCULATE_TIME = "calculateTime";
+    public static final String SESSION = "Session = ";
 
     Long currentDate = System.currentTimeMillis();
     Long pastDate;
-
-    public Long changeDate(int time) {
-        pastDate = currentDate - (long)(time*1000);
-        return pastDate;
-    }
+    Query query = new Query();
 
     @Autowired
     SessionRepository sessionRepository;
@@ -39,18 +35,20 @@ public class SessionMongoImpl implements SessionStore {
     @Autowired
     MongoOperations mongoOperations;
 
-    Query query = new Query();
-
+    public Long changeDate(int time) {
+        pastDate = currentDate - (long)(time*1000);
+        return pastDate;
+    }
 
     @Override
     public List<Session> retrieveRecentlyDataListByTime(int time){
 
         pastDate = changeDate(time);
         query.addCriteria(
-                Criteria.where("calculateTime").exists(true)
+                Criteria.where(CALCULATE_TIME).exists(true)
                 .andOperator(
-                        Criteria.where("calculateTime").gt(pastDate),
-                            Criteria.where("calculateTime").lt(currentDate)
+                        Criteria.where(CALCULATE_TIME).gt(pastDate),
+                            Criteria.where(CALCULATE_TIME).lt(currentDate)
                 )
         );
         
@@ -58,12 +56,10 @@ public class SessionMongoImpl implements SessionStore {
         List<Session> sessionList = new ArrayList<>();
         for(SessionDataObject sessionDataObject : sessionDataObjectList){
             sessionList.add(dataObjectToSession(sessionDataObject));
-            logger.debug("Session = " + dataObjectToSession(sessionDataObject));
+            logger.debug(SESSION + dataObjectToSession(sessionDataObject));
         }
         return sessionList;
     }
-
-
 
     @Override
     public List<Session> retrieveRecentlyDataList(int num){
@@ -75,7 +71,7 @@ public class SessionMongoImpl implements SessionStore {
         List<Session> sessionList = new ArrayList<>();
         for(SessionDataObject sessionDataObject : sessionDataObjectList){
             sessionList.add(dataObjectToSession(sessionDataObject));
-            logger.debug("Session = " + dataObjectToSession(sessionDataObject));
+            logger.debug(SESSION + dataObjectToSession(sessionDataObject));
         }
         return sessionList;
     }
@@ -83,7 +79,7 @@ public class SessionMongoImpl implements SessionStore {
     //NOTE : DB에 세션 데이터 등록
     @Override
     public void createSession(Session session) {
-        logger.debug("Session = " + session.toString());
+        logger.debug(SESSION + session.toString());
         SessionDataObject sessionDataObject = sessionToDataObject(session);
         sessionRepository.save(sessionDataObject);
     }
@@ -94,7 +90,7 @@ public class SessionMongoImpl implements SessionStore {
         List<Session> sessionList = new ArrayList<>();
         for(SessionDataObject sessionDataObject : sessionDataObjectList){
             sessionList.add(dataObjectToSession(sessionDataObject));
-            logger.debug("Session = " + dataObjectToSession(sessionDataObject));
+            logger.debug(SESSION + dataObjectToSession(sessionDataObject));
         }
         return sessionList;
     }
@@ -102,8 +98,7 @@ public class SessionMongoImpl implements SessionStore {
     @Override
     public DefaultSession retrieveSessionDetail(String sessionId) {
         SessionDataObject sessionDataObject = sessionRepository.findOne(sessionId);
-        DefaultSession session = dataObjectToSession(sessionDataObject);
-        return session;
+        return dataObjectToSession(sessionDataObject);
     }
 
 
@@ -114,14 +109,18 @@ public class SessionMongoImpl implements SessionStore {
         }
 
     private SessionDataObject sessionToDataObject(Session session){
-        if(session == null) return null;
+        if(session == null) {
+            return null;
+        }
         return new SessionDataObject(session.getId(), session.getSessionData(), session.getCreateDate(),
                 session.getMongoTime(), session.getCalculateTime());
 
     }
 
     private DefaultSession dataObjectToSession(SessionDataObject sessionDataObject){
-        if(sessionDataObject == null) return null;
+        if(sessionDataObject == null){
+            return null;
+        }
         return new DefaultSession(sessionDataObject.getId(), sessionDataObject.getSessionData(),
                 sessionDataObject.getCreateDate(), sessionDataObject.getMongoTime(), sessionDataObject.getCalculateTime());
     }

@@ -26,4 +26,18 @@ public class AddressStore {
     public static final String RETRIEVE_NEXT_MOUSE="inquiry/next/mouse";
     public static final String RETRIEVE_CURRENT_KEYBOARD="inquiry/current/keyboard";
     public static final String RETRIEVE_NEXT_KEYBOARD="inquiry/next/keyboard";
+
+    // SI Command Data
+    public static final String  SI_CONTOL_URI               = "/si/control";
+    public static final String  SI_SUBSCRIPTION_URI         = "/si/subscription/add";
+    public static final String  SI_SUBSCRIPTION_RELEASE_URI = "/si/subscription/del";
+
+    //SDA Data
+    public static final String  SDA_DEVICE                  = "/device";
+    public static final String  SDA_DEVICE_OPERATION        = "/operation";
+
+    //SO Data
+    public static final String SO_DEVICE_STATUS              = "/so/device/status";
+
+
 }
