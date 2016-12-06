@@ -95,7 +95,9 @@ public class VirtualObjectMongoStore implements VirtualObjectStore {
     }
 
     private VirtualObjectDataObject virtualObjectToDataObject(VirtualObject virtualObject) {
-        if(virtualObject == null) return null;
+        if(virtualObject == null){
+            return null;
+        }
         return new VirtualObjectDataObject(virtualObject.getId(), virtualObject.getVoName(), virtualObject.getFunctionality(), virtualObject.getVoDescription(), virtualObject.getVoCreateTime(), virtualObject.getVoExpiredTime(), virtualObject.getDeviceService(), virtualObject.getDeviceId(), virtualObject.getVoCommand(), virtualObject.getVoLocation());
     }
 

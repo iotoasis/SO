@@ -44,7 +44,7 @@ public class ContextInformationSDAProxy implements ContextInformationProxy{
         logger.debug("ContextInformation = " + contextInformation.toString());
 //        contextAddress = ContextAddress.newContextAddress();
         IHttpResponseMessage message = clientService.requestPostService
-                (contextAddress.getSDAAddress() + AddressStore.REGISTER_CONTEXTINFORMATION, sendData);
+                (contextAddress.getServerAddress(ContextAddress.SDA_SERVER) + AddressStore.REGISTER_CONTEXTINFORMATION, sendData);
         String response = new Gson().toJson(message);
         return response;
     }
@@ -54,7 +54,7 @@ public class ContextInformationSDAProxy implements ContextInformationProxy{
         //
         logger.info(LogPrint.outputInfoLogPrint());
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getSDAAddress() + AddressStore.RETRIEVE_CONTEXTINFORMATION);
+                contextAddress.getServerAddress(ContextAddress.SDA_SERVER) + AddressStore.RETRIEVE_CONTEXTINFORMATION);
         String readData = new Gson().toJson(message);
         Type type = new TypeToken<List<String>>(){}.getType();
         List<String> contextInformationNameList = new Gson().fromJson(readData,type);
@@ -67,7 +67,7 @@ public class ContextInformationSDAProxy implements ContextInformationProxy{
         logger.info(LogPrint.outputInfoLogPrint());
         logger.debug("ContextId = " + contextId);
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getSDAAddress() + AddressStore.RETRIEVE_CONTEXTINFORMATION + "/" + contextId);
+                contextAddress.getServerAddress(ContextAddress.SDA_SERVER) + AddressStore.RETRIEVE_CONTEXTINFORMATION + "/" + contextId);
         String readData = new Gson().toJson(message);
         Type type = new TypeToken<ContextInformation>(){}.getType();
         ContextInformation contextInformation = new Gson().fromJson(readData,type);

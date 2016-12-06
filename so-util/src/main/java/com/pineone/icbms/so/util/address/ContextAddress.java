@@ -13,49 +13,29 @@ import java.util.Properties;
 
 @Service
 public class ContextAddress {
+    public static final String SERVER_PROPERTIES = "server.properties";
+    public static final String SDA_SERVER = "Sda_Connection";
+    public static final String SI_SERVER = "SI_Connection";
+    public static final String SO_SERVER = "SO_Connection";
 
-//    private ContextAddress(){};
-//    public static ContextAddress newContextAddress(){
-//        ContextAddress contextAddress = new ContextAddress();
-//        return contextAddress;
-//    }
-
-    public String getSDAAddress(){
-        //
-        String sdaConnection = null;
-        Properties sdaInfo = new Properties();
-        InputStream inputStream = ContextAddress.class.getClassLoader().getResourceAsStream("server.properties");
-        try{
-            sdaInfo.load(inputStream);
-            sdaConnection = sdaInfo.getProperty("Sda_Connection");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return sdaConnection;
-    }
-
-    public String getSIAddress(){
-        //
-        String siConnection = null;
-        Properties siInfo = new Properties();
-        InputStream inputStream = ContextAddress.class.getClassLoader().getResourceAsStream("server.properties");
-        try{
-            siInfo.load(inputStream);
-            siConnection = siInfo.getProperty("SI_Connection");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return siConnection;
-    }
-
-    public String getSOAddress(){
+    public String getServerAddress(String server){
         //
         String soConnection = null;
         Properties siInfo = new Properties();
-        InputStream inputStream = ContextAddress.class.getClassLoader().getResourceAsStream("server.properties");
+
+        InputStream inputStream = ContextAddress.class.getClassLoader().getResourceAsStream(SERVER_PROPERTIES);
+
         try{
             siInfo.load(inputStream);
-            soConnection = siInfo.getProperty("SO_Connection");
+            switch (server){
+                case SDA_SERVER : soConnection = siInfo.getProperty(SDA_SERVER);
+                    break;
+                case SI_SERVER : soConnection = siInfo.getProperty(SI_SERVER);
+                    break;
+                case SO_SERVER : soConnection = siInfo.getProperty(SO_SERVER);
+                    break;
+                default:  soConnection = siInfo.getProperty(SI_SERVER);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

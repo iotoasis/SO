@@ -11,5 +11,4 @@ public interface VirtualObjectManager {
     List<VirtualObject> searchVirtualObjectList();
     String requestControlDevice(String voId, String operation, String sessionId);
     void produceVirtualObject(VirtualObject virtualObject);
-//    String controlDevice(List<ServiceControl> serviceControls);
 }
