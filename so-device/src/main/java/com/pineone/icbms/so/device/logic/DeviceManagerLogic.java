@@ -5,6 +5,8 @@ import com.pineone.icbms.so.device.proxy.DeviceControlProxy;
 import com.pineone.icbms.so.device.proxy.DeviceICollectionProxy;
 import com.pineone.icbms.so.device.store.DeviceResultStore;
 import com.pineone.icbms.so.device.store.DeviceStore;
+import com.pineone.icbms.so.device.store.DeviceSubscriptionStore;
+import com.pineone.icbms.so.device.store.mongo.DeviceSubscriptionObject;
 import com.pineone.icbms.so.device.util.ClientProfile;
 import com.pineone.icbms.so.util.address.AddressStore;
 import com.pineone.icbms.so.util.address.ContextAddress;
@@ -21,7 +23,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class DeviceManagerLogic implements DeviceManager {
@@ -45,6 +46,9 @@ public class DeviceManagerLogic implements DeviceManager {
 
     @Autowired
     private DeviceControlProxy deviceControlProxy;
+
+    @Autowired
+    private DeviceSubscriptionStore deviceSubscriptionStore;
 
     @Autowired
     ContextAddress contextAddress;
@@ -133,13 +137,25 @@ public class DeviceManagerLogic implements DeviceManager {
          * Device 제어 후 제어 결과가 Success면 Device Subscription 요청
          */
         if(resultMessage.getCode().equals(ResultMessage.RESPONSE_SUCCESS_ONEM2MCODE)) {
-            String response = deviceSubscription(device.getDeviceUri());
+            String subscriptionUri = device.getDeviceUri() + (ClientProfile.actionDeviceCommand(device.getDeviceUri()) ? ClientProfile.SI_CONTAINER_ACTION : ClientProfile.SI_CONTAINER_POWER) + ClientProfile.SI_CONTAINER_STATUS;
+            String response = deviceSubscription(subscriptionUri, deviceControlMessage.get_commandId());
             logger.debug(LogPrint.LogMethodNamePrint() + " | Device Subscription : " + " , Device Uri = " + device.getDeviceUri() + " , Result : " + response + " , Session ID = " + sessionId);
+
+            /**
+             * Device Subscription 데이터 저장
+             */
             if(response.equals(ResultMessage.RESPONSE_SUCCESS_ONEM2MCODE)){
-                /**
+                saveDeviceSubscriptionData(deviceControlMessage.get_commandId(), deviceControlMessage.getCon());
+            }
+
+            /*
+                디바이스 해제는 Controller에서 상태 업데이트 후 해제.
+            if(response.equals(ResultMessage.RESPONSE_SUCCESS_ONEM2MCODE)){
+                *//**
                  * Device Subscription이 성공이면 30초 후 Subscription 해지 요청.
                  * 시간은 정책으로 수정 가능.
-                 */
+                 *//*
+
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -156,6 +172,8 @@ public class DeviceManagerLogic implements DeviceManager {
                 });
                 thread.start();
             }
+            */
+
         }
 
 
@@ -229,18 +247,27 @@ public class DeviceManagerLogic implements DeviceManager {
     public void deviceUpdate(DeviceStatusData deviceStatusData) {
         //
         if(!deviceStatusData.get_uri().isEmpty()){
-            Device device = deviceSearchById(deviceStatusData.get_uri());
-            if(!deviceStatusData.getDeviceStatus().isEmpty() && !deviceStatusData.checkDeviceStatus(device.getDeviceStatus())) {
+            String deviceUri = getOnem2mDeviceUri(deviceStatusData.get_uri());
+            Device device = deviceSearchById(deviceUri);
+            DeviceSubscriptionObject deviceSubscriptionObject = deviceSubscriptionStore.retrieve(deviceStatusData.get_commandId());
+
+            if(deviceSubscriptionObject != null && deviceSubscriptionObject.get_commandId().equals(deviceStatusData.get_commandId()) && deviceSubscriptionObject.getDeviceStatus().equals(deviceStatusData.getDeviceStatus())){
                 device.setDeviceStatus(deviceStatusData.getDeviceStatus());
                 deviceStore.update(device);
+                deviceSubscriptionRelease(deviceUri + (ClientProfile.actionDeviceCommand(device.getDeviceUri()) ? ClientProfile.SI_CONTAINER_ACTION : ClientProfile.SI_CONTAINER_POWER) + ClientProfile.SI_CONTAINER_STATUS);
+                deviceSubscriptionStore.delete(deviceSubscriptionObject.get_id());
+            }
+
+            if(!deviceStatusData.getDeviceStatus().isEmpty() && !deviceStatusData.checkDeviceStatus(device.getDeviceStatus())) {
+
             }
         }
     }
 
     @Override
-    public String deviceSubscription(String uri) {
+    public String deviceSubscription(String uri, String commandId) {
         //
-        return deviceControlProxy.deviceSubscriptionRequest(uri);
+        return deviceControlProxy.deviceSubscriptionRequest(uri, commandId);
     }
 
     @Override
@@ -249,13 +276,12 @@ public class DeviceManagerLogic implements DeviceManager {
         return deviceControlProxy.deviceSubscriptionReleaseRequest(uri);
     }
 
-
     private DeviceControlMessage deviceDataConversion(String deviceId, String commandId, String deviceCommand){
         DeviceControlMessage deviceControlMessage = new DeviceControlMessage();
 
         deviceControlMessage.set_uri(deviceId);
         deviceControlMessage.set_commandId(commandId);
-        if(deviceId != null && (deviceId.contains("Blind") || deviceId.contains("BeamScreen"))){
+        if(deviceId != null && ClientProfile.actionDeviceCommand(deviceId)){
             deviceControlMessage.set_command(ClientProfile.SI_CONTROL_ACTION);
         }else {
             deviceControlMessage.set_command(ClientProfile.SI_CONTROL_POWER);
@@ -320,6 +346,21 @@ public class DeviceManagerLogic implements DeviceManager {
         sessionDeviceLocationList.add(data);
         session.insertSessionData(key, DataConversion.listDataToString(sessionDeviceLocationList));
         sessionStore.updateSession(session);
+    }
+
+    public String getOnem2mDeviceUri(String uri){
+        //
+        int stringlength = 3;
+        String[] strings = uri.split("/");
+
+        for(int i =1; i<4 ; i++){
+            stringlength += strings[i].length();
+        }
+        return uri.substring(0, stringlength);
+    }
+
+    public void saveDeviceSubscriptionData(String deviceUri, String commandId){
+        deviceSubscriptionStore.create(new DeviceSubscriptionObject(deviceUri, commandId));
     }
 
 }
