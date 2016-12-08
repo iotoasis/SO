@@ -3,13 +3,15 @@ package com.pineone.icbms.so.device.entity;
 public class DeviceSubscriptionData {
     //
     private String      _uri;
-    private String _notificationUri;
+    private String      _commandId;
+    private String      _notificationUri;
 
     public DeviceSubscriptionData() {
     }
 
-    public DeviceSubscriptionData(String _uri, String _notificationUri) {
+    public DeviceSubscriptionData(String _uri, String _commandId, String _notificationUri) {
         this._uri = _uri;
+        this._commandId = _commandId;
         this._notificationUri = _notificationUri;
     }
 
@@ -19,6 +21,14 @@ public class DeviceSubscriptionData {
 
     public void set_uri(String _uri) {
         this._uri = _uri;
+    }
+
+    public String get_commandId() {
+        return _commandId;
+    }
+
+    public void set_commandId(String _commandId) {
+        this._commandId = _commandId;
     }
 
     public String get_notificationUri() {
@@ -33,6 +43,7 @@ public class DeviceSubscriptionData {
     public String toString() {
         return "DeviceSubscriptionData{" +
                 "_uri='" + _uri + '\'' +
+                ", _commandId='" + _commandId + '\'' +
                 ", _notificationUri='" + _notificationUri + '\'' +
                 '}';
     }

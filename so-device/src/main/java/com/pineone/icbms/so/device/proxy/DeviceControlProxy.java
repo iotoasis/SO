@@ -22,7 +22,7 @@ public interface DeviceControlProxy {
      * @param deviceUri
      * @return
      */
-    String deviceSubscriptionRequest(String deviceUri);
+    String deviceSubscriptionRequest(String deviceUri, String commandId);
 
     /**
      * Device 구독 해지 요청

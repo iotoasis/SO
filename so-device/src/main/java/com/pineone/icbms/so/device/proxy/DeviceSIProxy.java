@@ -57,7 +57,7 @@ public class DeviceSIProxy implements DeviceControlProxy {
     }
 
     @Override
-    public String deviceSubscriptionRequest(String deviceUri) {
+    public String deviceSubscriptionRequest(String deviceUri, String commandId) {
         //
         logger.info("<================ Device Subscription Request Start ================>");
         logger.debug(LogPrint.LogMethodNamePrint() + " | DeviceUri = " + deviceUri);
@@ -65,10 +65,9 @@ public class DeviceSIProxy implements DeviceControlProxy {
         DeviceSubscriptionData deviceSubscriptionData = new DeviceSubscriptionData();
         deviceSubscriptionData.set_notificationUri(contextAddress.getServerAddress(ContextAddress.SO_SERVER) + AddressStore.SO_DEVICE_STATUS);
         deviceSubscriptionData.set_uri(deviceUri);
+        deviceSubscriptionData.set_commandId(commandId);
 
         String requestBody = new Gson().toJson(deviceSubscriptionData);
-        // DeviceLogic에 생성되거나 제어되면 서브스크립트 걸어야 겠군.
-        // 현제 정책이 안되어 있어서. 등록되면 걸지.. 제어시 걸지는 고려 필요.
 
         String responseData = clientService.requestPostServiceReceiveString(contextAddress.getServerAddress(ContextAddress.SI_SERVER) + AddressStore.SI_SUBSCRIPTION_URI, requestBody);
         // ResponseData{ "code" : "2000", "message" : "", "content" : "" }

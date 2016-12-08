@@ -16,11 +16,6 @@ public class DeviceStatusData {
     private String          _uri;
 
     /**
-     * Device를 제어 했을시 제어 항목
-     */
-    private String          _command;
-
-    /**
      * Device의 상태 값
      */
     private String deviceStatus;
@@ -33,10 +28,9 @@ public class DeviceStatusData {
     public DeviceStatusData() {
     }
 
-    public DeviceStatusData(String _commandId, String _uri, String _command, String deviceStatus, String timestamp) {
+    public DeviceStatusData(String _commandId, String _uri, String deviceStatus, String timestamp) {
         this._commandId = _commandId;
         this._uri = _uri;
-        this._command = _command;
         this.deviceStatus = deviceStatus;
         this.timestamp = timestamp;
     }
@@ -57,13 +51,6 @@ public class DeviceStatusData {
         this._uri = _uri;
     }
 
-    public String get_command() {
-        return _command;
-    }
-
-    public void set_command(String _command) {
-        this._command = _command;
-    }
 
     public String getDeviceStatus() {
         return deviceStatus;
@@ -91,7 +78,6 @@ public class DeviceStatusData {
         return "DeviceStatusData{" +
                 "_commandId='" + _commandId + '\'' +
                 ", _uri='" + _uri + '\'' +
-                ", _command='" + _command + '\'' +
                 ", deviceStatus='" + deviceStatus + '\'' +
                 ", timestamp='" + timestamp + '\'' +
                 '}';
