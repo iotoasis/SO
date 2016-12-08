@@ -3,7 +3,6 @@ package com.pineone.icbms.so.device.logic;
 import com.pineone.icbms.so.device.entity.*;
 import com.pineone.icbms.so.device.proxy.DeviceControlProxy;
 import com.pineone.icbms.so.device.proxy.DeviceICollectionProxy;
-import com.pineone.icbms.so.device.store.DeviceResultStore;
 import com.pineone.icbms.so.device.store.DeviceStore;
 import com.pineone.icbms.so.device.store.DeviceSubscriptionStore;
 import com.pineone.icbms.so.device.store.mongo.DeviceSubscriptionObject;
@@ -34,9 +33,6 @@ public class DeviceManagerLogic implements DeviceManager {
 
     @Autowired
     private DeviceStore deviceStore;
-
-    @Autowired
-    private DeviceResultStore deviceResultStore;
 
     @Autowired
     private SessionStore sessionStore;
@@ -186,26 +182,6 @@ public class DeviceManagerLogic implements DeviceManager {
     }
 
     @Override
-    public String deviceControlResult(ResultMessage resultMessage) {
-        logger.debug("ResultMessage = " + resultMessage.toString());
-        DeviceResult deviceResult = deviceResultStore.retrieve(resultMessage.get_commandId());
-
-        if(deviceResult != null && deviceResult.getCommandId() != null){
-            // It has been confirmed for the linked data.
-            if(ClientProfile.RESPONSE_SUCCESS_CODE.equals(resultMessage.getCode()) ||
-                    ClientProfile.RESPONSE_SUCCESS.equals(resultMessage.getCode()) ||
-                    ClientProfile.RESPONSE_SUCCESS_ONEM2MCODE.equals(resultMessage.getCode())){
-
-                deviceResult.setResult2(resultMessage.getCode());
-                deviceResultStore.update(deviceResult);
-            }
-            return resultMessage.getCode();
-        } else {
-            return "No device Control Message.";
-        }
-    }
-
-    @Override
     public Device deviceSearchById(String deviceId) {
         logger.debug(LogPrint.LogMethodNamePrint() + " | Device ID = " + deviceId);
         return deviceStore.retrieveByID(deviceId);
@@ -257,10 +233,6 @@ public class DeviceManagerLogic implements DeviceManager {
                 deviceSubscriptionRelease(deviceUri + (ClientProfile.actionDeviceCommand(device.getDeviceUri()) ? ClientProfile.SI_CONTAINER_ACTION : ClientProfile.SI_CONTAINER_POWER) + ClientProfile.SI_CONTAINER_STATUS);
                 deviceSubscriptionStore.delete(deviceSubscriptionObject.get_id());
             }
-
-            if(!deviceStatusData.getDeviceStatus().isEmpty() && !deviceStatusData.checkDeviceStatus(device.getDeviceStatus())) {
-
-            }
         }
     }
 
@@ -295,28 +267,6 @@ public class DeviceManagerLogic implements DeviceManager {
     private Device deviceRequest(String uri){
         //
         return deviceICollectionProxy.findDeviceByID(uri);
-    }
-
-    /**
-     * Device 제어 결과 저장. 2차년도에는 Device Subscription으로 불필요.
-     * @param deviceId
-     * @param commandId
-     * @param deviceCommand
-     * @param resultMessage
-     */
-    private void controlResultsStorage(String deviceId, String commandId, String deviceCommand, ResultMessage resultMessage){
-
-        DeviceResult deviceResult = new DeviceResult();
-
-        deviceResult.setCommandId(commandId);
-        deviceResult.setSendMessage(deviceId + deviceCommand);
-        deviceResult.setDeviceUrl(deviceId);
-        deviceResult.setValue(deviceCommand);
-        deviceResult.setResult1(resultMessage.getCode());
-        deviceResult.setResult2("");
-
-        deviceResultStore.create(deviceResult);
-
     }
 
     /**

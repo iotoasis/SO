@@ -132,19 +132,6 @@ public class DevicePresentation {
         deviceManager.deviceRelease(message.getDeviceId());
     }
 
-
-    /**
-     *  Device 제어 결과 노티 SI -> SO
-     */
-    @RequestMapping(value ="/monitor",method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.OK)
-    public String asynchronousControlResult(@RequestBody ResultMessage message){
-        // NOTO : Device the result is stored in the data memory.
-        logger.info(LogPrint.inputInfoLogPrint() + "Result = " + message.getCode());
-        logger.debug("ResultMessage = " + message.toString());
-        return deviceManager.deviceControlResult(message);
-    }
-
     /**
      *  Device Operation을 검색
      */
