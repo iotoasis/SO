@@ -133,7 +133,7 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
 //        List<ServiceMessage> serviceMessageList = new ArrayList<>();
         for (String serviceId : serviceIdList) {
 //            Service service = serviceModelProxy.retrieveServiceDetail(serviceId);
-//            ServiceMessage serviceMessage = new ServiceMessage(domainId, service.getVirtualObjectService(), service.getDeviceStatus());
+//            ServiceMessage serviceMessage = new ServiceMessage(domainId, service.getVirtualObjectService(), service.getCon());
 //            serviceMessageList.add(serviceMessage);
             logger.debug("Execute Service ID = " + serviceId + " Session Id = " + sessionId);
             serviceModelProxy.executeService(serviceId, sessionId);
@@ -217,7 +217,7 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
 //                for (String serviceName : serviceModel.getServiceIdList()) {
 //                    Service service = serviceModelProxy.retrieveServiceDetail(serviceName);
 ////                    for (Domain domain : domainList) {
-////                        executeDummyClass.controlService(domain.getId(), service.getVirtualObjectId(), service.getDeviceStatus());
+////                        executeDummyClass.controlService(domain.getId(), service.getVirtualObjectId(), service.getCon());
 //                    }
 //                }
 //            }

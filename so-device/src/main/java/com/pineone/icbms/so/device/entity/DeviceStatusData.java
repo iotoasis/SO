@@ -10,6 +10,7 @@ public class DeviceStatusData {
      */
     private String          _commandId;
 
+
     /**
      * Device를 제어 했을시 디바이스 Uri
      */
@@ -18,21 +19,21 @@ public class DeviceStatusData {
     /**
      * Device의 상태 값
      */
-    private String deviceStatus;
+    private String con;
 
     /**
      * Device의 상태 값의 변경 되었을시 시간
      */
-    private String          timestamp;
+    private String ct;
 
     public DeviceStatusData() {
     }
 
-    public DeviceStatusData(String _commandId, String _uri, String deviceStatus, String timestamp) {
+    public DeviceStatusData(String _commandId, String _uri, String con, String ct) {
         this._commandId = _commandId;
         this._uri = _uri;
-        this.deviceStatus = deviceStatus;
-        this.timestamp = timestamp;
+        this.con = con;
+        this.ct = ct;
     }
 
     public String get_commandId() {
@@ -52,24 +53,24 @@ public class DeviceStatusData {
     }
 
 
-    public String getDeviceStatus() {
-        return deviceStatus;
+    public String getCon() {
+        return con;
     }
 
-    public void setDeviceStatus(String deviceStatus) {
-        this.deviceStatus = deviceStatus;
+    public void setCon(String con) {
+        this.con = con;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public String getCt() {
+        return ct;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setCt(String ct) {
+        this.ct = ct;
     }
 
     public boolean checkDeviceStatus(String deviceStatus){
-        return this.deviceStatus.equals(deviceStatus);
+        return this.con.equals(deviceStatus);
     }
 
 
@@ -78,8 +79,8 @@ public class DeviceStatusData {
         return "DeviceStatusData{" +
                 "_commandId='" + _commandId + '\'' +
                 ", _uri='" + _uri + '\'' +
-                ", deviceStatus='" + deviceStatus + '\'' +
-                ", timestamp='" + timestamp + '\'' +
+                ", con='" + con + '\'' +
+                ", ct='" + ct + '\'' +
                 '}';
     }
 }

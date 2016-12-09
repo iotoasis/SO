@@ -28,9 +28,6 @@ public class DeviceManagerLogic implements DeviceManager {
 
     public static final Logger logger = LoggerFactory.getLogger(DeviceManagerLogic.class);
 
-    public static final String DEVICE_SERVICE_NOTI_TYPE     = "admin-noti";
-    public static final String DEVICE_PRE                   = "device-";
-
     @Autowired
     private DeviceStore deviceStore;
 
@@ -104,12 +101,12 @@ public class DeviceManagerLogic implements DeviceManager {
             sessionStore.updateSession(session);
             logger.info("The device does not exist.");
             return "The device does not exist.";
-        } else if(device.getDeviceServices() != null && DEVICE_SERVICE_NOTI_TYPE.equals(device.getDeviceServices().get(0))){
+        } else if(device.getDeviceServices() != null && ClientProfile.DEVICE_SERVICE_NOTI_TYPE.equals(device.getDeviceServices().get(0))){
             sessionDataUpdate(sessionStore, session, device.getDeviceLocation(),DefaultSession.DEVICE_LOCATION);
-            session.insertSessionData(DefaultSession.DEVICE_RESULT, DefaultSession.CONTROL_EXECUTION + "_" + DEVICE_SERVICE_NOTI_TYPE);
+            session.insertSessionData(DefaultSession.DEVICE_RESULT, DefaultSession.CONTROL_EXECUTION + "_" + ClientProfile.DEVICE_SERVICE_NOTI_TYPE);
             // DB에 Session을 저장.
             sessionStore.updateSession(session);
-            return DEVICE_SERVICE_NOTI_TYPE;
+            return ClientProfile.DEVICE_SERVICE_NOTI_TYPE;
         }
 
         // SI를 제어할수 있는 DeviceControlMessage로 변환
@@ -132,7 +129,7 @@ public class DeviceManagerLogic implements DeviceManager {
         /**
          * Device 제어 후 제어 결과가 Success면 Device Subscription 요청
          */
-        if(resultMessage.getCode().equals(ResultMessage.RESPONSE_SUCCESS_ONEM2MCODE)) {
+        if(resultMessage.getCode().equals(ClientProfile.RESPONSE_SUCCESS_ONEM2MCODE)) {
             String subscriptionUri = device.getDeviceUri() + (ClientProfile.actionDeviceCommand(device.getDeviceUri()) ? ClientProfile.SI_CONTAINER_ACTION : ClientProfile.SI_CONTAINER_POWER) + ClientProfile.SI_CONTAINER_STATUS;
             String response = deviceSubscription(subscriptionUri, deviceControlMessage.get_commandId());
             logger.debug(LogPrint.LogMethodNamePrint() + " | Device Subscription : " + " , Device Uri = " + device.getDeviceUri() + " , Result : " + response + " , Session ID = " + sessionId);
@@ -140,7 +137,7 @@ public class DeviceManagerLogic implements DeviceManager {
             /**
              * Device Subscription 데이터 저장
              */
-            if(response.equals(ResultMessage.RESPONSE_SUCCESS_ONEM2MCODE)){
+            if(response.equals(ClientProfile.RESPONSE_SUCCESS_ONEM2MCODE)){
                 saveDeviceSubscriptionData(deviceControlMessage.get_commandId(), deviceControlMessage.getCon());
             }
 
@@ -227,8 +224,8 @@ public class DeviceManagerLogic implements DeviceManager {
             Device device = deviceSearchById(deviceUri);
             DeviceSubscriptionObject deviceSubscriptionObject = deviceSubscriptionStore.retrieve(deviceStatusData.get_commandId());
 
-            if(deviceSubscriptionObject != null && deviceSubscriptionObject.get_commandId().equals(deviceStatusData.get_commandId()) && deviceSubscriptionObject.getDeviceStatus().equals(deviceStatusData.getDeviceStatus())){
-                device.setDeviceStatus(deviceStatusData.getDeviceStatus());
+            if(deviceSubscriptionObject != null && deviceSubscriptionObject.get_commandId().equals(deviceStatusData.get_commandId()) && deviceSubscriptionObject.getDeviceStatus().equals(deviceStatusData.getCon())){
+                device.setDeviceStatus(deviceStatusData.getCon());
                 deviceStore.update(device);
                 deviceSubscriptionRelease(deviceUri + (ClientProfile.actionDeviceCommand(device.getDeviceUri()) ? ClientProfile.SI_CONTAINER_ACTION : ClientProfile.SI_CONTAINER_POWER) + ClientProfile.SI_CONTAINER_STATUS);
                 deviceSubscriptionStore.delete(deviceSubscriptionObject.get_id());
@@ -278,7 +275,7 @@ public class DeviceManagerLogic implements DeviceManager {
 
         long currentTime = System.currentTimeMillis();
         long modifiedTime = currentTime + 30240000000L;
-        device.setId(DEVICE_PRE + UUID.randomUUID().toString());
+        device.setId(ClientProfile.DEVICE_PRE + UUID.randomUUID().toString());
         device.setDeviceCreateTime(currentTime);
         device.setDeviceExfiredTime(modifiedTime);
         // TODO : Device Command는 언제 요청으로 얻어 올까??
