@@ -162,4 +162,9 @@ public class DevicePresentation {
         object.setSessionId(sessionId);
         return object;
     }
+
+
+
+
+
 }
