@@ -65,7 +65,7 @@
 //
 //    public ServiceModelTransFormObject ServiceModelToDataObject(ServiceModel serviceModel){
 //        if(serviceModel == null) return null;
-//        ServiceModelTransFormObject object = new ServiceModelTransFormObject(serviceModel.getId(), serviceModel.getName(), serviceModel.getServiceIdList(), serviceModel.getCreateTime(), serviceModel.getModifiedTime(), serviceModel.getLocaton());
+//        ServiceModelTransFormObject object = new ServiceModelTransFormObject(serviceModel.getId(), serviceModel.getName(), serviceModel.getServiceIdList(), serviceModel.getCreateTime(), serviceModel.getModifiedTime(), serviceModel.getLocation());
 //        return object;
 //    }
 //

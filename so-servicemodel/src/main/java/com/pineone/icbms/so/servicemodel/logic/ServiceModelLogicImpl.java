@@ -116,7 +116,7 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
 
         //ServiceModel Filter
         // 서비스 발생 상황과 서비스 모델의 발생 상황이 다르면 무시 한다.
-        if(!locationCompare(session, serviceModel.getLocaton())){
+        if(!locationCompare(session, serviceModel.getLocation())){
             logger.info("Where the difference occurs.");
             session.insertSessionData(DefaultSession.SERVICEMODEL_RESULT,DefaultSession.CONTROL_IGNORE);
             sessionStore.updateSession(session);
