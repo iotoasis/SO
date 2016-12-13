@@ -38,7 +38,7 @@ SO Server 시험은 아래의 순서로 진행할 수 있습니다.
 
 #### (6) HTTP 애뮬레이터(PostMan)을 이용한 시험
  - PostMan 프로그램을 설치한다. [PostMan 다운로드](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop)
- - PostMan에서 URL의 "localhost" 부분을 SO 서버를 실행한 서버의 IP로 수정하여 메시지 전송을 시험한다. [Test](./test.md) 페이지를 참조한다. 
+ - PostMan에서 URL의 "localhost" 부분을 SO 서버를 실행한 서버의 IP로 수정하여 메시지 전송을 시험한다. [Test 페이지](./so-test.md)를 참조한다.
 
 <br>
 <br>
