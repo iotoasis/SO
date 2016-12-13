@@ -2,7 +2,7 @@
 
 SO 서버 설정방법을 설명합니다.
 
-설정은 properties 파일로 작성되며 so-web 포더의 resources 폴더에 존재합니다. 
+설정은 properties 파일로 작성되며 so-web 폴더의 resources 폴더에 존재합니다. 
 
 ```
 application.properties
