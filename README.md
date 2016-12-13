@@ -33,7 +33,7 @@ SO 모듈은 동적으로 생성/변화되는 IoT 환경 (서비스, 센서, 디
 ## Module
 - SO Framework는 하나의 서버 모듈로 구성됩니다. 
 - SO Framework 시험하기 위해 가상의 서비스를 이용하여 테스트 할 수 있습니다.
-- [Test](./so-doc/test.md)
+- [Test](./so-doc/so-test.md)
 <br>
 
 ## Q&A
