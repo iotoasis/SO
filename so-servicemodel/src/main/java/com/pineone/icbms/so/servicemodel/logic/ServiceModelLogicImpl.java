@@ -98,8 +98,8 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
         // Session이 없으면 Session을 생성. 외부에서 ServiceModel을 제어서 Session이 없을수 있음.
         if(session == null){
             session = new DefaultSession();
+            sessionId =  session.getId();
         }
-
         session.insertSessionData(DefaultSession.SERVICEMODEL_KEY,serviceModelId);
 
         ServiceModel serviceModel = serviceModelStore.retrieveServiceModelDetail(serviceModelId);
@@ -116,7 +116,7 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
 
         //ServiceModel Filter
         // 서비스 발생 상황과 서비스 모델의 발생 상황이 다르면 무시 한다.
-        if(!locationCompare(session, serviceModel.getLocaton())){
+        if(!locationCompare(session, serviceModel.getLocation())){
             logger.info("Where the difference occurs.");
             session.insertSessionData(DefaultSession.SERVICEMODEL_RESULT,DefaultSession.CONTROL_IGNORE);
             sessionStore.updateSession(session);
@@ -133,7 +133,7 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
 //        List<ServiceMessage> serviceMessageList = new ArrayList<>();
         for (String serviceId : serviceIdList) {
 //            Service service = serviceModelProxy.retrieveServiceDetail(serviceId);
-//            ServiceMessage serviceMessage = new ServiceMessage(domainId, service.getVirtualObjectService(), service.getStatus());
+//            ServiceMessage serviceMessage = new ServiceMessage(domainId, service.getVirtualObjectService(), service.getCon());
 //            serviceMessageList.add(serviceMessage);
             logger.debug("Execute Service ID = " + serviceId + " Session Id = " + sessionId);
             serviceModelProxy.executeService(serviceId, sessionId);
@@ -179,6 +179,11 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
         List<String> contextLocation = null;
         if(session.isExistSessionData(DefaultSession.LOCATION_ID)){
             contextLocation = DataConversion.stringDataToList(session.findSessionData(DefaultSession.LOCATION_ID));
+        } else {
+            /**
+             * 외부 요청으로 인한 Session의 Location이 null일 경우 ServiceModel의 Location 비교는 무시한다.
+             */
+            return true;
         }
 
         if(contextLocation == null){
@@ -212,7 +217,7 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
 //                for (String serviceName : serviceModel.getServiceIdList()) {
 //                    Service service = serviceModelProxy.retrieveServiceDetail(serviceName);
 ////                    for (Domain domain : domainList) {
-////                        executeDummyClass.controlService(domain.getId(), service.getVirtualObjectId(), service.getStatus());
+////                        executeDummyClass.controlService(domain.getId(), service.getVirtualObjectId(), service.getCon());
 //                    }
 //                }
 //            }

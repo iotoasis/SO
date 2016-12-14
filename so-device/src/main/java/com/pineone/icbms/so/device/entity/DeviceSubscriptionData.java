@@ -3,16 +3,16 @@ package com.pineone.icbms.so.device.entity;
 public class DeviceSubscriptionData {
     //
     private String      _uri;
-    private String      _command;
-    private String      _notificationuri;
+    private String      _commandId;
+    private String      _notificationUri;
 
     public DeviceSubscriptionData() {
     }
 
-    public DeviceSubscriptionData(String _uri, String _command, String _notificationuri) {
+    public DeviceSubscriptionData(String _uri, String _commandId, String _notificationUri) {
         this._uri = _uri;
-        this._command = _command;
-        this._notificationuri = _notificationuri;
+        this._commandId = _commandId;
+        this._notificationUri = _notificationUri;
     }
 
     public String get_uri() {
@@ -23,28 +23,28 @@ public class DeviceSubscriptionData {
         this._uri = _uri;
     }
 
-    public String get_command() {
-        return _command;
+    public String get_commandId() {
+        return _commandId;
     }
 
-    public void set_command(String _command) {
-        this._command = _command;
+    public void set_commandId(String _commandId) {
+        this._commandId = _commandId;
     }
 
-    public String get_notificationuri() {
-        return _notificationuri;
+    public String get_notificationUri() {
+        return _notificationUri;
     }
 
-    public void set_notificationuri(String _notificationuri) {
-        this._notificationuri = _notificationuri;
+    public void set_notificationUri(String _notificationUri) {
+        this._notificationUri = _notificationUri;
     }
 
     @Override
     public String toString() {
         return "DeviceSubscriptionData{" +
                 "_uri='" + _uri + '\'' +
-                ", _command='" + _command + '\'' +
-                ", _notificationuri='" + _notificationuri + '\'' +
+                ", _commandId='" + _commandId + '\'' +
+                ", _notificationUri='" + _notificationUri + '\'' +
                 '}';
     }
 }

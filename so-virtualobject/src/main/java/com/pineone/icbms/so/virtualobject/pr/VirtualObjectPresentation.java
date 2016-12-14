@@ -44,7 +44,7 @@ public class VirtualObjectPresentation {
     public String requestControlVirtualObject(@RequestBody VirtualObjectTransFormObject virtualObjectTransFormObject){
         logger.info(LogPrint.inputInfoLogPrint());
         //
-        return virtualObjectManager.requestControlDevice(virtualObjectTransFormObject.getVoId(), virtualObjectTransFormObject.getVoCommand(), virtualObjectTransFormObject.getSessionId());
+        return virtualObjectManager.requestControlDevice(virtualObjectTransFormObject.getId(), virtualObjectTransFormObject.getVoCommand(), virtualObjectTransFormObject.getSessionId());
     }
 
 /*
@@ -88,18 +88,20 @@ public class VirtualObjectPresentation {
 
     private VirtualObject virtualObjectMapping(VirtualObjectTransFormObject virtualObjectDataObject)
     {
-        if(virtualObjectDataObject == null)return null;
-        VirtualObject virtualObject = new VirtualObject(virtualObjectDataObject.getVoId(),virtualObjectDataObject.getVoName(),virtualObjectDataObject.getFunctionality(),virtualObjectDataObject.getVoDescription(),virtualObjectDataObject.getVoCreateTime(),virtualObjectDataObject.getVoExpiredTime(),virtualObjectDataObject.getDeviceService(),virtualObjectDataObject.getDeviceId(),virtualObjectDataObject.getVoCommand(),virtualObjectDataObject.getVoLocation());
-        if(!virtualObject.getVoId().startsWith(VirtualObjectProfile.VIRTUALOBJECT_ID)){
-            String voId = virtualObject.getVoId();
-            virtualObject.setVoId(VirtualObjectProfile.VIRTUALOBJECT_ID + voId);
+        if(virtualObjectDataObject == null){
+            return null;
+        }
+        VirtualObject virtualObject = new VirtualObject(virtualObjectDataObject.getId(),virtualObjectDataObject.getVoName(),virtualObjectDataObject.getFunctionality(),virtualObjectDataObject.getVoDescription(),virtualObjectDataObject.getVoCreateTime(),virtualObjectDataObject.getVoExpiredTime(),virtualObjectDataObject.getDeviceService(),virtualObjectDataObject.getDeviceId(),virtualObjectDataObject.getVoCommand(),virtualObjectDataObject.getVoLocation());
+        if(!virtualObject.getId().startsWith(VirtualObjectProfile.VIRTUALOBJECT_ID)){
+            String voId = virtualObject.getId();
+            virtualObject.setId(VirtualObjectProfile.VIRTUALOBJECT_ID + voId);
         }
         return virtualObject;
     }
 
     public VirtualObjectTransFormObject settingVirtualObjectData(String id, String operation,String sessionId){
         VirtualObjectTransFormObject object = new VirtualObjectTransFormObject();
-        object.setVoId(id);
+        object.setId(id);
         object.setVoCommand(operation);
         object.setSessionId(sessionId);
         return object;

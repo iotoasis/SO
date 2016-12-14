@@ -1,5 +1,11 @@
 package com.pineone.icbms.so.device.pr;
 
+import org.junit.Test;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /*@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DeviceApplication.class)
 @WebAppConfiguration*/
@@ -74,11 +80,11 @@ public class DevicePresentationTest {
     public void deviceDisableNotificationTest(){
         //
         deviceReleaseMessage deviceReleaseMessage = new deviceReleaseMessage();
-        deviceReleaseMessage.setDeviceId("JuintTestDeviceDisable001");
+        deviceReleaseMessage.setId("JuintTestDeviceDisable001");
         deviceReleaseMessage.setRegisterTime("20160808T153028");
 
         devicePresentation.deviceDisableNotification(deviceReleaseMessage);
-        Device device = deviceStore.retrieveByID(deviceReleaseMessage.getDeviceId());
+        Device device = deviceStore.retrieveByID(deviceReleaseMessage.getId());
 
         Assert.assertNull(device);
 
@@ -90,4 +96,11 @@ public class DevicePresentationTest {
         deviceResultStore.delete("JuintTestCodeBad");
     }
     */
+
+    @Test
+    public void tt(){
+        Date now = new Date();
+        DateFormat df = new SimpleDateFormat("yyyyMMdd HH24mmss");
+        System.out.println(df.format(now));
+    }
 }

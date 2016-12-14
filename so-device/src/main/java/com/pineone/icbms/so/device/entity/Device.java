@@ -11,7 +11,7 @@ public class Device {
      * format : CSE relative uri
      * ex) /herit-in/herit-cse/ONDB_BeamProjector01_001
      */
-    private String          deviceId;
+    private String id;
 
     /**
      * Device의 이름
@@ -53,27 +53,27 @@ public class Device {
      * format : yyyymmddhhmm
      * ex) 201608250930
      */
-    private String          deviceCreateTime;
+    private long          deviceCreateTime;
 
     /**
      * Device의 생성 만기 시간
      * format : yyyymmddhhmm
      * ex) 201708250930
      */
-    private String          deviceExfiredTime;
+    private long          deviceExfiredTime;
 
     /**
      * Device의 상태
      * format : Device Status
      * ex) ON
      */
-    private String          status;
+    private String deviceStatus;
 
     public Device() {
     }
 
-    public Device(String deviceId, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, String deviceCreateTime, String deviceExfiredTime, String status) {
-        this.deviceId = deviceId;
+    public Device(String id, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, long deviceCreateTime, long deviceExfiredTime, String deviceStatus) {
+        this.id = id;
         this.deviceName = deviceName;
         this.deviceLocation = deviceLocation;
         this.deviceUri = deviceUri;
@@ -81,15 +81,15 @@ public class Device {
         this.deviceServices = deviceServices;
         this.deviceCreateTime = deviceCreateTime;
         this.deviceExfiredTime = deviceExfiredTime;
-        this.status = status;
+        this.deviceStatus = deviceStatus;
     }
 
-    public String getDeviceId() {
-        return deviceId;
+    public String getId() {
+        return id;
     }
 
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDeviceName() {
@@ -132,34 +132,38 @@ public class Device {
         this.deviceServices = deviceServices;
     }
 
-    public String getDeviceCreateTime() {
+    public long getDeviceCreateTime() {
         return deviceCreateTime;
     }
 
-    public void setDeviceCreateTime(String deviceCreateTime) {
+    public void setDeviceCreateTime(long deviceCreateTime) {
         this.deviceCreateTime = deviceCreateTime;
     }
 
-    public String getDeviceExfiredTime() {
+    public long getDeviceExfiredTime() {
         return deviceExfiredTime;
     }
 
-    public void setDeviceExfiredTime(String deviceExfiredTime) {
+    public void setDeviceExfiredTime(long deviceExfiredTime) {
         this.deviceExfiredTime = deviceExfiredTime;
     }
 
-    public String getStatus() {
-        return status;
+    public String getDeviceStatus() {
+        return deviceStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDeviceStatus(String deviceStatus) {
+        this.deviceStatus = deviceStatus;
+    }
+
+    public boolean checkStatus(String status){
+        return this.deviceStatus.equals(status);
     }
 
     @Override
     public String toString() {
         return "Device{" +
-                "deviceId='" + deviceId + '\'' +
+                "id='" + id + '\'' +
                 ", deviceName='" + deviceName + '\'' +
                 ", deviceLocation='" + deviceLocation + '\'' +
                 ", deviceUri='" + deviceUri + '\'' +
@@ -167,7 +171,7 @@ public class Device {
                 ", deviceServices=" + deviceServices +
                 ", deviceCreateTime='" + deviceCreateTime + '\'' +
                 ", deviceExfiredTime='" + deviceExfiredTime + '\'' +
-                ", status='" + status + '\'' +
+                ", deviceStatus='" + deviceStatus + '\'' +
                 '}';
     }
 }

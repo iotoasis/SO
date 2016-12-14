@@ -11,22 +11,16 @@ repositories {
 
 dependencies {
 
-    def springVersion = "4.0.5.RELEASE"
     def jacksonVersion = "1.9.13"
     def jsonVersion = "1.1.1"
 
     testCompile group: 'junit', name: 'junit', version: '4.11'
 
-    compile "com.withwiz:httpclientservice:0.1.1"
 
     //json
     compile "org.codehaus.jackson:jackson-mapper-asl:$jacksonVersion"
     compile "org.codehaus.jackson:jackson-core-asl:$jacksonVersion"
     compile "com.googlecode.json-simple:json-simple:$jsonVersion"
     compile "com.google.code.gson:gson:2.6.2"
-
-
-    //test
-    testCompile "org.mock-server:mockserver-netty:3.10.1"
 
 }

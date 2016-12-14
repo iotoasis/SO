@@ -45,7 +45,7 @@ public class ServiceModel {
      * format : string
      * ex : classroom001
      */
-    private String locaton;
+    private String location;
 
 
     public String getName() {
@@ -91,21 +91,21 @@ public class ServiceModel {
     public ServiceModel() {
     }
 
-    public String getLocaton() {
-        return locaton;
+    public String getLocation() {
+        return location;
     }
 
-    public void setLocaton(String locaton) {
-        this.locaton = locaton;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public ServiceModel(String id, String name, List<String> serviceIdList, String createTime, String modifiedTime, String locaton) {
+    public ServiceModel(String id, String name, List<String> serviceIdList, String createTime, String modifiedTime, String location) {
         this.id = id;
         this.name = name;
         this.serviceIdList = serviceIdList;
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
-        this.locaton = locaton;
+        this.location = location;
     }
 
     @Override
@@ -116,7 +116,7 @@ public class ServiceModel {
                 ", serviceIdList=" + serviceIdList +
                 ", createTime='" + createTime + '\'' +
                 ", modifiedTime='" + modifiedTime + '\'' +
-                ", locaton='" + locaton + '\'' +
+                ", location='" + location + '\'' +
                 '}';
     }
 }

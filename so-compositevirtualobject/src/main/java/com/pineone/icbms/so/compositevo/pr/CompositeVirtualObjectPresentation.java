@@ -83,7 +83,7 @@ public class CompositeVirtualObjectPresentation {
     public void controlCompostieVirtualObject(@RequestBody VirtualObjectControlData virtualObjectControlData){
         logger.info(LogPrint.inputInfoLogPrint() + " controlCompostieVirtualObject");
         if(virtualObjectControlData == null) return;
-        compositeVirtualObjectManager.executeCompositeVO(virtualObjectControlData);
+        compositeVirtualObjectManager.executeCompositeVO(virtualObjectControlData.getId(), virtualObjectControlData.getDomain(), virtualObjectControlData.getFunctionality(), virtualObjectControlData.getOperation(), virtualObjectControlData.getSessionId());
     }
 
     private CompositeVirtualObject compositeVirtualObjectMapping(CompositeVirtualObjectTransFormObject compositeVirtualObjectDataObject){

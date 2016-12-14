@@ -10,35 +10,30 @@ public class DeviceStatusData {
      */
     private String          _commandId;
 
+
     /**
      * Device를 제어 했을시 디바이스 Uri
      */
     private String          _uri;
 
     /**
-     * Device를 제어 했을시 제어 항목
-     */
-    private String          _command;
-
-    /**
      * Device의 상태 값
      */
-    private String          status;
+    private String con;
 
     /**
      * Device의 상태 값의 변경 되었을시 시간
      */
-    private String          timestamp;
+    private String ct;
 
     public DeviceStatusData() {
     }
 
-    public DeviceStatusData(String _commandId, String _uri, String _command, String status, String timestamp) {
+    public DeviceStatusData(String _commandId, String _uri, String con, String ct) {
         this._commandId = _commandId;
         this._uri = _uri;
-        this._command = _command;
-        this.status = status;
-        this.timestamp = timestamp;
+        this.con = con;
+        this.ct = ct;
     }
 
     public String get_commandId() {
@@ -57,32 +52,25 @@ public class DeviceStatusData {
         this._uri = _uri;
     }
 
-    public String get_command() {
-        return _command;
+
+    public String getCon() {
+        return con;
     }
 
-    public void set_command(String _command) {
-        this._command = _command;
+    public void setCon(String con) {
+        this.con = con;
     }
 
-    public String getStatus() {
-        return status;
+    public String getCt() {
+        return ct;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setCt(String ct) {
+        this.ct = ct;
     }
 
     public boolean checkDeviceStatus(String deviceStatus){
-        return this.status.equals(deviceStatus);
+        return this.con.equals(deviceStatus);
     }
 
 
@@ -91,9 +79,8 @@ public class DeviceStatusData {
         return "DeviceStatusData{" +
                 "_commandId='" + _commandId + '\'' +
                 ", _uri='" + _uri + '\'' +
-                ", _command='" + _command + '\'' +
-                ", status='" + status + '\'' +
-                ", timestamp='" + timestamp + '\'' +
+                ", con='" + con + '\'' +
+                ", ct='" + ct + '\'' +
                 '}';
     }
 }

@@ -1,29 +1,42 @@
 group 'com.pineone.icbms.so'
 
+
+//apply plugin: 'war'
 apply plugin: 'java'
 apply plugin: 'spring-boot'
 
+
 jar {
-    baseName = 'service-orchestration'
-    version = '2.0.0-SANPSHOT'
+    baseName = 'so'
+//    version = '2.0.0-SANPSHOT'
 }
+
+
+//jar {
+//    baseName = 'service-orchestration'
+//    version = '2.0.0-SANPSHOT'
+//}
+//bootRepackage {
+//    mainClass = 'com.pineone.icbms.so.web.Application'
+//}
+
 
 dependencies {
-    compile project (":so-bizcontext")
-    compile project (":so-contextinformation")
-    compile project (":so-contextmodel")
-    compile project (":so-device")
-    compile project (":so-service")
-    compile project (":so-util")
-    compile project (":so-servicemodel")
-    compile project (":so-domain")
-    compile project (":so-profile")
-    compile project (":so-virtualobject")
-    compile project (":so-scheduler")
-    compile project (":so-compositevirtualobject")
-    compile project (":so-creator")
+    compile project(":so-bizcontext")
+    compile project(":so-contextinformation")
+    compile project(":so-contextmodel")
+    compile project(":so-device")
+    compile project(":so-service")
+    compile project(":so-util")
+    compile project(":so-servicemodel")
+    compile project(":so-domain")
+    compile project(":so-profile")
+    compile project(":so-virtualobject")
+    compile project(":so-scheduler")
+    compile project(":so-compositevirtualobject")
+    compile project(":so-creator")
 
-    //providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-    
-    testCompile group: 'junit', name: 'junit', version: '4.11'
 }
+
+
+

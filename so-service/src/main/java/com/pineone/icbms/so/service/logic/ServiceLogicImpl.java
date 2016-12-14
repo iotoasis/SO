@@ -68,7 +68,6 @@ public class ServiceLogicImpl implements ServiceLogic{
     @Override
     public List<ConceptService> retrieveConceptService(DeviceObject deviceObject) {
         // serviceProxy에서 VO로 DeviceConceptService 조회 하기
-//        return deviceCenter.retrieveConceptServiceList(deviceObject);
         return null;
     }
 
@@ -87,10 +86,8 @@ public class ServiceLogicImpl implements ServiceLogic{
     }
 
     @Override
-    //NOTE: Service 등록정보를 수신받고 TODO : SO DB에 저장
+    //NOTE: Service 등록정보를 수신받고 SO DB에 저장
     public String registerService(Service service) {
-//        ServiceStore serviceStore = ServiceMapStore.getInstance();
-//        service.setId("SERVICE-" + service.getId());
         logger.debug("Service = " + service.toString());
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
         String serviceMessageStr = responseMessage.serviceResultMessage(service);
@@ -100,15 +97,12 @@ public class ServiceLogicImpl implements ServiceLogic{
 
     @Override
     public Service retrieveServiceDetail(String serviceId) {
-//        ServiceStore serviceStore = ServiceMapStore.getInstance();
         logger.debug("Service ID = " + serviceId);
-        Service service = serviceStore.retrieveServiceDetail(serviceId);
-        return service;
+        return serviceStore.retrieveServiceDetail(serviceId);
     }
 
     @Override
     public List<String> retrieveServiceNameList() {
-//        ServiceStore serviceStore = ServiceMapStore.getInstance();
         List<String> serviceNameList = new ArrayList<>();
         List<Service> serviceList = serviceStore.retrieveServiceList();
         for(Service service : serviceList){
@@ -133,23 +127,18 @@ public class ServiceLogicImpl implements ServiceLogic{
     public void executeService(String serviceId, String sessionId) {
         logger.debug("Execute Service ID = " + serviceId + " Session ID = " + sessionId);
 
-        // Service Filter 추가.
-
-        // Service Control Record 검색
-        // serviceControlRecord가 없으면 ServiceControlRecord 생성
-        //
-
         // DB에서 Session을 검색
         Session session = null;
-        if(sessionId != null){
-            session = sessionStore.retrieveSessionDetail(sessionId);
+        String localSessionId = sessionId;
+        if(localSessionId != null){
+            session = sessionStore.retrieveSessionDetail(localSessionId);
         }
 
         if(session == null){
             session = new DefaultSession();
+            localSessionId =  session.getId();
         }
 
-        // TODO : Session에서 serviceIdList를 얻는다.
         List<String> sessionServiceIdList = null;
         if(session.isExistSessionData(DefaultSession.SERVICE_KEY)){
             sessionServiceIdList = DataConversion.stringDataToList(session.findSessionData(DefaultSession.SERVICE_KEY));
@@ -184,55 +173,36 @@ public class ServiceLogicImpl implements ServiceLogic{
             logger.info("Execute Service Start" + TimeStamp.currentTime());
             for(String virtualObjectId : serviceData.getVirtualObjectIdList()){
                 if(virtualObjectId.startsWith(CompositeProfile.COMPOSITE_ID)) {
-                    // functionality중 특별히 SDA에 물어야 하는 것들에 대해서 정의 필요.
-
                     VirtualObject virtualObject = serviceProxy.findVirtualObject(virtualObjectId);
-
-                    if(virtualObject != null && "vo-lack-equipment".equals(virtualObject.getVoId())){
-                        // admin-noti에 따른 추가 적인 로직 적용.
-                        // PC 부족 알림
-                        // 마우스 부족 알림
-                        // 키보드 부족 알림.
-
-                        // 각각 ServiceModel과 Service들을 어떻게 나눌것인가? 그걸로 조건으로 수정할것인가? 
-                        /*String operation = "";
-                        try {
-                            operation = serviceSDAProxy.getPCCountUri(session);
-                        } catch (BadRequestException e) {
-                            logger.warn("operation is not Count");
-                            session = sessionStore.retrieveSessionDetail(sessionId);
-                            session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_ERROR + " operation is null");
-                        }
-                        serviceProxy.executeVirtualObject(virtualObjectId, operation, sessionId);
-                        */
-                        serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus(), sessionId);
+                    if(virtualObject != null && "vo-lack-equipment".equals(virtualObject.getId())){
+                        serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus(), localSessionId);
                     } else {
-                        serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus(), sessionId);
+                        serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus(), localSessionId);
                     }
                 } else {
                     VirtualObject virtualObject = serviceProxy.findVirtualObject(virtualObjectId);
-                    if(virtualObject != null && "vo-lack-equipment".equals(virtualObject.getVoId())){
+                    if(virtualObject != null && "vo-lack-equipment".equals(virtualObject.getId())){
                         String operation = "";
                         try {
                             operation = serviceSDAProxy.getPCCountUri(session);
                         } catch (BadRequestException e) {
                             logger.warn("operation is not Count");
-                            session = sessionStore.retrieveSessionDetail(sessionId);
+                            session = sessionStore.retrieveSessionDetail(localSessionId);
                             session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_ERROR + " operation is null");
                         }
-                        serviceProxy.executeVirtualObject(virtualObjectId, operation, sessionId);
+                        serviceProxy.executeVirtualObject(virtualObjectId, operation, localSessionId);
                     } else {
-                        serviceProxy.executeVirtualObject(virtualObjectId, serviceData.getStatus(), sessionId);
+                        serviceProxy.executeVirtualObject(virtualObjectId, serviceData.getStatus(), localSessionId);
                     }
                 }
                 serviceData.setModifiedTime(currentTime);
             }
             serviceStore.updateService(serviceData);
-            session = sessionStore.retrieveSessionDetail(sessionId);
+            session = sessionStore.retrieveSessionDetail(localSessionId);
             session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_EXECUTION);
         } else {
             logger.info("Execute Service Ignore : " + "ServiceActiveTime = " + TimeStamp.currentTime(serviceData.getModifiedTime()) + " FilterTime = " + serviceData.getFilterTime()/1000);
-            session = sessionStore.retrieveSessionDetail(sessionId);
+            session = sessionStore.retrieveSessionDetail(localSessionId);
             session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_IGNORE);
         }
 

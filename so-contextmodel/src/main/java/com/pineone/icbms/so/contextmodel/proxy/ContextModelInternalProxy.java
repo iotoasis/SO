@@ -1,7 +1,6 @@
 package com.pineone.icbms.so.contextmodel.proxy;
 
 import com.pineone.icbms.so.contextinformation.pr.ContextInformationPresentation;
-import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
 import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.domain.pr.DomainPresentation;
 import com.pineone.icbms.so.util.logprint.LogPrint;

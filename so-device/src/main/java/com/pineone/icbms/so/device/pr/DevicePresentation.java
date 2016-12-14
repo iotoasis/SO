@@ -41,9 +41,14 @@ public class DevicePresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public String deviceControl(@RequestBody DeviceTransFormObject deviceTransFormObject){
         // NOTE : Device Control
-        logger.info(LogPrint.inputInfoLogPrint() + "Device ID = " + deviceTransFormObject.getDeviceId() + " DeviceCommand = " + deviceTransFormObject.getDeviceCommand() + "Session ID = " + deviceTransFormObject.getSessionId());
-        logger.debug("Device ID = " + deviceTransFormObject.getDeviceId() + " DeviceCommand = " + deviceTransFormObject.getDeviceCommand() + "Session ID = " + deviceTransFormObject.getSessionId());
-        return deviceManager.deviceExecute(deviceTransFormObject.getDeviceId(), deviceTransFormObject.getDeviceCommand(), deviceTransFormObject.getSessionId());
+
+        logger.info("<================ Device Control Start ================>");
+        logger.debug(LogPrint.LogMethodNamePrint() + " |  Device ID = " + deviceTransFormObject.getId() + " , DeviceCommand = " + deviceTransFormObject.getDeviceCommand() + " , Session ID = " + deviceTransFormObject.getSessionId());
+
+        String result = deviceManager.deviceExecute(deviceTransFormObject.getId(), deviceTransFormObject.getDeviceCommand(), deviceTransFormObject.getSessionId());
+        logger.debug(LogPrint.LogMethodNamePrint() + " |  Result = " + result);
+        logger.info("<================ Device Control End ================>");
+        return result;
     }
 
     /**
@@ -70,7 +75,7 @@ public class DevicePresentation {
         // Search Device By Id
         logger.info(LogPrint.inputInfoLogPrint() + "DeviceID = " + deviceId);
         Device device = deviceManager.deviceSearchById(deviceId);
-        logger.debug("Devoce = " + deviceId.toString());
+        logger.debug("Device ID = " + deviceId);
         return device;
     }
 
@@ -105,20 +110,20 @@ public class DevicePresentation {
     /**
      *  Device 등록 노티 SI -> SO
      */
-    @RequestMapping(value = "",method = RequestMethod.POST)
+    @RequestMapping(value = "/condition",method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public void deviceEnableNotification(@RequestBody deviceReleaseMessage message) {
         // NOTE : Register the device memory
         logger.info(LogPrint.inputInfoLogPrint() + "DeviceUri = " + message.getDeviceId());
         logger.debug("DeviceReleaseMessage = " + message.toString());
-        deviceManager.deviceRegister(message);
+        deviceManager.deviceRegister(message.getDeviceId(), message.getRegisterTime());
     }
 
 
     /**
      *  Device 해제 노티 SI -> SO
      */
-    @RequestMapping(value ="",method = RequestMethod.DELETE)
+    @RequestMapping(value ="/condition",method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deviceDisableNotification(@RequestBody deviceReleaseMessage message) {
         // NOTE : Unregister the device memory
@@ -127,28 +132,15 @@ public class DevicePresentation {
         deviceManager.deviceRelease(message.getDeviceId());
     }
 
-
-    /**
-     *  Device 제어 결과 노티 SI -> SO
-     */
-    @RequestMapping(value ="/monitor",method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.OK)
-    public String asynchronousControlResult(@RequestBody ResultMessage message){
-        // NOTO : Device the result is stored in the data memory.
-        logger.info(LogPrint.inputInfoLogPrint() + "Result = " + message.getCode());
-        logger.debug("ResultMessage = " + message.toString());
-        return deviceManager.deviceControlResult(message);
-    }
-
     /**
      *  Device Operation을 검색
      */
     @RequestMapping(value ="/operation",method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public String findDeviceOperation(@RequestBody DeviceTransFormObject deviceTransFormObject){
-        logger.info(LogPrint.inputInfoLogPrint() + "Device ID = " + deviceTransFormObject.getDeviceId());
+        logger.info(LogPrint.inputInfoLogPrint() + "Device ID = " + deviceTransFormObject.getId());
         logger.debug("Device = " + deviceTransFormObject.toString());
-        return deviceManager.searchOperation(deviceTransFormObject.getDeviceId(), deviceTransFormObject.getDeviceServices());
+        return deviceManager.searchOperation(deviceTransFormObject.getId(), deviceTransFormObject.getDeviceServices());
     }
 
     /**
@@ -159,22 +151,20 @@ public class DevicePresentation {
     public void updateDeviceStatus(@RequestBody DeviceStatusData deviceStatusData){
         logger.info(LogPrint.inputInfoLogPrint() + "DeviceStatusData = " + deviceStatusData.toString());
         logger.debug("DeviceStatusData = " + deviceStatusData.toString());
-
-        if(!deviceStatusData.get_uri().isEmpty()){
-            Device device = deviceManager.deviceSearchById(deviceStatusData.get_uri());
-            if(!deviceStatusData.getStatus().isEmpty() && !deviceStatusData.checkDeviceStatus(device.getStatus())) {
-                device.setStatus(deviceStatusData.getStatus());
-                deviceManager.deviceUpdate(device);
-            }
-        }
+        deviceManager.deviceUpdate(deviceStatusData);
     }
 
 
     public DeviceTransFormObject settingDeviceRequestData(String deviceid, String command, String sessionId){
         DeviceTransFormObject object = new DeviceTransFormObject();
-        object.setDeviceId(deviceid);
+        object.setId(deviceid);
         object.setDeviceCommand(command);
         object.setSessionId(sessionId);
         return object;
     }
+
+
+
+
+
 }

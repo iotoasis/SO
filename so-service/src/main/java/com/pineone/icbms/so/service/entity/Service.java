@@ -4,12 +4,6 @@ import java.util.List;
 
 public class Service {
 
-    public Service(){};
-
-    public Service(String name){
-        this.name = name;
-    }
-
     /**
      * Service 식별자
      * format : si-(장소명)-(vo명)-(status)
@@ -66,6 +60,13 @@ public class Service {
      */
     private long filterTime;
 
+    public Service(){
+    };
+
+    public Service(String name){
+        this.name = name;
+    }
+
     public String getId() {
         return id;
     }
@@ -106,12 +107,12 @@ public class Service {
         this.status = status;
     }
 
-    public Service(String id, String name, List<String> VirtualObjectIdList, String VirtualObjectService, String status) {
+    public Service(String id, String name, List<String> virtualObjectIdList, String virtualObjectService, String status) {
 
         this.id = id;
         this.name = name;
-        this.virtualObjectIdList = VirtualObjectIdList;
-        this.virtualObjectService = VirtualObjectService;
+        this.virtualObjectIdList = virtualObjectIdList;
+        this.virtualObjectService = virtualObjectService;
         this.status = status;
     }
 

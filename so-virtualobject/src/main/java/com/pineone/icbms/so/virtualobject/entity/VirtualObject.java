@@ -17,7 +17,7 @@ public class VirtualObject {
      * format : vo-(devicename)-(service)
      * ex) vo-smartlight01-001-power-control
      */
-    private String voId;
+    private String id;
 
     /**
      * VirtualObject 이름
@@ -86,8 +86,8 @@ public class VirtualObject {
     public VirtualObject() {
     }
 
-    public VirtualObject(String voId, String voName, String functionality, String voDescription, String voCreateTime, String voExpiredTime, String deviceService, String deviceId, String voCommand, String voLocation) {
-        this.voId = voId;
+    public VirtualObject(String id, String voName, String functionality, String voDescription, String voCreateTime, String voExpiredTime, String deviceService, String deviceId, String voCommand, String voLocation) {
+        this.id = id;
         this.voName = voName;
         this.functionality = functionality;
         this.voDescription = voDescription;
@@ -99,12 +99,12 @@ public class VirtualObject {
         this.voLocation = voLocation;
     }
 
-    public String getVoId() {
-        return voId;
+    public String getId() {
+        return id;
     }
 
-    public void setVoId(String voId) {
-        this.voId = voId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getVoName() {
@@ -182,7 +182,7 @@ public class VirtualObject {
     @Override
     public String toString() {
         return "VirtualObject{" +
-                "voId='" + voId + '\'' +
+                "id='" + id + '\'' +
                 ", voName='" + voName + '\'' +
                 ", functionality='" + functionality + '\'' +
                 ", voDescription='" + voDescription + '\'' +

@@ -49,9 +49,7 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
         logger.debug("ContextModel = " + contextModel.toString());
 
         String sendData = DataConversion.objectToString(contextModel);
-        IHttpResponseMessage message = clientService.requestPostService
-                (contextAddress.getAddress() + AddressStore.REGISTER_CONTEXTMODEL, sendData);
-        String response = DataConversion.responseDataToString(message);
+        String response = clientService.requestPostServiceReceiveString(contextAddress.getServerAddress(ContextAddress.SDA_SERVER) + AddressStore.REGISTER_CONTEXTMODEL, sendData);
         return response;
     }
 
@@ -61,7 +59,7 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
         //
         logger.info(LogPrint.outputInfoLogPrint());
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getAddress() + AddressStore.RETRIEVE_CONTEXTMODEL);
+                contextAddress.getServerAddress(ContextAddress.SDA_SERVER) + AddressStore.RETRIEVE_CONTEXTMODEL);
         String readData = new Gson().toJson(message);
         Type type = new TypeToken<List<ContextModel>>(){}.getType();
         List<ContextModel> contextModelList = new Gson().fromJson(readData,type);
@@ -75,9 +73,7 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
         //
         logger.info(LogPrint.outputInfoLogPrint() + ", ContextModelId = " + contextModelId);
         logger.debug("ContextModelId = " + contextModelId);
-        IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getAddress() + AddressStore.RETRIEVE_CONTEXTMODEL + "/" + contextModelId);
-        String readData = DataConversion.responseDataToString(message);
+        String readData = clientService.requestGetServiceReceiveString(contextAddress.getServerAddress(ContextAddress.SDA_SERVER) + AddressStore.RETRIEVE_CONTEXTMODEL + "/" + contextModelId);
         Type type = new TypeToken<ContextModel>(){}.getType();
         ContextModel contextModel = new Gson().fromJson(readData, type);
 
@@ -92,7 +88,7 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
 
         //
 //        IHttpResponseMessage message = clientService.requestGetService(
-//                contextAddress.getAddress() + AddressStore.RETRIEVE_CONTEXTMODEL_EVENT + "/" + contextModelName);
+//                contextAddress.getSDAAddress() + AddressStore.RETRIEVE_CONTEXTMODEL_EVENT + "/" + contextModelName);
 //        String readData = new Gson().toJson(message);
 //        Type type = new TypeToken<List<String>>(){}.getType();
 //        List<String> domainIdList = new Gson().fromJson(readData,type);
@@ -223,11 +219,11 @@ public class ContextModelSDAProxy implements ContextModelExProxy {
 
     private List<Content> getContents(String contextModelId) throws BadRequestException {
         IHttpResponseMessage message = clientService.requestGetService(
-                contextAddress.getAddress()  + contextModelId + "/?p=," );
+                contextAddress.getServerAddress(ContextAddress.SDA_SERVER)  + contextModelId + "/?p=," );
         if(message.getStatusCode() == 200) {
             System.out.println(message.getBodyByteArray().toString());
             logger.debug("ResponseMessage : " + message);
-            String readData = DataConversion.responseDataToString(message);
+            String readData = clientService.responseDataToString(message);
             Type type = new TypeToken<RetrieveData>() {
             }.getType();
             RetrieveData retrieveData = new Gson().fromJson(readData, type);

@@ -1,23 +1,35 @@
 /*
     Main build file create by existmaster.
  */
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+//apply plugin: 'spring-boot'
+//apply plugin: 'io.spring.dependency-management'
+
 buildscript {
     ext {
-        //springBootVersion = '1.4.0.RELEASE'
     }
     repositories {
         mavenCentral()
-        //jcenter()
+//        mavenLocal()
+        jcenter()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${SPRING_BOOT_VERSION}")
+//        classpath("org.springframework.boot:spring-boot-gradle-plugin:${SPRING_BOOT_VERSION}")
         classpath("io.spring.gradle:dependency-management-plugin:0.5.7.RELEASE")
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${SPRING_BOOT_VERSION}"
+
     }
 }
 
-//apply plugin: 'java'
-//apply plugin: 'idea'
-//apply plugin: 'spring-boot'
+//war {
+//    baseName = 'so'
+//    version = '2.0.0-SANPSHOT'
+//}
+
+
 
 //dependencies {
 //    compile project (":so-bizcontext")
@@ -35,28 +47,130 @@ buildscript {
 //    testCompile group: 'junit', name: 'junit', version: '4.11'
 //}
 
+
+
+
 subprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
     apply plugin: 'eclipse'
     apply plugin: 'spring-boot'
     apply plugin: 'io.spring.dependency-management'
+//    apply plugin: 'org.springframework.boot'
+//    apply plugin: 'groovy'
+//    apply plugin: 'maven'
 
-    version = '2.0.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+//        mavenLocal()
+        jcenter()
+    }
+//    version = '2.0.0-SNAPSHOT'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
+
+//    bootRepackage {
+//        bootRepackage.enabled = false
+//    }
+
+//    jar {
+//    baseName = 'service-orchestration'
+//    version = '2.0.0-SANPSHOT'
+//    }
 
     dependencies {
+
+//        compile project (":so-bizcontext")
+//        compile project (":so-compositevirtualobject")
+//        compile project (":so-contextinformation")
+//        compile project (":so-contextmodel")
+//        compile project (":so-device")
+//        compile project (":so-service")
+//        compile project (":so-util")
+//        compile project (":so-servicemodel")
+//        compile project (":so-domain")
+//        compile project (":so-profile")
+//        compile project (":so-virtualobject")
+//        compile project (":so-scheduler")
+//        compile project (":so-creator")
+
         compile "com.withwiz:httpclientservice:0.1.1"
         compile("org.springframework.boot:spring-boot-starter-web:${SPRING_BOOT_VERSION}")
         compile("org.springframework.boot:spring-boot-starter-data-mongodb:${SPRING_BOOT_VERSION}")
         compile("org.springframework.boot:spring-boot-starter-actuator:${SPRING_BOOT_VERSION}")
-        testCompile("org.springframework.boot:spring-boot-starter-test")
+        compile("org.springframework.boot:spring-boot-starter-test")
+//        compile("org.springframework.boot:spring-boot-starter-web:1.3.1.RELEASE")
+//        compile("org.springframework.boot:spring-boot-starter-data-mongodb:1.3.1.RELEASE")
+//        compile("org.springframework.boot:spring-boot-starter-actuator:1.3.1.RELEASE")
+//////        compile("org.springframework.boot:spring-boot-starter-test")
+//////    providedRuntime "org.springframework.boot:spring-boot-starter-tomcat:1.2.1.RELEASE"
+//        testCompile("org.springframework.boot:spring-boot-starter-test:1.3.1.RELEASE")
+//        compile 'org.codehaus.groovy:groovy-all:2.3.11'
     }
+
+//    configurations {
+//        providedRuntime
+//    }
+
+
 }
+
+
+//group 'com.pineone.icbms.so'
+//
+//apply plugin: 'war'
+//apply plugin: 'java'
+//apply plugin: 'spring-boot'
+//apply plugin: 'idea'
+//apply plugin: 'io.spring.dependency-management'
+//
+//war {
+//    baseName = 'so'
+////    version = '2.0.0-SANPSHOT'
+//}
+//
+///*
+//    Main build file create by existmaster.
+// */
+//buildscript {
+//    ext {
+//        //springBootVersion = '1.4.0.RELEASE'
+//    }
+//    repositories {
+//        mavenCentral()
+//        //jcenter()
+//    }
+//    dependencies {
+//        classpath("org.springframework.boot:spring-boot-gradle-plugin:${SPRING_BOOT_VERSION}")
+//        classpath("io.spring.gradle:dependency-management-plugin:0.5.7.RELEASE")
+//    }
+//}
+//
+//dependencies {
+//    compile project (":so-bizcontext")
+//    compile project (":so-service")
+//    compile project (":so-contextinformation")
+//    compile project (":so-contextmodel")
+//    compile project (":so-device")
+//
+//    compile project (":so-util")
+//    compile project (":so-servicemodel")
+//    compile project (":so-domain")
+//    compile project (":so-profile")
+//    compile project (":so-virtualobject")
+//    compile project (":so-scheduler")
+//    compile project (":so-compositevirtualobject")
+//    compile project (":so-creator")
+//
+//    //providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+//
+//    testCompile group: 'junit', name: 'junit', version: '4.11'
+//    compile "com.withwiz:httpclientservice:0.1.1"
+//    compile("org.springframework.boot:spring-boot-starter-web:${SPRING_BOOT_VERSION}")
+//    compile("org.springframework.boot:spring-boot-starter-data-mongodb:1.4.0.RELEASE")
+//    compile("org.springframework.boot:spring-boot-starter-actuator:${SPRING_BOOT_VERSION}")
+//    compile("org.springframework.boot:spring-boot-starter-test")
+//}

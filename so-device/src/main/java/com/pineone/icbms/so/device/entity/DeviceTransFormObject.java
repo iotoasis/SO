@@ -2,35 +2,35 @@ package com.pineone.icbms.so.device.entity;
 
 public class DeviceTransFormObject {
 
-    private String          deviceId;
+    private String id;
     private String          deviceName;
     private String          deviceLocation;
     private String          deviceUri;
     private String          deviceCommand;
     private String          deviceServices;
-    private String          status;
+    private String deviceStatus;
     private String          sessionId;
 
     public DeviceTransFormObject() {
     }
 
-    public DeviceTransFormObject(String deviceId, String deviceName, String deviceLocation, String deviceUri, String deviceCommand, String deviceServices, String status, String sessionId) {
-        this.deviceId = deviceId;
+    public DeviceTransFormObject(String id, String deviceName, String deviceLocation, String deviceUri, String deviceCommand, String deviceServices, String deviceStatus, String sessionId) {
+        this.id = id;
         this.deviceName = deviceName;
         this.deviceLocation = deviceLocation;
         this.deviceUri = deviceUri;
         this.deviceCommand = deviceCommand;
         this.deviceServices = deviceServices;
-        this.status = status;
+        this.deviceStatus = deviceStatus;
         this.sessionId = sessionId;
     }
 
-    public String getDeviceId() {
-        return deviceId;
+    public String getId() {
+        return id;
     }
 
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDeviceName() {
@@ -73,12 +73,12 @@ public class DeviceTransFormObject {
         this.deviceServices = deviceServices;
     }
 
-    public String getStatus() {
-        return status;
+    public String getDeviceStatus() {
+        return deviceStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDeviceStatus(String deviceStatus) {
+        this.deviceStatus = deviceStatus;
     }
 
     public String getSessionId() {
@@ -92,13 +92,13 @@ public class DeviceTransFormObject {
     @Override
     public String toString() {
         return "DeviceTransFormObject{" +
-                "deviceId='" + deviceId + '\'' +
+                "id='" + id + '\'' +
                 ", deviceName='" + deviceName + '\'' +
                 ", deviceLocation='" + deviceLocation + '\'' +
                 ", deviceUri='" + deviceUri + '\'' +
                 ", deviceCommand='" + deviceCommand + '\'' +
                 ", deviceServices='" + deviceServices + '\'' +
-                ", status='" + status + '\'' +
+                ", deviceStatus='" + deviceStatus + '\'' +
                 ", sessionId='" + sessionId + '\'' +
                 '}';
     }

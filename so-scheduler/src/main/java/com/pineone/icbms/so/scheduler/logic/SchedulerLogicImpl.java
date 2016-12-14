@@ -191,6 +191,7 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
         }
     }
 
+
     //NOTE : 개별 스케줄 정지
     @Override
     public void pauseProfileScheduler(String profileId) throws SchedulerException {

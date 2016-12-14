@@ -1,7 +1,8 @@
 package com.pineone.icbms.so.device.proxy;
 
 import com.pineone.icbms.so.device.entity.Device;
-import com.pineone.icbms.so.device.util.ClientProfile;
+import com.pineone.icbms.so.util.address.AddressStore;
+import com.pineone.icbms.so.util.address.ContextAddress;
 import com.pineone.icbms.so.util.http.ClientService;
 import com.pineone.icbms.so.util.logprint.LogPrint;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -9,6 +10,7 @@ import org.codehaus.jackson.type.TypeReference;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -30,6 +32,10 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
     private ObjectMapper mapper = new ObjectMapper();
 
     public static final Logger logger = LoggerFactory.getLogger(DeviceSDAProxy.class);
+
+    @Autowired
+    ContextAddress contextAddress;
+
 
     /**
      * 1. Domain 조회(get)
@@ -129,7 +135,7 @@ public class DeviceSDAProxy implements DeviceICollectionProxy {
         logger.info((LogPrint.outputInfoLogPrint())+ "DeviceID = " + deviceId);
         logger.debug("DeviceID = " + deviceId + "DeviceService = " + deviceService);
 
-        String requestUri = ClientProfile.SDA_DATAREQUEST_URI + ClientProfile.SDA_DEVICE + ClientProfile.SDA_DEVICE_OPERATION;
+        String requestUri = contextAddress.getServerAddress(ContextAddress.SDA_SERVER) + AddressStore.SDA_DEVICE + AddressStore.SDA_DEVICE_OPERATION;
         JSONObject obj = new JSONObject();
         obj.put("deviceId", deviceId);
         obj.put("deviceService", deviceService);

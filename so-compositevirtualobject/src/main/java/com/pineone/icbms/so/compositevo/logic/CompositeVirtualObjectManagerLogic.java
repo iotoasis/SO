@@ -1,7 +1,6 @@
 package com.pineone.icbms.so.compositevo.logic;
 
 import com.pineone.icbms.so.compositevo.entity.CompositeVirtualObject;
-import com.pineone.icbms.so.compositevo.entity.VirtualObjectControlData;
 import com.pineone.icbms.so.compositevo.proxy.CompositeVirtualObjectProxy;
 import com.pineone.icbms.so.compositevo.store.CompositeVirtualObjectStore;
 import com.pineone.icbms.so.util.conversion.DataConversion;
@@ -70,7 +69,7 @@ public class CompositeVirtualObjectManagerLogic implements CompositeVirtualObjec
     @Override
     public void updateCompositeVO(CompositeVirtualObject compositeVirtualObject) {
         logger.debug("Update CompositeVirtualObject  = " + compositeVirtualObject.toString());
-        if(compositeVirtualObject == null) return;
+        if(compositeVirtualObject.getId().isEmpty()) return;
         compositeVirtualObjectStore.update(compositeVirtualObject);
     }
 
@@ -81,18 +80,19 @@ public class CompositeVirtualObjectManagerLogic implements CompositeVirtualObjec
     }
 
     @Override
-    public void executeCompositeVO(VirtualObjectControlData virtualObjectControlData) {
+    public void executeCompositeVO(String cvoId, String domain, String functionality, String operation, String sessionId){
         //
-        logger.debug("control CompositeVirtualObject is VirtualObjectControlData= " + virtualObjectControlData.toString());
+        logger.debug("control CompositeVirtualObject is Id = " + cvoId + " Operation = " + operation + " Domain = " + domain + " Functionality = " + functionality + " Session ID = " + sessionId);
 
         // DB에서 Session을 검색
         Session session = null;
-        if(virtualObjectControlData.getSessionId() != null){
-            session = sessionStore.retrieveSessionDetail(virtualObjectControlData.getSessionId());
+        if(sessionId != null){
+            session = sessionStore.retrieveSessionDetail(sessionId);
         }
 
         if(session == null){
             session = new DefaultSession();
+            sessionId = session.getId();
         }
 
         // TODO : Session에서 serviceIdList를 얻는다.
@@ -103,11 +103,11 @@ public class CompositeVirtualObjectManagerLogic implements CompositeVirtualObjec
         if(sessionCVOIdList == null){
             sessionCVOIdList = new ArrayList<>();
         }
-        sessionCVOIdList.add(virtualObjectControlData.getSessionId());
+        sessionCVOIdList.add(sessionId);
         session.insertSessionData(DefaultSession.COMPOSITEVIRTUALOBJECT_KEY, DataConversion.listDataToString(sessionCVOIdList));
         sessionStore.updateSession(session);
 
-        if(virtualObjectControlData == null){
+        if(cvoId == null){
             session.insertSessionData(DefaultSession.COMPOSITEVIRTUALOBJECT_RESULT, DefaultSession.CONTROL_ERROR);
             sessionStore.updateSession(session);
             return ;
@@ -115,7 +115,7 @@ public class CompositeVirtualObjectManagerLogic implements CompositeVirtualObjec
 
         // Detail Control 과 일반 Control 구분.
 
-        CompositeVirtualObject compositeVirtualObject = compositeVirtualObjectStore.retrieveByID(virtualObjectControlData.getId());
+        CompositeVirtualObject compositeVirtualObject = compositeVirtualObjectStore.retrieveByID(cvoId);
         if(compositeVirtualObject == null){
             session.insertSessionData(DefaultSession.COMPOSITEVIRTUALOBJECT_RESULT, DefaultSession.CONTROL_ERROR);
             sessionStore.updateSession(session);
@@ -124,21 +124,21 @@ public class CompositeVirtualObjectManagerLogic implements CompositeVirtualObjec
 
         List<String> virtualObjectIDList = compositeVirtualObject.getVoIdList();
         for(String virtualObjectId : virtualObjectIDList){
-            logger.debug("control virtualObject : virtualObject ID = " + virtualObjectId + " Operation = " + virtualObjectControlData.getOperation() + " Session ID = " + virtualObjectControlData.getSessionId());
+            logger.debug("control virtualObject : virtualObject ID = " + virtualObjectId + " Operation = " + operation + " Session ID = " + sessionId);
 
-            if(virtualObjectControlData.getFunctionality() == null){
+            if(functionality == null){
                 // Normal Control
-                compositeVirtualObjectProxy.executeCompositeVO(virtualObjectId, virtualObjectControlData.getOperation(), virtualObjectControlData.getSessionId());
+                compositeVirtualObjectProxy.executeCompositeVO(virtualObjectId, operation, sessionId);
             } else {
                 // Detail Control
                 VirtualObject virtualObject = compositeVirtualObjectProxy.findVirtualObject(virtualObjectId);
                 if(virtualObject == null) return;
 
-                if(virtualObject.getFunctionality().equals(virtualObjectControlData.getFunctionality())){
-                    compositeVirtualObjectProxy.executeCompositeVO(virtualObjectId, virtualObjectControlData.getOperation(),virtualObjectControlData.getSessionId());
+                if(virtualObject.getFunctionality().equals(functionality)){
+                    compositeVirtualObjectProxy.executeCompositeVO(virtualObjectId, operation, sessionId);
                 }
             }
-            session = sessionStore.retrieveSessionDetail(virtualObjectControlData.getSessionId());
+            session = sessionStore.retrieveSessionDetail(sessionId);
             session.insertSessionData(DefaultSession.COMPOSITEVIRTUALOBJECT_RESULT, DefaultSession.CONTROL_EXECUTION);
             sessionStore.updateSession(session);
         }

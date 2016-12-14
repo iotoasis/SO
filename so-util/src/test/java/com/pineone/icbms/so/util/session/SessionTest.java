@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -48,4 +49,13 @@ public class SessionTest {
         Date currentTime = calendar.getTime();
         System.out.println(currentTime);
     }
+
+    @Test
+    public void dbTime(){
+        String time = "583e7935ab3897ffc529b813";
+        String hexTime = time.substring(0,8);
+        long date = Long.parseLong(hexTime,16);
+        System.out.println(new SimpleDateFormat("yyyy-mm-dd HH-mm:ss").format(new Date(date*1000)));
+    }
+
 }

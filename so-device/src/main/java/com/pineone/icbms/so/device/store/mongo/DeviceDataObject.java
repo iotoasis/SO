@@ -7,21 +7,21 @@ import java.util.List;
 @Document(collection = "Device")
 public class DeviceDataObject {
 
-    private String          deviceId;
+    private String          id;
     private String          deviceName;
     private String          deviceLocation;
     private String          deviceUri;
     private List<String> deviceCommand;
     private List<String>    deviceServices;
-    private String          deviceCreateTime;
-    private String          deviceExfiredTime;
-    private String          status;
+    private long            deviceCreateTime;
+    private long            deviceExfiredTime;
+    private String deviceStatus;
 
     public DeviceDataObject() {
     }
 
-    public DeviceDataObject(String deviceId, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, String deviceCreateTime, String deviceExfiredTime, String status) {
-        this.deviceId = deviceId;
+    public DeviceDataObject(String id, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, long deviceCreateTime, long deviceExfiredTime, String deviceStatus) {
+        this.id = id;
         this.deviceName = deviceName;
         this.deviceLocation = deviceLocation;
         this.deviceUri = deviceUri;
@@ -29,11 +29,11 @@ public class DeviceDataObject {
         this.deviceServices = deviceServices;
         this.deviceCreateTime = deviceCreateTime;
         this.deviceExfiredTime = deviceExfiredTime;
-        this.status = status;
+        this.deviceStatus = deviceStatus;
     }
 
-    public String getDeviceId() {
-        return deviceId;
+    public String getId() {
+        return id;
     }
 
     public String getDeviceName() {
@@ -56,22 +56,22 @@ public class DeviceDataObject {
         return deviceServices;
     }
 
-    public String getDeviceCreateTime() {
+    public long getDeviceCreateTime() {
         return deviceCreateTime;
     }
 
-    public String getDeviceExfiredTime() {
+    public long getDeviceExfiredTime() {
         return deviceExfiredTime;
     }
 
-    public String getStatus() {
-        return status;
+    public String getDeviceStatus() {
+        return deviceStatus;
     }
 
     @Override
     public String toString() {
         return "DeviceDataObject{" +
-                "deviceId='" + deviceId + '\'' +
+                "id='" + id + '\'' +
                 ", deviceName='" + deviceName + '\'' +
                 ", deviceLocation='" + deviceLocation + '\'' +
                 ", deviceUri='" + deviceUri + '\'' +
@@ -79,7 +79,7 @@ public class DeviceDataObject {
                 ", deviceServices=" + deviceServices +
                 ", deviceCreateTime='" + deviceCreateTime + '\'' +
                 ", deviceExfiredTime='" + deviceExfiredTime + '\'' +
-                ", status='" + status + '\'' +
+                ", deviceStatus='" + deviceStatus + '\'' +
                 '}';
     }
 }

@@ -44,10 +44,6 @@ public class DefaultSession implements Session {
      */
     private String id;
 
-    public DefaultSession(String id) {
-        this.id = id;
-    }
-
     /**
      *  The sessionData is pair of key, value.
      */
@@ -58,6 +54,20 @@ public class DefaultSession implements Session {
     private Date mongoTime;
 
     private Long calculateTime;
+
+    public DefaultSession(String id) {
+        this.id = id;
+    }
+
+    public DefaultSession() {
+        id = UUID.randomUUID().toString();
+        sessionData = new HashMap<>();
+    }
+
+    public DefaultSession(String id, Map<String, String> sessionData) {
+        this.id = id;
+        this.sessionData = sessionData;
+    }
 
     public DefaultSession(String id, Map<String, String> sessionData, String createDate, Date mongoTime , Long calculateTime) {
         this.id = id;
@@ -75,16 +85,6 @@ public class DefaultSession implements Session {
     @Override
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
-    }
-
-    public DefaultSession() {
-        id = UUID.randomUUID().toString();
-        sessionData = new HashMap<>();
-    }
-
-    public DefaultSession(String id, Map<String, String> sessionData) {
-        this.id = id;
-        this.sessionData = sessionData;
     }
 
     @Override
