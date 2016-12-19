@@ -35,6 +35,13 @@ public class SessionPresentation {
         return sessionList;
     }
 
+    @RequestMapping(value = "/collection/{id}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Session retrieveSessionDetail(@PathVariable String id){
+        return sessionStore.retrieveSessionDetail(id);
+    }
+
+
     private List<SessionTransFormObject> sessionToTransFormObject(List<Session> sessionList){
         List<SessionTransFormObject> sessionTransFormObjects = new ArrayList<>();
         for(Session session : sessionList){
