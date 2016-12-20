@@ -6,5 +6,5 @@ public interface DeviceSubscriptionStore {
     void create(DeviceSubscriptionObject deviceSubscriptionObject);
     DeviceSubscriptionObject retrieve(String commandId);
     void delete(String commandId);
-
+    void update(DeviceSubscriptionObject deviceSubscriptionObject);
 }
