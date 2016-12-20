@@ -15,18 +15,25 @@ public class DeviceSubscriptionObject {
 
     private String deviceStatus;
 
+    private String subscriptionResult;
+
+    private String releaseResult;
+
     public DeviceSubscriptionObject() {
     }
 
-    public DeviceSubscriptionObject(String _commandId, String deviceStatus) {
+    public DeviceSubscriptionObject(String _commandId, String deviceStatus, String subscriptionResult) {
         this._commandId = _commandId;
         this.deviceStatus = deviceStatus;
+        this.subscriptionResult = subscriptionResult;
     }
 
-    public DeviceSubscriptionObject(String _id, String _commandId, String deviceStatus) {
+    public DeviceSubscriptionObject(String _id, String _commandId, String deviceStatus, String subscriptionResult, String releaseResult) {
         this._id = _id;
         this._commandId = _commandId;
         this.deviceStatus = deviceStatus;
+        this.subscriptionResult = subscriptionResult;
+        this.releaseResult = releaseResult;
     }
 
     public String get_commandId() {
@@ -51,6 +58,22 @@ public class DeviceSubscriptionObject {
 
     public void set_id(String _id) {
         this._id = _id;
+    }
+
+    public String getSubscriptionResult() {
+        return subscriptionResult;
+    }
+
+    public void setSubscriptionResult(String subscriptionResult) {
+        this.subscriptionResult = subscriptionResult;
+    }
+
+    public String getReleaseResult() {
+        return releaseResult;
+    }
+
+    public void setReleaseResult(String releaseResult) {
+        this.releaseResult = releaseResult;
     }
 
     @Override
