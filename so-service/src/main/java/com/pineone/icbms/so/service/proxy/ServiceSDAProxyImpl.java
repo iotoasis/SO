@@ -37,7 +37,7 @@ public class ServiceSDAProxyImpl implements ServiceSDAProxy{
             List<String> locationList = DataConversion.stringDataToList(responseLocation);
             location = locationList.get(0);
         } else {
-            throw new BadRequestException();
+            location = "http://www.iotoasis.org/ontology/engcenter_616";
         }
 
         IHttpResponseMessage message = clientService.requestGetService(
