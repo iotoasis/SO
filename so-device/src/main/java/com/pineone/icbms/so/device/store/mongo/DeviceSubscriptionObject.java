@@ -82,6 +82,8 @@ public class DeviceSubscriptionObject {
                 "_id='" + _id + '\'' +
                 ", _commandId='" + _commandId + '\'' +
                 ", deviceStatus='" + deviceStatus + '\'' +
+                ", subscriptionResult='" + subscriptionResult + '\'' +
+                ", releaseResult='" + releaseResult + '\'' +
                 '}';
     }
 }

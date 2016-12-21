@@ -224,7 +224,7 @@ public class DeviceManagerLogic implements DeviceManager {
             String deviceUri = getOnem2mDeviceUri(deviceStatusData.get_uri());
             Device device = deviceSearchById(deviceUri);
             DeviceSubscriptionObject deviceSubscriptionObject = deviceSubscriptionStore.retrieve(deviceStatusData.get_commandId());
-
+            String response;
             if(deviceSubscriptionObject != null && deviceSubscriptionObject.get_commandId().equals(deviceStatusData.get_commandId()) && deviceSubscriptionObject.getDeviceStatus().equals(deviceStatusData.getCon())){
                 logger.debug(LogPrint.LogMethodNamePrint() + "Device Data Update");
                 device.setDeviceStatus(deviceStatusData.getCon());
@@ -232,11 +232,14 @@ public class DeviceManagerLogic implements DeviceManager {
                 /**
                  * Device Subscription 해제 요청
                  */
-                String response = deviceSubscriptionRelease(deviceUri + (ClientProfile.actionDeviceCommand(device.getDeviceUri()) ? ClientProfile.SI_CONTAINER_ACTION : ClientProfile.SI_CONTAINER_POWER) + ClientProfile.SI_CONTAINER_STATUS);
-                deviceSubscriptionObject.setReleaseResult(response);
-                deviceSubscriptionStore.update(deviceSubscriptionObject);
+                response = deviceSubscriptionRelease(deviceUri + (ClientProfile.actionDeviceCommand(device.getDeviceUri()) ? ClientProfile.SI_CONTAINER_ACTION : ClientProfile.SI_CONTAINER_POWER) + ClientProfile.SI_CONTAINER_STATUS);
             } else {
                 logger.debug(LogPrint.LogMethodNamePrint() + "The state or command of the device is different.");
+                response = "Status not same.";
+            }
+            if (deviceSubscriptionObject != null) {
+                deviceSubscriptionObject.setReleaseResult(response);
+                deviceSubscriptionStore.update(deviceSubscriptionObject);
             }
         }
     }
