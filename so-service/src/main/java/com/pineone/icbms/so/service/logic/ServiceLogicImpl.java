@@ -1,7 +1,7 @@
 package com.pineone.icbms.so.service.logic;
 
 
-import com.pineone.icbms.so.compositevo.ref.CompositeProfile;
+import com.pineone.icbms.so.device.util.ClientProfile;
 import com.pineone.icbms.so.service.entity.Service;
 import com.pineone.icbms.so.service.proxy.ServiceProxy;
 import com.pineone.icbms.so.service.proxy.ServiceSDAProxy;
@@ -18,7 +18,6 @@ import com.pineone.icbms.so.util.priority.Priority;
 import com.pineone.icbms.so.util.session.DefaultSession;
 import com.pineone.icbms.so.util.session.Session;
 import com.pineone.icbms.so.util.session.store.SessionStore;
-import com.pineone.icbms.so.virtualobject.entity.VirtualObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -171,32 +170,42 @@ public class ServiceLogicImpl implements ServiceLogic{
         if(!session.isExistSessionData(DefaultSession.PRIORITY_KEY) || Priority.HIGH.equals(session.getSessionData().get(DefaultSession.PRIORITY_KEY)) ||
                 serviceData.checkActivedPeriod(currentTime)){
             logger.info("Execute Service Start" + TimeStamp.currentTime());
+
+            String operation = serviceData.getStatus();
+            if("si-lack-equipment-noti".equals(serviceId)){
+                try {
+                    operation = serviceSDAProxy.getPCCountUri(session);
+                } catch (BadRequestException e) {
+                    logger.warn("operation is not Count");
+                    session = sessionStore.retrieveSessionDetail(localSessionId);
+                    session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_ERROR + " operation is null");
+                }
+            } else if("si-domitory-optimal-environment".equals(serviceId)){
+                try {
+                    operation = serviceSDAProxy.getTemperatureLookup(session);
+                } catch (BadRequestException e) {
+                    logger.warn("operation is not Count");
+                    session = sessionStore.retrieveSessionDetail(localSessionId);
+                    session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_ERROR + " operation is null");
+                }
+            }
+
             for(String virtualObjectId : serviceData.getVirtualObjectIdList()){
-                if(virtualObjectId.startsWith(CompositeProfile.COMPOSITE_ID)) {
-                    VirtualObject virtualObject = serviceProxy.findVirtualObject(virtualObjectId);
-                    if(virtualObject != null && "vo-lack-equipment".equals(virtualObject.getId())){
-                        serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus(), localSessionId);
-                    } else {
-                        serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus(), localSessionId);
+                if(operation.equals(ClientProfile.TEMP_COLD)){
+                    // Heater
+                    if(virtualObjectId.contains(ClientProfile.SI_DEVICE_HEATER)){
+                        serviceProxy.executeVirtualObject(virtualObjectId, ClientProfile.SI_DEVICE_OPERTAION, localSessionId);
+                    }
+                } else if(operation.equals(ClientProfile.TEMP_HOT)){
+                    // Airconditioner
+                    if(virtualObjectId.contains(ClientProfile.SI_DEVICE_AIRCONDITONER)){
+                        serviceProxy.executeVirtualObject(virtualObjectId, ClientProfile.SI_DEVICE_OPERTAION, localSessionId);
                     }
                 } else {
-                    VirtualObject virtualObject = serviceProxy.findVirtualObject(virtualObjectId);
-                    if(virtualObject != null && "vo-lack-equipment".equals(virtualObject.getId())){
-                        String operation = "";
-                        try {
-                            operation = serviceSDAProxy.getPCCountUri(session);
-                        } catch (BadRequestException e) {
-                            logger.warn("operation is not Count");
-                            session = sessionStore.retrieveSessionDetail(localSessionId);
-                            session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_ERROR + " operation is null");
-                        }
-                        serviceProxy.executeVirtualObject(virtualObjectId, operation, localSessionId);
-                    } else {
-                        serviceProxy.executeVirtualObject(virtualObjectId, serviceData.getStatus(), localSessionId);
-                    }
+                    serviceProxy.executeVirtualObject(virtualObjectId, operation, localSessionId);
                 }
-                serviceData.setModifiedTime(currentTime);
             }
+            serviceData.setModifiedTime(currentTime);
             serviceStore.updateService(serviceData);
             session = sessionStore.retrieveSessionDetail(localSessionId);
             session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_EXECUTION);
