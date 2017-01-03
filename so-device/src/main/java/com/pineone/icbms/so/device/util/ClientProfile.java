@@ -11,8 +11,13 @@ public class ClientProfile {
     public static final String DEVICE_SERVICE_NOTI_TYPE     = "admin-noti";
 
     // oneM2M device Data
-    public static final String  SI_DEVICE_BEAMSCREEN        = "BeamScreen";
-    public static final String  SI_DEVICE_BLIND             = "Blind";
+    public static final String SI_DEVICE_BEAMSCREEN         = "BeamScreen";
+    public static final String SI_DEVICE_BLIND              = "Blind";
+    public static final String SI_DEVICE_HEATER             = "heater";
+    public static final String SI_DEVICE_AIRCONDITONER      = "airconditioner";
+
+    // oneM2M Device Control Operation
+    public static final String SI_DEVICE_OPERTAION          = "1";
 
     // oneM2M Container Data
     public static final String  SI_CONTAINER_STATUS         = "/status";
@@ -28,6 +33,25 @@ public class ClientProfile {
 
     // Device Data Prefix
     public static final String DEVICE_PRE                   = "device-";
+
+    // Context Model
+    public static final String CM_LACK_EQUIPMENT_COUNT      = "cm-lack-equipment-count/?p=";
+    public static final String CM_TEMP                      = "cm-temp/?p=";
+
+    // Location
+    public static final String LOCATION_ENGCENTER_616       = "http://www.iotoasis.org/ontology/engcenter_616";
+    public static final String LOCATION_CAMPUS_001          = "http://www.iotoasis.org/ontology/campus_001";
+
+    // SDA prefix
+    public static final String PREFIX_ONTOLOGY              = "http://www.iotoasis.org/ontology/";
+
+    // SDA TEMP
+    public static final String TEMP_COLD                    = "cold";
+    public static final String TEMP_HOT                     = "hot";
+
+
+
+
 
 
     private ClientProfile() {
