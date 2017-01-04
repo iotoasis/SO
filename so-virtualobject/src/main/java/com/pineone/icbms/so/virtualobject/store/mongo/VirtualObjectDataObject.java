@@ -11,7 +11,7 @@ public class VirtualObjectDataObject {
     private String voDescription;
     private String voCreateTime;
     private String voExpiredTime;
-    private String deviceService;
+    private String aspect;
     private String deviceId;
     private String voCommand;
     private String voLocation;
@@ -20,14 +20,14 @@ public class VirtualObjectDataObject {
     public VirtualObjectDataObject() {
     }
 
-    public VirtualObjectDataObject(String id, String voName, String functionality, String voDescription, String voCreateTime, String voExpiredTime, String deviceService, String deviceId, String voCommand, String voLocation) {
+    public VirtualObjectDataObject(String id, String voName, String functionality, String voDescription, String voCreateTime, String voExpiredTime, String aspect, String deviceId, String voCommand, String voLocation) {
         this.id = id;
         this.voName = voName;
         this.functionality = functionality;
         this.voDescription = voDescription;
         this.voCreateTime = voCreateTime;
         this.voExpiredTime = voExpiredTime;
-        this.deviceService = deviceService;
+        this.aspect = aspect;
         this.deviceId = deviceId;
         this.voCommand = voCommand;
         this.voLocation = voLocation;
@@ -81,12 +81,12 @@ public class VirtualObjectDataObject {
         this.voExpiredTime = voExpiredTime;
     }
 
-    public String getDeviceService() {
-        return deviceService;
+    public String getAspect() {
+        return aspect;
     }
 
-    public void setDeviceService(String deviceService) {
-        this.deviceService = deviceService;
+    public void setAspect(String aspect) {
+        this.aspect = aspect;
     }
 
     public String getDeviceId() {
@@ -122,7 +122,7 @@ public class VirtualObjectDataObject {
                 ", voDescription='" + voDescription + '\'' +
                 ", voCreateTime='" + voCreateTime + '\'' +
                 ", voExpiredTime='" + voExpiredTime + '\'' +
-                ", deviceService='" + deviceService + '\'' +
+                ", aspect='" + aspect + '\'' +
                 ", deviceId='" + deviceId + '\'' +
                 ", voCommand='" + voCommand + '\'' +
                 ", voLocation='" + voLocation + '\'' +

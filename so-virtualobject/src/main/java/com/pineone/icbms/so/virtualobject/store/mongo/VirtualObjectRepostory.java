@@ -7,4 +7,5 @@ import java.util.List;
 public interface VirtualObjectRepostory extends MongoRepository<VirtualObjectDataObject, String> {
     List<VirtualObjectDataObject> findByvoLocation(String deviceLocation);
     List<VirtualObjectDataObject> findByvoLocationAndFunctionality(String location, String functionality);
+    List<VirtualObjectDataObject> findByAspectAndFunctionality(String aspect, String functionality);
 }
