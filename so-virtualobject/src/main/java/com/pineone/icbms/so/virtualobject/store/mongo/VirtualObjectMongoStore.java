@@ -66,6 +66,23 @@ public class VirtualObjectMongoStore implements VirtualObjectStore {
     }
 
     @Override
+    public List<VirtualObject> retrieveByAspectAndFunctionality(String aspect, String functionality) {
+        logger.debug("Aspect = " + aspect + " Functionality = " + functionality);
+        List<VirtualObject> virtualObjects = new ArrayList<>();
+        List<VirtualObjectDataObject> virtualObjectDataObjects = virtualObjectRepostory.findByAspectAndFunctionality(aspect, functionality);
+
+        for(VirtualObjectDataObject v : virtualObjectDataObjects) {
+            virtualObjects.add(DataObjectToVirtualObject(v));
+        }
+
+        for(VirtualObject virtualObject : virtualObjects){
+            logger.debug("VirtualObject = " + virtualObject.toString());
+        }
+
+        return virtualObjects;
+    }
+
+    @Override
     public List<VirtualObject> retrieveVirtualObjectList() {
         List<VirtualObject> virtualObjects = new ArrayList<>();
         List<VirtualObjectDataObject> virtualObjectDataObjects = virtualObjectRepostory.findAll();
@@ -98,7 +115,7 @@ public class VirtualObjectMongoStore implements VirtualObjectStore {
         if(virtualObject == null){
             return null;
         }
-        return new VirtualObjectDataObject(virtualObject.getId(), virtualObject.getVoName(), virtualObject.getFunctionality(), virtualObject.getVoDescription(), virtualObject.getVoCreateTime(), virtualObject.getVoExpiredTime(), virtualObject.getDeviceService(), virtualObject.getDeviceId(), virtualObject.getVoCommand(), virtualObject.getVoLocation());
+        return new VirtualObjectDataObject(virtualObject.getId(), virtualObject.getVoName(), virtualObject.getFunctionality(), virtualObject.getVoDescription(), virtualObject.getVoCreateTime(), virtualObject.getVoExpiredTime(), virtualObject.getAspect(), virtualObject.getDeviceId(), virtualObject.getVoCommand(), virtualObject.getVoLocation());
     }
 
     private VirtualObject DataObjectToVirtualObject(VirtualObjectDataObject virtualObjectDataObject) {
@@ -106,6 +123,6 @@ public class VirtualObjectMongoStore implements VirtualObjectStore {
         {
             return null;
         }
-        return new VirtualObject(virtualObjectDataObject.getId(), virtualObjectDataObject.getVoName(), virtualObjectDataObject.getFunctionality(), virtualObjectDataObject.getVoDescription(), virtualObjectDataObject.getVoCreateTime(), virtualObjectDataObject.getVoExpiredTime(), virtualObjectDataObject.getDeviceService(), virtualObjectDataObject.getDeviceId(), virtualObjectDataObject.getVoCommand(), virtualObjectDataObject.getVoLocation());
+        return new VirtualObject(virtualObjectDataObject.getId(), virtualObjectDataObject.getVoName(), virtualObjectDataObject.getFunctionality(), virtualObjectDataObject.getVoDescription(), virtualObjectDataObject.getVoCreateTime(), virtualObjectDataObject.getVoExpiredTime(), virtualObjectDataObject.getAspect(), virtualObjectDataObject.getDeviceId(), virtualObjectDataObject.getVoCommand(), virtualObjectDataObject.getVoLocation());
     }
 }
