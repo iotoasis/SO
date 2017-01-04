@@ -60,6 +60,6 @@ public class ServiceModelStoreMongoImpl implements ServiceModelStore {
 
     private ServiceModel dataObjectToServiceModel(ServiceModelDataObject serviceModelDataObject){
         if(serviceModelDataObject == null) return null;
-        return new ServiceModel(serviceModelDataObject.getId(), serviceModelDataObject.getName(), serviceModelDataObject.getServiceIdList(), serviceModelDataObject.getCreateTime(),serviceModelDataObject.getModifiedTime(),serviceModelDataObject.getLocation());
+        return new ServiceModel(serviceModelDataObject.getId(), serviceModelDataObject.getName(), serviceModelDataObject.getServiceIdList(), serviceModelDataObject.getCreateTime(),serviceModelDataObject.getModifiedTime(),serviceModelDataObject.getLocation(), serviceModelDataObject.getDescription());
     }
 }

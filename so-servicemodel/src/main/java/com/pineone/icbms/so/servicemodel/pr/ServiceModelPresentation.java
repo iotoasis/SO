@@ -143,7 +143,7 @@ public class ServiceModelPresentation {
 
     public ServiceModel dataObjectToServiceModel(ServiceModelTransFormObject serviceModelTransFormObject){
         if(serviceModelTransFormObject == null) return null;
-        return new ServiceModel(serviceModelTransFormObject.getId(), serviceModelTransFormObject.getName(), serviceModelTransFormObject.getServiceIdList(), serviceModelTransFormObject.getCreateTime(), serviceModelTransFormObject.getModifiedTime(), serviceModelTransFormObject.getLocation());
+        return new ServiceModel(serviceModelTransFormObject.getId(), serviceModelTransFormObject.getName(), serviceModelTransFormObject.getServiceIdList(), serviceModelTransFormObject.getCreateTime(), serviceModelTransFormObject.getModifiedTime(), serviceModelTransFormObject.getLocation(), serviceModelTransFormObject.getDescription());
     }
 
     public ServiceModelTransFormObject settingServiceModelId(String serviceModelId, String sessionId){
