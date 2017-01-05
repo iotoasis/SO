@@ -75,11 +75,9 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
 
     @Override
     public List<VirtualObject> searchVirtualObjectList(String aspect, String functionality) {
-        logger.debug("aspect = " + aspect + " functionality = " + functionality);
-
         List<VirtualObject> virtualObjectList = virtualObjectStore.retrieveByAspectAndFunctionality(aspect, functionality);
         for(VirtualObject virtualObject : virtualObjectList){
-            logger.debug("VirtualObject = " + virtualObject.toString());
+            logger.debug("[VirtualObject] ID = " + virtualObject.getId() + " name = " + virtualObject.getVoName());
         }
         return virtualObjectList;
     }
