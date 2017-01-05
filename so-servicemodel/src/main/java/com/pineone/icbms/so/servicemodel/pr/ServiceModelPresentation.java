@@ -136,7 +136,7 @@ public class ServiceModelPresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public void executeServiceModel(@RequestBody ServiceModelTransFormObject serviceModelTransFormObject) {
         //
-        logger.info(LogPrint.inputInfoLogPrint() + "ServiceModel ID = " + serviceModelTransFormObject.getId() + " Session ID = " + serviceModelTransFormObject.getSessionId());
+        logger.info(LogPrint.LogMethodNamePrint());
         logger.debug("ServiceModel Id = " + serviceModelTransFormObject.getId() + " Session ID = " + serviceModelTransFormObject.getSessionId());
         serviceModelLogic.executeServiceModel(serviceModelTransFormObject.getId(), serviceModelTransFormObject.getSessionId());
     }
