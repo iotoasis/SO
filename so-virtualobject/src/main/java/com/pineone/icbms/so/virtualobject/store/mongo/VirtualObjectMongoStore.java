@@ -67,16 +67,11 @@ public class VirtualObjectMongoStore implements VirtualObjectStore {
 
     @Override
     public List<VirtualObject> retrieveByAspectAndFunctionality(String aspect, String functionality) {
-        logger.debug("Aspect = " + aspect + " Functionality = " + functionality);
         List<VirtualObject> virtualObjects = new ArrayList<>();
         List<VirtualObjectDataObject> virtualObjectDataObjects = virtualObjectRepostory.findByAspectAndFunctionality(aspect, functionality);
 
         for(VirtualObjectDataObject v : virtualObjectDataObjects) {
             virtualObjects.add(DataObjectToVirtualObject(v));
-        }
-
-        for(VirtualObject virtualObject : virtualObjects){
-            logger.debug("VirtualObject = " + virtualObject.toString());
         }
 
         return virtualObjects;

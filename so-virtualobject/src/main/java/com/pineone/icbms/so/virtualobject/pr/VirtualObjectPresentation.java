@@ -89,10 +89,8 @@ public class VirtualObjectPresentation {
     @RequestMapping(value = "/search",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public List<VirtualObject> findVirtualObject(@RequestBody VirtualObjectTransFormObject virtulaObject){
-
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.LogMethodNamePrint() + " | [aspect] = " + virtulaObject.getAspect() + " [functionality] = " + virtulaObject.getFunctionality());
         return virtualObjectManager.searchVirtualObjectList(virtulaObject.getAspect(), virtulaObject.getFunctionality());
-
     }
 
 
