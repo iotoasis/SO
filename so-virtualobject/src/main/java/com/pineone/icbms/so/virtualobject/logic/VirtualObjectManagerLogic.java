@@ -123,7 +123,7 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
             // DB에 Session을 저장.
             sessionStore.updateSession(session);
             return DefaultSession.CONTROL_ERROR;
-        } else if(VirtualObject.FUNCTIONLITY_ADMIN_NOTI.equals(virtualObject.getAspect())) {
+        } else if(VirtualObject.FUNCTIONLITY_ADMIN_NOTI.equals(virtualObject.getFunctionality())) {
             session.insertSessionData(DefaultSession.VIRTUALOBJECT_RESULT, VirtualObject.FUNCTIONLITY_ADMIN_NOTI);
             // DB에 Session을 저장.
             sessionStore.updateSession(session);
