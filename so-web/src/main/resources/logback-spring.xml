@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <include resource="org/springframework/boot/logging/logback/base.xml" />
-    <!-- ConsoleAppender Example -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <!-- encoders are assigned the type
-             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
-        <encoder>
-            <pattern>[%d{yyyy-MM-dd HHmmss.SSS}] [%5level] [%16.16thread{15}] [%-35logger{35}] : %msg %n</pattern>
-            <!-- <pattern>%d{ISO8601} %5level [%15thread] %-35logger{35} : %msg %n</pattern> -->
-        </encoder>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%msg %n</pattern>
+        </layout>
     </appender>
 
     <!-- RollingFileAppender Example -->
@@ -24,10 +19,15 @@
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>
-            <pattern>[%d{yyyy-MM-dd HHmmss.SSS}] [%5level] [%16.16thread{15}] [%-35logger{35}] : %msg %n</pattern>
+            <pattern>%msg %n</pattern>
         </encoder>
     </appender>
+
+
     <logger name="com.pineone.icbms.so" level="DEBUG">
         <appender-ref ref="ROLLING" />
     </logger>
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
 </configuration>
