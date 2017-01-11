@@ -118,9 +118,11 @@ public class DeviceManagerLogic implements DeviceManager {
         session.insertSessionData(DefaultSession.DEVICE_RESULT, DefaultSession.CONTROL_EXECUTION);
         sessionStore.updateSession(session);
 
+        /*
         if(device.checkStatus(deviceCommand)){
             return "same device state to is.";
         }
+        */
 
         // Device 제어 요청 보냄.
         ResultMessage resultMessage = deviceControlProxy.deviceControlRequest(contextAddress.getServerAddress(ContextAddress.SI_SERVER) + AddressStore.SI_CONTOL_URI,deviceControlMessage);
@@ -137,9 +139,7 @@ public class DeviceManagerLogic implements DeviceManager {
             /**
              * Device Subscription 데이터 저장
              */
-            if(response.equals(ClientProfile.RESPONSE_SUCCESS_ONEM2MCODE)){
-                saveDeviceSubscriptionData(deviceControlMessage.get_commandId(), deviceControlMessage.getCon());
-            }
+            saveDeviceSubscriptionData(deviceControlMessage.get_commandId(), deviceControlMessage.getCon(), response);
 
             /*
                 디바이스 해제는 Controller에서 상태 업데이트 후 해제.
@@ -224,15 +224,22 @@ public class DeviceManagerLogic implements DeviceManager {
             String deviceUri = getOnem2mDeviceUri(deviceStatusData.get_uri());
             Device device = deviceSearchById(deviceUri);
             DeviceSubscriptionObject deviceSubscriptionObject = deviceSubscriptionStore.retrieve(deviceStatusData.get_commandId());
-
+            String response;
             if(deviceSubscriptionObject != null && deviceSubscriptionObject.get_commandId().equals(deviceStatusData.get_commandId()) && deviceSubscriptionObject.getDeviceStatus().equals(deviceStatusData.getCon())){
                 logger.debug(LogPrint.LogMethodNamePrint() + "Device Data Update");
                 device.setDeviceStatus(deviceStatusData.getCon());
                 deviceStore.update(device);
-                deviceSubscriptionRelease(deviceUri + (ClientProfile.actionDeviceCommand(device.getDeviceUri()) ? ClientProfile.SI_CONTAINER_ACTION : ClientProfile.SI_CONTAINER_POWER) + ClientProfile.SI_CONTAINER_STATUS);
-                deviceSubscriptionStore.delete(deviceSubscriptionObject.get_id());
+                /**
+                 * Device Subscription 해제 요청
+                 */
+                response = deviceSubscriptionRelease(deviceUri + (ClientProfile.actionDeviceCommand(device.getDeviceUri()) ? ClientProfile.SI_CONTAINER_ACTION : ClientProfile.SI_CONTAINER_POWER) + ClientProfile.SI_CONTAINER_STATUS);
             } else {
                 logger.debug(LogPrint.LogMethodNamePrint() + "The state or command of the device is different.");
+                response = "Status not same.";
+            }
+            if (deviceSubscriptionObject != null) {
+                deviceSubscriptionObject.setReleaseResult(response);
+                deviceSubscriptionStore.update(deviceSubscriptionObject);
             }
         }
     }
@@ -310,8 +317,8 @@ public class DeviceManagerLogic implements DeviceManager {
         return uri.substring(0, stringlength);
     }
 
-    public void saveDeviceSubscriptionData(String deviceUri, String commandId){
-        deviceSubscriptionStore.create(new DeviceSubscriptionObject(deviceUri, commandId));
+    public void saveDeviceSubscriptionData(String deviceUri, String commandId, String result){
+        deviceSubscriptionStore.create(new DeviceSubscriptionObject(deviceUri, commandId, result));
     }
 
 }

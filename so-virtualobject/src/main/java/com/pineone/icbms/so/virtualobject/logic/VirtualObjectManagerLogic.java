@@ -74,6 +74,15 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
     }
 
     @Override
+    public List<VirtualObject> searchVirtualObjectList(String aspect, String functionality) {
+        List<VirtualObject> virtualObjectList = virtualObjectStore.retrieveByAspectAndFunctionality(aspect, functionality);
+        for(VirtualObject virtualObject : virtualObjectList){
+            logger.debug("[VirtualObject] ID = " + virtualObject.getId() + " name = " + virtualObject.getVoName());
+        }
+        return virtualObjectList;
+    }
+
+    @Override
     public List<VirtualObject> searchVirtualObjectList() {
         List<VirtualObject> virtualObjectList = virtualObjectStore.retrieveVirtualObjectList();
         for(VirtualObject virtualObject : virtualObjectList){
@@ -114,11 +123,11 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
             // DB에 Session을 저장.
             sessionStore.updateSession(session);
             return DefaultSession.CONTROL_ERROR;
-        } else if(VirtualObject.DEVICE_FUNCTIONLITY_ADMIN_NOTI.equals(virtualObject.getDeviceService())) {
-            session.insertSessionData(DefaultSession.VIRTUALOBJECT_RESULT, VirtualObject.DEVICE_FUNCTIONLITY_ADMIN_NOTI);
+        } else if(VirtualObject.FUNCTIONLITY_ADMIN_NOTI.equals(virtualObject.getFunctionality())) {
+            session.insertSessionData(DefaultSession.VIRTUALOBJECT_RESULT, VirtualObject.FUNCTIONLITY_ADMIN_NOTI);
             // DB에 Session을 저장.
             sessionStore.updateSession(session);
-            return VirtualObject.DEVICE_FUNCTIONLITY_ADMIN_NOTI;
+            return VirtualObject.FUNCTIONLITY_ADMIN_NOTI;
         }
 
         // 해당 Device ID를 도출
@@ -170,7 +179,7 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
     }
 
     private String requestFunctionality(VirtualObject virtualObject){
-        String responseData = virtualObjectProxy.findFunctionality(virtualObject.getDeviceId(),virtualObject.getDeviceService());
+        String responseData = virtualObjectProxy.findFunctionality(virtualObject.getDeviceId(),virtualObject.getAspect());
 
         // 컨트롤 프록시
         // 정보 수접 프록시.

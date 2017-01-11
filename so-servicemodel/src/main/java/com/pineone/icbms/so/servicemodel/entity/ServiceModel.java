@@ -47,6 +47,25 @@ public class ServiceModel {
      */
     private String location;
 
+    /**
+     * ServiceModel 설명
+     * format : string
+     * ex : 강의조성 실행 서비스 모델
+     */
+    private String description;
+
+    public ServiceModel() {
+    }
+
+    public ServiceModel(String id, String name, List<String> serviceIdList, String createTime, String modifiedTime, String location, String description) {
+        this.id = id;
+        this.name = name;
+        this.serviceIdList = serviceIdList;
+        this.createTime = createTime;
+        this.modifiedTime = modifiedTime;
+        this.location = location;
+        this.description = description;
+    }
 
     public String getName() {
         return name;
@@ -88,9 +107,6 @@ public class ServiceModel {
         this.modifiedTime = modifiedTime;
     }
 
-    public ServiceModel() {
-    }
-
     public String getLocation() {
         return location;
     }
@@ -99,13 +115,12 @@ public class ServiceModel {
         this.location = location;
     }
 
-    public ServiceModel(String id, String name, List<String> serviceIdList, String createTime, String modifiedTime, String location) {
-        this.id = id;
-        this.name = name;
-        this.serviceIdList = serviceIdList;
-        this.createTime = createTime;
-        this.modifiedTime = modifiedTime;
-        this.location = location;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
@@ -117,6 +132,7 @@ public class ServiceModel {
                 ", createTime='" + createTime + '\'' +
                 ", modifiedTime='" + modifiedTime + '\'' +
                 ", location='" + location + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

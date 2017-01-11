@@ -86,9 +86,6 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
     //NOTE: 즉시성 서비스 모델 실행
     @Override
     public void executeServiceModel(String serviceModelId, String sessionId) {
-        //
-        logger.debug("Execute ServiceModel ID = " + serviceModelId + " Sesseion ID = " + sessionId);
-
         // DB에서 Session을 검색
         Session session = null;
         if(sessionId != null){
@@ -128,7 +125,7 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
         // DB에 Session을 저장.
         sessionStore.updateSession(session);
 
-        logger.debug("Execute ServiceModel = " + serviceModel.toString());
+        logger.debug("[Execute ServiceModel] ID = " + serviceModel.getId() + " Name = " + serviceModel.getName() + " des = " + serviceModel.getDescription());
         List<String> serviceIdList = serviceModel.getServiceIdList();
 //        List<ServiceMessage> serviceMessageList = new ArrayList<>();
         for (String serviceId : serviceIdList) {
@@ -147,7 +144,6 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
             logger.warn("You can not view the serviceIDList. serviceIDList is Null");
             return null;
         }
-        logger.debug("ServiceIDList = " + serviceIdList.toString());
         return serviceIdList;
     }
 
@@ -158,7 +154,6 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
         for (ServiceModel serviceModel : serviceModelList) {
             serviceModelIdList.add(serviceModel.getId());
         }
-        logger.debug("ServiceModelIDList = " + serviceModelIdList);
         return serviceModelIdList;
     }
 

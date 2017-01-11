@@ -136,14 +136,14 @@ public class ServiceModelPresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public void executeServiceModel(@RequestBody ServiceModelTransFormObject serviceModelTransFormObject) {
         //
-        logger.info(LogPrint.inputInfoLogPrint() + "ServiceModel ID = " + serviceModelTransFormObject.getId() + " Session ID = " + serviceModelTransFormObject.getSessionId());
+        logger.info(LogPrint.LogMethodNamePrint());
         logger.debug("ServiceModel Id = " + serviceModelTransFormObject.getId() + " Session ID = " + serviceModelTransFormObject.getSessionId());
         serviceModelLogic.executeServiceModel(serviceModelTransFormObject.getId(), serviceModelTransFormObject.getSessionId());
     }
 
     public ServiceModel dataObjectToServiceModel(ServiceModelTransFormObject serviceModelTransFormObject){
         if(serviceModelTransFormObject == null) return null;
-        return new ServiceModel(serviceModelTransFormObject.getId(), serviceModelTransFormObject.getName(), serviceModelTransFormObject.getServiceIdList(), serviceModelTransFormObject.getCreateTime(), serviceModelTransFormObject.getModifiedTime(), serviceModelTransFormObject.getLocation());
+        return new ServiceModel(serviceModelTransFormObject.getId(), serviceModelTransFormObject.getName(), serviceModelTransFormObject.getServiceIdList(), serviceModelTransFormObject.getCreateTime(), serviceModelTransFormObject.getModifiedTime(), serviceModelTransFormObject.getLocation(), serviceModelTransFormObject.getDescription());
     }
 
     public ServiceModelTransFormObject settingServiceModelId(String serviceModelId, String sessionId){
