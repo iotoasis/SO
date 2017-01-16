@@ -256,6 +256,11 @@ public class DeviceManagerLogic implements DeviceManager {
         return deviceControlProxy.deviceSubscriptionReleaseRequest(uri);
     }
 
+    @Override
+    public void produceDevice(Device device) {
+        deviceCreate(device);
+    }
+
     private DeviceControlMessage deviceDataConversion(String deviceId, String commandId, String deviceCommand){
         DeviceControlMessage deviceControlMessage = new DeviceControlMessage();
 
