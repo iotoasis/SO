@@ -53,10 +53,25 @@ public class CompositeVirtualObject {
      */
     private String description;
 
+    /**
+     * Composite VirtualObject의 기능
+     * format : http://www.iotoasis.org/ontology/"functionality"
+     * ex) http://www.iotoasis.org/ontology/SwitchFunctionality
+     */
+    private String functionality;
+
+    /**
+     * Composite VirtualObject의 관점.
+     * format : http://www.iotoasis.org/ontology/"aspect"
+     * ex) http://www.iotoasis.org/ontology/luminosity-aspect
+     */
+    private String aspect;
+
+
     public CompositeVirtualObject() {
     }
 
-    public CompositeVirtualObject(String id, String name, List<String> voIdList, String location, String createTime, String modifiedTime, String description) {
+    public CompositeVirtualObject(String id, String name, List<String> voIdList, String location, String createTime, String modifiedTime, String description, String functionality, String aspect) {
         this.id = id;
         this.name = name;
         this.voIdList = voIdList;
@@ -64,6 +79,8 @@ public class CompositeVirtualObject {
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
         this.description = description;
+        this.functionality = functionality;
+        this.aspect = aspect;
     }
 
     public String getId() {
@@ -122,6 +139,22 @@ public class CompositeVirtualObject {
         this.description = description;
     }
 
+    public String getFunctionality() {
+        return functionality;
+    }
+
+    public void setFunctionality(String functionality) {
+        this.functionality = functionality;
+    }
+
+    public String getAspect() {
+        return aspect;
+    }
+
+    public void setAspect(String aspect) {
+        this.aspect = aspect;
+    }
+
     @Override
     public String toString() {
         return "CompositeVirtualObject{" +
@@ -132,6 +165,8 @@ public class CompositeVirtualObject {
                 ", createTime='" + createTime + '\'' +
                 ", modifiedTime='" + modifiedTime + '\'' +
                 ", description='" + description + '\'' +
+                ", functionality='" + functionality + '\'' +
+                ", aspect='" + aspect + '\'' +
                 '}';
     }
 }

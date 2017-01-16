@@ -85,6 +85,19 @@ public class DevicePresentation {
     /**
      *  Device 검색. By ID
      */
+    @RequestMapping(value = "/search",method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public Device findDeviceById1(@RequestBody DeviceTransFormObject deviceTransFormObject){
+        // Search Device By Id
+        logger.info(LogPrint.inputInfoLogPrint() + "DeviceID = " + deviceTransFormObject.getId());
+        Device device = deviceManager.deviceSearchById(deviceTransFormObject.getId());
+        return device;
+    }
+
+
+    /**
+     *  Device 검색. By ID
+     */
     @RequestMapping(value = "/{deviceId}",method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public Device findDeviceById(@PathVariable String deviceId){

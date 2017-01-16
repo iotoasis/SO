@@ -88,7 +88,7 @@ public class CompositeVirtualObjectPresentation {
 
     private CompositeVirtualObject compositeVirtualObjectMapping(CompositeVirtualObjectTransFormObject compositeVirtualObjectDataObject){
         if(compositeVirtualObjectDataObject == null) return null;
-        CompositeVirtualObject compositeVirtualObject = new CompositeVirtualObject(compositeVirtualObjectDataObject.getId(), compositeVirtualObjectDataObject.getName(), compositeVirtualObjectDataObject.getVoIdList(), compositeVirtualObjectDataObject.getLocation(), compositeVirtualObjectDataObject.getCreateTime(), compositeVirtualObjectDataObject.getModifiedTime(), compositeVirtualObjectDataObject.getDescription());
+        CompositeVirtualObject compositeVirtualObject = new CompositeVirtualObject(compositeVirtualObjectDataObject.getId(),compositeVirtualObjectDataObject.getName(),compositeVirtualObjectDataObject.getVoIdList(),compositeVirtualObjectDataObject.getAspect(),compositeVirtualObjectDataObject.getCreateTime(),compositeVirtualObjectDataObject.getModifiedTime(),compositeVirtualObjectDataObject.getDescription(),compositeVirtualObjectDataObject.getFunctionality(),compositeVirtualObjectDataObject.getAspect());
         if(!compositeVirtualObject.getId().startsWith(CompositeProfile.COMPOSITE_ID)){
             String cvoId = compositeVirtualObject.getId();
             compositeVirtualObject.setId(CompositeProfile.COMPOSITE_ID + cvoId);
