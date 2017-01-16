@@ -1,7 +1,10 @@
 package com.pineone.icbms.so.util.session.pr;
 
+import com.pineone.icbms.so.util.logprint.LogPrint;
 import com.pineone.icbms.so.util.session.Session;
 import com.pineone.icbms.so.util.session.store.SessionStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +24,8 @@ public class SessionPresentation {
     @Autowired
     SessionStore sessionStore;
 
+    public static final Logger logger = LoggerFactory.getLogger(SessionPresentation.class);
+
     @RequestMapping(value = "/{number}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<SessionTransFormObject> retrieveSessionData(@PathVariable int number){
@@ -38,7 +43,9 @@ public class SessionPresentation {
     @RequestMapping(value = "/collection/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public Session retrieveSessionDetail(@PathVariable String id){
-        return sessionStore.retrieveSessionDetail(id);
+        Session session = sessionStore.retrieveSessionDetail(id);
+        logger.info(LogPrint.inputInfoLogPrint() + "Session = " + session.toString());
+        return session;
     }
 
 

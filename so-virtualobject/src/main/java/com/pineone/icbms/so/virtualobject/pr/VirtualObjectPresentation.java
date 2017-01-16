@@ -42,7 +42,7 @@ public class VirtualObjectPresentation {
     @RequestMapping(value = "/control",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public String requestControlVirtualObject(@RequestBody VirtualObjectTransFormObject virtualObjectTransFormObject){
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.inputInfoLogPrint() + "virtualobjectID = " + virtualObjectTransFormObject.getId() + " Command = "+ virtualObjectTransFormObject.getVoCommand());
         //
         return virtualObjectManager.requestControlDevice(virtualObjectTransFormObject.getId(), virtualObjectTransFormObject.getVoCommand(), virtualObjectTransFormObject.getSessionId());
     }
