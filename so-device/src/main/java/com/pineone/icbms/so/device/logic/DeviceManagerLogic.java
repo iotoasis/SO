@@ -132,6 +132,10 @@ public class DeviceManagerLogic implements DeviceManager {
          * Device 제어 후 제어 결과가 Success면 Device Subscription 요청
          */
         if(resultMessage.getCode().equals(ClientProfile.RESPONSE_SUCCESS_ONEM2MCODE)) {
+            // 디바이스 상태 저장.
+            device.setDeviceStatus(deviceCommand);
+            deviceStore.update(device);
+
             String subscriptionUri = device.getDeviceUri() + (ClientProfile.actionDeviceCommand(device.getDeviceUri()) ? ClientProfile.SI_CONTAINER_ACTION : ClientProfile.SI_CONTAINER_POWER) + ClientProfile.SI_CONTAINER_STATUS;
             String response = deviceSubscription(subscriptionUri, deviceControlMessage.get_commandId());
             logger.debug(LogPrint.LogMethodNamePrint() + " | Device Subscription : " + " , Device Uri = " + device.getDeviceUri() + " , Result : " + response + " , Session ID = " + sessionId);
