@@ -131,7 +131,7 @@ public class DeviceManagerLogic implements DeviceManager {
         /**
          * Device 제어 후 제어 결과가 Success면 Device Subscription 요청
          */
-        if(resultMessage.getCode().equals(ClientProfile.RESPONSE_SUCCESS_ONEM2MCODE)) {
+        if(resultMessage.getCode().equals(ClientProfile.RESPONSE_SUCCESS_ONEM2MCODE) && false) {
             // 디바이스 상태 저장.
             device.setDeviceStatus(deviceCommand);
             deviceStore.update(device);
