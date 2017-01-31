@@ -1,6 +1,9 @@
 package com.pineone.icbms.so.device.pr;
 
-import com.pineone.icbms.so.device.entity.*;
+import com.pineone.icbms.so.device.entity.Device;
+import com.pineone.icbms.so.device.entity.DeviceStatusData;
+import com.pineone.icbms.so.device.entity.DeviceTransFormObject;
+import com.pineone.icbms.so.device.entity.deviceReleaseMessage;
 import com.pineone.icbms.so.device.logic.DeviceManager;
 import com.pineone.icbms.so.util.logprint.LogPrint;
 import org.slf4j.Logger;
@@ -9,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -45,11 +49,23 @@ public class DevicePresentation {
         logger.info("<================ Device Control Start ================>");
         logger.debug(LogPrint.LogMethodNamePrint() + " |  Device ID = " + deviceTransFormObject.getId() + " , DeviceCommand = " + deviceTransFormObject.getDeviceCommand() + " , Session ID = " + deviceTransFormObject.getSessionId());
 
-        String result = deviceManager.deviceExecute(deviceTransFormObject.getId(), deviceTransFormObject.getDeviceCommand(), deviceTransFormObject.getSessionId());
+        String result = deviceManager.deviceExecute(deviceTransFormObject.getId(), deviceTransFormObject.getDeviceCommand().get(0), deviceTransFormObject.getSessionId());
         logger.debug(LogPrint.LogMethodNamePrint() + " |  Result = " + result);
         logger.info("<================ Device Control End ================>");
         return result;
     }
+
+    /**
+     *  Device 등록 요청
+     */
+    @RequestMapping(value = "",method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void deviceCreate(@RequestBody DeviceTransFormObject deviceTransFormObject){
+        logger.debug(LogPrint.LogMethodNamePrint() + " |  Device  = " + deviceTransFormObject.toString());
+        deviceManager.produceDevice(DeviceMapping(deviceTransFormObject));
+    }
+
+
 
     /**
      *  Device List 검색.
@@ -65,6 +81,19 @@ public class DevicePresentation {
         }
         return deviceList;
     }
+
+    /**
+     *  Device 검색. By ID
+     */
+    @RequestMapping(value = "/search",method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public Device findDeviceById1(@RequestBody DeviceTransFormObject deviceTransFormObject){
+        // Search Device By Id
+        logger.info(LogPrint.inputInfoLogPrint() + "DeviceID = " + deviceTransFormObject.getId());
+        Device device = deviceManager.deviceSearchById(deviceTransFormObject.getId());
+        return device;
+    }
+
 
     /**
      *  Device 검색. By ID
@@ -140,7 +169,7 @@ public class DevicePresentation {
     public String findDeviceOperation(@RequestBody DeviceTransFormObject deviceTransFormObject){
         logger.info(LogPrint.inputInfoLogPrint() + "Device ID = " + deviceTransFormObject.getId());
         logger.debug("Device = " + deviceTransFormObject.toString());
-        return deviceManager.searchOperation(deviceTransFormObject.getId(), deviceTransFormObject.getDeviceServices());
+        return deviceManager.searchOperation(deviceTransFormObject.getId(), deviceTransFormObject.getDeviceServices().get(0));
     }
 
     /**
@@ -158,13 +187,20 @@ public class DevicePresentation {
     public DeviceTransFormObject settingDeviceRequestData(String deviceid, String command, String sessionId){
         DeviceTransFormObject object = new DeviceTransFormObject();
         object.setId(deviceid);
-        object.setDeviceCommand(command);
+        object.setDeviceCommand(Arrays.asList(new String[]{command}));
         object.setSessionId(sessionId);
         return object;
     }
 
 
-
+    private Device DeviceMapping(DeviceTransFormObject deviceTransFormObject)
+    {
+        if(deviceTransFormObject == null){
+            return null;
+        }
+        Device device = new Device(deviceTransFormObject.getId(),deviceTransFormObject.getDeviceName(),deviceTransFormObject.getDeviceLocation(),deviceTransFormObject.getDeviceUri(),deviceTransFormObject.getDeviceCommand(),deviceTransFormObject.getDeviceServices(),deviceTransFormObject.getDeviceCreateTime(),deviceTransFormObject.getDeviceExfiredTime(),deviceTransFormObject.getDeviceStatus());
+        return device;
+    }
 
 
 }
