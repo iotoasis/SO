@@ -182,6 +182,14 @@ public class ContextModelPresentation {
         ContextModel contextModel = contextModelLogic.retrieveContextModelDetail(contextModelId);
         return contextModel.getName();
     }
+
+    //NOTE : ContextModel Name 으로 Id 조회
+    @RequestMapping(value = "/names/{name}", method = RequestMethod.GET)
+    public String retrieveContextModelIdByName(@PathVariable("name")String contextModelName){
+        logger.info(LogPrint.inputInfoLogPrint());
+        ContextModel contextModel = contextModelLogic.retrieveContextModelDetailByName(contextModelName);
+        return contextModel.getId();
+    }
 }
 
 

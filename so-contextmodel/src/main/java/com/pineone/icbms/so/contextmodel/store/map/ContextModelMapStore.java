@@ -41,6 +41,11 @@ public class ContextModelMapStore implements ContextModelStore {
         return contextModel;
     }
 
+    @Override
+    public ContextModel retrieveContextModelDetailByName(String contextModelName) {
+        return null;
+    }
+
     public static ContextModelMapStore getInstance(){
         if(instance == null)
             instance = new ContextModelMapStore();

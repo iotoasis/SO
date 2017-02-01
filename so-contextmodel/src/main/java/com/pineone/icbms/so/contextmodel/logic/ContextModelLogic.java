@@ -23,4 +23,5 @@ public interface ContextModelLogic {
     List<Domain> retrieveDomainList();
     List<String> retrieveContextModelIdList();
     List<ContextModel> retrieveContextInformationList();
+    ContextModel retrieveContextModelDetailByName(String contextModelName);
 }

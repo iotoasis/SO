@@ -187,4 +187,12 @@ public class ContextModelLogicImpl implements ContextModelLogic{
         List<ContextModel> contextModelList = contextModelStore.retrieveContextModelList();
         return contextModelList;
     }
+
+    //NOTE: ContextModel 조회 by Name
+    @Override
+    public ContextModel retrieveContextModelDetailByName(String contextModelName) {
+        logger.debug("ContextModelId = " + contextModelName);
+        ContextModel contextModel = contextModelStore.retrieveContextModelDetailByName(contextModelName);
+        return contextModel;
+    }
 }

@@ -52,6 +52,16 @@ public class ContextModelStoreMongoImpl implements ContextModelStore {
         return contextModel;
     }
 
+    //NOTE: CM 개별 조회 by Name
+    @Override
+    public ContextModel retrieveContextModelDetailByName(String contextModelName) {
+        ContextModelDataObject contextModelDataObject = contextModelRepository.findByname(contextModelName);
+        logger.debug("ContextModel = " + contextModelDataObject.toString());
+        ContextModel contextModel = dataObjectToContextModel(contextModelDataObject);
+        logger.debug("ContextModel = " + contextModel.toString());
+        return contextModel;
+    }
+
     private ContextModelDataObject contextModelToDataObject(ContextModel contextModel) {
         if(contextModel == null) return null;
         return new ContextModelDataObject(contextModel.getId(), contextModel.getName(), contextModel.getDomainIdList(),
