@@ -38,6 +38,11 @@ public class ServiceModelMapStore implements ServiceModelStore {
         return serviceModel;
     }
 
+    @Override
+    public String retrieveServiceModelId(String serviceModelName) {
+        return null;
+    }
+
     public static ServiceModelMapStore getInstance(){
         if(instance == null)
             instance = new ServiceModelMapStore();
