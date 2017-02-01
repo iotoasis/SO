@@ -13,4 +13,5 @@ public interface ServiceModelLogic {
     List<String> retrieveServiceIdList();
     List<String> retrieveServiceModelIdList();
     List<ServiceModel> retrieveServiceModelList();
+    String retreveServiceModelId(String serviceModelName);
 }
