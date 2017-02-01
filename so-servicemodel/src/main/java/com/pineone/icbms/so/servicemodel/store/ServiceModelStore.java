@@ -9,4 +9,5 @@ public interface ServiceModelStore {
     void createServiceModel(ServiceModel serviceModel);
     List<ServiceModel> retrieveServiceModelList();
     ServiceModel retrieveServiceModelDetail(String ServiceModelId);
+    String retrieveServiceModelId(String serviceModelName);
 }

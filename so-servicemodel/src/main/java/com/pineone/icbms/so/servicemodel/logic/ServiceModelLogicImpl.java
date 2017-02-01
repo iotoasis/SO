@@ -170,6 +170,11 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
         return serviceModelList;
     }
 
+    @Override
+    public String retreveServiceModelId(String serviceModelName) {
+        return serviceModelStore.retrieveServiceModelId(serviceModelName);
+    }
+
     private boolean locationCompare(Session session, String serviceModelLocation){
         List<String> contextLocation = null;
         if(session.isExistSessionData(DefaultSession.LOCATION_ID)){

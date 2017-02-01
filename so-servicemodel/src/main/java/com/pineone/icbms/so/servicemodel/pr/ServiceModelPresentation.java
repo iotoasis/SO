@@ -125,11 +125,23 @@ public class ServiceModelPresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public ServiceModel retrieveServiceModelDetailController(@PathVariable String serviceModelId){
         logger.info(LogPrint.inputInfoLogPrint() + "ServiceModel ID = " + serviceModelId);
-        //
         ServiceModel serviceModel = serviceModelLogic.retrieveServiceModelDetail(serviceModelId);
         logger.debug("ServiceModel = " + serviceModel);
         return serviceModel;
     }
+
+    /**
+     * ServiceModel ID 조회 By Name
+     */
+    @RequestMapping(value = "/names/{serviceModelName}", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public String retrieveServiceModelId(@PathVariable String serviceModelName){
+        logger.info(LogPrint.inputInfoLogPrint() + "ServiceModel Name = " + serviceModelName);
+        String serviceModelId = serviceModelLogic.retreveServiceModelId(serviceModelName);
+        logger.debug("ServiceModel Name = " + serviceModelId);
+        return serviceModelId;
+    }
+
 
     //NOTE: 응급상황으로 발생하는 ContextModel 에 따른 ServiceModel 실행
     @RequestMapping(value = "/control", method = RequestMethod.POST)
