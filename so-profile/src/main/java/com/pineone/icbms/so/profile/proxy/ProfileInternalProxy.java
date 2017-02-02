@@ -49,7 +49,7 @@ public class ProfileInternalProxy extends AbstractProfileProxy {
     public List<String> retrieveContextModelNameList() {
         //
         logger.info(LogPrint.outputInfoLogPrint());
-        List<String> contextModelNameList = contextModelPresentation.retrieveContextModelList();
+        List<String> contextModelNameList = contextModelPresentation.retrieveContextModelNameList();
         return contextModelNameList;
     }
 
