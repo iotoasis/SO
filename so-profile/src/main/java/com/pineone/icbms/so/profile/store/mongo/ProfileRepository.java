@@ -11,4 +11,5 @@ import java.util.List;
 public interface ProfileRepository extends MongoRepository<ProfileDataObject, String> {
 
     List<ProfileDataObject> findByContextModelId(String contextModelId);
+    ProfileDataObject findByName(String profileName);
 }
