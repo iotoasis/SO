@@ -215,6 +215,14 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         return profileList;
     }
 
+    //NOTE : Profile 이름으로 Profile 상세 내용 조회
+    @Override
+    public Profile retrieveProfileDetailByName(String profileName) {
+        logger.debug("profileName = " + profileName);
+        Profile profile = profileStore.retrieveProfileDetailByName(profileName);
+        return profile;
+    }
+
     //NOTE : Occ 수신 기능 - 응급상황 발생 > 수신 > 프로파일 검색 > 서비스모델 연결
     @Override
     public void run() {

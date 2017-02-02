@@ -58,6 +58,11 @@ public class ProfileMapStore implements ProfileStore {
 
     }
 
+    @Override
+    public Profile retrieveProfileDetailByName(String profileName) {
+        return null;
+    }
+
     public static ProfileMapStore getInstance(){
         if(instance == null)
             instance = new ProfileMapStore();

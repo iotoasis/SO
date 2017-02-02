@@ -282,4 +282,12 @@ public class ProfilePresentation {
         List<Profile> profileList = profileLogic.retrieveProfileList();
         return profileList;
     }
+
+    //NOTE : Profile Name 으로 Id 조회
+    @RequestMapping(value = "/names/{name}", method = RequestMethod.GET)
+    public String retrieveProfileIdByName(@PathVariable("name")String profileName){
+        logger.info(LogPrint.inputInfoLogPrint());
+        Profile profile = profileLogic.retrieveProfileDetailByName(profileName);
+        return profile.getId();
+    }
 }
