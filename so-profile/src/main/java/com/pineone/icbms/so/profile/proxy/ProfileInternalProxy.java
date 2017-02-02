@@ -94,6 +94,6 @@ public class ProfileInternalProxy extends AbstractProfileProxy {
         ProfileTransFormData profileTransFormData = new ProfileTransFormData(profileId, period);
         String sendData = DataConversion.objectToString(profileTransFormData);
         ClientService clientService = new ClientService();
-        clientService.requestPostService("http://localhost:10080/so/scheduler",sendData);
+        clientService.requestPostService("http://localhost:10080/so/scheduler/create",sendData);
     }
 }

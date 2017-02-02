@@ -21,4 +21,5 @@ public interface SchedulerLogic {
     List<ScheduledProfile> retrieveSchedulerList();
     void stopScheduler();
     void startScheduler();
+    void createSchedulerData(String id, int period);
 }
