@@ -150,4 +150,15 @@ public class SchedulerPresentation {
         logger.info(LogPrint.outputInfoLogPrint());
         schedulerLogic.startScheduler();
     }
+
+    //NOTE: 스케쥴러를 자동으로 실행시키지 않고 디비에만 추가
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public void createSchedulerData(@RequestBody ProfileTransFormData profileTransFormData) throws SchedulerException {
+        //
+        logger.info(LogPrint.outputInfoLogPrint() + ", ProfileId = " + profileTransFormData.getId());
+        logger.debug("Profile = " + profileTransFormData.toString());
+        schedulerLogic.createSchedulerData(profileTransFormData.getId(), profileTransFormData.getPeriod());
+    }
 }
