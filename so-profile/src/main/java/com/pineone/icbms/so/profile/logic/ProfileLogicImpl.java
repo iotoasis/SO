@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by melvin on 2016. 8. 11..
@@ -106,20 +107,20 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         //
         logger.debug("Profile = " + profile.toString());
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
+        if(profile.getId() == null){
+            profile.setId("PR"+UUID.randomUUID().toString());
+        }
 //        ProfileStore profileStore = ProfileMapStore.getInstance();
 
         //NOTE: ScheduleType 인데 스케쥴이 설정 안되있는 경우
-        String contextModelType = contextModelPresentation.retrieveContextModelType(profile.getContextModelId());
-        if(contextModelType.equals(ContextType.ScheduleType.toString())){
-            if(profile.getPeriod() == 0){
-                String profileResultMessage = "Input ScheduleTime";
-                return profileResultMessage;
-            }
-            else{
-                profileProxy.registerScheduler(profile.getId(), profile.getPeriod());
-                // TODO : 스케쥴러에 등록 - (Profile 이름, 스케쥴)
-            }
+        if(profile.getPeriod() == 0){
+            String profileResultMessage = "Input ScheduleTime";
+            return profileResultMessage;
         }
+//        else{
+//            profileProxy.registerScheduler(profile.getId(), profile.getPeriod());
+//            // TODO : 스케쥴러에 등록 - (Profile 이름, 스케쥴)
+//        }
         profileStore.createProfile(profile);
         String profileResultMessage = responseMessage.profileResultMessage(profile);
         return profileResultMessage;
