@@ -71,7 +71,7 @@ public class ContextModelPresentation {
 
     //NOTE: ContextModel List 퍼블리싱 -  Profile 생성시 사용
     @RequestMapping(value = "/name", method = RequestMethod.GET)
-    public List<String> retrieveContextModelList(){
+    public List<String> retrieveContextModelNameList(){
         //
         logger.info(LogPrint.inputInfoLogPrint());
         List<String> contextModelNameList = contextModelLogic.retrieveContextModelNameList();
@@ -168,10 +168,13 @@ public class ContextModelPresentation {
 
     //NOTE: ContextModelList 조회
     @RequestMapping(method = RequestMethod.GET)
-    public List<ContextModel> retrieveContextInformationList() {
+    public List<ContextModel> retrieveContextModelList() {
         //
         logger.info(LogPrint.inputInfoLogPrint());
         List<ContextModel> contextModelList = contextModelLogic.retrieveContextInformationList();
+        for(ContextModel contextModel : contextModelList){
+            logger.debug("ContextModelList = " + contextModel.toString());
+        }
         return contextModelList;
     }
 
