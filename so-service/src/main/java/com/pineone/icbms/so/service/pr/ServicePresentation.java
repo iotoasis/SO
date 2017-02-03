@@ -3,6 +3,7 @@ package com.pineone.icbms.so.service.pr;
 
 import com.pineone.icbms.so.service.entity.Service;
 import com.pineone.icbms.so.service.logic.ServiceLogic;
+import com.pineone.icbms.so.service.proxy.DataServiceObject;
 import com.pineone.icbms.so.service.ref.*;
 import com.pineone.icbms.so.util.exception.DataLossException;
 import com.pineone.icbms.so.util.logprint.LogPrint;
@@ -128,6 +129,21 @@ public class ServicePresentation {
             logger.debug("ServiceList = " + service.toString());
         }
         return serviceList;
+    }
+
+    /**
+     * Data Service
+     */
+    @RequestMapping(value = "/data", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public String retrieveServiceList(@RequestBody DataServiceObject dataServiceObject){
+        //
+        logger.info(LogPrint.inputInfoLogPrint() + "Data Service Start");
+        logger.info(LogPrint.inputInfoLogPrint() + "DataServiceObject = " + dataServiceObject.toString());
+
+        String dataServiceData = serviceLogic.requestDataService(dataServiceObject);
+        logger.info("DataService Data = " + dataServiceData);
+        return dataServiceData;
     }
 
 

@@ -37,6 +37,10 @@ public class ClientProfile {
     // Context Model
     public static final String CM_LACK_EQUIPMENT_COUNT      = "cm-lack-equipment-count/?p=";
     public static final String CM_TEMP                      = "cm-temp/?p=";
+    public static final String PREFIX_CM_BACK_ATTACH        = "?p=,";
+    public static final String PREFIX_CM_COMMA              = ",";
+    public static final String PREFIX_CM_BACK_ATTACH_NO_COMMA = "?p=";
+
 
     // Location
     public static final String LOCATION_ENGCENTER_616       = "http://www.iotoasis.org/ontology/engcenter_616";
