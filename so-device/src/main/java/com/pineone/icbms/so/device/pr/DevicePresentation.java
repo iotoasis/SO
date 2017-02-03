@@ -198,7 +198,7 @@ public class DevicePresentation {
         if(deviceTransFormObject == null){
             return null;
         }
-        Device device = new Device(deviceTransFormObject.getId(),deviceTransFormObject.getDeviceName(),deviceTransFormObject.getDeviceLocation(),deviceTransFormObject.getDeviceUri(),deviceTransFormObject.getDeviceCommand(),deviceTransFormObject.getDeviceServices(),deviceTransFormObject.getDeviceCreateTime(),deviceTransFormObject.getDeviceExfiredTime(),deviceTransFormObject.getDeviceStatus());
+        Device device = new Device(deviceTransFormObject.getId(),deviceTransFormObject.getDeviceName(),deviceTransFormObject.getDeviceLocation(),deviceTransFormObject.getDeviceUri(),deviceTransFormObject.getDeviceCommand(),deviceTransFormObject.getDeviceServices(),deviceTransFormObject.getDeviceCreateTime(),deviceTransFormObject.getDeviceExfiredTime(),deviceTransFormObject.getDeviceStatus(),deviceTransFormObject.getAspect(),deviceTransFormObject.getFunctionality(),deviceTransFormObject.getType());
         return device;
     }
 

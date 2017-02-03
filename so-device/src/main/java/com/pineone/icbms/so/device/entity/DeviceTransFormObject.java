@@ -13,12 +13,15 @@ public class DeviceTransFormObject {
     private long            deviceCreateTime;
     private long            deviceExfiredTime;
     private String          deviceStatus;
+    private String          aspect;
+    private String          functionality;
+    private String          type;
     private String          sessionId;
 
     public DeviceTransFormObject() {
     }
 
-    public DeviceTransFormObject(String id, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, long deviceCreateTime, long deviceExfiredTime, String deviceStatus) {
+    public DeviceTransFormObject(String id, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, long deviceCreateTime, long deviceExfiredTime, String deviceStatus, String aspect, String functionality, String type) {
         this.id = id;
         this.deviceName = deviceName;
         this.deviceLocation = deviceLocation;
@@ -28,6 +31,9 @@ public class DeviceTransFormObject {
         this.deviceCreateTime = deviceCreateTime;
         this.deviceExfiredTime = deviceExfiredTime;
         this.deviceStatus = deviceStatus;
+        this.aspect = aspect;
+        this.functionality = functionality;
+        this.type = type;
     }
 
     public String getId() {
@@ -114,18 +120,46 @@ public class DeviceTransFormObject {
         this.sessionId = sessionId;
     }
 
+    public String getAspect() {
+        return aspect;
+    }
+
+    public void setAspect(String aspect) {
+        this.aspect = aspect;
+    }
+
+    public String getFunctionality() {
+        return functionality;
+    }
+
+    public void setFunctionality(String functionality) {
+        this.functionality = functionality;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
-        return "Device{" +
+        return "DeviceTransFormObject{" +
                 "id='" + id + '\'' +
                 ", deviceName='" + deviceName + '\'' +
                 ", deviceLocation='" + deviceLocation + '\'' +
                 ", deviceUri='" + deviceUri + '\'' +
                 ", deviceCommand=" + deviceCommand +
                 ", deviceServices=" + deviceServices +
-                ", deviceCreateTime='" + deviceCreateTime + '\'' +
-                ", deviceExfiredTime='" + deviceExfiredTime + '\'' +
+                ", deviceCreateTime=" + deviceCreateTime +
+                ", deviceExfiredTime=" + deviceExfiredTime +
                 ", deviceStatus='" + deviceStatus + '\'' +
+                ", aspect='" + aspect + '\'' +
+                ", functionality='" + functionality + '\'' +
+                ", type='" + type + '\'' +
+                ", sessionId='" + sessionId + '\'' +
                 '}';
     }
 }
