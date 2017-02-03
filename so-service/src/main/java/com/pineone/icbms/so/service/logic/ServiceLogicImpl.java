@@ -3,6 +3,7 @@ package com.pineone.icbms.so.service.logic;
 
 import com.pineone.icbms.so.device.util.ClientProfile;
 import com.pineone.icbms.so.service.entity.Service;
+import com.pineone.icbms.so.service.proxy.DataServiceObject;
 import com.pineone.icbms.so.service.proxy.ServiceProxy;
 import com.pineone.icbms.so.service.proxy.ServiceSDAProxy;
 import com.pineone.icbms.so.service.ref.ConceptService;
@@ -175,6 +176,7 @@ public class ServiceLogicImpl implements ServiceLogic{
             if("si-lack-equipment-noti".equals(serviceId)){
                 try {
                     operation = serviceSDAProxy.getPCCountUri(session);
+                    logger.info("Equipment Data = " + operation);
                 } catch (BadRequestException e) {
                     logger.warn("operation is not Count");
                     session = sessionStore.retrieveSessionDetail(localSessionId);
@@ -183,6 +185,7 @@ public class ServiceLogicImpl implements ServiceLogic{
             } else if("si-domitory-optimal-environment".equals(serviceId)){
                 try {
                     operation = serviceSDAProxy.getTemperatureLookup(session);
+                    logger.info("Environment Data = " + operation);
                 } catch (BadRequestException e) {
                     logger.warn("operation is not Count");
                     session = sessionStore.retrieveSessionDetail(localSessionId);
@@ -225,6 +228,17 @@ public class ServiceLogicImpl implements ServiceLogic{
         List<Service> services = serviceStore.retrieveServiceList();
         logger.debug("Service List = " + services.toString());
         return services;
+    }
+
+    @Override
+    public String requestDataService(DataServiceObject dataServiceObject) {
+        String response = "";
+        try{
+            response =  serviceSDAProxy.getDataService(dataServiceObject);
+        }catch (BadRequestException e){
+            response = e.toString();
+        }
+        return response;
     }
 
 }

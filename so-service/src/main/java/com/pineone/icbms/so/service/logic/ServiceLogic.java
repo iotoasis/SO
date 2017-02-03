@@ -2,6 +2,7 @@ package com.pineone.icbms.so.service.logic;
 
 
 import com.pineone.icbms.so.service.entity.Service;
+import com.pineone.icbms.so.service.proxy.DataServiceObject;
 import com.pineone.icbms.so.service.ref.ConceptService;
 import com.pineone.icbms.so.service.ref.DeviceObject;
 import com.pineone.icbms.so.service.ref.Status;
@@ -18,4 +19,5 @@ public interface ServiceLogic {
     List<String> retrieveServiceIdList();
     void executeService(String serviceId, String sessionId);
     List<Service> retrieveServiceList();
+    String requestDataService(DataServiceObject dataServiceObject);
 }
