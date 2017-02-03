@@ -15,12 +15,15 @@ public class DeviceDataObject {
     private List<String>    deviceServices;
     private long            deviceCreateTime;
     private long            deviceExfiredTime;
-    private String deviceStatus;
+    private String          deviceStatus;
+    private String          aspect;
+    private String          functionality;
+    private String          type;
 
     public DeviceDataObject() {
     }
 
-    public DeviceDataObject(String id, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, long deviceCreateTime, long deviceExfiredTime, String deviceStatus) {
+    public DeviceDataObject(String id, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, long deviceCreateTime, long deviceExfiredTime, String deviceStatus, String aspect, String functionality, String type) {
         this.id = id;
         this.deviceName = deviceName;
         this.deviceLocation = deviceLocation;
@@ -30,6 +33,9 @@ public class DeviceDataObject {
         this.deviceCreateTime = deviceCreateTime;
         this.deviceExfiredTime = deviceExfiredTime;
         this.deviceStatus = deviceStatus;
+        this.aspect = aspect;
+        this.functionality = functionality;
+        this.type = type;
     }
 
     public String getId() {
@@ -68,6 +74,18 @@ public class DeviceDataObject {
         return deviceStatus;
     }
 
+    public String getAspect() {
+        return aspect;
+    }
+
+    public String getFunctionality() {
+        return functionality;
+    }
+
+    public String getType() {
+        return type;
+    }
+
     @Override
     public String toString() {
         return "DeviceDataObject{" +
@@ -77,9 +95,12 @@ public class DeviceDataObject {
                 ", deviceUri='" + deviceUri + '\'' +
                 ", deviceCommand=" + deviceCommand +
                 ", deviceServices=" + deviceServices +
-                ", deviceCreateTime='" + deviceCreateTime + '\'' +
-                ", deviceExfiredTime='" + deviceExfiredTime + '\'' +
+                ", deviceCreateTime=" + deviceCreateTime +
+                ", deviceExfiredTime=" + deviceExfiredTime +
                 ", deviceStatus='" + deviceStatus + '\'' +
+                ", aspect='" + aspect + '\'' +
+                ", functionality='" + functionality + '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 }
