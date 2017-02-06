@@ -221,6 +221,7 @@ public class DeviceManagerLogic implements DeviceManager {
                  * Device Subscription 해제 요청
                  */
                 response = deviceSubscriptionRelease(deviceUri + (ClientProfile.actionDeviceCommand(device.getDeviceUri()) ? ClientProfile.SI_CONTAINER_ACTION : ClientProfile.SI_CONTAINER_POWER) + ClientProfile.SI_CONTAINER_STATUS);
+
             } else {
                 logger.debug("Device Status = " + device.getDeviceStatus() + " DeviceCommand = " + deviceStatusData.getCon());
                 logger.debug(LogPrint.LogMethodNamePrint() + "The state or command of the device is different.");
