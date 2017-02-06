@@ -142,6 +142,18 @@ public class ServiceModelPresentation {
         return serviceModelId;
     }
 
+    /**
+     * ServiceModel ID 조회 By Name
+     */
+    @RequestMapping(value = "/des/{description}", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public String retrieveServiceModelIdByDes(@PathVariable String description){
+        logger.info(LogPrint.inputInfoLogPrint() + "Description = " + description);
+        ServiceModel serviceModel = serviceModelLogic.retrieveServiceModelIdByDes(description);
+        logger.debug("ServiceModel Id = " + serviceModel.getId());
+        return serviceModel.getId();
+    }
+
 
     //NOTE: 응급상황으로 발생하는 ContextModel 에 따른 ServiceModel 실행
     @RequestMapping(value = "/control", method = RequestMethod.POST)

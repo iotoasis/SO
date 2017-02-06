@@ -10,4 +10,5 @@ public interface ServiceModelStore {
     List<ServiceModel> retrieveServiceModelList();
     ServiceModel retrieveServiceModelDetail(String ServiceModelId);
     String retrieveServiceModelId(String serviceModelName);
+    ServiceModel retrieveServiceModelDetailByDescription(String description);
 }
