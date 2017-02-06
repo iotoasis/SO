@@ -2,7 +2,6 @@ package com.pineone.icbms.so.profile.logic;
 
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
-import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.profile.entity.Profile;
 import com.pineone.icbms.so.profile.proxy.ProfileProxy;
 import com.pineone.icbms.so.profile.ref.ResponseMessage;
@@ -109,7 +108,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         logger.debug("Profile = " + profile.toString());
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
         if(profile.getId() == null){
-            profile.setId("sm-make-"+ UUIDConverter.shortUUID(UUID.randomUUID().toString().toCharArray()));
+            profile.setId("pr-make-"+ UUIDConverter.shortUUID(UUID.randomUUID().toString().toCharArray()));
         }
 //        ProfileStore profileStore = ProfileMapStore.getInstance();
 
