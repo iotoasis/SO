@@ -8,7 +8,8 @@ public class ClientProfile {
     public static final String  SI_CONTROL_ACTION           = "Action";
     public static final String  SI_COMMAND_ID               = "cmd_";
 
-    public static final String DEVICE_SERVICE_NOTI_TYPE     = "http://www.iotoasis.org/ontology/NotiFunctionality";
+    public static final String DEVICE_SERVICE_NOTI_TYPE     = "http://www.iotoasis.org/ontology/AlarmFunctionality";
+    public static final String SERVICE_ALARM_TYPE           = "Alarm";
 
     // oneM2M device Data
     public static final String SI_DEVICE_BEAMSCREEN         = "BeamScreen";

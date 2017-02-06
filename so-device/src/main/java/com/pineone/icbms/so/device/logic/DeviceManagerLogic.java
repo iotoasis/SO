@@ -81,32 +81,18 @@ public class DeviceManagerLogic implements DeviceManager {
             localSessionId =  session.getId();
         }
 
-        List<String> sessionDeviceIdList = null;
-        if(session.isExistSessionData(DefaultSession.DEVICE_KEY)){
-            sessionDeviceIdList = DataConversion.stringDataToList(session.findSessionData(DefaultSession.DEVICE_KEY));
-        }
-        if(sessionDeviceIdList == null){
-            sessionDeviceIdList = new ArrayList<>();
-        }
-        sessionDeviceIdList.add(deviceId);
-        session.insertSessionData(DefaultSession.DEVICE_KEY, DataConversion.listDataToString(sessionDeviceIdList));
-
-        sessionStore.updateSession(session);
+        sessionDataUpdate(sessionStore,session,deviceId, DefaultSession.DEVICE_KEY);
 
         String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
         Device device = deviceSearchById(deviceId);
         if(device == null){
-            session.insertSessionData(DefaultSession.DEVICE_RESULT, DefaultSession.CONTROL_ERROR);
-            // DB에 Session을 저장.
-            sessionStore.updateSession(session);
+            sessionDataUpdate(sessionStore,session,"The device does not exist.", DefaultSession.DEVICE_RESULT);
             logger.info("The device does not exist.");
             return "The device does not exist.";
         } else if(device.getDeviceServices() != null && ClientProfile.DEVICE_SERVICE_NOTI_TYPE.equals(device.getDeviceServices().get(0))){
             sessionDataUpdate(sessionStore, session, device.getDeviceLocation(),DefaultSession.DEVICE_LOCATION);
-            session.insertSessionData(DefaultSession.DEVICE_RESULT, DefaultSession.CONTROL_EXECUTION + "_" + ClientProfile.DEVICE_SERVICE_NOTI_TYPE);
-            // DB에 Session을 저장.
-            sessionStore.updateSession(session);
-            return ClientProfile.DEVICE_SERVICE_NOTI_TYPE;
+            sessionDataUpdate(sessionStore,session,DefaultSession.CONTROL_EXECUTION + "_" + ClientProfile.SERVICE_ALARM_TYPE, DefaultSession.DEVICE_RESULT);
+            return ClientProfile.SERVICE_ALARM_TYPE;
         }
 
         // SI를 제어할수 있는 DeviceControlMessage로 변환
@@ -115,8 +101,6 @@ public class DeviceManagerLogic implements DeviceManager {
 
         session = sessionStore.retrieveSessionDetail(localSessionId);
         sessionDataUpdate(sessionStore, session, device.getDeviceLocation(),DefaultSession.DEVICE_LOCATION);
-        session.insertSessionData(DefaultSession.DEVICE_RESULT, DefaultSession.CONTROL_EXECUTION);
-        sessionStore.updateSession(session);
 
         /*
         if(device.checkStatus(deviceCommand)){
@@ -127,7 +111,7 @@ public class DeviceManagerLogic implements DeviceManager {
         // Device 제어 요청 보냄.
         ResultMessage resultMessage = deviceControlProxy.deviceControlRequest(contextAddress.getServerAddress(ContextAddress.SI_SERVER) + AddressStore.SI_CONTOL_URI,deviceControlMessage);
         logger.debug(LogPrint.LogMethodNamePrint() + " | Device Control Result : " + " , Device Uri = " + device.getDeviceUri() + " , Result : " + resultMessage + " , Session ID = " + sessionId);
-
+        sessionDataUpdate(sessionStore,session,resultMessage.getCode(), DefaultSession.DEVICE_RESULT);
         /**
          * Device 제어 후 제어 결과가 Success면 Device Subscription 요청
          */
@@ -304,15 +288,15 @@ public class DeviceManagerLogic implements DeviceManager {
     }
 
     private void sessionDataUpdate(SessionStore sessionStore, Session session, String data, String key){
-        List<String> sessionDeviceLocationList = null;
+        List<String> sessionList = null;
         if(session.isExistSessionData(key)){
-            sessionDeviceLocationList = DataConversion.stringDataToList(session.findSessionData(key));
+            sessionList = DataConversion.stringDataToList(session.findSessionData(key));
         }
-        if(sessionDeviceLocationList == null){
-            sessionDeviceLocationList = new ArrayList<>();
+        if(sessionList == null){
+            sessionList = new ArrayList<>();
         }
-        sessionDeviceLocationList.add(data);
-        session.insertSessionData(key, DataConversion.listDataToString(sessionDeviceLocationList));
+        sessionList.add(data);
+        session.insertSessionData(key, DataConversion.listDataToString(sessionList));
         sessionStore.updateSession(session);
     }
 

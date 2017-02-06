@@ -2,6 +2,7 @@ package com.pineone.icbms.so.virtualobject.logic;
 
 import com.pineone.icbms.so.device.logic.DeviceManager;
 import com.pineone.icbms.so.device.pr.DevicePresentation;
+import com.pineone.icbms.so.device.util.ClientProfile;
 import com.pineone.icbms.so.util.conversion.DataConversion;
 import com.pineone.icbms.so.util.session.DefaultSession;
 import com.pineone.icbms.so.util.session.Session;
@@ -107,27 +108,17 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
             sessionId =  session.getId();
         }
 
-        List<String> virtulaobjectIdList = null;
-        if(session.isExistSessionData(DefaultSession.VIRTUALOBJECT_KEY)){
-            virtulaobjectIdList = DataConversion.stringDataToList(session.findSessionData(DefaultSession.VIRTUALOBJECT_KEY));
-        }
-        if(virtulaobjectIdList == null){
-            virtulaobjectIdList = new ArrayList<>();
-        }
-        virtulaobjectIdList.add(voId);
-        session.insertSessionData(DefaultSession.VIRTUALOBJECT_KEY, DataConversion.listDataToString(virtulaobjectIdList));
-        sessionStore.updateSession(session);
+        sessionDataUpdate(sessionStore, session, voId, DefaultSession.VIRTUALOBJECT_KEY);
+
         VirtualObject virtualObject = searchVirtualObject(voId);
         if(virtualObject == null){
-            session.insertSessionData(DefaultSession.VIRTUALOBJECT_RESULT, DefaultSession.CONTROL_ERROR);
-            // DB에 Session을 저장.
-            sessionStore.updateSession(session);
-            return DefaultSession.CONTROL_ERROR;
-        } else if(VirtualObject.FUNCTIONLITY_ADMIN_NOTI.equals(virtualObject.getFunctionality())) {
-            session.insertSessionData(DefaultSession.VIRTUALOBJECT_RESULT, VirtualObject.FUNCTIONLITY_ADMIN_NOTI);
-            // DB에 Session을 저장.
-            sessionStore.updateSession(session);
-            return VirtualObject.FUNCTIONLITY_ADMIN_NOTI;
+            sessionDataUpdate(sessionStore, session, "The virtualObject does not exist.", DefaultSession.VIRTUALOBJECT_RESULT);
+            logger.debug("The virtualObject does not exist.");
+            return "The virtualObject does not exist.";
+        } else if(ClientProfile.DEVICE_SERVICE_NOTI_TYPE.equals(virtualObject.getFunctionality())) {
+            logger.debug("VirtualObject Noti " + DefaultSession.CONTROL_EXECUTION + "_" + ClientProfile.SERVICE_ALARM_TYPE);
+            sessionDataUpdate(sessionStore,session,DefaultSession.CONTROL_EXECUTION + "_" + ClientProfile.SERVICE_ALARM_TYPE, DefaultSession.VIRTUALOBJECT_RESULT);
+            return ClientProfile.SERVICE_ALARM_TYPE;
         }
 
         // 해당 Device ID를 도출
@@ -135,8 +126,7 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
         // operation -> command SDA 확인.고려.. 형식으로 변경.
         //        return deviceManager.deviceExecute(deviceId, operation);
         logger.debug("Device ID = " + deviceId + " Operation = " + operation + " Session ID = " + sessionId);
-        session.insertSessionData(DefaultSession.VIRTUALOBJECT_RESULT, DefaultSession.CONTROL_EXECUTION);
-        sessionStore.updateSession(session);
+        sessionDataUpdate(sessionStore,session,DefaultSession.CONTROL_EXECUTION, DefaultSession.VIRTUALOBJECT_RESULT);
         return virtualObjectControlProxy.executeDevice(deviceId, operation, sessionId);
     }
 
@@ -185,4 +175,18 @@ public class VirtualObjectManagerLogic implements VirtualObjectManager {
         // 정보 수접 프록시.
         return responseData;
     }
+
+    private void sessionDataUpdate(SessionStore sessionStore, Session session, String data, String key){
+        List<String> sessionList = null;
+        if(session.isExistSessionData(key)){
+            sessionList = DataConversion.stringDataToList(session.findSessionData(key));
+        }
+        if(sessionList == null){
+            sessionList = new ArrayList<>();
+        }
+        sessionList.add(data);
+        session.insertSessionData(key, DataConversion.listDataToString(sessionList));
+        sessionStore.updateSession(session);
+    }
+
 }

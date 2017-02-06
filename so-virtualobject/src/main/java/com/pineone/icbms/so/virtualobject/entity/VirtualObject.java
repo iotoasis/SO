@@ -1,17 +1,6 @@
 package com.pineone.icbms.so.virtualobject.entity;
 
 public class VirtualObject {
-    //
-
-    /**
-     * Device functionality definition
-     */
-    public static final String FUNCTIONLITY_TEMP_CONTROL                 =   "temp-control";
-    public static final String FUNCTIONLITY_POWER_CONTROL                =   "power-control";
-    public static final String FUNCTIONLITY_OPEN_CONTROL                 =   "open-control";
-    public static final String ASPECT_ADMIN_NOTI                         =   "http://www.iotoasis.org/ontology/admin-aspect";
-    public static final String FUNCTIONLITY_ADMIN_NOTI                   =   "http://www.iotoasis.org/ontology/AlarmFunctionality";
-
 
     /**
      * VirtualObject 식별자
