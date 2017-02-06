@@ -115,7 +115,7 @@ public class DeviceManagerLogic implements DeviceManager {
         /**
          * Device 제어 후 제어 결과가 Success면 Device Subscription 요청
          */
-        if(resultMessage.getCode().equals(ClientProfile.RESPONSE_SUCCESS_ONEM2MCODE) && false) {
+        if(resultMessage.getCode().equals(ClientProfile.RESPONSE_SUCCESS_ONEM2MCODE)) {
             // 디바이스 상태 저장.
             device.setDeviceStatus(deviceCommand);
             deviceStore.update(device);
@@ -127,7 +127,7 @@ public class DeviceManagerLogic implements DeviceManager {
             /**
              * Device Subscription 데이터 저장
              */
-            saveDeviceSubscriptionData(deviceControlMessage.get_commandId(), deviceControlMessage.getCon(), response);
+            saveDeviceSubscriptionData(deviceControlMessage.get_commandId(),device.getDeviceUri(), deviceControlMessage.getCon(), response);
 
             /*
                 디바이스 해제는 Controller에서 상태 업데이트 후 해제.
@@ -311,8 +311,8 @@ public class DeviceManagerLogic implements DeviceManager {
         return uri.substring(0, stringlength);
     }
 
-    public void saveDeviceSubscriptionData(String deviceUri, String commandId, String result){
-        deviceSubscriptionStore.create(new DeviceSubscriptionObject(deviceUri, commandId, result));
+    public void saveDeviceSubscriptionData(String commandId, String deviceUri, String status, String result){
+        deviceSubscriptionStore.create(new DeviceSubscriptionObject(commandId, deviceUri, status, result));
     }
 
 }

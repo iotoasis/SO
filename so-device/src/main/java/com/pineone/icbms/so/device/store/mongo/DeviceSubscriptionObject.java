@@ -13,6 +13,8 @@ public class DeviceSubscriptionObject {
 
     private String _commandId;
 
+    private String deviceUri;
+
     private String deviceStatus;
 
     private String subscriptionResult;
@@ -22,15 +24,17 @@ public class DeviceSubscriptionObject {
     public DeviceSubscriptionObject() {
     }
 
-    public DeviceSubscriptionObject(String _commandId, String deviceStatus, String subscriptionResult) {
+    public DeviceSubscriptionObject(String _commandId, String deviceUri, String deviceStatus, String subscriptionResult) {
         this._commandId = _commandId;
+        this.deviceUri = deviceUri;
         this.deviceStatus = deviceStatus;
         this.subscriptionResult = subscriptionResult;
     }
 
-    public DeviceSubscriptionObject(String _id, String _commandId, String deviceStatus, String subscriptionResult, String releaseResult) {
+    public DeviceSubscriptionObject(String _id, String _commandId, String deviceUri, String deviceStatus, String subscriptionResult, String releaseResult) {
         this._id = _id;
         this._commandId = _commandId;
+        this.deviceUri = deviceUri;
         this.deviceStatus = deviceStatus;
         this.subscriptionResult = subscriptionResult;
         this.releaseResult = releaseResult;
@@ -76,11 +80,20 @@ public class DeviceSubscriptionObject {
         this.releaseResult = releaseResult;
     }
 
+    public String getDeviceUri() {
+        return deviceUri;
+    }
+
+    public void setDeviceUri(String deviceUri) {
+        this.deviceUri = deviceUri;
+    }
+
     @Override
     public String toString() {
         return "DeviceSubscriptionObject{" +
                 "_id='" + _id + '\'' +
                 ", _commandId='" + _commandId + '\'' +
+                ", deviceUri='" + deviceUri + '\'' +
                 ", deviceStatus='" + deviceStatus + '\'' +
                 ", subscriptionResult='" + subscriptionResult + '\'' +
                 ", releaseResult='" + releaseResult + '\'' +
