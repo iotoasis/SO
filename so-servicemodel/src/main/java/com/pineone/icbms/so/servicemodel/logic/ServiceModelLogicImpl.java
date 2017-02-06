@@ -5,6 +5,7 @@ import com.pineone.icbms.so.servicemodel.proxy.ServiceModelProxy;
 import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
 import com.pineone.icbms.so.util.conversion.DataConversion;
+import com.pineone.icbms.so.util.conversion.UUIDConverter;
 import com.pineone.icbms.so.util.session.DefaultSession;
 import com.pineone.icbms.so.util.session.Session;
 import com.pineone.icbms.so.util.session.store.SessionStore;
@@ -12,10 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.nio.ByteBuffer;
+import java.util.*;
 
 @org.springframework.stereotype.Service
 public class ServiceModelLogicImpl implements ServiceModelLogic {
@@ -54,6 +53,9 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
         if(serviceModel == null){
             logger.warn("You can not register a service model. serviceModel is Null");
             return null;
+        }
+        if(serviceModel.getId() == null){
+            serviceModel.setId("sm-make-"+ UUIDConverter.shortUUID(UUID.randomUUID().toString().toCharArray()));
         }
         logger.debug("ServiceModel = " + serviceModel);
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();

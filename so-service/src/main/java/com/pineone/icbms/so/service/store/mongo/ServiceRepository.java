@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface ServiceRepository extends MongoRepository<ServiceDataObject, String> {
 
+    ServiceDataObject findByName(String serviceName);
 }

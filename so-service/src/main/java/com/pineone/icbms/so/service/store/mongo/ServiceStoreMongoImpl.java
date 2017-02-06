@@ -55,6 +55,13 @@ public class ServiceStoreMongoImpl implements ServiceStore {
         serviceRepository.save(serviceDataObject);
     }
 
+    @Override
+    public Service retrieveServiceDetailByName(String serviceName) {
+        ServiceDataObject serviceDataObject = serviceRepository.findByName(serviceName);
+        logger.debug("Service = " + dataObjectToService(serviceDataObject));
+        return dataObjectToService(serviceDataObject);
+    }
+
     private ServiceDataObject serviceToDataObject(Service service) {
         if (service == null) return null;
         return new ServiceDataObject(service.getId(),service.getName(),service.getVirtualObjectIdList(),service.getVirtualObjectService(),service.getStatus(),service.getCreateTime(),service.getModifiedTime(),service.getFilterTime());
