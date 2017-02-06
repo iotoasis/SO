@@ -172,7 +172,7 @@ public class ServicePresentation {
     @RequestMapping(value = "/names/{name}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public String retrieveProfileIdByName(@PathVariable("name")String serviceName){
+    public String retrieveServiceIdByName(@PathVariable("name")String serviceName){
         logger.info(LogPrint.inputInfoLogPrint());
         Service service = serviceLogic.retrieveServiceDetailByName(serviceName);
         return service.getId();
