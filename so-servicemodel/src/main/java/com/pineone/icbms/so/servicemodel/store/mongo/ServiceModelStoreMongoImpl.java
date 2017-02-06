@@ -53,6 +53,13 @@ public class ServiceModelStoreMongoImpl implements ServiceModelStore {
         return serviceModelDataObject.getId();
     }
 
+    @Override
+    public ServiceModel retrieveServiceModelDetailByDescription(String description) {
+        ServiceModelDataObject serviceModelDataObject = serviceModelRepository.findByDescription(description);
+        logger.debug("ServiceModel = " + dataObjectToServiceModel(serviceModelDataObject));
+        return dataObjectToServiceModel(serviceModelDataObject);
+    }
+
     private ServiceModelDataObject serviceModelToDataObject(ServiceModel serviceModel) {
         if(serviceModel == null) return null;
         return new ServiceModelDataObject(serviceModel.getId(), serviceModel.getName(), serviceModel.getServiceIdList());

@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.nio.ByteBuffer;
 import java.util.*;
 
 @org.springframework.stereotype.Service
@@ -175,6 +174,13 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
     @Override
     public String retreveServiceModelId(String serviceModelName) {
         return serviceModelStore.retrieveServiceModelId(serviceModelName);
+    }
+
+    @Override
+    public ServiceModel retrieveServiceModelIdByDes(String description) {
+        logger.debug("description = " + description);
+        ServiceModel serviceModel = serviceModelStore.retrieveServiceModelDetailByDescription(description);
+        return serviceModel;
     }
 
     private boolean locationCompare(Session session, String serviceModelLocation){
