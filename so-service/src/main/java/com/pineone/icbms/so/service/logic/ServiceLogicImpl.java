@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 /**
@@ -239,6 +240,14 @@ public class ServiceLogicImpl implements ServiceLogic{
             response = e.toString();
         }
         return response;
+    }
+
+    //NOTE: Service 이름으로 Id 조회 기능
+    @Override
+    public Service retrieveServiceDetailByName(String serviceName) {
+        logger.debug("serviceName = " + serviceName);
+        Service service = serviceStore.retrieveServiceDetailByName(serviceName);
+        return service;
     }
 
 }

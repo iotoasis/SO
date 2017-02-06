@@ -9,6 +9,7 @@ import com.pineone.icbms.so.profile.ref.ResponseMessage;
 import com.pineone.icbms.so.profile.store.ProfileStore;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
 import com.pineone.icbms.so.util.conversion.DataConversion;
+import com.pineone.icbms.so.util.conversion.UUIDConverter;
 import com.pineone.icbms.so.util.priority.Priority;
 import com.pineone.icbms.so.util.session.DefaultSession;
 import com.pineone.icbms.so.util.session.Session;
@@ -108,7 +109,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         logger.debug("Profile = " + profile.toString());
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
         if(profile.getId() == null){
-            profile.setId("PR"+UUID.randomUUID().toString());
+            profile.setId("sm-make-"+ UUIDConverter.shortUUID(UUID.randomUUID().toString().toCharArray()));
         }
 //        ProfileStore profileStore = ProfileMapStore.getInstance();
 
@@ -119,7 +120,7 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         }
 //        else{
             profileProxy.registerScheduler(profile.getId(), profile.getPeriod());
-//            // TODO : 스케쥴러에 등록 - (Profile 이름, 스케쥴)
+//            // TODO : 스케쥴러에 등록 - (Profile 이름, 스케쥴
 //        }
         profileStore.createProfile(profile);
         String profileResultMessage = responseMessage.profileResultMessage(profile);

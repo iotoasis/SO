@@ -20,4 +20,5 @@ public interface ServiceLogic {
     void executeService(String serviceId, String sessionId);
     List<Service> retrieveServiceList();
     String requestDataService(DataServiceObject dataServiceObject);
+    Service retrieveServiceDetailByName(String serviceName);
 }

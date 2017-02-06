@@ -168,6 +168,16 @@ public class ServicePresentation {
         return object;
     }
 
+    //NOTE : ServiceName 으로 아이디 조회
+    @RequestMapping(value = "/names/{name}", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public String retrieveProfileIdByName(@PathVariable("name")String serviceName){
+        logger.info(LogPrint.inputInfoLogPrint());
+        Service service = serviceLogic.retrieveServiceDetailByName(serviceName);
+        return service.getId();
+    }
+
 
     public Service dataObjectToServiceModel(ServiceTransFormObject serviceTransFormObject){
         if(serviceTransFormObject == null) return null;
