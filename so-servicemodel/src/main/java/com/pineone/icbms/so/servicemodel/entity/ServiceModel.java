@@ -31,14 +31,14 @@ public class ServiceModel {
      * format : yyyymmddhhmm
      * ex : '201608250930'
      */
-    private String createTime;
+    private long createTime;
 
     /**
      * ServiceModel 변경 시간
      * format : yyyymmddhhmm
      * ex : '201608250930'
      */
-    private String modifiedTime;
+    private long modifiedTime;
 
     /**
      * ServiceModel 실행 위치
@@ -57,7 +57,7 @@ public class ServiceModel {
     public ServiceModel() {
     }
 
-    public ServiceModel(String id, String name, List<String> serviceIdList, String createTime, String modifiedTime, String location, String description) {
+    public ServiceModel(String id, String name, List<String> serviceIdList, long createTime, long modifiedTime, String location, String description) {
         this.id = id;
         this.name = name;
         this.serviceIdList = serviceIdList;
@@ -91,19 +91,19 @@ public class ServiceModel {
         this.id = id;
     }
 
-    public String getCreateTime() {
+    public long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
     }
 
-    public String getModifiedTime() {
+    public long getModifiedTime() {
         return modifiedTime;
     }
 
-    public void setModifiedTime(String modifiedTime) {
+    public void setModifiedTime(long modifiedTime) {
         this.modifiedTime = modifiedTime;
     }
 
