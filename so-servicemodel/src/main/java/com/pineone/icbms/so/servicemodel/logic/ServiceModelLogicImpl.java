@@ -56,6 +56,9 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
         if(serviceModel.getId() == null){
             serviceModel.setId("sm-make-"+ UUIDConverter.shortUUID(UUID.randomUUID().toString().toCharArray()));
         }
+        if(serviceModel.getDescription() == null){
+            serviceModel.setDescription(serviceModel.getName() + "CVO");
+        }
         logger.debug("ServiceModel = " + serviceModel);
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
 //        ServiceModelStore serviceModelStore = ServiceModelMapStore.getInstance();
