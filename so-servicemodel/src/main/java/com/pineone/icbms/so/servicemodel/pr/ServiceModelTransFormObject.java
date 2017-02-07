@@ -90,6 +90,12 @@ public class ServiceModelTransFormObject {
         this.serviceIdList = serviceIdList;
     }
 
+    public ServiceModelTransFormObject(String name, List<String> serviceIdList , String location) {
+        this.name = name;
+        this.serviceIdList = serviceIdList;
+        this.location = location;
+    }
+
     public ServiceModelTransFormObject(String id, String name, List<String> serviceIdList, String createTime, String modifiedTime, String location, String sessionId, String description) {
         this.id = id;
         this.name = name;
