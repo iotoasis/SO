@@ -3,6 +3,8 @@ package com.pineone.icbms.so.domain.logic;
 import com.pineone.icbms.so.domain.entity.Domain;
 import com.pineone.icbms.so.domain.ref.ResponseMessage;
 import com.pineone.icbms.so.domain.store.DomainStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,9 @@ import java.util.List;
 @Service
 public class DomainLogicImpl implements DomainLogic {
     //
+
+    public static final Logger logger = LoggerFactory.getLogger(DomainLogicImpl.class);
+
     @Autowired
     DomainStore domainStore;
 //    public static DomainLogicImpl newDomainLogic(){
@@ -55,5 +60,13 @@ public class DomainLogicImpl implements DomainLogic {
             domainIdList.add(domain.getId());
         }
         return domainIdList;
+    }
+
+    //NOTE: Domain 이름으로 domain 상세 내용 조회
+    @Override
+    public Domain retrieveDomainDetailByName(String domainName) {
+        logger.debug("domainName = " + domainName);
+        Domain domain = domainStore.retrieveDomainDetailByName(domainName);
+        return domain;
     }
 }
