@@ -103,7 +103,7 @@ public class ServiceSDAProxyImpl implements ServiceSDAProxy{
         } else if(dataServiceObject.getParam() == DataServiceObject.DATASERIVCE_CMID_PARAM2) {
             requestUri = contextAddress.getServerAddress(ContextAddress.SDA_SERVER) + dataServiceObject.getCmId() + ClientProfile.PREFIX_CM_BACK_ATTACH_NO_COMMA + dataServiceObject.getParam1() + ClientProfile.PREFIX_CM_COMMA + dataServiceObject.getParam2();
         }
-
+        logger.debug("requestUri : " + requestUri);
         IHttpResponseMessage message = clientService.requestGetService(requestUri);
         if(message.getStatusCode() == 200) {
             System.out.println(message.getBodyByteArray().toString());

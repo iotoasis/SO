@@ -2,11 +2,11 @@ package com.pineone.icbms.so.service.proxy;
 
 public class DataServiceObject {
 
-    public static final int	DATASERIVCE_CMID        	= 1;
-    public static final int	DATASERIVCE_CMID_PARAM1 	= 2;
-    public static final int	DATASERIVCE_CMID_PARAM2 	= 3;
-    public static final int	DATASERIVCE_CMID_PARAM3 	= 4;
-    public static final int	DATASERIVCE_CMID_PARAM4 	= 5;
+    public static final int	DATASERIVCE_CMID        	= 0;
+    public static final int	DATASERIVCE_CMID_PARAM1 	= 1;
+    public static final int	DATASERIVCE_CMID_PARAM2 	= 2;
+    public static final int	DATASERIVCE_CMID_PARAM3 	= 3;
+    public static final int	DATASERIVCE_CMID_PARAM4 	= 4;
 
     private String cmId;
     private String param1;
