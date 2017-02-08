@@ -31,6 +31,7 @@ public class DefaultSession implements Session {
     public static final String DEVICE_KEY                       =   "DEVICE_KEY";
     public static final String DEVICE_LOCATION                  =   "DEVICE_LOCATION";
     public static final String DEVICE_RESULT                    =   "DEVICE_RESULT";
+    public static final String ADMIN_NOTI_DATA                  =   "ADMIN_NOTI_DATA";
 
     /**
      * control status
