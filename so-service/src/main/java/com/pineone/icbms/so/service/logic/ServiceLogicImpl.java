@@ -25,7 +25,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 
 /**
@@ -178,6 +177,7 @@ public class ServiceLogicImpl implements ServiceLogic{
                 try {
                     operation = serviceSDAProxy.getPCCountUri(session);
                     logger.info("Equipment Data = " + operation);
+                    sessionDataUpdate(sessionStore,session,operation,DefaultSession.ADMIN_NOTI_DATA);
                 } catch (BadRequestException e) {
                     logger.warn("operation is not Count");
                     session = sessionStore.retrieveSessionDetail(localSessionId);
@@ -248,6 +248,12 @@ public class ServiceLogicImpl implements ServiceLogic{
         logger.debug("serviceName = " + serviceName);
         Service service = serviceStore.retrieveServiceDetailByName(serviceName);
         return service;
+    }
+
+
+    private void sessionDataUpdate(SessionStore sessionStore, Session session, String data, String key){
+        session.insertSessionData(key, data);
+        sessionStore.updateSession(session);
     }
 
 }
