@@ -8,6 +8,10 @@ public class ClientProfile {
     public static final String  SI_CONTROL_ACTION           = "Action";
     public static final String  SI_COMMAND_ID               = "cmd_";
 
+    // LWM2M control Data
+    public static final String	SO_CONTROL_JSON_TYPE		= "application/json:1";
+    public static final String  SI_CONTROL_LWM2M_SOUND      = "sound__-1024-12-3";
+
     public static final String DEVICE_SERVICE_NOTI_TYPE     = "http://www.iotoasis.org/ontology/AlarmFunctionality";
     public static final String SERVICE_ALARM_TYPE           = "Alarm";
 
