@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.apache.commons.codec.binary.Base64;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
@@ -58,6 +59,10 @@ public class DataConversion
         Type type = new TypeToken<List<String>>(){}.getType();
         return new Gson().fromJson(data,type);
     }
+
+	public static String base64incoding(String data){
+		return new String(Base64.encodeBase64(data.getBytes()));
+	}
 
 
 }
