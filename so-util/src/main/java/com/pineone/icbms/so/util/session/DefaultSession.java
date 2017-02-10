@@ -63,6 +63,17 @@ public class DefaultSession implements Session {
     public DefaultSession() {
         id = UUID.randomUUID().toString();
         sessionData = new HashMap<>();
+
+        mongoTime = new Date();
+        createDate = mongoTime.toString();
+        calculateTime = System.currentTimeMillis();
+
+        System.out.println("ahn");
+        System.out.println(mongoTime);
+        System.out.println(createDate);
+        System.out.println(calculateTime);
+        System.out.println("ahn");
+
     }
 
     public DefaultSession(String id, Map<String, String> sessionData) {
