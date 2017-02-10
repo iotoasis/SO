@@ -14,6 +14,7 @@ import com.pineone.icbms.so.service.store.ServiceControlRecordStore;
 import com.pineone.icbms.so.service.store.ServiceStore;
 import com.pineone.icbms.so.util.TimeStamp;
 import com.pineone.icbms.so.util.conversion.DataConversion;
+import com.pineone.icbms.so.util.conversion.UUIDConverter;
 import com.pineone.icbms.so.util.exception.BadRequestException;
 import com.pineone.icbms.so.util.priority.Priority;
 import com.pineone.icbms.so.util.session.DefaultSession;
@@ -25,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 /**
@@ -88,7 +90,17 @@ public class ServiceLogicImpl implements ServiceLogic{
     @Override
     //NOTE: Service 등록정보를 수신받고 SO DB에 저장
     public String registerService(Service service) {
-        logger.debug("Service = " + service.toString());
+        if(service == null){
+            logger.warn("You can not register a service. service is Null");
+            return null;
+        }
+        if(service.getId() == null){
+            service.setId("si-make-"+ UUIDConverter.shortUUID(UUID.randomUUID().toString().toCharArray()));
+        }
+        long time = System.currentTimeMillis();
+        service.setCreateTime(time);
+        service.setModifiedTime(time);
+        logger.debug("service = " + service);
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
         String serviceMessageStr = responseMessage.serviceResultMessage(service);
         serviceStore.createService(service);

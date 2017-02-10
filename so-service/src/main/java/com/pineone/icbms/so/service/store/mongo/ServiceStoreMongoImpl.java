@@ -5,6 +5,7 @@ import com.pineone.icbms.so.service.store.ServiceStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class ServiceStoreMongoImpl implements ServiceStore {
     //NOTE: Service List 조회
     @Override
     public List<Service> retrieveServiceList() {
-        List<ServiceDataObject> serviceDataObjectList = serviceRepository.findAll();
+        List<ServiceDataObject> serviceDataObjectList = serviceRepository.findAll(new Sort(Sort.Direction.DESC,"createTime"));
         List<Service> serviceList = new ArrayList<>();
         for (ServiceDataObject serviceDataObject : serviceDataObjectList){
             serviceList.add(dataObjectToService(serviceDataObject));

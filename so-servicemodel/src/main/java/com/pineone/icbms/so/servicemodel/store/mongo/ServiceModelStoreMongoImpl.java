@@ -5,6 +5,7 @@ import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class ServiceModelStoreMongoImpl implements ServiceModelStore {
     //NOTE: SM 리스트 조회
     @Override
     public List<ServiceModel> retrieveServiceModelList() {
-        List<ServiceModelDataObject> serviceModelDataObjectList = serviceModelRepository.findAll();
+        List<ServiceModelDataObject> serviceModelDataObjectList = serviceModelRepository.findAll(new Sort(Sort.Direction.DESC,"createTime"));
         List<ServiceModel> serviceModelList = new ArrayList<>();
         for(ServiceModelDataObject serviceModelDataObject : serviceModelDataObjectList){
             serviceModelList.add(dataObjectToServiceModel(serviceModelDataObject));
