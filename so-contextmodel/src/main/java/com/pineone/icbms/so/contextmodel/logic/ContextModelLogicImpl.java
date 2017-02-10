@@ -68,6 +68,11 @@ public class ContextModelLogicImpl implements ContextModelLogic{
 //        ContextModelStore contextModelStore = ContextModelMapStore.getInstance();
         //ContextModelExProxy contextModelExProxy = ContextModelSDAProxy.newContextModelProxy();
 
+
+        long time = System.currentTimeMillis();
+        contextModel.setCreateTime(time);
+        contextModel.setModifiedTime(time);
+
         contextModelStore.createContextModel(contextModel);
         //contextModelExProxy.registerContextModel(contextModel);
         String contextModelResultMessage = responseMessage.contextModelResultMessage(contextModel);
