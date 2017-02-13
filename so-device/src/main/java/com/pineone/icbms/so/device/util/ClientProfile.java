@@ -9,8 +9,19 @@ public class ClientProfile {
     public static final String  SI_COMMAND_ID               = "cmd_";
 
     // LWM2M control Data
-    public static final String	SO_CONTROL_JSON_TYPE		= "application/json:1";
+    public static final String	SI_CONTROL_DEV_URI     		= "http://218.153.68.53:8081";
+    public static final String	SI_CONTROL_JSON_TYPE		= "application/json:1";
     public static final String  SI_CONTROL_LWM2M_SOUND      = "sound__-1024-12-3";
+    public static final String  SI_CONTROL_LWM2M            = "lwm2m";
+    public static final String  SI_CONTROL_LWM2M_EXECUTE    = "execute";
+    public static final String  SI_CONTROL_LWM2M_RESOURCEURI= "/1024/12/3";
+    public static final String  SI_CONTROL_LWM2M_DISPLAYNAME= "sound";
+    public static final String  SI_CONTROL_LWM2M_OUI        = "000001";
+    public static final String  SI_CONTROL_LWM2M_MODELNAME  = "LWM2M Client(raspberry)";
+    public static final String  SI_CONTROL_LWM2M_SN         = "90:9F:33:EF:D8:ED";
+    public static final String  SI_CONTROL_LWM2M_AUTHID     = "testlwm2mclient";
+    public static final String  SI_CONTROL_LWM2M_AUTHPWD    = "1234567890abcdef1234567890abcdef";
+
 
     public static final String DEVICE_SERVICE_NOTI_TYPE     = "http://www.iotoasis.org/ontology/AlarmFunctionality";
     public static final String SERVICE_ALARM_TYPE           = "Alarm";

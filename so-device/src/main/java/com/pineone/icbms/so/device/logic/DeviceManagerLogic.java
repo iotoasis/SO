@@ -98,15 +98,15 @@ public class DeviceManagerLogic implements DeviceManager {
         // SI를 제어할수 있는 DeviceControlMessage로 변환
         DeviceControlMessage deviceControlMessage = new DeviceControlMessage();
         LWM2MDeviceControl lwm2MDeviceControl = new LWM2MDeviceControl();
-        if(device.getDeviceUri().contains("lwm2m")){
-            lwm2MDeviceControl.setOperation("execute");
-            lwm2MDeviceControl.setResourceUri("/1024/12/3");
-            lwm2MDeviceControl.setDisplayName("sound");
-            lwm2MDeviceControl.setOui("000001");
-            lwm2MDeviceControl.setModelName("LWM2M Client(raspberry)");
-            lwm2MDeviceControl.setSn("90:9F:33:EF:D8:ED");
-            lwm2MDeviceControl.setAuthld("testlwm2mclient");
-            lwm2MDeviceControl.setAuthPwd("1234567890abcdef1234567890abcdef");
+        if(device.getDeviceUri().contains(ClientProfile.SI_CONTROL_LWM2M)){
+            lwm2MDeviceControl.setOperation(ClientProfile.SI_CONTROL_LWM2M_EXECUTE);
+            lwm2MDeviceControl.setResourceUri(ClientProfile.SI_CONTROL_LWM2M_RESOURCEURI);
+            lwm2MDeviceControl.setDisplayName(ClientProfile.SI_CONTROL_LWM2M_DISPLAYNAME);
+            lwm2MDeviceControl.setOui(ClientProfile.SI_CONTROL_LWM2M_OUI);
+            lwm2MDeviceControl.setModelName(ClientProfile.SI_CONTROL_LWM2M_MODELNAME);
+            lwm2MDeviceControl.setSn(ClientProfile.SI_CONTROL_LWM2M_SN);
+            lwm2MDeviceControl.setAuthld(ClientProfile.SI_CONTROL_LWM2M_AUTHID);
+            lwm2MDeviceControl.setAuthPwd(ClientProfile.SI_CONTROL_LWM2M_AUTHPWD);
             lwm2MDeviceControl.setSv(deviceCommand);
             deviceControlMessage = lwm2mDeviceDataConversion(deviceId,commandId,deviceCommand);
         } else {
@@ -128,7 +128,8 @@ public class DeviceManagerLogic implements DeviceManager {
         // Device 제어 요청 보냄.
         ResultMessage resultMessage = new ResultMessage();
         if(device.getDeviceUri().contains("lwm2m")){
-            resultMessage = deviceControlProxy.lwm2mDeviceControlRequest(contextAddress.getServerAddress(ContextAddress.SI_SERVER) + AddressStore.SI_LWM2M_CONTOL_URI,deviceControlMessage,lwm2MDeviceControl);
+//            resultMessage = deviceControlProxy.lwm2mDeviceControlRequest(contextAddress.getServerAddress(ContextAddress.SI_SERVER) + AddressStore.SI_LWM2M_CONTOL_URI,deviceControlMessage,lwm2MDeviceControl);
+            resultMessage = deviceControlProxy.lwm2mDeviceControlRequest(ClientProfile.SI_CONTROL_DEV_URI + AddressStore.SI_LWM2M_CONTOL_URI,deviceControlMessage,lwm2MDeviceControl);
         } else {
             resultMessage = deviceControlProxy.deviceControlRequest(contextAddress.getServerAddress(ContextAddress.SI_SERVER) + AddressStore.SI_CONTOL_URI,deviceControlMessage);
         }
@@ -137,7 +138,7 @@ public class DeviceManagerLogic implements DeviceManager {
         /**
          * Device 제어 후 제어 결과가 Success면 Device Subscription 요청
          */
-        if(resultMessage.getCode().equals(ClientProfile.RESPONSE_SUCCESS_ONEM2MCODE)) {
+        if(resultMessage.getCode().equals(ClientProfile.RESPONSE_SUCCESS_ONEM2MCODE) && !device.getDeviceUri().contains("lwm2m")) {
             // 디바이스 상태 저장.
             device.setDeviceStatus(deviceCommand);
             deviceStore.update(device);
@@ -294,7 +295,7 @@ public class DeviceManagerLogic implements DeviceManager {
         deviceControlMessage.set_uri(deviceId);
         deviceControlMessage.set_commandId(commandId);
         deviceControlMessage.set_command(ClientProfile.SI_CONTROL_LWM2M_SOUND);
-        deviceControlMessage.setCnf(ClientProfile.SO_CONTROL_JSON_TYPE);
+        deviceControlMessage.setCnf(ClientProfile.SI_CONTROL_JSON_TYPE);
         deviceControlMessage.setCon(deviceCommand);
         return deviceControlMessage;
     }
