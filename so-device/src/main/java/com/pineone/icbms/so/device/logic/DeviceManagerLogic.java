@@ -128,8 +128,7 @@ public class DeviceManagerLogic implements DeviceManager {
         // Device 제어 요청 보냄.
         ResultMessage resultMessage = new ResultMessage();
         if(device.getDeviceUri().contains("lwm2m")){
-//            resultMessage = deviceControlProxy.lwm2mDeviceControlRequest(contextAddress.getServerAddress(ContextAddress.SI_SERVER) + AddressStore.SI_LWM2M_CONTOL_URI,deviceControlMessage,lwm2MDeviceControl);
-            resultMessage = deviceControlProxy.lwm2mDeviceControlRequest(ClientProfile.SI_CONTROL_DEV_URI + AddressStore.SI_LWM2M_CONTOL_URI,deviceControlMessage,lwm2MDeviceControl);
+            resultMessage = deviceControlProxy.lwm2mDeviceControlRequest(contextAddress.getServerAddress(ContextAddress.SI_SERVER) + AddressStore.SI_LWM2M_CONTOL_URI,deviceControlMessage,lwm2MDeviceControl);
         } else {
             resultMessage = deviceControlProxy.deviceControlRequest(contextAddress.getServerAddress(ContextAddress.SI_SERVER) + AddressStore.SI_CONTOL_URI,deviceControlMessage);
         }

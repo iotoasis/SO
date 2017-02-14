@@ -67,13 +67,6 @@ public class DefaultSession implements Session {
         mongoTime = new Date();
         createDate = mongoTime.toString();
         calculateTime = System.currentTimeMillis();
-
-        System.out.println("ahn");
-        System.out.println(mongoTime);
-        System.out.println(createDate);
-        System.out.println(calculateTime);
-        System.out.println("ahn");
-
     }
 
     public DefaultSession(String id, Map<String, String> sessionData) {

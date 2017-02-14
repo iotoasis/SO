@@ -9,7 +9,6 @@ public class ClientProfile {
     public static final String  SI_COMMAND_ID               = "cmd_";
 
     // LWM2M control Data
-    public static final String	SI_CONTROL_DEV_URI     		= "http://218.153.68.53:8081";
     public static final String	SI_CONTROL_JSON_TYPE		= "application/json:1";
     public static final String  SI_CONTROL_LWM2M_SOUND      = "sound__-1024-12-3";
     public static final String  SI_CONTROL_LWM2M            = "lwm2m";
