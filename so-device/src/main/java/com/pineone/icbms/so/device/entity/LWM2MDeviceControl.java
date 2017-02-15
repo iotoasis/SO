@@ -47,7 +47,7 @@ public class LWM2MDeviceControl {
      * 값 : testlwm2mclient
      * 설명 : 고정
      */
-    private String authld;
+    private String authId;
 
     /**
      * 값 : 1234567890abcdef1234567890abcdef
@@ -64,14 +64,14 @@ public class LWM2MDeviceControl {
     public LWM2MDeviceControl() {
     }
 
-    public LWM2MDeviceControl(String operation, String resourceUri, String displayName, String oui, String modelName, String sn, String authld, String authPwd, String sv) {
+    public LWM2MDeviceControl(String operation, String resourceUri, String displayName, String oui, String modelName, String sn, String authId, String authPwd, String sv) {
         this.operation = operation;
         this.resourceUri = resourceUri;
         this.displayName = displayName;
         this.oui = oui;
         this.modelName = modelName;
         this.sn = sn;
-        this.authld = authld;
+        this.authId = authId;
         this.authPwd = authPwd;
         this.sv = sv;
     }
@@ -125,11 +125,11 @@ public class LWM2MDeviceControl {
     }
 
     public String getAuthld() {
-        return authld;
+        return authId;
     }
 
     public void setAuthld(String authld) {
-        this.authld = authld;
+        this.authId = authld;
     }
 
     public String getAuthPwd() {
@@ -157,7 +157,7 @@ public class LWM2MDeviceControl {
                 ", oui='" + oui + '\'' +
                 ", modelName='" + modelName + '\'' +
                 ", sn='" + sn + '\'' +
-                ", authld='" + authld + '\'' +
+                ", authId='" + authId + '\'' +
                 ", authPwd='" + authPwd + '\'' +
                 ", sv='" + sv + '\'' +
                 '}';
