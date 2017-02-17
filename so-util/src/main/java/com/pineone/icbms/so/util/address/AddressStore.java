@@ -31,6 +31,9 @@ public class AddressStore {
     public static final String  SI_CONTOL_URI                           = "/si/control";
     public static final String  SI_SUBSCRIPTION_URI                     = "/si/subscription/add";
     public static final String  SI_SUBSCRIPTION_RELEASE_URI             = "/si/subscription/del";
+    // SI AuthIgnore Data
+    public static final String  SI_AUTH_CONTOL_URI                      = "/si/newcontrol";
+
 
     // SI LWM2M Data
     public static final String  SI_LWM2M_CONTOL_URI                     = "/si/ipe/lwm2m";
