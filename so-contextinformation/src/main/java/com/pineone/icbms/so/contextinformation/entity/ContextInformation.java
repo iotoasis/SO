@@ -1,8 +1,5 @@
 package com.pineone.icbms.so.contextinformation.entity;
 
-import com.pineone.icbms.so.contextinformation.temp.device.ConceptService;
-import com.pineone.icbms.so.contextinformation.temp.device.DeviceObject;
-
 /**
  * Created by melvin on 2016. 7. 29..
  * NOTE: Logic 에서 사용할 ContextInformation Entity

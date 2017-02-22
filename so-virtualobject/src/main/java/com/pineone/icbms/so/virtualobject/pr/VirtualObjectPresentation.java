@@ -42,7 +42,7 @@ public class VirtualObjectPresentation {
     @RequestMapping(value = "/control",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public String requestControlVirtualObject(@RequestBody VirtualObjectTransFormObject virtualObjectTransFormObject){
-        logger.info(LogPrint.inputInfoLogPrint());
+        logger.info(LogPrint.inputInfoLogPrint() + "virtualobjectID = " + virtualObjectTransFormObject.getId() + " Command = "+ virtualObjectTransFormObject.getVoCommand());
         //
         return virtualObjectManager.requestControlDevice(virtualObjectTransFormObject.getId(), virtualObjectTransFormObject.getVoCommand(), virtualObjectTransFormObject.getSessionId());
     }
@@ -86,12 +86,21 @@ public class VirtualObjectPresentation {
         virtualObjectManager.deleteVirtualObject(id);
     }
 
+    @RequestMapping(value = "/search",method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public List<VirtualObject> findVirtualObject(@RequestBody VirtualObjectTransFormObject virtulaObject){
+        logger.info(LogPrint.LogMethodNamePrint() + " | [aspect] = " + virtulaObject.getAspect() + " [functionality] = " + virtulaObject.getFunctionality());
+        return virtualObjectManager.searchVirtualObjectList(virtulaObject.getAspect(), virtulaObject.getFunctionality());
+    }
+
+
+
     private VirtualObject virtualObjectMapping(VirtualObjectTransFormObject virtualObjectDataObject)
     {
         if(virtualObjectDataObject == null){
             return null;
         }
-        VirtualObject virtualObject = new VirtualObject(virtualObjectDataObject.getId(),virtualObjectDataObject.getVoName(),virtualObjectDataObject.getFunctionality(),virtualObjectDataObject.getVoDescription(),virtualObjectDataObject.getVoCreateTime(),virtualObjectDataObject.getVoExpiredTime(),virtualObjectDataObject.getDeviceService(),virtualObjectDataObject.getDeviceId(),virtualObjectDataObject.getVoCommand(),virtualObjectDataObject.getVoLocation());
+        VirtualObject virtualObject = new VirtualObject(virtualObjectDataObject.getId(),virtualObjectDataObject.getVoName(),virtualObjectDataObject.getFunctionality(),virtualObjectDataObject.getVoDescription(),virtualObjectDataObject.getVoCreateTime(),virtualObjectDataObject.getVoExpiredTime(),virtualObjectDataObject.getAspect(),virtualObjectDataObject.getDeviceId(),virtualObjectDataObject.getVoCommand(),virtualObjectDataObject.getVoLocation());
         if(!virtualObject.getId().startsWith(VirtualObjectProfile.VIRTUALOBJECT_ID)){
             String voId = virtualObject.getId();
             virtualObject.setId(VirtualObjectProfile.VIRTUALOBJECT_ID + voId);

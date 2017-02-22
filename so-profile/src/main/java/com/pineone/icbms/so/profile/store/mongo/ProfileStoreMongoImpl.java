@@ -69,6 +69,13 @@ public class ProfileStoreMongoImpl implements ProfileStore {
         logger.debug("profile : " + profileDataObject.toString());
     }
 
+    @Override
+    public Profile retrieveProfileDetailByName(String profileName) {
+        ProfileDataObject profileDataObject = profileRepository.findByName(profileName);
+        logger.debug("Profile = " + dataObjectToProfile(profileDataObject));
+        return dataObjectToProfile(profileDataObject);
+    }
+
     private ProfileDataObject profileToDataObject(Profile profile) {
         if(profile == null) return null;
         return new ProfileDataObject(profile.getId(), profile.getName(), profile.getContextModelId(), profile.getServiceModelId(),

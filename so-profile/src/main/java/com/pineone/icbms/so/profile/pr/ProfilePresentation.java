@@ -8,12 +8,9 @@ import com.pineone.icbms.so.contextinformation.temp.device.TempConceptService;
 import com.pineone.icbms.so.contextinformation.temp.device.VirtualObject;
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
-import com.pineone.icbms.so.contextmodel.pr.ContextModelTransFormObject;
 import com.pineone.icbms.so.contextmodel.ref.ContextType;
-import com.pineone.icbms.so.domain.proxy.DomainProxy;
 import com.pineone.icbms.so.profile.entity.Profile;
 import com.pineone.icbms.so.profile.logic.ProfileLogic;
-import com.pineone.icbms.so.profile.logic.ProfileLogicImpl;
 import com.pineone.icbms.so.profile.ref.DataValidation;
 import com.pineone.icbms.so.profile.ref.ResponseMessage;
 import com.pineone.icbms.so.util.exception.DataLossException;
@@ -284,5 +281,15 @@ public class ProfilePresentation {
         logger.info(LogPrint.inputInfoLogPrint());
         List<Profile> profileList = profileLogic.retrieveProfileList();
         return profileList;
+    }
+
+    //NOTE : Profile Name 으로 Id 조회
+    @RequestMapping(value = "/names/{name}", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public String retrieveProfileIdByName(@PathVariable("name")String profileName){
+        logger.info(LogPrint.inputInfoLogPrint());
+        Profile profile = profileLogic.retrieveProfileDetailByName(profileName);
+        return profile.getId();
     }
 }

@@ -1,7 +1,6 @@
 package com.pineone.icbms.so.contextinformation.store.mongo;
 
 import com.pineone.icbms.so.contextinformation.entity.ContextInformation;
-import com.pineone.icbms.so.contextinformation.pr.ContextInformationPresentation;
 import com.pineone.icbms.so.contextinformation.store.ContextInformationStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -125,25 +125,49 @@ public class ServiceModelPresentation {
     @ResponseStatus(value = HttpStatus.OK)
     public ServiceModel retrieveServiceModelDetailController(@PathVariable String serviceModelId){
         logger.info(LogPrint.inputInfoLogPrint() + "ServiceModel ID = " + serviceModelId);
-        //
         ServiceModel serviceModel = serviceModelLogic.retrieveServiceModelDetail(serviceModelId);
         logger.debug("ServiceModel = " + serviceModel);
         return serviceModel;
     }
+
+    /**
+     * ServiceModel ID 조회 By Name
+     */
+    @RequestMapping(value = "/names/{serviceModelName}", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public String retrieveServiceModelId(@PathVariable String serviceModelName){
+        logger.info(LogPrint.inputInfoLogPrint() + "ServiceModel Name = " + serviceModelName);
+        String serviceModelId = serviceModelLogic.retreveServiceModelId(serviceModelName);
+        logger.debug("ServiceModel Name = " + serviceModelId);
+        return serviceModelId;
+    }
+
+    /**
+     * ServiceModel ID 조회 By Name
+     */
+    @RequestMapping(value = "/des/{description}", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public String retrieveServiceModelIdByDes(@PathVariable String description){
+        logger.info(LogPrint.inputInfoLogPrint() + "Description = " + description);
+        ServiceModel serviceModel = serviceModelLogic.retrieveServiceModelIdByDes(description);
+        logger.debug("ServiceModel Id = " + serviceModel.getId());
+        return serviceModel.getId();
+    }
+
 
     //NOTE: 응급상황으로 발생하는 ContextModel 에 따른 ServiceModel 실행
     @RequestMapping(value = "/control", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public void executeServiceModel(@RequestBody ServiceModelTransFormObject serviceModelTransFormObject) {
         //
-        logger.info(LogPrint.inputInfoLogPrint() + "ServiceModel ID = " + serviceModelTransFormObject.getId() + " Session ID = " + serviceModelTransFormObject.getSessionId());
+        logger.info(LogPrint.LogMethodNamePrint());
         logger.debug("ServiceModel Id = " + serviceModelTransFormObject.getId() + " Session ID = " + serviceModelTransFormObject.getSessionId());
         serviceModelLogic.executeServiceModel(serviceModelTransFormObject.getId(), serviceModelTransFormObject.getSessionId());
     }
 
     public ServiceModel dataObjectToServiceModel(ServiceModelTransFormObject serviceModelTransFormObject){
         if(serviceModelTransFormObject == null) return null;
-        return new ServiceModel(serviceModelTransFormObject.getId(), serviceModelTransFormObject.getName(), serviceModelTransFormObject.getServiceIdList(), serviceModelTransFormObject.getCreateTime(), serviceModelTransFormObject.getModifiedTime(), serviceModelTransFormObject.getLocation());
+        return new ServiceModel(serviceModelTransFormObject.getId(), serviceModelTransFormObject.getName(), serviceModelTransFormObject.getServiceIdList(), serviceModelTransFormObject.getCreateTime(), serviceModelTransFormObject.getModifiedTime(), serviceModelTransFormObject.getLocation(), serviceModelTransFormObject.getDescription());
     }
 
     public ServiceModelTransFormObject settingServiceModelId(String serviceModelId, String sessionId){

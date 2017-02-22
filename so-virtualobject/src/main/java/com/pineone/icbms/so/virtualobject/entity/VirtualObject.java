@@ -1,16 +1,6 @@
 package com.pineone.icbms.so.virtualobject.entity;
 
 public class VirtualObject {
-    //
-
-    /**
-     * Device functionality definition
-     */
-    public static final String DEVICE_FUNCTIONLITY_TEMP_CONTROL                 =   "temp-control";
-    public static final String DEVICE_FUNCTIONLITY_POWER_CONTROL                =   "power-control";
-    public static final String DEVICE_FUNCTIONLITY_OPEN_CONTROL                 =   "open-control";
-    public static final String DEVICE_FUNCTIONLITY_ADMIN_NOTI                   =   "admin-noti";
-
 
     /**
      * VirtualObject 식별자
@@ -55,11 +45,11 @@ public class VirtualObject {
     private String voExpiredTime;
 
     /**
-     * VirtualObject에 연결된 Device의 서비스
-     * format : Device Service
+     * VirtualObject에 연결된 Device의 aspect
+     * format : Device aspect
      * ex) power-control
      */
-    private String deviceService;
+    private String aspect;
 
     /**
      * VirtualObject에 연결된 Device의 식별자
@@ -86,14 +76,14 @@ public class VirtualObject {
     public VirtualObject() {
     }
 
-    public VirtualObject(String id, String voName, String functionality, String voDescription, String voCreateTime, String voExpiredTime, String deviceService, String deviceId, String voCommand, String voLocation) {
+    public VirtualObject(String id, String voName, String functionality, String voDescription, String voCreateTime, String voExpiredTime, String aspect, String deviceId, String voCommand, String voLocation) {
         this.id = id;
         this.voName = voName;
         this.functionality = functionality;
         this.voDescription = voDescription;
         this.voCreateTime = voCreateTime;
         this.voExpiredTime = voExpiredTime;
-        this.deviceService = deviceService;
+        this.aspect = aspect;
         this.deviceId = deviceId;
         this.voCommand = voCommand;
         this.voLocation = voLocation;
@@ -147,12 +137,12 @@ public class VirtualObject {
         this.voExpiredTime = voExpiredTime;
     }
 
-    public String getDeviceService() {
-        return deviceService;
+    public String getAspect() {
+        return aspect;
     }
 
-    public void setDeviceService(String deviceService) {
-        this.deviceService = deviceService;
+    public void setAspect(String aspect) {
+        this.aspect = aspect;
     }
 
     public String getDeviceId() {
@@ -188,7 +178,7 @@ public class VirtualObject {
                 ", voDescription='" + voDescription + '\'' +
                 ", voCreateTime='" + voCreateTime + '\'' +
                 ", voExpiredTime='" + voExpiredTime + '\'' +
-                ", deviceService='" + deviceService + '\'' +
+                ", aspect='" + aspect + '\'' +
                 ", deviceId='" + deviceId + '\'' +
                 ", voCommand='" + voCommand + '\'' +
                 ", voLocation='" + voLocation + '\'' +

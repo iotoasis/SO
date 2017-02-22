@@ -10,10 +10,11 @@ public class ServiceModelTransFormObject {
     private String id;
     private String name;
     private List<String> serviceIdList;
-    private String createTime;
-    private String modifiedTime;
+    private long createTime;
+    private long modifiedTime;
     private String location;
     private String sessionId;
+    private String description;
 
 
     public String getName() {
@@ -40,19 +41,19 @@ public class ServiceModelTransFormObject {
         this.id = id;
     }
 
-    public String getCreateTime() {
+    public long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
     }
 
-    public String getModifiedTime() {
+    public long getModifiedTime() {
         return modifiedTime;
     }
 
-    public void setModifiedTime(String modifiedTime) {
+    public void setModifiedTime(long modifiedTime) {
         this.modifiedTime = modifiedTime;
     }
 
@@ -72,6 +73,14 @@ public class ServiceModelTransFormObject {
         this.location = location;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public ServiceModelTransFormObject() {
     }
 
@@ -81,13 +90,21 @@ public class ServiceModelTransFormObject {
         this.serviceIdList = serviceIdList;
     }
 
-    public ServiceModelTransFormObject(String id, String name, List<String> serviceIdList, String createTime, String modifiedTime, String location) {
+    public ServiceModelTransFormObject(String name, List<String> serviceIdList , String location) {
+        this.name = name;
+        this.serviceIdList = serviceIdList;
+        this.location = location;
+    }
+
+    public ServiceModelTransFormObject(String id, String name, List<String> serviceIdList, long createTime, long modifiedTime, String location, String sessionId, String description) {
         this.id = id;
         this.name = name;
         this.serviceIdList = serviceIdList;
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
         this.location = location;
+        this.sessionId = sessionId;
+        this.description = description;
     }
 
     @Override
@@ -100,6 +117,7 @@ public class ServiceModelTransFormObject {
                 ", modifiedTime='" + modifiedTime + '\'' +
                 ", location='" + location + '\'' +
                 ", sessionId='" + sessionId + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

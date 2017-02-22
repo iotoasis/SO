@@ -15,7 +15,7 @@ import java.util.Map;
  */
 
 
-public class ProfileMapStore implements ProfileStore {
+public class ProfileMapStore {
 
     private static ProfileMapStore instance;
     private ProfileMapStore(){};
@@ -24,14 +24,14 @@ public class ProfileMapStore implements ProfileStore {
     private Map<String, Profile> profileStore = new HashMap<>();
 
     //NOTE: DB 에 Profile 데이터 생성
-    @Override
+
     public void createProfile(Profile profile) {
         //
         profileStore.put(profile.getName(), profile);
     }
 
     //NOTE : DB 에서 Profile List 조회
-    @Override
+
     public List<Profile> retrieveProfileList() {
         //
         List<Profile> profilesList = new ArrayList<>();
@@ -42,20 +42,25 @@ public class ProfileMapStore implements ProfileStore {
     }
 
     //NOTE : DB 에서 Profile 상세 조회
-    @Override
+
     public Profile retrieveProfileDetail(String profileName) {
         Profile profile = profileStore.get(profileName);
         return profile;
     }
 
-    @Override
+
     public List<Profile> findByContextModelId(String contextModelId) {
         return null;
     }
 
-    @Override
+
     public void addPriority(Profile profile, String priority) {
 
+    }
+
+
+    public Profile retrieveProfileDetailByName(String profileName) {
+        return null;
     }
 
     public static ProfileMapStore getInstance(){

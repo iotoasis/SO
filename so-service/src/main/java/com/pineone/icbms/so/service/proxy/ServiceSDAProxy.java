@@ -5,4 +5,6 @@ import com.pineone.icbms.so.util.session.Session;
 
 public interface ServiceSDAProxy {
     String getPCCountUri(Session session) throws BadRequestException;
+    String getTemperatureLookup(Session session) throws BadRequestException;
+    String getDataService(DataServiceObject dataServiceObject) throws BadRequestException;
 }

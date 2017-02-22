@@ -8,6 +8,7 @@ public interface VirtualObjectManager {
     VirtualObject searchVirtualObject(String id);
     void deleteVirtualObject(String id);
     List<VirtualObject> searchVirtualObjectList(String location);
+    List<VirtualObject> searchVirtualObjectList(String aspect, String functionality);
     List<VirtualObject> searchVirtualObjectList();
     String requestControlDevice(String voId, String operation, String sessionId);
     void produceVirtualObject(VirtualObject virtualObject);

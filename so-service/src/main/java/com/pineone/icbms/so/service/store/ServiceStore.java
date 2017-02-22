@@ -10,4 +10,5 @@ public interface ServiceStore {
     List<Service> retrieveServiceList();
     Service retrieveServiceDetail(String serviceId);
     void updateService(Service service);
+    Service retrieveServiceDetailByName(String serviceName);
 }

@@ -49,6 +49,11 @@ public class ServiceMapStore implements ServiceStore {
 
     }
 
+    @Override
+    public Service retrieveServiceDetailByName(String serviceName) {
+        return null;
+    }
+
     public static ServiceMapStore getInstance(){
         if(instance == null)
             instance = new ServiceMapStore();

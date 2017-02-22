@@ -14,9 +14,10 @@ public class ServiceModelDataObject {
     private String id;
     private String name;
     private List<String> serviceIdList;
-    private String createTime;
-    private String modifiedTime;
+    private long createTime;
+    private long modifiedTime;
     private String location;
+    private String description;
 
     public String getName() {
         return name;
@@ -42,19 +43,19 @@ public class ServiceModelDataObject {
         this.id = id;
     }
 
-    public String getCreateTime() {
+    public long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
     }
 
-    public String getModifiedTime() {
+    public long getModifiedTime() {
         return modifiedTime;
     }
 
-    public void setModifiedTime(String modifiedTime) {
+    public void setModifiedTime(long modifiedTime) {
         this.modifiedTime = modifiedTime;
     }
 
@@ -66,6 +67,14 @@ public class ServiceModelDataObject {
         this.location = location;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public ServiceModelDataObject() {
     }
 
@@ -75,14 +84,16 @@ public class ServiceModelDataObject {
         this.serviceIdList = serviceIdList;
     }
 
-    public ServiceModelDataObject(String id, String name, List<String> serviceIdList, String createTime, String modifiedTime, String location) {
+    public ServiceModelDataObject(String id, String name, List<String> serviceIdList, long createTime, long modifiedTime, String location, String description) {
         this.id = id;
         this.name = name;
         this.serviceIdList = serviceIdList;
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
         this.location = location;
+        this.description = description;
     }
+
 
     @Override
     public String toString() {
@@ -93,6 +104,7 @@ public class ServiceModelDataObject {
                 ", createTime='" + createTime + '\'' +
                 ", modifiedTime='" + modifiedTime + '\'' +
                 ", location='" + location + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

@@ -34,4 +34,10 @@ public class DeviceSubscriptionMongoStore implements DeviceSubscriptionStore {
         logger.debug("Command ID  = " + commandId);
         deviceSubscriptionRepository.delete(commandId);
     }
+
+    @Override
+    public void update(DeviceSubscriptionObject deviceSubscriptionObject) {
+        logger.debug("Device = " + deviceSubscriptionObject.toString());
+        deviceSubscriptionRepository.save(deviceSubscriptionObject);
+    }
 }

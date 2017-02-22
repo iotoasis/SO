@@ -2,13 +2,13 @@ package com.pineone.icbms.so.profile.logic;
 
 import com.pineone.icbms.so.contextmodel.entity.ContextModel;
 import com.pineone.icbms.so.contextmodel.pr.ContextModelPresentation;
-import com.pineone.icbms.so.contextmodel.ref.ContextType;
 import com.pineone.icbms.so.profile.entity.Profile;
 import com.pineone.icbms.so.profile.proxy.ProfileProxy;
 import com.pineone.icbms.so.profile.ref.ResponseMessage;
 import com.pineone.icbms.so.profile.store.ProfileStore;
 import com.pineone.icbms.so.servicemodel.pr.ServiceModelPresentation;
 import com.pineone.icbms.so.util.conversion.DataConversion;
+import com.pineone.icbms.so.util.conversion.UUIDConverter;
 import com.pineone.icbms.so.util.priority.Priority;
 import com.pineone.icbms.so.util.session.DefaultSession;
 import com.pineone.icbms.so.util.session.Session;
@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by melvin on 2016. 8. 11..
@@ -106,20 +107,20 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
         //
         logger.debug("Profile = " + profile.toString());
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
+        if(profile.getId() == null){
+            profile.setId("!!pr-make-"+ UUIDConverter.shortUUID(UUID.randomUUID().toString().toCharArray()));
+        }
 //        ProfileStore profileStore = ProfileMapStore.getInstance();
 
         //NOTE: ScheduleType 인데 스케쥴이 설정 안되있는 경우
-        String contextModelType = contextModelPresentation.retrieveContextModelType(profile.getContextModelId());
-        if(contextModelType.equals(ContextType.ScheduleType.toString())){
-            if(profile.getPeriod() == 0){
-                String profileResultMessage = "Input ScheduleTime";
-                return profileResultMessage;
-            }
-            else{
-                profileProxy.registerScheduler(profile.getId(), profile.getPeriod());
-                // TODO : 스케쥴러에 등록 - (Profile 이름, 스케쥴)
-            }
+        if(profile.getPeriod() == 0){
+            String profileResultMessage = "Input ScheduleTime";
+            return profileResultMessage;
         }
+//        else{
+            profileProxy.registerScheduler(profile.getId(), profile.getPeriod());
+//            // TODO : 스케쥴러에 등록 - (Profile 이름, 스케쥴
+//        }
         profileStore.createProfile(profile);
         String profileResultMessage = responseMessage.profileResultMessage(profile);
         return profileResultMessage;
@@ -212,6 +213,14 @@ public class ProfileLogicImpl implements ProfileLogic, Runnable{
     public List<Profile> retrieveProfileList() {
         List<Profile> profileList = profileStore.retrieveProfileList();
         return profileList;
+    }
+
+    //NOTE : Profile 이름으로 Profile 상세 내용 조회
+    @Override
+    public Profile retrieveProfileDetailByName(String profileName) {
+        logger.debug("profileName = " + profileName);
+        Profile profile = profileStore.retrieveProfileDetailByName(profileName);
+        return profile;
     }
 
     //NOTE : Occ 수신 기능 - 응급상황 발생 > 수신 > 프로파일 검색 > 서비스모델 연결
