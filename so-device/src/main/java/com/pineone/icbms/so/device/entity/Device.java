@@ -69,10 +69,34 @@ public class Device {
      */
     private String deviceStatus;
 
+    /**
+     * Device의 aspect
+     * format : Power
+     * ex) Power
+     */
+    private String aspect;
+
+
+    /**
+     * Device의 functionality
+     * format : Switch
+     * ex) Switch
+     */
+    private String functionality;
+
+
+    /**
+     * Device의 Type
+     * format : A(Actuator/S(Sensor)
+     * ex) A
+     */
+    private String type;
+
+
     public Device() {
     }
 
-    public Device(String id, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, long deviceCreateTime, long deviceExfiredTime, String deviceStatus) {
+    public Device(String id, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, long deviceCreateTime, long deviceExfiredTime, String deviceStatus, String aspect, String functionality, String type) {
         this.id = id;
         this.deviceName = deviceName;
         this.deviceLocation = deviceLocation;
@@ -82,6 +106,9 @@ public class Device {
         this.deviceCreateTime = deviceCreateTime;
         this.deviceExfiredTime = deviceExfiredTime;
         this.deviceStatus = deviceStatus;
+        this.aspect = aspect;
+        this.functionality = functionality;
+        this.type = type;
     }
 
     public String getId() {
@@ -156,6 +183,30 @@ public class Device {
         this.deviceStatus = deviceStatus;
     }
 
+    public String getAspect() {
+        return aspect;
+    }
+
+    public void setAspect(String aspect) {
+        this.aspect = aspect;
+    }
+
+    public String getFunctionality() {
+        return functionality;
+    }
+
+    public void setFunctionality(String functionality) {
+        this.functionality = functionality;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public boolean checkStatus(String status){
         return this.deviceStatus.equals(status);
     }
@@ -169,9 +220,12 @@ public class Device {
                 ", deviceUri='" + deviceUri + '\'' +
                 ", deviceCommand=" + deviceCommand +
                 ", deviceServices=" + deviceServices +
-                ", deviceCreateTime='" + deviceCreateTime + '\'' +
-                ", deviceExfiredTime='" + deviceExfiredTime + '\'' +
+                ", deviceCreateTime=" + deviceCreateTime +
+                ", deviceExfiredTime=" + deviceExfiredTime +
                 ", deviceStatus='" + deviceStatus + '\'' +
+                ", aspect='" + aspect + '\'' +
+                ", functionality='" + functionality + '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 }

@@ -1,28 +1,39 @@
 package com.pineone.icbms.so.device.entity;
 
+import java.util.List;
+
 public class DeviceTransFormObject {
 
-    private String id;
+    private String          id;
     private String          deviceName;
     private String          deviceLocation;
     private String          deviceUri;
-    private String          deviceCommand;
-    private String          deviceServices;
-    private String deviceStatus;
+    private List<String>    deviceCommand;
+    private List<String>    deviceServices;
+    private long            deviceCreateTime;
+    private long            deviceExfiredTime;
+    private String          deviceStatus;
+    private String          aspect;
+    private String          functionality;
+    private String          type;
     private String          sessionId;
 
     public DeviceTransFormObject() {
     }
 
-    public DeviceTransFormObject(String id, String deviceName, String deviceLocation, String deviceUri, String deviceCommand, String deviceServices, String deviceStatus, String sessionId) {
+    public DeviceTransFormObject(String id, String deviceName, String deviceLocation, String deviceUri, List<String> deviceCommand, List<String> deviceServices, long deviceCreateTime, long deviceExfiredTime, String deviceStatus, String aspect, String functionality, String type) {
         this.id = id;
         this.deviceName = deviceName;
         this.deviceLocation = deviceLocation;
         this.deviceUri = deviceUri;
         this.deviceCommand = deviceCommand;
         this.deviceServices = deviceServices;
+        this.deviceCreateTime = deviceCreateTime;
+        this.deviceExfiredTime = deviceExfiredTime;
         this.deviceStatus = deviceStatus;
-        this.sessionId = sessionId;
+        this.aspect = aspect;
+        this.functionality = functionality;
+        this.type = type;
     }
 
     public String getId() {
@@ -57,20 +68,36 @@ public class DeviceTransFormObject {
         this.deviceUri = deviceUri;
     }
 
-    public String getDeviceCommand() {
+    public List<String> getDeviceCommand() {
         return deviceCommand;
     }
 
-    public void setDeviceCommand(String deviceCommand) {
+    public void setDeviceCommand(List<String> deviceCommand) {
         this.deviceCommand = deviceCommand;
     }
 
-    public String getDeviceServices() {
+    public List<String> getDeviceServices() {
         return deviceServices;
     }
 
-    public void setDeviceServices(String deviceServices) {
+    public void setDeviceServices(List<String> deviceServices) {
         this.deviceServices = deviceServices;
+    }
+
+    public long getDeviceCreateTime() {
+        return deviceCreateTime;
+    }
+
+    public void setDeviceCreateTime(long deviceCreateTime) {
+        this.deviceCreateTime = deviceCreateTime;
+    }
+
+    public long getDeviceExfiredTime() {
+        return deviceExfiredTime;
+    }
+
+    public void setDeviceExfiredTime(long deviceExfiredTime) {
+        this.deviceExfiredTime = deviceExfiredTime;
     }
 
     public String getDeviceStatus() {
@@ -81,12 +108,40 @@ public class DeviceTransFormObject {
         this.deviceStatus = deviceStatus;
     }
 
+    public boolean checkStatus(String status){
+        return this.deviceStatus.equals(status);
+    }
+
     public String getSessionId() {
         return sessionId;
     }
 
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public String getAspect() {
+        return aspect;
+    }
+
+    public void setAspect(String aspect) {
+        this.aspect = aspect;
+    }
+
+    public String getFunctionality() {
+        return functionality;
+    }
+
+    public void setFunctionality(String functionality) {
+        this.functionality = functionality;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
@@ -96,9 +151,14 @@ public class DeviceTransFormObject {
                 ", deviceName='" + deviceName + '\'' +
                 ", deviceLocation='" + deviceLocation + '\'' +
                 ", deviceUri='" + deviceUri + '\'' +
-                ", deviceCommand='" + deviceCommand + '\'' +
-                ", deviceServices='" + deviceServices + '\'' +
+                ", deviceCommand=" + deviceCommand +
+                ", deviceServices=" + deviceServices +
+                ", deviceCreateTime=" + deviceCreateTime +
+                ", deviceExfiredTime=" + deviceExfiredTime +
                 ", deviceStatus='" + deviceStatus + '\'' +
+                ", aspect='" + aspect + '\'' +
+                ", functionality='" + functionality + '\'' +
+                ", type='" + type + '\'' +
                 ", sessionId='" + sessionId + '\'' +
                 '}';
     }

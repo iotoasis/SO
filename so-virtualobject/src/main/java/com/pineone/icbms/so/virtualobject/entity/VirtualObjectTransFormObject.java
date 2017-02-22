@@ -8,7 +8,7 @@ public class VirtualObjectTransFormObject {
     private String voDescription;
     private String voCreateTime;
     private String voExpiredTime;
-    private String deviceService;
+    private String aspect;
     private String deviceId;
     private String voCommand;
     private String voLocation;
@@ -18,14 +18,14 @@ public class VirtualObjectTransFormObject {
     public VirtualObjectTransFormObject() {
     }
 
-    public VirtualObjectTransFormObject(String id, String voName, String functionality, String voDescription, String voCreateTime, String voExpiredTime, String deviceService, String deviceId, String voCommand, String voLocation, String sessionId) {
+    public VirtualObjectTransFormObject(String id, String voName, String functionality, String voDescription, String voCreateTime, String voExpiredTime, String aspect, String deviceId, String voCommand, String voLocation, String sessionId) {
         this.id = id;
         this.voName = voName;
         this.functionality = functionality;
         this.voDescription = voDescription;
         this.voCreateTime = voCreateTime;
         this.voExpiredTime = voExpiredTime;
-        this.deviceService = deviceService;
+        this.aspect = aspect;
         this.deviceId = deviceId;
         this.voCommand = voCommand;
         this.voLocation = voLocation;
@@ -80,12 +80,12 @@ public class VirtualObjectTransFormObject {
         this.voExpiredTime = voExpiredTime;
     }
 
-    public String getDeviceService() {
-        return deviceService;
+    public String getAspect() {
+        return aspect;
     }
 
-    public void setDeviceService(String deviceService) {
-        this.deviceService = deviceService;
+    public void setAspect(String aspect) {
+        this.aspect = aspect;
     }
 
     public String getDeviceId() {
@@ -129,7 +129,7 @@ public class VirtualObjectTransFormObject {
                 ", voDescription='" + voDescription + '\'' +
                 ", voCreateTime='" + voCreateTime + '\'' +
                 ", voExpiredTime='" + voExpiredTime + '\'' +
-                ", deviceService='" + deviceService + '\'' +
+                ", aspect='" + aspect + '\'' +
                 ", deviceId='" + deviceId + '\'' +
                 ", voCommand='" + voCommand + '\'' +
                 ", voLocation='" + voLocation + '\'' +

@@ -1,7 +1,10 @@
 package com.pineone.icbms.so.domain.store.mongo;
 
 import com.pineone.icbms.so.domain.entity.Domain;
+import com.pineone.icbms.so.domain.logic.DomainLogicImpl;
 import com.pineone.icbms.so.domain.store.DomainStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +17,9 @@ import java.util.List;
  */
 @Repository
 public class DomainStoreMongoImpl implements DomainStore {
+
+
+    public static final Logger logger = LoggerFactory.getLogger(DomainStoreMongoImpl.class);
 
     @Autowired
     DomainRepository domainRepository;
@@ -39,6 +45,13 @@ public class DomainStoreMongoImpl implements DomainStore {
     @Override
     public Domain read(String id) {
         DomainDataObject domainDataObject = domainRepository.findOne(id);
+        return dataObjectToDomain(domainDataObject);
+    }
+
+    @Override
+    public Domain retrieveDomainDetailByName(String domainName) {
+        DomainDataObject domainDataObject = domainRepository.findByName(domainName);
+        logger.debug("Domain = " + dataObjectToDomain(domainDataObject));
         return dataObjectToDomain(domainDataObject);
     }
 

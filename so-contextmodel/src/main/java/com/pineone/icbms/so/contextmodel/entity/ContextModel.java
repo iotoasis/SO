@@ -13,8 +13,8 @@ public class ContextModel {
     private List<String> domainIdList;
     private List<String> contextInformationIdList;
     private String contextType;
-    private String createTime;
-    private String modifiedTime;
+    private long createTime;
+    private long modifiedTime;
     private String occTime;
 
     public ContextModel() {
@@ -35,7 +35,7 @@ public class ContextModel {
         this.contextType = contextType;
     }
 
-    public ContextModel(String id, String name, List<String> domainIdList, List<String> contextInformationIdList, String contextType, String createTime, String modifiedTime) {
+    public ContextModel(String id, String name, List<String> domainIdList, List<String> contextInformationIdList, String contextType, long createTime, long modifiedTime) {
         this.id = id;
         this.name = name;
         this.domainIdList = domainIdList;
@@ -85,19 +85,19 @@ public class ContextModel {
         this.contextType = contextType;
     }
 
-    public String getCreateTime() {
+    public long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
     }
 
-    public String getModifiedTime() {
+    public long getModifiedTime() {
         return modifiedTime;
     }
 
-    public void setModifiedTime(String modifiedTime) {
+    public void setModifiedTime(long modifiedTime) {
         this.modifiedTime = modifiedTime;
     }
 

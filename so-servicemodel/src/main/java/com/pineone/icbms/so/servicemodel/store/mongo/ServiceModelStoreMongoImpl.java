@@ -5,6 +5,7 @@ import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ public class ServiceModelStoreMongoImpl implements ServiceModelStore {
     //NOTE : SM 등록
     @Override
     public void createServiceModel(ServiceModel serviceModel) {
-        logger.debug("CreateServiceModel in Data = " + serviceModel.toString());
         ServiceModelDataObject serviceModelDataObject = serviceModelToDataObject(serviceModel);
         serviceModelRepository.save(serviceModelDataObject);
     }
@@ -32,13 +32,10 @@ public class ServiceModelStoreMongoImpl implements ServiceModelStore {
     //NOTE: SM 리스트 조회
     @Override
     public List<ServiceModel> retrieveServiceModelList() {
-        List<ServiceModelDataObject> serviceModelDataObjectList = serviceModelRepository.findAll();
+        List<ServiceModelDataObject> serviceModelDataObjectList = serviceModelRepository.findAll(new Sort(Sort.Direction.DESC,"createTime"));
         List<ServiceModel> serviceModelList = new ArrayList<>();
         for(ServiceModelDataObject serviceModelDataObject : serviceModelDataObjectList){
             serviceModelList.add(dataObjectToServiceModel(serviceModelDataObject));
-        }
-        for(ServiceModel serviceModel : serviceModelList){
-            logger.debug("Retrieve ServiceModel List is ServiceModel = " + serviceModel.toString());
         }
         return serviceModelList;
     }
@@ -46,20 +43,31 @@ public class ServiceModelStoreMongoImpl implements ServiceModelStore {
     //NOTE : SM 개별 조회
     @Override
     public ServiceModel retrieveServiceModelDetail(String serviceModelId) {
-        logger.debug("RetrieveServiceModel Detail is ServiceModelID = " + serviceModelId);
         ServiceModelDataObject serviceModelDataObject = serviceModelRepository.findOne(serviceModelId);
         ServiceModel serviceModel = dataObjectToServiceModel(serviceModelDataObject);
-        logger.debug("RetrieveServiceModel Detail is ServiceModel = " + serviceModel.toString());
         return serviceModel;
+    }
+
+    @Override
+    public String retrieveServiceModelId(String servicemodelName) {
+        ServiceModelDataObject serviceModelDataObject = serviceModelRepository.findByname(servicemodelName);
+        return serviceModelDataObject.getId();
+    }
+
+    @Override
+    public ServiceModel retrieveServiceModelDetailByDescription(String description) {
+        ServiceModelDataObject serviceModelDataObject = serviceModelRepository.findByDescription(description);
+        logger.debug("ServiceModel = " + dataObjectToServiceModel(serviceModelDataObject));
+        return dataObjectToServiceModel(serviceModelDataObject);
     }
 
     private ServiceModelDataObject serviceModelToDataObject(ServiceModel serviceModel) {
         if(serviceModel == null) return null;
-        return new ServiceModelDataObject(serviceModel.getId(), serviceModel.getName(), serviceModel.getServiceIdList());
+        return new ServiceModelDataObject(serviceModel.getId(), serviceModel.getName(),serviceModel.getServiceIdList(),serviceModel.getCreateTime(),serviceModel.getModifiedTime(),serviceModel.getLocation(),serviceModel.getDescription());
     }
 
     private ServiceModel dataObjectToServiceModel(ServiceModelDataObject serviceModelDataObject){
         if(serviceModelDataObject == null) return null;
-        return new ServiceModel(serviceModelDataObject.getId(), serviceModelDataObject.getName(), serviceModelDataObject.getServiceIdList(), serviceModelDataObject.getCreateTime(),serviceModelDataObject.getModifiedTime(),serviceModelDataObject.getLocation());
+        return new ServiceModel(serviceModelDataObject.getId(), serviceModelDataObject.getName(), serviceModelDataObject.getServiceIdList(), serviceModelDataObject.getCreateTime(),serviceModelDataObject.getModifiedTime(),serviceModelDataObject.getLocation(), serviceModelDataObject.getDescription());
     }
 }

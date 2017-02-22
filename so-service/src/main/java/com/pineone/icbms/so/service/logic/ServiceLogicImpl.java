@@ -1,8 +1,9 @@
 package com.pineone.icbms.so.service.logic;
 
 
-import com.pineone.icbms.so.compositevo.ref.CompositeProfile;
+import com.pineone.icbms.so.device.util.ClientProfile;
 import com.pineone.icbms.so.service.entity.Service;
+import com.pineone.icbms.so.service.proxy.DataServiceObject;
 import com.pineone.icbms.so.service.proxy.ServiceProxy;
 import com.pineone.icbms.so.service.proxy.ServiceSDAProxy;
 import com.pineone.icbms.so.service.ref.ConceptService;
@@ -13,18 +14,19 @@ import com.pineone.icbms.so.service.store.ServiceControlRecordStore;
 import com.pineone.icbms.so.service.store.ServiceStore;
 import com.pineone.icbms.so.util.TimeStamp;
 import com.pineone.icbms.so.util.conversion.DataConversion;
+import com.pineone.icbms.so.util.conversion.UUIDConverter;
 import com.pineone.icbms.so.util.exception.BadRequestException;
 import com.pineone.icbms.so.util.priority.Priority;
 import com.pineone.icbms.so.util.session.DefaultSession;
 import com.pineone.icbms.so.util.session.Session;
 import com.pineone.icbms.so.util.session.store.SessionStore;
-import com.pineone.icbms.so.virtualobject.entity.VirtualObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 /**
@@ -88,7 +90,17 @@ public class ServiceLogicImpl implements ServiceLogic{
     @Override
     //NOTE: Service 등록정보를 수신받고 SO DB에 저장
     public String registerService(Service service) {
-        logger.debug("Service = " + service.toString());
+        if(service == null){
+            logger.warn("You can not register a service. service is Null");
+            return null;
+        }
+        if(service.getId() == null){
+            service.setId("si-make-"+ UUIDConverter.shortUUID(UUID.randomUUID().toString().toCharArray()));
+        }
+        long time = System.currentTimeMillis();
+        service.setCreateTime(time);
+        service.setModifiedTime(time);
+        logger.debug("service = " + service);
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
         String serviceMessageStr = responseMessage.serviceResultMessage(service);
         serviceStore.createService(service);
@@ -171,32 +183,45 @@ public class ServiceLogicImpl implements ServiceLogic{
         if(!session.isExistSessionData(DefaultSession.PRIORITY_KEY) || Priority.HIGH.equals(session.getSessionData().get(DefaultSession.PRIORITY_KEY)) ||
                 serviceData.checkActivedPeriod(currentTime)){
             logger.info("Execute Service Start" + TimeStamp.currentTime());
+
+            String operation = serviceData.getStatus();
+            if("si-lack-equipment-noti".equals(serviceId)){
+                try {
+                    operation = serviceSDAProxy.getPCCountUri(session);
+                    logger.info("Equipment Data = " + operation);
+                    sessionDataUpdate(sessionStore,session,operation,DefaultSession.ADMIN_NOTI_DATA);
+                } catch (BadRequestException e) {
+                    logger.warn("operation is not Count");
+                    session = sessionStore.retrieveSessionDetail(localSessionId);
+                    session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_ERROR + " operation is null");
+                }
+            } else if("si-domitory-optimal-environment".equals(serviceId)){
+                try {
+                    operation = serviceSDAProxy.getTemperatureLookup(session);
+                    logger.info("Environment Data = " + operation);
+                } catch (BadRequestException e) {
+                    logger.warn("operation is not Count");
+                    session = sessionStore.retrieveSessionDetail(localSessionId);
+                    session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_ERROR + " operation is null");
+                }
+            }
+
             for(String virtualObjectId : serviceData.getVirtualObjectIdList()){
-                if(virtualObjectId.startsWith(CompositeProfile.COMPOSITE_ID)) {
-                    VirtualObject virtualObject = serviceProxy.findVirtualObject(virtualObjectId);
-                    if(virtualObject != null && "vo-lack-equipment".equals(virtualObject.getId())){
-                        serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus(), localSessionId);
-                    } else {
-                        serviceProxy.executeCompositeVirtualObject(virtualObjectId, serviceData.getVirtualObjectService(), serviceData.getStatus(), localSessionId);
+                if(operation.equals(ClientProfile.TEMP_COLD)){
+                    // Heater
+                    if(virtualObjectId.contains(ClientProfile.SI_DEVICE_HEATER)){
+                        serviceProxy.executeVirtualObject(virtualObjectId, ClientProfile.SI_DEVICE_OPERTAION, localSessionId);
+                    }
+                } else if(operation.equals(ClientProfile.TEMP_HOT)){
+                    // Airconditioner
+                    if(virtualObjectId.contains(ClientProfile.SI_DEVICE_AIRCONDITONER)){
+                        serviceProxy.executeVirtualObject(virtualObjectId, ClientProfile.SI_DEVICE_OPERTAION, localSessionId);
                     }
                 } else {
-                    VirtualObject virtualObject = serviceProxy.findVirtualObject(virtualObjectId);
-                    if(virtualObject != null && "vo-lack-equipment".equals(virtualObject.getId())){
-                        String operation = "";
-                        try {
-                            operation = serviceSDAProxy.getPCCountUri(session);
-                        } catch (BadRequestException e) {
-                            logger.warn("operation is not Count");
-                            session = sessionStore.retrieveSessionDetail(localSessionId);
-                            session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_ERROR + " operation is null");
-                        }
-                        serviceProxy.executeVirtualObject(virtualObjectId, operation, localSessionId);
-                    } else {
-                        serviceProxy.executeVirtualObject(virtualObjectId, serviceData.getStatus(), localSessionId);
-                    }
+                    serviceProxy.executeVirtualObject(virtualObjectId, operation, localSessionId);
                 }
-                serviceData.setModifiedTime(currentTime);
             }
+            serviceData.setModifiedTime(currentTime);
             serviceStore.updateService(serviceData);
             session = sessionStore.retrieveSessionDetail(localSessionId);
             session.insertSessionData(DefaultSession.SERVICE_RESULT, DefaultSession.CONTROL_EXECUTION);
@@ -216,6 +241,31 @@ public class ServiceLogicImpl implements ServiceLogic{
         List<Service> services = serviceStore.retrieveServiceList();
         logger.debug("Service List = " + services.toString());
         return services;
+    }
+
+    @Override
+    public String requestDataService(DataServiceObject dataServiceObject) {
+        String response = "";
+        try{
+            response =  serviceSDAProxy.getDataService(dataServiceObject);
+        }catch (BadRequestException e){
+            response = e.toString();
+        }
+        return response;
+    }
+
+    //NOTE: Service 이름으로 Id 조회 기능
+    @Override
+    public Service retrieveServiceDetailByName(String serviceName) {
+        logger.debug("serviceName = " + serviceName);
+        Service service = serviceStore.retrieveServiceDetailByName(serviceName);
+        return service;
+    }
+
+
+    private void sessionDataUpdate(SessionStore sessionStore, Session session, String data, String key){
+        session.insertSessionData(key, data);
+        sessionStore.updateSession(session);
     }
 
 }

@@ -14,11 +14,14 @@ public class CompositeVirtualObjectDataObject {
     private String createTime;
     private String modifiedTime;
     private String description;
+    private String functionality;
+    private String aspect;
+
 
     public CompositeVirtualObjectDataObject() {
     }
 
-    public CompositeVirtualObjectDataObject(String id, String name, List<String> voIdList, String location, String createTime, String modifiedTime, String description) {
+    public CompositeVirtualObjectDataObject(String id, String name, List<String> voIdList, String location, String createTime, String modifiedTime, String description, String functionality, String aspect) {
         this.id = id;
         this.name = name;
         this.voIdList = voIdList;
@@ -26,6 +29,8 @@ public class CompositeVirtualObjectDataObject {
         this.createTime = createTime;
         this.modifiedTime = modifiedTime;
         this.description = description;
+        this.functionality = functionality;
+        this.aspect = aspect;
     }
 
     public String getId() {
@@ -82,5 +87,36 @@ public class CompositeVirtualObjectDataObject {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getFunctionality() {
+        return functionality;
+    }
+
+    public void setFunctionality(String functionality) {
+        this.functionality = functionality;
+    }
+
+    public String getAspect() {
+        return aspect;
+    }
+
+    public void setAspect(String aspect) {
+        this.aspect = aspect;
+    }
+
+    @Override
+    public String toString() {
+        return "CompositeVirtualObject{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", voIdList=" + voIdList +
+                ", location='" + location + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", modifiedTime='" + modifiedTime + '\'' +
+                ", description='" + description + '\'' +
+                ", functionality='" + functionality + '\'' +
+                ", aspect='" + aspect + '\'' +
+                '}';
     }
 }

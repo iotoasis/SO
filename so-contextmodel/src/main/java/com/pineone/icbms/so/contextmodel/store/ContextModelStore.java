@@ -12,4 +12,5 @@ public interface ContextModelStore {
     void createContextModel(ContextModel contextModel);
     List<ContextModel> retrieveContextModelList();
     ContextModel retrieveContextModelDetail(String contextModelId);
+    ContextModel retrieveContextModelDetailByName(String contextModelName);
 }

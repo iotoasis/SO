@@ -81,55 +81,68 @@ public class DeviceManagerLogic implements DeviceManager {
             localSessionId =  session.getId();
         }
 
-        List<String> sessionDeviceIdList = null;
-        if(session.isExistSessionData(DefaultSession.DEVICE_KEY)){
-            sessionDeviceIdList = DataConversion.stringDataToList(session.findSessionData(DefaultSession.DEVICE_KEY));
-        }
-        if(sessionDeviceIdList == null){
-            sessionDeviceIdList = new ArrayList<>();
-        }
-        sessionDeviceIdList.add(deviceId);
-        session.insertSessionData(DefaultSession.DEVICE_KEY, DataConversion.listDataToString(sessionDeviceIdList));
-
-        sessionStore.updateSession(session);
+        sessionDataUpdate(sessionStore,session,deviceId, DefaultSession.DEVICE_KEY);
 
         String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
         Device device = deviceSearchById(deviceId);
         if(device == null){
-            session.insertSessionData(DefaultSession.DEVICE_RESULT, DefaultSession.CONTROL_ERROR);
-            // DB에 Session을 저장.
-            sessionStore.updateSession(session);
+            sessionDataUpdate(sessionStore,session,"The device does not exist.", DefaultSession.DEVICE_RESULT);
             logger.info("The device does not exist.");
             return "The device does not exist.";
         } else if(device.getDeviceServices() != null && ClientProfile.DEVICE_SERVICE_NOTI_TYPE.equals(device.getDeviceServices().get(0))){
             sessionDataUpdate(sessionStore, session, device.getDeviceLocation(),DefaultSession.DEVICE_LOCATION);
-            session.insertSessionData(DefaultSession.DEVICE_RESULT, DefaultSession.CONTROL_EXECUTION + "_" + ClientProfile.DEVICE_SERVICE_NOTI_TYPE);
-            // DB에 Session을 저장.
-            sessionStore.updateSession(session);
-            return ClientProfile.DEVICE_SERVICE_NOTI_TYPE;
+            sessionDataUpdate(sessionStore,session,DefaultSession.CONTROL_EXECUTION + "_" + ClientProfile.SERVICE_ALARM_TYPE, DefaultSession.DEVICE_RESULT);
+            return ClientProfile.SERVICE_ALARM_TYPE;
         }
 
         // SI를 제어할수 있는 DeviceControlMessage로 변환
-        DeviceControlMessage deviceControlMessage = deviceDataConversion(deviceId,commandId,deviceCommand);
+        DeviceControlMessage deviceControlMessage = new DeviceControlMessage();
+        LWM2MDeviceControl lwm2MDeviceControl = new LWM2MDeviceControl();
+        if(device.getDeviceUri().contains(ClientProfile.SI_CONTROL_LWM2M)){
+            lwm2MDeviceControl.setOperation(ClientProfile.SI_CONTROL_LWM2M_EXECUTE);
+            lwm2MDeviceControl.setResourceUri(ClientProfile.SI_CONTROL_LWM2M_RESOURCEURI);
+            lwm2MDeviceControl.setDisplayName(ClientProfile.SI_CONTROL_LWM2M_DISPLAYNAME);
+            lwm2MDeviceControl.setOui(ClientProfile.SI_CONTROL_LWM2M_OUI);
+            lwm2MDeviceControl.setModelName(ClientProfile.SI_CONTROL_LWM2M_MODELNAME);
+            lwm2MDeviceControl.setSn(ClientProfile.SI_CONTROL_LWM2M_SN);
+            lwm2MDeviceControl.setAuthld(ClientProfile.SI_CONTROL_LWM2M_AUTHID);
+            lwm2MDeviceControl.setAuthPwd(ClientProfile.SI_CONTROL_LWM2M_AUTHPWD);
+            lwm2MDeviceControl.setSv(deviceCommand);
+            deviceControlMessage = lwm2mDeviceDataConversion(deviceId,commandId,deviceCommand);
+        } else {
+            deviceControlMessage = deviceDataConversion(deviceId,commandId,deviceCommand);
+        }
+
+
         logger.debug("DeviceControlMessage = " + deviceControlMessage.toString());
 
         session = sessionStore.retrieveSessionDetail(localSessionId);
         sessionDataUpdate(sessionStore, session, device.getDeviceLocation(),DefaultSession.DEVICE_LOCATION);
-        session.insertSessionData(DefaultSession.DEVICE_RESULT, DefaultSession.CONTROL_EXECUTION);
-        sessionStore.updateSession(session);
 
+        /*
         if(device.checkStatus(deviceCommand)){
             return "same device state to is.";
         }
+        */
 
         // Device 제어 요청 보냄.
-        ResultMessage resultMessage = deviceControlProxy.deviceControlRequest(contextAddress.getServerAddress(ContextAddress.SI_SERVER) + AddressStore.SI_CONTOL_URI,deviceControlMessage);
+        ResultMessage resultMessage = new ResultMessage();
+        if(device.getDeviceUri().contains("lwm2m")){
+            resultMessage = deviceControlProxy.lwm2mDeviceControlRequest(contextAddress.getServerAddress(ContextAddress.SI_SERVER) + AddressStore.SI_LWM2M_CONTOL_URI,deviceControlMessage,lwm2MDeviceControl);
+        } else {
+//            resultMessage = deviceControlProxy.deviceControlRequest(contextAddress.getServerAddress(ContextAddress.SI_SERVER) + AddressStore.SI_CONTOL_URI,deviceControlMessage);
+            resultMessage = deviceControlProxy.deviceControlRequest(contextAddress.getServerAddress(ContextAddress.SI_SERVER) + AddressStore.SI_AUTH_CONTOL_URI,deviceControlMessage);
+        }
         logger.debug(LogPrint.LogMethodNamePrint() + " | Device Control Result : " + " , Device Uri = " + device.getDeviceUri() + " , Result : " + resultMessage + " , Session ID = " + sessionId);
-
+        sessionDataUpdate(sessionStore,session,resultMessage.getCode(), DefaultSession.DEVICE_RESULT);
         /**
          * Device 제어 후 제어 결과가 Success면 Device Subscription 요청
          */
-        if(resultMessage.getCode().equals(ClientProfile.RESPONSE_SUCCESS_ONEM2MCODE)) {
+        if(resultMessage.getCode().equals(ClientProfile.RESPONSE_SUCCESS_ONEM2MCODE) && !device.getDeviceUri().contains("lwm2m")) {
+            // 디바이스 상태 저장.
+            device.setDeviceStatus(deviceCommand);
+            deviceStore.update(device);
+
             String subscriptionUri = device.getDeviceUri() + (ClientProfile.actionDeviceCommand(device.getDeviceUri()) ? ClientProfile.SI_CONTAINER_ACTION : ClientProfile.SI_CONTAINER_POWER) + ClientProfile.SI_CONTAINER_STATUS;
             String response = deviceSubscription(subscriptionUri, deviceControlMessage.get_commandId());
             logger.debug(LogPrint.LogMethodNamePrint() + " | Device Subscription : " + " , Device Uri = " + device.getDeviceUri() + " , Result : " + response + " , Session ID = " + sessionId);
@@ -137,9 +150,7 @@ public class DeviceManagerLogic implements DeviceManager {
             /**
              * Device Subscription 데이터 저장
              */
-            if(response.equals(ClientProfile.RESPONSE_SUCCESS_ONEM2MCODE)){
-                saveDeviceSubscriptionData(deviceControlMessage.get_commandId(), deviceControlMessage.getCon());
-            }
+            saveDeviceSubscriptionData(deviceControlMessage.get_commandId(),device.getDeviceUri(), deviceControlMessage.getCon(), response);
 
             /*
                 디바이스 해제는 Controller에서 상태 업데이트 후 해제.
@@ -224,15 +235,24 @@ public class DeviceManagerLogic implements DeviceManager {
             String deviceUri = getOnem2mDeviceUri(deviceStatusData.get_uri());
             Device device = deviceSearchById(deviceUri);
             DeviceSubscriptionObject deviceSubscriptionObject = deviceSubscriptionStore.retrieve(deviceStatusData.get_commandId());
-
+            String response;
             if(deviceSubscriptionObject != null && deviceSubscriptionObject.get_commandId().equals(deviceStatusData.get_commandId()) && deviceSubscriptionObject.getDeviceStatus().equals(deviceStatusData.getCon())){
                 logger.debug(LogPrint.LogMethodNamePrint() + "Device Data Update");
                 device.setDeviceStatus(deviceStatusData.getCon());
                 deviceStore.update(device);
-                deviceSubscriptionRelease(deviceUri + (ClientProfile.actionDeviceCommand(device.getDeviceUri()) ? ClientProfile.SI_CONTAINER_ACTION : ClientProfile.SI_CONTAINER_POWER) + ClientProfile.SI_CONTAINER_STATUS);
-                deviceSubscriptionStore.delete(deviceSubscriptionObject.get_id());
+                /**
+                 * Device Subscription 해제 요청
+                 */
+                response = deviceSubscriptionRelease(deviceUri + (ClientProfile.actionDeviceCommand(device.getDeviceUri()) ? ClientProfile.SI_CONTAINER_ACTION : ClientProfile.SI_CONTAINER_POWER) + ClientProfile.SI_CONTAINER_STATUS);
+
             } else {
+                logger.debug("Device Status = " + device.getDeviceStatus() + " DeviceCommand = " + deviceStatusData.getCon());
                 logger.debug(LogPrint.LogMethodNamePrint() + "The state or command of the device is different.");
+                response = "Status not same.";
+            }
+            if (deviceSubscriptionObject != null) {
+                deviceSubscriptionObject.setReleaseResult(response);
+                deviceSubscriptionStore.update(deviceSubscriptionObject);
             }
         }
     }
@@ -249,6 +269,11 @@ public class DeviceManagerLogic implements DeviceManager {
         return deviceControlProxy.deviceSubscriptionReleaseRequest(uri);
     }
 
+    @Override
+    public void produceDevice(Device device) {
+        deviceCreate(device);
+    }
+
     private DeviceControlMessage deviceDataConversion(String deviceId, String commandId, String deviceCommand){
         DeviceControlMessage deviceControlMessage = new DeviceControlMessage();
 
@@ -262,6 +287,16 @@ public class DeviceManagerLogic implements DeviceManager {
         deviceControlMessage.setCnf(ClientProfile.SO_CONTROL_TYPE);
         deviceControlMessage.setCon(deviceCommand);
 
+        return deviceControlMessage;
+    }
+
+    private DeviceControlMessage lwm2mDeviceDataConversion(String deviceId, String commandId, String deviceCommand){
+        DeviceControlMessage deviceControlMessage = new DeviceControlMessage();
+        deviceControlMessage.set_uri(deviceId);
+        deviceControlMessage.set_commandId(commandId);
+        deviceControlMessage.set_command(ClientProfile.SI_CONTROL_LWM2M_SOUND);
+        deviceControlMessage.setCnf(ClientProfile.SI_CONTROL_JSON_TYPE);
+        deviceControlMessage.setCon(deviceCommand);
         return deviceControlMessage;
     }
 
@@ -287,15 +322,15 @@ public class DeviceManagerLogic implements DeviceManager {
     }
 
     private void sessionDataUpdate(SessionStore sessionStore, Session session, String data, String key){
-        List<String> sessionDeviceLocationList = null;
+        List<String> sessionList = null;
         if(session.isExistSessionData(key)){
-            sessionDeviceLocationList = DataConversion.stringDataToList(session.findSessionData(key));
+            sessionList = DataConversion.stringDataToList(session.findSessionData(key));
         }
-        if(sessionDeviceLocationList == null){
-            sessionDeviceLocationList = new ArrayList<>();
+        if(sessionList == null){
+            sessionList = new ArrayList<>();
         }
-        sessionDeviceLocationList.add(data);
-        session.insertSessionData(key, DataConversion.listDataToString(sessionDeviceLocationList));
+        sessionList.add(data);
+        session.insertSessionData(key, DataConversion.listDataToString(sessionList));
         sessionStore.updateSession(session);
     }
 
@@ -310,8 +345,8 @@ public class DeviceManagerLogic implements DeviceManager {
         return uri.substring(0, stringlength);
     }
 
-    public void saveDeviceSubscriptionData(String deviceUri, String commandId){
-        deviceSubscriptionStore.create(new DeviceSubscriptionObject(deviceUri, commandId));
+    public void saveDeviceSubscriptionData(String commandId, String deviceUri, String status, String result){
+        deviceSubscriptionStore.create(new DeviceSubscriptionObject(commandId, deviceUri, status, result));
     }
 
 }

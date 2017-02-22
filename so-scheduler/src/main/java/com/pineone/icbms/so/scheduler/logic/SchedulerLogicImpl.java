@@ -262,6 +262,28 @@ public class SchedulerLogicImpl implements SchedulerLogic, Runnable{
         }
     }
 
+    @Override
+    public void createSchedulerData(String id, int period) {
+        logger.debug("ProfileId = " + id + " ,Period = " + period);
+        ScheduledProfile scheduledProfile = new ScheduledProfile(id, period, 1);
+        logger.debug("ScheduledProfile = " + scheduledProfile.toString());
+
+//        schedulerStore.createScheduledProfile(scheduledProfile);
+
+        //NOTE: 스케줄러 DB 가 비어있거나
+        if(schedulerStore.retrieveScheduledProfileList().isEmpty()){
+            schedulerStore.createScheduledProfile(scheduledProfile);
+            schedulerStore.updateStatus(scheduledProfile, 1);
+
+        }else {
+            //NOTE: 스케줄러 내용이 중복되지 않을때
+            if(!(schedulerStore.isExistScheduledProfile(scheduledProfile.getId()))){
+                schedulerStore.createScheduledProfile(scheduledProfile);
+                schedulerStore.updateStatus(scheduledProfile, 1);
+            }
+        }
+    }
+
 
     //NOTE : SO 실행시 스케줄러 작동 시키는 쓰레드 - 프로퍼니 파일 내용이 false 외에 자동 작동
     @Override

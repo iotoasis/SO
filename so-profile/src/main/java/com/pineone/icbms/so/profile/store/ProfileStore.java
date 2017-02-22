@@ -15,4 +15,5 @@ public interface ProfileStore {
     Profile retrieveProfileDetail(String profileId);
     List<Profile> findByContextModelId(String contextModelId);
     void addPriority(Profile profile, String priority);
+    Profile retrieveProfileDetailByName(String profileName);
 }

@@ -5,6 +5,7 @@ import com.pineone.icbms.so.contextmodel.store.ContextModelStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class ContextModelStoreMongoImpl implements ContextModelStore {
     //NOTE: CM 리스트 조회
     @Override
     public List<ContextModel> retrieveContextModelList() {
-        List<ContextModelDataObject> contextModelDataObjectList = contextModelRepository.findAll();
+        List<ContextModelDataObject> contextModelDataObjectList = contextModelRepository.findAll(new Sort(Sort.Direction.DESC,"createTime"));
         List<ContextModel> contextModelList = new ArrayList<>();
         for(ContextModelDataObject contextModelDataObject : contextModelDataObjectList){
             logger.debug("ContextModel = " + dataObjectToContextModel(contextModelDataObject));
@@ -47,6 +48,16 @@ public class ContextModelStoreMongoImpl implements ContextModelStore {
     @Override
     public ContextModel retrieveContextModelDetail(String contextModelId) {
         ContextModelDataObject contextModelDataObject = contextModelRepository.findOne(contextModelId);
+        ContextModel contextModel = dataObjectToContextModel(contextModelDataObject);
+        logger.debug("ContextModel = " + contextModel.toString());
+        return contextModel;
+    }
+
+    //NOTE: CM 개별 조회 by Name
+    @Override
+    public ContextModel retrieveContextModelDetailByName(String contextModelName) {
+        ContextModelDataObject contextModelDataObject = contextModelRepository.findByname(contextModelName);
+        logger.debug("ContextModel = " + contextModelDataObject.toString());
         ContextModel contextModel = dataObjectToContextModel(contextModelDataObject);
         logger.debug("ContextModel = " + contextModel.toString());
         return contextModel;

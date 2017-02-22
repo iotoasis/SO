@@ -7,4 +7,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  */
 public interface DomainRepository extends MongoRepository<DomainDataObject, String> {
 
+    DomainDataObject findByName(String domainName);
 }
+

@@ -5,6 +5,7 @@ import com.pineone.icbms.so.servicemodel.proxy.ServiceModelProxy;
 import com.pineone.icbms.so.servicemodel.ref.ResponseMessage;
 import com.pineone.icbms.so.servicemodel.store.ServiceModelStore;
 import com.pineone.icbms.so.util.conversion.DataConversion;
+import com.pineone.icbms.so.util.conversion.UUIDConverter;
 import com.pineone.icbms.so.util.session.DefaultSession;
 import com.pineone.icbms.so.util.session.Session;
 import com.pineone.icbms.so.util.session.store.SessionStore;
@@ -12,10 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 @org.springframework.stereotype.Service
 public class ServiceModelLogicImpl implements ServiceModelLogic {
@@ -55,6 +53,15 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
             logger.warn("You can not register a service model. serviceModel is Null");
             return null;
         }
+        if(serviceModel.getId() == null){
+            serviceModel.setId("!!sm-make-"+ UUIDConverter.shortUUID(UUID.randomUUID().toString().toCharArray()));
+        }
+        if(serviceModel.getDescription() == null){
+            serviceModel.setDescription(serviceModel.getName() + "CVO");
+        }
+        long time = System.currentTimeMillis();
+        serviceModel.setCreateTime(time);
+        serviceModel.setModifiedTime(time);
         logger.debug("ServiceModel = " + serviceModel);
         ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
 //        ServiceModelStore serviceModelStore = ServiceModelMapStore.getInstance();
@@ -86,9 +93,6 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
     //NOTE: 즉시성 서비스 모델 실행
     @Override
     public void executeServiceModel(String serviceModelId, String sessionId) {
-        //
-        logger.debug("Execute ServiceModel ID = " + serviceModelId + " Sesseion ID = " + sessionId);
-
         // DB에서 Session을 검색
         Session session = null;
         if(sessionId != null){
@@ -128,7 +132,7 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
         // DB에 Session을 저장.
         sessionStore.updateSession(session);
 
-        logger.debug("Execute ServiceModel = " + serviceModel.toString());
+        logger.debug("[Execute ServiceModel] ID = " + serviceModel.getId() + " Name = " + serviceModel.getName() + " des = " + serviceModel.getDescription());
         List<String> serviceIdList = serviceModel.getServiceIdList();
 //        List<ServiceMessage> serviceMessageList = new ArrayList<>();
         for (String serviceId : serviceIdList) {
@@ -147,7 +151,6 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
             logger.warn("You can not view the serviceIDList. serviceIDList is Null");
             return null;
         }
-        logger.debug("ServiceIDList = " + serviceIdList.toString());
         return serviceIdList;
     }
 
@@ -158,7 +161,6 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
         for (ServiceModel serviceModel : serviceModelList) {
             serviceModelIdList.add(serviceModel.getId());
         }
-        logger.debug("ServiceModelIDList = " + serviceModelIdList);
         return serviceModelIdList;
     }
 
@@ -173,6 +175,18 @@ public class ServiceModelLogicImpl implements ServiceModelLogic {
             logger.debug("ServiceModel = " + serviceModel.toString());
         }
         return serviceModelList;
+    }
+
+    @Override
+    public String retreveServiceModelId(String serviceModelName) {
+        return serviceModelStore.retrieveServiceModelId(serviceModelName);
+    }
+
+    @Override
+    public ServiceModel retrieveServiceModelIdByDes(String description) {
+        logger.debug("description = " + description);
+        ServiceModel serviceModel = serviceModelStore.retrieveServiceModelDetailByDescription(description);
+        return serviceModel;
     }
 
     private boolean locationCompare(Session session, String serviceModelLocation){

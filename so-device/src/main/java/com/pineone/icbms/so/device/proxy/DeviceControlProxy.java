@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.device.proxy;
 
 import com.pineone.icbms.so.device.entity.DeviceControlMessage;
+import com.pineone.icbms.so.device.entity.LWM2MDeviceControl;
 import com.pineone.icbms.so.device.entity.ResultMessage;
 
 /**
@@ -16,6 +17,14 @@ public interface DeviceControlProxy {
      * @return
      */
     ResultMessage deviceControlRequest(String requestUrl, DeviceControlMessage deviceControlMessage);
+
+    /**
+     * Device 제어 요청
+     * @param requestUrl
+     * @param deviceControlMessage
+     * @return
+     */
+    ResultMessage lwm2mDeviceControlRequest(String requestUrl, DeviceControlMessage deviceControlMessage, LWM2MDeviceControl lwm2MDeviceControl);
 
     /**
      * Device 구독 요청

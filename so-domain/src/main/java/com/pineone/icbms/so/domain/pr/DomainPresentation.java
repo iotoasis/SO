@@ -72,6 +72,26 @@ public class DomainPresentation {
         List<String> domainIdList = domainLogic.retrieveDomainIdList();
         return domainIdList;
     }
+
+    //NOTE : Domain Name 으로 Domain 조회
+    @RequestMapping(value = "/names/{name}", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public Domain retrieveDomainByName(@PathVariable("name")String domainName){
+        logger.info(LogPrint.inputInfoLogPrint());
+        Domain domain = domainLogic.retrieveDomainDetailByName(domainName);
+        return domain;
+    }
+
+    //NOTE : Domain Name 으로 Domain 조회
+    @RequestMapping(value = "/uri/{name}", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public String retrieveDomainUriByName(@PathVariable("name")String domainName){
+        logger.info(LogPrint.inputInfoLogPrint());
+        Domain domain = domainLogic.retrieveDomainDetailByName(domainName);
+        return domain.getUri();
+    }
 }
 
 

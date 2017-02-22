@@ -13,4 +13,5 @@ public interface DomainLogic {
     String registerDomain(Domain domain);
     Domain retrieveDomain(String id);
     List<String> retrieveDomainIdList();
+    Domain retrieveDomainDetailByName(String domainName);
 }

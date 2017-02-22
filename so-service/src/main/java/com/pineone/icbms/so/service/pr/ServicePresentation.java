@@ -3,6 +3,7 @@ package com.pineone.icbms.so.service.pr;
 
 import com.pineone.icbms.so.service.entity.Service;
 import com.pineone.icbms.so.service.logic.ServiceLogic;
+import com.pineone.icbms.so.service.proxy.DataServiceObject;
 import com.pineone.icbms.so.service.ref.*;
 import com.pineone.icbms.so.util.exception.DataLossException;
 import com.pineone.icbms.so.util.logprint.LogPrint;
@@ -130,6 +131,21 @@ public class ServicePresentation {
         return serviceList;
     }
 
+    /**
+     * Data Service
+     */
+    @RequestMapping(value = "/data", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public String retrieveServiceList(@RequestBody DataServiceObject dataServiceObject){
+        //
+        logger.info(LogPrint.inputInfoLogPrint() + "Data Service Start");
+        logger.info(LogPrint.inputInfoLogPrint() + "DataServiceObject = " + dataServiceObject.toString());
+
+        String dataServiceData = serviceLogic.requestDataService(dataServiceObject);
+        logger.info("DataService Data = " + dataServiceData);
+        return dataServiceData;
+    }
+
 
     // NOTE: Service Component 의 DB에 접근해서 service Name 리스트 조회
     public List<String> retrieveServiceNameList(){
@@ -150,6 +166,16 @@ public class ServicePresentation {
         object.setId(serviceId);
         object.setSessionId(sessionId);
         return object;
+    }
+
+    //NOTE : ServiceName 으로 아이디 조회
+    @RequestMapping(value = "/names/{name}", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public String retrieveServiceIdByName(@PathVariable("name")String serviceName){
+        logger.info(LogPrint.inputInfoLogPrint());
+        Service service = serviceLogic.retrieveServiceDetailByName(serviceName);
+        return service.getId();
     }
 
 

@@ -71,7 +71,7 @@ public class SessionMongoImpl implements SessionStore {
         List<Session> sessionList = new ArrayList<>();
         for(SessionDataObject sessionDataObject : sessionDataObjectList){
             sessionList.add(dataObjectToSession(sessionDataObject));
-            logger.debug(SESSION + dataObjectToSession(sessionDataObject));
+//            logger.debug(SESSION + dataObjectToSession(sessionDataObject));
         }
         return sessionList;
     }
