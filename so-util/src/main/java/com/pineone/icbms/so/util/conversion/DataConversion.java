@@ -60,7 +60,7 @@ public class DataConversion
         return new Gson().fromJson(data,type);
     }
 
-	public static String base64incoding(String data){
+	public static String base64encoding(String data){
 		return new String(Base64.encodeBase64(data.getBytes()));
 	}
 
