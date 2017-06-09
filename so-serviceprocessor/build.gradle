@@ -1,0 +1,102 @@
+def VERSION = [
+        build: '1.0.0-SNAPSHOT',
+        java: 1.8,
+        jackson_databind: '2.8.6'
+]
+
+group 'com.pineone.icbms.so'
+version "${VERSION.build}"
+
+buildscript {
+    ext {
+        springBootVersion = '1.5.3.RELEASE'
+    }
+    repositories {
+        maven { url 'https://repo.spring.io/libs-release' }
+        maven { url 'https://repo.spring.io/libs-snapshot' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'io.spring.gradle:dependency-management-plugin:0.6.1.RELEASE'
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+//jar {
+//    baseName = 'so-serviceprocessor'
+//    version = "${VERSION.build}"
+//
+//    manifest {
+//        attributes  'Title': 'Service Processor', 'Version': "${VERSION.build}", 'Main-Class': "com.pineone.icbms.so.serviceprocessor.route.ProcessorRouter"
+//    }
+//    dependsOn configurations.runtime
+//    from {
+//        configurations.compile.collect {it.isDirectory()? it: zipTree(it)}
+//    }
+//}
+
+sourceCompatibility = "${VERSION.java}"
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+configurations.all {
+    exclude group: "org.slf4j", module: "slf4j-log4j12"
+    exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
+    exclude group: "log4j", module: "log4j"
+}
+
+dependencies {
+    //so
+    compile project(":so-virtualobject")
+    compile project(":so-if-db")
+    compile project(":so-if-mq")
+    compile project(":so-if-sda")
+    compile project(":so-if-si")
+    compile project(":so-devicecontrol")
+    compile project(":so-serviceutil")
+    compile project(":so-util")
+
+    //logging
+    compile "ch.qos.logback:logback-classic:1.1.9"
+    compile "org.slf4j:slf4j-api:1.7.22"
+
+    //json object mapper
+    compile "com.fasterxml.jackson.core:jackson-databind:${VERSION.jackson_databind}"
+
+    //withwiz
+    compile "com.withwiz:plankton:0.1.3"
+
+    //spring
+    compile('org.springframework.boot:spring-boot-starter')
+
+    //devtools
+    compile 'org.springframework.boot:spring-boot-devtools'
+
+    //spring-kafka
+    compile 'org.springframework.kafka:spring-kafka'
+
+    //compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
+
+    //test
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    //junit
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+//    compile("org.springframework.boot:spring-boot-starter-jdbc")
+//    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+//    runtime('mysql:mysql-connector-java')
+//    compile("org.springframework.boot:spring-boot-starter-actuator:${SPRING_BOOT_VERSION}")
+}
+
+bootRun {
+    jvmArgs = ['-Dspring.config.location=/svc/apps/so/so/so-serviceprocessor/conf/application-dev.yml',
+               '-Dspring.profiles.active=default-dev,so-sp-dev']
+}
