@@ -1,0 +1,46 @@
+def VERSION = [
+		build: '1.0.0-SNAPSHOT',
+		java: 1.8,
+		jackson_databind: '2.8.6'
+]
+
+buildscript {
+	ext {
+		springBootVersion = '1.5.3.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	jcenter()
+	mavenCentral()
+}
+
+
+dependencies {
+	//so-virtualobject
+	compile project(":so-virtualobject")
+	compile project(":so-if-db")
+
+	//json object mapper
+	compile "com.fasterxml.jackson.core:jackson-databind:${VERSION.jackson_databind}"
+
+	//compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}");
+
+	compile('org.springframework.kafka:spring-kafka')
+	compile('org.springframework.boot:spring-boot-starter')
+	runtime('org.springframework.boot:spring-boot-devtools')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}

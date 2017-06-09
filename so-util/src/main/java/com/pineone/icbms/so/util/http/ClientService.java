@@ -28,7 +28,7 @@ public class ClientService
 
 	/**
 	 * request post service.<BR/>
-	 * 
+	 *
 	 * @param serviceUrl
 	 * @param body
 	 * @return
@@ -50,7 +50,7 @@ public class ClientService
 		req.addValue(HttpClientService.KEY_CONNECTION_TIMEOUT, 50000);
 		req.addValue(HttpClientService.KEY_HTTP_METHOD,
 				HttpClientService.VALUE_HTTP_METHOD_POST);
-				// req.addValue(HttpClientService);
+		// req.addValue(HttpClientService);
 
 		// body data
 		// StringInputStream inputStream = new StringInputStream(body);
@@ -69,11 +69,11 @@ public class ClientService
 
 	/**
 	 * request get service.<BR/>
-	 * 
+	 *
 	 * @param uri
 	 * @return
-	   NOTE: 외부에서 데이터를 조회하기 위함. Url 의 내용을 조회
-	  */
+	NOTE: 외부에서 데이터를 조회하기 위함. Url 의 내용을 조회
+	 */
 	public IHttpResponseMessage requestGetService(String uri)
 	{
 		// request delivery message

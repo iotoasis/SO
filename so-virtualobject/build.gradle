@@ -1,15 +1,31 @@
+def VERSION = [
+        build: '1.0.0-SNAPSHOT',
+        java: 1.8,
+        jackson_databind: '2.8.6'
+]
+
 group 'com.pineone.icbms.so'
+version "${VERSION.build}"
 
 apply plugin: 'java'
-apply plugin: 'maven'
+apply plugin: 'eclipse'
 apply plugin: 'idea'
 
+sourceCompatibility = "${VERSION.java}"
+
 repositories {
-    mavenCentral()
     jcenter()
+    mavenCentral()
 }
 
 dependencies {
-    compile project (":so-device")
-    compile project (":so-util")
+    //so
+    compile project(':so-util')
+
+    //logging
+    compile "ch.qos.logback:logback-classic:1.1.9"
+    compile "org.slf4j:slf4j-api:1.7.22"
+
+    //test
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }

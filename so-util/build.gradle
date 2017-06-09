@@ -1,26 +1,77 @@
+def VERSION = [
+        build: '1.0.0-SNAPSHOT',
+        java: 1.8,
+        jackson_databind: '2.8.6'
+]
+
 group 'com.pineone.icbms.so'
+version "${VERSION.build}"
+
+buildscript {
+    ext {
+        springBootVersion = '1.5.3.RELEASE'
+    }
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
 
 apply plugin: 'java'
-apply plugin: 'maven'
+apply plugin: 'eclipse'
 apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+jar {
+    baseName = 'so-util'
+    version = "${VERSION.build}"
+}
+
+sourceCompatibility = "${VERSION.java}"
 
 repositories {
-    mavenCentral()
     jcenter()
+    mavenCentral()
 }
 
 dependencies {
+    //log
+    compile "ch.qos.logback:logback-classic:1.1.9"
+    compile "org.slf4j:slf4j-api:1.7.22"
 
-    def jacksonVersion = "1.9.13"
-    def jsonVersion = "1.1.1"
-
-    testCompile group: 'junit', name: 'junit', version: '4.11'
-
-
-    //json
-    compile "org.codehaus.jackson:jackson-mapper-asl:$jacksonVersion"
-    compile "org.codehaus.jackson:jackson-core-asl:$jacksonVersion"
-    compile "com.googlecode.json-simple:json-simple:$jsonVersion"
+    //json object mapper
+    compile "com.fasterxml.jackson.core:jackson-databind:${VERSION.jackson_databind}"
     compile "com.google.code.gson:gson:2.6.2"
+    compile "org.codehaus.jackson:jackson-mapper-asl:1.9.13"
+    compile "org.codehaus.jackson:jackson-core-asl:1.9.13"
 
+    //spring
+    // https://mvnrepository.com/artifact/org.springframework/spring-beans
+    compile group: 'org.springframework', name: 'spring-beans', version: '4.3.6.RELEASE'
+    compile group: 'org.springframework', name: 'spring-context', version: '4.3.6.RELEASE'
+//    compile("org.springframework.boot:spring-boot-configuration-processor")
+
+    //kafka
+    compile "org.apache.kafka:kafka-clients:0.10.2.0"
+    compile "org.apache.kafka:kafka-streams:0.10.2.0"
+
+    //spring-kafka
+    compile 'org.springframework.kafka:spring-kafka:1.2.0.RELEASE'
+
+    // http
+    compile "com.withwiz:httpclientservice:0.1.1"
+
+    //compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
+
+//    compile('org.springframework.boot:spring-boot-starter-web') {
+//        exclude module: "spring-boot-starter-tomcat"
+//    }
+
+    //test
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
+compileJava.dependsOn(processResources)
