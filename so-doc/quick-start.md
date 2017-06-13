@@ -27,13 +27,13 @@ SO Server 시험은 아래의 순서로 진행할 수 있습니다.
 	- 또는 console 입력  
 	
 	```				
-	curl -LOv http://apache.mirror.cdnetworks.com/kafka/0.10.1.0/	kafka_2.11-0.10.1.0.tgz
+	# curl -LOv http://apache.mirror.cdnetworks.com/kafka/0.10.1.0/	kafka_2.11-0.10.1.0.tgz
 	``` 
 	
 	- 압축 해제 및 링크 :
 
 	``` 		
-	#tar xvfz kafka_2.11-0.10.1.0.tgz
+	# tar xvfz kafka_2.11-0.10.1.0.tgz
 	# ln -s kafka_2.11-0.10.1.0 kafka
 	# cd kafka
 	```
