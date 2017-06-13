@@ -25,9 +25,9 @@ Build 실행 순서는 아래와 같습니다.
 - Import된 프로젝트는 아래와 같이 표시됩니다.
 
 
-![Source Import1](https://github.com/iotoasis/SO/blob/master/so-doc/eclipse_import1.png)
+![Source Import1](https://github.com/iotoasis/SO/blob/master/so-doc/img/eclipse_import1.png)
 
-![Source Import2](https://github.com/iotoasis/SO/blob/master/so-doc/eclipse_import2.png)
+![Source Import2](https://github.com/iotoasis/SO/blob/master/so-doc/img/eclipse_import2.png)
 
 ![Source Import3](https://github.com/iotoasis/SO/blob/master/so-doc/img/eclipse_import3.png)
 
