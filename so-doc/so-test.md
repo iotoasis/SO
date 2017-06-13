@@ -4,7 +4,7 @@
 
 TEST 실행 순서는 아래와 같습니다.
 
-> 1. [SO 서버 설정](https://github.com/iotoasis/SO/so-doc/configuration.md)을 한다.
+> 1. [SO 서버 설정](https://github.com/iotoasis/SO/blob/master/so-doc/configuration.md)을 한다.
 > 2. mongodb script를 이용하여 TEST DB 생성 한다.
 > 3. SO Servce 실행 한다.
 > 4. POSTMAN으로 생성한 SO(Service Orchestration)를 실행한다.
@@ -13,7 +13,7 @@ TEST 실행 순서는 아래와 같습니다.
 <br>
 
 #### (1) SO 서버 설정
-- [SO 서버 설정](https://github.com/iotoasis/SO/so-doc/configuration.md)페이지에서 설정한다.
+- [SO 서버 설정](https://github.com/iotoasis/SO/blob/master/so-doc/configuration.md)페이지에서 설정한다.
 
 - ex)
 ~~~
@@ -28,7 +28,7 @@ spring.jackson.time-zone=Asia/Seoul
 <br>
 
 #### (2) mongodb 생성
-- Release 페이지에서 다운 받은 소스에서 [MongoDB Script](https://github.com/iotoasis/SO/so-doc/mongodb_script.txt)를 복사 하여 MongoDB Shell에 실행 시킨다.
+- Release 페이지에서 다운 받은 소스에서 [MongoDB Script](https://github.com/iotoasis/SO/blob/master/so-doc/mongodb_script.txt)를 복사 하여 MongoDB Shell에 실행 시킨다.
 - 생성된 DB를 확인 한다.
 <br>
 
@@ -47,6 +47,6 @@ java -jar service-orchestration-2.0.0-SANPSHOT.jar
 - Send버튼 클릭
 - SO Server가 실행 되는 것을 확인 한다.
 
-![POSTMAN HEADERS](https://github.com/iotoasis/SO/so-doc/img/postman1.png)
+![POSTMAN HEADERS](https://github.com/iotoasis/SO/blob/master/so-doc/img/postman1.png)
 <br>
-![POSTMAN BODY](https://github.com/iotoasis/SO/so-doc/img/postman2.png)
+![POSTMAN BODY](https://github.com/iotoasis/SO/blob/master/so-doc/img/postman2.png)
