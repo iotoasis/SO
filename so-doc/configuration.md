@@ -15,14 +15,15 @@ application.properties
 
 Item              | Description
 ----------------- | --------------------------
-spring.data.mongodb.database=so     | 데이터 베이스 이름
-spring.data.mongodb.host    | 데이터베이스 호스트명
-spring.data.mongodb.port    | 데이터베이스 포트번호
 server.context-path  | 서버 main-path 설정 
 server.port  | 서버 포트 설정 
 spring.jackson.time-zone| 서버 시간 설정 (Asia/Seoul 추천)
-
-
+mq.broker.list | 메세지 큐 포트 설정 
+mq.zookeeper.list | 쥬키퍼 포트 설정 
+spring.datasource.url | DataBase URL
+spring.datasource.username | DB 계정 정보
+spring.datasource.password | DB Password
+kafka.topic.xxxx | kafka Topic 정보 (n개)
 
 <br>
 <br>
@@ -30,15 +31,16 @@ spring.jackson.time-zone| 서버 시간 설정 (Asia/Seoul 추천)
 아래는 설정파일 샘플입니다.
 
 ```
-spring.data.mongodb.database=so
-spring.data.mongodb.host=101.010.101.01
-spring.data.mongodb.port=10011
 spring.data.mongodb.repositories.enabled=true
 server.context-path=/so
 server.port=10012
 spring.jackson.time-zone=Asia/Seoul
-
-
+mq.broker.list=localhost:9999
+mq.zookeeper.list=localhost:8888
+spring.datasource.url=jdbc:mysql://localhost/so?useUnicode=true&characterEncoding=utf-8
+spring.datasource.username=user
+spring.datasource.password=pass
+kafka.topic.test = test 
 ```
 
 <br>

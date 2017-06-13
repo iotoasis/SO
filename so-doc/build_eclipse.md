@@ -34,7 +34,7 @@ Build 실행 순서는 아래와 같습니다.
 
 #### (2) 설정 파일 추가 및 수정
 - Release 페이지에서 다운받은 설정파일(application.properties)을 수정 합니다.
-- DB설정 등 로컬환경에 맞게 설정파일을 수정합니다. 설정파일에 대한 자세한 내용은 [SO 서버설정](./configuration.md)페이지를 참고하세요.
+- DB설정 등 로컬환경에 맞게 설정파일을 수정합니다. 설정파일에 대한 자세한 내용은 [SO 서버설정](https://github.com/iotoasis/SO/blob/master/so-doc/configuration.md)페이지를 참고하세요.
 
 
 #### (3) Gradle을 이용한 Build
@@ -44,11 +44,13 @@ Build 실행 순서는 아래와 같습니다.
 ![build gradle](https://github.com/iotoasis/SO/blob/master/so-doc/img/eclipse_build.png)
 
 
-#### (4) SO 서버 실행
+#### (4) Kafka-zoopeeper-SO 서버 실행
 - target 폴더(so-web/build/libs)에서 아래 명령으로 서버를 실행합니다.
 
  ```
-java -jar service-orchestration-2.0.0-SANPSHOT.jar
+kafka-server-start.bat ../../config/server.properties
+zookeeper-server-start.bat ../../config/zookeeper.properties
+java -jar so.jar --spring.config.location=경로/application.properties --spring.profiles.active=default-dev,so-sp-dev
  ```
 
 #### (5) PostMan을 활용한 SO 서버 시험

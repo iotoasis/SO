@@ -1,9 +1,10 @@
 ## kafka 실행 테스트 (window)
+
 ####(1) Zookeeper 구동
  
 ```
 cd ...\kafka_2.11-0.10.2.0\bin\windows
-kafka-server-start.bat ../../config/server.properties
+zookeeper-server-start.bat ../../config/zookeeper.properties
 ```
 
 ####(2) kafka 구동
@@ -47,12 +48,14 @@ kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic test --from
 
 
 ## Kafka 실행 테스트 (shell)
+
+
 ####(1) Zookeeper 구동 
 
 ```
 bin/zookeeper-server-start.sh config/zookeeper.properties
-```		
-		
+```
+
 ####(2) kafka 구동
 
 ```
