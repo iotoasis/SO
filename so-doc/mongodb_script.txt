@@ -1,0 +1,90 @@
+use sotest
+
+db.createCollection("service_model");
+db.createCollection("service");
+db.createCollection("VirtualObject");
+db.createCollection("Device");
+
+db.service_model.save({
+    "_id" : "sm-sotest",
+    "name" : "SOTEST SERVICEMODEL",
+    "serviceIdList" : [ 
+        "si-sotest-smartlight-on", 
+        "si-sotest-blind-on" 
+    ],
+    "location" : "http://www.iotoasis.org/ontology/LOCAL"
+})
+
+db.service.save({
+    "_id" : "si-sotest-smartlight-on",
+    "name" : "SOTEST SERVICE SMARTLIGHT",
+    "virtualObjectIdList" : [ 
+        "vo-sotest-smartlight-power-control"
+    ],
+    "virtualObjectService" : "power-control",
+    "status" : "1",
+    "filterTime" : NumberLong(20000)
+})
+
+
+db.service.save({
+    "_id" : "si-sotest-blind-on",
+    "name" : "SOTEST SERVICE BLIND",
+    "virtualObjectIdList" : [ 
+        "vo-sotest-blind-power-control"
+    ],
+    "virtualObjectService" : "power-control",
+    "status" : "1",
+    "filterTime" : NumberLong(20000)
+})
+
+db.VirtualObject.save({
+    "_id" : "vo-sotest-smartlight-power-control",
+    "voName" : "SmartLight01-001 VO",
+    "functionality" : "icbms-voservice-illimination-power-control",
+    "voDescription" : "SO TEST SMARTLIGHT VIRTUALOBJECT",
+    "deviceService" : "power-control",
+    "deviceId" : "/onem2m-in/onem2m-cse/ONDB_SmartLight01_001",
+    "voLocation" : "http://www.iotoasis.org/ontology/LOCAL"
+})
+
+db.VirtualObject.save({
+    "_id" : "vo-sotest-blind-power-control",
+    "voName" : "BLIND01-001 VO",
+    "functionality" : "icbms-voservice-blinder-power-control",
+    "voDescription" : "SO TEST BLIND VIRTUALOBJECT",
+    "deviceService" : "power-control",
+    "deviceId" : "/onem2m-in/onem2m-cse/ONDB_Blind01_001",
+    "voLocation" : "http://www.iotoasis.org/ontology/LOCAL"
+})
+
+db.Device.save({
+    "_id" : "/onem2m-in/onem2m-cse/ONDB_Blind01_001",
+    "deviceName" : "ONDB_Blind01_001",
+    "deviceLocation" : "http://www.iotoasis.org/ontology/LOCAL",
+    "deviceUri" : "/onem2m-in/onem2m-cse/ONDB_Blind01_001",
+    "deviceCommand" : [ 
+        "ON", 
+        "OFF"
+    ],
+    "deviceServices" : [ 
+        "open-control"
+    ],
+    "deviceStatus" : "OFF"
+})
+
+db.Device.save({
+    "_id" : "/onem2m-in/onem2m-cse/ONDB_SmartLight01_001",
+    "deviceName" : "ONDB_SmartLight01_001",
+    "deviceLocation" : "http://www.iotoasis.org/ontology/LOCAL",
+    "deviceUri" : "/onem2m-in/onem2m-cse/ONDB_SmartLight01_001",
+    "deviceCommand" : [ 
+        "ON", 
+        "OFF"
+    ],
+    "deviceServices" : [ 
+        "open-control"
+    ],
+    "deviceStatus" : "OFF"
+})
+
