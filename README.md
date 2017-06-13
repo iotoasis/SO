@@ -20,12 +20,12 @@ SO 모듈은 동적으로 생성/변화되는 IoT 환경 (서비스, 센서, 디
 - 다중 서비스를 하나의 독립적인 서비스로 활용
 - 주어진 목표를 수행하기 위해 적절한 서비스를 선택, 구성, 협업 하기 위한 구성요소와 프로세스
 - SDA 연동 기능 지원 , 상황 발생 조회 및 인지 
-- MongoDB 기반의 리소스 데이터 관리
+- MariaDB 기반의 리소스 데이터 관리(2차년도 MongoDB 기반)
 
 ## Documents
- - [Quick Start](./so-doc/quick-start.md)
- - [서버 설정방법](./so-doc/configuration.md)
- - [서버 Build 방법](./so-doc/build_eclipse.md)
+ - [Quick Start](../Desktop/SO%20가이드%20문서(3차년)/so-doc/quick-start.md)
+ - [서버 설정방법](../Desktop/SO%20가이드%20문서(3차년)/so-doc/configuration.md)
+ - [서버 Build 방법](../Desktop/SO%20가이드%20문서(3차년)/so-doc/build_eclipse.md)
 
 ## Downloads
  - [릴리즈 페이지](https://github.com/iotoasis/SO/releases)
@@ -33,7 +33,7 @@ SO 모듈은 동적으로 생성/변화되는 IoT 환경 (서비스, 센서, 디
 ## Module
 - SO Framework는 하나의 서버 모듈로 구성됩니다. 
 - SO Framework 시험하기 위해 가상의 서비스를 이용하여 테스트 할 수 있습니다.
-- [Test](./so-doc/so-test.md)
+- [Test](../Desktop/SO%20가이드%20문서(3차년)/so-doc/so-test.md)
 <br>
 
 ## Q&A
