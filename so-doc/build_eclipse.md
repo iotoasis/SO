@@ -26,11 +26,11 @@ Build 실행 순서는 아래와 같습니다.
 - Import된 프로젝트는 아래와 같이 표시됩니다.
 
 
-![Source Import1](./img/eclipse_import1.png)
+![Source Import1](https://github.com/iotoasis/SO/so-doc/img/eclipse_import1.png)
 
-![Source Import2](./img/eclipse_import2.png)
+![Source Import2](https://github.com/iotoasis/SO/so-doc/img/eclipse_import2.png)
 
-![Source Import3](./img/eclipse_import3.png)
+![Source Import3](https://github.com/iotoasis/SO/so-doc/img/eclipse_import3.png)
 
 
 <br>
@@ -46,7 +46,7 @@ Build 실행 순서는 아래와 같습니다.
 - Ctrl+Alt+Shift+R 로 Gradle Build 실행.
 - Project를 so-web 선택. Tasks에 build 명령어 입력.
 
-![build gradle](./img/eclipse_build.png)
+![build gradle](https://github.com/iotoasis/SO/so-doc/img/eclipse_build.png)
 
 
 <br>

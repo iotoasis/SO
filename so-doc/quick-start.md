@@ -37,7 +37,7 @@ SO Server 시험은 아래의 순서로 진행할 수 있습니다.
 	# ln -s kafka_2.11-0.10.1.0 kafka
 	# cd kafka
 	```
-- [kafka 실행 테스트](https://github.com/iotoasis/SO/blob/master/so-doc/kafka_test)
+- [kafka 실행 테스트](https://github.com/iotoasis/SO/so-doc/kafka_test)
 
 #### (3) Oasis SO Server 소스 다운로드
  - [릴리즈 페이지](https://github.com/iotoasis/SO/releases)에서 SO 소스 및 설치관련 파일을 다운받는다.
@@ -51,11 +51,11 @@ SO Server 시험은 아래의 순서로 진행할 수 있습니다.
 
 #### (6) SO Server 설정 및 실행
  - 다운 받은 소스의 so-web/conf/application.properties 파일을 오픈하여 SO 설정을 수정한다.
- - SO Server 설정방법은 [SO 서버 설정방법](./configuration.md)페이지를 참고한다.
+ - SO Server 설정방법은 [SO 서버 설정방법](https://github.com/iotoasis/SO/so-doc/configuration.md)페이지를 참고한다.
 
 #### (7) HTTP 애뮬레이터(PostMan)을 이용한 시험
  - PostMan 프로그램을 설치한다. [PostMan 다운로드](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop)
- - PostMan에서 URL의 "localhost" 부분을 SO 서버를 실행한 서버의 IP로 수정하여 메시지 전송을 시험한다. [Test 페이지](./so-test.md)를 참조한다.
+ - PostMan에서 URL의 "localhost" 부분을 SO 서버를 실행한 서버의 IP로 수정하여 메시지 전송을 시험한다. [Test 페이지](https://github.com/iotoasis/SO/so-doc/so-test.md)를 참조한다.
 
 <br>
 <br>
