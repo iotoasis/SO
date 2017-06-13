@@ -1,7 +1,7 @@
 ## kafka 실행 테스트 (window)
 
-####(1) Zookeeper 구동
- 
+####(1) Zookeeper 구동 
+
 ```
 cd ...\kafka_2.11-0.10.2.0\bin\windows
 zookeeper-server-start.bat ../../config/zookeeper.properties
