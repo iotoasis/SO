@@ -49,7 +49,6 @@ kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic test --from
 
 ## Kafka 실행 테스트 (shell)
 
-
 ####(1) Zookeeper 구동 
 
 ```
