@@ -30,6 +30,7 @@ jar {
     version = "${VERSION.build}"
 }
 
+
 sourceCompatibility = "${VERSION.java}"
 
 repositories {

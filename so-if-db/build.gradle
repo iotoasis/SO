@@ -38,6 +38,7 @@ repositories {
     mavenCentral()
 }
 
+
 dependencies {
     //spring-boot
     compile project(":so-util")
