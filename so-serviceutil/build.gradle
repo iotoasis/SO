@@ -28,7 +28,6 @@ repositories {
     mavenCentral()
 }
 
-
 dependencies {
     compile project(":so-virtualobject")
     compile project(":so-if-mq")

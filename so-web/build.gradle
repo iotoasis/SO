@@ -75,7 +75,8 @@ dependencies {
     compile group: 'com.kastkode', name: 'springsandwich', version: '1.0.2'
 //    compile files('libs/springsandwich-1.0.1.jar')
 
-    //compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
+    //com
+    // pile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
 
     //test
     testCompile('org.springframework.boot:spring-boot-starter-test')

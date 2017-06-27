@@ -18,6 +18,7 @@ repositories {
     mavenCentral()
 }
 
+
 dependencies {
     compile project(':so-util')
     compile project(':so-virtualobject')

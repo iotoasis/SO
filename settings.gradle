@@ -1,5 +1,4 @@
 rootProject.name = 'so'
-
 include ':so-util'
 include ':so-virtualobject'
 include ':so-virtualdevice'
@@ -13,4 +12,3 @@ include ':so-serviceutil'
 include ':so-web'
 include ':so-scheduler'
 //include 'test'
-
