@@ -1,8 +1,5 @@
 package com.pineone.icbms.so.interfaces.database.ref;
 
-
-import com.pineone.icbms.so.interfaces.database.controller.inputdata.AspectData;
-import com.pineone.icbms.so.interfaces.database.controller.inputdata.VirtualObjectData;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,22 +11,22 @@ import org.springframework.stereotype.Service;
 public class DataValidation {
 
     //  virtualObjectData Validation
-    public void inspectVirtualObjectData(VirtualObjectData virtualObjectData) throws DataLossException {
-        //
-        if (virtualObjectData.getName() == null
-                || virtualObjectData.getFunctionality_id() == null
-                || virtualObjectData.getAspect_id() == null
-                || virtualObjectData.getDescription() == null) {
-            throw new DataLossException();
-        }
-    }
-
-    public void inspectAspectData(AspectData aspectData) throws DataLossException {
-        //
-        if (aspectData.getName() == null
-                || aspectData.getUri() == null
-                || aspectData.getDescription() == null) {
-            throw new DataLossException();
-        }
-    }
+//    public void inspectVirtualObjectData(VirtualObjectData virtualObjectData) throws DataLossException {
+//        //
+//        if (virtualObjectData.getName() == null
+//                || virtualObjectData.getFunctionality_id() == null
+//                || virtualObjectData.getAspect_id() == null
+//                || virtualObjectData.getDescription() == null) {
+//            throw new DataLossException();
+//        }
+//    }
+//
+//    public void inspectAspectData(AspectData aspectData) throws DataLossException {
+//        //
+//        if (aspectData.getName() == null
+//                || aspectData.getUri() == null
+//                || aspectData.getDescription() == null) {
+//            throw new DataLossException();
+//        }
+//    }
 }

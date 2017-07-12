@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pineone.icbms.so.interfaces.database.dao.CompositeVirtualObjectDao">
+    <select id="getCompositeVirtualObjectListByOrchestrationId" parameterType="String" resultType="CompositeVirtualObjectForDB">
+        SELECT
+          composite_virtual_object_id
+        FROM
+          os_cvo
+        WHERE
+          orchestration_service_id = #{value}
+    </select>
+
+    <!--
+    os 에서 사용되는 cvo 매필정보 등록
+    -->
+    <insert id="createCompositeVirtualObjectListByOrchestrationId"  parameterType="HashMap">
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            select CAST(ifnull(max(id), 0) AS UNSIGNED) + 1 as id FROM os_cvo
+        </selectKey>
+
+        INSERT INTO os_cvo (
+            id
+            , orchestration_service_id
+            , composite_virtual_object_id
+        )
+        VALUES (
+            #{id}
+            , #{orchestrationServiceId}
+            , #{compositeVirtualObjectId}
+        )
+    </insert>
+
+    <insert id="createCompositeVirtualObject" parameterType="CompositeVirtualObjectForDB">
+        INSERT INTO composite_virtual_object (
+            id
+            , name
+            , description
+            , aspect_id
+            , functionality_id
+            , type
+            , created_date
+            , modified_date
+        )
+        VALUES (
+            #{id}
+            , #{name}
+            , #{description}
+            , #{aspectId}
+            , #{functionalityId}
+            , #{type}
+            , now(4)
+            , now(4)
+        )
+    </insert>
+
+    <select id="retrieveCompositeVirtualObjectById" parameterType="String" resultType="CompositeVirtualObjectForDB">
+        SELECT
+            id
+            , name
+            , description
+            , aspect_id
+            , functionality_id
+            , type
+            , created_date
+            , modified_date
+        FROM composite_virtual_object
+        WHERE
+                id = #{value}
+    </select>
+
+    <select id="retrieveCompositeVirtualObjectByModel" parameterType="CompositeVirtualObjectForDB" resultType="CompositeVirtualObjectForDB">
+        SELECT
+            id
+            , name
+            , description
+            , aspect_id
+            , functionality_id
+            , type
+            , created_date
+            , modified_date
+        FROM composite_virtual_object
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="name != null">
+                AND name = #{name}
+            </if>
+            <if test="aspectId != null">
+                AND aspect_id = #{aspectId}
+            </if>
+            <if test="functionalityId != null">
+                AND functionality_id = #{functionalityId}
+            </if>
+            <if test="description != null">
+                AND description = #{description}
+            </if>
+        </trim>
+    </select>
+
+    <update id="updateCompositeVirtualObject" parameterType="CompositeVirtualObjectForDB">
+        UPDATE composite_virtual_object
+        <set>
+            modified_date = now(4)
+            <if test="name != null">, name = #{name}</if>
+            <if test="description != null">, description = #{description}</if>
+            <if test="aspectId != null">, aspect_id = #{aspectId}</if>
+            <if test="functionalityId != null">, functionality_id = #{functionalityId}</if>
+            <if test="type != null">, type = #{type}</if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="deleteCompositeVirtualObject" parameterType="String">
+        delete from composite_virtual_object
+        where id = #{value}
+    </delete>
+</mapper>

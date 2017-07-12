@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pineone.icbms.so.interfaces.database.dao.ProfileDao">
+  <select id="getProfileByContextModelAndLocation" parameterType="HashMap" resultType="ProfileForDB">
+    SELECT
+      id
+      , created_date
+      , description
+      , modified_date
+      , name
+      , context_model_id
+      , enabled
+      , location_uri
+      , orchestration_service_id
+      , period
+      , order_cd
+    FROM
+      profile
+    WHERE
+      context_model_id = #{contextModelId}
+      AND location_uri = #{locationUri}
+  </select>
+
+  <select id="retrieveProfileListByEnable" parameterType="Integer" resultType="ProfileForDB">
+    SELECT
+      id
+      , created_date
+      , description
+      , modified_date
+      , name
+      , context_model_id
+      , enabled
+      , location_uri
+      , orchestration_service_id
+      , period
+      , order_cd
+    FROM
+      profile
+    WHERE
+      enabled = #{value}
+  </select>
+
+  <select id="retrieveProfile" parameterType="String" resultType="ProfileForDB">
+    SELECT *
+    FROM profile
+    WHERE id = #{value}
+  </select>
+
+  <select id="retrieveProfileByModel" resultType="ProfileForDB">
+    SELECT *
+    FROM profile
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="name != null">
+        AND name = #{name}
+      </if>
+      <if test="description != null">
+        AND description = #{description}
+      </if>
+      <if test="contextModelId != null">
+        AND context_model_id = #{contextModelId}
+      </if>
+      <if test="locationUri != null">
+        AND location_uri = #{locationUri}
+      </if>
+      <if test="orchestrationServiceId != null">
+        AND orchestration_service_id = #{orchestrationServiceId}
+      </if>
+      <if test="period != null">
+        AND period = #{period}
+      </if>
+    </trim>
+  </select>
+
+  <insert id="createProfile" parameterType="ProfileForDB">
+    INSERT INTO profile (
+      id
+      , name
+      , description
+      , context_model_id
+      , orchestration_service_id
+      , location_uri
+      , enabled
+      , period
+      , created_date
+      , modified_date
+      , user_id
+    )
+    VALUES (
+      #{id}
+      , #{name}
+      , #{description}
+      , #{contextModelId}
+      , #{orchestrationServiceId}
+      , #{locationId}
+      , #{enabled}
+      , #{period}
+      , now(4)
+      , now(4)
+      , #{userId}
+    )
+  </insert>
+
+  <update id="updateProfile" parameterType="ProfileForDB">
+    UPDATE profile SET
+      modified_date = now(4)
+      <if test="name != null">, name = #{name}</if>
+      <if test="description != null">, description = #{description}</if>
+      <if test="context_model_id != null">, context_model_id = #{contextModelId}</if>
+      <if test="orchestration_service_id != null">, orchestration_service_id = #{orchestrationServiceId}</if>
+      <if test="location_uri != null">, location_uri = #{locationUri}</if>
+      <if test="enabled != null">, enabled = #{enabled}</if>
+      <if test="period != null">, period = #{period}</if>
+      <if test="userId != null">, user_id = #{userId}</if>
+    WHERE
+      id = #{id}
+  </update>
+
+  <update id="updateProfilePeriod" parameterType="ProfileForDB">
+    UPDATE profile SET
+      modified_date = now(4)
+      , period = #{period}
+    WHERE id = #{id}
+  </update>
+
+  <update id="updateProfileEnabled" parameterType="ProfileForDB">
+    UPDATE profile SET
+      modified_date = now(4)
+      , enabled = #{enabled}
+    WHERE id = #{id}
+  </update>
+
+  <delete id="deleteProfile" parameterType="ProfileForDB">
+    delete from profile where id = #{id}
+  </delete>
+
+</mapper>

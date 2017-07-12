@@ -5,6 +5,8 @@ import com.pineone.icbms.so.devicecontrol.model.virtualdevice.driver.IGenericDev
 import com.pineone.icbms.so.interfaces.database.model.DeviceControlForDB;
 import com.pineone.icbms.so.interfaces.database.model.TrackingEntity;
 import com.pineone.icbms.so.interfaces.messagequeue.tracking.handler.TrackingHandler;
+import com.pineone.icbms.so.interfaces.sda.handle.SdaClient;
+import com.pineone.icbms.so.interfaces.sda.handle.itf.ISdaManager;
 import com.pineone.icbms.so.interfaces.si.handle.DeviceManager;
 import com.pineone.icbms.so.interfaces.si.ref.ClientProfile;
 import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
@@ -12,6 +14,8 @@ import com.pineone.icbms.so.serviceprocessor.processor.AProcessHandler;
 import com.pineone.icbms.so.virtualobject.virtualdevice.IGenericVirtualDevice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.pineone.icbms.so.interfaces.si.model.ResultMessage;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -64,10 +68,17 @@ public class DeviceControlHandler extends AProcessHandler {
      * @param contextModelId context model id
      */
     public void handle(IGenericVirtualDevice virtualDevice, String locationUri, String contextModelId) {
-        //get DeviceDriver from sda by virtual object features
+
+        getTracking().setProcess(getClass().getSimpleName());
+        getTracking().setProcessMethod(new Object(){}.getClass().getEnclosingMethod().getName());
+
+        // get DeviceDriver from sda by virtual object features
+        // retrieve device list
 //        SdaClient sdaClient = new SdaClient();
 //        List<IGenericVirtualDevice> deviceList = sdaClient.retreiveDeviceList(null, locationUri);
+
         //create control list
+        // TODO 개발버전은 개발용 데이터베이스에서 조회처리하나, 운영은 SDA에 API로 각 디바이스별 제어값을 조회해서 처리해야 함
         DeviceControlForDB deviceControlForDB = databaseManager.getDeviceControlByDeviceIdAndContextModelID(virtualDevice.getId(), contextModelId);
         log.debug("DeviceControlForDB: {}", deviceControlForDB);
 //        DeviceControlValue deviceControlValue = ModelMapper.toDeviceControlValue(deviceControlForDB);
@@ -81,30 +92,36 @@ public class DeviceControlHandler extends AProcessHandler {
 //                List<DeviceControlValue> values = sdaClient.retreiveDeviceControlValues(null, null, locationUri, device.getId());
 //                controlList.put(deviceDriver, values);
 //            }
+
+        // set TrackingEntity
+        //tracking = getTracking();
+
         if (deviceControlForDB != null) {
-            TrackingEntity tracking = getTracking();
+            // TODO simulator
+            if ("Y".equals(virtualDevice.getIsLast())) {
+                getTracking().setStatusCd("F");
+            }
 
-            // TODO 시뮬레이션인 경우 실제 디바이스 실행을 위해
-            if (tracking.getSimulatorType() == null) {
-                try {
-                    //control device
-                    String commandId = controlDevice(virtualDevice, deviceControlForDB.getValue());
-
-                    tracking.setCommandId(commandId);
-                    TrackingHandler.send(tracking
-                            , getClass().getSimpleName() + " " + virtualDevice.getName() + " " + virtualDevice.getId());
-                    log.warn("controlDevice: {}, {}", virtualDevice.getName(), virtualDevice.getId());
-                } catch (Exception e) {
-                    TrackingHandler.send(tracking
-                            , getClass().getSimpleName() + " " + "Failure controlDevice" + e.getMessage());
-                    log.warn("Failure controlDevice: {}, {}", virtualDevice.getName(), virtualDevice.getId());
-                }
+            if (getTracking().getSimulatorType() == null || "".equals(getTracking().getSimulatorType())) {
+                // TODO 실제 디바이스 실행
+                //control device
+                controlDevice(virtualDevice, deviceControlForDB.getValue());
+            }
+            else {
+                // TODO 시뮬레이션
+                log.warn("Simulate controlDevice: {}, {}", virtualDevice.getName(), virtualDevice.getId());
+                getTracking().setProcessId(virtualDevice.getId());
+                getTracking().setProcessName(virtualDevice.getName() + ", 디바이스제어");
+                getTracking().setProcessValue(deviceControlForDB.getValue());
+                TrackingHandler.send(getTracking());
             }
         }
         else
         {
-            log.warn("DeviceControlForDB NOT exist: virtualdevice: {}\n, location: {}, contextmodel: {}", virtualDevice, locationUri, contextModelId);
-            TrackingHandler.send(getTracking(), getClass().getSimpleName()+" : DeviceControlForDB NOT exist");
+            log.warn("DeviceControlForDB NOT exist: virtualdevice: {}, location: {}, contextmodel: {}", virtualDevice, locationUri, contextModelId);
+            getTracking().setProcessId(String.format("deviceId : %s, contextModelId : %s", virtualDevice.getId(), contextModelId));
+            getTracking().setProcessName("디바이스 제어정보 없음");
+            TrackingHandler.send(getTracking());
         }
     }
 
@@ -132,9 +149,39 @@ public class DeviceControlHandler extends AProcessHandler {
      * @param virtualDevice      control device
      * @param deviceControlValue device control value
      */
-    private String controlDevice(IGenericVirtualDevice virtualDevice, String deviceControlValue) throws Exception {
-        String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
-        deviceManager.deviceExecute(commandId, virtualDevice.getId(), deviceControlValue);
-        return commandId;
+    private void controlDevice(IGenericVirtualDevice virtualDevice, String deviceControlValue) {
+
+        getTracking().setProcessMethod(new Object(){}.getClass().getEnclosingMethod().getName());
+
+        try {
+            String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
+
+            ResultMessage resultMessage = deviceManager.deviceExecute(commandId, virtualDevice.getId(), deviceControlValue);
+
+//            getTracking().setCommandId(commandId);
+//            getTracking().setProcessId(resultMessage.getCode());
+//            getTracking().setProcessName(resultMessage.getMessage());
+//            getTracking().setProcessValue(deviceControlValue);
+            // 정상응답이 아닌경우
+            if (!"2000".equals(resultMessage.getCode())) {
+                getTracking().setProcessId(resultMessage.getCode());
+                getTracking().setProcessName("Response ERROR");
+                getTracking().setProcessValue(deviceControlValue);
+                getTracking().setProcessError(resultMessage.getMessage());
+            } else {
+                getTracking().setCommandId(commandId);
+                getTracking().setProcessId(resultMessage.getCode());
+                getTracking().setProcessName(resultMessage.getMessage());
+                getTracking().setProcessValue(deviceControlValue);
+            }
+            TrackingHandler.send(getTracking());
+            log.warn("ResultMessage controlDevice: {}", resultMessage);
+        } catch (Exception e) {
+            e.printStackTrace();
+            getTracking().setProcessId("");
+            getTracking().setProcessName("Exception");
+            getTracking().setProcessError(e.getMessage());
+            TrackingHandler.send(getTracking());
+        }
     }
 }

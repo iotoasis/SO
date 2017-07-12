@@ -59,7 +59,7 @@ public class ProfileController {
 
                     ContextModelHandler contextModelHandler = new ContextModelHandler(databaseManager);
                     contextModelHandler.setTracking(trackingEntity);
-                    contextModelHandler.handle(profile);
+                    contextModelHandler.profileHandle(profile);
                 }
             }
         } else {
@@ -85,7 +85,7 @@ public class ProfileController {
             TrackingEntity trackingEntity = (TrackingEntity) request.getSession().getAttribute("tracking");
             ContextModelHandler contextModelHandler = new ContextModelHandler(databaseManager);
             contextModelHandler.setTracking(trackingEntity);
-            contextModelHandler.handle(profile);
+            contextModelHandler.profileHandle(profile);
         } else {
             log.warn("The profile does NOT have a location.");
         }

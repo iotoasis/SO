@@ -32,4 +32,6 @@ public interface IDatabaseManager {
     DeviceControlForDB getDeviceControlValues(String deviceId, String contextModelId);
 
     ProfileForDB getProfileById(String profileId);
+
+    void createTracking(TrackingEntity trackingEntity);
 }

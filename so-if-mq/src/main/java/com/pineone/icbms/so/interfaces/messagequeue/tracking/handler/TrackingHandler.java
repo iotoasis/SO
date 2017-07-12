@@ -22,15 +22,22 @@ public class TrackingHandler {
     }
 
     // process 를 추가하는 경우 사용
-    public static TrackingEntity send(TrackingEntity tracking, String process) {
-        //tracking.addProcess(process);
-        tracking.setProcess(process);
-
-        DefaultProducerHandler trackingHandler = new DefaultProducerHandler(0, "tracking");
-        trackingHandler.send(tracking);
-        trackingHandler.close();
-
-        return tracking;
-    }
+//    public static TrackingEntity send(TrackingEntity tracking, String... process) {
+//        //tracking.addProcess(process);
+//        // step, id, name, info
+//        for (int i = 0; i < process.length; i++) {
+//            if (i == 0) tracking.setProcess(process[i]);
+//            if (i == 3) tracking.setProcessMethod(process[i]);
+//            if (i == 2) tracking.setProcessName(process[i]);
+//            if (i == 1) tracking.setProcessId(process[i]);
+//            if (i > 3) break;
+//        }
+//
+//        DefaultProducerHandler trackingHandler = new DefaultProducerHandler(0, "tracking");
+//        trackingHandler.send(tracking);
+//        trackingHandler.close();
+//
+//        return tracking;
+//    }
 
 }

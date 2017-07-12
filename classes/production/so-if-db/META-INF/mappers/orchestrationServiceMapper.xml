@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pineone.icbms.so.interfaces.database.dao.OrchestrationServiceDao">
+    <select id="retrieveOrchestrationServiceById" parameterType="String" resultType="OrchestrationServiceForDB">
+        SELECT
+          id
+          , name
+          , description
+          , created_date
+          , parent_id
+          , modified_date
+          , user_id
+          , order_cd
+        FROM orchestration_service
+        <where>
+            <if test="value != null">
+                id = #{value}
+            </if>
+        </where>
+    </select>
+
+    <select id="retrieveOrchestrationServiceByModel" parameterType="OrchestrationServiceForDB" resultType="OrchestrationServiceForDB">
+        SELECT
+        id
+        , name
+        , description
+        , created_date
+        , parent_id
+        , modified_date
+        , user_id
+        , order_cd
+        FROM orchestration_service
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="name != null">
+                AND name = #{name}
+            </if>
+            <if test="parentId != null">
+                AND parent_id = #{parentId}
+            </if>
+            <if test="description != null">
+                AND description = #{description}
+            </if>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="orderCd != null">
+                AND order_cd = #{orderCd}
+            </if>
+        </trim>
+    </select>
+
+    <insert id="createOrchestrationService"  parameterType="OrchestrationServiceForDB">
+        INSERT INTO orchestration_service (
+            id
+            , name
+            , description
+            , parent_id
+            , created_date
+            , modified_date
+            , user_id
+            , order_cd
+        )
+        VALUES (
+            #{id}
+            , #{name}
+            , #{description}
+            , #{parentId}
+            , now(4)
+            , now(4)
+            , #{userId}
+            , #{orderCd}
+        )
+    </insert>
+
+    <update id="updateOrchestrationService" parameterType="OrchestrationServiceForDB">
+        UPDATE orchestration_service
+        <set>
+            modified_date = now(4)
+            <if test="parentId != null">, parent_id = #{parentId}</if>
+            <if test="name != null">, name = #{name}</if>
+            <if test="description != null">, description = #{description}</if>
+            <if test="userId != null">, user_id = #{userId}</if>
+            <if test="orderCd != null">, order_cd = #{orderCd}</if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="deleteOrchestrationService" parameterType="String">
+        delete from orchestration_service
+        where id = #{value}
+    </delete>
+</mapper>

@@ -1,7 +1,6 @@
 package com.pineone.icbms.so.web.interfaces.api.authoring.controller;
 
 import com.pineone.icbms.so.interfaces.database.model.CompositeVirtualObjectForDB;
-import com.pineone.icbms.so.interfaces.database.repository.CompositeVirtualObjectRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +28,8 @@ public class CompositeVirtualObjectController {
     /**
      * repository(DAO)
      */
-    @Autowired
-    private CompositeVirtualObjectRepository repository;
+//    @Autowired
+//    private CompositeVirtualObjectDao dao;
 
 //    /**
 //     * constructor.<BR/>
@@ -58,21 +57,21 @@ public class CompositeVirtualObjectController {
      * @param id CompositeVirtualObjectForDB id
      * @return CompositeVirtualObjectForDB
      */
-    @RequestMapping(value = "/{id}")
-    public CompositeVirtualObjectForDB getCompositeVirtualObject(@RequestParam("id") String id) {
-        CompositeVirtualObjectForDB cvo = repository.findOne(id);
-        return cvo;
-    }
+//    @RequestMapping(value = "/{id}")
+//    public CompositeVirtualObjectForDB getCompositeVirtualObject(@RequestParam("id") String id) {
+//        CompositeVirtualObjectForDB cvo = repository.findOne(id);
+//        return cvo;
+//    }
 
     /**
      * response for request "/cvo".<BR/>
      * @return CompositeVirtualObjectForDB list
      */
-    @RequestMapping()
-    public List<CompositeVirtualObjectForDB> getCompositeVirtualObjectList() {
-        List<CompositeVirtualObjectForDB> cvoList = repository.findAll();
-        return cvoList;
-    }
+//    @RequestMapping()
+//    public List<CompositeVirtualObjectForDB> getCompositeVirtualObjectList() {
+//        List<CompositeVirtualObjectForDB> cvoList = repository.findAll();
+//        return cvoList;
+//    }
 
     /**
      * response for request "/cvo, HTTP-method:PATCH(update)".<BR/>
@@ -90,11 +89,11 @@ public class CompositeVirtualObjectController {
      * @param id CompositeVirtualObjectForDB id
      * @return deleted CompositeVirtualObjectForDB id
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String deleteCompositeVirtualObject(@RequestParam("id") String id) {
-        repository.delete(id);
-        return id;
-    }
+//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+//    public String deleteCompositeVirtualObject(@RequestParam("id") String id) {
+//        repository.delete(id);
+//        return id;
+//    }
 
     /**
      * response for request "/cvo/{id}, HTTP-method:POST, 'register'".<BR/>

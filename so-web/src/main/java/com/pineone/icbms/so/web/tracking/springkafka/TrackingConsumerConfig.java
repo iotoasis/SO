@@ -35,7 +35,7 @@ public class TrackingConsumerConfig extends AConsumerConfig {
      * @return ContextModelConsumerHandler
      */
     @Bean
-    public TrackingConsumerHandler loggingConsumerHandler() {
+    public TrackingConsumerHandler trackingConsumerHandler() {
         return new TrackingConsumerHandler();
     }
 }

@@ -9,19 +9,33 @@ import com.pineone.icbms.so.interfaces.si.proxy.DeviceSIProxy;
 import com.pineone.icbms.so.interfaces.si.ref.SIAddressStore;
 import com.pineone.icbms.so.interfaces.si.ref.ClientProfile;
 import com.pineone.icbms.so.util.itf.address.AddressCollector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by melvin on 2017. 4. 4..
  */
 
 public class DeviceManager implements IDeviceManager{
-
+    /**
+     * logger
+     */
+    protected Logger log = LoggerFactory.getLogger(getClass());
 
     AddressCollector addressCollector = new AddressCollector();
     DeviceControlProxy deviceControlProxy = new DeviceSIProxy();
 
+    /*
+     * Tracking
+     */
+//    private TrackingEntity tracking;
+//
+//    public void setTrackingEntity(TrackingEntity tracking) {
+//        this.tracking = tracking;
+//    }
+
     @Override
-    public String deviceExecute(String commandId, String deviceUri, String deviceCommand) {
+    public ResultMessage deviceExecute(String commandId, String deviceUri, String deviceCommand) {
 
 //        // so-serviceprocessor 에서 최종 device control 단에서 commandId 를 생성해서 인자로 받도록 수정
 //        String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
@@ -41,7 +55,7 @@ public class DeviceManager implements IDeviceManager{
             lwm2MDeviceControl.setOui(ClientProfile.SI_CONTROL_LWM2M_OUI);
             lwm2MDeviceControl.setModelName(ClientProfile.SI_CONTROL_LWM2M_MODELNAME);
             lwm2MDeviceControl.setSn(ClientProfile.SI_CONTROL_LWM2M_SN);
-            lwm2MDeviceControl.setAuthld(ClientProfile.SI_CONTROL_LWM2M_AUTHID);
+            lwm2MDeviceControl.setAuthId(ClientProfile.SI_CONTROL_LWM2M_AUTHID);
             lwm2MDeviceControl.setAuthPwd(ClientProfile.SI_CONTROL_LWM2M_AUTHPWD);
             lwm2MDeviceControl.setSv(deviceCommand);
             deviceControlMessage = lwm2mDeviceDataConversion(deviceUri, commandId, deviceCommand);
@@ -94,7 +108,7 @@ public class DeviceManager implements IDeviceManager{
 //        }
 
 
-        return resultMessage.getCode();
+        return resultMessage;//.getCode();
     }
 
 

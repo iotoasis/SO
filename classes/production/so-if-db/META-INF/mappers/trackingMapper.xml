@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pineone.icbms.so.interfaces.database.dao.TrackingDao">
+    <insert id="createTracking" parameterType="TrackingEntity">
+        <selectKey keyProperty="seq" resultType="int" order="BEFORE">
+            select CAST(ifnull(max(seq), 0) AS UNSIGNED) + 1 as seq FROM tracking WHERE session_id = #{sessionId}
+        </selectKey>
+
+        INSERT INTO tracking (
+            session_id
+            , seq
+            , method
+            , uri
+            , remote_addr
+            , remote_host
+            , command_id
+            , simulator_type
+            , created_time
+            , process
+            , process_method
+            , process_id
+            , process_name
+            , process_value
+            , process_error
+            , user_id
+            , status_cd
+        )
+        VALUES (
+            #{sessionId}
+            , #{seq}
+            , #{method}
+            , #{uri}
+            , #{remoteAddr}
+            , #{remoteHost}
+            , #{commandId}
+            , #{simulatorType}
+            , now(4)
+            , #{process}
+            , #{processMethod}
+            , #{processId}
+            , #{processName}
+            , #{processValue}
+            , SUBSTRING(#{processError}, 1, 1000)
+            , #{userId}
+            <choose>
+                <when test="statusCd == null">
+                    , 'R'
+                </when>
+                <otherwise>
+                    , #{statusCd}
+                </otherwise>
+            </choose>
+        )
+    </insert>
+
+    <select id="retrieveTrackingBySessionId" parameterType="String" resultType="TrackingEntity">
+        SELECT * FROM tracking
+        <where>
+            <if test="value != null">
+                session_id = #{value}
+            </if>
+        </where>
+    </select>
+
+    <select id="retrieveTrackingByUserId" parameterType="String" resultType="TrackingEntity">
+        SELECT * FROM tracking
+        <where>
+            <if test="value != null">
+                user_id = #{value}
+            </if>
+        </where>
+    </select>
+
+    <select id="retrieveTrackingStatus" parameterType="String" resultType="TrackingEntity">
+        SELECT
+          status_cd
+        FROM tracking
+        WHERE
+          session_id = #{value}
+          AND status_cd = 'F'
+    </select>
+</mapper>

@@ -11,11 +11,17 @@ import com.pineone.icbms.so.interfaces.si.ref.ClientProfile;
 import com.pineone.icbms.so.util.conversion.DataConversion;
 import com.pineone.icbms.so.util.http.ClientService;
 import com.pineone.icbms.so.util.itf.address.AddressCollector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 //SI 연동 인터페이스 기능 구현
 public class DeviceSIProxy implements DeviceControlProxy {
+    /**
+     * logger
+     */
+    protected Logger log = LoggerFactory.getLogger(getClass());
 
     private ClientService clientService = new ClientService();
     private ObjectMapper mapper = new ObjectMapper();
@@ -29,7 +35,9 @@ public class DeviceSIProxy implements DeviceControlProxy {
     public ResultMessage deviceControlRequest(String requestUrl, DeviceControlMessage deviceControlMessage) {
         //
         String requestBody = new Gson().toJson(deviceControlMessage);
+        log.warn("deviceControlRequest : requestBody {}", requestBody);
         String responseData = clientService.requestPostServiceReceiveString(requestUrl, requestBody);
+        log.warn("deviceControlRequest : responseData {}", responseData);
         ResultMessage resultMessage = parsingResultMessage(responseData);
         return resultMessage;
     }

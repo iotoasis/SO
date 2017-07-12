@@ -12,6 +12,15 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(value= JsonInclude.Include.NON_ABSENT, content= JsonInclude.Include.NON_EMPTY)
 public class DeviceControlForMQ extends VirtualObjectForMQ {
 
+    // TODO simulator
+    private String isLast;
+    public String getIsLast() {
+        return isLast;
+    }
+    public void setIsLast(String isLast) {
+        this.isLast = isLast;
+    }
+
     /**
      * constructor<BR/>
      */

@@ -108,7 +108,7 @@
 //    @ResponseBody
 //    public void stopSchedulerPeriod() throws SchedulerException {
 //        //
-//        schedulerManager.stopAllJobListAndChangeStatus();
+//        schedulerManager.stopJobListAndChangeStatus();
 //    }
 //
 //}

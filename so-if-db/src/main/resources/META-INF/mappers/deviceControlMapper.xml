@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pineone.icbms.so.interfaces.database.dao.DeviceControlDao">
+    <select id="retrieveDeviceControlByDeviceIdAndContextModelId" parameterType="HashMap" resultType="DeviceControlForDB">
+        SELECT
+          context_model_id
+          , id
+          , max_value
+          , min_value
+          , unit
+          , unit_description
+          , value
+          , value_description
+        FROM
+          device_control
+        WHERE
+          id = #{id}
+          AND context_model_id = #{contextModelId}
+    </select>
+
+    <select id="retrieveDeviceControlById" parameterType="String" resultType="DeviceControlForDB">
+        SELECT
+            context_model_id
+            , id
+            , max_value
+            , min_value
+            , unit
+            , unit_description
+            , value
+            , value_description
+            , order_cd
+        FROM device_control
+        WHERE
+                id = #{value}
+    </select>
+
+    <select id="retrieveDeviceControlByModel" parameterType="DeviceControlForDB" resultType="DeviceControlForDB">
+        SELECT
+        context_model_id
+        , id
+        , max_value
+        , min_value
+        , unit
+        , unit_description
+        , value
+        , value_description
+        , order_cd
+        FROM device_control
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="unit != null">
+                AND unit = #{unit}
+            </if>
+            <if test="unitDescription != null">
+                AND unit_description = #{unitDescription}
+            </if>
+            <if test="valueDescription != null">
+                AND value_description = #{valueDescription}
+            </if>
+            <if test="contextModelId != null">
+                AND context_model_id = #{contextModelId}
+            </if>
+            <if test="orderCd != null">
+                AND order_cd = #{orderCd}
+            </if>
+        </trim>
+    </select>
+
+    <insert id="createDeviceControl" parameterType="DeviceControlForDB">
+        INSERT INTO device_control (
+        context_model_id
+        , id
+        , max_value
+        , min_value
+        , unit
+        , unit_description
+        , value
+        , value_description
+        , order_cd
+        , created_date
+        , modified_date
+        )
+        VALUES (
+        #{contextModelId}
+        , #{id}
+        , #{maxValue}
+        , #{minValue}
+        , #{unit}
+        , #{unitDescription}
+        , #{value}
+        , #{valueDescription}
+        , #{orderCd}
+        , now(4)
+        , now(4)
+        )
+    </insert>
+
+    <update id="updateDeviceControl" parameterType="DeviceControlForDB">
+        UPDATE device_control
+        <set>
+            modified_date = now(4)
+            <if test="contextModelId != null">, context_model_id = #{contextModelId}</if>
+            <if test="maxValue != null">, max_value = #{maxValue}</if>
+            <if test="minValue != null">, min_value = #{minValue}</if>
+            <if test="unit != null">, unit = #{unit}</if>
+            <if test="orderCd != null">, order_cd = #{orderCd}</if>
+            <if test="unitDescription != null">, unit_description = #{unitDescription}</if>
+            <if test="value != null">, value = #{value}</if>
+            <if test="valueDescription != null">, value_description = #{valueDescription}</if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="deleteDeviceControl" parameterType="String">
+        delete from device_control
+        where id = #{value}
+    </delete>
+</mapper>

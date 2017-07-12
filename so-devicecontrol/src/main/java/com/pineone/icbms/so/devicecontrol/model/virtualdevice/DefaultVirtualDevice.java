@@ -6,6 +6,16 @@ package com.pineone.icbms.so.devicecontrol.model.virtualdevice;
  * Created by uni4love on 2017. 1. 11..
  */
 public class DefaultVirtualDevice extends AGenericVirtualDevice {
+
+    @Override
+    public String getIsLast() {
+        return isLast;
+    }
+    @Override
+    public void setIsLast(String isLast) {
+        this.isLast = isLast;
+    }
+
     /**
      * constructor
      */

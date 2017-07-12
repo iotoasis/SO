@@ -1,0 +1,82 @@
+def VERSION = [
+    //        build           : '1.0.0-SNAPSHOT',
+    java            : 1.8,
+    jackson_databind: '2.8.6'
+]
+
+group 'com.pineone.icbms.so'
+//version "${VERSION.build}"
+
+buildscript {
+    ext {
+        springBootVersion = '1.5.4.RELEASE'
+    }
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+//mainClassName = 'SoWebMvcApplication'
+
+jar {
+    baseName = 'so-web-mvc'
+//    version = '2.0.0-SANPSHOT'
+}
+
+sourceCompatibility = "${VERSION.java}"
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    //so
+    //compile project(':so-util')
+    //compile project(':so-virtualobject')
+    compile project(':so-if-db')
+    //compile project(':so-serviceutil')
+
+    //logging
+    compile "ch.qos.logback:logback-classic:1.1.9"
+    compile "org.slf4j:slf4j-api:1.7.22"
+
+    //spring-boot
+    compile('org.springframework.boot:spring-boot-starter-aop')
+
+    compile('org.springframework.boot:spring-boot-starter-web')
+    runtime('org.springframework.boot:spring-boot-starter-tomcat')
+    runtime('org.apache.tomcat.embed:tomcat-embed-jasper')
+
+    //compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+
+    //devtools
+    compile('org.springframework.boot:spring-boot-devtools')
+
+    //tomcat ; for binding on external tomcat
+//	compile('org.springframework.boot:spring-boot-starter-tomcat')
+
+    //compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
+    // https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
+    compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '1.3.0'
+
+    // for JSP
+    // https://mvnrepository.com/artifact/javax.servlet/jstl
+    compile group: 'javax.servlet', name: 'jstl', version: '1.2'
+
+    //test
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+bootRun {
+    jvmArgs = ["-Dspring.profiles.active=dev"]
+}

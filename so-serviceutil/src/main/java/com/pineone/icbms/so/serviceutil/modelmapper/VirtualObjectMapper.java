@@ -71,8 +71,10 @@ public class VirtualObjectMapper implements IModelMapper<IGenericVirtualObject, 
             virtualObject = new DefaultVirtualObject();
             virtualObject.setId(virtualObjectForDB.getId());
             virtualObject.setName(virtualObjectForDB.getName());
-            virtualObject.setAspect(aspectMapper.toProcessorModelFromDb(new AspectForDB(virtualObjectForDB.getAspectId())));
-            virtualObject.setFunctionality(functionalityMapper.toProcessorModelFromDb(new FunctionalityForDB(virtualObjectForDB.getFunctionalityId())));
+//            virtualObject.setAspect(aspectMapper.toProcessorModelFromDb(new AspectForDB(virtualObjectForDB.getAspectId())));
+//            virtualObject.setFunctionality(functionalityMapper.toProcessorModelFromDb(new FunctionalityForDB(virtualObjectForDB.getFunctionalityId())));
+            virtualObject.setAspect(aspectMapper.toProcessorModelFromDb(virtualObjectForDB.getAspectId()));
+            virtualObject.setFunctionality(functionalityMapper.toProcessorModelFromDb(virtualObjectForDB.getFunctionalityId()));
         }
         return virtualObject;
     }

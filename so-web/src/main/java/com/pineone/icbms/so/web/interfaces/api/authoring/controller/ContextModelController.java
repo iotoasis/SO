@@ -1,17 +1,13 @@
 package com.pineone.icbms.so.web.interfaces.api.authoring.controller;
 
 import com.pineone.icbms.so.interfaces.database.model.ContextModelForDB;
-import com.pineone.icbms.so.interfaces.database.repository.ContextModelRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * context for ProfileForDB.<BR/>
@@ -29,8 +25,8 @@ public class ContextModelController {
     /**
      * profile repository(DAO)
      */
-    @Autowired
-    private ContextModelRepository repository;
+//    @Autowired
+//    private ContextModelDao dao;
 
 //    /**
 //     * constructor.<BR/>
@@ -58,21 +54,21 @@ public class ContextModelController {
      * @param id ContextModelForMQ id
      * @return ContextModelForMQ
      */
-    @RequestMapping(value = "/{id}")
-    public ContextModelForDB getContextModel(@RequestParam("id") String id) {
-        ContextModelForDB cm = repository.findOne(id);
-        return cm;
-    }
+//    @RequestMapping(value = "/{id}")
+//    public ContextModelForDB getContextModel(@RequestParam("id") String id) {
+//        ContextModelForDB cm = repository.findOne(id);
+//        return cm;
+//    }
 
     /**
      * response for request "/cm".<BR/>
      * @return ContextModelForMQ list
      */
-    @RequestMapping()
-    public List<ContextModelForDB> getContextModelList() {
-        List<ContextModelForDB> cmList = repository.findAll();
-        return cmList;
-    }
+//    @RequestMapping()
+//    public List<ContextModelForDB> getContextModelList() {
+//        List<ContextModelForDB> cmList = repository.findAll();
+//        return cmList;
+//    }
 
     /**
      * response for request "/cm, HTTP-method:PATCH(update)".<BR/>
@@ -90,11 +86,11 @@ public class ContextModelController {
      * @param id ContextModelForMQ id
      * @return deleted ContextModelForMQ id
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String deleteContextModel(@RequestParam("id") String id) {
-        repository.delete(id);
-        return id;
-    }
+//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+//    public String deleteContextModel(@RequestParam("id") String id) {
+//        repository.delete(id);
+//        return id;
+//    }
 
     /**
      * response for request "/cm/{id}, HTTP-method:POST, 'register'".<BR/>
