@@ -1,23 +1,30 @@
 package com.pineone.icbms.so.interfaces.database.model;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.io.Serializable;
 
 /**
  * Created by jonghee on 2017-06-02.
  */
-@Entity
-@Table(name="tracking")
+//@Data
+@JsonPropertyOrder({"sessionId","seq", "description"})
+@ToString
 public class TrackingEntity implements Serializable {
     /*
      * just increment id
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    //private String id;
 
-    @Column(name = "session_id")
+    @Getter @Setter
     private String sessionId;
+
+    @Getter @Setter
+    private int seq;
 
     /*
      * simulator_type
@@ -25,109 +32,71 @@ public class TrackingEntity implements Serializable {
      *      log: only logging
      *      null: real service
      */
-    @Column(name = "simulator_type")
+    @Getter @Setter
     private String simulatorType;
 
-    @Column(name = "method")
+    @Getter @Setter
     private String method;
 
-    @Column(name = "uri")
+    @Getter @Setter
     private String uri;
 
-    @Column(name = "remote_addr")
+    @Getter @Setter
     private String remoteAddr;
 
-    @Column(name = "remote_host")
+    @Getter @Setter
     private String remoteHost;
 
-    @Column(name = "created_time")
+    @Getter @Setter
     private String createdTime;
 
-    @Column(name = "process")
+    @Getter @Setter
     private String process;
+
+    @Getter @Setter
+    private String processId;
+
+    @Getter @Setter
+    private String processName;
+
+    @Getter @Setter
+    private String processValue;
+
+    @Getter @Setter
+    private String processMethod;
+
+    @Getter @Setter
+    private String processError;
+
+    @Getter @Setter
+    private String userId;
 
     /*
      * 디바이스 실행을 위해 si 컨테이너에 넘기는 commandId
      */
-    @Column(name = "command_id")
+    @Getter @Setter
     private String commandId;
 
-    public TrackingEntity() {
+    @Getter @Setter
+    private String statusCd;
+
+    public void clearRequestInfomation() {
+        this.method = "";
+        this.remoteAddr = "";
+        this.remoteHost = "";
+        //this.simulatorType = "";
+        this.uri = "";
     }
 
-    public TrackingEntity(String sessionId) {
-        this.sessionId = sessionId;
+    public void clearProcessInfomation() {
+        this.process = "";
+        this.processMethod = "";
+        this.processName = "";
+        this.processId = "";
+        this.processError = "";
+        this.processValue = "";
+        //this.simulatorType = "";
+        //this.uri = "";
     }
 
-    public String getSessionId() {
-        return sessionId;
-    }
-
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
-    }
-
-    public String getSimulatorType() {
-        return simulatorType;
-    }
-
-    public void setSimulatorType(String simulatorType) {
-        this.simulatorType = simulatorType;
-    }
-
-    public String getMethod() {
-        return method;
-    }
-
-    public void setMethod(String method) {
-        this.method = method;
-    }
-
-    public String getUri() {
-        return uri;
-    }
-
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-
-    public String getRemoteAddr() {
-        return remoteAddr;
-    }
-
-    public void setRemoteAddr(String remoteAddr) {
-        this.remoteAddr = remoteAddr;
-    }
-
-    public String getRemoteHost() {
-        return remoteHost;
-    }
-
-    public void setRemoteHost(String remoteHost) {
-        this.remoteHost = remoteHost;
-    }
-
-    public String getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(String createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public String getProcess() {
-        return process;
-    }
-
-    public void setProcess(String process) {
-        this.process = process;
-    }
-
-    public String getCommandId() {
-        return commandId;
-    }
-
-    public void setCommandId(String commandId) {
-        this.commandId = commandId;
-    }
 }

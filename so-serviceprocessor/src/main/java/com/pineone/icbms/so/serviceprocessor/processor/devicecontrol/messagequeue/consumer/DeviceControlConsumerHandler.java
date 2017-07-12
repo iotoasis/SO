@@ -106,6 +106,7 @@ public class DeviceControlConsumerHandler extends AGenericConsumerHandler2<Strin
 
         //MQ model --> DeviceControl model
         IGenericVirtualDevice virtualDevice = ModelMapper.toVirtualDevice(deviceControlForMQ);
+
         log.debug("VirtualDevice: {}", virtualDevice);
         if (virtualDevice != null) {
             String locationUri = (String)deviceControlForMQ.getState(Const.LOCATION_URI);

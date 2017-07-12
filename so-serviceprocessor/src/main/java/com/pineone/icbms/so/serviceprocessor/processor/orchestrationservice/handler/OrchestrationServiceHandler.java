@@ -39,6 +39,9 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
      * @param orchestrationService IGenericOrchestrationService
      */
     public void handle(IGenericOrchestrationService orchestrationService) {
+
+        getTracking().setProcess(getClass().getSimpleName());
+
         //OS list
         if (orchestrationService.getOrchestrationServiceList() != null) {
             handleOrchestrationServiceList(orchestrationService.getOrchestrationServiceList(), orchestrationService.getStateStore());
@@ -99,10 +102,20 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
      * @param list CVO list
      */
     private void handleCompositeVirtualObjectList(List<IGenericCompositeVirtualObject> list, IGenericStateStore stateStore) {
+        getTracking().setProcessMethod(new Object(){}.getClass().getEnclosingMethod().getName());
+
         if (list != null && list.size() > 0) {
             for (IGenericCompositeVirtualObject cvo : list) {
                 //TODO: refactor copying StateStore
                 StateStoreUtil.copyStateStore(stateStore, cvo);
+
+                getTracking().setProcessId(cvo.getId());
+                getTracking().setProcessName(cvo.getName());
+                TrackingHandler.send(getTracking()
+//                        , getClass().getSimpleName(), cvo.getId(), cvo.getName()
+//                        , new Object(){}.getClass().getEnclosingMethod().getName()
+                );
+
                 handleCompositeVirtualObject(cvo);
             }
         }
@@ -125,10 +138,18 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
      * @param list VO list
      */
     private void handleVirtualObjectList(List<IGenericVirtualObject> list, IGenericStateStore stateStore) {
+        getTracking().setProcessMethod(new Object(){}.getClass().getEnclosingMethod().getName());
+
         if (list != null) {
             for (IGenericVirtualObject virtualObject : list) {
                 // TODO tracking
-                TrackingHandler.send(getTracking(), getClass().getSimpleName()+" : "+virtualObject.getName());
+                getTracking().setProcessId(virtualObject.getId());
+                getTracking().setProcessName(virtualObject.getName());
+                TrackingHandler.send(getTracking()
+//                        , getClass().getSimpleName(), virtualObject.getId(), virtualObject.getName()
+//                        , new Object(){}.getClass().getEnclosingMethod().getName()
+                );
+
                 //TODO: refactor copying StateStore
                 StateStoreUtil.copyStateStore(stateStore, virtualObject);
                 handleVirtualObject(virtualObject);

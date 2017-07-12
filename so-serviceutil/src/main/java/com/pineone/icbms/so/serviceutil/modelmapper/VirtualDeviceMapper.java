@@ -6,6 +6,7 @@ import com.pineone.icbms.so.interfaces.database.model.DeviceForDB;
 import com.pineone.icbms.so.interfaces.messagequeue.model.DeviceControlForMQ;
 import com.pineone.icbms.so.serviceutil.state.StateStoreUtil;
 import com.pineone.icbms.so.util.conversion.IModelMapper;
+import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,7 @@ public class VirtualDeviceMapper implements IModelMapper<IGenericVirtualDevice, 
             virtualDevice.setName(deviceControlForMQ.getName());
             virtualDevice.setDescription(deviceControlForMQ.getDescription());
             StateStoreUtil.copyStateStore(deviceControlForMQ.getStateStore(), virtualDevice);
+            virtualDevice.setIsLast(deviceControlForMQ.getIsLast());
         }
         return virtualDevice;
     }
@@ -81,6 +83,10 @@ public class VirtualDeviceMapper implements IModelMapper<IGenericVirtualDevice, 
             deviceControlForMQ.setFunctionality(functionalityMapper.toMqModelFromPs(virtualDevice.getFunctionality()));
             deviceControlForMQ.setAspect(aspectMapper.toMqModelFromPs(virtualDevice.getAspect()));
             StateStoreUtil.copyStateStore(virtualDevice.getStateStore(), deviceControlForMQ);
+            // TODO simulator
+            deviceControlForMQ.setIsLast(virtualDevice.getIsLast());
+
+//            BeanUtils.copyProperties(deviceControlForMQ, virtualDevice);
         }
         return deviceControlForMQ;
     }

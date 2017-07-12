@@ -18,6 +18,7 @@ import com.pineone.icbms.so.virtualobject.location.DefaultLocation;
 import com.pineone.icbms.so.virtualobject.location.IGenericLocation;
 import com.pineone.icbms.so.virtualobject.orchestrationservice.DefaultOrchestrationService;
 import com.pineone.icbms.so.virtualobject.orchestrationservice.IGenericOrchestrationService;
+import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -456,6 +457,7 @@ public class ModelMapper extends JsonMapper {
             location.setName(locationForMQ.getName());
             location.setDescription(locationForMQ.getDescription());
             location.setUri(locationForMQ.getUri());
+            //BeanUtils.copyProperties(location, locationForMQ);
         }
         return location;
     }

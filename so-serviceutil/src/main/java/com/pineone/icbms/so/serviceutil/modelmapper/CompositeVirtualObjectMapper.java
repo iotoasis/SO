@@ -73,8 +73,17 @@ public class CompositeVirtualObjectMapper implements IModelMapper<IGenericCompos
             compositeVirtualObject.setId(compositeVirtualObjectForDB.getId());
             compositeVirtualObject.setName(compositeVirtualObjectForDB.getName());
             compositeVirtualObject.setDescription((compositeVirtualObjectForDB.getDescription()));
-            compositeVirtualObject.setAspect(aspectMapper.toProcessorModelFromDb(new AspectForDB(compositeVirtualObjectForDB.getAspect_id())));
-            compositeVirtualObject.setFunctionality(functionalityMapper.toProcessorModelFromDb(new FunctionalityForDB(compositeVirtualObjectForDB.getFunctionality_id())));
+
+//            AspectForDB aspectForDB = new AspectForDB();
+//            aspectForDB.setId(compositeVirtualObjectForDB.getAspect_id());
+//            compositeVirtualObject.setAspect(aspectMapper.toProcessorModelFromDb(aspectForDB));
+//
+//            FunctionalityForDB functionalityForDB = new FunctionalityForDB();
+//            functionalityForDB.setId(compositeVirtualObjectForDB.getFunctionality_id());
+//            compositeVirtualObject.setFunctionality(functionalityMapper.toProcessorModelFromDb(functionalityForDB));
+
+            compositeVirtualObject.setAspect(aspectMapper.toProcessorModelFromDb(compositeVirtualObjectForDB.getAspectId()));
+            compositeVirtualObject.setFunctionality(functionalityMapper.toProcessorModelFromDb(compositeVirtualObjectForDB.getFunctionalityId()));
             compositeVirtualObject.setVirtualObjectList(virtualObjectMapper.toVirtualObjectListFromDb(compositeVirtualObjectForDB.getVirtualObjectForDBList()));
         }
         return compositeVirtualObject;

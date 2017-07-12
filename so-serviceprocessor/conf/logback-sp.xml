@@ -10,7 +10,7 @@
     <!-- log level: jetty -->
     <property name="LOG_LEVEL_JETTY" value="INFO"/>
     <!-- log level: kafka -->
-    <property name="LOG_LEVEL_KAFKA" value="INFO" />
+    <property name="LOG_LEVEL_KAFKA" value="ERROR" />
 
     <!-- log target name -->
     <property name="LOG_TARGET_NAME" value="so-sp"/>
@@ -165,9 +165,7 @@
     <!-- spring profile: product -->
     <springProfile name="product">
         <root level="INFO">
-            <!--
-            <appender-ref ref="APPENDER_STDOUT_DEFAULT"/>
-            -->
+            <!--<appender-ref ref="APPENDER_STDOUT_DEFAULT"/>-->
             <appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT"/>
         </root>
 
@@ -200,23 +198,19 @@
     <springProfile name="default-dev">
         <root level="${LOG_LEVEL_DEFAULT}">
             <appender-ref ref="APPENDER_STDOUT_DEFAULT"/>
-            <!--
-            <appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT"/>
-            -->
+            <!--<appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT"/>-->
         </root>
 
         <!-- spring framework -->
         <logger name="org.springframework" level="${LOG_LEVEL_SPRINGFRAMEWORK}">
-            <!--
-            <appender-ref ref="APPENDER_STDOUT_DEFAULT"/>
-            -->
+            <!--<appender-ref ref="APPENDER_STDOUT_DEFAULT"/>-->
             <appender-ref ref="APPENDER_FILE_ROLLING_SPRING"/>
         </logger>
 
         <!-- hibernate -->
-        <logger name="org.hibernate" level="${LOG_LEVEL_HIBERNATE}">
-            <appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT"/>
-        </logger>
+        <!--<logger name="org.hibernate" level="${LOG_LEVEL_HIBERNATE}">-->
+            <!--<appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT"/>-->
+        <!--</logger>-->
 
         <!-- jetty -->
         <logger name="org.eclipse.jetty" level="${LOG_LEVEL_JETTY}">

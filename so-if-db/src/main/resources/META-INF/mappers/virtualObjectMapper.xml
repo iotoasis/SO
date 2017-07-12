@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pineone.icbms.so.interfaces.database.dao.VirtualObjectDao">
+    <select id="getVirtualObjectListByOrchestrationId" parameterType="String" resultType="VirtualObjectForDB">
+        SELECT
+          virtual_object_id as id
+            , created_date
+            , description
+            , modified_date
+            , name
+            , aspect_id
+            , functionality_id
+        FROM
+          os_vo O, virtual_object V
+        WHERE
+          O.virtual_object_id = V.id
+          AND O.orchestration_service_id = #{orchestrationServiceId}
+    </select>
+
+    <!--
+    getVirtualObjectListByOrchestrationId 로 조회된 VirtualObjectForDB 리스트를 받아서 in 절로 처리
+    -->
+    <select id="retrieveVirtualObject" parameterType="ArrayList" resultType="VirtualObjectForDB">
+        select
+            id
+            , created_date
+            , description
+            , modified_date
+            , name
+            , aspect_id
+            , functionality_id
+        from
+          virtual_object
+        where
+            id in
+            <foreach item="item" index="index" collection="list"
+                     open="(" separator="," close=")">
+                ${list[index].id}
+            </foreach>
+    </select>
+
+    <select id="retrieveVirtualObjectById" parameterType="String" resultType="VirtualObjectForDB">
+        SELECT
+            id
+            , created_date
+            , description
+            , modified_date
+            , name
+            , aspect_id
+            , functionality_id
+        FROM virtual_object
+        WHERE
+          id = #{value}
+    </select>
+
+    <select id="retrieveVirtualObjectByModel" resultType="VirtualObjectForDB">
+        SELECT * FROM virtual_object
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="name != null">
+                AND name = #{name}
+            </if>
+            <if test="aspectId != null">
+                AND aspect_id = #{aspectId}
+            </if>
+            <if test="functionalityId != null">
+                AND functionality_id = #{functionalityId}
+            </if>
+            <if test="description != null">
+                AND description = #{description}
+            </if>
+        </trim>
+    </select>
+
+    <!--
+    orchestration_service 에 사용되는 vo 목록 등록
+    -->
+    <insert id="createVirtualObjectListByOrchestrationId"  parameterType="HashMap">
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            select CAST(ifnull(max(id), 0) AS UNSIGNED) + 1 as id FROM os_vo
+        </selectKey>
+
+        INSERT INTO os_vo (
+            id
+            , orchestration_service_id
+            , virtual_object_id
+        )
+        VALUES (
+            #{id}
+            , #{orchestrationServiceId}
+            , #{virtualObjectId}
+        )
+    </insert>
+
+    <!-- CONCAT_WS('-', 'VO',  UUID()) -->
+    <insert id="createVirtualObject" parameterType="VirtualObjectForDB">
+        INSERT INTO virtual_object (
+            id
+            , name
+            , description
+            , aspect_id
+            , functionality_id
+            , created_date
+            , modified_date
+        )
+        VALUES (
+              #{id}
+            , #{name}
+            , #{description}
+            , #{aspectId}
+            , #{functionalityId}
+            , now(4)
+            , now(4)
+        )
+    </insert>
+
+    <update id="updateVirtualObject" parameterType="VirtualObjectForDB">
+        UPDATE virtual_object
+        <set>
+            modified_date = now(4)
+            <if test="name != null">, name = #{name}</if>
+            <if test="description != null">, description = #{description}</if>
+            <if test="aspectId != null">, aspect_id = #{aspectId}</if>
+            <if test="functionalityId != null">, functionality_id = #{functionalityId}</if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="deleteVirtualObject" parameterType="String">
+        delete from virtual_object
+        where id = #{value}
+    </delete>
+</mapper>

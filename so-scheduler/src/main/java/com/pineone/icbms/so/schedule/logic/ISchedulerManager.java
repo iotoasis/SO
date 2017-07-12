@@ -19,6 +19,5 @@ public interface ISchedulerManager {
     List<ProfileForDB> retrieveExecuteJobList();
     List<ProfileForDB> retrieveReadyJobList();
     void updateJob(String profileId, int period) throws SchedulerException;
-    void stopAllJobListAndChangeStatus() throws SchedulerException;
-    void startAllJobListAndChangeStatus() throws SchedulerException;
+    void stopJobListAndChangeStatus();
 }

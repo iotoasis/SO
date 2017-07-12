@@ -9,7 +9,7 @@ version "${VERSION.build}"
 
 buildscript {
     ext {
-        springBootVersion = '1.5.3.RELEASE'
+        springBootVersion = '1.5.4.RELEASE'
     }
     repositories {
         maven { url 'https://repo.spring.io/libs-release' }
@@ -21,7 +21,6 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
-
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
@@ -98,6 +97,8 @@ dependencies {
 }
 
 bootRun {
-    jvmArgs = ['-Dspring.config.location=/svc/apps/so/so/so-serviceprocessor/conf/application-dev.yml',
-               '-Dspring.profiles.active=default-dev,so-sp-dev']
+    jvmArgs = [
+            '-Dspring.config.location=/svc/apps/so/so/so-serviceprocessor/conf/application-dev.yml' ,
+            '-Dspring.profiles.active=default-dev,so-sp-dev'
+    ]
 }

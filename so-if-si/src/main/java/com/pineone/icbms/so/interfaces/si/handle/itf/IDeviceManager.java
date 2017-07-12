@@ -1,5 +1,7 @@
 package com.pineone.icbms.so.interfaces.si.handle.itf;
 
+import com.pineone.icbms.so.interfaces.si.model.ResultMessage;
+
 import java.util.List;
 
 /**
@@ -8,5 +10,5 @@ import java.util.List;
 public interface IDeviceManager {
 
     //디바이스 제어시 사용
-    String deviceExecute(String commandId, String deviceId,String deviceCommand);
+    ResultMessage deviceExecute(String commandId, String deviceId, String deviceCommand);
 }

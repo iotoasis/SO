@@ -1,16 +1,12 @@
 package com.pineone.icbms.so.web.tracking.springkafka;
 
 import com.pineone.icbms.so.interfaces.database.model.TrackingEntity;
-//import com.pineone.icbms.so.interfaces.messagequeue.tracking.data.TrackingService;
-//import com.pineone.icbms.so.interfaces.messagequeue.tracking.data.model.TrackingEntity;
-import com.pineone.icbms.so.interfaces.database.repository.TrackingRepository;
+import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
 import com.pineone.icbms.so.util.conversion.JsonMapper;
 import com.pineone.icbms.so.util.spring.springkafka.consumer.AConsumerHandler;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
-
-import java.io.IOException;
 
 /**
  * ContextModel handler.<BR/>
@@ -19,11 +15,8 @@ import java.io.IOException;
  */
 public class TrackingConsumerHandler extends AConsumerHandler<ConsumerRecord<String, String>> {
 
-//    @Autowired
-//    TrackingService trackingService;
-
     @Autowired
-    TrackingRepository trackingRepository;
+    IDatabaseManager databaseManager;
     /**
      * constructor.<BR/>
      */
@@ -41,9 +34,10 @@ public class TrackingConsumerHandler extends AConsumerHandler<ConsumerRecord<Str
         try {
             TrackingEntity tracking = JsonMapper.readJsonObject(record.value(), TrackingEntity.class);
 //            trackingService.insert(tracking);
-            trackingRepository.save(tracking);
-//        } catch (IOException e) {
-//            log.error(e.getMessage());
+            // JPA
+            //trackingRepository.save(tracking);
+            databaseManager.createTracking(tracking);
+
         } catch (Exception e) {
             log.error(e.getMessage());
         }

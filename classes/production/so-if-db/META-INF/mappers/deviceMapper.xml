@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pineone.icbms.so.interfaces.database.dao.DeviceDao">
+    <select id="retrieveDeviceList" parameterType="HashMap" resultType="DeviceForDB">
+      SELECT
+        D.id
+        , D.created_date
+        , D.description
+        , D.modified_date
+        , D.name
+        , D.aspect_id
+        , D.device_uri
+        , D.functionality_id
+        , D.location_id
+      FROM device D
+        LEFT OUTER JOIN functionality F  ON D.functionality_id  = F.id
+        LEFT OUTER JOIN aspect A         ON D.aspect_id         = A.id
+        LEFT OUTER JOIN location L       ON D.location_id       = L.id
+      WHERE
+        F.id = #{functionalityId}
+        AND A.id = #{aspectId}
+        AND L.id = #{locationId}
+    </select>
+
+  <!--
+  if 조건에 들어가는 변수가 parameterType의 객체에서 해당변수명의 getter 가 있어야 정상동작을 하는데
+  parameterType이 String인 경우는 if절의 해당 변수에 해당되는 getter 가 없어서
+  There is no getter for property named 'xxx in 'class java.lang.String' 라고 에러 발생
+  해결방법은 해쉬맵을 사용하거나 파라메터용 클래스를 만들어서 사용하면 된다
+  이 방법이 불편하면 parameterType을 String 으로 사용하고 단일 조회 변수인 경우에 만 value 란 이름으로 처리 하면된다
+  -->
+  <select id="retrieveFunctionalityFromDevice" parameterType="String" resultType="FunctionalityForDB">
+    SELECT
+      id
+      , created_date
+      , description
+      , modified_date
+      , name
+      , uri
+    FROM functionality
+    WHERE
+        id = #{value}
+  </select>
+
+  <select id="retrieveAspectFromDevice" parameterType="String" resultType="AspectForDB">
+    SELECT *
+    FROM aspect
+    WHERE
+        id = #{value}
+  </select>
+
+  <!-- retrieve location from location id in device table -->
+  <select id="retrieveLocationFromDevice" parameterType="String" resultType="LocationForDB">
+    select
+      id
+      , created_date
+      , description
+      , modified_date
+      , name
+      , uri
+    from
+      location
+    WHERE
+        id = #{value}
+  </select>
+
+  <select id="retrieveDeviceById" parameterType="String" resultType="DeviceForDB">
+    SELECT
+      id
+      , name
+      , description
+      , device_uri
+      , aspect_id
+      , functionality_id
+      , location_id
+      , created_date
+      , modified_date
+      , order_cd
+    FROM
+      device
+    WHERE
+        id = #{value}
+  </select>
+
+  <select id="retrieveDeviceByModel" parameterType="DeviceForDB" resultType="DeviceForDB">
+    SELECT
+    id
+    , name
+    , description
+    , device_uri
+    , aspect_id
+    , functionality_id
+    , location_id
+    , created_date
+    , modified_date
+    , order_cd
+    FROM device
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="id != null">
+        AND id = #{id}
+      </if>
+      <if test="name != null">
+        AND name = #{name}
+      </if>
+      <if test="deviceUri != null">
+        AND device_uri = #{deviceUri}
+      </if>
+      <if test="aspectId != null">
+        AND aspect_id = #{aspectId}
+      </if>
+      <if test="functionalityId != null">
+        AND functionality_id = #{functionalityId}
+      </if>
+      <if test="locationId != null">
+        AND location_id = #{locationId}
+      </if>
+      <if test="orderCd != null">
+        AND order_cd = #{orderCd}
+      </if>
+    </trim>
+  </select>
+
+  <insert id="createDevice" parameterType="DeviceForDB">
+    INSERT INTO device (
+      id
+      , name
+      , description
+      , device_uri
+      , aspect_id
+      , functionality_id
+      , location_id
+      , created_date
+      , modified_date
+      , order_cd
+    )
+    VALUES (
+      #{id}
+      , #{name}
+      , #{description}
+      , #{deviceUri}
+      , #{aspectId}
+      , #{functionalityId}
+      , #{locationId}
+      , now(4)
+      , now(4)
+      , #{orderCd}
+    )
+  </insert>
+
+
+  <update id="updateDevice" parameterType="DeviceForDB">
+    UPDATE device
+    <set>
+      modified_date = now(4)
+      <if test="name != null">, name = #{name}</if>
+      <if test="description != null">, description = #{description}</if>
+      <if test="deviceUri != null">, device_uri = #{deviceUri}</if>
+      <if test="orderCd != null">, order_cd = #{orderCd}</if>
+      <if test="aspectId != null">, aspect_id = #{aspectId}</if>
+      <if test="functionalityId != null">, functionality_id = #{functionalityId}</if>
+      <if test="locationId != null">, location_id = #{locationId}</if>
+    </set>
+    WHERE
+    id = #{id}
+  </update>
+
+  <delete id="deleteDevice" parameterType="String">
+    delete from device
+    where id = #{value}
+  </delete>
+</mapper>

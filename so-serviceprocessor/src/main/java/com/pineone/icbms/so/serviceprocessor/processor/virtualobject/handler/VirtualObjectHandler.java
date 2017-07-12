@@ -1,5 +1,6 @@
 package com.pineone.icbms.so.serviceprocessor.processor.virtualobject.handler;
 
+import com.pineone.icbms.so.interfaces.database.model.TrackingEntity;
 import com.pineone.icbms.so.virtualobject.virtualdevice.IGenericVirtualDevice;
 import com.pineone.icbms.so.interfaces.database.model.DeviceForDB;
 import com.pineone.icbms.so.interfaces.messagequeue.model.DeviceControlForMQ;
@@ -42,10 +43,14 @@ public class VirtualObjectHandler extends AProcessHandler<IGenericVirtualObject>
      */
     @Override
     public void handle(IGenericVirtualObject virtualObject) {
+        getTracking().setProcess(getClass().getSimpleName());
+        getTracking().setProcessMethod(new Object(){}.getClass().getEnclosingMethod().getName());
+
         if (virtualObject != null) {
             IGenericFunctionality functionality = virtualObject.getFunctionality();
             IGenericAspect aspect = virtualObject.getAspect();
             String locationUri = (String) virtualObject.getState(Const.LOCATION_URI);
+
             //get device list from repositoru by function+aspect+location.
             List<DeviceForDB> deviceForDbList = databaseManager.getDeviceList(functionality.getId(), aspect.getId(), locationUri);
             if (deviceForDbList != null && deviceForDbList.size() > 0) {
@@ -56,25 +61,48 @@ public class VirtualObjectHandler extends AProcessHandler<IGenericVirtualObject>
                 if (deviceList != null && deviceList.size() > 0) {
                     for (IGenericVirtualDevice virtualDevice : deviceList) {
                         //tracking
-                        TrackingHandler.send(getTracking()
-                                , getClass().getSimpleName() + " " + virtualDevice.getName() + " " + virtualDevice.getId());
+                        getTracking().setProcessId(virtualDevice.getId());
+                        getTracking().setProcessName(virtualDevice.getName());
+                        TrackingHandler.send(getTracking());
+
                         //copy state
                         StateStoreUtil.copyStateStore(virtualObject.getStateStore(), virtualDevice);
+
+                        // TODO simulator
+                        if (deviceList.indexOf(virtualDevice) == (deviceList.size() - 1)) {
+                            virtualDevice.setIsLast("Y");
+                        }
+
                         publishVirtualDevice(virtualDevice);
                     }
+
+                    // TODO end calling device control, 시뮬레이션에서 사용하기 위해 컬럼값을 'F' 로 업데이트
+                    // vo에 매핑된 device 전체에 대한 처리가 종료된 후 tracking 처리
+                    // device control handler 로 최종 처리가 이관되면 device control handler 단에서 처리해 줘야 한다
+//                    TrackingEntity trackingEntity = getTracking();
+//                    trackingEntity.clearProcessInfomation();
+//                    trackingEntity.setProcess("Finish");
+//                    trackingEntity.setStatus("F");
+//                    TrackingHandler.send(trackingEntity);
                 } else {
                     log.error("Virtual device list NOT exist.");
+                    getTracking().setProcessId("Virtual list NOT exist");
+                    getTracking().setProcessName("");
+                    TrackingHandler.send(getTracking());
                 }
             } else {
                 log.warn("The device list NOT exist: {}, {}", virtualObject, locationUri);
+                getTracking().setProcessId("device list NOT exist");
+                getTracking().setProcessName("");
+                TrackingHandler.send(getTracking());
             }
         } else {
             log.warn("A VirtualObject is NULL.");
+            getTracking().setProcessId("VirtualObject is NULL");
+            getTracking().setProcessName("");
+            TrackingHandler.send(getTracking());
+
         }
-    }
-
-    private void handle() {
-
     }
 
     /**
@@ -85,7 +113,6 @@ public class VirtualObjectHandler extends AProcessHandler<IGenericVirtualObject>
     private void publishVirtualDevice(IGenericVirtualDevice virtualDevice) {
         //generate a VirtualDeviceForMQ model
         DeviceControlForMQ deviceControlForMQ = ModelMapper.toVirtualDevice(virtualDevice);
-
         deviceControlForMQ.setTrackingEntity(getTracking());
 
         //generate to string.

@@ -5,7 +5,7 @@ server:
 #----------log
 #logging.config=classpath:logback-${spring.profiles.active}.xml
 logging:
-  config: file:./conf/logback-if-db.xml
+  config: file:/svc/apps/so/so/so-id-db/conf/logback-if-db.xml
 #logging.level.root=debug
   level:
     com.pineone.icbms.so: debug
@@ -27,14 +27,29 @@ spring:
     username: orchestrator
     password: pine123
     driverClassName: com.mysql.jdbc.Driver
+#  jackson:
+#    mapper:
+#      sort-properties-alphabetically: true
 
 #spring.jpa.hibernate.ddl-auto=create-drop
 #spring.
-  jpa:
-    generate-ddl: false
-    database: mysql
-    show-sql: true
+#  jpa:
+#    generate-ddl: false
+#    database: mysql
+#    show-sql: true
 
 #----------remote shell
 #shell.auth.simple.user.name=so
 #shell.auth.simple.user.password=so!@#
+
+#mybatis:
+  #DatabaseConfig.java 에서 별도로 처리
+  #mapper-locations: classpath:mappers/*.xml
+  #type-aliases-package: com.pineone.icbms.so.interfaces.database.model
+  #type-handlers-package: not defined
+#  configuration:
+#    map-underscore-to-camel-case: true
+#    default-fetch-size: 100
+#    default-statement-timeout: 30
+#    lazy-loading-enabled: true
+#    aggressive-lazy-loading: false

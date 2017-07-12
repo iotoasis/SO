@@ -1,86 +1,53 @@
 package com.pineone.icbms.so.interfaces.database.model;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * handler entity model.<BR/>
  * Created by uni4love on 2017. 1. 13..
  */
-@MappedSuperclass
+//@Data
+//@ToString
 public class CommonEntity { //extends AbstractPersistable<String> {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column(name = "id")
-//    int id;
-
-    @Column(name = "name", nullable = false)
+    /*
+     * 이름
+     */
+    @Getter @Setter
     String name;
 
-    @Column(name = "description")
+    /*
+     * 정의
+     */
+    @Getter @Setter
     String description;
 
-//    @Column(name = "createdDate", nullable = false)
-//    Timestamp createdDate;
-//
-//    @Column(name = "modifiedDate", nullable = false)
-//    Timestamp modifiedDate;
+    /*
+     * 생성일
+     */
+    @Getter @Setter
+    String createdDate;
 
-    @Column(name = "created_date")
-    String created_date;
+    /*
+     * 수정일
+     */
+    @Getter @Setter
+    String modifiedDate;
 
-    @Column(name = "modified_date")
-    String modified_date;
+    /*
+     * 권한기능 - 사용자 ID
+     */
+    @Getter @Setter
+    String userId;
 
-//    @Column(name = "simulation_id")
-//    String simulationId;
+    /*
+     * 차수 - 1, 2, 3 차년
+     */
+    @Getter @Setter
+    String orderCd;
 
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getCreated_date() {
-        return created_date;
-    }
-
-    public void setCreated_date(String created_date) {
-        this.created_date = created_date;
-    }
-
-    public String getModified_date() {
-        return modified_date;
-    }
-
-    public void setModified_date(String modified_date) {
-        this.modified_date = modified_date;
-    }
-
-//    public String getSimulationId() {
-//        return simulationId;
-//    }
-//
-//    public void setSimulationId(String simulationId) {
-//        this.simulationId = simulationId;
-//    }
 }

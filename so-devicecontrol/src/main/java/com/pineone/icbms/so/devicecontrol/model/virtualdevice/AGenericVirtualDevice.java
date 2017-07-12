@@ -20,6 +20,12 @@ abstract public class AGenericVirtualDevice extends AGenericVirtualObject implem
      */
     protected String driverClassName;
 
+    /*
+     * for simulator
+     */
+    protected String isLast = "N";
+
+
     /**
      * constructor
      */

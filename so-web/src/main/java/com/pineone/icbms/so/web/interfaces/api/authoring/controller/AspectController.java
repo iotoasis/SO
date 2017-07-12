@@ -1,9 +1,7 @@
 package com.pineone.icbms.so.web.interfaces.api.authoring.controller;
 
-import com.pineone.icbms.so.interfaces.database.controller.inputdata.AspectData;
-import com.pineone.icbms.so.interfaces.database.logic.itf.IAspectDAO;
+import com.pineone.icbms.so.interfaces.database.dao.AspectDao;
 import com.pineone.icbms.so.interfaces.database.model.AspectForDB;
-import com.pineone.icbms.so.interfaces.database.repository.AspectRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * context for Aspect.<BR/>
@@ -31,20 +30,7 @@ public class AspectController {
      * aspect repository(DAO)
      */
     @Autowired
-    private IAspectDAO aspectDAO;
-
-    @Autowired
-    private AspectRepository repository;
-
-//    /**
-//     * constructor.<BR/>
-//     *
-//     * @param repository AspectRepository
-//     */
-//    @Autowired
-//    public AspectController(AspectRepository repository) {
-//        this.repository = repository;
-//    }
+    private AspectDao aspectDAO;
 
     /**
      * response for request "/aspect, HTTP-method:POST".<BR/>
@@ -54,10 +40,11 @@ public class AspectController {
      */
 
     @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.OK)
-    public AspectForDB createAspect(@RequestBody AspectData aspect) {
+    //@ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public AspectForDB createAspect(@RequestBody AspectForDB aspect) {
         //
-        AspectForDB aspectForDB = aspectDAO.createAspect(aspect);
+        AspectForDB aspectForDB = aspectDAO.create(aspect);
         return aspectForDB;
     }
 
@@ -68,8 +55,8 @@ public class AspectController {
      * @return aspect
      */
     @RequestMapping(value = "/{id}")
-    public AspectForDB getAspect(@RequestParam("id") String id) {
-        AspectForDB aspect = repository.findOne(id);
+    public AspectForDB getAspect(@PathVariable String id) {
+        AspectForDB aspect = aspectDAO.retrieve(id);
         return aspect;
     }
 
@@ -80,7 +67,7 @@ public class AspectController {
      */
     @RequestMapping()
     public List<AspectForDB> getAspectList() {
-        List<AspectForDB> apsectList = repository.findAll();
+        List<AspectForDB> apsectList = aspectDAO.retrieve(new AspectForDB());
         return apsectList;
     }
 
@@ -91,9 +78,8 @@ public class AspectController {
      * @return updated Aspect id
      */
     @RequestMapping(method = RequestMethod.PATCH)
-    public String updateAspect(AspectForDB aspect) {
-        //implements...
-        return null;
+    public AspectForDB updateAspect(@RequestBody AspectForDB aspect) {
+        return aspectDAO.update(aspect);
     }
 
     /**
@@ -103,21 +89,9 @@ public class AspectController {
      * @return deleted aspect id
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String deleteAspect(@RequestParam("id") String id) {
-        repository.delete(id);
+    public int deleteAspect(@PathVariable("id") String id) {
+        int cnt = aspectDAO.delete(id);
         //삭제할 aspect 관련 db update 필요.
-        return id;
-    }
-
-    /**
-     * response for request "/aspect/{id}, HTTP-method:POST, 'register'".<BR/>
-     *
-     * @param id aspect id
-     * @return registed aspect id
-     */
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public String registerAspect(String id) {
-        //implements...
-        return null;
+        return cnt;
     }
 }

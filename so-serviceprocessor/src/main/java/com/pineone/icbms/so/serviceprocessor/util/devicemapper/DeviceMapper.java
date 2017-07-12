@@ -1,5 +1,6 @@
 package com.pineone.icbms.so.serviceprocessor.util.devicemapper;
 
+import com.pineone.icbms.so.serviceprocessor.util.devicemapper.IDeviceMapper;
 import com.pineone.icbms.so.virtualobject.virtualdevice.IGenericVirtualDevice;
 import com.pineone.icbms.so.virtualobject.IGenericVirtualObject;
 

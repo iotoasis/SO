@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pineone.icbms.so.interfaces.database.dao.AspectDao">
+    <select id="retrieveAspectById" parameterType="String" resultType="AspectForDB">
+        SELECT *
+        FROM aspect
+        WHERE
+              id = #{value}
+    </select>
+
+    <select id="retrieveAspectByModel" parameterType="AspectForDB" resultType="AspectForDB">
+        SELECT *
+        FROM aspect
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="uri != null">
+                AND uri LIKE concat('%', #{uri}, '%')
+            </if>
+            <if test="name != null">
+                AND name LIKE concat('%', #{name}, '%')
+            </if>
+            <if test="description != null">
+                AND description LIKE concat('%', #{description}, '%')
+            </if>
+        </trim>
+    </select>
+
+    <update id="updateAspect" parameterType="AspectForDB">
+        UPDATE aspect
+        <set>
+            modified_date = now(4)
+            <if test="uri != null">, uri = #{uri}</if>
+            <if test="name != null">, name = #{name}</if>
+            <if test="description != null">, description = #{description}</if>
+        </set>
+        WHERE
+          id = #{id}
+    </update>
+
+    <insert id="createAspect" parameterType="AspectForDB">
+      INSERT INTO aspect (
+        id
+        , name
+        , uri
+        , description
+        , created_date
+        , modified_date
+      )
+      VALUES (
+        #{id}
+        , #{name}
+        , #{uri}
+        , #{description}
+        , now(4)
+        , now(4)
+      )
+    </insert>
+
+    <select id="retrieveAspectByVirtualObjectId" parameterType="String" resultType="AspectForDB">
+        SELECT
+          A.*
+        FROM
+          aspect A LEFT OUTER JOIN virtual_object V ON V.aspect_id = A.id
+        WHERE
+          V.id = #{value}
+    </select>
+
+    <delete id="deleteAspect" parameterType="String">
+        delete from aspect
+        where id = #{value}
+    </delete>
+</mapper>

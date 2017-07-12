@@ -9,7 +9,7 @@ group 'com.pineone.icbms.so'
 
 buildscript {
     ext {
-        springBootVersion = '1.5.3.RELEASE'
+        springBootVersion = '1.5.4.RELEASE'
     }
     repositories {
         jcenter()
@@ -48,7 +48,8 @@ dependencies {
     compile project(':so-devicecontrol')
     compile project(':so-serviceutil')
     compile project(':so-serviceprocessor')
-    compile project(':so-scheduler')
+    //compile project(':so-scheduler')
+    compile project(':so-web-mvc')
 
     //spring-boot
     compile('org.springframework.boot:spring-boot-starter-aop')
@@ -56,7 +57,7 @@ dependencies {
         exclude module: "spring-boot-starter-tomcat"
     }
     compile('org.springframework.boot:spring-boot-starter-jetty')
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    //compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-data-rest')
 
     //devtools
@@ -75,16 +76,23 @@ dependencies {
     compile group: 'com.kastkode', name: 'springsandwich', version: '1.0.2'
 //    compile files('libs/springsandwich-1.0.1.jar')
 
-    //com
-    // pile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
+    //compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
+    // https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
+    compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '1.3.0'
+
+
+    // https://mvnrepository.com/artifact/com.merapar/spring-boot-starter-graphql
+//    compile group: 'com.merapar', name: 'spring-boot-starter-graphql', version: '1.0.1'
+
 
     //test
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 bootRun {
-    jvmArgs = ["-Dspring.config.location=./conf/application-dev.yml",
-               "-Dspring.profiles.active=dev",
-               "-DSO_SERVICE_HOME=."
-              ]
+    jvmArgs = [
+            "-Dspring.config.location=/svc/apps/so/so/so-web/conf/application-dev.yml" ,
+            "-Dspring.profiles.active=dev" ,
+            "-DSO_SERVICE_HOME=."
+    ]
 }
