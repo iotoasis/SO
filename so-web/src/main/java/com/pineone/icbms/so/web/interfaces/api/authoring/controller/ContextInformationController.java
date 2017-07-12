@@ -1,17 +1,13 @@
 package com.pineone.icbms.so.web.interfaces.api.authoring.controller;
 
 import com.pineone.icbms.so.interfaces.database.model.ContextInformationForDB;
-import com.pineone.icbms.so.interfaces.database.repository.ContextInformationRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * context for ContextInformationForDB.<BR/>
@@ -29,8 +25,8 @@ public class ContextInformationController {
     /**
      * repository(DAO)
      */
-    @Autowired
-    private ContextInformationRepository repository;
+//    @Autowired
+//    private ContextInformationDao dao;
 
 //    /**
 //     * constructor.<BR/>
@@ -58,21 +54,21 @@ public class ContextInformationController {
      * @param id ContextInformationForDB id
      * @return ContextInformationForDB
      */
-    @RequestMapping(value = "/{id}")
-    public ContextInformationForDB getContextInformation(@RequestParam("id") String id) {
-        ContextInformationForDB ci = repository.findOne(id);
-        return ci;
-    }
+//    @RequestMapping(value = "/{id}")
+//    public ContextInformationForDB getContextInformation(@RequestParam("id") String id) {
+//        ContextInformationForDB ci = repository.findOne(id);
+//        return ci;
+//    }
 
     /**
      * response for request "/ci".<BR/>
      * @return ContextInformationForDB list
      */
-    @RequestMapping()
-    public List<ContextInformationForDB> getContextInformationList() {
-        List<ContextInformationForDB> ciList = repository.findAll();
-        return ciList;
-    }
+//    @RequestMapping()
+//    public List<ContextInformationForDB> getContextInformationList() {
+//        List<ContextInformationForDB> ciList = repository.findAll();
+//        return ciList;
+//    }
 
     /**
      * response for request "/ci, HTTP-method:PATCH(update)".<BR/>
@@ -90,11 +86,11 @@ public class ContextInformationController {
      * @param id ContextInformationForDB id
      * @return deleted ContextInformationForDB id
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String deleteContextInformation(@RequestParam("id") String id) {
-        repository.delete(id);
-        return id;
-    }
+//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+//    public String deleteContextInformation(@RequestParam("id") String id) {
+//        repository.delete(id);
+//        return id;
+//    }
 
     /**
      * response for request "/ci/{id}, HTTP-method:POST, 'register'".<BR/>

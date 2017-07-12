@@ -43,6 +43,13 @@ public class AspectMapper implements IModelMapper<IGenericAspect, AspectForDB, A
         }
         return aspect;
     }
+    public IGenericAspect toProcessorModelFromDb(String aspectId) {
+        DefaultAspect aspect = null;
+        if (aspectId != null) {
+            aspect = new DefaultAspect(aspectId, "", "","");
+        }
+        return aspect;
+    }
 
     /**
      * convert Processor model to MQ model.<BR/>

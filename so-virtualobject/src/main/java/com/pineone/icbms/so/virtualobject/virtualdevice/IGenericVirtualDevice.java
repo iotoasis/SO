@@ -12,4 +12,10 @@ public interface IGenericVirtualDevice extends IVirtualDevice {
      * @return device driver info for devicemapper
      */
     String getDriverClassName();
+
+    /*
+     * for simulator
+     */
+    String getIsLast();
+    void setIsLast(String isLast);
 }

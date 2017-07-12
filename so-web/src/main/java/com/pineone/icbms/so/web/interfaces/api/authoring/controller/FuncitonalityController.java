@@ -1,7 +1,7 @@
 package com.pineone.icbms.so.web.interfaces.api.authoring.controller;
 
+import com.pineone.icbms.so.interfaces.database.dao.FunctionalityDao;
 import com.pineone.icbms.so.interfaces.database.model.FunctionalityForDB;
-import com.pineone.icbms.so.interfaces.database.repository.FunctionalityRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,8 @@ import java.util.List;
  * Created by uni4love on 2017. 1. 13..
  */
 @RestController
-@RequestMapping("/functionality/*")
+@RequestMapping("/functionality")
+@ResponseStatus(value = HttpStatus.OK)
 public class FuncitonalityController {
     /**
      * logger
@@ -27,17 +28,7 @@ public class FuncitonalityController {
      * repository(DAO)
      */
     @Autowired
-    private FunctionalityRepository repository;
-
-//    /**
-//     * constructor.<BR/>
-//     *
-//     * @param repository FunctionalityRepository
-//     */
-//    @Autowired
-//    public FuncitonalityController(FunctionalityRepository repository) {
-//        this.repository = repository;
-//    }
+    private FunctionalityDao dao;
 
     /**
      * response for request "/functionality, HTTP-method:POST".<BR/>
@@ -46,9 +37,8 @@ public class FuncitonalityController {
      */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public String createFunctionality(@RequestBody FunctionalityForDB functionalityForDB) {
-    	repository.save(functionalityForDB);
-        return String.valueOf(functionalityForDB.getId());
+    public FunctionalityForDB createFunctionality(@RequestBody FunctionalityForDB functionalityForDB) {
+        return dao.create(functionalityForDB);
     }
 
     /**
@@ -57,9 +47,8 @@ public class FuncitonalityController {
      * @return FunctionalityForDB
      */
     @RequestMapping(value = "/{id}")
-    public FunctionalityForDB getFunctionality(@RequestParam("id") String id) {
-        FunctionalityForDB functionality = repository.findOne(id);
-        return functionality;
+    public FunctionalityForDB getFunctionality(@PathVariable String id) {
+        return dao.retrieve(id);
     }
 
     /**
@@ -67,9 +56,8 @@ public class FuncitonalityController {
      * @return FunctionalityForDB list
      */
     @RequestMapping()
-    public List<FunctionalityForDB> getFunctionalityList() {
-        List<FunctionalityForDB> functionalityList = repository.findAll();
-        return functionalityList;
+    public List<FunctionalityForDB> getFunctionalityList(@RequestBody FunctionalityForDB functionalityForDB) {
+        return dao.retrieve(functionalityForDB);
     }
 
     /**
@@ -78,9 +66,8 @@ public class FuncitonalityController {
      * @return updated FunctionalityForDB id
      */
     @RequestMapping(method=RequestMethod.PATCH)
-    public String updateFunctionality(FunctionalityForDB functionality) {
-        //implements...
-        return null;
+    public int updateFunctionality(FunctionalityForDB functionality) {
+        return dao.update(functionality);
     }
 
     /**
@@ -89,9 +76,9 @@ public class FuncitonalityController {
      * @return deleted FunctionalityForDB id
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String deleteFunctionality(@RequestParam("id") String id) {
-        repository.delete(id);
-        return id;
+    public int deleteFunctionality(@PathVariable String id) {
+
+        return dao.delete(id);
     }
 
     /**
@@ -99,9 +86,9 @@ public class FuncitonalityController {
      * @param id FunctionalityForDB id
      * @return registed FunctionalityForDB id
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public String registerFunctionality(String id) {
-        //implements...
-        return null;
-    }
+//    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+//    public String registerFunctionality(String id) {
+//        //implements...
+//        return null;
+//    }
 }

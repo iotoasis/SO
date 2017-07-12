@@ -1,47 +1,24 @@
 package com.pineone.icbms.so.interfaces.database.model;
 
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * DeviceControlCallbackForDB model for authoring.<BR/>
  * Created by uni4love on 2017. 1. 13..
  */
-@Entity
-@Table(name = "device_control_callback")
+@ToString
 public class DeviceControlCallbackForDB extends CommonEntity {
 
-    @Id
-    @Column(name = "deivce_control_id")
+    @Getter @Setter
     String id;
 
-    @JoinColumn(table = "orchestration_service", name = "id", nullable = false)
+    @Getter @Setter
     String parentId;
 
-    @JoinColumn(table = "virtual_object", name = "id", nullable = false)
+    @Getter @Setter
     String virtualObjectId;
 
-    public String getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
-    }
-
-    public String getVirtualObjectId() {
-        return virtualObjectId;
-    }
-
-    public void setVirtualObjectId(String virtualObjectId) {
-        this.virtualObjectId = virtualObjectId;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 }
 

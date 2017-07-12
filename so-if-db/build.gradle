@@ -9,7 +9,7 @@ version "${VERSION.build}"
 
 buildscript {
     ext {
-        springBootVersion = '1.5.3.RELEASE'
+        springBootVersion = '1.5.4.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -42,25 +42,28 @@ dependencies {
     //spring-boot
     compile project(":so-util")
 
-//    compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-jdbc")
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    //compile("org.springframework.boot:spring-boot-starter-web")
+//    compile("org.springframework.boot:spring-boot-starter-jdbc")
+//    compile('org.springframework.boot:spring-boot-starter-data-jpa')
     runtime('mysql:mysql-connector-java')
 //    compile('org.projectlombok:lombok:1.16.6')
+    compileOnly "org.projectlombok:lombok:1.16.16"
 //    compile('org.apache.tomcat.embed:tomcat-embed-jasper')
 //    compile('javax.servlet:jstl:1.2')
 //    runtime('org.hsqldb:hsqldb')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    // https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
+    compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '1.3.0'
+
 //    compile("org.springframework.boot:spring-boot-starter-actuator:${SPRING_BOOT_VERSION}")
 
     //log
     compile "org.slf4j:slf4j-api:1.7.22"
     compile "ch.qos.logback:logback-classic:1.1.9"
 
-    //compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.1-SNAPSHOT")
-
     //test
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    //testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 
 //     https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-test
 //    compile group: 'org.springframework.boot', name: 'spring-boot-test', version: '1.4.3.RELEASE'
@@ -75,7 +78,7 @@ dependencies {
 }
 
 bootRun {
-    jvmArgs = ["-Dspring.config.location=/svc/apps/so/so/so-if-db/conf/application-dev.yml",
+    jvmArgs = ["-Dspring.config.location=/svc/apps/so/so/so-id-db/conf/application-dev.yml",
                "-Dspring.profiles.active=dev"]
 }
 

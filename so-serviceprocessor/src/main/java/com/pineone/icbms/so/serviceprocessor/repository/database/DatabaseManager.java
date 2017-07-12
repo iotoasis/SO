@@ -1,7 +1,7 @@
 package com.pineone.icbms.so.serviceprocessor.repository.database;
 
-import com.pineone.icbms.so.interfaces.database.logic.itf.IDataBaseStore;
 import com.pineone.icbms.so.interfaces.database.model.*;
+import com.pineone.icbms.so.interfaces.database.service.DataBaseStore;
 import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,8 @@ import java.util.List;
 public class DatabaseManager implements IDatabaseManager {
 
     @Autowired
-    IDataBaseStore dataBaseStore;
+    //IDataBaseStore dataBaseStore;
+    DataBaseStore dataBaseStore;
 
     /**
      * singleton holder
@@ -45,6 +46,7 @@ public class DatabaseManager implements IDatabaseManager {
     @Override
     public List<ProfileForDB> getProfileListByContextModelSidAndLocationUri(String contextModelSid, String locationUri) {
         return dataBaseStore.getProfileListByContextModelSidAndLocationUri(contextModelSid, locationUri);
+        //return retrieveProfileListByContextModelSidAndLocationUri(contextModelSid, locationUri);
     }
 
     @Override
@@ -96,5 +98,10 @@ public class DatabaseManager implements IDatabaseManager {
     @Override
     public ProfileForDB getProfileById(String profileId){
         return dataBaseStore.getProfile(profileId);
+    }
+
+    @Override
+    public void createTracking(TrackingEntity trackingEntity) {
+        dataBaseStore.createTracking(trackingEntity);
     }
 }

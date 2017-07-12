@@ -13,4 +13,6 @@ include ':so-serviceutil'
 include ':so-web'
 include ':so-scheduler'
 //include 'test'
+include ':so-test'
+include ':so-web-mvc'
 

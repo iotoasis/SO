@@ -1,9 +1,8 @@
 package com.pineone.icbms.so.schedule.logic;
 
-import com.pineone.icbms.so.interfaces.database.logic.ProfileDAO;
 import com.pineone.icbms.so.interfaces.database.model.ProfileForDB;
+import com.pineone.icbms.so.interfaces.database.dao.ProfileDao;
 import org.quartz.*;
-import org.quartz.impl.StdScheduler;
 import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ import java.util.List;
 public class SchedulerManager implements ISchedulerManager, Runnable {
 
     @Autowired
-    ProfileDAO profileDAO;
+    ProfileDao profileDAO;
 
     String groupName = "SoSchedulerGroup";
     Scheduler scheduler;
@@ -46,7 +45,7 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
                 ).build();
 
         scheduler.scheduleJob(job, trigger);
-        profileForDB.setEnabled(true);
+        profileForDB.setEnabled(1);     // true
     }
 
     //스케쥴러 종료
@@ -85,7 +84,12 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
         ProfileForDB profileForDB = profileDAO.retrieveProfile(profileId);
         JobKey jobKey = JobKey.jobKey(profileForDB.getId(), groupName);
         scheduler.pauseJob(jobKey);
-        profileDAO.updateProfileEnabled(profileId, false);
+
+        ProfileForDB schProfileForDB = new ProfileForDB();
+        schProfileForDB.setId(profileId);
+        schProfileForDB.setEnabled(0);
+        profileDAO.updateProfileEnabled(schProfileForDB);
+        //profileDAO.updateProfileEnabled(profileId, false);
     }
 
     //개별 Job 재시작
@@ -106,7 +110,12 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
                         .withIntervalInSeconds(profileForDB.getPeriod()).repeatForever()
                 ).build();
         scheduler.scheduleJob(job, trigger);
-        profileDAO.updateProfileEnabled(profileId, true);
+
+        ProfileForDB schProfileForDB = new ProfileForDB();
+        schProfileForDB.setId(profileId);
+        schProfileForDB.setEnabled(1);
+        profileDAO.updateProfileEnabled(schProfileForDB);
+        //profileDAO.updateProfileEnabled(profileId, true);
     }
 
     // 현재 작동중인 스케쥴 목록 조회
@@ -144,29 +153,27 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
                                 .withIntervalInSeconds(profileForDB.getPeriod()).repeatForever()
                 ).build();
         scheduler.scheduleJob(job, trigger);
-        profileDAO.updateProfilePeriod(profileId, period);
+
+        ProfileForDB schProfileForDB = new ProfileForDB();
+        schProfileForDB.setId(profileId);
+        schProfileForDB.setPeriod(period);
+        profileDAO.updateProfilePeriod(schProfileForDB);
     }
 
     // 전체 스케줄 정지 (일시 정지 아닌 enabled 값 변환)
     @Override
-    public void stopAllJobListAndChangeStatus() throws SchedulerException {
+    public void stopJobListAndChangeStatus() {
         //
         List<ProfileForDB> scheduledProfileList = profileDAO.retrieveProfileListByEnable(true);
+
+        ProfileForDB schProfileForDB = new ProfileForDB();
         for(ProfileForDB profileForDB : scheduledProfileList){
-            pauseJob(profileForDB.getId());
-            profileDAO.updateProfileEnabled(profileForDB.getId(), false);
+            schProfileForDB.setId(profileForDB.getId());
+            schProfileForDB.setEnabled(0);
+            profileDAO.updateProfileEnabled(schProfileForDB);
+            //profileDAO.updateProfileEnabled(profileForDB.getId(), false);
         }
 
-    }
-
-    @Override
-    public void startAllJobListAndChangeStatus() throws SchedulerException {
-        //
-        List<ProfileForDB> scheduledProfileList = profileDAO.retrieveProfileList();
-        for(ProfileForDB profileForDB : scheduledProfileList){
-            restartJob(profileForDB.getId());
-            profileDAO.updateProfileEnabled(profileForDB.getId(), true);
-        }
     }
 
     // SO 실행시 자동으로 스케줄러 작동 시키는 쓰레드

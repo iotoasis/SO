@@ -46,6 +46,16 @@ public class DefaultContextModel extends AGenericContextModel {
     }
 
     @Override
+    public String getDescription() {
+        return super.getDescription();
+    }
+
+    @Override
+    public void setDescription(String description) {
+        super.setDescription(description);
+    }
+
+    @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append("[").append(super.toString()).append("]");

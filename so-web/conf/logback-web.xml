@@ -10,7 +10,7 @@
     <!-- log level: jetty -->
     <property name="LOG_LEVEL_JETTY" value="INFO"/>
     <!-- log level: kafka -->
-    <property name="LOG_LEVEL_KAFKA" value="WARN" />
+    <property name="LOG_LEVEL_KAFKA" value="ERROR" />
 
     <!-- log target name -->
     <property name="LOG_TARGET_NAME" value="so-web"/>
@@ -165,9 +165,7 @@
     <!-- spring profile: product -->
     <springProfile name="product">
         <root level="INFO">
-            <!--
-            <appender-ref ref="APPENDER_STDOUT_DEFAULT"/>
-            -->
+            <!--<appender-ref ref="APPENDER_STDOUT_DEFAULT"/>-->
             <appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT"/>
         </root>
 
@@ -191,25 +189,21 @@
         </logger>
 
         <!-- hibernate -->
-        <logger name="org.hibernate.type.descriptor.sql" level="${LOG_LEVEL}">
-            <appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT"/>
-        </logger>
+        <!--<logger name="org.hibernate.type.descriptor.sql" level="${LOG_LEVEL}">-->
+            <!--<appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT"/>-->
+        <!--</logger>-->
     </springProfile>
 
     <!-- spring profile: dev -->
     <springProfile name="dev">
         <root level="${LOG_LEVEL_DEFAULT}">
             <appender-ref ref="APPENDER_STDOUT_DEFAULT"/>
-            <!--
-            <appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT"/>
-            -->
+            <!--<appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT"/>-->
         </root>
 
         <!-- spring framework -->
         <logger name="org.springframework" level="${LOG_LEVEL_SPRINGFRAMEWORK}">
-            <!--
-            <appender-ref ref="APPENDER_STDOUT_DEFAULT"/>
-            -->
+            <!--<appender-ref ref="APPENDER_STDOUT_DEFAULT"/>-->
             <appender-ref ref="APPENDER_FILE_ROLLING_SPRING"/>
         </logger>
 
@@ -240,6 +234,10 @@
         <!-- kafka -->
         <logger name="org.apache.kafka" level="${LOG_LEVEL_KAFKA}">
             <appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT"/>
+        </logger>
+
+        <logger name="com.pineone.icbms.so.interface.database" level="DEBUG">
+            <appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT" />
         </logger>
     </springProfile>
 
