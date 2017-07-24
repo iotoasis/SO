@@ -22,30 +22,30 @@ server: |
 port:        | 서버 포트 설정 
 contextPath  | 서버 main-path 설정 
 spring: | 
-  datasource: | 
-    url:      | DataBase URL
-    username: | DB 계정 정보
-    password: | DB Password
-    driverClassName: | DB Drivet class name
-  jackson: | 
-    time-zone: | 서버 시간 설정 (Asia/Seoul 추천)
-    mapper: | 
-      sort-properties-alphabetically: true | json entities sort order
+datasource: | 
+url:      | DataBase URL
+username: | DB 계정 정보
+password: | DB Password
+driverClassName: | DB Drivet class name
+jackson: | 
+ime-zone: | 서버 시간 설정 (Asia/Seoul 추천)
+mapper: | 
+sort-properties-alphabetically: true | json entities sort order
 mq: | 
-  broker.list: localhost:9092 | 메세지 큐 포트 설정 
-  zookeeper.list: localhost:2181 | 쥬키퍼 포트 설정 
-  producer: | 
-    acks: 2	| ACKS_CONFIG
-    retries: 0	| RETRIES_CONFIG
-    batch_size: 16384 | BATCH_SIZE_CONFIG
-    linger_ms: 1 | LINGER_MS_CONFIG
-    buffer_memory: 33554432 | BUFFER_MEMORY_CONFIG SIZE
-  consumer: | 
-    pool_timeout: 4000 | POLL_TIMEOUT
-    enable_auto_commit: false | ENABLE_AUTO_COMMIT_CONFIG
-    auto_commit_interval_ms: 1000 | AUTO_COMMIT_INTERVAL_MS_CONFIG
-    session_timeout_ms: 15000 | SESSION_TIMEOUT_MS_CONFIG
-    auto_offset_reset: earliest | AUTO_OFFSET_RESET_CONFIG
+broker.list: localhost:9092 | 메세지 큐 포트 설정 
+zookeeper.list: localhost:2181 | 쥬키퍼 포트 설정 
+producer: | 
+acks: 2	| ACKS_CONFIG
+retries: 0	| RETRIES_CONFIG
+batch_size: 16384 | BATCH_SIZE_CONFIG
+linger_ms: 1 | LINGER_MS_CONFIG
+buffer_memory: 33554432 | BUFFER_MEMORY_CONFIG SIZE
+consumer: | 
+pool_timeout: 4000 | POLL_TIMEOUT
+enable_auto_commit: false | ENABLE_AUTO_COMMIT_CONFIG
+auto_commit_interval_ms: 1000 | AUTO_COMMIT_INTERVAL_MS_CONFIG
+session_timeout_ms: 15000 | SESSION_TIMEOUT_MS_CONFIG
+auto_offset_reset: earliest | AUTO_OFFSET_RESET_CONFIG
 	  
 <br>
 <br>
