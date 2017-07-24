@@ -19,8 +19,8 @@ TEST 실행 순서는 아래와 같습니다.
 server: 
 	port: 10080
 	contextPath: /so
-spring: |
-  datasource: |
+spring: 
+  datasource: 
     url: jdbc:mysql://localhost:3306/so?useUnicode=true&characterEncoding=utf-8
     username: usr
     password: pwd
@@ -39,7 +39,7 @@ spring: |
 - target 폴더(so-web/build/libs)에서 아래 명령으로 서버를 실행합니다.
 
  ```
-java -jar so.jar --spring.config.location=경로/application.properties --spring.profiles.active=default-dev,so-sp-dev
+java -jar so.jar --spring.config.location=경로/application.yml --spring.profiles.active=default-dev,so-sp-dev
  ```
 
 #### (4) POSTMAN으로 생성한 SO(Service Orchestration)를 실행
