@@ -19,8 +19,8 @@ application-product.yml
 Item              | Description
 ----------------- | --------------------------
 server: | 
-	port:        | 서버 포트 설정 
-	contextPath  | 서버 main-path 설정 
+port:        | 서버 포트 설정 
+contextPath  | 서버 main-path 설정 
 spring: | 
   datasource: | 
     url:      | DataBase URL
