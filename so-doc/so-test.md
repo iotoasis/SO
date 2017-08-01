@@ -16,18 +16,22 @@ TEST 실행 순서는 아래와 같습니다.
 
 - ex)
 ~~~
-spring.data.mongodb.database=sotest
-spring.data.mongodb.host=127.0.0.1
-spring.data.mongodb.port=27017
-spring.data.mongodb.repositories.enabled=true
-server.context-path=/so
-server.port=10080
-spring.jackson.time-zone=Asia/Seoul
+server: 
+	port: 10080
+	contextPath: /so
+spring: 
+  datasource: 
+    url: jdbc:mysql://localhost:3306/so?useUnicode=true&characterEncoding=utf-8
+    username: usr
+    password: pwd
+    driverClassName: com.mysql.jdbc.Driver
+  jackson: 
+    time-zone: Asia/Seoul
 ~~~
 
 
 #### (2) mariaDB 생성
-- Release 페이지에서 다운 받은 소스에서 [MongoDB Script](https://github.com/iotoasis/SO/blob/master/so-doc/mongodb_script.txt)를 복사 하여 MongoDB Shell에 실행 시킨다.
+- Release 페이지에서 다운 받은 소스에서 [MongoDB Script](https://github.com/iotoasis/SO/blob/master/so-doc/db_script.txt)를 복사 하여 MongoDB Shell에 실행 시킨다.
 - 생성된 DB를 확인 한다.
 
 
@@ -35,7 +39,7 @@ spring.jackson.time-zone=Asia/Seoul
 - target 폴더(so-web/build/libs)에서 아래 명령으로 서버를 실행합니다.
 
  ```
-java -jar so.jar --spring.config.location=경로/application.properties --spring.profiles.active=default-dev,so-sp-dev
+java -jar so.jar --spring.config.location=경로/application.yml --spring.profiles.active=default-dev,so-sp-dev
  ```
 
 #### (4) POSTMAN으로 생성한 SO(Service Orchestration)를 실행
