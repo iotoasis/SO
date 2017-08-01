@@ -22,7 +22,10 @@ SO Server 시험은 아래의 순서로 진행할 수 있습니다.
  - [mariaDB 설치](https://mariadb.org/download/)
  - [JDK 설치](http://docs.oracle.com/javase/7/docs/webnotes/install/)
 
-#### (2) Kafka / Zookeeper 설치
+#### (2) Oasis SO Server 소스 다운로드
+ - [릴리즈 페이지](https://github.com/iotoasis/SO/releases)에서 SO 소스 및 설치관련 파일을 다운받는다.
+
+#### (3) Kafka / Zookeeper 설치 - 실행 
 - [Kafka 설치](https://kafka.apache.org)
 	- 또는 console 입력  
 	
@@ -37,13 +40,31 @@ SO Server 시험은 아래의 순서로 진행할 수 있습니다.
 	# ln -s kafka_2.11-0.10.1.0 kafka
 	# cd kafka
 	```
-- [kafka 실행 테스트](https://github.com/iotoasis/SO/blob/master/so-doc/kafka_test.md)
+	
+- 릴리즈페이지에서 받은 소스중 so-doc 폴더 내부의 scripts 다운받은 kafka 폴더와 동일하게 위치시킨다.
+![카프카 폴더 위치](https://github.com/iotoasis/SO/blob/master/so-doc/img/kafka_file_pwd.png)
 
-#### (3) Oasis SO Server 소스 다운로드
- - [릴리즈 페이지](https://github.com/iotoasis/SO/releases)에서 SO 소스 및 설치관련 파일을 다운받는다.
+   - console 1을 실행하여 입력 (zookeeper 실행)
+   ```
+   ./scripts/1-startup-zookeeper.sh
+   ```
+   
+   - console 2를 실행하여 입력 (kafka 실행)
+   ```
+   ./scripts/2-startup-kafka.sh
+   ```
+   
+   - console 3을 실행하여 입력 (SO에서 사용하는 kafka topic 자동생성)
+   ```
+   ./scripts/create-topics-so.sh
+   ```
+
+   - SO를 실행하는동안 console 1.2 는 실행중이여야 한다. (Queue로 사용)
+
+- 참고 : [kafka 실행 테스트](https://github.com/iotoasis/SO/blob/master/so-doc/kafka_test.md)
 
 #### (4) MariaDB 기본 셋팅
- - [릴리즈 페이지](https://github.com/iotoasis/SO/releases)에서 다운받은 mariadb 스크립트파일(mariadb_script.txt)를 실행시켜서 기본 컬렉션 및 색인을 생성한다.
+ - [릴리즈 페이지](https://github.com/iotoasis/SO/releases)에서 다운받은 SO 소스중 so-doc 폴더 내부의 db_script 스크립트파일(sb_script.txt)를 실행시켜서 기본 컬렉션 및 색인을 생성한다.
 
 #### (5) SO Server 빌드
  - [릴리즈 페이지](https://github.com/iotoasis/SO/releases)에서 다운받은 SO 소스를 이클립스에서 불러와서 Build한다.

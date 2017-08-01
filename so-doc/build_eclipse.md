@@ -1,4 +1,6 @@
-## SODA Framework Server Build
+# SODA Framework Server Build
+
+## 이클립스 사용 빌드 방법
 
 다운받은 SODA Framework 서버 소스를 Eclipse를 이용해서 Build하는 방법을 설명합니다.
 
@@ -44,16 +46,9 @@ Build 실행 순서는 아래와 같습니다.
 ![build gradle](https://github.com/iotoasis/SO/blob/master/so-doc/img/eclipse_build.png)
 
 
-#### (4) Kafka-zoopeeper-SO 서버 실행
-- target 폴더(so-web/build/libs)에서 아래 명령으로 서버를 실행합니다.
-
- ```
-kafka-server-start.bat ../../config/server.properties
-zookeeper-server-start.bat ../../config/zookeeper.properties
-java -jar so.jar --spring.config.location=경로/application.properties --spring.profiles.active=default-dev,so-sp-dev
- ```
-
-#### (5) PostMan을 활용한 SO 서버 시험
+#### (4) PostMan을 활용한 SO 서버 시험
 - POSTMAN을 활용하여 SO 서버를 시험합니다.
 - POSTMAN 시험을 위한 스크립트 파일은 release 페이지에서 다운받을 수 있습니다.
 - POSTMAN을 활용한 SO 서버 시험에 관한 자세한 내용은 [Test 페이지](https://github.com/iotoasis/SO/blob/master/so-doc/so-test.md)에서 확인할 수 있습니다.
+
+
