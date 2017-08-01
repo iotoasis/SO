@@ -1,0 +1,3 @@
+# stop processors
+0 1 * * * [so install path]/scripts/stop-all.sh
+1 1 * * * [so install path]/scripts/start-all.sh
