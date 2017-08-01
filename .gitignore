@@ -6,7 +6,7 @@ target
 gradlew
 gradlew.bat
 */build
-/kafka/kafka/logs/*
+
 
 /build/
 /so-web/so-log.log
