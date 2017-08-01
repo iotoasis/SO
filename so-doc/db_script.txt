@@ -1,0 +1,307 @@
+-- --------------------------------------------------------
+-- 호스트:                          166.104.112.37
+-- 서버 버전:                        10.1.18-MariaDB - MariaDB Server
+-- 서버 OS:                        Linux
+-- HeidiSQL 버전:                  9.4.0.5125
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+-- so 데이터베이스 구조 내보내기
+CREATE DATABASE IF NOT EXISTS `so` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `so`;
+
+-- 테이블 so.aspect 구조 내보내기
+CREATE TABLE IF NOT EXISTS `aspect` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `uri` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `created_date` varchar(50) NOT NULL,
+  `modified_date` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.cm_ci 구조 내보내기
+CREATE TABLE IF NOT EXISTS `cm_ci` (
+  `id` varchar(255) NOT NULL,
+  `context_model_id` varchar(255) NOT NULL,
+  `context_information_id` varchar(255) NOT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.composite_virtual_object 구조 내보내기
+CREATE TABLE IF NOT EXISTS `composite_virtual_object` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `functionality_id` varchar(255) NOT NULL,
+  `aspect_id` varchar(255) NOT NULL,
+  `type` varchar(10) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `created_date` varchar(50) NOT NULL,
+  `modified_date` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.composite_virtual_object_type 구조 내보내기
+CREATE TABLE IF NOT EXISTS `composite_virtual_object_type` (
+  `cvo_type_id` varchar(255) NOT NULL,
+  `created_date` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `modified_date` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`cvo_type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.context_information 구조 내보내기
+CREATE TABLE IF NOT EXISTS `context_information` (
+  `order_cd` varchar(1) NOT NULL COMMENT '년차: 1,2,3',
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `uri` varchar(255) NOT NULL,
+  `created_date` varchar(50) NOT NULL,
+  `modified_date` varchar(50) NOT NULL,
+  `user_id` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.context_model 구조 내보내기
+CREATE TABLE IF NOT EXISTS `context_model` (
+  `order_cd` varchar(1) NOT NULL,
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `created_id` varchar(50) DEFAULT NULL,
+  `modified_id` varchar(50) DEFAULT NULL,
+  `user_id` varchar(50) DEFAULT NULL,
+  `created_date` varchar(50) DEFAULT NULL,
+  `modified_date` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='cm id 는 동적 생성이 아니고 sda 쪽과 합의하에 정해진 값으로 유지된다';
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.cvo_vo 구조 내보내기
+CREATE TABLE IF NOT EXISTS `cvo_vo` (
+  `id` varchar(255) NOT NULL,
+  `composite_virtual_object_id` varchar(255) NOT NULL,
+  `virtual_object_id` varchar(255) NOT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.device 구조 내보내기
+CREATE TABLE IF NOT EXISTS `device` (
+  `order_cd` varchar(1) NOT NULL,
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `device_uri` varchar(255) DEFAULT NULL,
+  `aspect_id` varchar(255) NOT NULL,
+  `functionality_id` varchar(255) NOT NULL,
+  `location_id` varchar(255) NOT NULL,
+  `created_date` varchar(50) DEFAULT NULL,
+  `modified_date` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`,`aspect_id`,`functionality_id`,`location_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='디바이스 정보는 sda에 func/aspect/location 값으로 조회해서 받아오는 정보인데 개발을 위한 목적으로 만들어진 테이블 임 ';
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.device_control 구조 내보내기
+CREATE TABLE IF NOT EXISTS `device_control` (
+  `order_cd` varchar(1) NOT NULL,
+  `id` varchar(255) NOT NULL,
+  `unit` varchar(50) NOT NULL,
+  `value` varchar(255) NOT NULL,
+  `max_value` varchar(50) DEFAULT NULL,
+  `min_value` varchar(50) DEFAULT NULL,
+  `unit_description` varchar(255) DEFAULT NULL,
+  `value_description` varchar(255) DEFAULT NULL,
+  `context_model_id` varchar(255) NOT NULL,
+  `created_date` varchar(50) NOT NULL,
+  `modified_date` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`,`context_model_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='디바이스제어 상세정보는 sda에 조회해서 받아오는 정보인데 개발을 위한 목적으로 만들어진 테이블 임 ';
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.device_control_callback 구조 내보내기
+CREATE TABLE IF NOT EXISTS `device_control_callback` (
+  `deivce_control_id` varchar(255) NOT NULL,
+  `created_date` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `modified_date` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `parent_id` varchar(255) DEFAULT NULL,
+  `virtual_object_id` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`deivce_control_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='디바이스제어 정보를 si 로 전송후 subscription 을 요청하여 디바이스가 실행된 결과를 받는 테이블\r\n하지만 디바이스 제어 결과는 si 쪽에서 api로 제공해서 제어 결과 조회시 볼수 있도록 처리함 - 필요없는 테이블';
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.fixed_device 구조 내보내기
+CREATE TABLE IF NOT EXISTS `fixed_device` (
+  `fixed_device_id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `profile_id` varchar(255) DEFAULT NULL,
+  `virtual_object_id` varchar(255) DEFAULT NULL,
+  `device_uri` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `created_date` varchar(50) DEFAULT NULL,
+  `modified_date` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`fixed_device_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='cvo 처리를 할때 cvo 안에 특정 디바이스를 지정하기 위해서 사용하는 테이블';
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.functionality 구조 내보내기
+CREATE TABLE IF NOT EXISTS `functionality` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `uri` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `created_date` varchar(50) NOT NULL,
+  `modified_date` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.location 구조 내보내기
+CREATE TABLE IF NOT EXISTS `location` (
+  `order_cd` varchar(1) NOT NULL,
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `uri` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `created_date` varchar(255) DEFAULT NULL,
+  `modified_date` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `uri` (`uri`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.orchestration_service 구조 내보내기
+CREATE TABLE IF NOT EXISTS `orchestration_service` (
+  `order_cd` varchar(1) NOT NULL,
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `parent_id` varchar(255) DEFAULT NULL,
+  `created_date` varchar(50) NOT NULL,
+  `modified_date` varchar(50) NOT NULL,
+  `user_id` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.os_cvo 구조 내보내기
+CREATE TABLE IF NOT EXISTS `os_cvo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `orchestration_service_id` varchar(255) NOT NULL,
+  `composite_virtual_object_id` varchar(255) NOT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.os_vo 구조 내보내기
+CREATE TABLE IF NOT EXISTS `os_vo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `orchestration_service_id` varchar(255) NOT NULL,
+  `virtual_object_id` varchar(255) NOT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.profile 구조 내보내기
+CREATE TABLE IF NOT EXISTS `profile` (
+  `order_cd` varchar(1) NOT NULL,
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `enabled` tinyint(1) DEFAULT NULL,
+  `location_uri` varchar(255) DEFAULT NULL,
+  `context_model_id` varchar(255) DEFAULT NULL,
+  `orchestration_service_id` varchar(255) DEFAULT NULL,
+  `period` int(11) NOT NULL,
+  `created_date` varchar(50) DEFAULT NULL,
+  `modified_date` varchar(50) DEFAULT NULL,
+  `user_id` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.schedule_context 구조 내보내기
+CREATE TABLE IF NOT EXISTS `schedule_context` (
+  `schedule_id` varchar(255) NOT NULL,
+  `created_date` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `modified_date` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `schedule` varchar(255) NOT NULL,
+  PRIMARY KEY (`schedule_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.tracking 구조 내보내기
+CREATE TABLE IF NOT EXISTS `tracking` (
+  `session_id` varchar(255) NOT NULL,
+  `seq` int(11) DEFAULT NULL,
+  `process` varchar(120) DEFAULT NULL,
+  `process_method` varchar(255) DEFAULT NULL,
+  `process_name` varchar(255) DEFAULT NULL,
+  `process_id` varchar(255) DEFAULT NULL,
+  `process_value` varchar(255) DEFAULT NULL,
+  `process_error` varchar(1000) DEFAULT NULL,
+  `uri` varchar(255) DEFAULT NULL,
+  `remote_addr` varchar(255) DEFAULT NULL,
+  `remote_host` varchar(255) DEFAULT NULL,
+  `simulator_type` varchar(20) DEFAULT NULL,
+  `method` varchar(255) DEFAULT NULL,
+  `command_id` varchar(255) DEFAULT NULL,
+  `created_time` varchar(50) DEFAULT NULL,
+  `user_id` varchar(50) DEFAULT NULL,
+  `status_cd` varchar(1) NOT NULL DEFAULT 'R' COMMENT 'R:run, F:finish',
+  KEY `인덱스 1` (`session_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.user_info 구조 내보내기
+CREATE TABLE IF NOT EXISTS `user_info` (
+  `no` int(11) NOT NULL,
+  `id` varchar(255) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `authority_cd` varchar(1) NOT NULL DEFAULT 'V' COMMENT 'A:admin, U:user, V:viewer',
+  `created_date` varchar(50) NOT NULL,
+  `created_no` int(11) NOT NULL,
+  `modified_date` varchar(50) NOT NULL,
+  `modified_no` int(11) NOT NULL,
+  PRIMARY KEY (`no`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='사용자 정보 테이블';
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.virtual_object 구조 내보내기
+CREATE TABLE IF NOT EXISTS `virtual_object` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `functionality_id` varchar(255) NOT NULL,
+  `aspect_id` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `created_date` varchar(50) NOT NULL,
+  `modified_date` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKaiukroc420ibjmkr3hnkg9ofj` (`aspect_id`),
+  KEY `FKlwb4g4k1l8axl9m38ldvvbyj7` (`functionality_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
