@@ -4,8 +4,8 @@ server:
   contextPath: /so
 
 #----------LOG
-logging:
-  config: file:D:/svc/apps/so/so/so-web/conf/logback-web.xml
+#logging:
+#  config: file:D:/svc/apps/so/so/so-web/conf/logback-web.xml
 
 #----------PROCESSOR LIST
 so:
