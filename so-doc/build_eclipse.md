@@ -9,7 +9,7 @@ Build를 위한 요구조건은 아래와 같습니다.
 ## Requirements
 * JDK 7+
 * Windows / Linux
-* eclipse
+* eclipse/sts (https://spring.io/tools/sts/all)
 * gradle
 
 Build 실행 순서는 아래와 같습니다.
