@@ -44,8 +44,20 @@ java -jar so.jar --spring.config.location=../../conf/application-product.yml
 
 #### (4) POSTMAN으로 생성한 SO(Service Orchestration)를 실행
 - Headers에 **Content-Type**는 **application/json**으로 설정
-- POST에 **./so/service/profile/force** 입력
-- Body에 **{ "id": "so-test" }** 입력
+- POST에 **http://localhost:8080/so/service/context/cm/simulate** 입력
+- Body
+```
+{
+  "simulatorType": "web",
+  "cmd": "query",
+  "contextId": "cm-fire-test",
+  "contents": [
+    {
+      "loc": "http://www.iotoasis.org/ontology/test"
+    }
+  ]
+}
+```
 - Send버튼 클릭
 - SO Server가 실행 되는 것을 확인 한다.
 
