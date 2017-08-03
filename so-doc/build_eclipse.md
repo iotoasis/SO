@@ -9,7 +9,7 @@ Build를 위한 요구조건은 아래와 같습니다.
 ## Requirements
 * JDK 7+
 * Windows / Linux
-* eclipse
+* eclipse/sts (https://spring.io/tools/sts/all)
 * gradle
 
 Build 실행 순서는 아래와 같습니다.
@@ -35,7 +35,7 @@ Build 실행 순서는 아래와 같습니다.
 
 
 #### (2) 설정 파일 추가 및 수정
-- Release 페이지에서 다운받은 설정파일(application.properties)을 수정 합니다.
+- Release 페이지에서 다운받은 설정파일(so-web/conf/application-product.yml)을 수정 합니다. (기본 설정 되어있음)
 - DB설정 등 로컬환경에 맞게 설정파일을 수정합니다. 설정파일에 대한 자세한 내용은 [SO 서버설정](https://github.com/iotoasis/SO/blob/master/so-doc/configuration.md)페이지를 참고하세요.
 
 
@@ -45,8 +45,11 @@ Build 실행 순서는 아래와 같습니다.
 
 ![build gradle](https://github.com/iotoasis/SO/blob/master/so-doc/img/eclipse_build.png)
 
+#### (4) 빌드된 so.jar 파일 (so-web/build/lib/so.jar)를 실행시킨다.
+- so-web/build/libs 폴더로 이동
+- 명령어 실행 : java -jar so.jar --spring.config.location=../../conf/application-product.yml
 
-#### (4) PostMan을 활용한 SO 서버 시험
+#### (5) PostMan을 활용한 SO 서버 시험
 - POSTMAN을 활용하여 SO 서버를 시험합니다.
 - POSTMAN 시험을 위한 스크립트 파일은 release 페이지에서 다운받을 수 있습니다.
 - POSTMAN을 활용한 SO 서버 시험에 관한 자세한 내용은 [Test 페이지](https://github.com/iotoasis/SO/blob/master/so-doc/so-test.md)에서 확인할 수 있습니다.
