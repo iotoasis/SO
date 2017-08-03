@@ -49,6 +49,6 @@ java -jar so.jar --spring.config.location=../../conf/application-product.yml
 - Send버튼 클릭
 - SO Server가 실행 되는 것을 확인 한다.
 
-![POSTMAN HEADERS](https://github.com/iotoasis/SO/blob/master/so-doc/img/postman1.png)
+![POSTMAN HEADERS](https://github.com/iotoasis/SO/blob/master/so-doc/img/postman-test.png)
 <br>
-![POSTMAN BODY](https://github.com/iotoasis/SO/blob/master/so-doc/img/postman2.png)
+
