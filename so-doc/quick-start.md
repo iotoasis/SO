@@ -65,6 +65,13 @@ SO Server 시험은 아래의 순서로 진행할 수 있습니다.
 
 #### (4) MariaDB 기본 셋팅
  - [릴리즈 페이지](https://github.com/iotoasis/SO/releases)에서 다운받은 SO 소스중 so-doc 폴더 내부의 db_script 스크립트파일(sb_script.txt)를 실행시켜서 기본 컬렉션 및 색인을 생성한다.
+ - so-web/conf/applicaiont-product.yml 안에 자신의 DB 접속 정보를 등록한다. 
+```
+spring.datasource.url=jdbc:mysql://localhost:3306/so?useUnicode=true&characterEncoding=utf-8
+spring.datasource.username=user(변경)
+spring.datasource.password=pw(변경) 
+spring.datasource.driverClassName=com.mysql.jdbc.Driver
+```
 
 #### (5) SO Server 빌드
  - [릴리즈 페이지](https://github.com/iotoasis/SO/releases)에서 다운받은 SO 소스를 이클립스에서 불러와서 Build한다.
