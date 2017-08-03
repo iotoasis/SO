@@ -39,7 +39,7 @@ spring:
 - target 폴더(so-web/build/libs)에서 아래 명령으로 서버를 실행합니다.
 
  ```
-java -jar so.jar --spring.config.location=경로/application.yml --spring.profiles.active=default-dev,so-sp-dev
+java -jar so.jar --spring.config.location=../../conf/application-product.yml
  ```
 
 #### (4) POSTMAN으로 생성한 SO(Service Orchestration)를 실행
