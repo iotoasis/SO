@@ -11,6 +11,8 @@ import com.pineone.icbms.so.interfaces.sda.ref.SdaAddressStore;
 import com.pineone.icbms.so.util.http.ClientService;
 import com.pineone.icbms.so.util.itf.address.AddressCollector;
 import com.withwiz.beach.network.http.message.IHttpResponseMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,11 +20,19 @@ import java.util.List;
 
 /**
  * Created by melvin on 2017. 4. 24..
+ *
+ * sda 인터페이스를 처리한다.
+ * 새로운 인터페이스를 작성하는 경우에는
+ * 먼저 sda에서 context_model 이 만들어 지고(cm id 생성)
+ * 해당 cm id 를 AddressCollector 에 등록해서 호출하는 방식으로 진행
  */
 
 //SDA 연동 기능 구현
 public class SdaManager implements ISdaManager {
-
+    /**
+     * logger
+     */
+    protected Logger log = LoggerFactory.getLogger(getClass());
 
     ClientService clientService = new ClientService();
     AddressCollector addressCollector = new AddressCollector();
@@ -48,13 +58,13 @@ public class SdaManager implements ISdaManager {
 
         if (contentList == null || contentList.isEmpty()) {
             String info = "ContextModelID = " + contextModelId + " is not Happened ";
-            System.out.println(info);
+            log.debug("info : " + info);
         } else {
             for (ContextModelContent contextModelContent : contentList) {
                 locationList.add(contextModelContent.getLocationUri());
             }
         }
-        System.out.println("Location : " + locationList);
+        log.debug("Location : " + locationList);
         return locationList;
     }
 
@@ -78,13 +88,13 @@ public class SdaManager implements ISdaManager {
         }
         if (contentList == null || contentList.isEmpty()) {
             String info = "LocationID = " + locationId + " doesn't have Function";
-            System.out.println(info);
+            log.debug("info : " + info);
         } else {
             for (ContextModelContent contextModelContent : contentList) {
                 functionList.add(contextModelContent.getFunctionUri());
             }
         }
-        System.out.println("Function : " + functionList);
+        log.debug("Function : " + functionList);
         return functionList;
     }
 
@@ -108,13 +118,13 @@ public class SdaManager implements ISdaManager {
         }
         if (contentList == null || contentList.isEmpty()) {
             String info = "Function = " + functionId + " doesn't have Aspect";
-            System.out.println(info);
+            log.debug("info : " + info);
         } else {
             for (ContextModelContent contextModelContent : contentList) {
                 aspectList.add(contextModelContent.getAspectUri());
             }
         }
-        System.out.println("Aspect = " + aspectList);
+        log.debug("Aspect = " + aspectList);
         return aspectList;
     }
 
@@ -139,13 +149,13 @@ public class SdaManager implements ISdaManager {
         }
         if (contentList == null || contentList.isEmpty()) {
             String info = "DeviceList = " + locationId + " and " + functionId + " doesn't have Device";
-            System.out.println(info);
+            log.debug("info : " + info);
         } else {
             for (ContextModelContent contextModelContent : contentList) {
                 deviceList.add(contextModelContent.getDeviceUri());
             }
         }
-        System.out.println("Device = " + deviceList);
+        log.debug("Device = " + deviceList);
         return deviceList;
     }
 
@@ -169,13 +179,13 @@ public class SdaManager implements ISdaManager {
         }
         if (contentList == null || contentList.isEmpty()) {
             String info = "DeviceList = " + functionId + " doesn't have Device";
-            System.out.println(info);
+            log.debug("info : " + info);
         } else {
             for (ContextModelContent contextModelContent : contentList) {
                 deviceList.add(contextModelContent.getDeviceUri());
             }
         }
-        System.out.println("Device = " + deviceList);
+        log.debug("Device = " + deviceList);
         return deviceList;
     }
 
@@ -200,13 +210,13 @@ public class SdaManager implements ISdaManager {
 
         if (contentList == null || contentList.isEmpty()) {
             String info = "DeviceList = " + locationId + " doesn't have Device";
-            System.out.println(info);
+            log.debug("info : " + info);
         } else {
             for (ContextModelContent contextModelContent : contentList) {
                 deviceList.add(contextModelContent.getDeviceUri());
             }
         }
-        System.out.println("Device = " + deviceList);
+        log.debug("Device = " + deviceList);
         return deviceList;
     }
 
@@ -230,7 +240,7 @@ public class SdaManager implements ISdaManager {
         }
         if(contentList == null || contentList.isEmpty()){
             String info = "ContextModel = " + contextModeId + "doesn't have ContextInformation";
-            System.out.println(info);
+            log.debug("info : " + info);
         } else {
             for(ContextModelContent contextModelContent : contentList){
                 ContextInformationForIf contextInformationForIf = new ContextInformationForIf();
@@ -263,13 +273,13 @@ public class SdaManager implements ISdaManager {
         }
         if(contentList == null || contentList.isEmpty()){
             String info = "Device = " + deviceId + "doesn't have Value";
-            System.out.println(info);
+            log.debug("info : " + info);
         } else {
             for(ContextModelContent contextModelContent : contentList){
                 value = contextModelContent.getValue();
             }
         }
-        System.out.println(value);
+        log.debug("value : " + value);
         return value;
     }
 
@@ -279,7 +289,7 @@ public class SdaManager implements ISdaManager {
 //            System.out.println(message.getBodyByteArray().toString());
 //            System.out.println("ResponseMessage : " + message);
             String readData = clientService.responseDataToString(message);
-            System.out.println("Message : " + readData);
+            log.debug("Message : " + readData);
             ContextModelForIf2 retrieveContextData = objectMapper.readValue(readData, ContextModelForIf2.class);
             return retrieveContextData.getContextModelContentList();
         } else {
