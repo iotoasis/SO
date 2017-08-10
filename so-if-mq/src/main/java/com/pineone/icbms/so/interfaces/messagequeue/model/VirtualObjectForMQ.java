@@ -13,9 +13,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class VirtualObjectForMQ extends ACommonForMQ {
 
     /**
-     * functionality
+     * function
      */
-    protected FunctionalityForMQ functionality;
+    protected FunctionForMQ function;
 
     /**
      * aspect
@@ -38,12 +38,12 @@ public class VirtualObjectForMQ extends ACommonForMQ {
         super(id, name);
     }
 
-    public FunctionalityForMQ getFunctionality() {
-        return functionality;
+    public FunctionForMQ getFunction() {
+        return function;
     }
 
-    public void setFunctionality(FunctionalityForMQ functionality) {
-        this.functionality = functionality;
+    public void setFunction(FunctionForMQ function) {
+        this.function = function;
     }
 
     public AspectForMQ getAspect() {
@@ -58,7 +58,7 @@ public class VirtualObjectForMQ extends ACommonForMQ {
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append("[").append(super.toString());
-        sb.append(", functionlity: ").append(functionality);
+        sb.append(", function: ").append(function);
         sb.append(", aspect: ").append(aspect);
         sb.append("]");
         return sb.toString();

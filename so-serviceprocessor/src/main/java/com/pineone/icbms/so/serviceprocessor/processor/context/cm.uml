@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="25.0" y="430.0">com.pineone.icbms.so.util.messagequeue.producer.AProducerHandler</node>
+    <node x="212.0" y="174.0">com.pineone.icbms.so.util.messagequeue.consumer.AGenericConsumerHandler2</node>
+    <node x="311.25" y="0.0">com.pineone.icbms.so.util.handler.IHandler</node>
+    <node x="0.0" y="174.0">com.pineone.icbms.so.util.messagequeue.consumer.AConsumerHandler</node>
+    <node x="508.5" y="87.0">com.pineone.icbms.so.serviceutil.interfaces.processor.handler.IProcessorHandler</node>
+    <node x="495.0" y="261.0">com.pineone.icbms.so.serviceprocessor.processor.context.handler.ContextModelHandler</node>
+    <node x="28.0" y="343.0">com.pineone.icbms.so.util.messagequeue.producer.IProducerHandler</node>
+    <node x="0.0" y="686.0">com.pineone.icbms.so.serviceprocessor.processor.context.springkafka.SpringKafkaContextModelConsumerConfig</node>
+    <node x="123.5" y="87.0">com.pineone.icbms.so.util.messagequeue.consumer.IConsumerHandler</node>
+    <node x="512.5" y="174.0">com.pineone.icbms.so.serviceprocessor.processor.AProcessHandler</node>
+    <node x="199.0" y="261.0">com.pineone.icbms.so.serviceprocessor.processor.context.messagequeue.consumer.ContextModelConsumerHandler</node>
+    <node x="280.0" y="343.0">com.pineone.icbms.so.serviceprocessor.processor.context.springkafka.SpringKafkaContextModelConsumerHandler</node>
+    <node x="5.5" y="604.0">com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler</node>
+    <node x="0.0" y="517.0">com.pineone.icbms.so.util.messagequeue.producer.AGenericProducerHandler</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.pineone.icbms.so.util.messagequeue.producer.AProducerHandler" target="com.pineone.icbms.so.util.messagequeue.producer.IProducerHandler">
+      <point x="0.0" y="-18.5" />
+      <point x="0.0" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.serviceprocessor.processor.context.messagequeue.consumer.ContextModelConsumerHandler" target="com.pineone.icbms.so.util.messagequeue.consumer.AGenericConsumerHandler2">
+      <point x="0.0" y="-18.5" />
+      <point x="0.0" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler" target="com.pineone.icbms.so.util.messagequeue.producer.AGenericProducerHandler">
+      <point x="0.0" y="-18.5" />
+      <point x="0.0" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.serviceprocessor.processor.AProcessHandler" target="com.pineone.icbms.so.serviceutil.interfaces.processor.handler.IProcessorHandler">
+      <point x="0.0" y="-18.5" />
+      <point x="0.0" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.util.messagequeue.producer.AGenericProducerHandler" target="com.pineone.icbms.so.util.messagequeue.producer.AProducerHandler">
+      <point x="0.0" y="-18.5" />
+      <point x="0.0" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.util.messagequeue.consumer.AConsumerHandler" target="com.pineone.icbms.so.util.messagequeue.consumer.IConsumerHandler">
+      <point x="0.0" y="-18.5" />
+      <point x="96.0" y="149.0" />
+      <point x="170.0" y="149.0" />
+      <point x="-46.5" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.serviceprocessor.processor.context.handler.ContextModelHandler" target="com.pineone.icbms.so.serviceprocessor.processor.AProcessHandler">
+      <point x="0.0" y="-18.5" />
+      <point x="0.0" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.util.messagequeue.consumer.AGenericConsumerHandler2" target="com.pineone.icbms.so.util.messagequeue.consumer.IConsumerHandler">
+      <point x="0.0" y="-18.5" />
+      <point x="337.0" y="149.0" />
+      <point x="263.0" y="149.0" />
+      <point x="46.5" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.serviceutil.interfaces.processor.handler.IProcessorHandler" target="com.pineone.icbms.so.util.handler.IHandler">
+      <point x="0.0" y="-18.5" />
+      <point x="600.0" y="62.0" />
+      <point x="401.25" y="62.0" />
+      <point x="30.0" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.util.messagequeue.consumer.IConsumerHandler" target="com.pineone.icbms.so.util.handler.IHandler">
+      <point x="0.0" y="-18.5" />
+      <point x="216.5" y="62.0" />
+      <point x="341.25" y="62.0" />
+      <point x="-30.0" y="18.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.1" x="312.81818181818176" y="378.8181818181818" />
+  <SelectedNodes>
+    <node>com.pineone.icbms.so.util.messagequeue.producer.AGenericProducerHandler</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

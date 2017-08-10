@@ -62,14 +62,14 @@ public class VirtualObjectController {
 
     /**
      * response for request "/vo/{id}" .<BR/>
-     * @param functionality id, aspect id
+     * @param function id, aspect id
      * @return VirtualObjectForDB
      */
-//    @RequestMapping(value = "/{functionality}/{aspect}", method = RequestMethod.GET)
+//    @RequestMapping(value = "/{function}/{aspect}", method = RequestMethod.GET)
 //    @ResponseStatus(HttpStatus.OK)
-//    public List<VirtualObjectForDB> getByFunctionalityAndAspect(@PathVariable("functionality") String functionality
+//    public List<VirtualObjectForDB> getByFunctionAndAspect(@PathVariable("function") String function
 //            , @PathVariable("aspect") String aspect) {
-//        List<VirtualObjectForDB> vo = repository.findByFunctionalityIdAndAspectId(functionality, aspect);
+//        List<VirtualObjectForDB> vo = repository.findByFunctionIdAndAspectId(function, aspect);
 //        return vo;
 //    }
 

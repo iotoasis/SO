@@ -1,12 +1,13 @@
-package com.pineone.icbms.so.virtualobject.functionlity;
+package com.pineone.icbms.so.virtualobject.function;
 
 import com.pineone.icbms.so.virtualobject.common.AGenericIdentity;
 
 /**
- * abstract Generic Functionality.<BR/>
+ * abstract Generic Function.<BR/>
  * Created by uni4love on 2016. 11. 27..
+ * so 의 function는 sda의 function 임
  */
-abstract class AGenericFunctionality extends AGenericIdentity implements IGenericFunctionality {
+abstract class AGenericFunction extends AGenericIdentity implements IGenericFunction {
     /**
      * location uri
      */
@@ -15,7 +16,7 @@ abstract class AGenericFunctionality extends AGenericIdentity implements IGeneri
     /**
      * constructor<BR/>
      */
-    public AGenericFunctionality() {
+    public AGenericFunction() {
     }
 
     /**
@@ -23,7 +24,7 @@ abstract class AGenericFunctionality extends AGenericIdentity implements IGeneri
      *
      * @param id id
      */
-    public AGenericFunctionality(String id) {
+    public AGenericFunction(String id) {
         this();
         this.id = id;
     }
@@ -34,7 +35,7 @@ abstract class AGenericFunctionality extends AGenericIdentity implements IGeneri
      * @param id   id
      * @param name name
      */
-    public AGenericFunctionality(String id, String name) {
+    public AGenericFunction(String id, String name) {
         this(id);
         this.name = name;
     }
@@ -46,7 +47,7 @@ abstract class AGenericFunctionality extends AGenericIdentity implements IGeneri
      * @param name        name
      * @param description description
      */
-    public AGenericFunctionality(String id, String name, String description) {
+    public AGenericFunction(String id, String name, String description) {
         this(id, name);
         this.description = description;
     }
@@ -59,7 +60,7 @@ abstract class AGenericFunctionality extends AGenericIdentity implements IGeneri
      * @param description description
      * @param uri         uri
      */
-    public AGenericFunctionality(String id, String name, String description, String uri) {
+    public AGenericFunction(String id, String name, String description, String uri) {
         this(id, name, description);
         this.uri = uri;
     }

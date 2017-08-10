@@ -13,12 +13,11 @@ import com.pineone.icbms.so.virtualobject.composite.IGenericCompositeVirtualObje
 import com.pineone.icbms.so.virtualobject.context.contextinformation.IGenericContextInformation;
 import com.pineone.icbms.so.virtualobject.context.contextmodel.DefaultContextModel;
 import com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextModel;
-import com.pineone.icbms.so.virtualobject.functionlity.IGenericFunctionality;
+import com.pineone.icbms.so.virtualobject.function.IGenericFunction;
 import com.pineone.icbms.so.virtualobject.location.DefaultLocation;
 import com.pineone.icbms.so.virtualobject.location.IGenericLocation;
 import com.pineone.icbms.so.virtualobject.orchestrationservice.DefaultOrchestrationService;
 import com.pineone.icbms.so.virtualobject.orchestrationservice.IGenericOrchestrationService;
-import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -63,9 +62,9 @@ public class ModelMapper extends JsonMapper {
     private static AspectMapper aspectMapper = new AspectMapper();
 
     /**
-     * functionality mapper
+     * function mapper
      */
-    private static FunctionalityMapper functionalityMapper = new FunctionalityMapper();
+    private static FunctionMapper functionMapper = new FunctionMapper();
 
     /**
      * virtual device mapper
@@ -359,33 +358,33 @@ public class ModelMapper extends JsonMapper {
     }
 
     /**
-     * convert FunctionalityForDB to IGenericFunctionality.<BR/>
+     * convert FunctionForDB to IGenericFunction.<BR/>
      *
-     * @param functionalityForDB FunctionalityForDB
-     * @return IGenericFunctionality
+     * @param functionForDB FunctionForDB
+     * @return IGenericFunction
      */
-    public static IGenericFunctionality toFunctionality(FunctionalityForDB functionalityForDB) {
-        return functionalityMapper.toProcessorModelFromDb(functionalityForDB);
+    public static IGenericFunction toFunction(FunctionForDB functionForDB) {
+        return functionMapper.toProcessorModelFromDb(functionForDB);
     }
 
     /**
-     * convert FunctionalityForMQ to IGenericFunctionality.<BR/>
+     * convert FunctionForMQ to IGenericFunction.<BR/>
      *
-     * @param functionalityForMQ FunctionalityForMQ
-     * @return IGenericFunctionality
+     * @param functionForMQ FunctionForMQ
+     * @return IGenericFunction
      */
-    public static IGenericFunctionality toFunctionality(FunctionalityForMQ functionalityForMQ) {
-        return functionalityMapper.toProcessorModelFromMq(functionalityForMQ);
+    public static IGenericFunction toFunction(FunctionForMQ functionForMQ) {
+        return functionMapper.toProcessorModelFromMq(functionForMQ);
     }
 
     /**
-     * convert FunctionalityForMQ to IGenericFunctionality.<BR/>
+     * convert FunctionForMQ to IGenericFunction.<BR/>
      *
-     * @param functionality IGenericFunctionality
-     * @return FunctionalityForMQ
+     * @param function IGenericFunction
+     * @return FunctionForMQ
      */
-    public static FunctionalityForMQ toFunctionalityForMQ(IGenericFunctionality functionality) {
-        return functionalityMapper.toMqModelFromPs(functionality);
+    public static FunctionForMQ toFunctionForMQ(IGenericFunction function) {
+        return functionMapper.toMqModelFromPs(function);
     }
 
     /**

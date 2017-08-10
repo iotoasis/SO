@@ -21,32 +21,32 @@ public class SdaManagerTest {
     }
 
     @Test
-    public void retrieveFunctionalityListByLoc() throws Exception {
+    public void retrieveFunctionListByLoc() throws Exception {
         //
         String locationId = "http://www.iotoasis.org/ontology/t1eng_605";
-        sdaManager.retrieveFunctionalityListInLocation(locationId);
+        sdaManager.retrieveFunctionListInLocation(locationId);
     }
 
     @Test
     public void retrieveAspectList() throws Exception {
         //
-        String functionalityId = "http://www.iotoasis.org/ontology/SwitchFunctionality";
-        sdaManager.retrieveAspectListByFunctionality(functionalityId);
+        String functionId = "http://www.iotoasis.org/ontology/SwitchFunction";
+        sdaManager.retrieveAspectListByFunction(functionId);
     }
 
     @Test
     public void retrieveDeviceListByFuncAndLoc() throws Exception {
         //
         String locationId = "http://www.iotoasis.org/ontology/t1eng_605";
-        String functionalityId = "http://www.iotoasis.org/ontology/MeasureFunctionality";
-        sdaManager.retrieveDeviceListByFunctionalityAndLocation(locationId, functionalityId);
+        String functionId = "http://www.iotoasis.org/ontology/MeasureFunction";
+        sdaManager.retrieveDeviceListByFunctionAndLocation(locationId, functionId);
     }
 
     @Test
     public void retrieveDeviceListByFunc() throws Exception {
         //
-        String functionalityId = "http://www.iotoasis.org/ontology/MeasureFunctionality";
-        sdaManager.retrieveDeviceListByFunctionality(functionalityId);
+        String functionId = "http://www.iotoasis.org/ontology/MeasureFunction";
+        sdaManager.retrieveDeviceListByFunction(functionId);
     }
 
     @Test

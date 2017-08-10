@@ -17,10 +17,10 @@ public class ContextModelContent {
     String locationUri;
 
     /**
-     * functionalityList
+     * functionList
      */
-    @JsonProperty("functionality")
-    String functionalityUri;
+    @JsonProperty("function")
+    String functionUri;
 
     /**
      * aspect List
@@ -74,16 +74,16 @@ public class ContextModelContent {
         this.deviceUri = deviceUri;
     }
 
-    public String getFunctionalityUri() {
-        return functionalityUri;
+    public String getFunctionUri() {
+        return functionUri;
     }
 
     public String getLocationUri() {
         return locationUri;
     }
 
-    public void setFunctionalityUri(String functionalityUri) {
-        this.functionalityUri = functionalityUri;
+    public void setFunctionUri(String functionUri) {
+        this.functionUri = functionUri;
     }
 
     public String getAspectUri() {
@@ -128,8 +128,8 @@ public class ContextModelContent {
 //        if(locationUri != null)
 //            sb.append("locationUri: ").append(locationUri);
 //        sb.append("}");
-//        if(functionalityUri != null)
-//            sb.append("functionalityUri: ").append(functionalityUri);
+//        if(functionUri != null)
+//            sb.append("functionUri: ").append(functionUri);
 //        sb.append("}");
 //        if(aspectUri != null)
 //            sb.append("aspectUri: ").append(aspectUri);
@@ -157,7 +157,7 @@ public class ContextModelContent {
     public String toString() {
         return "ContextModelContent{" +
                 "locationUri='" + locationUri + '\'' +
-                ", functionalityUri='" + functionalityUri + '\'' +
+                ", functionUri='" + functionUri + '\'' +
                 ", aspectUri='" + aspectUri + '\'' +
                 ", deviceUri='" + deviceUri + '\'' +
                 ", ci_sequence_number='" + ci_sequence_number + '\'' +

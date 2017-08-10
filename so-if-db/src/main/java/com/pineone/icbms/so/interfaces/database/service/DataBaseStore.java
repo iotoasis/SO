@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -87,24 +88,33 @@ public class DataBaseStore implements IDataBaseStore {
 //        }
 //        return compositeVirtualObjectForDBList;
 
-        List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = compositeVirtualObjectDao.getCompositeVirtualObjectListByOrchestrationId(orchestrationServiceId);
+
+        List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = compositeVirtualObjectDao.retrieveCompositeVirtualObjectListByOrchestrationId(orchestrationServiceId);
+
+        for(CompositeVirtualObjectForDB compositeVirtualObjectForDB : compositeVirtualObjectForDBList){
+            compositeVirtualObjectForDB.setVirtualObjectForDBList(
+                    getVirtualObjectListByCompositeVirtualObjectId(compositeVirtualObjectForDB.getId())
+            );
+        }
 
         return compositeVirtualObjectForDBList;
     }
 
+    /*
+     * TODO cvo 에서 vo 목록을 가져온다
+     */
     @Override
     public List<VirtualObjectForDB> getVirtualObjectListByCompositeVirtualObjectId(String compositeVirtualObjectId){
         log.warn("getVirtualObjectListByCompositeVirtualObjectId : compositeVirtualObjectId {}", compositeVirtualObjectId);
-//        //
+        //
 //        List<CVO_VO_MapperForDB> cvo_vo_mapperForDBList = cvo_vo_mapper_dao.retrieveCVO_VO_MapperListByCVOID(compositeVirtualObjectId);
-//        List<VirtualObjectForDB> virtualObjectForDBList = new ArrayList<>();
-//
+        List<VirtualObjectForDB> virtualObjectForDBList = virtualObjectDao.retrieveVirtualObjectListByCompositeVirtualObjectId(compositeVirtualObjectId);
+
 //        for(CVO_VO_MapperForDB cvo_vo_mapperForDB : cvo_vo_mapperForDBList){
 //            virtualObjectForDBList.add(virtualObjectDao.retrieveVirtualObject(cvo_vo_mapperForDB.getVirtualObjectId()));
 //        }
-//        return virtualObjectForDBList;
 
-        return null;
+        return virtualObjectForDBList;
     }
 
     @Override
@@ -140,6 +150,9 @@ public class DataBaseStore implements IDataBaseStore {
         return profileDao.getProfileByContextModelAndLocation(contextModelSid, locationUri);
     }
 
+    /*
+     * Orchestration Service Id로 os 목록 조회, os 에 속한 cvo, vo 목록 조회
+     */
     @Override
     public OrchestrationServiceForDB getOrchestrationServiceById(String id) {
         log.warn("getOrchestrationServiceById : id: {}", id);
@@ -148,11 +161,13 @@ public class DataBaseStore implements IDataBaseStore {
         OrchestrationServiceForDB orchestrationServiceForDB = orchestrationServiceDao.retrieveOrchestrationService(id);
 
         // get cvo
-        List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = compositeVirtualObjectDao.getCompositeVirtualObjectListByOrchestrationId(id);
+        //List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = compositeVirtualObjectDao.getCompositeVirtualObjectListByOrchestrationId(id);
+        List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = this.getCompositeVirtualObjectListByOrchestrationId(id);
 
         // get vo
         List<VirtualObjectForDB> virtualObjectForDBList = virtualObjectDao.getVirtualObjectListByOrchestrationId(id);
 
+        // set cvo list, vo list
         orchestrationServiceForDB.setCompositeVirtualObjectForDBList(compositeVirtualObjectForDBList);
         orchestrationServiceForDB.setVirtualObjectForDBList(virtualObjectForDBList);
 
@@ -172,16 +187,16 @@ public class DataBaseStore implements IDataBaseStore {
     }
 
     @Override
-    public List<DeviceForDB> getDeviceList(String functionalityUri, String aspect, String locationUri) {
-        log.warn("getDeviceList : functionalityUri: {}, aspect: {}, locationUri: {}", functionalityUri, aspect, locationUri);
+    public List<DeviceForDB> getDeviceList(String functionUri, String aspect, String locationUri) {
+        log.warn("getDeviceList : functionUri: {}, aspect: {}, locationUri: {}", functionUri, aspect, locationUri);
         //implements.
-        return deviceDao.retrieveDeviceList(functionalityUri, aspect, locationUri);
+        return deviceDao.retrieveDeviceList(functionUri, aspect, locationUri);
     }
 
     @Override
     public FixedDeviceForDB getFixedDevice(String id) {
         log.warn("getFixedDevice : id: {}", id);
-        return fixedDeviceDao.retrieveFixedDevice(id);
+        return fixedDeviceDao.retrieve(id);//.retrieveFixedDevice(id);
     }
 
     @Override

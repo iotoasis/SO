@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="-100.70000000000005" y="399.0">com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.messagequeue.consumer.OrchestrationServiceConsumerHandler</node>
+    <node x="75.0" y="51.0">com.pineone.icbms.so.util.messagequeue.producer.AProducerHandler</node>
+    <node x="34.25" y="486.0">com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.OrchestrationServiceProcessor</node>
+    <node x="-423.0" y="138.0">com.pineone.icbms.so.util.messagequeue.consumer.AGenericConsumerHandler2</node>
+    <node x="-213.05" y="51.0">com.pineone.icbms.so.util.handler.IHandler</node>
+    <node x="-153.0" y="138.0">com.pineone.icbms.so.serviceutil.interfaces.processor.handler.IProcessorHandler</node>
+    <node x="78.0" y="-36.0">com.pineone.icbms.so.util.messagequeue.producer.IProducerHandler</node>
+    <node x="-22.48333333333335" y="312.0">com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.handler.OrchestrationServiceHandler</node>
+    <node x="-377.0" y="573.0">com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.springkafka.SpringKafkaOrchestrationServiceConsumerConfig</node>
+    <node x="-149.0" y="225.0">com.pineone.icbms.so.serviceprocessor.processor.AProcessHandler</node>
+    <node x="55.5" y="225.0">com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler</node>
+    <node x="-383.75" y="486.0">com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.springkafka.SpringKafkaOrchestrationServiceConsumerHandler</node>
+    <node x="50.0" y="138.0">com.pineone.icbms.so.util.messagequeue.producer.AGenericProducerHandler</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.pineone.icbms.so.util.messagequeue.producer.AProducerHandler" target="com.pineone.icbms.so.util.messagequeue.producer.IProducerHandler">
+      <point x="0.0" y="-18.5" />
+      <point x="0.0" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.springkafka.SpringKafkaOrchestrationServiceConsumerHandler" target="com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.messagequeue.consumer.OrchestrationServiceConsumerHandler">
+      <point x="-99.5" y="-18.5" />
+      <point x="-284.25" y="456.0" />
+      <point x="-60.950000000000045" y="456.0" />
+      <point x="-119.25" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.springkafka.SpringKafkaOrchestrationServiceConsumerConfig" target="com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.springkafka.SpringKafkaOrchestrationServiceConsumerHandler">
+      <point x="97.25" y="-18.5" />
+      <point x="99.5" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.handler.OrchestrationServiceHandler" target="com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler">
+      <point x="84.0" y="-18.5" />
+      <point x="187.51666666666665" y="287.0" />
+      <point x="223.5" y="287.0" />
+      <point x="56.0" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.util.messagequeue.consumer.AGenericConsumerHandler2" target="com.pineone.icbms.so.util.handler.IHandler">
+      <point x="0.0" y="-18.5" />
+      <point x="-298.0" y="113.0" />
+      <point x="-183.05" y="113.0" />
+      <point x="-30.0" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler" target="com.pineone.icbms.so.util.messagequeue.producer.AGenericProducerHandler">
+      <point x="0.0" y="-18.5" />
+      <point x="0.0" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.serviceprocessor.processor.AProcessHandler" target="com.pineone.icbms.so.serviceutil.interfaces.processor.handler.IProcessorHandler">
+      <point x="0.0" y="-18.5" />
+      <point x="0.0" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.util.messagequeue.producer.AGenericProducerHandler" target="com.pineone.icbms.so.util.messagequeue.producer.AProducerHandler">
+      <point x="0.0" y="-18.5" />
+      <point x="0.0" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.handler.OrchestrationServiceHandler" target="com.pineone.icbms.so.serviceprocessor.processor.AProcessHandler">
+      <point x="-84.0" y="-18.5" />
+      <point x="19.51666666666665" y="287.0" />
+      <point x="-61.5" y="287.0" />
+      <point x="0.0" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.messagequeue.consumer.OrchestrationServiceConsumerHandler" target="com.pineone.icbms.so.util.messagequeue.consumer.AGenericConsumerHandler2">
+      <point x="-119.25" y="-18.5" />
+      <point x="-60.950000000000045" y="374.0" />
+      <point x="-298.0" y="374.0" />
+      <point x="0.0" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.serviceutil.interfaces.processor.handler.IProcessorHandler" target="com.pineone.icbms.so.util.handler.IHandler">
+      <point x="0.0" y="-18.5" />
+      <point x="-61.5" y="113.0" />
+      <point x="-123.05000000000001" y="113.0" />
+      <point x="30.0" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.messagequeue.consumer.OrchestrationServiceConsumerHandler" target="com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.handler.OrchestrationServiceHandler">
+      <point x="-39.75" y="-18.5" />
+      <point x="-84.0" y="18.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.OrchestrationServiceProcessor" target="com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.messagequeue.consumer.OrchestrationServiceConsumerHandler">
+      <point x="-65.5" y="-18.5" />
+      <point x="99.75" y="466.0" />
+      <point x="98.04999999999995" y="466.0" />
+      <point x="39.75" y="18.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="193.0" y="362.5" />
+  <SelectedNodes>
+    <node>com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.handler.OrchestrationServiceHandler</node>
+    <node>com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.messagequeue.consumer.OrchestrationServiceConsumerHandler</node>
+    <node>com.pineone.icbms.so.util.messagequeue.producer.AProducerHandler</node>
+    <node>com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.OrchestrationServiceProcessor</node>
+    <node>com.pineone.icbms.so.util.messagequeue.consumer.AGenericConsumerHandler2</node>
+    <node>com.pineone.icbms.so.util.handler.IHandler</node>
+    <node>com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.springkafka.SpringKafkaOrchestrationServiceConsumerConfig</node>
+    <node>com.pineone.icbms.so.serviceprocessor.processor.AProcessHandler</node>
+    <node>com.pineone.icbms.so.serviceutil.interfaces.processor.handler.IProcessorHandler</node>
+    <node>com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler</node>
+    <node>com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.springkafka.SpringKafkaOrchestrationServiceConsumerHandler</node>
+    <node>com.pineone.icbms.so.util.messagequeue.producer.AGenericProducerHandler</node>
+    <node>com.pineone.icbms.so.util.messagequeue.producer.IProducerHandler</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

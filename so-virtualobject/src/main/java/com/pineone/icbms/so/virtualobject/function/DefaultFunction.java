@@ -1,15 +1,15 @@
-package com.pineone.icbms.so.virtualobject.functionlity;
+package com.pineone.icbms.so.virtualobject.function;
 
 /**
- * Functionality default class.<BR/>
+ * Function default class.<BR/>
  *
  * Created by Melvin on 2016. 11. 27..
  */
-public class DefaultFunctionality extends AGenericFunctionality {
+public class DefaultFunction extends AGenericFunction {
     /**
      * constructor<BR/>
      */
-    public DefaultFunctionality() {
+    public DefaultFunction() {
     }
 
     /**
@@ -17,7 +17,7 @@ public class DefaultFunctionality extends AGenericFunctionality {
      *
      * @param id id
      */
-    public DefaultFunctionality(String id) {
+    public DefaultFunction(String id) {
         this();
         this.id = id;
     }
@@ -28,7 +28,7 @@ public class DefaultFunctionality extends AGenericFunctionality {
      * @param id   id
      * @param name name
      */
-    public DefaultFunctionality(String id, String name) {
+    public DefaultFunction(String id, String name) {
         super(id);
         this.name = name;
     }
@@ -40,7 +40,7 @@ public class DefaultFunctionality extends AGenericFunctionality {
      * @param name        name
      * @param description description
      */
-    public DefaultFunctionality(String id, String name, String description) {
+    public DefaultFunction(String id, String name, String description) {
         super(id, name);
         this.description = description;
     }
@@ -53,7 +53,7 @@ public class DefaultFunctionality extends AGenericFunctionality {
      * @param description description
      * @param uri         uri
      */
-    public DefaultFunctionality(String id, String name, String description, String uri) {
+    public DefaultFunction(String id, String name, String description, String uri) {
         super(id, name, description);
         this.uri = uri;
     }

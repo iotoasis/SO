@@ -58,11 +58,11 @@ public class SdaManager implements ISdaManager {
         return locationList;
     }
 
-    // 특정 위치(location)에 존재하는 device Functionality 목록 조회
+    // 특정 위치(location)에 존재하는 device Function 목록 조회
     @Override
-    public List<String> retrieveFunctionalityListInLocation(String locationId) {
+    public List<String> retrieveFunctionListInLocation(String locationId) {
         //
-        List<String> functionalityList = new ArrayList<>();
+        List<String> functionList = new ArrayList<>();
         List<ContextModelContent> contentList = new ArrayList<>();
 
         try {
@@ -77,20 +77,20 @@ public class SdaManager implements ISdaManager {
 //            e.printStackTrace();
         }
         if (contentList == null || contentList.isEmpty()) {
-            String info = "LocationID = " + locationId + " doesn't have Functionality";
+            String info = "LocationID = " + locationId + " doesn't have Function";
             System.out.println(info);
         } else {
             for (ContextModelContent contextModelContent : contentList) {
-                functionalityList.add(contextModelContent.getFunctionalityUri());
+                functionList.add(contextModelContent.getFunctionUri());
             }
         }
-        System.out.println("Functionality : " + functionalityList);
-        return functionalityList;
+        System.out.println("Function : " + functionList);
+        return functionList;
     }
 
-    // functionality 에 대응하는 aspect 조회, functionality 를 이용한 조회 지원 필요
+    // function 에 대응하는 aspect 조회, function 를 이용한 조회 지원 필요
     @Override
-    public List<String> retrieveAspectListByFunctionality(String functionalityId) {
+    public List<String> retrieveAspectListByFunction(String functionId) {
         //
         List<String> aspectList = new ArrayList<>();
         List<ContextModelContent> contentList = new ArrayList<>();
@@ -99,7 +99,7 @@ public class SdaManager implements ISdaManager {
             IHttpResponseMessage message = clientService.requestGetService(
                     addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
                             SdaAddressStore.CM_ASPECT_LIST_BY_FUNC + SdaAddressStore.SEPARATOR_WITHOUT_COMMA
-                            + functionalityId);
+                            + functionId);
             contentList = getContextModelContents(message);
         } catch (IOException e) {
             e.printStackTrace();
@@ -107,7 +107,7 @@ public class SdaManager implements ISdaManager {
 //            e.printStackTrace();
         }
         if (contentList == null || contentList.isEmpty()) {
-            String info = "Functionality = " + functionalityId + " doesn't have Aspect";
+            String info = "Function = " + functionId + " doesn't have Aspect";
             System.out.println(info);
         } else {
             for (ContextModelContent contextModelContent : contentList) {
@@ -119,9 +119,9 @@ public class SdaManager implements ISdaManager {
     }
 
 
-    // functionality, location 을 이용한 Device 목록 조회
+    // function, location 을 이용한 Device 목록 조회
     @Override
-    public List<String> retrieveDeviceListByFunctionalityAndLocation(String locationId, String functionalityId) {
+    public List<String> retrieveDeviceListByFunctionAndLocation(String locationId, String functionId) {
         //
         List<String> deviceList = new ArrayList<>();
         List<ContextModelContent> contentList = new ArrayList<>();
@@ -130,7 +130,7 @@ public class SdaManager implements ISdaManager {
             IHttpResponseMessage message = clientService.requestGetService(
                     addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
                             SdaAddressStore.CM_DEVICE_LIST_BY_FUNC_LOC + SdaAddressStore.SEPARATOR_WITHOUT_COMMA +
-                            functionalityId + "," + locationId);
+                            functionId + "," + locationId);
             contentList = getContextModelContents(message);
         } catch (IOException e) {
             e.printStackTrace();
@@ -138,7 +138,7 @@ public class SdaManager implements ISdaManager {
 //       e.printStackTrace();
         }
         if (contentList == null || contentList.isEmpty()) {
-            String info = "DeviceList = " + locationId + " and " + functionalityId + " doesn't have Device";
+            String info = "DeviceList = " + locationId + " and " + functionId + " doesn't have Device";
             System.out.println(info);
         } else {
             for (ContextModelContent contextModelContent : contentList) {
@@ -149,9 +149,9 @@ public class SdaManager implements ISdaManager {
         return deviceList;
     }
 
-    // functionality 를 이용한 Device 목록 조회
+    // function 를 이용한 Device 목록 조회
     @Override
-    public List<String> retrieveDeviceListByFunctionality(String functionalityId) {
+    public List<String> retrieveDeviceListByFunction(String functionId) {
         //
         List<String> deviceList = new ArrayList<>();
         List<ContextModelContent> contentList = new ArrayList<>();
@@ -160,7 +160,7 @@ public class SdaManager implements ISdaManager {
             IHttpResponseMessage message = clientService.requestGetService(
                     addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
                             SdaAddressStore.CM_DEVICE_LIST_BY_FUNC + SdaAddressStore.SEPARATOR_WITHOUT_COMMA +
-                            functionalityId);
+                            functionId);
             contentList = getContextModelContents(message);
         } catch (IOException e) {
             e.printStackTrace();
@@ -168,7 +168,7 @@ public class SdaManager implements ISdaManager {
 //       e.printStackTrace();
         }
         if (contentList == null || contentList.isEmpty()) {
-            String info = "DeviceList = " + functionalityId + " doesn't have Device";
+            String info = "DeviceList = " + functionId + " doesn't have Device";
             System.out.println(info);
         } else {
             for (ContextModelContent contextModelContent : contentList) {

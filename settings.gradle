@@ -2,7 +2,7 @@ rootProject.name = 'so'
 
 include ':so-util'
 include ':so-virtualobject'
-//include ':so-virtualdevice'
+include ':so-virtualdevice'
 include ':so-devicecontrol'
 include ':so-serviceprocessor'
 include ':so-if-db'

@@ -96,3 +96,11 @@ kafka:
     contextmodel: contextmodel
     orchestrationservice: orchestrationservice
 
+primaryKey:
+  prefix:
+    orchestrationService: OS-
+    virtaulObject: VO-
+    compositeVirtualObject: CVO-
+    profile: PR-
+    contextModel: CM-
+    contextInformation: CI-

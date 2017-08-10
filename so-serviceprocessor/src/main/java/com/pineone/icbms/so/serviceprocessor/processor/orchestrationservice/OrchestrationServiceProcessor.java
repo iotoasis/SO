@@ -1,7 +1,7 @@
 package com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice;
 
-import com.pineone.icbms.so.util.Settings;
 import com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.messagequeue.consumer.OrchestrationServiceConsumerHandler;
+import com.pineone.icbms.so.util.Settings;
 import com.pineone.icbms.so.serviceutil.interfaces.processor.AGenericProcessor;
 
 import java.util.ArrayList;

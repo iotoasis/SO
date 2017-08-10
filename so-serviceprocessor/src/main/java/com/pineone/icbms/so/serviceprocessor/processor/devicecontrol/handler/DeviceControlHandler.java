@@ -78,9 +78,7 @@ public class DeviceControlHandler extends AProcessHandler {
 //        List<IGenericVirtualDevice> deviceList = sdaClient.retreiveDeviceList(null, locationUri);
 
         //create control list
-        // TODO 개발버전은 개발용 데이터베이스에서 조회처리하나, 운영은 SDA에 API로 각 디바이스별 제어값을 조회해서 처리해야 함
-        DeviceControlForDB deviceControlForDB = databaseManager.getDeviceControlByDeviceIdAndContextModelID(virtualDevice.getId(), contextModelId);
-        log.debug("DeviceControlForDB: {}", deviceControlForDB);
+        // TODO product : get device control value to use SDA API.
 //        DeviceControlValue deviceControlValue = ModelMapper.toDeviceControlValue(deviceControlForDB);
 //        LinkedHashMap<IGenericDeviceDriver, List<DeviceControlValue>> controlList = new LinkedHashMap<>();
 //        if (deviceList != null) {
@@ -92,6 +90,11 @@ public class DeviceControlHandler extends AProcessHandler {
 //                List<DeviceControlValue> values = sdaClient.retreiveDeviceControlValues(null, null, locationUri, device.getId());
 //                controlList.put(deviceDriver, values);
 //            }
+
+        // TODO develop : 개발용 데이터베이스에서 조회처리
+        DeviceControlForDB deviceControlForDB = databaseManager.getDeviceControlByDeviceIdAndContextModelID(virtualDevice.getId(), contextModelId);
+
+        log.debug("DeviceControlForDB: {}", deviceControlForDB);
 
         // set TrackingEntity
         //tracking = getTracking();

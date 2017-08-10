@@ -2,7 +2,7 @@ package com.pineone.icbms.so.virtualobject;
 
 import com.pineone.icbms.so.virtualobject.aspect.IGenericAspect;
 import com.pineone.icbms.so.virtualobject.common.AGenericServiceEntity;
-import com.pineone.icbms.so.virtualobject.functionlity.IGenericFunctionality;
+import com.pineone.icbms.so.virtualobject.function.IGenericFunction;
 
 /**
  * abstract Generic virtual object.<BR/>
@@ -12,9 +12,9 @@ import com.pineone.icbms.so.virtualobject.functionlity.IGenericFunctionality;
 abstract public class AGenericVirtualObject extends AGenericServiceEntity
         implements IGenericVirtualObject {
     /**
-     * functionality
+     * function
      */
-    protected IGenericFunctionality functionality;
+    protected IGenericFunction function;
 
     /**
      * aspect
@@ -61,12 +61,12 @@ abstract public class AGenericVirtualObject extends AGenericServiceEntity
     }
 
     @Override
-    public IGenericFunctionality getFunctionality() {
-        return functionality;
+    public IGenericFunction getFunction() {
+        return function;
     }
 
-    public void setFunctionality(IGenericFunctionality functionality) {
-        this.functionality = functionality;
+    public void setFunction(IGenericFunction function) {
+        this.function = function;
     }
 
     @Override
@@ -82,7 +82,7 @@ abstract public class AGenericVirtualObject extends AGenericServiceEntity
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append(super.toString());
-        sb.append(", functionlity: ").append(functionality);
+        sb.append(", function: ").append(function);
         sb.append(", aspect: ").append(aspect);
         return sb.toString();
     }

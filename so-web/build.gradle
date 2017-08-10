@@ -49,7 +49,6 @@ dependencies {
     compile project(':so-serviceutil')
     compile project(':so-serviceprocessor')
     //compile project(':so-scheduler')
-//    compile project(':so-web-mvc')
 
     //spring-boot
     compile('org.springframework.boot:spring-boot-starter-aop')

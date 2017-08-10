@@ -21,7 +21,7 @@ public interface IDatabaseManager {
 
     List<VirtualObjectForDB> getVirtualObjectListByOrchestrationId(String orchestrationServiceId);
 
-    List<DeviceForDB> getDeviceList(String functionalityUri, String aspect, String locationUri);
+    List<DeviceForDB> getDeviceList(String functionUri, String aspect, String locationUri);
 
     FixedDeviceForDB getFixedDevice(String id);
 

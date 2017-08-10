@@ -22,7 +22,7 @@ public class CompositeVirtualObjectForDB extends CommonEntity {
     private String id;
 
     @Getter @Setter
-    private String functionalityId;
+    private String functionId;
 
     @Getter @Setter
     private String aspectId;

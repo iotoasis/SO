@@ -70,9 +70,9 @@ public class DatabaseManager implements IDatabaseManager {
     }
 
     @Override
-    public List<DeviceForDB> getDeviceList(String functionalityUri, String aspect, String locationUri) {
+    public List<DeviceForDB> getDeviceList(String functionUri, String aspect, String locationUri) {
         //implements.
-        return dataBaseStore.getDeviceList(functionalityUri, aspect, locationUri);
+        return dataBaseStore.getDeviceList(functionUri, aspect, locationUri);
     }
 
     @Override

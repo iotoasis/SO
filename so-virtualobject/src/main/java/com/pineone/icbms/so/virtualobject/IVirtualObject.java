@@ -7,13 +7,13 @@ import com.pineone.icbms.so.virtualobject.common.IVirtualEntity;
  *
  * Created by uni4love on 2016. 11. 16..
  */
-public interface IVirtualObject<FUNCTIONALITY, ASPECT> extends IVirtualEntity {
+public interface IVirtualObject<FUNCTION, ASPECT> extends IVirtualEntity {
     /**
-     * return functionality.<BR/>
+     * return function.<BR/>
      *
-     * @return functionality
+     * @return function
      */
-    FUNCTIONALITY getFunctionality();
+    FUNCTION getFunction();
 
     /**
      * return aspect.<BR/>

@@ -45,6 +45,7 @@ public class DatabaseConfig {
         sqlSessionFactoryBean.setMapperLocations(
                 applicationContext.getResources("classpath:META-INF/mappers/*.xml")
         );
+        // configuration 은 xml 파일로 처리
         sqlSessionFactoryBean.setConfigLocation(
                 applicationContext.getResource("classpath:META-INF/mybatis-config.xml")
         );

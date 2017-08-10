@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="836.0" y="365.0">com.pineone.icbms.so.interfaces.database.dao.AbstractDao</node>
+    <node x="507.0" y="412.0">com.pineone.icbms.so.interfaces.database.dao.OrchestrationServiceDao</node>
+    <node x="553.0" y="613.0">com.pineone.icbms.so.interfaces.database.dao.DeviceDao</node>
+    <node x="945.0" y="169.0">com.pineone.icbms.so.interfaces.database.dao.FunctionalityDao</node>
+    <node x="255.0" y="372.0">com.pineone.icbms.so.interfaces.database.service.DataBaseStore</node>
+    <node x="530.0" y="526.0">com.pineone.icbms.so.interfaces.database.dao.DeviceControlDao</node>
+    <node x="536.0" y="468.0">com.pineone.icbms.so.interfaces.database.dao.FixedDeviceDao</node>
+    <node x="767.0" y="686.0">com.pineone.icbms.so.interfaces.database.dao.DeviceControlCallbackDao</node>
+    <node x="500.0" y="107.0">com.pineone.icbms.so.interfaces.database.dao.ContextInformationDao</node>
+    <node x="747.0" y="108.0">com.pineone.icbms.so.interfaces.database.dao.TypeOfCompositeVirtualObjectDao</node>
+    <node x="950.0" y="426.0">com.pineone.icbms.so.interfaces.database.dao.ContextModelDao</node>
+    <node x="937.0" y="560.0">com.pineone.icbms.so.interfaces.database.dao.ScheduleContextDao</node>
+    <node x="546.0" y="302.0">com.pineone.icbms.so.interfaces.database.dao.AspectDao</node>
+    <node x="516.0" y="194.0">com.pineone.icbms.so.interfaces.database.dao.VirtualObjectDao</node>
+    <node x="241.0" y="575.0">com.pineone.icbms.so.serviceprocessor.repository.database.DatabaseManager</node>
+    <node x="494.0" y="352.0">com.pineone.icbms.so.interfaces.database.dao.CompositeVirtualObjectDao</node>
+    <node x="554.0" y="693.0">com.pineone.icbms.so.interfaces.database.dao.TrackingDao</node>
+    <node x="543.0" y="252.0">com.pineone.icbms.so.interfaces.database.dao.ProfileDao</node>
+    <node x="256.0" y="183.0">com.pineone.icbms.so.interfaces.database.dao.IDataBaseStore</node>
+    <node x="980.0" y="308.0">com.pineone.icbms.so.interfaces.database.dao.LocationDao</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.pineone.icbms.so.interfaces.database.dao.OrchestrationServiceDao" target="com.pineone.icbms.so.interfaces.database.dao.AbstractDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.dao.DeviceControlCallbackDao" target="com.pineone.icbms.so.interfaces.database.dao.AbstractDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.service.DataBaseStore" target="com.pineone.icbms.so.interfaces.database.dao.DeviceDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.serviceprocessor.repository.database.DatabaseManager" target="com.pineone.icbms.so.interfaces.database.service.DataBaseStore">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.dao.CompositeVirtualObjectDao" target="com.pineone.icbms.so.interfaces.database.dao.AbstractDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.dao.VirtualObjectDao" target="com.pineone.icbms.so.interfaces.database.dao.AbstractDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.dao.TypeOfCompositeVirtualObjectDao" target="com.pineone.icbms.so.interfaces.database.dao.AbstractDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.service.DataBaseStore" target="com.pineone.icbms.so.interfaces.database.dao.ContextInformationDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.dao.ContextInformationDao" target="com.pineone.icbms.so.interfaces.database.dao.AbstractDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.dao.TrackingDao" target="com.pineone.icbms.so.interfaces.database.dao.AbstractDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.service.DataBaseStore" target="com.pineone.icbms.so.interfaces.database.dao.ProfileDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.dao.FunctionalityDao" target="com.pineone.icbms.so.interfaces.database.dao.AbstractDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.service.DataBaseStore" target="com.pineone.icbms.so.interfaces.database.dao.CompositeVirtualObjectDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.service.DataBaseStore" target="com.pineone.icbms.so.interfaces.database.dao.OrchestrationServiceDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.service.DataBaseStore" target="com.pineone.icbms.so.interfaces.database.dao.IDataBaseStore">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.service.DataBaseStore" target="com.pineone.icbms.so.interfaces.database.dao.DeviceControlDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.dao.ContextModelDao" target="com.pineone.icbms.so.interfaces.database.dao.AbstractDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.service.DataBaseStore" target="com.pineone.icbms.so.interfaces.database.dao.VirtualObjectDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.dao.FixedDeviceDao" target="com.pineone.icbms.so.interfaces.database.dao.AbstractDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.dao.AspectDao" target="com.pineone.icbms.so.interfaces.database.dao.AbstractDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.service.DataBaseStore" target="com.pineone.icbms.so.interfaces.database.dao.AspectDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.dao.ScheduleContextDao" target="com.pineone.icbms.so.interfaces.database.dao.AbstractDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.dao.DeviceControlDao" target="com.pineone.icbms.so.interfaces.database.dao.AbstractDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.dao.ProfileDao" target="com.pineone.icbms.so.interfaces.database.dao.AbstractDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.service.DataBaseStore" target="com.pineone.icbms.so.interfaces.database.dao.FixedDeviceDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.service.DataBaseStore" target="com.pineone.icbms.so.interfaces.database.dao.TrackingDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.dao.DeviceDao" target="com.pineone.icbms.so.interfaces.database.dao.AbstractDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.pineone.icbms.so.interfaces.database.dao.LocationDao" target="com.pineone.icbms.so.interfaces.database.dao.AbstractDao">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="673.0" y="387.5" />
+  <SelectedNodes>
+    <node>com.pineone.icbms.so.interfaces.database.dao.ScheduleContextDao</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

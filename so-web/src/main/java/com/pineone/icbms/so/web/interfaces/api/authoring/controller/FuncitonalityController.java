@@ -1,7 +1,7 @@
 package com.pineone.icbms.so.web.interfaces.api.authoring.controller;
 
-import com.pineone.icbms.so.interfaces.database.dao.FunctionalityDao;
-import com.pineone.icbms.so.interfaces.database.model.FunctionalityForDB;
+import com.pineone.icbms.so.interfaces.database.dao.FunctionDao;
+import com.pineone.icbms.so.interfaces.database.model.FunctionForDB;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * context for functionality.<BR/>
+ * context for function.<BR/>
  *
  * Created by uni4love on 2017. 1. 13..
  */
 @RestController
-@RequestMapping("/functionality")
+@RequestMapping("/function")
 @ResponseStatus(value = HttpStatus.OK)
 public class FuncitonalityController {
     /**
@@ -28,66 +28,66 @@ public class FuncitonalityController {
      * repository(DAO)
      */
     @Autowired
-    private FunctionalityDao dao;
+    private FunctionDao dao;
 
     /**
-     * response for request "/functionality, HTTP-method:POST".<BR/>
-     * @param functionalityForDB FunctionalityForDB
-     * @return created FunctionalityForDB id
+     * response for request "/function, HTTP-method:POST".<BR/>
+     * @param functionForDB FunctionForDB
+     * @return created FunctionForDB id
      */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public FunctionalityForDB createFunctionality(@RequestBody FunctionalityForDB functionalityForDB) {
-        return dao.create(functionalityForDB);
+    public FunctionForDB createFunction(@RequestBody FunctionForDB functionForDB) {
+        return dao.create(functionForDB);
     }
 
     /**
-     * response for request "/functionality/{id}" .<BR/>
-     * @param id FunctionalityForDB id
-     * @return FunctionalityForDB
+     * response for request "/function/{id}" .<BR/>
+     * @param id FunctionForDB id
+     * @return FunctionForDB
      */
     @RequestMapping(value = "/{id}")
-    public FunctionalityForDB getFunctionality(@PathVariable String id) {
+    public FunctionForDB getFunction(@PathVariable String id) {
         return dao.retrieve(id);
     }
 
     /**
-     * response for request "/functionality".<BR/>
-     * @return FunctionalityForDB list
+     * response for request "/function".<BR/>
+     * @return FunctionForDB list
      */
     @RequestMapping()
-    public List<FunctionalityForDB> getFunctionalityList(@RequestBody FunctionalityForDB functionalityForDB) {
-        return dao.retrieve(functionalityForDB);
+    public List<FunctionForDB> getFunctionList(@RequestBody FunctionForDB functionForDB) {
+        return dao.retrieve(functionForDB);
     }
 
     /**
-     * response for request "/functionality, HTTP-method:PATCH(update)".<BR/>
-     * @param functionality FunctionalityForDB
-     * @return updated FunctionalityForDB id
+     * response for request "/function, HTTP-method:PATCH(update)".<BR/>
+     * @param function FunctionForDB
+     * @return updated FunctionForDB id
      */
     @RequestMapping(method=RequestMethod.PATCH)
-    public int updateFunctionality(FunctionalityForDB functionality) {
-        return dao.update(functionality);
+    public int updateFunction(FunctionForDB function) {
+        return dao.update(function);
     }
 
     /**
-     * response for request "/functionality/{id}, HTTP-method:DELETE".<BR/>
-     * @param id FunctionalityForDB id
-     * @return deleted FunctionalityForDB id
+     * response for request "/function/{id}, HTTP-method:DELETE".<BR/>
+     * @param id FunctionForDB id
+     * @return deleted FunctionForDB id
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public int deleteFunctionality(@PathVariable String id) {
+    public int deleteFunction(@PathVariable String id) {
 
         return dao.delete(id);
     }
 
     /**
-     * response for request "/functionality/{id}, HTTP-method:POST, 'register'".<BR/>
-     * @param id FunctionalityForDB id
-     * @return registed FunctionalityForDB id
+     * response for request "/function/{id}, HTTP-method:POST, 'register'".<BR/>
+     * @param id FunctionForDB id
+     * @return registed FunctionForDB id
      */
 //    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-//    public String registerFunctionality(String id) {
+//    public String registerFunction(String id) {
 //        //implements...
 //        return null;
 //    }

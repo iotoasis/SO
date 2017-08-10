@@ -16,9 +16,9 @@ import java.util.List;
 public class CompositeVirtualObjectForMQ extends ACommonForMQ {
 
     /**
-     * functionality
+     * function
      */
-    protected FunctionalityForMQ functionality;
+    protected FunctionForMQ function;
 
     /**
      * aspect
@@ -47,12 +47,12 @@ public class CompositeVirtualObjectForMQ extends ACommonForMQ {
         super(id, name);
     }
 
-    public FunctionalityForMQ getFunctionality() {
-        return functionality;
+    public FunctionForMQ getFunction() {
+        return function;
     }
 
-    public void setFunctionality(FunctionalityForMQ functionality) {
-        this.functionality = functionality;
+    public void setFunction(FunctionForMQ function) {
+        this.function = function;
     }
 
     public AspectForMQ getAspect() {
@@ -84,7 +84,7 @@ public class CompositeVirtualObjectForMQ extends ACommonForMQ {
         StringBuffer sb = new StringBuffer();
         sb.append("[id = ").append(id);
         sb.append(", name = ").append(name);
-        sb.append(",\nfunctionlity: ").append(functionality);
+        sb.append(",\nfunction: ").append(function);
         sb.append(",\naspect: ").append(aspect);
         if (virtualObjectList != null) {
             for (VirtualObjectForMQ vo : virtualObjectList) {

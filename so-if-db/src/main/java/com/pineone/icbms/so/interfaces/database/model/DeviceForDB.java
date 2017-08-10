@@ -21,18 +21,18 @@ public class DeviceForDB extends CommonEntity {
     private String deviceUri;
 
     @Getter @Setter
-    private FunctionalityForDB functionality;
+    private FunctionForDB function;
     @Getter @Setter
     private AspectForDB aspect;
     @Getter @Setter
     private LocationForDB location;
 
-//    public FunctionalityForDB getFunctionality() {
-//        return functionality;
+//    public FunctionForDB getFunction() {
+//        return function;
 //    }
 //
-//    public void setFunctionality(FunctionalityForDB functionalityForDB) {
-//        this.functionality = functionalityForDB;
+//    public void setFunction(FunctionForDB functionForDB) {
+//        this.function = functionForDB;
 //    }
 //
 //    public AspectForDB getAspect() {

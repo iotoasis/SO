@@ -16,7 +16,7 @@ import java.util.Date;
 //@AllArgsConstructor
 @JsonPropertyOrder({"id","name", "description"})
 @ToString
-public class FunctionalityForDB extends CommonEntity {
+public class FunctionForDB extends CommonEntity {
 
     @Setter @Getter
     private String id;

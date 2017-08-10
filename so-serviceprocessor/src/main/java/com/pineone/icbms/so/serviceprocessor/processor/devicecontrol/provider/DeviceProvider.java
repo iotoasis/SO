@@ -74,12 +74,12 @@ public class DeviceProvider implements IDeviceControlProvider {
     /**
      * return IGenericVirtualDevice list from database.<BR/>
      *
-     * @param functionality functionality uri
+     * @param function function uri
      * @param aspect        aspect
      * @param locationUri   location uri
      * @return IGenericVirtualDevice list
      */
-    public List<DeviceForDB> getDeviceList(String functionality, String aspect, String locationUri) {
-        return databaseManager.getDeviceList(functionality, aspect, locationUri);
+    public List<DeviceForDB> getDeviceList(String function, String aspect, String locationUri) {
+        return databaseManager.getDeviceList(function, aspect, locationUri);
     }
 }

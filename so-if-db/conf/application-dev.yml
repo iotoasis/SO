@@ -53,3 +53,12 @@ spring:
 #    default-statement-timeout: 30
 #    lazy-loading-enabled: true
 #    aggressive-lazy-loading: false
+
+primaryKey:
+  prefix:
+    orchestrationService: OS-
+    virtaulObject: VO-
+    compositeVirtualObject: CVO-
+    profile: PR-
+    contextModel: CM-
+    contextInformation: CI-

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="78.00992063492063" y="148.0">com.pineone.icbms.so.virtualobject.common.IGenericIdentity</node>
+    <node x="98.00992063492063" y="69.0">com.pineone.icbms.so.virtualobject.common.IIdentity</node>
+    <node x="78.0" y="306.0">com.pineone.icbms.so.virtualobject.common.IGenericServiceEntity</node>
+    <node x="261.5" y="227.0">com.pineone.icbms.so.virtualobject.common.IVirtualEntity</node>
+    <node x="256.0" y="306.0">com.pineone.icbms.so.virtualobject.context.contextmodel.IContextModel</node>
+    <node x="354.25" y="148.0">com.pineone.icbms.so.virtualobject.common.IGenericStateStoreOwner</node>
+    <node x="81.9920634920635" y="543.0">com.pineone.icbms.so.virtualobject.context.contextmodel.DefaultContextModel</node>
+    <node x="76.9920634920635" y="464.0">com.pineone.icbms.so.virtualobject.context.contextmodel.AGenericContextModel</node>
+    <node x="412.0277777777778" y="306.0">com.pineone.icbms.so.virtualobject.common.IUriOwner</node>
+    <node x="-35.24007936507934" y="385.0">com.pineone.icbms.so.virtualobject.common.AGenericServiceEntity</node>
+    <node x="-19.84722222222223" y="-10.0">com.pineone.icbms.so.virtualobject.common.IIdNameOwner</node>
+    <node x="414.7777777777778" y="464.0">com.pineone.icbms.so.virtualobject.common.AGenericUriOwner</node>
+    <node x="207.8571428571429" y="385.0">com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextModel</node>
+    <node x="98.0" y="227.0">com.pineone.icbms.so.virtualobject.common.IServiceEntity</node>
+    <node x="417.2777777777778" y="385.0">com.pineone.icbms.so.virtualobject.common.IGenericUriOwner</node>
+    <node x="-131.0" y="148.0">com.pineone.icbms.so.virtualobject.common.AGenericIdNameOwner</node>
+    <node x="-78.5" y="227.0">com.pineone.icbms.so.virtualobject.common.AGenericIdentity</node>
+    <node x="-128.5" y="69.0">com.pineone.icbms.so.virtualobject.common.IGenericIdNameOwner</node>
+    <node x="396.5" y="227.0">com.pineone.icbms.so.virtualobject.common.AGenericStateStoreOwner</node>
+    <node x="374.25" y="69.0">com.pineone.icbms.so.virtualobject.common.IStateStoreOwner</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.pineone.icbms.so.virtualobject.common.IGenericStateStoreOwner" target="com.pineone.icbms.so.virtualobject.common.IStateStoreOwner">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.common.IVirtualEntity" target="com.pineone.icbms.so.virtualobject.common.IGenericIdentity">
+      <point x="0.0" y="-14.5" />
+      <point x="319.0" y="197.0" />
+      <point x="187.17658730158723" y="197.0" />
+      <point x="43.66666666666663" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.common.IServiceEntity" target="com.pineone.icbms.so.virtualobject.common.IGenericIdentity">
+      <point x="-29.5" y="-14.5" />
+      <point x="127.5" y="207.0" />
+      <point x="143.5099206349206" y="207.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextModel" target="com.pineone.icbms.so.virtualobject.context.contextmodel.IContextModel">
+      <point x="0.0" y="-14.5" />
+      <point x="290.8571428571429" y="360.0" />
+      <point x="319.0" y="360.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.common.AGenericIdentity" target="com.pineone.icbms.so.virtualobject.common.AGenericIdNameOwner">
+      <point x="-34.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.common.IGenericIdNameOwner" target="com.pineone.icbms.so.virtualobject.common.IIdNameOwner">
+      <point x="0.0" y="-14.5" />
+      <point x="-44.5" y="44.0" />
+      <point x="12.152777777777771" y="44.0" />
+      <point x="-32.0" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.context.contextmodel.AGenericContextModel" target="com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextModel">
+      <point x="42.75" y="-14.5" />
+      <point x="205.2420634920635" y="439.0" />
+      <point x="290.8571428571429" y="439.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.common.IGenericIdentity" target="com.pineone.icbms.so.virtualobject.common.IIdentity">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.context.contextmodel.DefaultContextModel" target="com.pineone.icbms.so.virtualobject.context.contextmodel.AGenericContextModel">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.common.AGenericServiceEntity" target="com.pineone.icbms.so.virtualobject.common.AGenericIdentity">
+      <point x="-40.75" y="-14.5" />
+      <point x="5.509920634920661" y="360.0" />
+      <point x="-10.5" y="360.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.common.AGenericServiceEntity" target="com.pineone.icbms.so.virtualobject.common.IGenericServiceEntity">
+      <point x="40.75" y="-14.5" />
+      <point x="87.00992063492066" y="360.0" />
+      <point x="117.5" y="360.0" />
+      <point x="-39.5" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.common.IIdentity" target="com.pineone.icbms.so.virtualobject.common.IIdNameOwner">
+      <point x="0.0" y="-14.5" />
+      <point x="143.5099206349206" y="44.0" />
+      <point x="76.15277777777777" y="44.0" />
+      <point x="32.0" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.common.AGenericUriOwner" target="com.pineone.icbms.so.virtualobject.common.IGenericUriOwner">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.common.IGenericUriOwner" target="com.pineone.icbms.so.virtualobject.common.IUriOwner">
+      <point x="0.0" y="-14.5" />
+      <point x="25.25" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.common.IServiceEntity" target="com.pineone.icbms.so.virtualobject.common.IGenericStateStoreOwner">
+      <point x="29.5" y="-14.5" />
+      <point x="186.5" y="207.0" />
+      <point x="399.0" y="207.0" />
+      <point x="-44.75" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.common.AGenericIdentity" target="com.pineone.icbms.so.virtualobject.common.IGenericIdentity">
+      <point x="34.0" y="-14.5" />
+      <point x="23.5" y="207.0" />
+      <point x="99.84325396825398" y="207.0" />
+      <point x="-43.66666666666666" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.common.AGenericStateStoreOwner" target="com.pineone.icbms.so.virtualobject.common.IGenericStateStoreOwner">
+      <point x="0.0" y="-14.5" />
+      <point x="44.75" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.common.IGenericServiceEntity" target="com.pineone.icbms.so.virtualobject.common.IServiceEntity">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextModel" target="com.pineone.icbms.so.virtualobject.common.IGenericServiceEntity">
+      <point x="-55.33333333333337" y="-14.5" />
+      <point x="235.52380952380952" y="360.0" />
+      <point x="196.5" y="360.0" />
+      <point x="39.5" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.context.contextmodel.AGenericContextModel" target="com.pineone.icbms.so.virtualobject.common.AGenericServiceEntity">
+      <point x="-42.75" y="-14.5" />
+      <point x="119.7420634920635" y="439.0" />
+      <point x="46.25992063492066" y="439.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextModel" target="com.pineone.icbms.so.virtualobject.common.IUriOwner">
+      <point x="55.333333333333314" y="-14.5" />
+      <point x="346.1904761904762" y="360.0" />
+      <point x="437.2777777777778" y="360.0" />
+      <point x="-25.25" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.context.contextmodel.IContextModel" target="com.pineone.icbms.so.virtualobject.common.IVirtualEntity">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.pineone.icbms.so.virtualobject.common.AGenericIdNameOwner" target="com.pineone.icbms.so.virtualobject.common.IGenericIdNameOwner">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="250.5" y="320.0" />
+  <SelectedNodes>
+    <node>com.pineone.icbms.so.virtualobject.common.IGenericIdentity</node>
+    <node>com.pineone.icbms.so.virtualobject.common.IGenericUriOwner</node>
+    <node>com.pineone.icbms.so.virtualobject.common.AGenericIdNameOwner</node>
+    <node>com.pineone.icbms.so.virtualobject.common.IIdentity</node>
+    <node>com.pineone.icbms.so.virtualobject.common.IGenericServiceEntity</node>
+    <node>com.pineone.icbms.so.virtualobject.common.AGenericIdentity</node>
+    <node>com.pineone.icbms.so.virtualobject.common.IVirtualEntity</node>
+    <node>com.pineone.icbms.so.virtualobject.context.contextmodel.IContextModel</node>
+    <node>com.pineone.icbms.so.virtualobject.common.IGenericIdNameOwner</node>
+    <node>com.pineone.icbms.so.virtualobject.common.AGenericStateStoreOwner</node>
+    <node>com.pineone.icbms.so.virtualobject.common.IGenericStateStoreOwner</node>
+    <node>com.pineone.icbms.so.virtualobject.context.contextmodel.DefaultContextModel</node>
+    <node>com.pineone.icbms.so.virtualobject.context.contextmodel.AGenericContextModel</node>
+    <node>com.pineone.icbms.so.virtualobject.common.IStateStoreOwner</node>
+    <node>com.pineone.icbms.so.virtualobject.common.IUriOwner</node>
+    <node>com.pineone.icbms.so.virtualobject.common.AGenericServiceEntity</node>
+    <node>com.pineone.icbms.so.virtualobject.common.IIdNameOwner</node>
+    <node>com.pineone.icbms.so.virtualobject.common.AGenericUriOwner</node>
+    <node>com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextModel</node>
+    <node>com.pineone.icbms.so.virtualobject.common.IServiceEntity</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

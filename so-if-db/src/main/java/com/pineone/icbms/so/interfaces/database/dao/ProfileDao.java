@@ -1,8 +1,10 @@
 package com.pineone.icbms.so.interfaces.database.dao;
 
 import com.pineone.icbms.so.interfaces.database.model.ProfileForDB;
+import com.pineone.icbms.so.util.id.IdUtils;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -13,29 +15,11 @@ import java.util.List;
  */
 @Component
 public class ProfileDao extends AbstractDao {
+    @Value("${primaryKey.prefix.profile}")
+    String uuidPrefix;
 
     //
     public ProfileForDB retrieveProfile(String profileId) {
-        return null;
-    }
-
-    // Profile 전체 조회
-    public List<ProfileForDB> retrieveProfileList(ProfileForDB model) {
-        return super.sqlSession.selectList("", model);
-    }
-
-    // Profile 생성 Id 없는 경우 기능
-//    public ProfileForDB createProfileByExceptID(ProfileForDB profileForDB) {
-//        return null;
-//    }
-
-    // Profile 갱신 기능
-    public ProfileForDB updateProfile(String id, ProfileForDB profileForDB) {
-        return null;
-    }
-
-    //  Profile 삭제 기능
-    public ProfileForDB deleteProfile(String id) {
         return null;
     }
 
@@ -62,40 +46,39 @@ public class ProfileDao extends AbstractDao {
         return super.sqlSession.update("updateProfileEnabled", profileForDB);
     }
 
-    /*private ProfileForDB createProfileDataConversion(ProfileData profileData) {
+    // retrieve one
+    public ProfileForDB retrieve(String id) {
+        return super.sqlSession.selectOne("retrieveProfileById", id);
+    }
+
+    // retrieve list
+    public List<ProfileForDB> retrieve(ProfileForDB profileForDB) {
+        return super.sqlSession.selectList("retrieveProfileByModel", profileForDB);
+    }
+
+    // retrieve all
+    public List<ProfileForDB> retrieve() {
+        return super.sqlSession.selectList("retrieveProfileByModel");
+    }
+
+    // 저장 기능 구현
+    public ProfileForDB create(ProfileForDB model) {
+        String sessionId = IdUtils.createRandomUUID();
+        model.setId(uuidPrefix + sessionId);
+        super.sqlSession.insert("createAspect", model);
+        return super.sqlSession.selectOne("retrieveProfileById", model.getId());
+    }
+
+    //  갱신 기능 구현
+    public ProfileForDB update(ProfileForDB profileForDB) {
         //
+        super.sqlSession.update("updateAspect", profileForDB);
+        return super.sqlSession.selectOne("retrieveProfileByModel", profileForDB);
+    }
 
-        ProfileForDB profileForDB = new ProfileForDB(null, profileData.getName(), profileData.getDescription(),
-                profileData.getContextModelId(), profileData.getOrchestration_service_id(),
-                profileData.getLocationId(), profileData.isEnabled(),  profileData.getPeriod());
+    // 삭제 기능 구현
+    public int delete(String id) {
+        return super.sqlSession.delete("deleteProfile", id);
+    }
 
-        //JPA 객체 사용
-//        ContextModelForDB contextModelForDB = contextModelDAO.retrieveContextModel(profileData.getContextModelId());
-//        LocationForDB locationForDB = locationDAO.retrieveLocation(profileData.getLocationId());
-//        OrchestrationServiceForDB orchestrationServiceForDB = orchestrationServiceDAO.retrieveOrchestrationService(
-//                profileData.getOrchestration_service_id());
-//
-//        ProfileForDB profileForDB = new ProfileForDB(profileData.getName(), contextModelForDB,
-//                orchestrationServiceForDB, locationForDB, true, profileData.getDescription(), profileData.getPeriod());
-        return profileForDB;
-    }*/
-
-    /*private ProfileForDB updateProfileDataConversion(ProfileData profileData) {
-        //
-        ProfileForDB profileForDB = new ProfileForDB(null, profileData.getName(), profileData.getDescription(),
-                profileData.getContextModelId(), profileData.getOrchestration_service_id(),
-                profileData.getLocationId(), profileData.isEnabled(), profileData.getPeriod(),
-                Calendar.getInstance().getTime());
-
-        //JPA 객체 사용
-//        ContextModelForDB contextModelForDB = contextModelDAO.retrieveContextModel(profileData.getContextModelId());
-//        LocationForDB locationForDB = locationDAO.retrieveLocation(profileData.getLocationId());
-//        OrchestrationServiceForDB orchestrationServiceForDB = orchestrationServiceDAO.retrieveOrchestrationService(
-//                profileData.getOrchestration_service_id());
-//
-//        ProfileForDB profileForDB = new ProfileForDB(profileData.getName(), contextModelForDB,
-//                orchestrationServiceForDB, locationForDB, true, profileData.getDescription(),
-//                Calendar.getInstance().getTime(), profileData.getPeriod());
-        return profileForDB;
-    }*/
 }

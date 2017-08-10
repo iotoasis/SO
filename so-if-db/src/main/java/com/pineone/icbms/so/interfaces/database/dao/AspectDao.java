@@ -23,8 +23,8 @@ public class AspectDao extends AbstractDao {
     }
 
     // retrieve list
-    public List<AspectForDB> retrieve(AspectForDB aspectForDB) {
-        return super.sqlSession.selectList("retrieveAspectByModel", aspectForDB);
+    public List<AspectForDB> retrieve(AspectForDB model) {
+        return super.sqlSession.selectList("retrieveAspectByModel", model);
     }
 
     // retrieve all
@@ -32,20 +32,19 @@ public class AspectDao extends AbstractDao {
         return super.sqlSession.selectList("retrieveAspectByModel");
     }
 
-    // Aspect 저장 기능 구현
-    public AspectForDB create(AspectForDB aspectForDB) {
-        super.sqlSession.insert("createAspect", aspectForDB);
-        return super.sqlSession.selectOne("retrieveAspectById", aspectForDB.getId());
+    // 저장 기능 구현
+    public AspectForDB create(AspectForDB model) {
+        super.sqlSession.insert("createAspect", model);
+        return super.sqlSession.selectOne("retrieveAspectById", model.getId());
     }
 
-    //  Aspect 갱신 기능 구현
-    public AspectForDB update(AspectForDB aspectForDB) {
+    // 갱신 기능 구현
+    public int update(AspectForDB model) {
         //
-        super.sqlSession.update("updateAspect", aspectForDB);
-        return super.sqlSession.selectOne("retrieveAspectByModel", aspectForDB);
+        return super.sqlSession.update("updateAspect", model);
     }
 
-    // Aspect 삭제 기능 구현
+    // 삭제 기능 구현
     public int delete(String id) {
         return super.sqlSession.delete("deleteAspect", id);
     }

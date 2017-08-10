@@ -3,6 +3,7 @@ package com.pineone.icbms.so.interfaces.database.dao;
 import com.pineone.icbms.so.interfaces.database.model.ContextInformationForDB;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
@@ -13,6 +14,8 @@ import java.util.List;
  */
 @Component
 public class ContextInformationDao extends AbstractDao {
+    @Value("${primaryKey.prefix.contextInformation}")
+    String uuidPrefix;
 
     public ContextInformationForDB retrieveContextInformation(String id) {
         return null;
@@ -68,9 +71,11 @@ public class ContextInformationDao extends AbstractDao {
         return null;
     }
 
-    public void save(ContextInformationForDB contextInformationForDB) {
+    public int save(ContextInformationForDB contextInformationForDB) {
+        return 0;
     }
 
-    public void delete(String id) {
+    public int delete(String id) {
+        return 0;
     }
 }

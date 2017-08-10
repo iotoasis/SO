@@ -11,28 +11,36 @@ import java.util.List;
 @Component
 public class LocationDao extends AbstractDao {
     //
-    public LocationForDB retrieveLocation(String id) {
-        return null;
+    // retrieve one
+    public LocationForDB retrieve(String id) {
+        return super.sqlSession.selectOne("retrieveLocationById", id);
     }
 
-    public List<LocationForDB> retrieveLocationList() {
-        return null;
+    // retrieve list
+    public List<LocationForDB> retrieve(LocationForDB model) {
+        return super.sqlSession.selectList("retrieveLocationByModel", model);
     }
 
-//    public LocationForDB createLocation(LocationData locationData) {
-//        return null;
-//    }
-//
-//    public LocationForDB updateLocation(String id, LocationData AspectData) {
-//        return null;
-//    }
-
-    public String deleteLocation(String id) {
-        return null;
+    // retrieve all
+    public List<LocationForDB> retrieve() {
+        return super.sqlSession.selectList("retrieveLocationByModel");
     }
 
-    //  URI 로 Location 내용 조회
-    public LocationForDB retrieveLocationByUri(String uri) {
-        return null;
+    // 저장 기능 구현
+    public LocationForDB create(LocationForDB model) {
+        super.sqlSession.insert("createLocation", model);
+        return super.sqlSession.selectOne("retrieveLocationById", model.getId());
     }
+
+    // 갱신 기능 구현
+    public int update(LocationForDB model) {
+        //
+        return super.sqlSession.update("updateLocation", model);
+    }
+
+    // 삭제 기능 구현
+    public int delete(String id) {
+        return super.sqlSession.delete("deleteLocation", id);
+    }
+
 }

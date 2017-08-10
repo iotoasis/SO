@@ -8,11 +8,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(value = JsonInclude.Include.NON_ABSENT, content = JsonInclude.Include.NON_EMPTY)
-public class FunctionalityForMQ extends UriOwnerForMQ {
+public class FunctionForMQ extends UriOwnerForMQ {
     /**
      * constructor
      */
-    public FunctionalityForMQ() {
+    public FunctionForMQ() {
     }
 
     /**
@@ -20,7 +20,7 @@ public class FunctionalityForMQ extends UriOwnerForMQ {
      *
      * @param id          id
      */
-    public FunctionalityForMQ(String id) {
+    public FunctionForMQ(String id) {
         this();
         this.id = id;
     }
@@ -30,7 +30,7 @@ public class FunctionalityForMQ extends UriOwnerForMQ {
      * @param id          id
      * @param name        name
      */
-    public FunctionalityForMQ(String id, String name) {
+    public FunctionForMQ(String id, String name) {
         this(id);
         this.name = name;
     }
@@ -42,7 +42,7 @@ public class FunctionalityForMQ extends UriOwnerForMQ {
      * @param name        name
      * @param description description
      */
-    public FunctionalityForMQ(String id, String name, String description) {
+    public FunctionForMQ(String id, String name, String description) {
         this(id, name);
         this.description = description;
     }
@@ -55,7 +55,7 @@ public class FunctionalityForMQ extends UriOwnerForMQ {
      * @param description description
      * @param uri         uri
      */
-    public FunctionalityForMQ(String id, String name, String description, String uri) {
+    public FunctionForMQ(String id, String name, String description, String uri) {
         this(id, name, description);
         this.uri = uri;
     }

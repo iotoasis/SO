@@ -3,7 +3,7 @@ package com.pineone.icbms.so.virtualobject.composite;
 import com.pineone.icbms.so.virtualobject.AGenericVirtualObject;
 import com.pineone.icbms.so.virtualobject.IGenericVirtualObject;
 import com.pineone.icbms.so.virtualobject.aspect.IGenericAspect;
-import com.pineone.icbms.so.virtualobject.functionlity.IGenericFunctionality;
+import com.pineone.icbms.so.virtualobject.function.IGenericFunction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,11 +110,11 @@ abstract public class AGenericCompositeVirtualObject extends AGenericVirtualObje
     }
 
     /**
-     * return functionality list.<BR/>
+     * return function list.<BR/>
      *
-     * @return functionality list
+     * @return function list
      */
-    public List<IGenericFunctionality> getFunctionalityList() {
+    public List<IGenericFunction> getFunctionList() {
         //implements...
         return null;
     }
@@ -130,11 +130,11 @@ abstract public class AGenericCompositeVirtualObject extends AGenericVirtualObje
     }
 
     /**
-     * return aspect-functionality list.<BR/>
+     * return aspect-function list.<BR/>
      *
-     * @return aspect-functionality list
+     * @return aspect-function list
      */
-    public Map<IGenericAspect, IGenericFunctionality> getAspectFunctionalityList() {
+    public Map<IGenericAspect, IGenericFunction> getAspectFunctionList() {
         //implements...
         return null;
     }

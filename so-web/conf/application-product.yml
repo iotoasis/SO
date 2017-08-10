@@ -4,8 +4,8 @@ server:
   contextPath: /so
 
 #----------LOG
-#logging:
-#  config: file:D:/svc/apps/so/so/so-web/conf/logback-web.xml
+logging:
+  config: file:/svc/apps/so/so/so-web/conf/logback-web.xml
 
 #----------PROCESSOR LIST
 so:
@@ -62,6 +62,14 @@ spring:
     username: orchestrator
     password: pine123
     driverClassName: com.mysql.jdbc.Driver
+
+  jackson:
+    time-zone: Asia/Seoul
+    mapper:
+      # for sorting json property
+      sort-properties-alphabetically: true
+
+
 #spring.jpa.hibernate.ddl-auto: create-drop
   #jpa:
   #  generate-ddl: false
@@ -86,3 +94,12 @@ kafka:
     tracking: tracking
     contextmodel: contextmodel
     orchestrationservice: orchestrationservice
+
+primaryKey:
+  prefix:
+    orchestrationService: OS-
+    virtaulObject: VO-
+    compositeVirtualObject: CVO-
+    profile: PR-
+    contextModel: CM-
+    contextInformation: CI-

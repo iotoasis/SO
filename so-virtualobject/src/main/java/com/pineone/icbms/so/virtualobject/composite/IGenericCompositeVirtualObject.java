@@ -3,7 +3,7 @@ package com.pineone.icbms.so.virtualobject.composite;
 import com.pineone.icbms.so.virtualobject.IGenericVirtualObject;
 import com.pineone.icbms.so.virtualobject.aspect.IGenericAspect;
 import com.pineone.icbms.so.virtualobject.common.IGenericServiceEntity;
-import com.pineone.icbms.so.virtualobject.functionlity.IGenericFunctionality;
+import com.pineone.icbms.so.virtualobject.function.IGenericFunction;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * Created by uni4love on 2016. 11. 17..
  */
 public interface IGenericCompositeVirtualObject
-        extends ICompositeVirtualObject<IGenericVirtualObject, IGenericFunctionality, IGenericAspect>, IGenericServiceEntity {
+        extends ICompositeVirtualObject<IGenericVirtualObject, IGenericFunction, IGenericAspect>, IGenericServiceEntity {
     /**
      * return virtual object list.<BR/>
      *
