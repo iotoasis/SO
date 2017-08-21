@@ -48,7 +48,7 @@ dependencies {
     compile project(':so-devicecontrol')
     compile project(':so-serviceutil')
     compile project(':so-serviceprocessor')
-    //compile project(':so-scheduler')
+    compile project(':so-scheduler')
 
     //spring-boot
     compile('org.springframework.boot:spring-boot-starter-aop')
