@@ -11,12 +11,29 @@
             , modified_date
             , name
             , aspect_id
-            , functionality_id
+            , function_id
         FROM
           os_vo O, virtual_object V
         WHERE
           O.virtual_object_id = V.id
           AND O.orchestration_service_id = #{orchestrationServiceId}
+    </select>
+
+    <!--
+    cvo 에 포함된 vo 목록 조회
+    -->
+    <select id="retrieveVirtualObjectListByCompositeVirtualObjectId" parameterType="String" resultType="VirtualObjectForDB">
+        SELECT
+          V.id
+            , created_date
+            , description
+            , modified_date
+            , name
+            , aspect_id
+            , function_id
+        FROM cvo_vo C, virtual_object V
+        WHERE C.composite_virtual_object_id = #{value}
+          AND C.virtual_object_id = V.id
     </select>
 
     <!--
@@ -30,7 +47,7 @@
             , modified_date
             , name
             , aspect_id
-            , functionality_id
+            , function_id
         from
           virtual_object
         where
@@ -49,7 +66,7 @@
             , modified_date
             , name
             , aspect_id
-            , functionality_id
+            , function_id
         FROM virtual_object
         WHERE
           id = #{value}
@@ -67,8 +84,8 @@
             <if test="aspectId != null">
                 AND aspect_id = #{aspectId}
             </if>
-            <if test="functionalityId != null">
-                AND functionality_id = #{functionalityId}
+            <if test="functionId != null">
+                AND function_id = #{functionId}
             </if>
             <if test="description != null">
                 AND description = #{description}
@@ -103,7 +120,7 @@
             , name
             , description
             , aspect_id
-            , functionality_id
+            , function_id
             , created_date
             , modified_date
         )
@@ -112,7 +129,7 @@
             , #{name}
             , #{description}
             , #{aspectId}
-            , #{functionalityId}
+            , #{functionId}
             , now(4)
             , now(4)
         )
@@ -125,7 +142,7 @@
             <if test="name != null">, name = #{name}</if>
             <if test="description != null">, description = #{description}</if>
             <if test="aspectId != null">, aspect_id = #{aspectId}</if>
-            <if test="functionalityId != null">, functionality_id = #{functionalityId}</if>
+            <if test="functionId != null">, function_id = #{functionId}</if>
         </set>
         WHERE
         id = #{id}

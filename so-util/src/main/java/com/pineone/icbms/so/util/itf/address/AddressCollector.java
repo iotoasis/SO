@@ -1,5 +1,7 @@
 package com.pineone.icbms.so.util.itf.address;
 
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -8,7 +10,7 @@ import java.util.Properties;
  * Created by melvin on 2017. 4. 5..
  */
 //Address 를 관리 - 기본 Address 의 변경을 통합적으로 관리
-
+@Component
 public class AddressCollector {
     //
     public static final String SERVER_PROPERTIES = "server.properties";

@@ -16,9 +16,9 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import javax.sql.DataSource;
 
 @SpringBootApplication
-//@ComponentScan(basePackages = "com.pineone.icbms.so")
+@ComponentScan(basePackages = "com.pineone.icbms.so")
 //@EntityScan(basePackages = "com.pineone.icbms.so")
-//@EnableAutoConfiguration
+@EnableAutoConfiguration
 //@EnableJpaRepositories(basePackages = "com.pineone.icbms.so")
 //@MapperScan(value = {"com.pineone.icbms.so.interfaces.database.service"})
 public class SoIfDbApplication { //implements CommandLineRunner{
@@ -47,31 +47,5 @@ public class SoIfDbApplication { //implements CommandLineRunner{
 //        sessionFactory.setMapperLocations(res);
 //
 //        return sessionFactory.getObject();
-//    }
-
-
-
-//    @Override
-//    public void run(String... args) throws Exception {
-//        test();
-//    }
-
-//    public void test(){
-//        VirtualObjectData virtualObjectData = new VirtualObjectData("icbms-vo-test",1,1,"test설명");
-//        IVirtualObjectDAO.createVirtualObject(virtualObjectData);
-//        IVirtualObjectDAO.createVirtualObject(virtualObjectData);
-//
-//        List<VirtualObjectForDB> virtualObjectForDBList = IVirtualObjectDAO.retrieveVirtualObjectList();
-//
-//        for(VirtualObjectForDB virtualObjectForDB : virtualObjectForDBList){
-//            System.out.println(virtualObjectForDB.toString());
-//        }
-//
-//        VirtualObjectData virtualObjectChangeData = new VirtualObjectData("icbms-vo-test-change",1,1,"test변경설명");
-//        IVirtualObjectDAO.updateVirtualObject(3,virtualObjectChangeData);
-//
-//        for(VirtualObjectForDB virtualObjectForDB : virtualObjectForDBList){
-//            System.out.println(virtualObjectForDB.toString());
-//        }
 //    }
 }

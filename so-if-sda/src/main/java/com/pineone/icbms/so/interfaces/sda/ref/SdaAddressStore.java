@@ -22,6 +22,8 @@ public class SdaAddressStore {
 
     /* 전체 펑션 목록 */
     public static final String CM_FUNCTION_LIST = "cm-function-list";
+    /* 전체 aspect 목록 */
+    public static final String CM_ASPECT_LIST = "cm-aspect-list";
     /* 전체 펑셔널리티 목록 */
     public static final String CM_FUNCTIONALITY_LIST = "cm-functionality-list";
 

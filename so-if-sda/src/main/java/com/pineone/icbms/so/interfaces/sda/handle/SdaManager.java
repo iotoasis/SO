@@ -13,6 +13,8 @@ import com.pineone.icbms.so.util.itf.address.AddressCollector;
 import com.withwiz.beach.network.http.message.IHttpResponseMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ import java.util.List;
  */
 
 //SDA 연동 기능 구현
+@Service
 public class SdaManager implements ISdaManager {
     /**
      * logger
@@ -37,7 +40,6 @@ public class SdaManager implements ISdaManager {
     ClientService clientService = new ClientService();
     AddressCollector addressCollector = new AddressCollector();
     ObjectMapper objectMapper = new ObjectMapper();
-
 
     // 상황의 발생 여부 조회
     @Override
@@ -281,6 +283,58 @@ public class SdaManager implements ISdaManager {
         }
         log.debug("value : " + value);
         return value;
+    }
+
+    @Override
+    public List<String> retrieveListByContextModelId(String contextModelId) {
+        //
+        List<String> resultList = new ArrayList<>();
+        List<ContextModelContent> contentList = new ArrayList<>();
+
+        try {
+            IHttpResponseMessage message = clientService.requestGetService(
+                    addressCollector.getServerAddress(AddressCollector.SDA_SERVER)
+                            + contextModelId
+                            + SdaAddressStore.SEPARATOR_WITH_COMMA);
+            log.debug("Request URL : {}", addressCollector.getServerAddress(AddressCollector.SDA_SERVER)
+                    + contextModelId
+                    + SdaAddressStore.SEPARATOR_WITH_COMMA);
+            contentList = getContextModelContents(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SDAException e) {
+//            e.printStackTrace();
+        }
+
+        for (ContextModelContent contextModelContent : contentList) {
+            switch (contextModelId) {
+                case SdaAddressStore.CM_FUNCTION_LIST:
+                    resultList.add(contextModelContent.getFunctionUri());
+                    break;
+                case SdaAddressStore.CM_ASPECT_LIST:
+                    resultList.add(contextModelContent.getAspectUri());
+                    break;
+                case SdaAddressStore.CM_FUNCTIONALITY_LIST:
+                    resultList.add(contextModelContent.getAspectUri());
+                    break;
+                default:
+                    log.debug("ContextModelContent is empty");
+            }
+
+        }
+        log.debug("resultList : " + resultList);
+
+        return resultList;
+    }
+
+    @Override
+    public List<String> retrieveAspectList() {
+        return null;
+    }
+
+    @Override
+    public List<String> retrieveFunctionalityList() {
+        return null;
     }
 
     // get Data

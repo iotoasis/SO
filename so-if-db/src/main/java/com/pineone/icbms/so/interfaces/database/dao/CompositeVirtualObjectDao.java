@@ -15,41 +15,7 @@ import java.util.List;
  */
 @Component
 public class CompositeVirtualObjectDao extends AbstractDao {
-    @Value("${primaryKey.prefix.compositeVirtualObject}")
-    String uuidPrefix;
-
     //
-//    public CompositeVirtualObjectForDB retrieve(String id) {
-//        return super.sqlSession.selectOne("retrieveCompositeVirtualObjectById", id);
-//    }
-//
-//    public List<CompositeVirtualObjectForDB> retrieve(CompositeVirtualObjectForDB model) {
-//        return super.sqlSession.selectList("retrieveCompositeVirtualObjectByModel", model);
-//    }
-
-//    public CompositeVirtualObjectForDB createCompositeVirtualObject(CompositeVirtualObjectData compositeVirtualObjectData) {
-//        return null;
-//    }
-//
-//    public CompositeVirtualObjectForDB updateCompositeVirtualObject(String id, CompositeVirtualObjectData compositeVirtualObjectData) {
-//        return null;
-//    }
-
-//    public int deleteCompositeVirtualObject(String id) {
-//        return super.sqlSession.delete("deleteCompositeVirtualObject", id);
-//    }
-
-//    public CompositeVirtualObjectForDB findOne(String id) {
-//        return null;
-//    }
-//    public List<CompositeVirtualObjectForDB>findAll() {
-//        return null;
-//    }
-
-//    public int delete(String id) {
-//        return super.sqlSession.delete("deleteCompositeVirtualObject", id);
-//    }
-
     // os 와 연결된 cvo list
     public List<CompositeVirtualObjectForDB> retrieveCompositeVirtualObjectListByOrchestrationId(String orchestrationServiceId) {
         return super.sqlSession.selectList("retrieveCompositeVirtualObjectListByOrchestrationId", orchestrationServiceId);
@@ -74,7 +40,7 @@ public class CompositeVirtualObjectDao extends AbstractDao {
     // 저장 기능 구현
     public CompositeVirtualObjectForDB create(CompositeVirtualObjectForDB model) {
         String sessionId = IdUtils.createRandomUUID();
-        model.setId(uuidPrefix + sessionId);
+        model.setId("CVO-" + sessionId);
         super.sqlSession.insert("createCompositeVirtualObject", model);
         return super.sqlSession.selectOne("retrieveCompositeVirtualObjectById", model.getId());
     }

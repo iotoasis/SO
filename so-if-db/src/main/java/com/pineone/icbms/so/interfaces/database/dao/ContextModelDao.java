@@ -14,9 +14,6 @@ import java.util.List;
  */
 @Component
 public class ContextModelDao extends AbstractDao {
-    @Value("${primaryKey.prefix.contextModel}")
-    String uuidPrefix;
-
     //
     public ContextModelForDB retrieve(String id) {
         return super.sqlSession.selectOne("retrieveContextModelById", id);
@@ -32,7 +29,7 @@ public class ContextModelDao extends AbstractDao {
 
     public ContextModelForDB create(ContextModelForDB model) {
         String sessionId = IdUtils.createRandomUUID();
-        model.setId(uuidPrefix + sessionId);
+        model.setId("CM-" + sessionId);
         super.sqlSession.insert("createContextModel", model);
         return super.sqlSession.selectOne("retrieveContextModelById", model.getId());
     }

@@ -39,7 +39,9 @@ dependencies {
 
 	//compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}");
 
-	compile('org.springframework.kafka:spring-kafka')
+	//compile('org.springframework.kafka:spring-kafka')
+	compile group: 'org.springframework.kafka', name: 'spring-kafka', version: '1.2.2.RELEASE'
+
 	compile('org.springframework.boot:spring-boot-starter')
 	runtime('org.springframework.boot:spring-boot-devtools')
 	testCompile('org.springframework.boot:spring-boot-starter-test')

@@ -46,8 +46,8 @@ dependencies {
 //    compile("org.springframework.boot:spring-boot-starter-jdbc")
 //    compile('org.springframework.boot:spring-boot-starter-data-jpa')
     runtime('mysql:mysql-connector-java')
-//    compile('org.projectlombok:lombok:1.16.6')
-    compile "org.projectlombok:lombok:1.16.16"
+    compile('org.projectlombok:lombok:1.16.6')
+//    compileOnly "org.projectlombok:lombok:1.16.16"
 //    compile('org.apache.tomcat.embed:tomcat-embed-jasper')
 //    compile('javax.servlet:jstl:1.2')
 //    runtime('org.hsqldb:hsqldb')
@@ -78,7 +78,7 @@ dependencies {
 }
 
 bootRun {
-    jvmArgs = ["-Dspring.config.location=/svc/apps/so/so/so-id-db/conf/application-dev.yml",
+    jvmArgs = ["-Dspring.config.location=/svc/apps/so/so/so-id-db/conf/application-dev.properties",
                "-Dspring.profiles.active=dev"]
 }
 

@@ -17,8 +17,6 @@ import java.util.Date;
 @JsonPropertyOrder({"id","name", "description"})
 @ToString
 public class ContextInformationForDB extends CommonEntity {
-    @Getter @Setter
-    private String id;
 
     @Getter @Setter
     private String uri;

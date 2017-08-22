@@ -3,10 +3,7 @@ package com.pineone.icbms.so.serviceprocessor.processor.devicecontrol.handler;
 import com.pineone.icbms.so.devicecontrol.model.virtualdevice.DeviceControlValue;
 import com.pineone.icbms.so.devicecontrol.model.virtualdevice.driver.IGenericDeviceDriver;
 import com.pineone.icbms.so.interfaces.database.model.DeviceControlForDB;
-import com.pineone.icbms.so.interfaces.database.model.TrackingEntity;
-import com.pineone.icbms.so.interfaces.messagequeue.tracking.handler.TrackingHandler;
-import com.pineone.icbms.so.interfaces.sda.handle.SdaClient;
-import com.pineone.icbms.so.interfaces.sda.handle.itf.ISdaManager;
+import com.pineone.icbms.so.interfaces.messagequeue.producer.tracking.TrackingProducer;
 import com.pineone.icbms.so.interfaces.si.handle.DeviceManager;
 import com.pineone.icbms.so.interfaces.si.ref.ClientProfile;
 import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
@@ -14,7 +11,6 @@ import com.pineone.icbms.so.serviceprocessor.processor.AProcessHandler;
 import com.pineone.icbms.so.virtualobject.virtualdevice.IGenericVirtualDevice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import com.pineone.icbms.so.interfaces.si.model.ResultMessage;
 
 import java.util.LinkedHashMap;
@@ -116,7 +112,7 @@ public class DeviceControlHandler extends AProcessHandler {
                 getTracking().setProcessId(virtualDevice.getId());
                 getTracking().setProcessName(virtualDevice.getName() + ", 디바이스제어");
                 getTracking().setProcessValue(deviceControlForDB.getValue());
-                TrackingHandler.send(getTracking());
+                TrackingProducer.send(getTracking());
             }
         }
         else
@@ -124,7 +120,7 @@ public class DeviceControlHandler extends AProcessHandler {
             log.warn("DeviceControlForDB NOT exist: virtualdevice: {}, location: {}, contextmodel: {}", virtualDevice, locationUri, contextModelId);
             getTracking().setProcessId(String.format("deviceId : %s, contextModelId : %s", virtualDevice.getId(), contextModelId));
             getTracking().setProcessName("디바이스 제어정보 없음");
-            TrackingHandler.send(getTracking());
+            TrackingProducer.send(getTracking());
         }
     }
 
@@ -141,6 +137,7 @@ public class DeviceControlHandler extends AProcessHandler {
                 List<DeviceControlValue> values = entry.getValue();
                 //
                 //databaseManager.getDeviceControlByDeviceIdAndContextModelID
+                log.warn(">>>>>>>>> size of deviceControlList: {}, {}, {} ", deviceControlList.size(), entry.getKey(), entry.getValue());
                 deviceDriver.control(values);
             }
         }
@@ -177,14 +174,14 @@ public class DeviceControlHandler extends AProcessHandler {
                 getTracking().setProcessName(resultMessage.getMessage());
                 getTracking().setProcessValue(deviceControlValue);
             }
-            TrackingHandler.send(getTracking());
+            TrackingProducer.send(getTracking());
             log.warn("ResultMessage controlDevice: {}", resultMessage);
         } catch (Exception e) {
             e.printStackTrace();
             getTracking().setProcessId("");
             getTracking().setProcessName("Exception");
             getTracking().setProcessError(e.getMessage());
-            TrackingHandler.send(getTracking());
+            TrackingProducer.send(getTracking());
         }
     }
 }

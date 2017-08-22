@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.interfaces.database.dao;
 
 import com.pineone.icbms.so.interfaces.database.model.VirtualObjectForDB;
+import com.pineone.icbms.so.util.id.IdUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -58,20 +59,22 @@ public class VirtualObjectDao extends AbstractDao {
         return super.sqlSession.selectList("retrieveVirtualObjectByModel");
     }
 
-    // Aspect ÀúÀå ±â´É ±¸Çö
+    // Aspect ì €ìž¥ ê¸°ëŠ¥ êµ¬í˜„
     public VirtualObjectForDB create(VirtualObjectForDB model) {
+        String sessionId = IdUtils.createRandomUUID();
+        model.setId("VO-" + sessionId);
         super.sqlSession.insert("createVirtualObject", model);
         return super.sqlSession.selectOne("retrieveVirtualObjectById", model.getId());
     }
 
-    //  Aspect °»½Å ±â´É ±¸Çö
+    //  Aspect ê°±ì‹  ê¸°ëŠ¥ êµ¬í˜„
     public VirtualObjectForDB update(VirtualObjectForDB model) {
         //
         super.sqlSession.update("updateVirtualObject", model);
         return super.sqlSession.selectOne("retrieveVirtualObjectByModel", model);
     }
 
-    // Aspect »èÁ¦ ±â´É ±¸Çö
+    // Aspect ì‚­ì œ ê¸°ëŠ¥ êµ¬í˜„
     public int delete(String id) {
         return super.sqlSession.delete("deleteVirtualObject", id);
     }

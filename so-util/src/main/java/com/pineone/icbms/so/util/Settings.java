@@ -130,7 +130,7 @@ public class Settings {
     /**
      * kafka topic: logging
      */
-    public static String TOPIC_LOGGING = "logging";
+    public static String TOPIC_TRACKING = "tracking";
 
     /**
      * each serviceprocessor handler count

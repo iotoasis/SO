@@ -5,6 +5,24 @@
 <mapper namespace="com.pineone.icbms.so.interfaces.database.dao.DeviceDao">
     <select id="retrieveDeviceList" parameterType="HashMap" resultType="DeviceForDB">
       SELECT
+        id
+        , created_date
+        , description
+        , modified_date
+        , name
+        , aspect_id
+        , device_uri
+        , function_id
+        , location_id
+      FROM device
+      WHERE
+        function_id = #{functionId}
+        AND aspect_id = #{aspectId}
+        AND location_id = #{locationId}
+    </select>
+
+    <select id="retrieveDeviceList___" parameterType="HashMap" resultType="DeviceForDB">
+      SELECT
         D.id
         , D.created_date
         , D.description
@@ -12,14 +30,14 @@
         , D.name
         , D.aspect_id
         , D.device_uri
-        , D.functionality_id
+        , D.function_id
         , D.location_id
       FROM device D
-        LEFT OUTER JOIN functionality F  ON D.functionality_id  = F.id
+        LEFT OUTER JOIN function F  ON D.function_id  = F.id
         LEFT OUTER JOIN aspect A         ON D.aspect_id         = A.id
         LEFT OUTER JOIN location L       ON D.location_id       = L.id
       WHERE
-        F.id = #{functionalityId}
+        F.id = #{functionId}
         AND A.id = #{aspectId}
         AND L.id = #{locationId}
     </select>
@@ -31,7 +49,7 @@
   해결방법은 해쉬맵을 사용하거나 파라메터용 클래스를 만들어서 사용하면 된다
   이 방법이 불편하면 parameterType을 String 으로 사용하고 단일 조회 변수인 경우에 만 value 란 이름으로 처리 하면된다
   -->
-  <select id="retrieveFunctionalityFromDevice" parameterType="String" resultType="FunctionalityForDB">
+  <select id="retrieveFunctionFromDevice" parameterType="String" resultType="FunctionForDB">
     SELECT
       id
       , created_date
@@ -39,7 +57,7 @@
       , modified_date
       , name
       , uri
-    FROM functionality
+    FROM function
     WHERE
         id = #{value}
   </select>
@@ -73,7 +91,7 @@
       , description
       , device_uri
       , aspect_id
-      , functionality_id
+      , function_id
       , location_id
       , created_date
       , modified_date
@@ -91,7 +109,7 @@
     , description
     , device_uri
     , aspect_id
-    , functionality_id
+    , function_id
     , location_id
     , created_date
     , modified_date
@@ -110,8 +128,8 @@
       <if test="aspectId != null">
         AND aspect_id = #{aspectId}
       </if>
-      <if test="functionalityId != null">
-        AND functionality_id = #{functionalityId}
+      <if test="functionId != null">
+        AND function_id = #{functionId}
       </if>
       <if test="locationId != null">
         AND location_id = #{locationId}
@@ -129,7 +147,7 @@
       , description
       , device_uri
       , aspect_id
-      , functionality_id
+      , function_id
       , location_id
       , created_date
       , modified_date
@@ -141,7 +159,7 @@
       , #{description}
       , #{deviceUri}
       , #{aspectId}
-      , #{functionalityId}
+      , #{functionId}
       , #{locationId}
       , now(4)
       , now(4)
@@ -159,7 +177,7 @@
       <if test="deviceUri != null">, device_uri = #{deviceUri}</if>
       <if test="orderCd != null">, order_cd = #{orderCd}</if>
       <if test="aspectId != null">, aspect_id = #{aspectId}</if>
-      <if test="functionalityId != null">, functionality_id = #{functionalityId}</if>
+      <if test="functionId != null">, function_id = #{functionId}</if>
       <if test="locationId != null">, location_id = #{locationId}</if>
     </set>
     WHERE

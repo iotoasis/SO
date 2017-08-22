@@ -1,4 +1,4 @@
-package com.pineone.icbms.so.web.tracking.springkafka;
+package com.pineone.icbms.so.serviceprocessor.processor.tracking.messagequeue.consumer;
 
 
 import com.pineone.icbms.so.util.spring.springkafka.consumer.AConsumerConfig;
@@ -9,7 +9,7 @@ import org.springframework.kafka.annotation.EnableKafka;
 /**
  * support object for KafkaConsumer.<BR/>
  *
- * Created by uni4love on 2017. 4. 10..
+ * Created by jonghee on 2017-05-17.
  */
 @Configuration
 @EnableKafka

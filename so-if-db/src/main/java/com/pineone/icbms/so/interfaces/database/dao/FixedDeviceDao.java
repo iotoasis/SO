@@ -30,19 +30,19 @@ public class FixedDeviceDao extends AbstractDao {
         return super.sqlSession.selectList("retrieveFixedDeviceByModel");
     }
 
-    // ÀúÀå ±â´É ±¸Çö
+    // ì €ìž¥ ê¸°ëŠ¥ êµ¬í˜„
     public FixedDeviceForDB create(FixedDeviceForDB model) {
         super.sqlSession.insert("createFixedDevice", model);
         return super.sqlSession.selectOne("retrieveFixedDeviceById", model.getFixedDeviceId());
     }
 
-    // °»½Å ±â´É ±¸Çö
+    // ê°±ì‹  ê¸°ëŠ¥ êµ¬í˜„
     public int update(FixedDeviceForDB model) {
         //
         return super.sqlSession.update("updateFixedDevice", model);
     }
 
-    // »èÁ¦ ±â´É ±¸Çö
+    // ì‚­ì œ ê¸°ëŠ¥ êµ¬í˜„
     public int delete(String id) {
         return super.sqlSession.delete("deleteFixedDevice", id);
     }

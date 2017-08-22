@@ -19,9 +19,6 @@ import java.util.Date;
 public class FunctionForDB extends CommonEntity {
 
     @Setter @Getter
-    private String id;
-
-    @Setter @Getter
     private String uri;
 
 }

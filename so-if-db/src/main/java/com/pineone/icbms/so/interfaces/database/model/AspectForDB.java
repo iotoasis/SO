@@ -21,8 +21,5 @@ import java.util.Date;
 public class AspectForDB extends CommonEntity {
 
     @Getter @Setter
-    private String id;
-
-    @Getter @Setter
     String uri;
 }

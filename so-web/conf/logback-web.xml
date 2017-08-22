@@ -175,21 +175,21 @@
         </logger>
 
         <!-- serviceprocessorssor -->
-        <logger name="com.pineone.icbms.so.serviceprocessor.processor.context" level="${LOG_LEVEL}">
+        <logger name="com.pineone.icbms.so.serviceprocessor.processor.context" level="${LOG_LEVEL_DEFAULT}">
             <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_CONTEXT"/>
         </logger>
-        <logger name="com.pineone.icbms.so.serviceprocessor.orchestrationservice" level="${LOG_LEVEL}">
+        <logger name="com.pineone.icbms.so.serviceprocessor.orchestrationservice" level="${LOG_LEVEL_DEFAULT}">
             <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_ORCHESTRATIONSERVICE"/>
         </logger>
-        <logger name="com.pineone.icbms.so.serviceprocessor.virtualobject" level="${LOG_LEVEL}">
+        <logger name="com.pineone.icbms.so.serviceprocessor.virtualobject" level="${LOG_LEVEL_DEFAULT}">
             <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_VIRTUALOBJECT"/>
         </logger>
-        <logger name="com.pineone.icbms.so.serviceprocessor.devicecontrol" level="${LOG_LEVEL}">
+        <logger name="com.pineone.icbms.so.serviceprocessor.devicecontrol" level="${LOG_LEVEL_DEFAULT}">
             <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_DEVICECONTROL"/>
         </logger>
 
         <!-- hibernate -->
-        <!--<logger name="org.hibernate.type.descriptor.sql" level="${LOG_LEVEL}">-->
+        <!--<logger name="org.hibernate.type.descriptor.sql" level="${LOG_LEVEL_DEFAULT}">-->
             <!--<appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT"/>-->
         <!--</logger>-->
     </springProfile>
@@ -236,13 +236,13 @@
             <appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT"/>
         </logger>
 
-        <logger name="com.pineone.icbms.so.interface.database" level="DEBUG">
+        <logger name="com.pineone.icbms.so.interface.database" level="${LOG_LEVEL_DEFAULT}">
             <appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT" />
         </logger>
     </springProfile>
 
     <!--
-    <logger name="com.pineone.icbms.so" level="${LOG_LEVEL}">
+    <logger name="com.pineone.icbms.so" level="${LOG_LEVEL_DEFAULT}">
         <appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT" />
     </logger>
 

@@ -32,7 +32,7 @@ public class ContextModelController {
     /**
      * logger
      */
-    protected Logger log = LoggerFactory.getLogger(ContextModelController.class);
+    protected Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     TrackingDao trackingDao;

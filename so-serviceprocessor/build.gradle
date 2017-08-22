@@ -81,7 +81,8 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-devtools'
 
     //spring-kafka
-    compile 'org.springframework.kafka:spring-kafka'
+    //compile 'org.springframework.kafka:spring-kafka'
+    compile group: 'org.springframework.kafka', name: 'spring-kafka', version: '1.2.2.RELEASE'
 
     //compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
 
@@ -98,7 +99,7 @@ dependencies {
 
 bootRun {
     jvmArgs = [
-            '-Dspring.config.location=/svc/apps/so/so/so-serviceprocessor/conf/application-dev.yml' ,
+            '-Dspring.config.location=/svc/apps/so/so/so-serviceprocessor/conf/application-dev.properties' ,
             '-Dspring.profiles.active=default-dev,so-sp-dev'
     ]
 }

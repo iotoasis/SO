@@ -14,9 +14,6 @@ import lombok.ToString;
 public class UserForDB extends CommonEntity {
 
     @Getter @Setter
-    private String id;
-
-    @Getter @Setter
     private String name;
 
     @Getter @Setter

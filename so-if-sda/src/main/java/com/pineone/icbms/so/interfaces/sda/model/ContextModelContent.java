@@ -2,6 +2,9 @@ package com.pineone.icbms.so.interfaces.sda.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Context contents model.<BR/>
@@ -13,51 +16,60 @@ public class ContextModelContent {
     /**
      * location list
      */
+    @Getter@Setter
     @JsonProperty("loc")
     String locationUri;
 
     /**
      * functionList
      */
+    @Getter@Setter
     @JsonProperty("function")
     String functionUri;
 
     /**
      * aspect List
      */
+    @Getter@Setter
     @JsonProperty("aspect")
     String aspectUri;
 
     /**
      * Device List
      */
+    @Getter@Setter
     @JsonProperty("device")
     String deviceUri;
 
     /**
      * ci_sequence
      */
+    @Getter@Setter
     @JsonProperty("ci_seq")
     String ci_sequence_number;
 
     /**
      * ci_id
      */
+    @Getter@Setter
     @JsonProperty("ciid")
     String ci_id;
 
     /**
      * ci_name
      */
+    @Getter@Setter
     @JsonProperty("ciname")
     String ci_name;
 
     /**
      * Last value of Device
      */
+    @Getter@Setter
     @JsonProperty("latest_val")
     String value;
 
+    /*
     public String getValue() {
         return value;
     }
@@ -121,7 +133,7 @@ public class ContextModelContent {
     public void setCi_name(String ci_name) {
         this.ci_name = ci_name;
     }
-
+*/
 //    @Override
 //    public String toString() {
 //        StringBuffer sb = new StringBuffer(getClass().getSimpleName() + "{");
@@ -152,7 +164,7 @@ public class ContextModelContent {
 //        return sb.toString();
 //    }
 
-
+/*
     @Override
     public String toString() {
         return "ContextModelContent{" +
@@ -166,4 +178,5 @@ public class ContextModelContent {
                 ", value='" + value + '\'' +
                 '}';
     }
+*/
 }

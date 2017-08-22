@@ -19,9 +19,6 @@ import java.util.Date;
 public class ProfileForDB extends CommonEntity {
 
     @Getter @Setter
-    private String id;
-
-    @Getter @Setter
     private String contextModelId;
 
     @Getter @Setter

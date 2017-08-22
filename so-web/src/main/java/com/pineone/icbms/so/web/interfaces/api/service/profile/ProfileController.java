@@ -32,7 +32,7 @@ public class ProfileController {
     /**
      * logger
      */
-    protected Logger log = LoggerFactory.getLogger(ProfileController.class);
+    protected Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     DatabaseManager databaseManager;

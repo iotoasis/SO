@@ -19,9 +19,6 @@ import java.util.List;
 public class CompositeVirtualObjectForDB extends CommonEntity {
 
     @Getter @Setter
-    private String id;
-
-    @Getter @Setter
     private String functionId;
 
     @Getter @Setter
@@ -31,7 +28,7 @@ public class CompositeVirtualObjectForDB extends CommonEntity {
     private List<VirtualObjectForDB> virtualObjectForDBList;
 
     @Getter @Setter
-    private String type;
+    private String deviceType;
 
 //    public List<VirtualObjectForDB> getVirtualObjectForDBList() {
 //        return virtualObjectForDBList;

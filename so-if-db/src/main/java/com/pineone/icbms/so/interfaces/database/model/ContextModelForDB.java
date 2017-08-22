@@ -20,9 +20,6 @@ import java.util.List;
 public class ContextModelForDB extends CommonEntity {
 
     @Getter @Setter
-    private String id;
-
-    @Getter @Setter
     private String createdId;
 
     @Getter @Setter

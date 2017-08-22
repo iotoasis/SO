@@ -32,4 +32,14 @@ public interface ISdaManager {
 
     // Sensor Status (측정값) 조회
     String retrieveSensorValue(String deviceId);
+
+    /* 전체 펑션 목록 */
+    List<String> retrieveListByContextModelId(String contextModeId);
+
+    /* 전체 aspect 목록 */
+    List<String> retrieveAspectList();
+
+    /* 전체 펑셔널리티 목록 */
+    List<String> retrieveFunctionalityList();
+
 }

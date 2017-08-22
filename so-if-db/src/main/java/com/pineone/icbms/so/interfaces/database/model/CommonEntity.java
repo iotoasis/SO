@@ -13,6 +13,11 @@ import lombok.ToString;
 //@Data
 //@ToString
 public class CommonEntity { //extends AbstractPersistable<String> {
+    /*
+     * id
+     */
+    @Getter @Setter
+    private String id;
 
     /*
      * 이름

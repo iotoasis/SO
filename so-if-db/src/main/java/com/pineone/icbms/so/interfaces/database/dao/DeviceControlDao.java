@@ -24,7 +24,7 @@ public class DeviceControlDao extends AbstractDao {
         return super.sqlSession.selectList("retrieveDeviceControlByModel");
     }
 
-    // ÀúÀå ±â´É ±¸Çö
+    // ì €ìž¥ ê¸°ëŠ¥ êµ¬í˜„
     public DeviceControlForDB create(DeviceControlForDB model) {
         super.sqlSession.insert("createAspect", model);
         return super.sqlSession.selectOne("retrieveAspectById", model.getId());

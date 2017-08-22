@@ -24,7 +24,7 @@
         <!--<typeAlias alias="DeviceControlForDB"           type="com.pineone.icbms.so.interfaces.database.model.DeviceControlForDB"/>-->
         <!--<typeAlias alias="DeviceForDB"                  type="com.pineone.icbms.so.interfaces.database.model.DeviceForDB"/>-->
         <!--<typeAlias alias="FixedDeviceForDB"             type="com.pineone.icbms.so.interfaces.database.model.FixedDeviceForDB"/>-->
-        <!--<typeAlias alias="FunctionalityForDB"           type="com.pineone.icbms.so.interfaces.database.model.FunctionalityForDB"/>-->
+        <!--<typeAlias alias="FunctionForDB"           type="com.pineone.icbms.so.interfaces.database.model.FunctionForDB"/>-->
         <!--<typeAlias alias="LocationForDB"                type="com.pineone.icbms.so.interfaces.database.model.LocationForDB"/>-->
         <!--<typeAlias alias="OrchestrationServiceForDB"    type="com.pineone.icbms.so.interfaces.database.model.OrchestrationServiceForDB"/>-->
         <!--<typeAlias alias="ProfileForDB"                 type="com.pineone.icbms.so.interfaces.database.model.ProfileForDB"/>-->

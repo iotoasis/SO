@@ -1,9 +1,8 @@
 package com.pineone.icbms.so.serviceprocessor.processor.context.handler;
 
 import com.pineone.icbms.so.interfaces.database.model.ProfileForDB;
-import com.pineone.icbms.so.interfaces.database.model.TrackingEntity;
 import com.pineone.icbms.so.interfaces.messagequeue.model.OrchestrationServiceForMQ;
-import com.pineone.icbms.so.interfaces.messagequeue.tracking.handler.TrackingHandler;
+import com.pineone.icbms.so.interfaces.messagequeue.producer.tracking.TrackingProducer;
 import com.pineone.icbms.so.serviceprocessor.Const;
 import com.pineone.icbms.so.serviceprocessor.processor.AProcessHandler;
 import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
@@ -63,7 +62,7 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
                         for (IGenericProfile profile : profileList) {
                             getTracking().setProcessId(profile.getId());
                             getTracking().setProcessName(profile.getName());
-                            TrackingHandler.send(getTracking()
+                            TrackingProducer.send(getTracking()
 //                                    , getClass().getSimpleName(), profile.getId(), profile.getName()
 //                                    , new Object(){}.getClass().getEnclosingMethod().getName()
                             );
@@ -77,7 +76,7 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
                         log.info("A profile NOT exist for contextmodel id, location uri: {}, {}", contextModel.getId(), location.getUri());
                         getTracking().setProcessId("profile 없음");
                         getTracking().setProcessName("");
-                        TrackingHandler.send(getTracking()
+                        TrackingProducer.send(getTracking()
 //                                , getClass().getSimpleName(), "profile 없음"
 //                                , new Object(){}.getClass().getEnclosingMethod().getName()
                         );
@@ -87,7 +86,7 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
                 log.warn("Location list NOT exist for contextmodel id: {}", contextModel.getId());
                 getTracking().setProcessId("profile 없음");
                 getTracking().setProcessName("");
-                TrackingHandler.send(getTracking()
+                TrackingProducer.send(getTracking()
 //                        getTracking(), getClass().getSimpleName(), "Location list NOT exist"
 //                        , new Object(){}.getClass().getEnclosingMethod().getName()
                 );
@@ -96,7 +95,7 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
             log.warn("The contextmodel is NULL.");
             getTracking().setProcessId("contextmodel 없음");
             getTracking().setProcessName("");
-            TrackingHandler.send(getTracking()
+            TrackingProducer.send(getTracking()
 //                    getTracking(), getClass().getSimpleName(), "contextmodel 없음"
 //                    , new Object(){}.getClass().getEnclosingMethod().getName()
             );

@@ -14,9 +14,7 @@ import java.util.List;
  */
 @Component
 public class ContextInformationDao extends AbstractDao {
-    @Value("${primaryKey.prefix.contextInformation}")
-    String uuidPrefix;
-
+    //
     public ContextInformationForDB retrieveContextInformation(String id) {
         return null;
     }

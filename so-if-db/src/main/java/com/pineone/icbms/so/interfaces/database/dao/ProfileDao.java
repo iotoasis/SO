@@ -15,9 +15,6 @@ import java.util.List;
  */
 @Component
 public class ProfileDao extends AbstractDao {
-    @Value("${primaryKey.prefix.profile}")
-    String uuidPrefix;
-
     //
     public ProfileForDB retrieveProfile(String profileId) {
         return null;
@@ -64,7 +61,7 @@ public class ProfileDao extends AbstractDao {
     // 저장 기능 구현
     public ProfileForDB create(ProfileForDB model) {
         String sessionId = IdUtils.createRandomUUID();
-        model.setId(uuidPrefix + sessionId);
+        model.setId("PR-" + sessionId);
         super.sqlSession.insert("createAspect", model);
         return super.sqlSession.selectOne("retrieveProfileById", model.getId());
     }

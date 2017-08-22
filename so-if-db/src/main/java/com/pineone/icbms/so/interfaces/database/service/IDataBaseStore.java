@@ -1,4 +1,4 @@
-package com.pineone.icbms.so.interfaces.database.dao;
+package com.pineone.icbms.so.interfaces.database.service;
 
 import com.pineone.icbms.so.interfaces.database.model.*;
 

@@ -2,7 +2,7 @@ package com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.han
 
 import com.pineone.icbms.so.interfaces.database.model.CompositeVirtualObjectForDB;
 import com.pineone.icbms.so.interfaces.messagequeue.model.VirtualObjectForMQ;
-import com.pineone.icbms.so.interfaces.messagequeue.tracking.handler.TrackingHandler;
+import com.pineone.icbms.so.interfaces.messagequeue.producer.tracking.TrackingProducer;
 import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
 import com.pineone.icbms.so.serviceprocessor.processor.AProcessHandler;
 import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;
@@ -44,15 +44,22 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
 
         //OS list
         if (orchestrationService.getOrchestrationServiceList() != null) {
-            handleOrchestrationServiceList(orchestrationService.getOrchestrationServiceList(), orchestrationService.getStateStore());
+            handleOrchestrationServiceList(orchestrationService.getOrchestrationServiceList()
+                    , orchestrationService.getStateStore());
         }
         //CVO list
         if (orchestrationService.getCompositeVirtualObjectList() != null) {
-            handleCompositeVirtualObjectList(orchestrationService.getCompositeVirtualObjectList(), orchestrationService.getStateStore());
+            handleCompositeVirtualObjectList(orchestrationService.getCompositeVirtualObjectList()
+                    , orchestrationService.getStateStore());
         }
-        //VO list
-        if (orchestrationService.getVirtualObjectList() != null) {
-            handleVirtualObjectList(orchestrationService.getVirtualObjectList(), orchestrationService.getStateStore());
+        // cvo 목록이 없는 경우 vo로 지정되어 있는지 확인한다.
+        if (orchestrationService.getCompositeVirtualObjectList() == null
+                || orchestrationService.getCompositeVirtualObjectList().size() == 0) {
+            //VO list
+            if (orchestrationService.getVirtualObjectList() != null) {
+                handleVirtualObjectList(orchestrationService.getVirtualObjectList()
+                        , orchestrationService.getStateStore());
+            }
         }
     }
 
@@ -111,7 +118,7 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
 
                 getTracking().setProcessId(cvo.getId());
                 getTracking().setProcessName(cvo.getName());
-                TrackingHandler.send(getTracking()
+                TrackingProducer.send(getTracking()
 //                        , getClass().getSimpleName(), cvo.getId(), cvo.getName()
 //                        , new Object(){}.getClass().getEnclosingMethod().getName()
                 );
@@ -145,7 +152,7 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
                 // TODO tracking
                 getTracking().setProcessId(virtualObject.getId());
                 getTracking().setProcessName(virtualObject.getName());
-                TrackingHandler.send(getTracking()
+                TrackingProducer.send(getTracking()
 //                        , getClass().getSimpleName(), virtualObject.getId(), virtualObject.getName()
 //                        , new Object(){}.getClass().getEnclosingMethod().getName()
                 );

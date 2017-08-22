@@ -54,6 +54,22 @@
         </trim>
     </select>
 
+    <select id="retrieveCvoInOrchestrationService" parameterType="String" resultType="CompositeVirtualObjectForDB">
+        SELECT
+          composite_virtual_object_id as id
+        FROM os_cvo
+        WHERE
+          orchestration_service_id = #{value}
+    </select>
+
+    <select id="retrieveVoInOrchestrationService" parameterType="String" resultType="VirtualObjectForDB">
+        SELECT
+          virtual_object_id as id
+        FROM os_vo
+        WHERE
+          orchestration_service_id = #{value}
+    </select>
+
     <insert id="createOrchestrationService"  parameterType="OrchestrationServiceForDB">
         INSERT INTO orchestration_service (
             id
@@ -77,6 +93,34 @@
         )
     </insert>
 
+    <insert id="createOsCvo" parameterType="OrchestrationServiceForDB">
+        INSERT INTO os_cvo (
+            orchestration_service_id
+            , composite_virtual_object_id
+        )
+        VALUES
+        <foreach collection="compositeVirtualObjectForDBList" item="item" separator=",">
+            (
+            #{id}
+            , #{item.id}
+            )
+        </foreach>
+    </insert>
+
+    <insert id="createOsVo"  parameterType="OrchestrationServiceForDB">
+        INSERT INTO orchestration_service (
+            orchestration_service_id
+            , virtual_object_id
+        )
+        VALUES
+        <foreach collection="virtualObjectForDBList" item="item" separator=",">
+            (
+            #{id}
+            , #{item.id}
+            )
+        </foreach>
+    </insert>
+
     <update id="updateOrchestrationService" parameterType="OrchestrationServiceForDB">
         UPDATE orchestration_service
         <set>
@@ -94,5 +138,15 @@
     <delete id="deleteOrchestrationService" parameterType="String">
         delete from orchestration_service
         where id = #{value}
+    </delete>
+
+    <delete id="deleteOsCvo" parameterType="String">
+        delete from os_cvo
+        where orchestration_service_id = #{value}
+    </delete>
+
+    <delete id="deleteOsVo" parameterType="String">
+        delete from os_vo
+        where orchestration_service_id = #{value}
     </delete>
 </mapper>

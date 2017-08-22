@@ -40,4 +40,6 @@ abstract public class AConsumerHandler<M> {
     public CountDownLatch getLatch() {
         return this.latch;
     }
+
+    public void countDown() { latch.countDown(); }
 }

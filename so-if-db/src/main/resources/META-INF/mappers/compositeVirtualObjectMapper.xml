@@ -2,13 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pineone.icbms.so.interfaces.database.dao.CompositeVirtualObjectDao">
-    <select id="getCompositeVirtualObjectListByOrchestrationId" parameterType="String" resultType="CompositeVirtualObjectForDB">
+    <select id="retrieveCompositeVirtualObjectListByOrchestrationId" parameterType="String" resultType="CompositeVirtualObjectForDB">
         SELECT
-          composite_virtual_object_id
+          O.composite_virtual_object_id as id
+            , created_date
+            , description
+            , modified_date
+            , name
+            , aspect_id
+            , function_id
         FROM
-          os_cvo
+          os_cvo O, composite_virtual_object C
         WHERE
-          orchestration_service_id = #{value}
+          O.composite_virtual_object_id = C.id
+          AND O.orchestration_service_id = #{value}
     </select>
 
     <!--
@@ -37,8 +44,8 @@
             , name
             , description
             , aspect_id
-            , functionality_id
-            , type
+            , function_id
+            , device_type
             , created_date
             , modified_date
         )
@@ -47,8 +54,8 @@
             , #{name}
             , #{description}
             , #{aspectId}
-            , #{functionalityId}
-            , #{type}
+            , #{functionId}
+            , #{deviceType}
             , now(4)
             , now(4)
         )
@@ -60,8 +67,8 @@
             , name
             , description
             , aspect_id
-            , functionality_id
-            , type
+            , function_id
+            , device_type
             , created_date
             , modified_date
         FROM composite_virtual_object
@@ -75,8 +82,8 @@
             , name
             , description
             , aspect_id
-            , functionality_id
-            , type
+            , function_id
+            , device_type
             , created_date
             , modified_date
         FROM composite_virtual_object
@@ -90,8 +97,8 @@
             <if test="aspectId != null">
                 AND aspect_id = #{aspectId}
             </if>
-            <if test="functionalityId != null">
-                AND functionality_id = #{functionalityId}
+            <if test="functionId != null">
+                AND function_id = #{functionId}
             </if>
             <if test="description != null">
                 AND description = #{description}
@@ -106,8 +113,8 @@
             <if test="name != null">, name = #{name}</if>
             <if test="description != null">, description = #{description}</if>
             <if test="aspectId != null">, aspect_id = #{aspectId}</if>
-            <if test="functionalityId != null">, functionality_id = #{functionalityId}</if>
-            <if test="type != null">, type = #{type}</if>
+            <if test="functionId != null">, function_id = #{functionId}</if>
+            <if test="deviceType != null">, device_type = #{deviceType}</if>
         </set>
         WHERE
         id = #{id}

@@ -17,9 +17,6 @@ import java.util.List;
  */
 @Component
 public class OrchestrationServiceDao extends AbstractDao {
-    @Value("${primaryKey.prefix.orchestrationService}")
-    String uuidPrefix;
-
     //
     public OrchestrationServiceForDB retrieveOrchestrationService(String id) {
         //
@@ -75,10 +72,10 @@ public class OrchestrationServiceDao extends AbstractDao {
         return super.sqlSession.selectList("retrieveVoInOrchestrationService", osid);
     }
 
-    // ÀúÀå ±â´É ±¸Çö
+    // ì €ìž¥ ê¸°ëŠ¥ êµ¬í˜„
     public OrchestrationServiceForDB create(OrchestrationServiceForDB model) {
         String sessionId = IdUtils.createRandomUUID();
-        model.setId(uuidPrefix + sessionId);
+        model.setId("OS-" + sessionId);
         super.sqlSession.insert("createOrchestrationService", model);
         // os_cvo
         if (model.getCompositeVirtualObjectIds() != null && model.getCompositeVirtualObjectIds().size() != 0) {
@@ -105,13 +102,13 @@ public class OrchestrationServiceDao extends AbstractDao {
         return model;//super.sqlSession.selectOne("retrieveOrchestrationServiceById", model.getId());
     }
 
-    // °»½Å ±â´É ±¸Çö
+    // ê°±ì‹  ê¸°ëŠ¥ êµ¬í˜„
     public int update(OrchestrationServiceForDB model) {
         //
         return super.sqlSession.update("updateOrchestrationService", model);
     }
 
-    // »èÁ¦ ±â´É ±¸Çö
+    // ì‚­ì œ ê¸°ëŠ¥ êµ¬í˜„
     public int delete(String id) {
         super.sqlSession.delete("deleteOsCvo", id);
         super.sqlSession.delete("deleteOsVo", id);
