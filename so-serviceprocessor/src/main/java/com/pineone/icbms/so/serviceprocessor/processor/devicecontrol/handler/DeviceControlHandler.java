@@ -158,29 +158,25 @@ public class DeviceControlHandler extends AProcessHandler {
 
             ResultMessage resultMessage = deviceManager.deviceExecute(commandId, virtualDevice.getId(), deviceControlValue);
 
-//            getTracking().setCommandId(commandId);
-//            getTracking().setProcessId(resultMessage.getCode());
-//            getTracking().setProcessName(resultMessage.getMessage());
-//            getTracking().setProcessValue(deviceControlValue);
+            getTracking().setProcessId(virtualDevice.getId());//resultMessage.getCode());
+            getTracking().setProcessValue(deviceControlValue);
+
             // 정상응답이 아닌경우
             if (!"2000".equals(resultMessage.getCode())) {
-                getTracking().setProcessId(resultMessage.getCode());
                 getTracking().setProcessName("Response ERROR");
-                getTracking().setProcessValue(deviceControlValue);
-                getTracking().setProcessError(resultMessage.getMessage());
+                getTracking().setProcessResult(resultMessage.getMessage());
             } else {
                 getTracking().setCommandId(commandId);
-                getTracking().setProcessId(resultMessage.getCode());
                 getTracking().setProcessName(resultMessage.getMessage());
-                getTracking().setProcessValue(deviceControlValue);
+                getTracking().setProcessResult(resultMessage.getCode());
             }
             TrackingProducer.send(getTracking());
             log.warn("ResultMessage controlDevice: {}", resultMessage);
         } catch (Exception e) {
             e.printStackTrace();
-            getTracking().setProcessId("");
+            getTracking().setProcessId(virtualDevice.getId());
             getTracking().setProcessName("Exception");
-            getTracking().setProcessError(e.getMessage());
+            getTracking().setProcessResult(e.getMessage());
             TrackingProducer.send(getTracking());
         }
     }

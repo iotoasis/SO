@@ -23,7 +23,7 @@
             , process_id
             , process_name
             , process_value
-            , process_error
+            , process_result
             , user_id
             , status_cd
         )
@@ -42,7 +42,7 @@
             , #{processId}
             , #{processName}
             , #{processValue}
-            , SUBSTRING(#{processError}, 1, 1000)
+            , SUBSTRING(#{processResult}, 1, 1000)
             , #{userId}
             <choose>
                 <when test="statusCd == null">

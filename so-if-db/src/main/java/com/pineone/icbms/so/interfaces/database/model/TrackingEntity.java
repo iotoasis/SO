@@ -66,7 +66,7 @@ public class TrackingEntity implements Serializable {
     private String processMethod;
 
     @Getter @Setter
-    private String processError;
+    private String processResult;
 
     @Getter @Setter
     private String userId;
@@ -93,7 +93,7 @@ public class TrackingEntity implements Serializable {
         this.processMethod = "";
         this.processName = "";
         this.processId = "";
-        this.processError = "";
+        this.processResult = "";
         this.processValue = "";
         //this.simulatorType = "";
         //this.uri = "";
