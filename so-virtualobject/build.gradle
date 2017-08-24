@@ -22,6 +22,8 @@ dependencies {
     //so
     compile project(':so-util')
 
+    compile('org.projectlombok:lombok:1.16.6')
+
     //logging
     compile "ch.qos.logback:logback-classic:1.1.9"
     compile "org.slf4j:slf4j-api:1.7.22"

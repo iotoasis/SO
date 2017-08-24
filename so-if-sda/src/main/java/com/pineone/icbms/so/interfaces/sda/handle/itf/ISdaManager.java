@@ -1,6 +1,8 @@
 package com.pineone.icbms.so.interfaces.sda.handle.itf;
 
+import com.pineone.icbms.so.interfaces.sda.model.AspectForIf;
 import com.pineone.icbms.so.interfaces.sda.model.ContextInformationForIf;
+import com.pineone.icbms.so.interfaces.sda.model.FunctionForIf;
 
 import java.util.List;
 
@@ -16,7 +18,7 @@ public interface ISdaManager {
     List<String> retrieveFunctionListInLocation(String locationId);
 
     // function 에 대응하는 aspect 조회, function 를 이용한 조회 지원 필요
-    List<String> retrieveAspectListByFunction(String functionId);
+    List<AspectForIf> retrieveAspectListByFunction(String functionId);
 
     // function, location 을 이용한 Device 목록 조회
     List<String> retrieveDeviceListByFunctionAndLocation(String locationId, String functionId);
@@ -37,9 +39,9 @@ public interface ISdaManager {
     List<String> retrieveListByContextModelId(String contextModeId);
 
     /* 전체 aspect 목록 */
-    List<String> retrieveAspectList();
+    List<AspectForIf> retrieveAspectList();
 
-    /* 전체 펑셔널리티 목록 */
-    List<String> retrieveFunctionalityList();
+    /* 전체 펑션 목록 */
+    List<FunctionForIf> retrieveFunctionList();
 
 }

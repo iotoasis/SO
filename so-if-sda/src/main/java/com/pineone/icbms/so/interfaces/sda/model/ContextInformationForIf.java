@@ -2,12 +2,16 @@ package com.pineone.icbms.so.interfaces.sda.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.pineone.icbms.so.virtualobject.common.AGenericIdNameOwner;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * ContextInformationForIf model class for SDA interface.<BR/>
  *
  * Created by uni4love on 2017. 1. 19..
  */
+@ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ContextInformationForIf extends AGenericIdNameOwner {
 
@@ -15,12 +19,14 @@ public class ContextInformationForIf extends AGenericIdNameOwner {
     /**
      * uri
      */
+    @Getter @Setter
     String uri;
 
 
     /**
      * ci_sequence_number
      */
+    @Getter @Setter
     String number;
 
 
@@ -41,21 +47,21 @@ public class ContextInformationForIf extends AGenericIdNameOwner {
         super(id, name);
     }
 
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public String getUri() {
-        return uri;
-    }
-
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
+//    public String getNumber() {
+//        return number;
+//    }
+//
+//    public void setNumber(String number) {
+//        this.number = number;
+//    }
+//
+//    public String getUri() {
+//        return uri;
+//    }
+//
+//    public void setUri(String uri) {
+//        this.uri = uri;
+//    }
 
 //    @Override
 //    public String toString() {
@@ -69,13 +75,13 @@ public class ContextInformationForIf extends AGenericIdNameOwner {
 //    }
 
 
-    @Override
-    public String toString() {
-        return "ContextInformationForIf{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", uri='" + uri + '\'' +
-                ", number='" + number + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "ContextInformationForIf{" +
+//                "id='" + id + '\'' +
+//                ", name='" + name + '\'' +
+//                ", uri='" + uri + '\'' +
+//                ", number='" + number + '\'' +
+//                '}';
+//    }
 }

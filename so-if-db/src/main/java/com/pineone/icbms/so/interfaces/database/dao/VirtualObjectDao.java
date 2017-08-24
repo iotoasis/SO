@@ -4,6 +4,7 @@ import com.pineone.icbms.so.interfaces.database.model.VirtualObjectForDB;
 import com.pineone.icbms.so.util.id.IdUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -12,6 +13,20 @@ import java.util.List;
 @Component
 public class VirtualObjectDao extends AbstractDao {
     //
+    public VirtualObjectForDB retrieveVirtualObjectByFunction(String id) {
+        return sqlSession.selectOne("retrieveVirtualObjectById", id);
+    }
+
+    /*
+     * retrieve Function id and AndAspect id
+     */
+    public VirtualObjectForDB retrieveVirtualObjectByFunctionAndAspect(String function, String aspect) {
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("functionId", function);
+        map.put("aspectId", aspect);
+        return sqlSession.selectOne("retrieveVirtualObjectByFunctionAndAspect", map);
+    }
+
     public VirtualObjectForDB retrieveVirtualObject(String id) {
         return sqlSession.selectOne("retrieveVirtualObjectById", id);
     }
@@ -61,8 +76,8 @@ public class VirtualObjectDao extends AbstractDao {
 
     // Aspect 저장 기능 구현
     public VirtualObjectForDB create(VirtualObjectForDB model) {
-        String sessionId = IdUtils.createRandomUUID();
-        model.setId("VO-" + sessionId);
+        //String sessionId = IdUtils.createRandomUUID();
+        //model.setId("VO-" + sessionId);
         super.sqlSession.insert("createVirtualObject", model);
         return super.sqlSession.selectOne("retrieveVirtualObjectById", model.getId());
     }

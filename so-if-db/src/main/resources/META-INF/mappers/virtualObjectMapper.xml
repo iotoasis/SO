@@ -3,6 +3,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pineone.icbms.so.interfaces.database.dao.VirtualObjectDao">
+
+    <select id="retrieveVirtualObjectByFunctionAndAspect" parameterType="HashMap" resultType="VirtualObjectForDB">
+        SELECT
+          id
+        FROM
+          virtual_object
+        WHERE
+          function_id = #{functionId}
+          AND aspect_id = #{aspectId}
+    </select>
+
     <select id="getVirtualObjectListByOrchestrationId" parameterType="String" resultType="VirtualObjectForDB">
         SELECT
           virtual_object_id as id

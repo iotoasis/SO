@@ -2,9 +2,7 @@ package com.pineone.icbms.so.interfaces.sda.handle;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pineone.icbms.so.interfaces.sda.handle.itf.ISdaManager;
-import com.pineone.icbms.so.interfaces.sda.model.ContextModelForIf2;
-import com.pineone.icbms.so.interfaces.sda.model.ContextInformationForIf;
-import com.pineone.icbms.so.interfaces.sda.model.ContextModelContent;
+import com.pineone.icbms.so.interfaces.sda.model.*;
 import com.pineone.icbms.so.interfaces.sda.ref.DataNotExistException;
 import com.pineone.icbms.so.interfaces.sda.ref.SDAException;
 import com.pineone.icbms.so.interfaces.sda.ref.SdaAddressStore;
@@ -102,9 +100,9 @@ public class SdaManager implements ISdaManager {
 
     // function 에 대응하는 aspect 조회, function 를 이용한 조회 지원 필요
     @Override
-    public List<String> retrieveAspectListByFunction(String functionId) {
+    public List<AspectForIf> retrieveAspectListByFunction(String functionId) {
         //
-        List<String> aspectList = new ArrayList<>();
+        List<AspectForIf> aspectList = new ArrayList<AspectForIf>();
         List<ContextModelContent> contentList = new ArrayList<>();
 
         try {
@@ -123,7 +121,10 @@ public class SdaManager implements ISdaManager {
             log.debug("info : " + info);
         } else {
             for (ContextModelContent contextModelContent : contentList) {
-                aspectList.add(contextModelContent.getAspectUri());
+                AspectForIf addItam = new AspectForIf();
+                addItam.setAspect(contextModelContent.getAspectUri());
+                addItam.setLabel(contextModelContent.getLabel());
+                aspectList.add(addItam);
             }
         }
         log.debug("Aspect = " + aspectList);
@@ -328,13 +329,36 @@ public class SdaManager implements ISdaManager {
     }
 
     @Override
-    public List<String> retrieveAspectList() {
+    public List<AspectForIf> retrieveAspectList() {
         return null;
     }
 
     @Override
-    public List<String> retrieveFunctionalityList() {
-        return null;
+    public List<FunctionForIf> retrieveFunctionList() {
+        //
+        List<FunctionForIf> functionList = new ArrayList<FunctionForIf>();
+        List<ContextModelContent> contentList = new ArrayList<>();
+
+        try {
+            IHttpResponseMessage message = clientService.requestGetService(
+                    addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
+                            SdaAddressStore.CM_FUNCTION_LIST + SdaAddressStore.SEPARATOR_WITH_COMMA);
+            contentList = getContextModelContents(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SDAException e) {
+//            e.printStackTrace();
+        }
+
+        for (ContextModelContent contextModelContent : contentList) {
+            FunctionForIf addItam = new FunctionForIf();
+            addItam.setFunction(contextModelContent.getFunctionUri());
+            addItam.setLabel(contextModelContent.getLabel());
+            functionList.add(addItam);
+
+        }
+        log.debug("Function : " + functionList);
+        return functionList;
     }
 
     // get Data

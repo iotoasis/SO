@@ -69,6 +69,10 @@ public class ContextModelContent {
     @JsonProperty("latest_val")
     String value;
 
+    @Getter@Setter
+    @JsonProperty("label")
+    String label;
+
     /*
     public String getValue() {
         return value;
