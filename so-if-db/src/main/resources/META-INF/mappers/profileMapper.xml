@@ -131,6 +131,12 @@
     WHERE id = #{id}
   </update>
 
+  <update id="updateProfileEnabledAll" parameterType="ProfileForDB">
+    UPDATE profile SET
+      modified_date = now(4)
+      , enabled = #{enabled}
+  </update>
+
   <delete id="deleteProfile" parameterType="ProfileForDB">
     delete from profile where id = #{id}
   </delete>

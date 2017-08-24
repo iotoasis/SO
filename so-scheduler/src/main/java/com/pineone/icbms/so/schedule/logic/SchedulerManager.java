@@ -164,16 +164,9 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
     @Override
     public void stopJobListAndChangeStatus() {
         //
-        List<ProfileForDB> scheduledProfileList = profileDAO.retrieveProfileListByEnable(true);
-
         ProfileForDB schProfileForDB = new ProfileForDB();
-        for(ProfileForDB profileForDB : scheduledProfileList){
-            schProfileForDB.setId(profileForDB.getId());
-            schProfileForDB.setEnabled(0);
-            profileDAO.updateProfileEnabled(schProfileForDB);
-            //profileDAO.updateProfileEnabled(profileForDB.getId(), false);
-        }
-
+        schProfileForDB.setEnabled(0);
+        profileDAO.updateProfileEnabledAll(schProfileForDB);
     }
 
     // SO 실행시 자동으로 스케줄러 작동 시키는 쓰레드

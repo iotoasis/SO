@@ -43,6 +43,11 @@ public class ProfileDao extends AbstractDao {
         return super.sqlSession.update("updateProfileEnabled", profileForDB);
     }
 
+    //Profile 전체 Enabled 업데이트
+    public int updateProfileEnabledAll(ProfileForDB profileForDB) {
+        return super.sqlSession.update("updateProfileEnabledAll", profileForDB);
+    }
+
     // retrieve one
     public ProfileForDB retrieve(String id) {
         return super.sqlSession.selectOne("retrieveProfileById", id);

@@ -47,7 +47,7 @@ public class ProfileController {
     @RequestMapping(value = "/schedule", method = RequestMethod.POST)
     public IGenericProfile callFromScheduler(@RequestBody ProfileTransFormData profileTransFormData, HttpServletRequest request) {
         log.debug("input:profile: {}", profileTransFormData);
-        ProfileForDB profileForDb = databaseManager.getProfileById(profileTransFormData.getProfileId());
+        ProfileForDB profileForDb = databaseManager.getProfileById(profileTransFormData.getId());
         IGenericProfile profile = ModelMapper.toProfile(profileForDb);
         List<String> locationList = new SdaManager().retrieveEventLocationList(profile.getContextModel().getId());
         if (locationList != null && locationList.size() > 0) {
@@ -78,7 +78,7 @@ public class ProfileController {
     @RequestMapping(value="/force", method = RequestMethod.POST)
     public IGenericProfile forceProfile(@RequestBody ProfileTransFormData profileTransFormData, HttpServletRequest request) {
         log.debug("input:profile: {}", profileTransFormData);
-        ProfileForDB profileForDb = databaseManager.getProfileById(profileTransFormData.getProfileId());
+        ProfileForDB profileForDb = databaseManager.getProfileById(profileTransFormData.getId());
         IGenericProfile profile = ModelMapper.toProfile(profileForDb);
         if(profile.getLocation() != null) {
             //TODO: scheduler 또는 에 의한 Profile 내 OS 구동임을 남겨야 함

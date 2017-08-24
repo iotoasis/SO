@@ -24,7 +24,7 @@ public class SchedulerNotificationManager implements Job {
         long time = System.currentTimeMillis();
         SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String timeStr = timeFormat.format(new Date(time));
-        System.out.println("Time " + timeStr);
+        //System.out.println("Time " + timeStr);
 
         System.out.println(context.getJobDetail().getKey().getName());
         String profileId = context.getJobDetail().getKey().getName();
@@ -37,6 +37,6 @@ public class SchedulerNotificationManager implements Job {
         ProfileTransFormData profileTransFormData = new ProfileTransFormData(profileId);
         String sendData = DataConversion.objectToString(profileTransFormData);
         clientService.requestPostService("http://localhost:8080/so/service/profile", sendData);
-        System.out.println("######## Scheduler Test : ProfileId = " + profileTransFormData.getProfileId());
+        //System.out.println("######## Scheduler Test : ProfileId = " + profileTransFormData.getId());
     }
 }

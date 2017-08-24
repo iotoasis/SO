@@ -52,6 +52,8 @@ dependencies {
 	runtime('mysql:mysql-connector-java')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 
+	compile('org.projectlombok:lombok:1.16.6')
+
 	//scheduler
 	compile "org.quartz-scheduler:quartz:2.2.1"
 
