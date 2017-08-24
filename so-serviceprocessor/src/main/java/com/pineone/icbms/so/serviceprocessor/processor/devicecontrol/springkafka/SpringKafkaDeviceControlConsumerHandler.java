@@ -40,5 +40,7 @@ public class SpringKafkaDeviceControlConsumerHandler extends AConsumerHandler<Co
         if (consumerHandler == null)
             consumerHandler = new DeviceControlConsumerHandler(databaseManager);
         consumerHandler.handle(record);
+
+        super.countDown();
     }
 }

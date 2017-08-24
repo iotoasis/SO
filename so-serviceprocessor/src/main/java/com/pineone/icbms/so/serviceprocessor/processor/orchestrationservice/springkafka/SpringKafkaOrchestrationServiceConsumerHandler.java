@@ -40,5 +40,7 @@ public class SpringKafkaOrchestrationServiceConsumerHandler extends AConsumerHan
         if (consumerHandler == null)
             consumerHandler = new OrchestrationServiceConsumerHandler(databaseManager);
         consumerHandler.handle(record);
+
+        super.countDown();
     }
 }

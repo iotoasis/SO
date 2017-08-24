@@ -40,5 +40,7 @@ public class SpringKafkaContextModelConsumerHandler extends AConsumerHandler<Con
         if (consumerHandler == null)
             consumerHandler = new ContextModelConsumerHandler(databaseManager);
         consumerHandler.handle(record);
+
+        super.countDown();
     }
 }
