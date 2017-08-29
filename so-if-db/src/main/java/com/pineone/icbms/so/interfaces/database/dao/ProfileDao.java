@@ -30,7 +30,7 @@ public class ProfileDao extends AbstractDao {
     }
 
     public List<ProfileForDB> retrieveProfileListByEnable(boolean enabled) {
-        return null;
+        return super.sqlSession.selectList("retrieveProfileListByEnable", enabled?1:0);
     }
 
     //Profile 주기 업데이트
