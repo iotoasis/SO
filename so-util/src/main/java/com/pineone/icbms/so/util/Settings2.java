@@ -3,114 +3,54 @@ package com.pineone.icbms.so.util;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 /**
  * settings for message queue.<BR/>
  * Created by uni4love on 2016. 12. 16..
  */
-@Component
 public class Settings2 {
     /**
      * broker(kafka) list
      */
-	public static String brokerList = "localhost:9092";
-
-	@Value("${mq.broker.list}")
-    public void setBrokerList(String _brokerList) {
-        brokerList = _brokerList;
-    }
-    
-	public static String getBrokerList() {
-        return brokerList;
-    }
+    @Value("${mq.broker.list}")
+    public static String brokerList = "localhost:9092";
 
     /**
      * Zookeeper list
      */
-	public static String zookeeperList = "localhost:2181";
-	
-    public static String getZookeeperList() {
-        return zookeeperList;
-    }
-
     @Value("${mq.zookeeper.list}")
-    public void setZookeeperList(String _zookeeperList) {
-        zookeeperList = _zookeeperList;
-    }
+    public static String zookeeperList = "localhost:2181";
 
     //----------------------------- consumer configs
     /**
      * consumer Poll timeout
      */
-    public static long pollTimeout = 3000L;
-
     @Value("${mq.consumer.pool_timeout}")
-    public void setPollTimeout(long _pollTimeout) {
-        pollTimeout = _pollTimeout;
-    }
-    
-    public static long getPollTimeout() {
-        return pollTimeout;
-    }
-
+    public static long pollTimeout = 3000L;
 
     /**
      * ENABLE_AUTO_COMMIT_CONFIG
      */
+    @Value("${mq.consumer.enable_auto_commit}")
     public static String enableAutoCommitConfig = "true";
 
-    @Value("${mq.consumer.enable_auto_commit}")
-    public void setEnableAutoCommitConfig(String _enableAutoCommitConfig) {
-        enableAutoCommitConfig = _enableAutoCommitConfig;
-    }
-
-    public static String getEnableAutoCommitConfig() {
-        return enableAutoCommitConfig;
-    }
-
-    
     /**
      * AUTO_COMMIT_INTERVAL_MS_CONFIG
      */
+    @Value("${mq.consumer.auto_commit_interval_ms}")
     public static String autoCommitIntervalMsConfig = "1000";
 
-    @Value("${mq.consumer.auto_commit_interval_ms}")
-    public void setAutoCommitIntervalMsConfig(String _autoCommitIntervalMsConfig) {
-        autoCommitIntervalMsConfig = _autoCommitIntervalMsConfig;
-    }
-
-    public static String getAutoCommitIntervalMsConfig() {
-        return autoCommitIntervalMsConfig;
-    }
-    
     /**
      * SESSION_TIMEOUT_MS_CONFIG
      */
-    public static String sessionTimeoutMsConfig= "15000";
-
     @Value("${mq.consumer.session_timeout_ms}")
-    public void setSessionTimeoutMsConfig(String _sessionTimeoutMsConfig) {
-        sessionTimeoutMsConfig = _sessionTimeoutMsConfig;
-    }
-
-    public static String getSessionTimeoutMsConfig() {
-        return sessionTimeoutMsConfig;
-    }
+    public static String sessionTimeoutMsConfig= "15000";
 
     /**
      * AUTO_OFFSET_RESET_CONFIG
      */
-    public static String autoOffsetResetConfig= "earliest";
-
     @Value("${mq.consumer.auto_offset_reset}")
-    public void setAutoOffsetResetConfig(String _autoOffsetResetConfig) {
-        autoOffsetResetConfig = _autoOffsetResetConfig;
-    }
-
-    public static String getAutoOffsetResetConfig() {
-        return autoOffsetResetConfig;
-    }
+    public static String autoOffsetResetConfig= "earliest";
 
     /**
      * KEY_DESERIALIZER_CLASS_CONFIG
@@ -126,74 +66,32 @@ public class Settings2 {
     /**
      * ACKS_CONFIG
      */
-    public static String acksConfig= "1";
-
     @Value("${mq.producer.acks}")
-    public void setAcksConfig(String _acksConfig) {
-        acksConfig = _acksConfig;
-    }
-
-    public static String getAcksConfig() {
-        return acksConfig;
-    }
+    public static String acksConfig= "1";
 
     /**
      * RETRIES_CONFIG
      */
-    public static int retriesConfig = 0;
-
     @Value("${mq.producer.retries}")
-    public void setRetriesConfig(int _retriesConfig) {
-    	retriesConfig = _retriesConfig;
-    }
-    
-    public static int getRetriesConfig() {
-        return retriesConfig;
-    }
-
+    public static int retriesConfig = 0;
 
     /**
      * BATCH_SIZE_CONFIG
      */
-    public static int batchSizeConfig= 16384;
-
     @Value("${mq.producer.batch_size}")
-    public void setBatchSizeConfig(int _batchSizeConfig) {
-    	batchSizeConfig = _batchSizeConfig;
-    }
-    
-    public static int getBatchSizeConfig() {
-        return batchSizeConfig;
-    }
+    public static int batchSizeConfig= 16384;
 
     /**
      * LINGER_MS_CONFIG
      */
-    public static int lingerMsConfig= 1;
-
     @Value("${mq.producer.linger_ms}")
-    public void setLingerMsConfig(int _lingerMsConfig) {
-        lingerMsConfig = _lingerMsConfig;
-    }
-
-    public static int getLingerMsConfig() {
-        return lingerMsConfig;
-    }
-
+    public static int lingerMsConfig= 1;
 
     /**
      * BUFFER_MEMORY_CONFIG
      */
-    public static int bufferMemoryConfig= 33554432;
-
     @Value("${mq.producer.buffer_memory}")
-    public void setBufferMemoryConfig(int _bufferMemoryConfig) {
-    	bufferMemoryConfig = _bufferMemoryConfig;
-    }
-    
-    public static int getBufferMemoryConfig() {
-        return bufferMemoryConfig;
-    }
+    public static int bufferMemoryConfig= 33554432;
 
     /**
      * KEY_SERIALIZER_CLASS_CONFIG
@@ -260,13 +158,110 @@ public class Settings2 {
     /**
      * class path for class loader
      */
+    @Value("${so.device.driver.path}")
     public static String deviceDriverPath= "/";
 
-    @Value("${so.device.driver.path}")
-    public void setDeviceDriverPath(String _deviceDriverPath) {
-    	deviceDriverPath = _deviceDriverPath;
+    public static String getBrokerList() {
+        return brokerList;
     }
+
+    public void setBrokerList(String brokerList) {
+        this.brokerList = brokerList;
+    }
+
+    public static String getZookeeperList() {
+        return zookeeperList;
+    }
+
+    public void setZookeeperList(String zookeeperList) {
+        this.zookeeperList = zookeeperList;
+    }
+
+    public static long getPollTimeout() {
+        return pollTimeout;
+    }
+
+    public void setPollTimeout(long pollTimeout) {
+        this.pollTimeout = pollTimeout;
+    }
+
+    public static String getEnableAutoCommitConfig() {
+        return enableAutoCommitConfig;
+    }
+
+    public void setEnableAutoCommitConfig(String enableAutoCommitConfig) {
+        this.enableAutoCommitConfig = enableAutoCommitConfig;
+    }
+
+    public static String getAutoCommitIntervalMsConfig() {
+        return autoCommitIntervalMsConfig;
+    }
+
+    public void setAutoCommitIntervalMsConfig(String autoCommitIntervalMsConfig) {
+        this.autoCommitIntervalMsConfig = autoCommitIntervalMsConfig;
+    }
+
+    public static String getSessionTimeoutMsConfig() {
+        return sessionTimeoutMsConfig;
+    }
+
+    public void setSessionTimeoutMsConfig(String sessionTimeoutMsConfig) {
+        this.sessionTimeoutMsConfig = sessionTimeoutMsConfig;
+    }
+
+    public static String getAutoOffsetResetConfig() {
+        return autoOffsetResetConfig;
+    }
+
+    public void setAutoOffsetResetConfig(String autoOffsetResetConfig) {
+        this.autoOffsetResetConfig = autoOffsetResetConfig;
+    }
+
+    public static String getAcksConfig() {
+        return acksConfig;
+    }
+
+    public void setAcksConfig(String acksConfig) {
+        this.acksConfig = acksConfig;
+    }
+
+    public static int getRetriesConfig() {
+        return retriesConfig;
+    }
+
+    public void setRetriesConfig(int retriesConfig) {
+        this.retriesConfig = retriesConfig;
+    }
+
+    public static int getBatchSizeConfig() {
+        return batchSizeConfig;
+    }
+
+    public void setBatchSizeConfig(int batchSizeConfig) {
+        this.batchSizeConfig = batchSizeConfig;
+    }
+
+    public static int getLingerMsConfig() {
+        return lingerMsConfig;
+    }
+
+    public void setLingerMsConfig(int lingerMsConfig) {
+        this.lingerMsConfig = lingerMsConfig;
+    }
+
+    public static int getBufferMemoryConfig() {
+        return bufferMemoryConfig;
+    }
+
+    public void setBufferMemoryConfig(int bufferMemoryConfig) {
+        this.bufferMemoryConfig = bufferMemoryConfig;
+    }
+
     public static String getDeviceDriverPath() {
         return deviceDriverPath;
+    }
+
+    public void setDeviceDriverPath(String deviceDriverPath) {
+        this.deviceDriverPath = deviceDriverPath;
     }
 }
