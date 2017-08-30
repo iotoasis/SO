@@ -17,7 +17,8 @@ import java.util.List;
 public class ProfileDao extends AbstractDao {
     //
     public ProfileForDB retrieveProfile(String profileId) {
-        return null;
+        //return null;
+        return super.sqlSession.selectOne("retrieveProfile", profileId);
     }
 
     //  SDA 와 연동하는 contextModel API 로 Profile 정보 조회

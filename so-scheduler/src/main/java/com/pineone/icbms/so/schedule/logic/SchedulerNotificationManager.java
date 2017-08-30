@@ -36,7 +36,7 @@ public class SchedulerNotificationManager implements Job {
         ClientService clientService = new ClientService();
         ProfileTransFormData profileTransFormData = new ProfileTransFormData(profileId);
         String sendData = DataConversion.objectToString(profileTransFormData);
-        clientService.requestPostService("http://localhost:8080/so/service/profile", sendData);
+        clientService.requestPostService("http://localhost:8080/so/service/profile/schedule", sendData);
         //System.out.println("######## Scheduler Test : ProfileId = " + profileTransFormData.getId());
     }
 }
