@@ -100,7 +100,7 @@ public class DataBaseStore implements IDataBaseStore {
     }
 
     /*
-     * TODO cvo ¿¡¼­ vo ¸ñ·ÏÀ» °¡Á®¿Â´Ù
+     * TODO cvo ì—ì„œ vo ëª©ë¡ì„ ê°€ì ¸ì˜¨ë‹¤
      */
     @Override
     public List<VirtualObjectForDB> getVirtualObjectListByCompositeVirtualObjectId(String compositeVirtualObjectId){
@@ -150,7 +150,7 @@ public class DataBaseStore implements IDataBaseStore {
     }
 
     /*
-     * Orchestration Service Id·Î os ¸ñ·Ï Á¶È¸, os ¿¡ ¼ÓÇÑ cvo, vo ¸ñ·Ï Á¶È¸
+     * Orchestration Service Idë¡œ os ëª©ë¡ ì¡°íšŒ, os ì— ì†í•œ cvo, vo ëª©ë¡ ì¡°íšŒ
      */
     @Override
     public OrchestrationServiceForDB getOrchestrationServiceById(String id) {

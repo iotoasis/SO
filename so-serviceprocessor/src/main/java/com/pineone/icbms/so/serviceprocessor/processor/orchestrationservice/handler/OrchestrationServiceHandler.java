@@ -52,7 +52,7 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
             handleCompositeVirtualObjectList(orchestrationService.getCompositeVirtualObjectList()
                     , orchestrationService.getStateStore());
         }
-        // cvo ¸ñ·ÏÀÌ ¾ø´Â °æ¿ì vo·Î ÁöÁ¤µÇ¾î ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+        // cvo ëª©ë¡ì´ ì—†ëŠ” ê²½ìš° voë¡œ ì§€ì •ë˜ì–´ ìžˆëŠ”ì§€ í™•ì¸í•œë‹¤.
         if (orchestrationService.getCompositeVirtualObjectList() == null
                 || orchestrationService.getCompositeVirtualObjectList().size() == 0) {
             //VO list
