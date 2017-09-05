@@ -1,5 +1,6 @@
 package com.pineone.icbms.so.schedule.logic;
 
+import com.pineone.icbms.so.util.Settings2;
 import com.pineone.icbms.so.util.conversion.DataConversion;
 import com.pineone.icbms.so.util.conversion.ProfileTransFormData;
 import com.pineone.icbms.so.util.http.ClientService;
@@ -36,7 +37,11 @@ public class SchedulerNotificationManager implements Job {
         ClientService clientService = new ClientService();
         ProfileTransFormData profileTransFormData = new ProfileTransFormData(profileId);
         String sendData = DataConversion.objectToString(profileTransFormData);
-        clientService.requestPostService("http://localhost:8080/so/service/profile/schedule", sendData);
+        
+        //clientService.requestPostService("http://localhost:8080/so/service/profile/schedule", sendData);
+        String profileControllerUrl = "http://localhost:" + Settings2.getServerPort() + Settings2.getContextPath() + "/service/profile/schedule";
+        clientService.requestPostService(profileControllerUrl, sendData);
+        System.out.println("######## profileControllerUrl = " + profileControllerUrl);
         //System.out.println("######## Scheduler Test : ProfileId = " + profileTransFormData.getId());
     }
 }

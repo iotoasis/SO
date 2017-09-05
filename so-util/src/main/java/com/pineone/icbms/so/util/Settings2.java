@@ -269,4 +269,30 @@ public class Settings2 {
     public static String getDeviceDriverPath() {
         return deviceDriverPath;
     }
+
+    /**
+     * Server port
+     */
+    public static String serverPort= "8080";
+
+    @Value("${server.port}")
+    public void setServerPort(String port) {
+    	serverPort = port;
+    }
+    public static String getServerPort() {
+        return serverPort;
+    }
+
+    /**
+     * Server contextPath
+     */
+    public static String contextPath= "/so";
+
+    @Value("${server.contextPath}")
+    public void setContextPath(String path) {
+    	contextPath = path;
+    }
+    public static String getContextPath() {
+        return contextPath;
+    }
 }
