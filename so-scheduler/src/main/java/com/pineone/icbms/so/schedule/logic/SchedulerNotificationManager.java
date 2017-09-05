@@ -37,7 +37,7 @@ public class SchedulerNotificationManager implements Job {
         ClientService clientService = new ClientService();
         ProfileTransFormData profileTransFormData = new ProfileTransFormData(profileId);
         String sendData = DataConversion.objectToString(profileTransFormData);
-        
+        //clientService.requestPostService("http://localhost:8080/so/service/profile/schedule", sendData);
         //clientService.requestPostService("http://localhost:8080/so/service/profile/schedule", sendData);
         String profileControllerUrl = "http://localhost:" + Settings2.getServerPort() + Settings2.getContextPath() + "/service/profile/schedule";
         clientService.requestPostService(profileControllerUrl, sendData);
