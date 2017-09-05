@@ -111,7 +111,8 @@ public class ClientService
 		}
 		catch (ServiceException e)
 		{
-			e.printStackTrace();
+			System.out.println("connection fail :" + e.getMessage());
+			//e.printStackTrace();
 		}
 		return httpResponseMessage;
 	}

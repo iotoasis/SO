@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 /**
  * Created by melvin on 2017. 4. 27..
  */
@@ -173,7 +175,7 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
     @Override
     public void run() {
         try{
-            Thread.sleep(3000);
+            Thread.sleep(10000); //for preparing Jetty
             scheduler.start();
 
             List<ProfileForDB> scheduledProfileForDBList = profileDAO.retrieveProfileListByEnable(true);
@@ -199,7 +201,10 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
     }
 
     // SO 구동시 Profile DB의 내용을 스케줄러에 올려 실행하기 위한 쓰레드 생성
-    public SchedulerManager() {
+    
+    @PostConstruct
+    public void SchedulerManager1() {
+  	//public SchedulerManager() {    	
         try{
             scheduler = new StdSchedulerFactory().getScheduler();
         }catch(SchedulerException e){
