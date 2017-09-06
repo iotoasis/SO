@@ -241,7 +241,7 @@
         </logger>
     </springProfile>
 
-    <!--
+    
     <logger name="com.pineone.icbms.so" level="${LOG_LEVEL_DEFAULT}">
         <appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT" />
     </logger>
@@ -249,5 +249,5 @@
     <root level="INFO">
         <appender-ref ref="APPENDER_STDOUT_DEFAULT" />
     </root>
-    -->
+   
 </configuration>
