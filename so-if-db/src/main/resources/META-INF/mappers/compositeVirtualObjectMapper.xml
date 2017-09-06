@@ -8,7 +8,7 @@
             , created_date
             , description
             , modified_date
-            , name
+            , C.name
             , aspect_id
             , function_id
         FROM

@@ -159,17 +159,18 @@ public class DataBaseStore implements IDataBaseStore {
         // get os
         OrchestrationServiceForDB orchestrationServiceForDB = orchestrationServiceDao.retrieveOrchestrationService(id);
 
-        // get cvo
-        //List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = compositeVirtualObjectDao.getCompositeVirtualObjectListByOrchestrationId(id);
-        List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = this.getCompositeVirtualObjectListByOrchestrationId(id);
-
-        // get vo
-        List<VirtualObjectForDB> virtualObjectForDBList = virtualObjectDao.getVirtualObjectListByOrchestrationId(id);
-
-        // set cvo list, vo list
-        orchestrationServiceForDB.setCompositeVirtualObjectForDBList(compositeVirtualObjectForDBList);
-        orchestrationServiceForDB.setVirtualObjectForDBList(virtualObjectForDBList);
-
+        if (orchestrationServiceForDB!=null) {
+	        // get cvo
+	        //List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = compositeVirtualObjectDao.getCompositeVirtualObjectListByOrchestrationId(id);
+	        List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = this.getCompositeVirtualObjectListByOrchestrationId(id);
+	
+	        // get vo
+	        List<VirtualObjectForDB> virtualObjectForDBList = virtualObjectDao.getVirtualObjectListByOrchestrationId(id);
+	
+	        // set cvo list, vo list
+	        orchestrationServiceForDB.setCompositeVirtualObjectForDBList(compositeVirtualObjectForDBList);
+	        orchestrationServiceForDB.setVirtualObjectForDBList(virtualObjectForDBList);
+        }
         return orchestrationServiceForDB;
     }
 

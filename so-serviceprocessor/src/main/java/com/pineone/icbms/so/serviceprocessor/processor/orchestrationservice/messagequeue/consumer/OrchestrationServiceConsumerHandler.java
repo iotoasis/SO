@@ -106,6 +106,11 @@ public class OrchestrationServiceConsumerHandler extends AGenericConsumerHandler
 
         //MQ model --> OrchestrationServiceForDB model
         OrchestrationServiceForDB orchestrationServiceForDB = databaseManager.getOrchestrationServiceById(orchestrationServiceForMQ.getId());
+        
+        if (orchestrationServiceForDB==null) {
+            log.warn("OrchestrationServiceForDB is null");
+        	return;
+        }
 //        List<VirtualObjectForDB> virtualObjectForDBList = databaseManager.getVirtualObjectListByOrchestrationId(orchestrationServiceForDB.getId());
         //OrchestrationServiceForDB model --> OrchestrationService model
         IGenericOrchestrationService orchestrationService = ModelMapper.toOrchestrationService(orchestrationServiceForDB);
