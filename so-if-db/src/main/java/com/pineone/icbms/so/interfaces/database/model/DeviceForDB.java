@@ -18,13 +18,13 @@ public class DeviceForDB extends CommonEntity {
     @Getter @Setter
     private String deviceUri;
 
-    @Getter @Setter
+/*    @Getter @Setter
     private FunctionForDB function;
     @Getter @Setter
     private AspectForDB aspect;
     @Getter @Setter
     private LocationForDB location;
-    
+*/    
     @Getter @Setter
     private String functionId;
     @Getter @Setter

@@ -35,7 +35,7 @@ public class DeviceManager implements IDeviceManager{
 //    }
 
     @Override
-    public ResultMessage deviceExecute(String commandId, String deviceUri, String deviceCommand) {
+    public ResultMessage deviceExecute(String commandId, String deviceUri, String aspectId, String deviceCommand) {
 
 //        // so-serviceprocessor 에서 최종 device control 단에서 commandId 를 생성해서 인자로 받도록 수정
 //        String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
@@ -60,7 +60,7 @@ public class DeviceManager implements IDeviceManager{
             lwm2MDeviceControl.setSv(deviceCommand);
             deviceControlMessage = lwm2mDeviceDataConversion(deviceUri, commandId, deviceCommand);
         } else{
-            deviceControlMessage = deviceDataConversion(deviceUri, commandId, deviceCommand);
+            deviceControlMessage = deviceDataConversion(deviceUri, commandId, aspectId, deviceCommand);
         }
 
         //디바이스 제어 요청 보냄
@@ -123,21 +123,59 @@ public class DeviceManager implements IDeviceManager{
         return deviceControlMessage;
     }
 
-    private DeviceControlMessage deviceDataConversion(String deviceId, String commandId, String deviceCommand){
+    private DeviceControlMessage deviceDataConversion(String deviceId, String commandId, String aspectId, String deviceCommand){
         DeviceControlMessage deviceControlMessage = new DeviceControlMessage();
 
         deviceControlMessage.set_uri(deviceId);
         deviceControlMessage.set_commandId(commandId);
+
+        // 2017.9.8 SI Spect 변경 by gibubi
+/*
         if(deviceId != null && ClientProfile.actionDeviceCommand(deviceId)){
             deviceControlMessage.set_command(ClientProfile.SI_CONTROL_ACTION);
         }else {
             deviceControlMessage.set_command(ClientProfile.SI_CONTROL_POWER);
         }
+*/      
+        //get Last aspect-Name part from aspectUri
+        String aspectName = aspectId.substring(aspectId.lastIndexOf("/")+1,aspectId.length());
+        deviceControlMessage.set_command(aspectName);
+
         deviceControlMessage.setCnf(ClientProfile.SO_CONTROL_TYPE);
         deviceControlMessage.setCon(deviceCommand);
 
         return deviceControlMessage;
     }
 
+/*
+    public static void main(String[] args) {
+    	DeviceManager dm = new DeviceManager();
+    	String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
+    	String aspectId;
+    	String controlValue = "1";
+    	int count=1;
 
+    	DeviceControlMessage dcMsg;
+    	
+    	aspectId = "http://www.iotoasis.org/ontology/electronicpower-aspect";
+    	System.out.println(aspectId);
+    	dcMsg = dm.deviceDataConversion("deviceId",commandId , aspectId, controlValue);
+    	System.out.println(" case"+Integer.toString(count++)+"==> "+dcMsg.toString());
+
+    	aspectId = "electronicpower-aspect";
+    	System.out.println(aspectId);
+    	dcMsg = dm.deviceDataConversion("deviceId",commandId , aspectId, controlValue);
+    	System.out.println(" case"+Integer.toString(count++)+"==> "+dcMsg.toString());
+
+    	aspectId = "/electronicpower-aspect";
+    	System.out.println(aspectId);
+    	dcMsg = dm.deviceDataConversion("deviceId",commandId , aspectId, controlValue);
+    	System.out.println(" case"+Integer.toString(count++)+"==> "+dcMsg.toString());
+
+    	aspectId = "";
+    	System.out.println(aspectId);
+    	dcMsg = dm.deviceDataConversion("deviceId",commandId , aspectId, controlValue);
+    	System.out.println(" case"+Integer.toString(count++)+"==> "+dcMsg.toString());
+	}
+*/
 }

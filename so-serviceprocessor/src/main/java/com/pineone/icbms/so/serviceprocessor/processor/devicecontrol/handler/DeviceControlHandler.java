@@ -172,7 +172,8 @@ public class DeviceControlHandler extends AProcessHandler {
         try {
             String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
 
-            ResultMessage resultMessage = deviceManager.deviceExecute(commandId, virtualDevice.getId(), deviceControlValue);
+            //ResultMessage resultMessage = deviceManager.deviceExecute(commandId, virtualDevice.getId(), deviceControlValue);
+            ResultMessage resultMessage = deviceManager.deviceExecute(commandId, virtualDevice.getId(), virtualDevice.getAspect().getUri(), deviceControlValue);
 
             getTracking().setProcessId(virtualDevice.getId());//resultMessage.getCode());
             getTracking().setProcessValue(deviceControlValue);

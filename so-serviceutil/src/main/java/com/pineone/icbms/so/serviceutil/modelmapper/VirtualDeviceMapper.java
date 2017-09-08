@@ -1,12 +1,17 @@
 package com.pineone.icbms.so.serviceutil.modelmapper;
 
 import com.pineone.icbms.so.devicecontrol.model.virtualdevice.DefaultVirtualDevice;
+import com.pineone.icbms.so.virtualobject.aspect.DefaultAspect;
+import com.pineone.icbms.so.virtualobject.function.DefaultFunction;
 import com.pineone.icbms.so.virtualobject.virtualdevice.IGenericVirtualDevice;
+
 import com.pineone.icbms.so.interfaces.database.model.DeviceForDB;
+import com.pineone.icbms.so.interfaces.messagequeue.model.AspectForMQ;
 import com.pineone.icbms.so.interfaces.messagequeue.model.DeviceControlForMQ;
+import com.pineone.icbms.so.interfaces.messagequeue.model.FunctionForMQ;
 import com.pineone.icbms.so.serviceutil.state.StateStoreUtil;
 import com.pineone.icbms.so.util.conversion.IModelMapper;
-import org.springframework.beans.BeanUtils;
+//import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +48,22 @@ public class VirtualDeviceMapper implements IModelMapper<IGenericVirtualDevice, 
             virtualDevice.setDescription(deviceControlForMQ.getDescription());
             StateStoreUtil.copyStateStore(deviceControlForMQ.getStateStore(), virtualDevice);
             virtualDevice.setIsLast(deviceControlForMQ.getIsLast());
+     
+            AspectForMQ aspectMq = deviceControlForMQ.getAspect();
+            DefaultAspect aspect = null;
+            if (aspectMq!=null) {
+            	aspect = new DefaultAspect(aspectMq.getId());
+            	aspect.setUri(aspectMq.getUri());
+            	virtualDevice.setAspect(aspect);
+            }
+
+            FunctionForMQ funcMq = deviceControlForMQ.getFunction();
+            DefaultFunction function = null;
+            if (funcMq!=null) {
+            	function = new DefaultFunction(funcMq.getId());
+            	function.setUri(funcMq.getUri());
+            	virtualDevice.setFunction(function);
+            }
         }
         return virtualDevice;
     }
@@ -60,8 +81,16 @@ public class VirtualDeviceMapper implements IModelMapper<IGenericVirtualDevice, 
             virtualDevice = new DefaultVirtualDevice();
             virtualDevice.setId(deviceForDB.getId());
             virtualDevice.setName(deviceForDB.getName());
-            virtualDevice.setFunction(functionMapper.toProcessorModelFromDb(deviceForDB.getFunction()));
-            virtualDevice.setAspect(aspectMapper.toProcessorModelFromDb(deviceForDB.getAspect()));
+            
+            //virtualDevice.setFunction(functionMapper.toProcessorModelFromDb(deviceForDB.getFunction()));
+            DefaultFunction function =
+                    new DefaultFunction(deviceForDB.getFunctionId(), "function name", "", deviceForDB.getFunctionId());
+            virtualDevice.setFunction(function);
+
+            // virtualDevice.setAspect(aspectMapper.toProcessorModelFromDb(deviceForDB.getAspect()));
+            DefaultAspect aspect = 
+            		new DefaultAspect(deviceForDB.getAspectId(), "aspect name", "", deviceForDB.getAspectId());
+            virtualDevice.setAspect(aspect);
         }
         return virtualDevice;
     }
