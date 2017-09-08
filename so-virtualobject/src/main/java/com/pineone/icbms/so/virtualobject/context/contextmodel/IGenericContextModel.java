@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.virtualobject.context.contextmodel;
 
 import com.pineone.icbms.so.virtualobject.common.IGenericServiceEntity;
+import com.pineone.icbms.so.virtualobject.common.IGenericSession;
 import com.pineone.icbms.so.virtualobject.common.IUriOwner;
 import com.pineone.icbms.so.virtualobject.context.contextinformation.IGenericContextInformation;
 

@@ -101,7 +101,7 @@ public class ContextModelConsumerHandler extends AGenericConsumerHandler2<String
         ContextModelForMQ contextModelForMQ = ModelMapper.readJsonObject(record.value(), ContextModelForMQ.class);
         log.debug("ContextModelForMQ: {}", contextModelForMQ);
 
-        // TODO tracking
+        // tracking
         TrackingEntity tracking = contextModelForMQ.getTrackingEntity();
 
         //ContextModelForMQ model --> ContextModel model

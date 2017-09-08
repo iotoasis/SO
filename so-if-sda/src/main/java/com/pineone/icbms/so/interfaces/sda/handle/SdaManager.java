@@ -330,7 +330,29 @@ public class SdaManager implements ISdaManager {
 
     @Override
     public List<AspectForIf> retrieveAspectList() {
-        return null;
+        //
+        List<AspectForIf> list = new ArrayList<AspectForIf>();
+        List<ContextModelContent> contentList = new ArrayList<>();
+    
+        try {
+            IHttpResponseMessage message = clientService.requestGetService(
+                    addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
+                            SdaAddressStore.CM_ASPECT_LIST + SdaAddressStore.SEPARATOR_WITH_COMMA);
+            contentList = getContextModelContents(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SDAException e) {
+//            e.printStackTrace();
+        }
+    
+        for (ContextModelContent contextModelContent : contentList) {
+            AspectForIf addItam = new AspectForIf();
+            addItam.setAspect(contextModelContent.getAspectUri());
+            addItam.setLabel(contextModelContent.getLabel());
+            list.add(addItam);
+        }
+        log.debug("Aspect : " + list);
+        return list;
     }
 
     @Override

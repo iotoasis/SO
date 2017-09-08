@@ -11,6 +11,7 @@
             , C.name
             , aspect_id
             , function_id
+            , device_type
         FROM
           os_cvo O, composite_virtual_object C
         WHERE
@@ -46,6 +47,7 @@
             , aspect_id
             , function_id
             , device_type
+            , location_id
             , created_date
             , modified_date
         )
@@ -56,6 +58,7 @@
             , #{aspectId}
             , #{functionId}
             , #{deviceType}
+            , #{locationId}
             , now(4)
             , now(4)
         )

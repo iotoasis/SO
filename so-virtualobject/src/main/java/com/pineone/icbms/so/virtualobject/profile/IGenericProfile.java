@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.virtualobject.profile;
 
 import com.pineone.icbms.so.virtualobject.common.IGenericServiceEntity;
+import com.pineone.icbms.so.virtualobject.common.IGenericSession;
 import com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextModel;
 import com.pineone.icbms.so.virtualobject.location.IGenericLocation;
 import com.pineone.icbms.so.virtualobject.orchestrationservice.IGenericOrchestrationService;
@@ -9,7 +10,8 @@ import com.pineone.icbms.so.virtualobject.orchestrationservice.IGenericOrchestra
  * Generic profile interface.<BR/>
  * Created by uni4love on 2016. 11. 17..
  */
-public interface IGenericProfile extends IProfile<IGenericContextModel, IGenericOrchestrationService>, IGenericServiceEntity {
+public interface IGenericProfile extends IProfile<IGenericContextModel, IGenericOrchestrationService>
+        , IGenericServiceEntity {
 
     /**
      * return context model.<BR/>

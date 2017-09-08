@@ -35,4 +35,11 @@ public interface IDataBaseStore {
 //    FixedDeviceForDB getFixedDevice(String id);
 
     void createTracking(TrackingEntity trackingEntity);
+    
+    // grib session
+    void createSessionData(SessionEntity sessionEntity);
+    void createSessionDataLocation(SessionEntity sessionEntity);
+    void createSessionDataDevice(SessionEntity sessionEntity);
+    void createSessionDataVo(SessionEntity sessionEntity);
+    void updateSessionData(SessionEntity sessionEntity);
 }

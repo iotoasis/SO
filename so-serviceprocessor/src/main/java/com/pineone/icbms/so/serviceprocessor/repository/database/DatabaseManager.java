@@ -104,4 +104,26 @@ public class DatabaseManager implements IDatabaseManager {
     public void createTracking(TrackingEntity trackingEntity) {
         dataBaseStore.createTracking(trackingEntity);
     }
+    
+    // grib session
+    @Override
+    public void createSessionData(SessionEntity sessionEntity) {
+        dataBaseStore.createSessionData(sessionEntity);
+    }
+    @Override
+    public void createSessionDataLocation(SessionEntity sessionEntity) {
+        dataBaseStore.createSessionDataLocation(sessionEntity);
+    }
+    @Override
+    public void createSessionDataDevice(SessionEntity sessionEntity) {
+        dataBaseStore.createSessionDataDevice(sessionEntity);
+    }
+    @Override
+    public void createSessionDataVo(SessionEntity sessionEntity) {
+        dataBaseStore.createSessionDataVo(sessionEntity);
+    }
+    @Override
+    public void updateSessionData(SessionEntity sessionEntity) {
+        dataBaseStore.updateSessionData(sessionEntity);
+    }
 }

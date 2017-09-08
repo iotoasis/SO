@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.handler;
 
 import com.pineone.icbms.so.interfaces.database.model.CompositeVirtualObjectForDB;
+import com.pineone.icbms.so.interfaces.database.model.SessionEntity;
 import com.pineone.icbms.so.interfaces.messagequeue.model.VirtualObjectForMQ;
 import com.pineone.icbms.so.interfaces.messagequeue.producer.tracking.TrackingProducer;
 import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
@@ -19,7 +20,7 @@ import java.util.concurrent.Future;
 
 /**
  * OrchestrationService handler.<BR/>
- * <p>
+ * 서비스 핸들러 : os 와 연결된 cvo 와 vo를 셋팅하고 virtualobject 큐로 메시지를 전송한다.
  * Created by uni4love on 2017. 1. 20..
  */
 public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchestrationService> {
@@ -41,12 +42,27 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
     public void handle(IGenericOrchestrationService orchestrationService) {
 
         getTracking().setProcess(getClass().getSimpleName());
+    
+        // grib session location
+        SessionEntity session = new SessionEntity();
+        session.setId(getTracking().getSessionId());
+        session.setServiceKey(orchestrationService.getId());
+        session.setServicemodelKey(orchestrationService.getId());
+        session.setServicemodelName(orchestrationService.getName());
+        log.debug("session service : {}", session);
+        databaseManager.updateSessionData(session);
+    
+        session = new SessionEntity();
+        session.setId(getTracking().getSessionId());
+        session.setServicemodelResult("CONTROL_EXECUTION");
+        session.setServiceResult("CONTROL_EXECUTION");
+        databaseManager.updateSessionData(session);
 
-        //OS list
-        if (orchestrationService.getOrchestrationServiceList() != null) {
-            handleOrchestrationServiceList(orchestrationService.getOrchestrationServiceList()
-                    , orchestrationService.getStateStore());
-        }
+        // OS list : os 를 복수로 확장하게 될 경우 사용
+//        if (orchestrationService.getOrchestrationServiceList() != null) {
+//            handleOrchestrationServiceList(orchestrationService.getOrchestrationServiceList()
+//                    , orchestrationService.getStateStore());
+//        }
         //CVO list
         if (orchestrationService.getCompositeVirtualObjectList() != null) {
             handleCompositeVirtualObjectList(orchestrationService.getCompositeVirtualObjectList()
@@ -86,31 +102,38 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
      * @param os             IGenericOrchestrationService
      */
     private void handleOrchestrationService(IGenericOrchestrationService os) {
-        //TODO: orchestration service biz.
+        // orchestration service biz.
         //..
         //OS list
         handleOrchestrationServiceList(os.getOrchestrationServiceList(), os.getStateStore());
+        
         //CVO list
-        //retreive VO list from db
+        // os id 로 cvo 목록을 조회한다
+        log.warn("getCompositeVirtualObjectListByOrchestrationId : {}", os.getId());
         List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList =
                 databaseManager.getCompositeVirtualObjectListByOrchestrationId(os.getId());
+
         //convert to List<IGenericCompositeVirtualObject>
         List<IGenericCompositeVirtualObject> compositeVirtualObjectList =
                 ModelMapper.toCompositeVirtualObjectList(compositeVirtualObjectForDBList);
+
         //in CompositeVirtualObject
         handleCompositeVirtualObjectList(compositeVirtualObjectList, os.getStateStore());
-        //VO list
-        handleVirtualObjectList(os.getVirtualObjectList(), os.getStateStore());
+
+//        //VO list
+//        handleVirtualObjectList(os.getVirtualObjectList(), os.getStateStore());
     }
 
     /**
      * CVO list process
-     *
+     * cvo 목록에 대한 처리
      * @param list CVO list
      */
     private void handleCompositeVirtualObjectList(List<IGenericCompositeVirtualObject> list, IGenericStateStore stateStore) {
         getTracking().setProcessMethod(new Object(){}.getClass().getEnclosingMethod().getName());
-
+    
+        //List<IGenericVirtualObject> virtualObjectList = null;
+        
         if (list != null && list.size() > 0) {
             for (IGenericCompositeVirtualObject cvo : list) {
                 //TODO: refactor copying StateStore
@@ -118,11 +141,9 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
 
                 getTracking().setProcessId(cvo.getId());
                 getTracking().setProcessName(cvo.getName());
-                TrackingProducer.send(getTracking()
-//                        , getClass().getSimpleName(), cvo.getId(), cvo.getName()
-//                        , new Object(){}.getClass().getEnclosingMethod().getName()
-                );
-
+                TrackingProducer.send(getTracking());
+    
+                // cvo 각각에 대한 처리
                 handleCompositeVirtualObject(cvo);
             }
         }
@@ -130,18 +151,18 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
 
     /**
      * CVO process
-     *
+     * cvo 각각에 대한 처리
      * @param cvo composite virtual object
      */
     private void handleCompositeVirtualObject(IGenericCompositeVirtualObject cvo) {
-        //TODO: composite virtual object biz.
-        //..
+        // composite virtual object biz.
+        //
         handleVirtualObjectList(cvo.getVirtualObjectList(), cvo.getStateStore());
     }
 
     /**
      * VO list process
-     *
+     * VirtualObject list 처리
      * @param list VO list
      */
     private void handleVirtualObjectList(List<IGenericVirtualObject> list, IGenericStateStore stateStore) {
@@ -149,16 +170,27 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
 
         if (list != null) {
             for (IGenericVirtualObject virtualObject : list) {
-                // TODO tracking
+                // tracking
                 getTracking().setProcessId(virtualObject.getId());
                 getTracking().setProcessName(virtualObject.getName());
-                TrackingProducer.send(getTracking()
-//                        , getClass().getSimpleName(), virtualObject.getId(), virtualObject.getName()
-//                        , new Object(){}.getClass().getEnclosingMethod().getName()
-                );
+                TrackingProducer.send(getTracking());
+    
+                // grib session location
+                SessionEntity session = new SessionEntity();
+                session.setId(getTracking().getSessionId());
+                session.setVirtualobjectKey(virtualObject.getId());
+                log.debug("session vo : {}", session);
+                databaseManager.createSessionDataVo(session);
+    
+                session = new SessionEntity();
+                session.setId(getTracking().getSessionId());
+                session.setVirtualobjectResult("CONTROL_EXECUTION");
+                databaseManager.updateSessionData(session);
 
                 //TODO: refactor copying StateStore
                 StateStoreUtil.copyStateStore(stateStore, virtualObject);
+                
+                // vo 각각에 대한 처리
                 handleVirtualObject(virtualObject);
             }
         }
@@ -166,12 +198,12 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
 
     /**
      * VO process
-     *
+     * vo 각각에 대한 처리
      * @param virtualObject virtual object
      */
     private void handleVirtualObject(IGenericVirtualObject virtualObject) {
         if (virtualObject != null) {
-            //TODO: virtual object biz.
+            // virtual object biz.
             //..
             //publish a virtual object
             publishVirtualObject(virtualObject);
@@ -180,7 +212,7 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
 
     /**
      * publish a VirtualObject.<BR/>
-     *
+     * virtualObject 클래스를 mq 클래스로 변환
      * @param virtualObject IGenericVirtualObject
      */
     private void publishVirtualObject(IGenericVirtualObject virtualObject) {
@@ -192,10 +224,10 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
         //publish by producer
         publishToMq(jsonString);
     }
-
+    
     /**
      * VirtualObjectForMQ to json String.<BR/>
-     *
+     * virtualobject mq 클래스를 큐로 전송하기 위해 json 으로 변환
      * @param virtualObjectForMQ VirtualObjectForMQ
      * @return json String
      */
@@ -205,7 +237,7 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
 
     /**
      * publishToMq a data.<BR/>
-     *
+     * virtualobject 큐로 전송
      * @param data data
      * @return result
      */

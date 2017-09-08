@@ -3,6 +3,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pineone.icbms.so.interfaces.database.dao.VirtualObjectDao">
+    <select id="retrieveFunction" resultType="VirtualObjectForDB">
+        SELECT
+          distinct function_id
+        FROM
+          virtual_object
+    </select>
+    
+    <select id="retrieveAspect" resultType="VirtualObjectForDB">
+        SELECT
+          distinct aspect_id
+        FROM
+          virtual_object
+    </select>
 
     <select id="retrieveVirtualObjectByFunctionAndAspect" parameterType="HashMap" resultType="VirtualObjectForDB">
         SELECT
@@ -35,16 +48,43 @@
     -->
     <select id="retrieveVirtualObjectListByCompositeVirtualObjectId" parameterType="String" resultType="VirtualObjectForDB">
         SELECT
-          V.id
+            V.id
             , created_date
             , description
             , modified_date
             , name
             , aspect_id
             , function_id
+        FROM
+            virtual_object V
+            , (
+                SELECT T2.virtual_object_id
+                FROM (
+                    SELECT
+                        @r AS _id,
+                        (SELECT @r := parent_id FROM cvo_vo WHERE composite_virtual_object_id = _id) AS parent_id,
+                        @l := @l + 1 AS lvl
+                    FROM
+                      (SELECT @r := #{value}, @l := '') vars,
+                      cvo_vo m
+                    WHERE <![CDATA[ @r <> '' ]]>
+                    ) T1 JOIN cvo_vo T2 ON T1._id = composite_virtual_object_id
+                ORDER BY T1.lvl DESC ) C
+        WHERE
+          C.virtual_object_id = V.id
+    </select>
+    <select id="retrieveVirtualObjectListByCompositeVirtualObjectId__" parameterType="String" resultType="VirtualObjectForDB">
+        SELECT
+        V.id
+        , created_date
+        , description
+        , modified_date
+        , name
+        , aspect_id
+        , function_id
         FROM cvo_vo C, virtual_object V
         WHERE C.composite_virtual_object_id = #{value}
-          AND C.virtual_object_id = V.id
+        AND C.virtual_object_id = V.id
     </select>
 
     <!--

@@ -13,6 +13,14 @@ import java.util.List;
 @Component
 public class VirtualObjectDao extends AbstractDao {
     //
+    public List<VirtualObjectForDB> retrieveFunction() {
+        return sqlSession.selectList("retrieveFunction");
+    }
+    
+    public List<VirtualObjectForDB> retrieveAspect() {
+        return sqlSession.selectList("retrieveAspect");
+    }
+    
     public VirtualObjectForDB retrieveVirtualObjectByFunction(String id) {
         return sqlSession.selectOne("retrieveVirtualObjectById", id);
     }

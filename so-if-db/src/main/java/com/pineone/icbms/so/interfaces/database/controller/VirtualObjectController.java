@@ -63,7 +63,7 @@ package com.pineone.icbms.so.interfaces.database.controller;//package com.pineon
 //        return responseMessage;
 //    }
 //
-//   //  SO의 virtualObject Data Update TODO  Update 정책 반영필요
+//   //  SO의 virtualObject Data Update 정책 반영필요
 //    @RequestMapping(value = "{id}", method = RequestMethod.POST)
 //    @ResponseBody
 //    public ResponseMessage updateVirtualObject(@PathVariable long id, @RequestBody VirtualObjectData virtualObjectData){

@@ -24,12 +24,12 @@ public class ContextModelDao extends AbstractDao {
     }
 
     public List<ContextModelForDB> retrieve() {
-        return super.sqlSession.selectOne("retrieveContextModelByModel");
+        return super.sqlSession.selectList("retrieveContextModelByModel");
     }
 
     public ContextModelForDB create(ContextModelForDB model) {
-        String sessionId = IdUtils.createRandomUUID();
-        model.setId("CM-" + sessionId);
+//        String sessionId = IdUtils.createRandomUUID();
+//        model.setId("CM-" + sessionId);
         super.sqlSession.insert("createContextModel", model);
         return super.sqlSession.selectOne("retrieveContextModelById", model.getId());
     }

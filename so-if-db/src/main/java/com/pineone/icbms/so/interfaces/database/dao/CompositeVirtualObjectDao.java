@@ -39,8 +39,8 @@ public class CompositeVirtualObjectDao extends AbstractDao {
 
     // 저장 기능 구현
     public CompositeVirtualObjectForDB create(CompositeVirtualObjectForDB model) {
-        String sessionId = IdUtils.createRandomUUID();
-        model.setId("CVO-" + sessionId);
+        //String sessionId = IdUtils.createRandomUUID();
+        //model.setId("CVO-" + sessionId);
         super.sqlSession.insert("createCompositeVirtualObject", model);
         return super.sqlSession.selectOne("retrieveCompositeVirtualObjectById", model.getId());
     }

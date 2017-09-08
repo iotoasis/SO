@@ -27,22 +27,22 @@ public class DeviceDao extends AbstractDao {
         map.put("locationId", locationUri);
         List<DeviceForDB> deviceForDBList = super.sqlSession.selectList("retrieveDeviceList", map);
 
-        for (DeviceForDB deviceForDB : deviceForDBList) {
-            // FunctionForDB function;
-            deviceForDB.setFunction(
-                    super.sqlSession.selectOne("retrieveFunctionFromDevice", functionUri)
-            );
-            // AspectForDB aspect;
-            deviceForDB.setAspect(
-                    super.sqlSession.selectOne("retrieveAspectFromDevice", aspect)
-            );
-            // LocationForDB location;
-            //map.clear();
-            //map.put("locationId", locationUri);
-            deviceForDB.setLocation(
-                    super.sqlSession.selectOne("retrieveLocationFromDevice", locationUri)
-            );
-        }
+//        for (DeviceForDB deviceForDB : deviceForDBList) {
+//            // FunctionForDB function;
+//            deviceForDB.setFunction(
+//                    super.sqlSession.selectOne("retrieveFunctionFromDevice", functionUri)
+//            );
+//            // AspectForDB aspect;
+//            deviceForDB.setAspect(
+//                    super.sqlSession.selectOne("retrieveAspectFromDevice", aspect)
+//            );
+//            // LocationForDB location;
+//            //map.clear();
+//            //map.put("locationId", locationUri);
+//            deviceForDB.setLocation(
+//                    super.sqlSession.selectOne("retrieveLocationFromDevice", locationUri)
+//            );
+//        }
 
         return deviceForDBList;
     }
@@ -66,5 +66,9 @@ public class DeviceDao extends AbstractDao {
 
     public int delete(String id) {
         return super.sqlSession.delete("deleteDevice", id);
+    }
+    
+    public List<DeviceForDB> retrieveDeviceType()  {
+        return super.sqlSession.selectList("retrieveDeviceType");
     }
 }

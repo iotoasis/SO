@@ -3,6 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pineone.icbms.so.interfaces.database.dao.DeviceDao">
+    <select id="retrieveDeviceType" parameterType="HashMap" resultType="DeviceForDB">
+      SELECT
+        id
+        , name
+      FROM device_type
+    </select>
+  
     <select id="retrieveDeviceList" parameterType="HashMap" resultType="DeviceForDB">
       SELECT
         id
@@ -14,6 +21,7 @@
         , device_uri
         , function_id
         , location_id
+        , device_type
       FROM device
       WHERE
         function_id = #{functionId}
@@ -96,6 +104,7 @@
       , created_date
       , modified_date
       , order_cd
+      , device_type
     FROM
       device
     WHERE
@@ -104,16 +113,17 @@
 
   <select id="retrieveDeviceByModel" parameterType="DeviceForDB" resultType="DeviceForDB">
     SELECT
-    id
-    , name
-    , description
-    , device_uri
-    , aspect_id
-    , function_id
-    , location_id
-    , created_date
-    , modified_date
-    , order_cd
+      id
+      , name
+      , description
+      , device_uri
+      , aspect_id
+      , function_id
+      , location_id
+      , created_date
+      , modified_date
+      , order_cd
+      , device_type
     FROM device
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="id != null">
@@ -152,6 +162,7 @@
       , created_date
       , modified_date
       , order_cd
+      , device_type
     )
     VALUES (
       #{id}
@@ -164,6 +175,7 @@
       , now(4)
       , now(4)
       , #{orderCd}
+      , #{deviceType}
     )
   </insert>
 

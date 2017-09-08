@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -53,7 +54,7 @@ public class ScheduledTasks {
      * # : 몇 번째 무슨 요일 2#1 => 첫 번째 월요일
      */
     @Scheduled(cron="0 0 1 * * *")  // 01:00:00 초에 시작
-    //@Scheduled(cron="0 */3 * * * *")
+//    @Scheduled(cron="0 */3 * * * *")
     public void synchronizeVirtualObject() {
 
 //        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -61,32 +62,38 @@ public class ScheduledTasks {
 
         // get function from sda
         List<FunctionForIf> functionList = sdaManager.retrieveFunctionList();
+        List<AspectForIf> aspectList = sdaManager.retrieveAspectList();
 
         for (FunctionForIf function : functionList) {
             // get aspect from sda
-            List<AspectForIf> aspectList = sdaManager.retrieveAspectListByFunction(function.getFunction());
+            //List<AspectForIf> aspectList = sdaManager.retrieveAspectListByFunction(function.getFunction());
 
             for (AspectForIf aspect : aspectList) {
                 // retrieve function_id and aspect_id
                 //log.info("Function: {}, Aspect : {}", function, aspect);
-                VirtualObjectForDB virtualObjectForDB = virtualObjectDao.retrieveVirtualObjectByFunctionAndAspect(
-                        function.getFunction(), aspect.getAspect());
-
-                // create virtual object
-                if (virtualObjectForDB == null) {
-                    String prefix = "VO-";
-                    String functionId = function.getFunction().substring(function.getFunction().lastIndexOf("/")+1);
-                    String aspectId = aspect.getAspect().substring(aspect.getAspect().lastIndexOf("/")+1);
-                    String id = prefix + functionId + "-" + aspectId;
-
-                    //log.info("VO id : {}", id);
-
-                    VirtualObjectForDB newVirtualObjectForDB = new VirtualObjectForDB();
+                try {
+                    VirtualObjectForDB virtualObjectForDB = virtualObjectDao.retrieveVirtualObjectByFunctionAndAspect(
+                            function.getFunction(), aspect.getAspect());
+    
+                    // create virtual object
+                    if (virtualObjectForDB == null) {
+                        String prefix = "VO-";
+                        String functionId = function.getFunction().substring(function.getFunction().lastIndexOf("/") + 1);
+                        String aspectId = aspect.getAspect().substring(aspect.getAspect().lastIndexOf("/") + 1);
+                        aspectId = aspectId.replaceAll("-aspect", "");
+                        String id = prefix + functionId + "-" + aspectId;
+    
+                        //log.info("VO id : {}", id);
+    
+                        VirtualObjectForDB newVirtualObjectForDB = new VirtualObjectForDB();
                         newVirtualObjectForDB.setId(id);
                         newVirtualObjectForDB.setFunctionId(function.getFunction());
                         newVirtualObjectForDB.setAspectId(aspect.getAspect());
-                        newVirtualObjectForDB.setName(aspect.getLabel()+function.getLabel());
-                    virtualObjectDao.create(newVirtualObjectForDB);
+                        newVirtualObjectForDB.setName(aspect.getLabel() + function.getLabel());
+                        virtualObjectDao.create(newVirtualObjectForDB);
+                    }
+                } catch (Exception e) {
+                    log.error("ERROR Create VO {}, {}", function, aspect);
                 }
             }
         }

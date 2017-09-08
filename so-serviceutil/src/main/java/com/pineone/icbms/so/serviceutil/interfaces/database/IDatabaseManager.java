@@ -34,4 +34,12 @@ public interface IDatabaseManager {
     ProfileForDB getProfileById(String profileId);
 
     void createTracking(TrackingEntity trackingEntity);
+    
+    // grib session
+    void createSessionData(SessionEntity sessionEntity);
+    void createSessionDataLocation(SessionEntity sessionEntity);
+    void createSessionDataDevice(SessionEntity sessionEntity);
+    void createSessionDataVo(SessionEntity sessionEntity);
+    void updateSessionData(SessionEntity sessionEntity);
+    
 }

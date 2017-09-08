@@ -101,7 +101,7 @@ public class DeviceControlConsumerHandler extends AGenericConsumerHandler2<Strin
         DeviceControlForMQ deviceControlForMQ = ModelMapper.readJsonObject(record.value(), DeviceControlForMQ.class);
         log.debug("DeviceControlForMQ: {}", deviceControlForMQ);
 
-        // TODO tracking
+        // tracking
         TrackingEntity tracking = deviceControlForMQ.getTrackingEntity();
 
         //MQ model --> DeviceControl model

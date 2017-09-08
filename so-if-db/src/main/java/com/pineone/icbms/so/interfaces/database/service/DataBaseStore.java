@@ -49,19 +49,16 @@ public class DataBaseStore implements IDataBaseStore {
 
     @Autowired
     TrackingDao trackingDao;
+    
+	// grib session
+    @Autowired
+    SessionDao sessionDao;
 
     @Override
     public List<VirtualObjectForDB> getVirtualObjectListByOrchestrationId(String orchestrationServiceId){
         log.warn("getVirtualObjectListByOrchestrationId : orchestrationServiceId {}", orchestrationServiceId);
-//        //
-//        List<OS_VO_MapperForDB> os_vo_mapperForDBList = os_vo_mapper_dao.retrieveOS_VO_MapperListByServiceId(orchestrationServiceId);
-//        List<VirtualObjectForDB> virtualObjectForDBList = new ArrayList<>();
-//
-//        for(OS_VO_MapperForDB os_vo_mapperForDB : os_vo_mapperForDBList){
-//            virtualObjectForDBList.add(virtualObjectDao.retrieveVirtualObject(os_vo_mapperForDB.getVirtualObjectId()));
-//        }
-//        return virtualObjectForDBList;
 
+        //
         List<VirtualObjectForDB> os_vo_mapperForDBList = virtualObjectDao.getVirtualObjectListByOrchestrationId(orchestrationServiceId);
         List<VirtualObjectForDB> virtualObjectForDBList = virtualObjectDao.retrieveVirtualObject(os_vo_mapperForDBList);
 
@@ -71,25 +68,11 @@ public class DataBaseStore implements IDataBaseStore {
     @Override
     public List<CompositeVirtualObjectForDB> getCompositeVirtualObjectListByOrchestrationId(String orchestrationServiceId){
         log.warn("getCompositeVirtualObjectListByOrchestrationId : orchestrationServiceId {}", orchestrationServiceId);
-//        //
-//        List<OS_CVO_MapperForDB> os_cvo_mapperForDBList = os_cvo_mapper_dao.retrieveOS_CVO_MapperListByServiceId(orchestrationServiceId);
-//        List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = new ArrayList<>();
-//
-//        for(OS_CVO_MapperForDB os_cvo_mapperForDB : os_cvo_mapperForDBList){
-//            //
-//            compositeVirtualObjectForDBList.add(compositeVirtualObjectDao.retrieveCompositeVirtualObject(
-//                    os_cvo_mapperForDB.getCompositeVirtualObjectId()));
-//        }
-//
-//        for(CompositeVirtualObjectForDB compositeVirtualObjectForDB : compositeVirtualObjectForDBList){
-//            compositeVirtualObjectForDB.setVirtualObjectForDBList(getVirtualObjectListByCompositeVirtualObjectId(
-//                    compositeVirtualObjectForDB.getId()));
-//        }
-//        return compositeVirtualObjectForDBList;
-
 
         List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = compositeVirtualObjectDao.retrieveCompositeVirtualObjectListByOrchestrationId(orchestrationServiceId);
-
+    
+        List<VirtualObjectForDB> virtualObjectForDBList = null;
+        
         for(CompositeVirtualObjectForDB compositeVirtualObjectForDB : compositeVirtualObjectForDBList){
             compositeVirtualObjectForDB.setVirtualObjectForDBList(
                     getVirtualObjectListByCompositeVirtualObjectId(compositeVirtualObjectForDB.getId())
@@ -100,7 +83,7 @@ public class DataBaseStore implements IDataBaseStore {
     }
 
     /*
-     * TODO cvo 에서 vo 목록을 가져온다
+     * cvo 에서 vo 목록을 가져온다
      */
     @Override
     public List<VirtualObjectForDB> getVirtualObjectListByCompositeVirtualObjectId(String compositeVirtualObjectId){
@@ -145,7 +128,7 @@ public class DataBaseStore implements IDataBaseStore {
 
     @Override
     public List<ProfileForDB> getProfileListByContextModelSidAndLocationUri(String contextModelSid, String locationUri) {
-        log.warn("getProfileListByContextModelSidAndLocationUri : contextModelSid: {}, locationUri:{}", contextModelSid, locationUri);
+//        log.warn("getProfileListByContextModelSidAndLocationUri : contextModelSid: {}, locationUri:{}", contextModelSid, locationUri);
         return profileDao.getProfileByContextModelAndLocation(contextModelSid, locationUri);
     }
 
@@ -207,7 +190,29 @@ public class DataBaseStore implements IDataBaseStore {
 
     @Override
     public void createTracking(TrackingEntity trackingEntity) {
-        log.warn("createTracking : TrackingEntity: {}", trackingEntity);
+//        log.warn("createTracking : TrackingEntity: {}", trackingEntity);
         trackingDao.createTracking(trackingEntity);
+    }
+    
+    // grib session
+    @Override
+    public void createSessionData(SessionEntity sessionEntity) {
+        sessionDao.createSessionData(sessionEntity);
+    }
+    @Override
+    public void createSessionDataLocation(SessionEntity sessionEntity) {
+        sessionDao.createSessionDataLocation(sessionEntity);
+    }
+    @Override
+    public void createSessionDataDevice(SessionEntity sessionEntity) {
+        sessionDao.createSessionDataDevice(sessionEntity);
+    }
+    @Override
+    public void createSessionDataVo(SessionEntity sessionEntity) {
+        sessionDao.createSessionDataVo(sessionEntity);
+    }
+    @Override
+    public void updateSessionData(SessionEntity sessionEntity) {
+        sessionDao.updateSessionData(sessionEntity);
     }
 }

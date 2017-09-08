@@ -83,7 +83,7 @@ public class VirtualDeviceMapper implements IModelMapper<IGenericVirtualDevice, 
             deviceControlForMQ.setFunction(functionMapper.toMqModelFromPs(virtualDevice.getFunction()));
             deviceControlForMQ.setAspect(aspectMapper.toMqModelFromPs(virtualDevice.getAspect()));
             StateStoreUtil.copyStateStore(virtualDevice.getStateStore(), deviceControlForMQ);
-            // TODO simulator
+            // simulator
             deviceControlForMQ.setIsLast(virtualDevice.getIsLast());
 
 //            BeanUtils.copyProperties(deviceControlForMQ, virtualDevice);

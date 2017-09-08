@@ -29,6 +29,12 @@ public class CompositeVirtualObjectForDB extends CommonEntity {
 
     @Getter @Setter
     private String deviceType;
+    
+    @Getter @Setter
+    private String deviceId;
+    
+    @Getter @Setter
+    private String locationId;
 
 //    public List<VirtualObjectForDB> getVirtualObjectForDBList() {
 //        return virtualObjectForDBList;

@@ -101,10 +101,11 @@ public class OrchestrationServiceConsumerHandler extends AGenericConsumerHandler
         OrchestrationServiceForMQ orchestrationServiceForMQ = ModelMapper.readJsonObject(record.value(), OrchestrationServiceForMQ.class);
         log.debug("OrchestrationServiceForMQ: {}", orchestrationServiceForMQ);
 
-        // TODO tracking
+        // tracking
         TrackingEntity tracking = orchestrationServiceForMQ.getTrackingEntity();
 
         //MQ model --> OrchestrationServiceForDB model
+        log.warn("getOrchestrationServiceById : {}", orchestrationServiceForMQ.getId());
         OrchestrationServiceForDB orchestrationServiceForDB = databaseManager.getOrchestrationServiceById(orchestrationServiceForMQ.getId());
         
         if (orchestrationServiceForDB==null) {
@@ -114,7 +115,7 @@ public class OrchestrationServiceConsumerHandler extends AGenericConsumerHandler
 //        List<VirtualObjectForDB> virtualObjectForDBList = databaseManager.getVirtualObjectListByOrchestrationId(orchestrationServiceForDB.getId());
         //OrchestrationServiceForDB model --> OrchestrationService model
         IGenericOrchestrationService orchestrationService = ModelMapper.toOrchestrationService(orchestrationServiceForDB);
-        //TODO: refactor copying StateStore
+        // TODO refactor copying StateStore
         StateStoreUtil.copyStateStore(orchestrationServiceForMQ.getStateStore(), orchestrationService);
 
         log.debug("OrchestrationService: {}", orchestrationService);

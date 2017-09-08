@@ -43,7 +43,7 @@ abstract public class AGenericProcessor extends AGenericIdentity implements IGen
      */
     @Override
     public void beforeProcess() {
-        //TODO: tracking entity
+        // tracking entity
         //..
         before();
     }
@@ -53,7 +53,7 @@ abstract public class AGenericProcessor extends AGenericIdentity implements IGen
      */
     @Override
     public void afterProcess() {
-        //TODO: tracking entity
+        // tracking entity
         //..
         after();
     }

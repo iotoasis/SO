@@ -44,7 +44,7 @@ public class BeforeTtrackingHandler implements BeforeHandler {
             tracking.setProcessId(request.getRequestURI());
             tracking.setProcessName("API요청");
 
-        // TODO tracking
+        // tracking
         DefaultProducerHandler trackingHandler = new DefaultProducerHandler(0, "tracking");
         trackingHandler.send(tracking);
         trackingHandler.close();

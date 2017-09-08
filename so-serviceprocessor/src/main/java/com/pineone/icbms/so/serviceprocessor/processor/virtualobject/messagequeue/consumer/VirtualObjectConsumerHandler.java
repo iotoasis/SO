@@ -99,7 +99,7 @@ public class VirtualObjectConsumerHandler extends AGenericConsumerHandler2<Strin
         VirtualObjectForMQ virtualObjectForMQ = ModelMapper.readJsonObject(record.value(), VirtualObjectForMQ.class);
         log.debug("VirtualObjectForMQ: {}", virtualObjectForMQ);
 
-        // TODO tracking
+        // tracking
         TrackingEntity tracking = virtualObjectForMQ.getTrackingEntity();
 
         //MQ model --> VirtualObject model

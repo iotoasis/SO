@@ -24,5 +24,15 @@ public class DeviceForDB extends CommonEntity {
     private AspectForDB aspect;
     @Getter @Setter
     private LocationForDB location;
+    
+    @Getter @Setter
+    private String functionId;
+    @Getter @Setter
+    private String aspectId;
+    @Getter @Setter
+    private String locationId;
+    
+    @Getter @Setter
+    private String deviceType;
 
 }

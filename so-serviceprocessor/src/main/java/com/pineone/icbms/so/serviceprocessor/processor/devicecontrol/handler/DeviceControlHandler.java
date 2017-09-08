@@ -3,6 +3,7 @@ package com.pineone.icbms.so.serviceprocessor.processor.devicecontrol.handler;
 import com.pineone.icbms.so.devicecontrol.model.virtualdevice.DeviceControlValue;
 import com.pineone.icbms.so.devicecontrol.model.virtualdevice.driver.IGenericDeviceDriver;
 import com.pineone.icbms.so.interfaces.database.model.DeviceControlForDB;
+import com.pineone.icbms.so.interfaces.database.model.SessionEntity;
 import com.pineone.icbms.so.interfaces.messagequeue.producer.tracking.TrackingProducer;
 import com.pineone.icbms.so.interfaces.si.handle.DeviceManager;
 import com.pineone.icbms.so.interfaces.si.ref.ClientProfile;
@@ -88,6 +89,7 @@ public class DeviceControlHandler extends AProcessHandler {
 //            }
 
         // TODO develop : 개발용 데이터베이스에서 조회처리
+        log.warn("getDeviceControlByDeviceIdAndContextModelID : {}, {}", virtualDevice.getId(), contextModelId);
         DeviceControlForDB deviceControlForDB = databaseManager.getDeviceControlByDeviceIdAndContextModelID(virtualDevice.getId(), contextModelId);
 
         log.debug("DeviceControlForDB: {}", deviceControlForDB);
@@ -96,18 +98,32 @@ public class DeviceControlHandler extends AProcessHandler {
         //tracking = getTracking();
 
         if (deviceControlForDB != null) {
-            // TODO simulator
+            // simulator
             if ("Y".equals(virtualDevice.getIsLast())) {
                 getTracking().setStatusCd("F");
             }
 
             if (getTracking().getSimulatorType() == null || "".equals(getTracking().getSimulatorType())) {
-                // TODO 실제 디바이스 실행
+    
+                // grib session location
+                SessionEntity session = new SessionEntity();
+                session.setId(getTracking().getSessionId());
+                session.setDeviceKey(deviceControlForDB.getId());
+                //session.setDeviceLocation("");
+                log.debug("session vo : {}", session);
+                databaseManager.createSessionDataDevice(session);
+    
+                session = new SessionEntity();
+                session.setId(getTracking().getSessionId());
+                session.setDeviceResult("CONTROL_EXECUTION");
+                databaseManager.updateSessionData(session);
+                
+                // 실제 디바이스 실행
                 //control device
                 controlDevice(virtualDevice, deviceControlForDB.getValue());
             }
             else {
-                // TODO 시뮬레이션
+                // 시뮬레이션
                 log.warn("Simulate controlDevice: {}, {}", virtualDevice.getName(), virtualDevice.getId());
                 getTracking().setProcessId(virtualDevice.getId());
                 getTracking().setProcessName(virtualDevice.getName() + ", 디바이스제어");

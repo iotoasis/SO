@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication(scanBasePackages = {
         "com.kastkode.springsandwich.filter" ,
-        "com.pineone.icbms.so.interfaces.database.dao",
+//        "com.pineone.icbms.so.interfaces.database.dao",
 //        "com.pineone.icbms.so.web" ,
 //        "com.pineone.icbms.so.interfaces" ,
 //        "com.pineone.icbms.so.serviceprocessor" ,
