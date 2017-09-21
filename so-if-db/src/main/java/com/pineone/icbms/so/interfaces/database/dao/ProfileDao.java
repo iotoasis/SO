@@ -16,7 +16,11 @@ import java.util.List;
 @Component
 public class ProfileDao extends AbstractDao {
     //
-    public ProfileForDB retrieveProfile(String profileId) {
+    public List<ProfileForDB> retrieveProfileByContextModel(String profileId) {
+        return super.sqlSession.selectList("retrieveProfileByContextModel", profileId);
+    }
+	
+	public ProfileForDB retrieveProfile(String profileId) {
         //return null;
         return super.sqlSession.selectOne("retrieveProfile", profileId);
     }
@@ -51,7 +55,7 @@ public class ProfileDao extends AbstractDao {
 
     // retrieve one
     public ProfileForDB retrieve(String id) {
-        return super.sqlSession.selectOne("retrieveProfileById", id);
+        return super.sqlSession.selectOne("retrieveProfile", id);
     }
 
     // retrieve list

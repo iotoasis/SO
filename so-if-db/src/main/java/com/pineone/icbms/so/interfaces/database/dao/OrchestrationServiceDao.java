@@ -18,6 +18,11 @@ import java.util.List;
 @Component
 public class OrchestrationServiceDao extends AbstractDao {
     //
+    
+    public List<OrchestrationServiceForDB> retrieveServiceByProfile(String id) {
+        return super.sqlSession.selectList("retrieveServiceByProfile", id);
+    }
+    
     public OrchestrationServiceForDB retrieveOrchestrationService(String id) {
         //
 //        OrchestrationServiceForDB orchestrationServiceForDB = orchestrationServiceRepository.findOne(id);

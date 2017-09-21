@@ -3,6 +3,23 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pineone.icbms.so.interfaces.database.dao.ProfileDao">
+  <select id="retrieveServiceByProfile" parameterType="String" resultType="ProfileForDB">
+    SELECT
+      orchestration_service_id as id, name
+    FROM
+      profile
+    WHERE
+      id = #{value}
+</select>
+  <select id="retrieveProfileByContextModel" parameterType="String" resultType="ProfileForDB">
+    SELECT
+      id, name
+    FROM
+      profile
+    WHERE
+      context_model_id = #{contextModelId}
+  </select>
+  
   <select id="getProfileByContextModelAndLocation" parameterType="HashMap" resultType="ProfileForDB">
     SELECT
       id
