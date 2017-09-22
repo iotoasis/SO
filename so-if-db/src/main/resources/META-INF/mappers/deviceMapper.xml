@@ -26,7 +26,9 @@
       WHERE
         function_id = #{functionId}
         AND aspect_id = #{aspectId}
+     <if test="locationId != null">
         AND location_id = #{locationId}
+     </if>
     </select>
 
     <select id="retrieveDeviceList___" parameterType="HashMap" resultType="DeviceForDB">

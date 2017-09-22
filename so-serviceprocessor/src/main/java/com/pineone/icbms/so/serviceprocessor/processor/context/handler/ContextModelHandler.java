@@ -90,8 +90,8 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
             if (locationList != null && locationList.size() > 0) {
                 // 상황이 발생한 지역에 대한 처리
                 for (IGenericLocation location : locationList) {
-
-                    getTracking().setProcessId("LO:" + location.getId());
+                    //getTracking().setProcessId("LO:" + location.getId());
+                    getTracking().setProcessId("LO:" + location.getUri());
                     getTracking().setProcessName(location.getName());
                     TrackingProducer.send(getTracking());
     

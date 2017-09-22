@@ -57,6 +57,11 @@ public class OrchestrationServiceDao extends AbstractDao {
         return osDB;//super.sqlSession.selectOne("retrieveOrchestrationServiceById", id);
     }
 
+    //os list by profile_id
+	public List<OrchestrationServiceForDB> retrieveByProfile(String profileId) {
+        return super.sqlSession.selectList("retrieveOrchestrationServiceByProfile", profileId);
+	}
+
     // retrieve list
     public List<OrchestrationServiceForDB> retrieve(OrchestrationServiceForDB model) {
         return super.sqlSession.selectList("retrieveOrchestrationServiceByModel", model);
@@ -119,4 +124,5 @@ public class OrchestrationServiceDao extends AbstractDao {
         super.sqlSession.delete("deleteOsVo", id);
         return super.sqlSession.delete("deleteOrchestrationService", id);
     }
+
 }

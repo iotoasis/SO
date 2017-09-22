@@ -99,6 +99,8 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
     public void restartJob(String profileId) throws SchedulerException {
         //
         ProfileForDB profileForDB = profileDAO.retrieveProfile(profileId);
+        
+        
         JobKey jobKey = JobKey.jobKey(profileForDB.getId(), groupName);
         scheduler.deleteJob(jobKey);
         JobDetail job = JobBuilder.newJob(SchedulerNotificationManager.class)
@@ -113,6 +115,7 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
                 ).build();
         scheduler.scheduleJob(job, trigger);
 
+        //Enable
         ProfileForDB schProfileForDB = new ProfileForDB();
         schProfileForDB.setId(profileId);
         schProfileForDB.setEnabled(1);

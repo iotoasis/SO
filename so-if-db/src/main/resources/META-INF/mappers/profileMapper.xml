@@ -10,16 +10,24 @@
       profile
     WHERE
       id = #{value}
-</select>
-  <select id="retrieveProfileByContextModel" parameterType="String" resultType="ProfileForDB">
-    SELECT
-      id, name
-    FROM
-      profile
-    WHERE
-      context_model_id = #{contextModelId}
   </select>
-  
+
+  <select id="retrieveProfileByContextModel" parameterType="String" resultType="ProfileForDB">
+    SELECT * FROM profile
+	<if test="_parameter != null">      
+    WHERE
+      context_model_id =  #{_parameter}
+    </if>
+  </select>
+
+  <select id="retrieveProfileByLocation" parameterType="String" resultType="ProfileForDB">
+    SELECT * FROM profile
+	<if test="_parameter != null">      
+    WHERE
+      location_uri =  #{_parameter}
+    </if>
+  </select>
+
   <select id="getProfileByContextModelAndLocation" parameterType="HashMap" resultType="ProfileForDB">
     SELECT
       id

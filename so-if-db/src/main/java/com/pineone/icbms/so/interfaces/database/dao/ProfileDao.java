@@ -16,8 +16,12 @@ import java.util.List;
 @Component
 public class ProfileDao extends AbstractDao {
     //
-    public List<ProfileForDB> retrieveProfileByContextModel(String profileId) {
-        return super.sqlSession.selectList("retrieveProfileByContextModel", profileId);
+    public List<ProfileForDB> retrieveProfileByContextModel(String contextModelId) {
+        return super.sqlSession.selectList("retrieveProfileByContextModel", contextModelId);
+    }
+
+    public List<ProfileForDB> retrieveProfileByLocation(String locationUri) {
+        return super.sqlSession.selectList("retrieveProfileByLocation", locationUri);
     }
 	
 	public ProfileForDB retrieveProfile(String profileId) {

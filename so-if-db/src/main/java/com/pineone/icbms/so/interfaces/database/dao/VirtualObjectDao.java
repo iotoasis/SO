@@ -67,7 +67,7 @@ public class VirtualObjectDao extends AbstractDao {
         return super.sqlSession.selectList("retrieveVirtualObjectListByCompositeVirtualObjectId", compositeVirtualObjectId);
     }
 
-    // retrieve one
+	// retrieve one
     public VirtualObjectForDB retrieve(String id) {
         return super.sqlSession.selectOne("retrieveVirtualObjectById", id);
     }
@@ -101,4 +101,5 @@ public class VirtualObjectDao extends AbstractDao {
     public int delete(String id) {
         return super.sqlSession.delete("deleteVirtualObject", id);
     }
+
 }

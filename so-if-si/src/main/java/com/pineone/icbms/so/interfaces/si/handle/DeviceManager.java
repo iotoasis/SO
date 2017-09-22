@@ -9,6 +9,7 @@ import com.pineone.icbms.so.interfaces.si.proxy.DeviceSIProxy;
 import com.pineone.icbms.so.interfaces.si.ref.SIAddressStore;
 import com.pineone.icbms.so.interfaces.si.ref.ClientProfile;
 import com.pineone.icbms.so.util.itf.address.AddressCollector;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -147,8 +148,8 @@ public class DeviceManager implements IDeviceManager{
         return deviceControlMessage;
     }
 
-/*
-    public static void main(String[] args) {
+
+    public static void testmain(String[] args) {
     	DeviceManager dm = new DeviceManager();
     	String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
     	String aspectId;
@@ -176,6 +177,12 @@ public class DeviceManager implements IDeviceManager{
     	System.out.println(aspectId);
     	dcMsg = dm.deviceDataConversion("deviceId",commandId , aspectId, controlValue);
     	System.out.println(" case"+Integer.toString(count++)+"==> "+dcMsg.toString());
-	}
-*/
+
+    	//
+    	String deviceUri = "/herit-in/herit-cse/ONDB_BeamProjector01_001";
+    	aspectId = "http://www.iotoasis.org/ontology/lecture-aspect";
+    	String deviceCommand="1";
+    	ResultMessage resultMessage = dm.deviceExecute(commandId, deviceUri, aspectId, deviceCommand);
+    	System.out.println(resultMessage);
+    }
 }

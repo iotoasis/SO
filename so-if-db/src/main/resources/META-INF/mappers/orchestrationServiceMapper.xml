@@ -21,6 +21,24 @@
         </where>
     </select>
 
+    <select id="retrieveOrchestrationServiceByProfile" parameterType="String" resultType="OrchestrationServiceForDB">
+        SELECT
+        s.id
+        , s.name
+        , s.description
+        , s.created_date
+        , s.parent_id
+        , s.modified_date
+        , s.user_id
+        , s.order_cd
+        FROM orchestration_service s, profile p
+        WHERE
+        	s.id = p.orchestration_service_id 
+            <if test="_parameter != null">
+                AND p.id = #{_parameter}
+            </if>
+    </select>
+
     <select id="retrieveOrchestrationServiceByModel" parameterType="OrchestrationServiceForDB" resultType="OrchestrationServiceForDB">
         SELECT
         id
