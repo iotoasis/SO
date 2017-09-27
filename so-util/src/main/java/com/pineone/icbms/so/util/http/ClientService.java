@@ -191,6 +191,7 @@ public class ClientService
 			conn.setRequestProperty("Content-Type", "application/json");
 		    OutputStream out_stream = conn.getOutputStream();
 		    out_stream.write( param.getBytes("UTF-8") );
+		    log.info("#### deviceControlRequest TO SI : ", out_stream.toString());
 		    out_stream.flush();
 		    out_stream.close();
 		 
