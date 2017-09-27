@@ -121,10 +121,18 @@ public class ContextModelController {
 
         // polling...
         try {
-            Thread.sleep(5000);
+        	
+        	for(int i=0;i<10;i++) {
+        		//status_cd = F 인경우를 찾는다.
+            	TrackingEntity teCheck = trackingDao.retrieveTrackingBySessionIdStatusFinish(sessionId);
+            	if(teCheck != null) break;
+        		Thread.sleep(1000);
+            }
         } catch (InterruptedException e) { }
 
         List<TrackingEntity> list = trackingDao.retrieveTrackingBySessionId(sessionId);
+
+        	
         return list;
     }
 
