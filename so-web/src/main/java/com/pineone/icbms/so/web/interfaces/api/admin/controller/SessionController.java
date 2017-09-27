@@ -53,7 +53,7 @@ public class SessionController {
         List<SessionTransFormObject> sessionTransFormObjects = new ArrayList<>();
         
         List<SessionEntity> sessionList = sessionDao.retrieveRecentlySessionList(number);
-
+        List<String> strTemp = new ArrayList<>();
         for (SessionEntity entity : sessionList) {
             SessionTransFormObject defaultSession = new SessionTransFormObject();
             defaultSession.setId(entity.getId());
@@ -78,14 +78,15 @@ public class SessionController {
             if(entity.getProfileName()!=null) sessionData.put("PROFILE_NAME", entity.getProfileName());
             if(entity.getContextmodelName()!=null) sessionData.put("CONTEXTMODEL_NAME", entity.getContextmodelName());
             if(entity.getContextmodelKey()!=null) sessionData.put("CONTEXTMODEL_KEY", entity.getContextmodelKey());
-            if(entity.getId()!=null) sessionData.put("LOCATION_ID", listToJacksonString(sessionDao.retrieveSessionDataLocation(entity.getId())));
+            strTemp = sessionDao.retrieveSessionDataLocation(entity.getId());
+            if(strTemp.size()>0) sessionData.put("LOCATION_ID", listToJacksonString(sessionDao.retrieveSessionDataLocation(entity.getId())));
             if(entity.getContextmodelResult()!=null) sessionData.put("CONTEXTMODEL_RESULT", entity.getContextmodelResult());
             if(entity.getProfileKey()!=null) sessionData.put("PROFILE_KEY", entity.getProfileKey());
             if(entity.getServicemodelKey()!=null)  sessionData.put("SERVICEMODEL_KEY", entity.getServicemodelKey());
             if(entity.getServicemodelName()!=null) sessionData.put("SERVICEMODEL_NAME", entity.getServicemodelName());
             if(entity.getServicemodelResult()!=null) sessionData.put("SERVICEMODEL_RESULT", entity.getServicemodelResult());
             if(entity.getServiceKey()!=null) sessionData.put("SERVICE_KEY", "["+entity.getServiceKey()+"]");//listToJacksonString());
-            if(entity.getId()!=null)  sessionData.put("VIRTUALOBJECT_KEY", listToJacksonString(sessionDao.retrieveSessionDataVo(entity.getId())));
+            strTemp = sessionDao.retrieveSessionDataVo(entity.getId());
             if(entity.getVirtualobjectResult()!=null) sessionData.put("VIRTUALOBJECT_RESULT", entity.getVirtualobjectResult());
             if(deviceKeys.size()!=0) sessionData.put("DEVICE_KEY", listToJacksonString(deviceKeys));
             if(deviceLocs.size()!=0) sessionData.put("DEVICE_LOCATION", listToJacksonString(deviceLocs));
