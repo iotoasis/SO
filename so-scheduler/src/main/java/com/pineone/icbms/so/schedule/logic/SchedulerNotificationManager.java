@@ -40,8 +40,10 @@ public class SchedulerNotificationManager implements Job {
         //clientService.requestPostService("http://localhost:8080/so/service/profile/schedule", sendData);
         //clientService.requestPostService("http://localhost:8080/so/service/profile/schedule", sendData);
         String profileControllerUrl = "http://localhost:" + Settings2.getServerPort() + Settings2.getContextPath() + "/service/profile/schedule";
-        clientService.requestPostService(profileControllerUrl, sendData);
+        //clientService.requestPostService(profileControllerUrl, sendData);
+        String result = clientService.requestPostServiceReceiveString2(profileControllerUrl, sendData);
         System.out.println("######## profileControllerUrl = " + profileControllerUrl);
+        System.out.println("result=" + result);
         //System.out.println("######## Scheduler Test : ProfileId = " + profileTransFormData.getId());
     }
 }

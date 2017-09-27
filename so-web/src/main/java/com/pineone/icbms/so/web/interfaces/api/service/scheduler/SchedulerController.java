@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.web.interfaces.api.service.scheduler;
 
 import com.pineone.icbms.so.interfaces.database.model.ProfileForDB;
+import com.pineone.icbms.so.interfaces.database.ref.ResponseMessage;
 import com.pineone.icbms.so.schedule.logic.ISchedulerManager;
 import com.pineone.icbms.so.util.conversion.ProfileTransFormData;
 import org.quartz.SchedulerException;
@@ -26,55 +27,56 @@ public class SchedulerController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public void registerSchedulerController(@RequestBody ProfileTransFormData profileTransFormData) throws SchedulerException {
+    public ResponseMessage registerSchedulerController(@RequestBody ProfileTransFormData profileTransFormData) throws SchedulerException {
         //
-        schedulerManager.registerJob(profileTransFormData.getId(), profileTransFormData.getPeriod());
+        return schedulerManager.registerJob(profileTransFormData.getId(), profileTransFormData.getPeriod());
     }
 
     // Scheduler 종료
     @RequestMapping(value = "/quit",method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public void quitSchedulerController() throws SchedulerException {
+    public ResponseMessage quitSchedulerController() throws SchedulerException {
         //
-        schedulerManager.quitScheduler();
+        return schedulerManager.quitScheduler();
     }
 
-    // 일시 정지된 JobList 재시작
+    // 일시 정지된 JobList 재시작 ( ProfileDB의 Enabled =1 인 profile을 읽어서 scheduler 동작시킴)
     @RequestMapping(value = "/restart", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public void restartSchedulerController() throws SchedulerException {
+    public ResponseMessage restartSchedulerController() throws SchedulerException {
         //
-        schedulerManager.restartJobList();
+        return schedulerManager.restartJobList();
     }
 
-    // Scheduler 일시 정지
+    // Scheduler 일시 정지  ( ProfileDB의 Enabled = 1 인 모든 profile을 읽어서 scheduler 중지시킴)
     @RequestMapping(value = "/pause", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public void pauseSchedulerController() throws SchedulerException {
-        schedulerManager.pauseJobList();
+    public ResponseMessage pauseSchedulerController() throws SchedulerException {
+        return schedulerManager.pauseJobList();
     }
+
     // Job 개별 정지
     @RequestMapping(value = "/pause", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public void pauseProfileSchedule(@RequestBody ProfileTransFormData profileTransFormData) throws SchedulerException {
+    public ResponseMessage pauseProfileSchedule(@RequestBody ProfileTransFormData profileTransFormData) throws SchedulerException {
         //
-        schedulerManager.pauseJob(profileTransFormData.getId());
+        return schedulerManager.pauseJob(profileTransFormData.getId());
     }
 
     // Job 개별 재시작
     @RequestMapping(value = "/restart", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public void restartProfileSchedule(@RequestBody ProfileTransFormData profileTransFormData) throws SchedulerException {
+    public ResponseMessage restartProfileSchedule(@RequestBody ProfileTransFormData profileTransFormData) throws SchedulerException {
         //
-        schedulerManager.restartJob(profileTransFormData.getId());
+        return schedulerManager.restartJob(profileTransFormData.getId());
     }
 
-    // 작동중인 Schedule 목록 조회
+    // 작동중인 Schedule 목록 조회 (DB상의 Enabled = 1인값 조회)
     @RequestMapping(value = "/execute", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
@@ -84,7 +86,7 @@ public class SchedulerController {
         return scheduledProfileList;
     }
 
-    // 대기중인 Schedule 목록 조회
+    // 대기중인 Schedule 목록 조회 (DB상의 Enabled = 0인값 조회)
     @RequestMapping(value = "/ready", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
@@ -98,18 +100,18 @@ public class SchedulerController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public void updateSchedulerPeriod(@RequestBody ProfileTransFormData profileTransFormData) throws SchedulerException {
+    public ResponseMessage updateSchedulerPeriod(@RequestBody ProfileTransFormData profileTransFormData) throws SchedulerException {
         //
-        schedulerManager.updateJob(profileTransFormData.getId(), profileTransFormData.getPeriod());
+        return schedulerManager.updateJob(profileTransFormData.getId(), profileTransFormData.getPeriod());
     }
 
-    // Scheduler 전체 정지 (일시 정지 아님)
+    // Scheduler 전체 정지 (profile DB 전체 Enabled = 0, scheduler는 그대로 동작)
     @RequestMapping(value = "/stop", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public void stopSchedulerPeriod() throws SchedulerException {
+    public ResponseMessage stopSchedulerPeriod() throws SchedulerException {
         //
-        schedulerManager.stopJobListAndChangeStatus();
+        return schedulerManager.stopJobListAndChangeStatus();
     }
 
 }

@@ -177,6 +177,8 @@ public class ClientService
 		return result;
 	}
 
+	//=======================================================================================================
+	
 	public String requestPostServiceReceiveString2(String uri, String param)
 	{
 		String responseString = null;
@@ -212,4 +214,40 @@ public class ClientService
 		}
 		return responseString;	
 	}
+
+
+	public String requestGetServiceReceiveString2(String uri) {
+		String responseString = null;
+		try {
+			URL url = new URL(uri);
+			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+			
+			conn.setRequestMethod("GET"); 	// 전달 방식을 설정한다. POST or GET, 기본값은 GET 이다.
+			conn.setDoInput(true);  		// 서버로부터 메세지를 받을 수 있도록 한다. 기본값은 true이다.
+			conn.setDoOutput(true);			// 서버로 데이터를 전송할 수 있도록 한다. GET방식이면 사용될 일이 없으나, true로 설정하면 자동으로 POST로 설정된다. 기본값은 false이다.
+			//conn.setRequestProperty("Accept-Charset", "UTF-8");
+			conn.setRequestProperty("Content-Type", "application/json");
+		 
+		    InputStream is     = conn.getInputStream();
+		    int statusCode = conn.getResponseCode();
+		    if (statusCode != 200) {
+		    	return null;
+		    }
+		    
+		    BufferedReader in  = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8 * 1024);
+		    String line = null;
+		    StringBuffer buff   = new StringBuffer();
+		 
+		    while ( ( line = in.readLine() ) != null )
+		    {
+		        buff.append(line + "\n");
+		    }
+		    responseString = buff.toString().trim();
+			
+			System.out.println(responseString);
+		} catch (IOException e) {
+		}
+		return responseString;	
+	}
+
 }

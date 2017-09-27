@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.schedule.logic;
 
 import com.pineone.icbms.so.interfaces.database.model.ProfileForDB;
+import com.pineone.icbms.so.interfaces.database.ref.ResponseMessage;
 import com.pineone.icbms.so.interfaces.database.dao.ProfileDao;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
@@ -30,10 +31,16 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
 
     // 스케줄러에 새로운 Job 등록
     @Override
-    public void registerJob(String profileId, int period) throws SchedulerException {
-        //
+    public ResponseMessage registerJob(String profileId, int period) throws SchedulerException {
+    	
+    	ResponseMessage res = new ResponseMessage();
+    	
         ProfileForDB profileForDB = profileDAO.retrieveProfile(profileId);
-
+        if (profileForDB==null || profileForDB.getId().isEmpty()) {
+        	res.setMessage("invalid profileId");
+        	return res;
+        }
+        
         JobDetail job = JobBuilder.newJob(SchedulerNotificationManager.class)
                 .withIdentity(profileForDB.getId(), groupName)
                 .build();
@@ -48,42 +55,57 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
 
         scheduler.scheduleJob(job, trigger);
         profileForDB.setEnabled(1);     // true
+    	res.setMessage("ok");
+    	return res;
     }
 
     //스케쥴러 종료
     @Override
-    public void quitScheduler() throws SchedulerException {
+    public ResponseMessage quitScheduler() throws SchedulerException {
+    	ResponseMessage res = new ResponseMessage();
         scheduler.shutdown();
-
+    	res.setMessage("ok");
+    	return res;
     }
 
-    //구동중이었던 Job List 정지
+    //구동중이었던 Job List 정지 ( ProfileDB의 Enabled = 1 인 profile을 읽어서 scheduler 중지시킴)
     @Override
-    public void pauseJobList() throws SchedulerException {
-        //
+    public ResponseMessage pauseJobList() throws SchedulerException {
+    	ResponseMessage res = new ResponseMessage();
         List<ProfileForDB> scheduledProfileList = profileDAO.retrieveProfileListByEnable(true);
         for(ProfileForDB profileForDB : scheduledProfileList){
             JobKey jobKey = JobKey.jobKey(profileForDB.getId(), groupName);
             scheduler.pauseJob(jobKey);
         }
+        res.setMessage("Profile size= " + scheduledProfileList.size());
+        return res;
     }
 
-    //정지중이었던 Job List 재시작
+    //정지중이었던 Job List 재시작 ( ProfileDB의 Enabled =1 인 profile을 읽어서 scheduler 동작시킴) 
     @Override
-    public void restartJobList() throws SchedulerException {
-        //
+    public ResponseMessage restartJobList() throws SchedulerException {
+    	ResponseMessage res = new ResponseMessage();
         List<ProfileForDB> scheduledProfileList = profileDAO.retrieveProfileListByEnable(true);
         for(ProfileForDB profileForDB : scheduledProfileList){
             JobKey jobKey = JobKey.jobKey(profileForDB.getId(), groupName);
             scheduler.resumeJob(jobKey);
         }
+        
+        res.setMessage("Profile size = " + scheduledProfileList.size());
+        return res;
     }
 
-    //개별 Job 정지
+    //개별 Job 정지 (profileId에 해당되는 Scheduler 중지시키고 db의 Eabled = 0 로 바꿈)
     @Override
-    public void pauseJob(String profileId) throws SchedulerException {
-        //
-        ProfileForDB profileForDB = profileDAO.retrieveProfile(profileId);
+    public ResponseMessage pauseJob(String profileId) throws SchedulerException {
+    	ResponseMessage res = new ResponseMessage();
+
+    	ProfileForDB profileForDB = profileDAO.retrieveProfile(profileId);
+        if (profileForDB==null || profileForDB.getId().isEmpty()) {
+        	res.setMessage("invalid profileId");
+        	return res;
+        }
+
         JobKey jobKey = JobKey.jobKey(profileForDB.getId(), groupName);
         scheduler.pauseJob(jobKey);
 
@@ -92,14 +114,21 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
         schProfileForDB.setEnabled(0);
         profileDAO.updateProfileEnabled(schProfileForDB);
         //profileDAO.updateProfileEnabled(profileId, false);
+
+    	res.setMessage("ok");
+        return res;
     }
 
-    //개별 Job 재시작
+    //개별 Job 재시작 (profileId에 해당되는 Scheduler 동작 시키고 db의 Eabled =1 로 바꿈)
     @Override
-    public void restartJob(String profileId) throws SchedulerException {
-        //
-        ProfileForDB profileForDB = profileDAO.retrieveProfile(profileId);
-        
+    public ResponseMessage restartJob(String profileId) throws SchedulerException {
+    	ResponseMessage res = new ResponseMessage();
+
+    	ProfileForDB profileForDB = profileDAO.retrieveProfile(profileId);
+        if (profileForDB==null || profileForDB.getId().isEmpty()) {
+        	res.setMessage("invalid profileId");
+        	return res;
+        }
         
         JobKey jobKey = JobKey.jobKey(profileForDB.getId(), groupName);
         scheduler.deleteJob(jobKey);
@@ -121,9 +150,12 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
         schProfileForDB.setEnabled(1);
         profileDAO.updateProfileEnabled(schProfileForDB);
         //profileDAO.updateProfileEnabled(profileId, true);
+
+        res.setMessage("ok");
+        return res;
     }
 
-    // 현재 작동중인 스케쥴 목록 조회
+    // 현재 작동중인 스케쥴 목록 조회 (Enabled = 1)
     @Override
     public List<ProfileForDB> retrieveExecuteJobList() {
         //
@@ -131,7 +163,7 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
         return scheduledProfileList;
     }
 
-    // 현재 정지중인 스케쥴 목록 조회
+    // 현재 정지중인 스케쥴 목록 조회 (Enabled = 0)
     @Override
     public List<ProfileForDB> retrieveReadyJobList() {
         //
@@ -141,10 +173,16 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
 
     // 스케쥴러 period Update
     @Override
-    public void updateJob(String profileId, int period) throws SchedulerException {
-        //
-        ProfileForDB profileForDB = profileDAO.retrieveProfile(profileId);
-        profileForDB.setPeriod(period);
+    public ResponseMessage updateJob(String profileId, int period) throws SchedulerException {
+    	ResponseMessage res = new ResponseMessage();
+
+    	ProfileForDB profileForDB = profileDAO.retrieveProfile(profileId);
+        if (profileForDB==null || profileForDB.getId().isEmpty()) {
+        	res.setMessage("invalid profileId");
+        	return res;
+        }
+    	
+    	profileForDB.setPeriod(period);
 
         JobDetail job = JobBuilder.newJob(SchedulerNotificationManager.class)
                 .withIdentity(profileForDB.getId(),groupName)
@@ -163,15 +201,22 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
         schProfileForDB.setId(profileId);
         schProfileForDB.setPeriod(period);
         profileDAO.updateProfilePeriod(schProfileForDB);
+        
+        res.setMessage("ok");
+        return res;
     }
 
     // 전체 스케줄 정지 (일시 정지 아닌 enabled 값 변환)
     @Override
-    public void stopJobListAndChangeStatus() {
-        //
-        ProfileForDB schProfileForDB = new ProfileForDB();
+    public ResponseMessage stopJobListAndChangeStatus() {
+    	ResponseMessage res = new ResponseMessage();
+
+    	ProfileForDB schProfileForDB = new ProfileForDB();
         schProfileForDB.setEnabled(0);
         profileDAO.updateProfileEnabledAll(schProfileForDB);
+
+        res.setMessage("ok");
+        return res;
     }
 
     // SO 실행시 자동으로 스케줄러 작동 시키는 쓰레드

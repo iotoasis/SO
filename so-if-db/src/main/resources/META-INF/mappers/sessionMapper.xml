@@ -114,6 +114,6 @@
             , VIRTUALOBJECT_RESULT
             , DEVICE_RESULT
         FROM session_data
-        ORDER BY create_date limit ${value}
+        ORDER BY create_date desc limit ${value}
     </select>
 </mapper>

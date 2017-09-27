@@ -17,6 +17,7 @@
 	<if test="_parameter != null">      
     WHERE
       context_model_id =  #{_parameter}
+    ORDER BY order_idx, order_cd
     </if>
   </select>
 
@@ -25,6 +26,7 @@
 	<if test="_parameter != null">      
     WHERE
       location_uri =  #{_parameter}
+    ORDER BY order_idx, order_cd
     </if>
   </select>
 
@@ -61,10 +63,12 @@
       , orchestration_service_id
       , period
       , order_cd
+      , order_idx
     FROM
       profile
     WHERE
       enabled = #{value}
+    ORDER BY order_idx, order_cd
   </select>
 
   <select id="retrieveProfile" parameterType="String" resultType="ProfileForDB">
@@ -96,6 +100,7 @@
         AND period = #{period}
       </if>
     </trim>
+    ORDER BY order_idx, order_cd
   </select>
 
   <insert id="createProfile" parameterType="ProfileForDB">

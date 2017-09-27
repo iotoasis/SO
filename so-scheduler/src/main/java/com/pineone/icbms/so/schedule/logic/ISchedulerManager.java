@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.schedule.logic;
 
 import com.pineone.icbms.so.interfaces.database.model.ProfileForDB;
+import com.pineone.icbms.so.interfaces.database.ref.ResponseMessage;
 import org.quartz.SchedulerException;
 
 import java.util.List;
@@ -10,14 +11,14 @@ import java.util.List;
  */
 public interface ISchedulerManager {
     //
-    void registerJob(String profileId, int period) throws SchedulerException;
-    void quitScheduler() throws SchedulerException;
-    void pauseJobList() throws SchedulerException;
-    void restartJobList() throws SchedulerException;
-    void pauseJob(String profileId) throws SchedulerException;
-    void restartJob(String profileId) throws SchedulerException;
+	ResponseMessage registerJob(String profileId, int period) throws SchedulerException;
+	ResponseMessage quitScheduler() throws SchedulerException;
+	ResponseMessage pauseJobList() throws SchedulerException;
+	ResponseMessage restartJobList() throws SchedulerException;
+	ResponseMessage pauseJob(String profileId) throws SchedulerException;
+	ResponseMessage restartJob(String profileId) throws SchedulerException;
     List<ProfileForDB> retrieveExecuteJobList();
     List<ProfileForDB> retrieveReadyJobList();
-    void updateJob(String profileId, int period) throws SchedulerException;
-    void stopJobListAndChangeStatus();
+    ResponseMessage updateJob(String profileId, int period) throws SchedulerException;
+    ResponseMessage stopJobListAndChangeStatus();
 }

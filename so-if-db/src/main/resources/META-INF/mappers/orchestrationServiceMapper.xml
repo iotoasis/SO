@@ -31,12 +31,14 @@
         , s.modified_date
         , s.user_id
         , s.order_cd
+        , s.order_idx
         FROM orchestration_service s, profile p
         WHERE
         	s.id = p.orchestration_service_id 
             <if test="_parameter != null">
                 AND p.id = #{_parameter}
             </if>
+        ORDER BY order_idx
     </select>
 
     <select id="retrieveOrchestrationServiceByModel" parameterType="OrchestrationServiceForDB" resultType="OrchestrationServiceForDB">
@@ -49,6 +51,7 @@
         , modified_date
         , user_id
         , order_cd
+        , order_idx
         FROM orchestration_service
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             <if test="id != null">
@@ -70,6 +73,7 @@
                 AND order_cd = #{orderCd}
             </if>
         </trim>
+        ORDER BY order_idx
     </select>
 
     <select id="retrieveCvoInOrchestrationService" parameterType="String" resultType="CompositeVirtualObjectForDB">

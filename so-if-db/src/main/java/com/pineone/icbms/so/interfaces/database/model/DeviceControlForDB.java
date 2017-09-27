@@ -28,4 +28,6 @@ public class DeviceControlForDB extends CommonEntity {
     @Getter @Setter
     private String contextModelId;
 
+    @Getter @Setter
+    private String aspectIdNew;
 }

@@ -25,6 +25,7 @@
         , name
         , uri
         , order_cd
+        , order_idx
         FROM location
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             <if test="id != null">
@@ -43,6 +44,7 @@
                 AND order_cd = #{orderCd}
             </if>
         </trim>
+        ORDER BY order_idx, order_cd
     </select>
 
     <insert id="createLocation"  parameterType="LocationForDB">

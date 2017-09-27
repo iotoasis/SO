@@ -47,8 +47,9 @@ public class SdaManager implements ISdaManager {
         List<ContextModelContent> contentList = new ArrayList<>();
 
         try {
-            IHttpResponseMessage message = clientService.requestGetService(
-                    addressCollector.getServerAddress(AddressCollector.SDA_SERVER) + contextModelId + SdaAddressStore.SEPARATOR_WITH_COMMA);
+            //IHttpResponseMessage message = clientService.requestGetService(
+            String message = clientService.requestGetServiceReceiveString2( 
+            		addressCollector.getServerAddress(AddressCollector.SDA_SERVER) + contextModelId + SdaAddressStore.SEPARATOR_WITH_COMMA);
             contentList = getContextModelContents(message);
         } catch (IOException e) {
             e.printStackTrace();
@@ -391,6 +392,19 @@ public class SdaManager implements ISdaManager {
             String readData = clientService.responseDataToString(message);
             log.debug("Message : " + readData);
             ContextModelForIf2 retrieveContextData = objectMapper.readValue(readData, ContextModelForIf2.class);
+            return retrieveContextData.getContextModelContentList();
+        } else {
+            throw new DataNotExistException();
+        }
+    }
+
+    // get Data
+    private List<ContextModelContent> getContextModelContents(String message) throws IOException, DataNotExistException {
+        if (message != null) {
+//            System.out.println(message.getBodyByteArray().toString());
+//            System.out.println("ResponseMessage : " + message);
+            log.debug("Message : " + message);
+            ContextModelForIf2 retrieveContextData = objectMapper.readValue(message, ContextModelForIf2.class);
             return retrieveContextData.getContextModelContentList();
         } else {
             throw new DataNotExistException();

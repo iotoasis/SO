@@ -10,6 +10,7 @@ import com.pineone.icbms.so.interfaces.si.ref.ClientProfile;
 import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
 import com.pineone.icbms.so.serviceprocessor.processor.AProcessHandler;
 import com.pineone.icbms.so.virtualobject.virtualdevice.IGenericVirtualDevice;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.pineone.icbms.so.interfaces.si.model.ResultMessage;
@@ -98,6 +99,9 @@ public class DeviceControlHandler extends AProcessHandler {
         //tracking = getTracking();
 
         if (deviceControlForDB != null) {
+        	
+        	String newAspectId = deviceControlForDB.getAspectIdNew();
+        	
             // simulator
             if ("Y".equals(virtualDevice.getIsLast())) {
                 getTracking().setStatusCd("F");
@@ -120,7 +124,7 @@ public class DeviceControlHandler extends AProcessHandler {
                 
                 // 실제 디바이스 실행
                 //control device
-                controlDevice(virtualDevice, deviceControlForDB.getValue());
+                controlDevice(virtualDevice, newAspectId, deviceControlForDB.getValue());
             }
             else {
                 // 시뮬레이션
@@ -165,15 +169,16 @@ public class DeviceControlHandler extends AProcessHandler {
      * @param virtualDevice      control device
      * @param deviceControlValue device control value
      */
-    private void controlDevice(IGenericVirtualDevice virtualDevice, String deviceControlValue) {
+    private void controlDevice(IGenericVirtualDevice virtualDevice, String aspect, String deviceControlValue) {
 
         getTracking().setProcessMethod(new Object(){}.getClass().getEnclosingMethod().getName());
 
         try {
             String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
 
+            //String aspect = virtualDevice.getAspect().getUri();
             //ResultMessage resultMessage = deviceManager.deviceExecute(commandId, virtualDevice.getId(), deviceControlValue);
-            ResultMessage resultMessage = deviceManager.deviceExecute(commandId, virtualDevice.getId(), virtualDevice.getAspect().getUri(), deviceControlValue);
+            ResultMessage resultMessage = deviceManager.deviceExecute(commandId, virtualDevice.getId(), aspect, deviceControlValue);
 
             getTracking().setProcessId(virtualDevice.getId());//resultMessage.getCode());
             getTracking().setProcessValue(deviceControlValue);
