@@ -64,6 +64,13 @@
         </where>
     </select>
 
+    <select id="retrieveTrackingBySessionId_Status_Finish" parameterType="String" resultType="TrackingEntity">
+        SELECT * FROM tracking
+        WHERE
+            session_id = #{value}
+            AND status_cd = "F"
+    </select>
+
     <select id="retrieveTrackingByUserId" parameterType="String" resultType="TrackingEntity">
         SELECT * FROM tracking
         <where>
