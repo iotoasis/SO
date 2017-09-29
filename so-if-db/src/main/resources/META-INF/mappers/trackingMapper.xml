@@ -64,8 +64,8 @@
         </where>
     </select>
 
-    <select id="retrieveTrackingBySessionId_Status_Finish" parameterType="String" resultType="TrackingEntity">
-        SELECT * FROM tracking
+    <select id="retrieveTrackingBySessionId_Status_Finish" parameterType="String" resultType="Integer">
+        SELECT count(status_cd) FROM tracking
         WHERE
             session_id = #{value}
             AND status_cd = "F"

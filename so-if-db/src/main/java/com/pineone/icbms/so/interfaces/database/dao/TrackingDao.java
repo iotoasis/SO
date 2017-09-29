@@ -20,7 +20,7 @@ public class TrackingDao extends AbstractDao {
         return super.sqlSession.selectList("retrieveTrackingBySessionId", sessionId);
     }
 
-    public TrackingEntity retrieveTrackingBySessionIdStatusFinish(String sessionId) {
+    public Integer retrieveTrackingBySessionIdStatusFinish(String sessionId) {
         return super.sqlSession.selectOne("retrieveTrackingBySessionId_Status_Finish", sessionId);
     }
     public List<TrackingEntity> retrieveTrackingByUserId(String userId) {

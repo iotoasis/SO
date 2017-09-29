@@ -124,8 +124,8 @@ public class ContextModelController {
         	
         	for(int i=0;i<10;i++) {
         		//status_cd = F 인경우를 찾는다.
-            	TrackingEntity teCheck = trackingDao.retrieveTrackingBySessionIdStatusFinish(sessionId);
-            	if(teCheck != null) break;
+            	Integer teCheck = trackingDao.retrieveTrackingBySessionIdStatusFinish(sessionId);
+            	if(teCheck != null && teCheck > 0 ) break;
         		Thread.sleep(1000);
             }
         } catch (InterruptedException e) { }
