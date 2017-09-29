@@ -3,12 +3,14 @@ package com.pineone.icbms.so.web.interfaces.api.service.profile;
 import com.kastkode.springsandwich.filter.annotation.Before;
 import com.kastkode.springsandwich.filter.annotation.BeforeElement;
 import com.pineone.icbms.so.interfaces.database.model.ProfileForDB;
+import com.pineone.icbms.so.interfaces.database.model.SessionEntity;
 import com.pineone.icbms.so.interfaces.database.model.TrackingEntity;
 import com.pineone.icbms.so.interfaces.sda.handle.SdaManager;
 import com.pineone.icbms.so.serviceprocessor.processor.context.handler.ContextModelHandler;
 import com.pineone.icbms.so.serviceprocessor.repository.database.DatabaseManager;
 import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;
 import com.pineone.icbms.so.util.conversion.ProfileTransFormData;
+import com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextModel;
 import com.pineone.icbms.so.virtualobject.profile.IGenericProfile;
 import com.pineone.icbms.so.web.tracking.BeforeTtrackingHandler;
 import org.slf4j.Logger;
@@ -49,21 +51,75 @@ public class ProfileController {
         log.debug("input:profile: {}", profileTransFormData);
         ProfileForDB profileForDb = databaseManager.getProfileById(profileTransFormData.getId());
         IGenericProfile profile = ModelMapper.toProfile(profileForDb);
+        
+        SessionEntity sessionEntity = new SessionEntity();
+        
+        if (profile==null) {
+            log.warn("Profile is null");
+        	return null;
+        }
+        
+        IGenericContextModel contextModel = profile.getContextModel();
+        
+        if (contextModel == null) {
+            log.warn( "contextModel is null");
+        	return null;
+        }
+
+        TrackingEntity trackingEntity = (TrackingEntity) request.getSession().getAttribute("tracking");
+        String sessionId = trackingEntity.getSessionId();
+        
+        // grib session
+        sessionEntity.setId(sessionId);
+        sessionEntity.setContextmodelKey(contextModel.getId());
+        sessionEntity.setContextmodelName(contextModel.getName());
+        sessionEntity.setContextmodelResult("Happen");
+        sessionEntity.setPriorityKey("LOW");
+        log.debug("session : {}", sessionEntity);
+
+        // grib session profile
+        //SessionEntity sessionProfile = new SessionEntity();
+        //sessionEntity.setId(sessionId);
+        sessionEntity.setProfileKey(profile.getId());
+        sessionEntity.setProfileName(profile.getName());
+        log.debug("session profile : {}", sessionEntity);
+        //databaseManager.updateSessionData(sessionEntity);
+
+        databaseManager.createSessionData(sessionEntity);
+
+        ContextModelHandler contextModelHandler = new ContextModelHandler(databaseManager);
+        contextModelHandler.setTracking(trackingEntity);
+        contextModelHandler.profileHandle(profile);
+            
         List<String> locationList = new SdaManager().retrieveEventLocationList(profile.getContextModel().getId());
         if (locationList != null && locationList.size() > 0) {
-            TrackingEntity trackingEntity = (TrackingEntity) request.getSession().getAttribute("tracking");
 
             for (String location : locationList) {
                 if (location.equals(profile.getLocation().getUri())) {
                     //TODO: scheduler 또는 에 의한 Profile 내 OS 구동임을 남겨야 함
 
-                    ContextModelHandler contextModelHandler = new ContextModelHandler(databaseManager);
-                    contextModelHandler.setTracking(trackingEntity);
-                    contextModelHandler.profileHandle(profile);
+                    // grib session location
+                    SessionEntity sessionLocation = new SessionEntity();
+                    sessionLocation.setId(sessionId);
+                    sessionLocation.setLocationId(location);
+                    log.debug("session location : {}", sessionLocation);
+                    databaseManager.createSessionDataLocation(sessionLocation);
+    
+                    sessionLocation = new SessionEntity();
+                    sessionLocation.setDeviceLocation(location);
+                    databaseManager.updateSessionData(sessionLocation);
                 }
             }
         } else {
             log.warn("The profile does NOT have a location.");
+
+            // grib session location
+            SessionEntity sessionLocation = new SessionEntity();
+            sessionLocation.setId(sessionId);
+            sessionLocation.setLocationId("");
+            log.debug("session location : {}", sessionLocation);
+            databaseManager.createSessionDataLocation(sessionLocation);
+            
         }
         return profile;
     }

@@ -192,10 +192,13 @@ public class ContextModelController {
         ContextModelForIf2 contextModelForIf2 = new ContextModelForIf2();
 	    contextModelForIf2.setId(contextModel.getId());
 	    contextModelForIf2.setTime(contextModel.getOccTime());
-	    // TODO contextModel(2차년 모델) -> contextModelForIf2(3차년 모델) 변환
-	    // TODO 나머지 프라퍼티 변환해서 셋팅...
-	    // cmid는 한개고요, domains는 ArrayList<Map<String, String»값을 보냅니다.(sda 박부장 답변)
-			    
+
+	    // contextModel(2차년 모델) -> contextModelForIf2(3차년 모델) 변환
+
+	    // LOCATION 빠져 있음
+	    // TODO gibubi ==  연동규격서-ICBMS-SO-2.1.1.docx 2.2.1 상황 발생 수신 interface (긴급 호출 서비스) 참조하여 추가해야 함
+	    // CM문의의 결과와 동일한 형태로 값이 들어옴
+	    
         ContextModelForMQ contextModelForMQ = processContextModel(contextModelForIf2, request);
         
         String resultMessage = useQueueSaveContextModel(contextModel);
