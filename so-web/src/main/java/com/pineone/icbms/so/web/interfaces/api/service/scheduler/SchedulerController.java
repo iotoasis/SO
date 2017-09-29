@@ -77,6 +77,16 @@ public class SchedulerController {
     }
 
     // 작동중인 Schedule 목록 조회 (DB상의 Enabled = 1인값 조회)
+    @RequestMapping(value = "/executed", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public List<ProfileForDB> executedScheduleList() throws SchedulerException {
+        //
+        List<ProfileForDB> scheduledProfileList = schedulerManager.executedJobList();
+        return scheduledProfileList;
+    }
+    
+    // 작동중인 Schedule 목록 조회 (DB상의 Enabled = 1인값 조회)
     @RequestMapping(value = "/execute", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody

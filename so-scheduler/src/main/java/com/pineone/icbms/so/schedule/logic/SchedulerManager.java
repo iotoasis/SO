@@ -4,11 +4,15 @@ import com.pineone.icbms.so.interfaces.database.model.ProfileForDB;
 import com.pineone.icbms.so.interfaces.database.ref.ResponseMessage;
 import com.pineone.icbms.so.interfaces.database.dao.ProfileDao;
 import org.quartz.*;
+import org.quartz.Trigger.TriggerState;
 import org.quartz.impl.StdSchedulerFactory;
+import org.quartz.impl.matchers.GroupMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 
@@ -153,6 +157,50 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
 
         res.setMessage("ok");
         return res;
+    }
+
+    // 현재 작동중인 스케쥴 목록 조회 
+    @Override
+    public List<ProfileForDB> executedJobList() {
+
+    	Scheduler scheduler;
+    	List<ProfileForDB> profileList = new ArrayList<ProfileForDB>();
+    	
+    	try {
+			scheduler = new StdSchedulerFactory().getScheduler();
+
+			for (String groupName : scheduler.getJobGroupNames()) {
+				for (JobKey jobKey : scheduler.getJobKeys(GroupMatcher.jobGroupEquals(groupName))) {
+					String jobName = jobKey.getName();
+					String jobGroup = jobKey.getGroup();
+
+					//get job's trigger
+					List<Trigger> triggers = (List<Trigger>) scheduler.getTriggersOfJob(jobKey);
+					Trigger trigger = triggers.get(0); 
+					Date nextFireTime = trigger.getNextFireTime();
+					
+					//[jobName] : PR-8ea4d232-6e0d-42cc-a7b1-7f1a1c03951c [groupName] : SoSchedulerGroup - Fri Sep 29 14:29:31 KST 2017
+
+					TriggerState triggerState = scheduler.getTriggerState(trigger.getKey());
+					if (triggerState.equals(TriggerState.NORMAL)) {
+						ProfileForDB profileForDB = profileDAO.retrieveProfile(jobName);
+						if (profileForDB != null) {
+							profileList.add(profileForDB);
+						}
+					} 
+					System.out.println(" === [jobName] : " + jobName 
+							           + " [groupName] : "  + jobGroup 
+							           + " - " + nextFireTime
+							           + " = triggerState : " + triggerState.toString());
+				}
+
+			}
+		} catch (SchedulerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	   
+        return profileList;
     }
 
     // 현재 작동중인 스케쥴 목록 조회 (Enabled = 1)
