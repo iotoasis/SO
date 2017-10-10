@@ -193,7 +193,7 @@ public class ClientService
 			conn.setRequestProperty("Content-Type", "application/json");
 		    OutputStream out_stream = conn.getOutputStream();
 		    out_stream.write( param.getBytes("UTF-8") );
-		    log.info("#### deviceControlRequest TO SI : ", out_stream.toString());
+		    log.info("#### requestPostServiceReceiveString2:[{}]:[{}] ", uri, out_stream.toString());
 		    out_stream.flush();
 		    out_stream.close();
 		 
@@ -209,7 +209,7 @@ public class ClientService
 		    }
 		    responseString = buff.toString().trim();
 			
-			System.out.println(responseString);
+		    log.info("#### response=[{}]", responseString);
 		} catch (IOException e) {
 		}
 		return responseString;	
@@ -219,7 +219,9 @@ public class ClientService
 	public String requestGetServiceReceiveString2(String uri) {
 		String responseString = null;
 		try {
-			URL url = new URL(uri);
+		    log.info("#### requestGetServiceReceiveString2:[{}] ", uri);
+
+		    URL url = new URL(uri);
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 			
 			conn.setRequestMethod("GET"); 	// 전달 방식을 설정한다. POST or GET, 기본값은 GET 이다.
@@ -231,6 +233,7 @@ public class ClientService
 		    InputStream is     = conn.getInputStream();
 		    int statusCode = conn.getResponseCode();
 		    if (statusCode != 200) {
+			    log.info("#### statusCode=[{}]", statusCode);
 		    	return null;
 		    }
 		    
@@ -244,7 +247,7 @@ public class ClientService
 		    }
 		    responseString = buff.toString().trim();
 			
-			System.out.println(responseString);
+		    log.info("#### response=[{}]", responseString);
 		} catch (IOException e) {
 		}
 		return responseString;	

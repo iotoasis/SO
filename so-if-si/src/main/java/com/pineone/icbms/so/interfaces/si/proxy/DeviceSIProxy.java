@@ -35,10 +35,10 @@ public class DeviceSIProxy implements DeviceControlProxy {
     public ResultMessage deviceControlRequest(String requestUrl, DeviceControlMessage deviceControlMessage) {
         //
         String requestBody = new Gson().toJson(deviceControlMessage);
-        log.warn("deviceControlRequest : requestBody {}", requestBody);
+        log.debug("deviceControlRequest : requestBody {}", requestBody);
         String responseData = clientService.requestPostServiceReceiveString2(requestUrl, requestBody);
         
-        log.warn("deviceControlRequest : responseData {}", responseData);
+        log.debug("deviceControlRequest : responseData {}", responseData);
         ResultMessage resultMessage = parsingResultMessage(responseData);
         return resultMessage;
     }

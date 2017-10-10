@@ -7,6 +7,8 @@ import com.pineone.icbms.so.util.http.ClientService;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,7 +19,7 @@ import java.util.Date;
 
 // Profile 에 등록된 주기를 참조해서 Job 실행  > ProfileInjector 에 전송
 public class SchedulerNotificationManager implements Job {
-
+    protected Logger log = LoggerFactory.getLogger(getClass());
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
@@ -25,9 +27,9 @@ public class SchedulerNotificationManager implements Job {
         long time = System.currentTimeMillis();
         SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String timeStr = timeFormat.format(new Date(time));
-        //System.out.println("Time " + timeStr);
+        log.debug("Time " + timeStr);
 
-        System.out.println(context.getJobDetail().getKey().getName());
+        log.debug(context.getJobDetail().getKey().getName());
         String profileId = context.getJobDetail().getKey().getName();
 
         //ServiceProcessor 의 ProfileInjector 에 주기에 따라 profile Id 전송
@@ -42,8 +44,7 @@ public class SchedulerNotificationManager implements Job {
         String profileControllerUrl = "http://localhost:" + Settings2.getServerPort() + Settings2.getContextPath() + "/service/profile/schedule";
         //clientService.requestPostService(profileControllerUrl, sendData);
         String result = clientService.requestPostServiceReceiveString2(profileControllerUrl, sendData);
-        System.out.println("######## profileControllerUrl = " + profileControllerUrl);
-        System.out.println("result=" + result);
-        //System.out.println("######## Scheduler Test : ProfileId = " + profileTransFormData.getId());
+        log.debug("######## profileControllerUrl = " + profileControllerUrl);
+        log.debug("result=" + result);
     }
 }
