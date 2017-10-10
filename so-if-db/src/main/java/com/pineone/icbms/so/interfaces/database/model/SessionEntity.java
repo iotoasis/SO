@@ -32,34 +32,34 @@ public class SessionEntity implements Serializable {
     @Getter @Setter
     @JsonProperty("PROFILE_NAME")
     private String profileName;            //": "발표도우미"
-
+    
     @Getter @Setter
-    @JsonProperty("CONTEXTMODEL_NAME")
-    private String contextmodelName;       //": "TEST"
-
-    @Getter @Setter
-    @JsonProperty("CONTEXTMODEL_KEY")
-    private String contextmodelKey;        //": "cm-announcement-on"
+    @JsonProperty("PROFILE_KEY")
+    private String profileKey;             //": "pr-announcement-on"
 
     @Getter @Setter
     @JsonProperty("LOCATION_ID")
     private String locationId;             //": "["http://www.iotoasis.org/ontology/t1eng_605"]"
+    
+    @Getter @Setter
+    @JsonProperty("CONTEXTMODEL_KEY")
+    private String contextmodelKey;        //": "cm-announcement-on"
+    
+    @Getter @Setter
+    @JsonProperty("CONTEXTMODEL_NAME")
+    private String contextmodelName;       //": "TEST"
 
     @Getter @Setter
     @JsonProperty("CONTEXTMODEL_RESULT")
     private String contextmodelResult;     //": "Happen"
 
     @Getter @Setter
-    @JsonProperty("PROFILE_KEY")
-    private String profileKey;             //": "pr-announcement-on"
-
-    @Getter @Setter
     @JsonProperty("SERVICEMODEL_KEY")
-    private String servicemodelKey;        //": "sm-announcement-on"
+    private String servicemodelKey;        //": "sm-announcement-on"  OS-ID
 
     @Getter @Setter
     @JsonProperty("SERVICEMODEL_NAME")
-    private String servicemodelName;       //": "강의실 스마트 발표 시작 서비스모델"
+    private String servicemodelName;       //": "강의실 스마트 발표 시작 서비스모델" OS-NAME
 
     @Getter @Setter
     @JsonProperty("SERVICEMODEL_RESULT")
@@ -67,8 +67,12 @@ public class SessionEntity implements Serializable {
 
     @Getter @Setter
     @JsonProperty("SERVICE_KEY")
-    private String serviceKey;              //": "["si-classroom-light-off","si-classroom-blind-on","si-classroom-beamscreen-on"]"
+    private String serviceKey;              //": "["si-classroom-light-off","si-classroom-blind-on","si-classroom-beamscreen-on"]" CVO
 
+    @Getter @Setter
+    @JsonProperty("SERVICE_RESULT")
+    private String serviceResult;           //": "CONTROL_EXECUTION"
+    
     @Getter @Setter
     @JsonProperty("VIRTUALOBJECT_KEY")
     private String virtualobjectKey;        //": "["vo-smartlight01-001-power-control","vo-smartlight01-002-power-control","vo-smartlight02-001-power-control","vo-smartlight02-002-power-control","vo-smartlight03-001-power-control","vo-smartlight03-002-power-control","vo-smartlight04-001-power-control","vo-smartlight04-002-power-control","vo-blind01-001-open-control","vo-blind01-002-open-control","vo-beamscreen01-001-open-control"]"
@@ -88,9 +92,4 @@ public class SessionEntity implements Serializable {
     @Getter @Setter
     @JsonProperty("DEVICE_RESULT")
     private String deviceResult;            //": "CONTROL_EXECUTION"
-
-    @Getter @Setter
-    @JsonProperty("SERVICE_RESULT")
-    private String serviceResult;           //": "CONTROL_EXECUTION"
-
 }

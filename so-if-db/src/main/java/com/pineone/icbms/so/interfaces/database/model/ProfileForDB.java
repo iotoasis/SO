@@ -33,5 +33,7 @@ public class ProfileForDB extends CommonEntity {
     @Getter @Setter
     private int enabled;
 
+    @Getter @Setter
+    private String priority;
 
 }

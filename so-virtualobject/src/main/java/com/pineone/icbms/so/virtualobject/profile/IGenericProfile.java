@@ -1,7 +1,6 @@
 package com.pineone.icbms.so.virtualobject.profile;
 
 import com.pineone.icbms.so.virtualobject.common.IGenericServiceEntity;
-import com.pineone.icbms.so.virtualobject.common.IGenericSession;
 import com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextModel;
 import com.pineone.icbms.so.virtualobject.location.IGenericLocation;
 import com.pineone.icbms.so.virtualobject.orchestrationservice.IGenericOrchestrationService;

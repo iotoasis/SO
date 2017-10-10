@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -74,24 +75,29 @@ public class SessionController {
             // vo list
             //sessionDao.retrieveSessionDataVo(entity.getId());
     
-            Map<String, String> sessionData = new HashMap<>();
+            LinkedHashMap<String, String> sessionData = new LinkedHashMap<>();
             sessionData.put("PRIORITY_KEY", entity.getPriorityKey() == null ? "LOW" : entity.getPriorityKey());
             sessionData.put("PROFILE_NAME", entity.getProfileName());
-            sessionData.put("CONTEXTMODEL_NAME", entity.getContextmodelName());
-            sessionData.put("CONTEXTMODEL_KEY", entity.getContextmodelKey());
-            sessionData.put("LOCATION_ID", listToJacksonString(sessionDao.retrieveSessionDataLocation(entity.getId())));
-            sessionData.put("CONTEXTMODEL_RESULT", entity.getContextmodelResult());
             sessionData.put("PROFILE_KEY", entity.getProfileKey());
+            sessionData.put("LOCATION_ID", listToJacksonString(sessionDao.retrieveSessionDataLocation(entity.getId())));
+
+            sessionData.put("CONTEXTMODEL_KEY", entity.getContextmodelKey());
+            sessionData.put("CONTEXTMODEL_NAME", entity.getContextmodelName());
+            sessionData.put("CONTEXTMODEL_RESULT", entity.getContextmodelResult());
+
             sessionData.put("SERVICEMODEL_KEY", entity.getServicemodelKey());
             sessionData.put("SERVICEMODEL_NAME", entity.getServicemodelName());
             sessionData.put("SERVICEMODEL_RESULT", entity.getServicemodelResult());
+            
             sessionData.put("SERVICE_KEY", "["+entity.getServiceKey()+"]");//listToJacksonString());
+            sessionData.put("SERVICE_RESULT", entity.getServiceResult());
+
             sessionData.put("VIRTUALOBJECT_KEY", listToJacksonString(sessionDao.retrieveSessionDataVo(entity.getId())));
             sessionData.put("VIRTUALOBJECT_RESULT", entity.getVirtualobjectResult());
+            
             sessionData.put("DEVICE_KEY", listToJacksonString(deviceKeys));
             sessionData.put("DEVICE_LOCATION", listToJacksonString(deviceLocs));
             sessionData.put("DEVICE_RESULT", entity.getDeviceResult());
-            sessionData.put("SERVICE_RESULT", entity.getServiceResult());
 // */
 
 /*            
