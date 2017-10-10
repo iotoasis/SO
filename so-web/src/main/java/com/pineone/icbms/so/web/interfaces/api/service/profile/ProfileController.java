@@ -60,7 +60,6 @@ public class ProfileController {
         }
         
         IGenericContextModel contextModel = profile.getContextModel();
-        
         if (contextModel == null) {
             log.warn( "contextModel is null");
         	return null;
@@ -68,13 +67,15 @@ public class ProfileController {
 
         TrackingEntity trackingEntity = (TrackingEntity) request.getSession().getAttribute("tracking");
         String sessionId = trackingEntity.getSessionId();
+        String priority = profileForDb.getPriority();
         
         // grib session
         sessionEntity.setId(sessionId);
         sessionEntity.setContextmodelKey(contextModel.getId());
         sessionEntity.setContextmodelName(contextModel.getName());
-        sessionEntity.setContextmodelResult("Happen");
-        sessionEntity.setPriorityKey("LOW");
+        sessionEntity.setContextmodelResult("NotHappen");
+        //sessionEntity.setPriorityKey("LOW");
+        sessionEntity.setPriorityKey(priority);
         log.debug("session : {}", sessionEntity);
 
         // grib session profile
@@ -86,18 +87,21 @@ public class ProfileController {
         //databaseManager.updateSessionData(sessionEntity);
 
         databaseManager.createSessionData(sessionEntity);
-
-        ContextModelHandler contextModelHandler = new ContextModelHandler(databaseManager);
-        contextModelHandler.setTracking(trackingEntity);
-        contextModelHandler.profileHandle(profile);
             
         List<String> locationList = new SdaManager().retrieveEventLocationList(profile.getContextModel().getId());
         if (locationList != null && locationList.size() > 0) {
 
             for (String location : locationList) {
                 if (location.equals(profile.getLocation().getUri())) {
-                    //TODO: scheduler 또는 에 의한 Profile 내 OS 구동임을 남겨야 함
+                	//scheduler 또는 에 의한 Profile 내 OS 구동임을 남겨야 함
 
+                	ContextModelHandler contextModelHandler = new ContextModelHandler(databaseManager);
+                	contextModelHandler.setTracking(trackingEntity);
+                	contextModelHandler.profileHandle(profile);
+
+                    sessionEntity.setContextmodelResult("Happen");
+                    databaseManager.updateSessionData(sessionEntity);
+                	
                     // grib session location
                     SessionEntity sessionLocation = new SessionEntity();
                     sessionLocation.setId(sessionId);
