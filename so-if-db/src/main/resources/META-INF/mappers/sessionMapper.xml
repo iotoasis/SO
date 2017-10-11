@@ -5,14 +5,14 @@
 <mapper namespace="com.pineone.icbms.so.interfaces.database.dao.SessionDao">
     <insert id="createSessionData" parameterType="SessionEntity">
       INSERT INTO session_data (
-        id
+          id
         , create_date
         , CONTEXTMODEL_KEY
         , CONTEXTMODEL_NAME
         , CONTEXTMODEL_RESULT
       )
       VALUES (
-        #{id}
+          #{id}
         , now(4)
         , #{contextmodelKey}
         , #{contextmodelName}
@@ -22,12 +22,12 @@
 
     <insert id="createSessionDataDevice" parameterType="SessionEntity">
       INSERT INTO session_data_device (
-        id
+          id
         , DEVICE_KEY
         , DEVICE_LOCATION
         )
       VALUES (
-        #{id}
+          #{id}
         , #{deviceKey}
         , #{deviceLocation}
         )
@@ -35,22 +35,22 @@
 
     <insert id="createSessionDataLocation" parameterType="SessionEntity">
         INSERT INTO session_data_location (
-        id
+          id
         , LOCATION_ID
         )
         VALUES (
-        #{id}
+          #{id}
         , #{locationId}
         )
     </insert>
 
     <insert id="createSessionDataVo" parameterType="SessionEntity">
         INSERT INTO session_data_vo (
-        id
+          id
         , VIRTUALOBJECT_KEY
         )
         VALUES (
-        #{id}
+          #{id}
         , #{virtualobjectKey}
         )
     </insert>
@@ -89,7 +89,12 @@
             <if test="contextmodelKey != null">    , CONTEXTMODEL_KEY =     #{contextmodelKey}</if>
             <if test="contextmodelName != null">   , CONTEXTMODEL_NAME =    #{contextmodelName}</if>
             <if test="contextmodelResult != null"> , CONTEXTMODEL_RESULT =  #{contextmodelResult}</if>
+
+            <if test="servicemodelKey != null">    , SERVICEMODEL_KEY =     #{servicemodelKey}</if>
+            <if test="servicemodelName != null">   , SERVICEMODEL_NAME =    #{servicemodelName}</if>
             <if test="servicemodelResult != null"> , SERVICEMODEL_RESULT =  #{servicemodelResult}</if>
+
+            <if test="serviceKey != null">         , SERVICE_KEY =          #{serviceKey}</if>
             <if test="serviceResult != null">      , SERVICE_RESULT =       #{serviceResult}</if>
             <if test="virtualobjectResult != null">, VIRTUALOBJECT_RESULT = #{virtualobjectResult}</if>
             <if test="deviceResult != null">       , DEVICE_RESULT =        #{deviceResult}</if>
@@ -101,18 +106,7 @@
     <!-- grib 연동용 세션 id 목록 조회 -->
     <select id="retrieveRecentlySessionList" resultType="SessionEntity">
         SELECT
-              id
-            , create_date
-            , PRIORITY_KEY
-            , PROFILE_NAME
-            , PROFILE_KEY
-            , CONTEXTMODEL_KEY
-            , CONTEXTMODEL_NAME
-            , CONTEXTMODEL_RESULT
-            , SERVICEMODEL_RESULT
-            , SERVICE_RESULT
-            , VIRTUALOBJECT_RESULT
-            , DEVICE_RESULT
+        	*
         FROM session_data
         ORDER BY create_date desc limit ${value}
     </select>

@@ -2,6 +2,7 @@ package com.pineone.icbms.so.web.interfaces.api.service.profile;
 
 import com.kastkode.springsandwich.filter.annotation.Before;
 import com.kastkode.springsandwich.filter.annotation.BeforeElement;
+import com.pineone.icbms.so.interfaces.database.model.ContextModelForDB;
 import com.pineone.icbms.so.interfaces.database.model.ProfileForDB;
 import com.pineone.icbms.so.interfaces.database.model.SessionEntity;
 import com.pineone.icbms.so.interfaces.database.model.TrackingEntity;
@@ -13,6 +14,7 @@ import com.pineone.icbms.so.util.conversion.ProfileTransFormData;
 import com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextModel;
 import com.pineone.icbms.so.virtualobject.profile.IGenericProfile;
 import com.pineone.icbms.so.web.tracking.BeforeTtrackingHandler;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,7 @@ public class ProfileController {
     @RequestMapping(value = "/schedule", method = RequestMethod.POST)
     public IGenericProfile callFromScheduler(@RequestBody ProfileTransFormData profileTransFormData, HttpServletRequest request) {
         log.debug("input:profile: {}", profileTransFormData);
+        
         ProfileForDB profileForDb = databaseManager.getProfileById(profileTransFormData.getId());
         IGenericProfile profile = ModelMapper.toProfile(profileForDb);
         
@@ -65,14 +68,18 @@ public class ProfileController {
         	return null;
         }
 
+        String contextModelId = contextModel.getId();
+        ContextModelForDB cm = databaseManager.getContextModelById(contextModelId);
+        String contextModelName = cm.getName();
+        
         TrackingEntity trackingEntity = (TrackingEntity) request.getSession().getAttribute("tracking");
         String sessionId = trackingEntity.getSessionId();
         String priority = profileForDb.getPriority();
         
         // grib session
         sessionEntity.setId(sessionId);
-        sessionEntity.setContextmodelKey(contextModel.getId());
-        sessionEntity.setContextmodelName(contextModel.getName());
+        sessionEntity.setContextmodelKey(contextModelId);
+        sessionEntity.setContextmodelName(contextModelName);
         sessionEntity.setContextmodelResult("NotHappen");
         //sessionEntity.setPriorityKey("LOW");
         sessionEntity.setPriorityKey(priority);

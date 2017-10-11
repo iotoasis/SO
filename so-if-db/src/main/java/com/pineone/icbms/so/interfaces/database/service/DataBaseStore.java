@@ -42,7 +42,7 @@ public class DataBaseStore implements IDataBaseStore {
     OrchestrationServiceDao orchestrationServiceDao;
 
     @Autowired
-    ContextInformationDao contextInformationDao;
+    ContextModelDao contextModelDao;
 
     @Autowired
     DeviceControlDao deviceControlDao;
@@ -54,6 +54,11 @@ public class DataBaseStore implements IDataBaseStore {
     @Autowired
     SessionDao sessionDao;
 
+	@Override
+	public ContextModelForDB getContextModelById(String contextModelId) {
+		return contextModelDao.retrieve(contextModelId);
+	}
+    
     @Override
     public List<VirtualObjectForDB> getVirtualObjectListByOrchestrationId(String orchestrationServiceId){
         log.warn("getVirtualObjectListByOrchestrationId : orchestrationServiceId {}", orchestrationServiceId);
@@ -97,20 +102,6 @@ public class DataBaseStore implements IDataBaseStore {
 //        }
 
         return virtualObjectForDBList;
-    }
-
-    @Override
-    public List<ContextInformationForDB> getContextInformationListByContextModelId(String contextModelId){
-        log.warn("getContextInformationListByContextModelId : contextModelId {}", contextModelId);
-//        //
-//        List<CM_CI_MapperForDB> cm_ci_mapperForDBList = cm_ci_mapper_dao.retrieveCM_CI_MapperListBYCMId(contextModelId);
-//        List<ContextInformationForDB> contextInformationForDBList = new ArrayList<>();
-//
-//        for(CM_CI_MapperForDB cm_ci_mapperForDB : cm_ci_mapperForDBList){
-//            contextInformationForDBList.add(contextInformationDao.retrieveContextInformation(cm_ci_mapperForDB.getContextInformationId()));
-//        }
-//        return contextInformationForDBList;
-        return null;
     }
 
     @Override
@@ -215,4 +206,5 @@ public class DataBaseStore implements IDataBaseStore {
     public void updateSessionData(SessionEntity sessionEntity) {
         sessionDao.updateSessionData(sessionEntity);
     }
+
 }

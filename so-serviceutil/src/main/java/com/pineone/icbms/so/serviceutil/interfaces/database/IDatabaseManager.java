@@ -11,6 +11,8 @@ import java.util.List;
  */
 public interface IDatabaseManager {
 
+	ContextModelForDB getContextModelById(String contextModelId);
+	
     List<ProfileForDB> getProfileListByContextModelSidAndLocationUri(String contextModelSid, String locationUri);
 
     OrchestrationServiceForDB getOrchestrationServiceById(String id);

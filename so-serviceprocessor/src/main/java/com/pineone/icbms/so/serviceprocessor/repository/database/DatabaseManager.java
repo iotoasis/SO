@@ -21,13 +21,6 @@ public class DatabaseManager implements IDatabaseManager {
     DataBaseStore dataBaseStore;
 
     /**
-     * singleton holder
-     */
-    private static final class SingletonHolder {
-        static final DatabaseManager singleton = new DatabaseManager();
-    }
-
-    /**
      * constructor
      */
     public DatabaseManager() {
@@ -43,7 +36,12 @@ public class DatabaseManager implements IDatabaseManager {
         return new DatabaseManager();
     }
 
-    @Override
+	@Override
+	public ContextModelForDB getContextModelById(String contextModelId) {
+		return dataBaseStore.getContextModelById(contextModelId);
+	}
+
+	@Override
     public List<ProfileForDB> getProfileListByContextModelSidAndLocationUri(String contextModelSid, String locationUri) {
         return dataBaseStore.getProfileListByContextModelSidAndLocationUri(contextModelSid, locationUri);
         //return retrieveProfileListByContextModelSidAndLocationUri(contextModelSid, locationUri);
@@ -126,4 +124,5 @@ public class DatabaseManager implements IDatabaseManager {
     public void updateSessionData(SessionEntity sessionEntity) {
         dataBaseStore.updateSessionData(sessionEntity);
     }
+
 }

@@ -100,6 +100,15 @@ public class DeviceControlHandler extends AProcessHandler {
 
         if (deviceControlForDB != null) {
         	
+        	String locLower,loc;
+        	if (locationUri != null) {
+        		locLower = locationUri.substring(locationUri.lastIndexOf("/")+1,locationUri.length());
+        		loc = locLower.toUpperCase(); //대문자
+        	}
+        	else {
+        		loc = "";
+        	}
+        	
         	String newAspectId = deviceControlForDB.getAspectIdNew();
         	
             // simulator
@@ -113,7 +122,8 @@ public class DeviceControlHandler extends AProcessHandler {
                 SessionEntity session = new SessionEntity();
                 session.setId(getTracking().getSessionId());
                 session.setDeviceKey(deviceControlForDB.getId());
-                //session.setDeviceLocation("");
+                
+                session.setDeviceLocation(loc);
                 log.debug("session vo : {}", session);
                 databaseManager.createSessionDataDevice(session);
     

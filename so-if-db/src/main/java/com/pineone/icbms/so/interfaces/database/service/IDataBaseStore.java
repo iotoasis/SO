@@ -9,13 +9,13 @@ import java.util.List;
  */
 public interface IDataBaseStore {
     //
+	ContextModelForDB getContextModelById(String contextModelId);
+	
     List<VirtualObjectForDB> getVirtualObjectListByOrchestrationId(String orchestrationServiceId);
 
     List<CompositeVirtualObjectForDB> getCompositeVirtualObjectListByOrchestrationId(String orchestrationServiceId);
 
     List<VirtualObjectForDB> getVirtualObjectListByCompositeVirtualObjectId(String compositeVirtualObjectId);
-
-    List<ContextInformationForDB> getContextInformationListByContextModelId(String contextModelId);
 
     DeviceControlForDB getDeviceControlByDeviceIdAndContextModelID(String deviceId, String contextModelId);
 

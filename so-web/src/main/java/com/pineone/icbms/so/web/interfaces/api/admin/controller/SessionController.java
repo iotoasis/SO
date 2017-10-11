@@ -89,7 +89,7 @@ public class SessionController {
             sessionData.put("SERVICEMODEL_NAME", entity.getServicemodelName());
             sessionData.put("SERVICEMODEL_RESULT", entity.getServicemodelResult());
             
-            sessionData.put("SERVICE_KEY", "["+entity.getServiceKey()+"]");//listToJacksonString());
+            sessionData.put("SERVICE_KEY",  entity.getServiceKey());//listToJacksonString());
             sessionData.put("SERVICE_RESULT", entity.getServiceResult());
 
             sessionData.put("VIRTUALOBJECT_KEY", listToJacksonString(sessionDao.retrieveSessionDataVo(entity.getId())));

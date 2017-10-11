@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.serviceprocessor.processor.context.handler;
 
 import com.pineone.icbms.so.interfaces.database.dao.SessionDao;
+import com.pineone.icbms.so.interfaces.database.model.ContextModelForDB;
 import com.pineone.icbms.so.interfaces.database.model.ProfileForDB;
 import com.pineone.icbms.so.interfaces.database.model.SessionEntity;
 import com.pineone.icbms.so.interfaces.messagequeue.model.OrchestrationServiceForMQ;
@@ -61,15 +62,24 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
      * @param contextModel ContextModel
      */
     public void handle(IGenericContextModel contextModel, List<IGenericLocation> locationList) {
-        //
+
+    	String contextModelId=null, contextModelName=null;
+
+    	if (contextModel!=null) {
+    		contextModelId = contextModel.getId();
+    		ContextModelForDB cm = databaseManager.getContextModelById(contextModelId);
+    		contextModelName = cm.getName();
+    	}
+        
+    	//
         String sessionId = getTracking().getSessionId();
         //contextModel.setSessionId(sessionId);
 
         getTracking().setProcess(getClass().getSimpleName());
         getTracking().setProcessMethod(new Object(){}.getClass().getEnclosingMethod().getName());
 
-        getTracking().setProcessId("CM:" + contextModel.getId());
-        getTracking().setProcessName(contextModel.getName());
+        getTracking().setProcessId("CM:" + contextModelId);
+        getTracking().setProcessName(contextModelName);
         TrackingProducer.send(getTracking());
 
         // grib session
@@ -79,8 +89,8 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
             // grib session
             SessionEntity sessionEntity = new SessionEntity();
             sessionEntity.setId(sessionId);
-            sessionEntity.setContextmodelKey(contextModel.getId());
-            sessionEntity.setContextmodelName(contextModel.getName());
+            sessionEntity.setContextmodelKey(contextModelId);
+            sessionEntity.setContextmodelName(contextModelName);
             sessionEntity.setContextmodelResult("Happen");
             sessionEntity.setPriorityKey("LOW");
             log.debug("session : {}", sessionEntity);
@@ -107,8 +117,8 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
                     databaseManager.updateSessionData(sessionLocation);
     
                     // cm 으로 프로파일 조회
-                    log.warn("getProfileListByContextModelSidAndLocationUri : {}, {}", contextModel.getId(), location.getUri());
-                    List<ProfileForDB> profileForDbList = databaseManager.getProfileListByContextModelSidAndLocationUri(contextModel.getId(), location.getUri());
+                    log.warn("getProfileListByContextModelSidAndLocationUri : {}, {}", contextModelId, location.getUri());
+                    List<ProfileForDB> profileForDbList = databaseManager.getProfileListByContextModelSidAndLocationUri(contextModelId, location.getUri());
                     if (profileForDbList != null && profileForDbList.size() > 0) {
                         List<IGenericProfile> profileList = ModelMapper.toProfileList(profileForDbList);
                         
@@ -133,7 +143,7 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
                     }
                     // When Profile list NOT exist,
                     else {
-                        log.info("A profile NOT exist for contextmodel id, location uri: {}, {}", contextModel.getId(), location.getUri());
+                        log.info("A profile NOT exist for contextmodel id, location uri: {}, {}", contextModelId, location.getUri());
                         getTracking().setProcessId("profile 없음");
                         getTracking().setProcessName("");
                         TrackingProducer.send(getTracking());
@@ -148,7 +158,7 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
                     }
                 }
             } else {
-                log.warn("Location list NOT exist for contextmodel id: {}", contextModel.getId());
+                log.warn("Location list NOT exist for contextmodel id: {}", contextModelId);
                 getTracking().setProcessId("location 없음");
                 getTracking().setProcessName("");
                 TrackingProducer.send(getTracking());
@@ -168,8 +178,8 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
             // grib session context
             SessionEntity sessionEntity = new SessionEntity();
             sessionEntity.setId(sessionId);
-            sessionEntity.setContextmodelKey(contextModel.getId());
-            sessionEntity.setContextmodelName(contextModel.getName());
+            sessionEntity.setContextmodelKey(contextModelId);
+            sessionEntity.setContextmodelName(contextModelName);
             sessionEntity.setContextmodelResult("NotHappen");
             log.debug("session : {}", sessionEntity);
             databaseManager.createSessionData(sessionEntity);

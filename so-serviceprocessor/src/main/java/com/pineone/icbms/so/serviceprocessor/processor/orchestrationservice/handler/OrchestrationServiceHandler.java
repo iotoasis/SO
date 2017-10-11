@@ -15,6 +15,7 @@ import com.pineone.icbms.so.virtualobject.orchestrationservice.IGenericOrchestra
 import com.pineone.icbms.so.virtualobject.state.IGenericStateStore;
 import org.apache.kafka.clients.producer.RecordMetadata;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
 
@@ -41,21 +42,28 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
      */
     public void handle(IGenericOrchestrationService orchestrationService) {
 
+    	String osId, osName, osResult;
+    	
         getTracking().setProcess(getClass().getSimpleName());
     
-        // grib session location
+        if (orchestrationService != null) {
+        	osId = orchestrationService.getId(); 
+        	osName = orchestrationService.getName(); 
+        	osResult = "CONTROL_EXECUTION";
+        } else {
+        	osId = null; 
+        	osName = null; 
+        	osResult = "CONTROL_IGNORE";
+        }
+
+        // grib session
         SessionEntity session = new SessionEntity();
         session.setId(getTracking().getSessionId());
-        session.setServiceKey(orchestrationService.getId());
-        session.setServicemodelKey(orchestrationService.getId());
-        session.setServicemodelName(orchestrationService.getName());
+        session.setServicemodelKey(osId);
+        session.setServicemodelName(osName);
+        session.setServicemodelResult(osResult);
+
         log.debug("session service : {}", session);
-        databaseManager.updateSessionData(session);
-    
-        session = new SessionEntity();
-        session.setId(getTracking().getSessionId());
-        session.setServicemodelResult("CONTROL_EXECUTION");
-        session.setServiceResult("CONTROL_EXECUTION");
         databaseManager.updateSessionData(session);
 
         // OS list : os 를 복수로 확장하게 될 경우 사용
@@ -63,14 +71,29 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
 //            handleOrchestrationServiceList(orchestrationService.getOrchestrationServiceList()
 //                    , orchestrationService.getStateStore());
 //        }
+
         //CVO list
-        if (orchestrationService.getCompositeVirtualObjectList() != null) {
-            handleCompositeVirtualObjectList(orchestrationService.getCompositeVirtualObjectList()
-                    , orchestrationService.getStateStore());
-        }
-        // cvo 목록이 없는 경우 vo로 지정되어 있는지 확인한다.
-        if (orchestrationService.getCompositeVirtualObjectList() == null
-                || orchestrationService.getCompositeVirtualObjectList().size() == 0) {
+        List<IGenericCompositeVirtualObject> cvoList = orchestrationService.getCompositeVirtualObjectList(); 
+        if (cvoList != null && cvoList.size()>0) {
+        	ArrayList<String> cvoIdList= new ArrayList<>();
+        	for (int i=0; i< cvoList.size();i++) {
+        		IGenericCompositeVirtualObject cvo = cvoList.get(i);
+        		cvoIdList.add(cvo.getId());
+        	}
+        	String cvoId = cvoIdList.toString();
+        	String cvoResult = "CONTROL_EXECUTION";
+        	
+        	session = new SessionEntity();
+            session.setId(getTracking().getSessionId());
+            session.setServiceKey(cvoId);
+            session.setServiceResult(cvoResult);
+            databaseManager.updateSessionData(session);
+
+            
+        	handleCompositeVirtualObjectList(cvoList, orchestrationService.getStateStore());
+        } else {
+        	// cvo 목록이 없는 경우 vo로 지정되어 있는지 확인한다.
+        	
             //VO list
             if (orchestrationService.getVirtualObjectList() != null) {
                 handleVirtualObjectList(orchestrationService.getVirtualObjectList()
