@@ -10,7 +10,6 @@ import com.pineone.icbms.so.virtualobject.IGenericVirtualObject;
 import com.pineone.icbms.so.virtualobject.aspect.IGenericAspect;
 import com.pineone.icbms.so.virtualobject.common.IGenericIdentity;
 import com.pineone.icbms.so.virtualobject.composite.IGenericCompositeVirtualObject;
-import com.pineone.icbms.so.virtualobject.context.contextinformation.IGenericContextInformation;
 import com.pineone.icbms.so.virtualobject.context.contextmodel.DefaultContextModel;
 import com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextModel;
 import com.pineone.icbms.so.virtualobject.function.IGenericFunction;
@@ -35,11 +34,6 @@ public class ModelMapper extends JsonMapper {
      * contextmodel mapper
      */
     private static ContextModelMapper contextModelMapper = new ContextModelMapper();
-
-    /**
-     * contextmodel mapper
-     */
-    private static ContextInformationMapper contextInformationMapper = new ContextInformationMapper();
 
     /**
      * orchestrationservice mapper
@@ -134,26 +128,6 @@ public class ModelMapper extends JsonMapper {
      */
     public static IGenericContextModel toContextModel(ContextModelForDB contextModelForDB) {
         return contextModelMapper.toProcessorModelFromDb(contextModelForDB);
-    }
-
-    /**
-     * convert List<ContextInformationForDB> to List<IGenericContextInformation> <BR/>
-     *
-     * @param contextInformationForDBList List<ContextInformationForDB>
-     * @return List<IGenericContextInformation>
-     */
-    public static List<IGenericContextInformation> toContextInformationList(List<ContextInformationForDB> contextInformationForDBList) {
-        return contextInformationMapper.toContextInformationList(contextInformationForDBList);
-    }
-
-    /**
-     * convert ContextInformationForDB to IGenericContextInformation.<BR/>
-     *
-     * @param contextInformationForDB ContextInformationForDB
-     * @return IGenericContextInformation
-     */
-    public static IGenericContextInformation toContextInformaion(ContextInformationForDB contextInformationForDB) {
-        return contextInformationMapper.toProcessorModelFromDb(contextInformationForDB);
     }
 
     /**

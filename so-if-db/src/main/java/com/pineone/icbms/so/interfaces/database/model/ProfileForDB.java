@@ -1,11 +1,7 @@
 package com.pineone.icbms.so.interfaces.database.model;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.pineone.icbms.so.util.time.DateFormat;
 import lombok.*;
-
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * ProfileForDB model for authoring.<BR/>

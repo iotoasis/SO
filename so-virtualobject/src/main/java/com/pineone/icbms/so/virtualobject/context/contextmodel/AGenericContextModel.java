@@ -1,10 +1,6 @@
 package com.pineone.icbms.so.virtualobject.context.contextmodel;
 
 import com.pineone.icbms.so.virtualobject.common.AGenericServiceEntity;
-import com.pineone.icbms.so.virtualobject.context.contextinformation.IGenericContextInformation;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * generic context model abstract class.<BR/>
@@ -16,11 +12,6 @@ abstract public class AGenericContextModel extends AGenericServiceEntity impleme
      * uri
      */
     protected String uri;
-
-    /**
-     * context information list
-     */
-    protected List<IGenericContextInformation> contextInformationList = null;
 
     /**
      * construcotr
@@ -61,25 +52,6 @@ abstract public class AGenericContextModel extends AGenericServiceEntity impleme
         this.description = description;
     }
 
-    /**
-     * return Context Information list.<BR/>
-     *
-     * @return Context Information list
-     */
-    @Override
-    public List<IGenericContextInformation> getContextInformationList() {
-        return contextInformationList;
-    }
-
-    public void setContextInformationList(List<IGenericContextInformation> contextInformationList) {
-        this.contextInformationList = contextInformationList;
-    }
-
-    public void addContextInformation(IGenericContextInformation contextInformation) {
-        if (this.contextInformationList == null)
-            contextInformationList = new ArrayList<IGenericContextInformation>();
-        contextInformationList.add(contextInformation);
-    }
 
     @Override
     public String getUri() {
@@ -97,7 +69,6 @@ abstract public class AGenericContextModel extends AGenericServiceEntity impleme
         StringBuffer sb = new StringBuffer();
         sb.append(super.toString());
         sb.append(", uri: ").append(uri);
-        sb.append(", ci list: ").append(contextInformationList);
         return sb.toString();
     }
 }
