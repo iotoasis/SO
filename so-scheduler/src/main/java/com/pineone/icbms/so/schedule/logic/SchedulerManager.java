@@ -7,6 +7,8 @@ import org.quartz.*;
 import org.quartz.Trigger.TriggerState;
 import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.impl.matchers.GroupMatcher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,8 @@ import javax.annotation.PostConstruct;
 //Scheduler 기능 구현
 @Service
 public class SchedulerManager implements ISchedulerManager, Runnable {
+
+	protected Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     ProfileDao profileDAO;
@@ -72,16 +76,44 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
     	return res;
     }
 
-    //구동중이었던 Job List 정지 ( ProfileDB의 Enabled = 1 인 profile을 읽어서 scheduler 중지시킴)
+    //구동중이었던 Job List 정지 ( 동작중인 scheduler중지시킴)
     @Override
     public ResponseMessage pauseJobList() throws SchedulerException {
+
     	ResponseMessage res = new ResponseMessage();
-        List<ProfileForDB> scheduledProfileList = profileDAO.retrieveProfileListByEnable(true);
-        for(ProfileForDB profileForDB : scheduledProfileList){
-            JobKey jobKey = JobKey.jobKey(profileForDB.getId(), groupName);
-            scheduler.pauseJob(jobKey);
-        }
-        res.setMessage("Profile size= " + scheduledProfileList.size());
+		//Scheduler scheduler = new StdSchedulerFactory().getScheduler();
+		int count =0;
+		log.debug(" ==============< executedJobList() > ======================");
+		for (String groupName : scheduler.getJobGroupNames()) {
+			for (JobKey jobKey : scheduler.getJobKeys(GroupMatcher.jobGroupEquals(groupName))) {
+				String jobName = jobKey.getName();
+				String jobGroup = jobKey.getGroup();
+		
+				//get job's trigger
+				@SuppressWarnings("unchecked")
+				List<Trigger> triggers = (List<Trigger>) scheduler.getTriggersOfJob(jobKey);
+				Trigger trigger = triggers.get(0); 
+				Date nextFireTime = trigger.getNextFireTime();
+				
+				//[jobName] : PR-8ea4d232-6e0d-42cc-a7b1-7f1a1c03951c [groupName] : SoSchedulerGroup - Fri Sep 29 14:29:31 KST 2017
+		
+				TriggerState triggerState = scheduler.getTriggerState(trigger.getKey());
+				if (triggerState.equals(TriggerState.NORMAL)) {
+					//jobName으로 DB에서 Profile 정보 읽어오기
+					ProfileForDB profileForDB = profileDAO.retrieveProfile(jobName);
+					if (profileForDB != null) {
+						//profileList.add(profileForDB);
+						scheduler.pauseJob(jobKey);
+						count ++;
+						log.debug(" === [jobName] : " + jobName
+								+ " [groupName] : "  + jobGroup 
+								+ " - " + nextFireTime
+								+ " = triggerState : " + triggerState.toString());
+					}
+				} 
+			}
+		}
+        res.setMessage("Paused profile count= " + count);
         return res;
     }
 
@@ -95,7 +127,7 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
             scheduler.resumeJob(jobKey);
         }
         
-        res.setMessage("Profile size = " + scheduledProfileList.size());
+        res.setMessage("Executing profile count = " + scheduledProfileList.size());
         return res;
     }
 
@@ -155,7 +187,7 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
         profileDAO.updateProfileEnabled(schProfileForDB);
         //profileDAO.updateProfileEnabled(profileId, true);
 
-        res.setMessage("ok");
+        res.setMessage("Started and Enabled");
         return res;
     }
 
@@ -163,18 +195,19 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
     @Override
     public List<ProfileForDB> executedJobList() {
 
-    	Scheduler scheduler;
     	List<ProfileForDB> profileList = new ArrayList<ProfileForDB>();
     	
     	try {
-			scheduler = new StdSchedulerFactory().getScheduler();
+    		Scheduler scheduler = new StdSchedulerFactory().getScheduler();
 
+			log.debug(" ==============< executedJobList() > ======================");
 			for (String groupName : scheduler.getJobGroupNames()) {
 				for (JobKey jobKey : scheduler.getJobKeys(GroupMatcher.jobGroupEquals(groupName))) {
 					String jobName = jobKey.getName();
 					String jobGroup = jobKey.getGroup();
 
 					//get job's trigger
+					@SuppressWarnings("unchecked")
 					List<Trigger> triggers = (List<Trigger>) scheduler.getTriggersOfJob(jobKey);
 					Trigger trigger = triggers.get(0); 
 					Date nextFireTime = trigger.getNextFireTime();
@@ -183,27 +216,26 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
 
 					TriggerState triggerState = scheduler.getTriggerState(trigger.getKey());
 					if (triggerState.equals(TriggerState.NORMAL)) {
+						//jobName으로 DB에서 Profile 정보 읽어오기
 						ProfileForDB profileForDB = profileDAO.retrieveProfile(jobName);
 						if (profileForDB != null) {
 							profileList.add(profileForDB);
 						}
 					} 
-					System.out.println(" === [jobName] : " + jobName 
-							           + " [groupName] : "  + jobGroup 
-							           + " - " + nextFireTime
-							           + " = triggerState : " + triggerState.toString());
+					log.debug(" === [jobName] : " + jobName
+								+ " [groupName] : "  + jobGroup 
+								+ " - " + nextFireTime
+								+ " = triggerState : " + triggerState.toString());
 				}
-
 			}
 		} catch (SchedulerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	   
         return profileList;
     }
 
-    // 현재 작동중인 스케쥴 목록 조회 (Enabled = 1)
+    // Enabled Profile 목록 조회 (Enabled = 1)
     @Override
     public List<ProfileForDB> retrieveExecuteJobList() {
         //
@@ -211,7 +243,7 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
         return scheduledProfileList;
     }
 
-    // 현재 정지중인 스케쥴 목록 조회 (Enabled = 0)
+    // Disabled Profile 목록 조회 (Enabled = 0)
     @Override
     public List<ProfileForDB> retrieveReadyJobList() {
         //
@@ -274,6 +306,7 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
             Thread.sleep(10000); //for preparing Jetty
             scheduler.start();
 
+            //DB에서 Enabled된 Profile 목록 읽어옴
             List<ProfileForDB> scheduledProfileForDBList = profileDAO.retrieveProfileListByEnable(true);
             for(ProfileForDB profileForDB : scheduledProfileForDBList) {
                 JobDetail jobDetail = JobBuilder.newJob(SchedulerNotificationManager.class)
@@ -287,6 +320,8 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
                                 SimpleScheduleBuilder.simpleSchedule()
                                         .withIntervalInSeconds(profileForDB.getPeriod()).repeatForever())
                         .build();
+
+                //스케쥴러에 추가
                 scheduler.scheduleJob(jobDetail, trigger);
             }
         } catch (SchedulerException e){

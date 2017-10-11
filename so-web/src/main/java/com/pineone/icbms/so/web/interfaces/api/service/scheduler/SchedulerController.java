@@ -76,7 +76,7 @@ public class SchedulerController {
         return schedulerManager.restartJob(profileTransFormData.getId());
     }
 
-    // 작동중인 Schedule 목록 조회 (DB상의 Enabled = 1인값 조회)
+    // 작동중인 Schedule 목록 조회 (실제 동작 중인 스케쥴 조회)
     @RequestMapping(value = "/executed", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
