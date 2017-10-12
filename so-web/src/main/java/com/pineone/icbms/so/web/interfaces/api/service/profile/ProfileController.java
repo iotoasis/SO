@@ -12,6 +12,7 @@ import com.pineone.icbms.so.serviceprocessor.repository.database.DatabaseManager
 import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;
 import com.pineone.icbms.so.util.conversion.ProfileTransFormData;
 import com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextModel;
+import com.pineone.icbms.so.virtualobject.location.IGenericLocation;
 import com.pineone.icbms.so.virtualobject.profile.IGenericProfile;
 import com.pineone.icbms.so.web.tracking.BeforeTtrackingHandler;
 
@@ -38,6 +39,10 @@ public class ProfileController {
      */
     protected Logger log = LoggerFactory.getLogger(getClass());
 
+    //스케쥴러에 의한 profile처리는 context로그에 넣음
+    final String contextClsName = "com.pineone.icbms.so.serviceprocessor.processor.context";
+    protected Logger contextLog = LoggerFactory.getLogger(contextClsName);
+
     @Autowired
     DatabaseManager databaseManager;
 
@@ -50,21 +55,27 @@ public class ProfileController {
      */
     @RequestMapping(value = "/schedule", method = RequestMethod.POST)
     public IGenericProfile callFromScheduler(@RequestBody ProfileTransFormData profileTransFormData, HttpServletRequest request) {
-        log.debug("input:profile: {}", profileTransFormData);
         
-        ProfileForDB profileForDb = databaseManager.getProfileById(profileTransFormData.getId());
+        if (profileTransFormData==null) {
+        	contextLog.warn("Input Profile is null");
+        	return null;
+        }
+        String inputProfileId = profileTransFormData.getId();
+    	contextLog.debug("Checking CM by schedule : input profile=[{}]", inputProfileId);
+
+    	ProfileForDB profileForDb = databaseManager.getProfileById(profileTransFormData.getId());
         IGenericProfile profile = ModelMapper.toProfile(profileForDb);
         
         SessionEntity sessionEntity = new SessionEntity();
         
         if (profile==null) {
-            log.warn("Profile is null");
+        	contextLog.warn("Profile is null");
         	return null;
         }
         
         IGenericContextModel contextModel = profile.getContextModel();
         if (contextModel == null) {
-            log.warn( "contextModel is null");
+        	contextLog.warn( "contextModel is null");
         	return null;
         }
 
@@ -81,21 +92,25 @@ public class ProfileController {
         sessionEntity.setContextmodelKey(contextModelId);
         sessionEntity.setContextmodelName(contextModelName);
         sessionEntity.setContextmodelResult("NotHappen");
-        //sessionEntity.setPriorityKey("LOW");
         sessionEntity.setPriorityKey(priority);
-        log.debug("session : {}", sessionEntity);
+        //contextLog.debug("session : {}", sessionEntity);
 
         // grib session profile
         //SessionEntity sessionProfile = new SessionEntity();
         //sessionEntity.setId(sessionId);
         sessionEntity.setProfileKey(profile.getId());
         sessionEntity.setProfileName(profile.getName());
-        log.debug("session profile : {}", sessionEntity);
-        //databaseManager.updateSessionData(sessionEntity);
+        //contextLog.debug("session profile : {}", sessionEntity);
 
         databaseManager.createSessionData(sessionEntity);
-            
-        List<String> locationList = new SdaManager().retrieveEventLocationList(profile.getContextModel().getId());
+        
+        boolean isProcessed = false; //처리되었나?
+        
+        //SDA로 부터 CM발생 여부 체크
+        List<String> locationList = new SdaManager().retrieveEventLocationList(contextModelId);
+
+        contextLog.debug("called SDA: cm={}, location={}", contextModelId, locationList.toString());
+
         if (locationList != null && locationList.size() > 0) {
 
             for (String location : locationList) {
@@ -105,6 +120,7 @@ public class ProfileController {
                 	ContextModelHandler contextModelHandler = new ContextModelHandler(databaseManager);
                 	contextModelHandler.setTracking(trackingEntity);
                 	contextModelHandler.profileHandle(profile);
+                	isProcessed = true;
 
                     sessionEntity.setContextmodelResult("Happen");
                     databaseManager.updateSessionData(sessionEntity);
@@ -113,48 +129,62 @@ public class ProfileController {
                     SessionEntity sessionLocation = new SessionEntity();
                     sessionLocation.setId(sessionId);
                     sessionLocation.setLocationId(location);
-                    log.debug("session location : {}", sessionLocation);
                     databaseManager.createSessionDataLocation(sessionLocation);
     
                     sessionLocation = new SessionEntity();
                     sessionLocation.setDeviceLocation(location);
                     databaseManager.updateSessionData(sessionLocation);
+
+                    contextLog.warn("O: result: Happen cm=[{}], Location={} , sessionId={}", contextModelId, location, sessionId);
+                    //contextLog.debug("session location : {}", sessionLocation);
                 }
             }
-        } else {
-            log.warn("The profile does NOT have a location.");
+        }
+
+        //Location이 없거나 처리되지 않았을때
+        if (isProcessed == false) {
+        	contextLog.warn("X: result: Not happened cm=[{}]", contextModelId);
 
             // grib session location
             SessionEntity sessionLocation = new SessionEntity();
             sessionLocation.setId(sessionId);
             sessionLocation.setLocationId("");
-            log.debug("session location : {}", sessionLocation);
             databaseManager.createSessionDataLocation(sessionLocation);
             
+            //contextLog.debug("session location : {}", sessionLocation);
         }
         return profile;
     }
 
     /**
      * response for request "/profile/force, HTTP-method:POST".<BR/>
-     * scheduler가 특정 주기로 호출됨
+     * /force url에 의해 발생됨
      *
      * @param profileTransFormData profile
      * @return profile
      */
     @RequestMapping(value="/force", method = RequestMethod.POST)
     public IGenericProfile forceProfile(@RequestBody ProfileTransFormData profileTransFormData, HttpServletRequest request) {
-        log.debug("input:profile: {}", profileTransFormData);
-        ProfileForDB profileForDb = databaseManager.getProfileById(profileTransFormData.getId());
+    	if (profileTransFormData==null) {
+    		return null;
+    	}
+        String inputProfileId = profileTransFormData.getId();
+    	contextLog.debug("Force Profile by URL /profile/force : profile={}", inputProfileId);
+
+    	ProfileForDB profileForDb = databaseManager.getProfileById(profileTransFormData.getId());
         IGenericProfile profile = ModelMapper.toProfile(profileForDb);
-        if(profile.getLocation() != null) {
+        
+        IGenericLocation location = profile.getLocation();
+        if(location != null) {
             //TODO: scheduler 또는 에 의한 Profile 내 OS 구동임을 남겨야 함
             TrackingEntity trackingEntity = (TrackingEntity) request.getSession().getAttribute("tracking");
             ContextModelHandler contextModelHandler = new ContextModelHandler(databaseManager);
             contextModelHandler.setTracking(trackingEntity);
             contextModelHandler.profileHandle(profile);
+
+            contextLog.warn("O: result: called profile={}, Location={} ", inputProfileId, location.getId());
         } else {
-            log.warn("The profile does NOT have a location.");
+        	contextLog.warn("X: result: No location profile={}", inputProfileId);
         }
         return profile;
     }
