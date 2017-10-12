@@ -1,7 +1,6 @@
 package com.pineone.icbms.so.interfaces.sda.handle.itf;
 
 import com.pineone.icbms.so.interfaces.sda.model.AspectForIf;
-import com.pineone.icbms.so.interfaces.sda.model.ContextInformationForIf;
 import com.pineone.icbms.so.interfaces.sda.model.FunctionForIf;
 
 import java.util.List;
@@ -28,9 +27,6 @@ public interface ISdaManager {
 
     // location 울 이용한 Device 목록 조회
     List<String> retrieveDeviceListByLocation(String locationId);
-
-    // CM 내 CI 목록 조회
-    List<ContextInformationForIf> retrieveContextInformationList(String contextModeId);
 
     // Sensor Status (측정값) 조회
     String retrieveSensorValue(String deviceId);

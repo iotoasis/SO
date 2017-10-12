@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ContextInformation model for MQ.<BR/>
+ * Context model for MQ.<BR/>
  * <p>
  * Created by uni4love on 2017. 1. 5..
  */
@@ -23,11 +23,6 @@ public class ContextModelForMQ extends ACommonForMQ {
      * uri
      */
     String uri;
-
-    /**
-     * context information list
-     */
-    List<ContextInformationForMQ> contextInformationList;
 
     /**
      * location list
@@ -66,20 +61,6 @@ public class ContextModelForMQ extends ACommonForMQ {
         this.uri = uri;
     }
 
-    public List<ContextInformationForMQ> getContextInformationList() {
-        return contextInformationList;
-    }
-
-    public void setContextInformationList(List<ContextInformationForMQ> contextInformationList) {
-        this.contextInformationList = contextInformationList;
-    }
-
-    public void addContextInformation(ContextInformationForMQ contextInformation) {
-        if (contextInformationList == null)
-            contextInformationList = new ArrayList<>();
-        this.contextInformationList.add(contextInformation);
-    }
-
     public List<LocationForMQ> getLocationList() {
         return locationList;
     }
@@ -99,11 +80,7 @@ public class ContextModelForMQ extends ACommonForMQ {
         StringBuffer sb = new StringBuffer();
         sb.append("[").append(super.toString())
                 .append(", uri = ").append(uri);
-        if (contextInformationList != null) {
-            for (ContextInformationForMQ ci : contextInformationList) {
-                sb.append(",\ncontextinformation: ").append(ci);
-            }
-        }
+
         if (locationList != null) {
             for (LocationForMQ location : locationList) {
                 sb.append(", ").append(location);

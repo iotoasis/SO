@@ -11,7 +11,6 @@
     <node x="530.0" y="526.0">com.pineone.icbms.so.interfaces.database.dao.DeviceControlDao</node>
     <node x="536.0" y="468.0">com.pineone.icbms.so.interfaces.database.dao.FixedDeviceDao</node>
     <node x="767.0" y="686.0">com.pineone.icbms.so.interfaces.database.dao.DeviceControlCallbackDao</node>
-    <node x="500.0" y="107.0">com.pineone.icbms.so.interfaces.database.dao.ContextInformationDao</node>
     <node x="747.0" y="108.0">com.pineone.icbms.so.interfaces.database.dao.TypeOfCompositeVirtualObjectDao</node>
     <node x="950.0" y="426.0">com.pineone.icbms.so.interfaces.database.dao.ContextModelDao</node>
     <node x="937.0" y="560.0">com.pineone.icbms.so.interfaces.database.dao.ScheduleContextDao</node>
@@ -51,14 +50,6 @@
       <point x="0.0" y="0.0" />
     </edge>
     <edge source="com.pineone.icbms.so.interfaces.database.dao.TypeOfCompositeVirtualObjectDao" target="com.pineone.icbms.so.interfaces.database.dao.AbstractDao">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
-    </edge>
-    <edge source="com.pineone.icbms.so.interfaces.database.service.DataBaseStore" target="com.pineone.icbms.so.interfaces.database.dao.ContextInformationDao">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
-    </edge>
-    <edge source="com.pineone.icbms.so.interfaces.database.dao.ContextInformationDao" target="com.pineone.icbms.so.interfaces.database.dao.AbstractDao">
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
     </edge>

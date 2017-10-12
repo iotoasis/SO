@@ -1,9 +1,7 @@
 package com.pineone.icbms.so.web.util;
 
-import com.pineone.icbms.so.interfaces.messagequeue.model.ContextInformationForMQ;
 import com.pineone.icbms.so.interfaces.messagequeue.model.ContextModelForMQ;
 import com.pineone.icbms.so.interfaces.messagequeue.model.LocationForMQ;
-import com.pineone.icbms.so.interfaces.sda.model.ContextInformationForIf;
 import com.pineone.icbms.so.interfaces.sda.model.ContextModelContent;
 import com.pineone.icbms.so.interfaces.sda.model.ContextModelForIf;
 import com.pineone.icbms.so.interfaces.sda.model.ContextModelForIf2;
@@ -26,16 +24,7 @@ public class ModelMapper extends JsonMapper {
         ContextModelForMQ cmForMQ = null;
         if(contextModelForIf != null) {
             cmForMQ = new ContextModelForMQ(contextModelForIf.getId(), contextModelForIf.getName());
-            ContextInformationForMQ ciForMQ = null;
-            if (contextModelForIf.getContextInformationList() != null) {
-                for (ContextInformationForIf ci : contextModelForIf.getContextInformationList()) {
-                    ciForMQ = new ContextInformationForMQ();
-                    ciForMQ.setId(ci.getId());
-                    ciForMQ.setName(ci.getName());
-                    ciForMQ.setUri(ci.getUri());
-                    cmForMQ.addContextInformation(ciForMQ);
-                }
-            }
+
             //timestamp
             cmForMQ.setCreatedDate(new Timestamp(System.currentTimeMillis()));
         }

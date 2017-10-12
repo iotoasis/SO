@@ -224,40 +224,6 @@ public class SdaManager implements ISdaManager {
         return deviceList;
     }
 
-    // CM 내 CI 목록 조회
-    @Override
-    public List<ContextInformationForIf> retrieveContextInformationList(String contextModeId) {
-        //
-        List<ContextInformationForIf> contextInformationList = new ArrayList<>();
-        List<ContextModelContent> contentList = null;
-
-        try {
-            IHttpResponseMessage message = clientService.requestGetService(
-                    addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
-                            SdaAddressStore.CM_CI_LIST_BY_CM + SdaAddressStore.SEPARATOR_WITHOUT_COMMA +
-                            contextModeId);
-            contentList = getContextModelContents(message);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SDAException e) {
-//       e.printStackTrace();
-        }
-        if(contentList == null || contentList.isEmpty()){
-            String info = "ContextModel = " + contextModeId + "doesn't have ContextInformation";
-            log.debug("info : " + info);
-        } else {
-            for(ContextModelContent contextModelContent : contentList){
-                ContextInformationForIf contextInformationForIf = new ContextInformationForIf();
-                contextInformationForIf.setNumber(contextModelContent.getCi_sequence_number());
-                contextInformationForIf.setId(contextModelContent.getCi_id());
-                contextInformationForIf.setName(contextModelContent.getCi_name());
-                contextInformationList.add(contextInformationForIf);
-            }
-            return contextInformationList;
-        }
-        return contextInformationList;
-    }
-
     // Sensor Status (측정값) 조회
     @Override
     public String retrieveSensorValue(String deviceId) {
