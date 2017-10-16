@@ -93,7 +93,7 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
             sessionEntity.setId(sessionId);
             sessionEntity.setContextmodelKey(contextModelId);
             sessionEntity.setContextmodelName(contextModelName);
-            sessionEntity.setContextmodelResult("Processing");
+            sessionEntity.setContextmodelResult("NotHappen");
             //sessionEntity.setPriorityKey("LOW");
             log.debug("session : {}", sessionEntity);
             databaseManager.createSessionData(sessionEntity);
@@ -113,10 +113,6 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
                     sessionLocation.setLocationId(location.getUri());
                     log.debug("session location : {}", sessionLocation);
                     databaseManager.createSessionDataLocation(sessionLocation);
-    
-                    sessionLocation = new SessionEntity();
-                    sessionLocation.setDeviceLocation(location.getUri());
-                    databaseManager.updateSessionData(sessionLocation);
     
                     // cm 으로 프로파일 조회
                     log.warn("getProfileListByContextModelSidAndLocationUri : {}, {}", contextModelId, location.getUri());

@@ -62,9 +62,9 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
         session.setServicemodelKey(osId);
         session.setServicemodelName(osName);
         session.setServicemodelResult(osResult);
+        databaseManager.updateSessionData(session);
 
         log.debug("session service : {}", session);
-        databaseManager.updateSessionData(session);
 
         // OS list : os 를 복수로 확장하게 될 경우 사용
 //        if (orchestrationService.getOrchestrationServiceList() != null) {
@@ -98,6 +98,12 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
             if (orchestrationService.getVirtualObjectList() != null) {
                 handleVirtualObjectList(orchestrationService.getVirtualObjectList()
                         , orchestrationService.getStateStore());
+            } else { 
+            	//CVO,VO둘다 없는 경우 완료
+            	session = new SessionEntity();
+                session.setId(getTracking().getSessionId());
+                session.setContextmodelResult("Happen"); //Session Data는 완료 처리
+                databaseManager.updateSessionData(session);
             }
         }
     }

@@ -111,9 +111,15 @@ public class DeviceControlHandler extends AProcessHandler {
         	
         	String newAspectId = deviceControlForDB.getAspectIdNew();
         	
-            // simulator
+            // simulator. 마지막 VO인 경우
             if ("Y".equals(virtualDevice.getIsLast())) {
                 getTracking().setStatusCd("F");
+
+                // grib session location
+                SessionEntity session = new SessionEntity();
+                session.setId(getTracking().getSessionId());
+                session.setContextmodelResult("Happen"); //Session Data 완료 처리
+                databaseManager.updateSessionData(session);
             }
 
             if (getTracking().getSimulatorType() == null || "".equals(getTracking().getSimulatorType())) {
@@ -126,12 +132,12 @@ public class DeviceControlHandler extends AProcessHandler {
                 session.setDeviceLocation(loc);
                 log.debug("session vo : {}", session);
                 databaseManager.createSessionDataDevice(session);
-    
+
                 session = new SessionEntity();
                 session.setId(getTracking().getSessionId());
                 session.setDeviceResult("CONTROL_EXECUTION");
                 databaseManager.updateSessionData(session);
-                
+
                 // 실제 디바이스 실행
                 //control device
                 controlDevice(virtualDevice, newAspectId, deviceControlForDB.getValue());

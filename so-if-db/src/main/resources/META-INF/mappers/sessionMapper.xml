@@ -10,6 +10,9 @@
         , CONTEXTMODEL_KEY
         , CONTEXTMODEL_NAME
         , CONTEXTMODEL_RESULT
+        , PRIORITY_KEY
+        , PROFILE_NAME
+        , PROFILE_KEY
       )
       VALUES (
           #{id}
@@ -17,6 +20,9 @@
         , #{contextmodelKey}
         , #{contextmodelName}
         , #{contextmodelResult}
+        , #{priorityKey}
+        , #{profileName}
+        , #{profileKey}
       )
     </insert>
 
@@ -82,7 +88,8 @@
     <update id="updateSessionData" parameterType="SessionEntity">
         UPDATE session_data
         <set>
-            create_date = now(4)
+<!--             create_date = now(4) -->
+			id = #{id}
             <if test="priorityKey != null">        , PRIORITY_KEY =         #{priorityKey}</if>
             <if test="profileName != null">        , PROFILE_NAME =         #{profileName}</if>
             <if test="profileKey != null">         , PROFILE_KEY =          #{profileKey}</if>

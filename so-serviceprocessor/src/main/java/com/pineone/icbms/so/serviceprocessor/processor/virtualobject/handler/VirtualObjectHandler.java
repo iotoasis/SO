@@ -75,7 +75,7 @@ public class VirtualObjectHandler extends AProcessHandler<IGenericVirtualObject>
                         //copy state
                         StateStoreUtil.copyStateStore(virtualObject.getStateStore(), virtualDevice);
 
-                        // simulator
+                        // simulator. 마지막 VO인지 체크
                         if (deviceList.indexOf(virtualDevice) == (deviceList.size() - 1)) {
                             virtualDevice.setIsLast("Y");
                         }

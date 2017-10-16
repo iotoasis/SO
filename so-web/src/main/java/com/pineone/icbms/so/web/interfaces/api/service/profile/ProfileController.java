@@ -40,7 +40,7 @@ public class ProfileController {
     protected Logger log = LoggerFactory.getLogger(getClass());
 
     //스케쥴러에 의한 profile처리는 context로그에 넣음
-    final String contextClsName = "com.pineone.icbms.so.serviceprocessor.processor.context";
+    final String contextClsName = "com.pineone.icbms.so.serviceprocessor.processor.context.ProfileController";
     protected Logger contextLog = LoggerFactory.getLogger(contextClsName);
 
     @Autowired
@@ -104,7 +104,7 @@ public class ProfileController {
 
         databaseManager.createSessionData(sessionEntity);
         
-        boolean isProcessed = false; //처리되었나?
+        boolean isCmProceed = false; //CM 처리되었나?
         
         //SDA로 부터 CM발생 여부 체크
         List<String> locationList = new SdaManager().retrieveEventLocationList(contextModelId);
@@ -120,10 +120,10 @@ public class ProfileController {
                 	ContextModelHandler contextModelHandler = new ContextModelHandler(databaseManager);
                 	contextModelHandler.setTracking(trackingEntity);
                 	contextModelHandler.profileHandle(profile);
-                	isProcessed = true;
+                	isCmProceed = true;
 
-                    sessionEntity.setContextmodelResult("Happen");
-                    databaseManager.updateSessionData(sessionEntity);
+                    //sessionEntity.setContextmodelResult("Happen");
+                    //databaseManager.updateSessionData(sessionEntity);
                 	
                     // grib session location
                     SessionEntity sessionLocation = new SessionEntity();
@@ -131,10 +131,6 @@ public class ProfileController {
                     sessionLocation.setLocationId(location);
                     databaseManager.createSessionDataLocation(sessionLocation);
     
-                    sessionLocation = new SessionEntity();
-                    sessionLocation.setDeviceLocation(location);
-                    databaseManager.updateSessionData(sessionLocation);
-
                     contextLog.warn("O: result: Happen cm=[{}], Location={} , sessionId={}", contextModelId, location, sessionId);
                     //contextLog.debug("session location : {}", sessionLocation);
                 }
@@ -142,10 +138,14 @@ public class ProfileController {
         }
 
         //Location이 없거나 처리되지 않았을때
-        if (isProcessed == false) {
+        if (isCmProceed == false) {
         	contextLog.warn("X: result: Not happened cm=[{}]", contextModelId);
 
-            // grib session location
+            sessionEntity.setId(sessionId);
+            sessionEntity.setContextmodelResult("NotHappen");
+            databaseManager.updateSessionData(sessionEntity);
+
+        	// grib session location
             SessionEntity sessionLocation = new SessionEntity();
             sessionLocation.setId(sessionId);
             sessionLocation.setLocationId("");
