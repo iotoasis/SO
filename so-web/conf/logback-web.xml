@@ -34,7 +34,7 @@
     <property name="LOG_FILE_PATH_SPRING"                         value="${LOG_PATH}/${LOG_FILE_NAME_SPRING}" />
 
     <!-- log pattern -->
-    <property name="ENCODER_PATTERN_STDOUT" value="%d %-4relative [%thread] %-5level %logger{36} - %msg%n"/>
+    <property name="ENCODER_PATTERN_STDOUT" value="%d{yy-MM-dd HH:mm:ss,SSS} %-4relative [%thread] %-5level [%class{10}] - %msg%n"/>
     <property name="ENCODER_PATTERN_FILE" value="${ENCODER_PATTERN_STDOUT}"/>
     <property name="ENCODER_PATTERN_ROLLING_FILE" value="${ENCODER_PATTERN_STDOUT}"/>
 
@@ -43,7 +43,8 @@
     <appender name="APPENDER_STDOUT_DEFAULT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <charset>UTF-8</charset>
-            <Pattern>%d %-4relative [%thread] %-5level %logger{36} - %msg%n</Pattern>
+<!--             <Pattern>%d %-4relative [%thread] %-5level %logger{36} - %msg%n</Pattern> -->
+            <pattern>${ENCODER_PATTERN_FILE}</pattern>
         </encoder>
     </appender>
 

@@ -35,14 +35,15 @@ abstract public class AProcessHandler<T> implements IProcessorHandler<T> {
     public AProcessHandler(IDatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
 
-        //get Class Name
-        String orgClsName = getClass().getName();
-
         /*
           logClassName = ClassName기존으로 상위 2단계의 값을 사용
            ex) com.pineone.icbms.so.serviceprocessor.processor.context.handler.ContextModelHandler 
             => com.pineone.icbms.so.serviceprocessor.processor.context
-        */
+         */
+/*
+        //get Class Name
+        String orgClsName = getClass().getName();
+
         //1st strip
         String logClassName = orgClsName.substring(0, orgClsName.lastIndexOf("."));
 
@@ -53,6 +54,7 @@ abstract public class AProcessHandler<T> implements IProcessorHandler<T> {
         //System.out.println("clsName="+logClassName);
         
         log = LoggerFactory.getLogger(logClassName);
+*/        
     }
 
     public void setTracking(TrackingEntity tracking) {

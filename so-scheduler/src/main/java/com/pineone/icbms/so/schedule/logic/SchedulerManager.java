@@ -322,6 +322,7 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
                         .build();
 
                 //스케쥴러에 추가
+                log.debug("Added job : {}:{}", profileForDB.getName(), jobDetail.getKey());
                 scheduler.scheduleJob(jobDetail, trigger);
             }
         } catch (SchedulerException e){

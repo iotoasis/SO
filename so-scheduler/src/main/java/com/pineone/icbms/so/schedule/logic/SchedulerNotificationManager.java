@@ -7,6 +7,7 @@ import com.pineone.icbms.so.util.http.ClientService;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.quartz.SimpleTrigger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,6 +32,9 @@ public class SchedulerNotificationManager implements Job {
 
         log.debug(context.getJobDetail().getKey().getName());
         String profileId = context.getJobDetail().getKey().getName();
+        
+        SimpleTrigger  st = (SimpleTrigger ) context.getTrigger();
+        int period = (int)st.getRepeatInterval()/1000;
 
         //ServiceProcessor 의 ProfileInjector 에 주기에 따라 profile Id 전송
 //        ProfileInjector profileInJector = new ProfileIntjector();
@@ -38,6 +42,7 @@ public class SchedulerNotificationManager implements Job {
 
         ClientService clientService = new ClientService();
         ProfileTransFormData profileTransFormData = new ProfileTransFormData(profileId);
+        profileTransFormData.setPeriod(period);
         String sendData = DataConversion.objectToString(profileTransFormData);
         //clientService.requestPostService("http://localhost:8080/so/service/profile/schedule", sendData);
         //clientService.requestPostService("http://localhost:8080/so/service/profile/schedule", sendData);

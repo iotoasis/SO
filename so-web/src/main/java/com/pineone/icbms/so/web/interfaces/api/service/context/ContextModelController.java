@@ -136,11 +136,6 @@ public class ContextModelController {
         return list;
     }
 
-    @PostMapping(value = "/test")
-    public void testCode(HttpServletRequest request) {
-    	DeviceManager.testmain(null);
-    }
-    
     private ContextModelForMQ processContextModel(ContextModelForIf2 contextModelForIf, HttpServletRequest request) {
         log.debug("input:ContextModelForIf: {}", contextModelForIf);
         // create a message From ContextModelForMQ for messageQueue, publish to message queue
@@ -163,6 +158,11 @@ public class ContextModelController {
         log.debug("producer.send result: {}", future);
 
         return contextModelForMQ;
+    }
+    
+    @PostMapping(value = "/test")
+    public void testCode(HttpServletRequest request) {
+    	DeviceManager.testmain(null);
     }
     
     /**

@@ -85,14 +85,16 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
         // grib session
 //        setSession(IGenericContextModel contextModel, ProfileForDB profileForDB, List<IGenericLocation> locationList)
 
+        boolean isCmProceed = false; //CM 처리되었나?
+
         if (contextModel != null) {
             // grib session
             SessionEntity sessionEntity = new SessionEntity();
             sessionEntity.setId(sessionId);
             sessionEntity.setContextmodelKey(contextModelId);
             sessionEntity.setContextmodelName(contextModelName);
-            sessionEntity.setContextmodelResult("Happen");
-            sessionEntity.setPriorityKey("LOW");
+            sessionEntity.setContextmodelResult("Processing");
+            //sessionEntity.setPriorityKey("LOW");
             log.debug("session : {}", sessionEntity);
             databaseManager.createSessionData(sessionEntity);
             
@@ -120,11 +122,15 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
                     log.warn("getProfileListByContextModelSidAndLocationUri : {}, {}", contextModelId, location.getUri());
                     List<ProfileForDB> profileForDbList = databaseManager.getProfileListByContextModelSidAndLocationUri(contextModelId, location.getUri());
                     if (profileForDbList != null && profileForDbList.size() > 0) {
-                        List<IGenericProfile> profileList = ModelMapper.toProfileList(profileForDbList);
-                        
+                    	
+                    	isCmProceed = true; //CM 처리 됨
+                        //List<IGenericProfile> profileList = ModelMapper.toProfileList(profileForDbList);
                         // 프로파일에 대한 처리
-                        for (IGenericProfile profile : profileList) {
+                        for (ProfileForDB profileForDB : profileForDbList) {
+                        //for (IGenericProfile profile1 : profileList) {
                             //profile.setSessionId(sessionId);
+                        	IGenericProfile profile = ModelMapper.toProfile(profileForDB);
+                        	
                             getTracking().setProcessId("PR:" + profile.getId());
                             getTracking().setProcessName(profile.getName());
                             TrackingProducer.send(getTracking());
@@ -134,6 +140,7 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
                             sessionProfile.setId(sessionId);
                             sessionProfile.setProfileKey(profile.getId());
                             sessionProfile.setProfileName(profile.getName());
+                            sessionProfile.setPriorityKey(profileForDB.getPriority());
                             log.debug("session profile : {}", sessionProfile);
                             databaseManager.updateSessionData(sessionProfile);
 
@@ -148,13 +155,13 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
                         getTracking().setProcessName("");
                         TrackingProducer.send(getTracking());
     
-                        // grib session location
-                        SessionEntity session = new SessionEntity();
-                        session.setId(sessionId);
-                        session.setProfileKey("");
-                        session.setProfileName("");
-                        log.debug("session : {}", session);
-                        databaseManager.updateSessionData(session);
+//                        // grib session location
+//                        SessionEntity session = new SessionEntity();
+//                        session.setId(sessionId);
+//                        session.setProfileKey("");
+//                        session.setProfileName("");
+//                        log.debug("session : {}", session);
+//                        databaseManager.updateSessionData(session);
                     }
                 }
             } else {
@@ -163,17 +170,22 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
                 getTracking().setProcessName("");
                 TrackingProducer.send(getTracking());
     
-                // grib session location
-                sessionEntity.setProfileKey("");
-                sessionEntity.setProfileName("");
-                log.debug("session : {}", sessionEntity);
-                databaseManager.updateSessionData(sessionEntity);
+//                // grib session location
+//                sessionEntity.setProfileKey("");
+//                sessionEntity.setProfileName("");
+//                log.debug("session : {}", sessionEntity);
+//                databaseManager.updateSessionData(sessionEntity);
             }
         } else {
             log.warn("The contextmodel is NULL.");
             getTracking().setProcessId("contextmodel 없음");
             getTracking().setProcessName("");
             TrackingProducer.send(getTracking());
+        }
+        
+        
+        //Location이 없거나 처리되지 않았을때
+        if (isCmProceed == false) {
     
             // grib session context
             SessionEntity sessionEntity = new SessionEntity();
@@ -182,7 +194,8 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
             sessionEntity.setContextmodelName(contextModelName);
             sessionEntity.setContextmodelResult("NotHappen");
             log.debug("session : {}", sessionEntity);
-            databaseManager.createSessionData(sessionEntity);
+            //databaseManager.createSessionData(sessionEntity);
+            databaseManager.updateSessionData(sessionEntity);
         }
     }
 
