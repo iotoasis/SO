@@ -25,6 +25,8 @@ public class VirtualObjectConsumerHandler extends AGenericConsumerHandler2<Strin
      */
     private static final List<String> TOPIC_LIST = Arrays.asList(Settings.TOPIC_VIRTUAL_OBJECT);
 
+    private static int threadNum = 0;
+    
     /**
      * kafka producer group id by class name.<BR/>
      */
@@ -45,7 +47,8 @@ public class VirtualObjectConsumerHandler extends AGenericConsumerHandler2<Strin
      */
     public VirtualObjectConsumerHandler(IDatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
-    }
+        Thread.currentThread().setName("T:"+Settings.TOPIC_VIRTUAL_OBJECT + "-" +threadNum++);
+}
 
     /**
      * constructor.<BR/>
@@ -97,7 +100,7 @@ public class VirtualObjectConsumerHandler extends AGenericConsumerHandler2<Strin
     public void handle(ConsumerRecord<String, String> record) {
         //read OrchestrationServiceForMQ from string
         VirtualObjectForMQ virtualObjectForMQ = ModelMapper.readJsonObject(record.value(), VirtualObjectForMQ.class);
-        log.debug("VirtualObjectForMQ: {}", virtualObjectForMQ);
+        log.trace("VirtualObjectForMQ: {}", virtualObjectForMQ);
 
         // tracking
         TrackingEntity tracking = virtualObjectForMQ.getTrackingEntity();

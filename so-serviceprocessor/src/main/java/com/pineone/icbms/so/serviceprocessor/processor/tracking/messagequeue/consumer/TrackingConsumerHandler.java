@@ -30,7 +30,7 @@ public class TrackingConsumerHandler extends AConsumerHandler<ConsumerRecord<Str
      */
     @KafkaListener(topics = "tracking")
     public void onMessage(ConsumerRecord<String, String> record) {
-        log.debug("received message: {}", record);
+        log.trace("received message: {}", record);
         try {
             TrackingEntity tracking = JsonMapper.readJsonObject(record.value(), TrackingEntity.class);
 

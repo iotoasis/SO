@@ -31,6 +31,8 @@ public class OrchestrationServiceConsumerHandler extends AGenericConsumerHandler
      * kafka producer group id by class name.<BR/>
      */
     private static final String GROUP_ID = OrchestrationServiceConsumerHandler.class.getSimpleName();
+    
+    private static int threadNum=0;
 
     /**
      * database manager
@@ -47,6 +49,7 @@ public class OrchestrationServiceConsumerHandler extends AGenericConsumerHandler
      */
     public OrchestrationServiceConsumerHandler(IDatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
+        Thread.currentThread().setName("T:"+Settings.TOPIC_ORCHESTRATION_SERVICE + "-" +threadNum++);
     }
 
     /**

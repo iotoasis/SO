@@ -64,7 +64,7 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
         session.setServicemodelResult(osResult);
         databaseManager.updateSessionData(session);
 
-        log.debug("session service : {}", session);
+        log.trace("session service : {}", session);
 
         // OS list : os 를 복수로 확장하게 될 경우 사용
 //        if (orchestrationService.getOrchestrationServiceList() != null) {
@@ -185,7 +185,8 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
      */
     private void handleCompositeVirtualObject(IGenericCompositeVirtualObject cvo) {
         // composite virtual object biz.
-        //
+        log.debug("cvo : {}", cvo.getId());
+
         handleVirtualObjectList(cvo.getVirtualObjectList(), cvo.getStateStore());
     }
 
@@ -208,8 +209,8 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
                 SessionEntity session = new SessionEntity();
                 session.setId(getTracking().getSessionId());
                 session.setVirtualobjectKey(virtualObject.getId());
-                log.debug("session vo : {}", session);
                 databaseManager.createSessionDataVo(session);
+                log.trace("session vo : {}", session);
     
                 session = new SessionEntity();
                 session.setId(getTracking().getSessionId());

@@ -30,7 +30,9 @@ public class DeviceControlConsumerHandler extends AGenericConsumerHandler2<Strin
      * kafka producer group id by class name.<BR/>
      */
     private static final String GROUP_ID = DeviceControlConsumerHandler.class.getSimpleName();
-
+    
+    private static int threadNum =0; 
+    
     /**
      * database manager
      */
@@ -46,6 +48,7 @@ public class DeviceControlConsumerHandler extends AGenericConsumerHandler2<Strin
      */
     public DeviceControlConsumerHandler(IDatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
+        Thread.currentThread().setName("T:"+Settings.TOPIC_DEVICE_CONTROL + "-" +threadNum++);
     }
 
     /**
@@ -96,7 +99,8 @@ public class DeviceControlConsumerHandler extends AGenericConsumerHandler2<Strin
      */
     @Override
     public void handle(ConsumerRecord<String, String> record) {
-        log.debug("received message: {}", record);
+        log.trace("received message: {}", record);
+
         //read DeviceControlForMQ from string
         DeviceControlForMQ deviceControlForMQ = ModelMapper.readJsonObject(record.value(), DeviceControlForMQ.class);
         log.debug("DeviceControlForMQ: {}", deviceControlForMQ);

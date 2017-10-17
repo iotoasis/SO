@@ -35,7 +35,8 @@
 
     <!-- log pattern -->
     <property name="ENCODER_PATTERN_STDOUT" value="%d{yy-MM-dd HH:mm:ss,SSS} %-4relative [%thread] %-5level [%class{10}] - %msg%n"/>
-    <property name="ENCODER_PATTERN_FILE" value="${ENCODER_PATTERN_STDOUT}"/>
+    <property name="ENCODER_PATTERN_ALL_FILE" value="${ENCODER_PATTERN_STDOUT}"/>
+    <property name="ENCODER_PATTERN_UNIT_FILE" value="%d{yy-MM-dd HH:mm:ss,SSS} %-4relative %-5level [%class{10}] - %msg%n"/>
     <property name="ENCODER_PATTERN_ROLLING_FILE" value="${ENCODER_PATTERN_STDOUT}"/>
 
     <!-- appender -->
@@ -44,7 +45,7 @@
         <encoder>
             <charset>UTF-8</charset>
 <!--             <Pattern>%d %-4relative [%thread] %-5level %logger{36} - %msg%n</Pattern> -->
-            <pattern>${ENCODER_PATTERN_FILE}</pattern>
+            <pattern>${ENCODER_PATTERN_STDOUT}</pattern>
         </encoder>
     </appender>
 
@@ -57,7 +58,7 @@
         <file>${LOG_FILE_PATH_DEFAULT}_${byDay}.log</file>
         <append>true</append>
         <encoder>
-            <pattern>${ENCODER_PATTERN_FILE}</pattern>
+            <pattern>${ENCODER_PATTERN_ALL_FILE}</pattern>
         </encoder>
     </appender>
 
@@ -108,7 +109,7 @@
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>
-            <pattern>${ENCODER_PATTERN_ROLLING_FILE}</pattern>
+            <pattern>${ENCODER_PATTERN_UNIT_FILE}</pattern>
         </encoder>
     </appender>
 
@@ -125,7 +126,7 @@
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>
-            <pattern>${ENCODER_PATTERN_ROLLING_FILE}</pattern>
+            <pattern>${ENCODER_PATTERN_UNIT_FILE}</pattern>
         </encoder>
     </appender>
 
@@ -142,7 +143,7 @@
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>
-            <pattern>${ENCODER_PATTERN_ROLLING_FILE}</pattern>
+            <pattern>${ENCODER_PATTERN_UNIT_FILE}</pattern>
         </encoder>
     </appender>
 
@@ -159,7 +160,7 @@
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>
-            <pattern>${ENCODER_PATTERN_ROLLING_FILE}</pattern>
+            <pattern>${ENCODER_PATTERN_UNIT_FILE}</pattern>
         </encoder>
     </appender>
 

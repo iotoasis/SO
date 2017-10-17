@@ -109,7 +109,7 @@ public class ProfileController {
         //SDA로 부터 CM발생 여부 체크
         List<String> locationList = new SdaManager().retrieveEventLocationList(contextModelId);
 
-        contextLog.debug("called SDA: cm={}, location={}", contextModelId, locationList.toString());
+        contextLog.debug("called SDA: cm={}, name={}, location={}", contextModelId, contextModelName, locationList.toString());
 
         if (locationList != null && locationList.size() > 0) {
 

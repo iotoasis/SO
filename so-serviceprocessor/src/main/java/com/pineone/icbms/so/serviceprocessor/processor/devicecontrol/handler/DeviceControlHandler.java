@@ -130,7 +130,7 @@ public class DeviceControlHandler extends AProcessHandler {
                 session.setDeviceKey(deviceControlForDB.getId());
                 
                 session.setDeviceLocation(loc);
-                log.debug("session vo : {}", session);
+                log.trace("session vo : {}", session);
                 databaseManager.createSessionDataDevice(session);
 
                 session = new SessionEntity();
@@ -194,6 +194,8 @@ public class DeviceControlHandler extends AProcessHandler {
 
             //String aspect = virtualDevice.getAspect().getUri();
             //ResultMessage resultMessage = deviceManager.deviceExecute(commandId, virtualDevice.getId(), deviceControlValue);
+            
+            log.debug("# Run controlDevice: {}, {}, {}, {}", commandId, virtualDevice.getId(), aspect, deviceControlValue);
             ResultMessage resultMessage = deviceManager.deviceExecute(commandId, virtualDevice.getId(), aspect, deviceControlValue);
 
             getTracking().setProcessId(virtualDevice.getId());//resultMessage.getCode());
@@ -209,7 +211,7 @@ public class DeviceControlHandler extends AProcessHandler {
                 getTracking().setProcessResult(resultMessage.getCode());
             }
             TrackingProducer.send(getTracking());
-            log.warn("ResultMessage controlDevice: {}", resultMessage);
+            log.warn("Result controlDevice: {}", resultMessage);
         } catch (Exception e) {
             e.printStackTrace();
             getTracking().setProcessId(virtualDevice.getId());

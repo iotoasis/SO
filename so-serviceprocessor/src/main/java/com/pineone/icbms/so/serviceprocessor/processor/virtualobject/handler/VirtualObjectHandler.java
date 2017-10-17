@@ -63,6 +63,7 @@ public class VirtualObjectHandler extends AProcessHandler<IGenericVirtualObject>
             if (deviceForDbList != null && deviceForDbList.size() > 0) {
                 //get virtual device list from device information
                 List<IGenericVirtualDevice> deviceList = ModelMapper.toVirtualDeviceList(deviceForDbList);
+                log.info("virtual device list size: {}", deviceList.size());
                 log.info("virtual device list size: {},\n{}", deviceList.size(), CollectionUtils.toStringWithLineFeed(deviceList));
                 //publish a VirtualDevice
                 if (deviceList != null && deviceList.size() > 0) {
