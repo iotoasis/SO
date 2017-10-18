@@ -8,7 +8,6 @@ import com.pineone.icbms.so.interfaces.database.ref.DataLossException;
 import com.pineone.icbms.so.interfaces.database.ref.DataValidation;
 
 import com.pineone.icbms.so.interfaces.messagequeue.model.ContextModelForMQ;
-import com.pineone.icbms.so.interfaces.sda.model.ContextModelForIf;
 import com.pineone.icbms.so.interfaces.sda.model.ContextModelForIf2;
 import com.pineone.icbms.so.interfaces.si.handle.DeviceManager;
 import com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler;

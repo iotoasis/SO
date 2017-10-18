@@ -46,8 +46,8 @@ dependencies {
     //json object mapper
     compile "com.fasterxml.jackson.core:jackson-databind:${VERSION.jackson_databind}"
     compile "com.google.code.gson:gson:2.6.2"
-    compile "org.codehaus.jackson:jackson-mapper-asl:1.9.13"
-    compile "org.codehaus.jackson:jackson-core-asl:1.9.13"
+    //compile "org.codehaus.jackson:jackson-mapper-asl:1.9.13"
+    //compile "org.codehaus.jackson:jackson-core-asl:1.9.13"
 
     //compile("org.springframework.boot:spring-boot-starter-data-mongodb")
 
