@@ -36,7 +36,7 @@
     <!-- log pattern -->
     <property name="ENCODER_PATTERN_STDOUT" value="%d{yy-MM-dd HH:mm:ss,SSS} %-4relative [%thread] %-5level [%class{10}] - %msg%n"/>
     <property name="ENCODER_PATTERN_ALL_FILE" value="${ENCODER_PATTERN_STDOUT}"/>
-    <property name="ENCODER_PATTERN_UNIT_FILE" value="%d{yy-MM-dd HH:mm:ss,SSS} %-4relative %-5level [%class{10}] - %msg%n"/>
+    <property name="ENCODER_PATTERN_UNIT_FILE" value="%d{yy-MM-dd HH:mm:ss,SSS} %-4relative %-5level %msg%n"/>
     <property name="ENCODER_PATTERN_ROLLING_FILE" value="${ENCODER_PATTERN_STDOUT}"/>
 
     <!-- appender -->

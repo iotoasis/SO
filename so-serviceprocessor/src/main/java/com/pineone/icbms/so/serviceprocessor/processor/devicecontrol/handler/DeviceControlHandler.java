@@ -114,23 +114,24 @@ public class DeviceControlHandler extends AProcessHandler {
             // simulator. 마지막 VO인 경우
             if ("Y".equals(virtualDevice.getIsLast())) {
                 getTracking().setStatusCd("F");
-
+/*
                 // grib session location
                 SessionEntity session = new SessionEntity();
                 session.setId(getTracking().getSessionId());
                 session.setContextmodelResult("Happen"); //Session Data 완료 처리
                 databaseManager.updateSessionData(session);
+*/
             }
 
             if (getTracking().getSimulatorType() == null || "".equals(getTracking().getSimulatorType())) {
     
-                // grib session location
+                // grib session device
                 SessionEntity session = new SessionEntity();
                 session.setId(getTracking().getSessionId());
                 session.setDeviceKey(deviceControlForDB.getId());
                 
                 session.setDeviceLocation(loc);
-                log.trace("session vo : {}", session);
+                log.trace("session device : {}", session);
                 databaseManager.createSessionDataDevice(session);
 
                 session = new SessionEntity();
@@ -201,10 +202,12 @@ public class DeviceControlHandler extends AProcessHandler {
             getTracking().setProcessId(virtualDevice.getId());//resultMessage.getCode());
             getTracking().setProcessValue(deviceControlValue);
 
+            boolean resultControl = false;
             // 정상응답이 아닌경우
             if (!"2000".equals(resultMessage.getCode())) {
                 getTracking().setProcessName("Response ERROR");
                 getTracking().setProcessResult(resultMessage.getMessage());
+                resultControl = true;
             } else {
                 getTracking().setCommandId(commandId);
                 getTracking().setProcessName(resultMessage.getMessage());
@@ -212,6 +215,18 @@ public class DeviceControlHandler extends AProcessHandler {
             }
             TrackingProducer.send(getTracking());
             log.warn("Result controlDevice: {}", resultMessage);
+
+            if ("Y".equals(virtualDevice.getIsLast())) {
+            	if (resultControl == true) {
+	                // grib session location
+	                SessionEntity session = new SessionEntity();
+	                session.setId(getTracking().getSessionId());
+	                session.setContextmodelResult("Happen"); //Session Data 완료 처리
+	                databaseManager.updateSessionData(session);
+            	}
+            	log.debug("===========end==============");
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
             getTracking().setProcessId(virtualDevice.getId());
