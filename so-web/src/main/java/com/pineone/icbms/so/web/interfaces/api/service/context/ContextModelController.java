@@ -1,5 +1,8 @@
 package com.pineone.icbms.so.web.interfaces.api.service.context;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.kastkode.springsandwich.filter.annotation.Before;
 import com.kastkode.springsandwich.filter.annotation.BeforeElement;
 import com.pineone.icbms.so.interfaces.database.dao.TrackingDao;
@@ -112,7 +115,8 @@ public class ContextModelController {
      * @return List<TrackingEntity>
      */
     @PostMapping(value = "/simulate")
-    public List<TrackingEntity> simulateContextModel(@RequestBody ContextModelForIf2 contextModelForIf, HttpServletRequest request) {
+    //public List<TrackingEntity> simulateContextModel(@RequestBody ContextModelForIf2 contextModelForIf, HttpServletRequest request) {
+    public String simulateContextModel(@RequestBody ContextModelForIf2 contextModelForIf, HttpServletRequest request) {
 
         ContextModelForMQ contextModelForMQ = processContextModel(contextModelForIf, request);
 
@@ -130,9 +134,19 @@ public class ContextModelController {
         } catch (InterruptedException e) { }
 
         List<TrackingEntity> list = trackingDao.retrieveTrackingBySessionId(sessionId);
-
-        	
-        return list;
+        //return list;
+        String result=null;
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			//mapper.enable(SerializationFeature.INDENT_OUTPUT);        
+			//result = mapper.writeValueAsString(list);
+			result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(list);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        return result;
     }
 
     private ContextModelForMQ processContextModel(ContextModelForIf2 contextModelForIf, HttpServletRequest request) {
