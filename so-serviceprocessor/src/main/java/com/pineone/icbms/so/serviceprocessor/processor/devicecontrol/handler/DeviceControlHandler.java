@@ -123,29 +123,38 @@ public class DeviceControlHandler extends AProcessHandler {
 */
             }
 
+            // grib session device
+            SessionEntity session = new SessionEntity();
+            session.setId(getTracking().getSessionId());
+            session.setDeviceKey(deviceControlForDB.getId());
+            
+            session.setDeviceLocation(loc);
+            log.trace("session device : {}", session);
+            databaseManager.createSessionDataDevice(session);
+            
+
             if (getTracking().getSimulatorType() == null || "".equals(getTracking().getSimulatorType())) {
     
-                // grib session device
-                SessionEntity session = new SessionEntity();
-                session.setId(getTracking().getSessionId());
-                session.setDeviceKey(deviceControlForDB.getId());
-                
-                session.setDeviceLocation(loc);
-                log.trace("session device : {}", session);
-                databaseManager.createSessionDataDevice(session);
-
-                session = new SessionEntity();
-                session.setId(getTracking().getSessionId());
-                session.setDeviceResult("CONTROL_EXECUTION");
-                databaseManager.updateSessionData(session);
+            	session = new SessionEntity();
+            	session.setId(getTracking().getSessionId());
+            	session.setDeviceResult("CONTROL_EXECUTION");
+            	databaseManager.updateSessionData(session);
 
                 // 실제 디바이스 실행
-                //control device
+                //control device : SI와 통신
                 controlDevice(virtualDevice, newAspectId, deviceControlForDB.getValue());
             }
             else {
-                // 시뮬레이션
-                log.warn("Simulate controlDevice: {}, {}", virtualDevice.getName(), virtualDevice.getId());
+            	// 시뮬레이션 : 실제 제어는 하지 않고 로그만 출력함
+            	
+            	//Session Data
+            	session = new SessionEntity();
+            	session.setId(getTracking().getSessionId());
+            	session.setDeviceResult("SIMULATEL_EXECUTION");
+            	databaseManager.updateSessionData(session);
+
+            	//Tracking Log
+            	log.warn("Simulate controlDevice: {}, {}", virtualDevice.getName(), virtualDevice.getId());
                 getTracking().setProcessId(virtualDevice.getId());
                 getTracking().setProcessName(virtualDevice.getName() + ", 디바이스제어");
                 getTracking().setProcessValue(deviceControlForDB.getValue());
@@ -207,11 +216,11 @@ public class DeviceControlHandler extends AProcessHandler {
             if (!"2000".equals(resultMessage.getCode())) {
                 getTracking().setProcessName("Response ERROR");
                 getTracking().setProcessResult(resultMessage.getMessage());
-                resultControl = true;
             } else {
                 getTracking().setCommandId(commandId);
                 getTracking().setProcessName(resultMessage.getMessage());
                 getTracking().setProcessResult(resultMessage.getCode());
+                resultControl = true;
             }
             TrackingProducer.send(getTracking());
             log.warn("Result controlDevice: {}", resultMessage);
