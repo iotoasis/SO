@@ -16,7 +16,7 @@
       )
       VALUES (
           #{id}
-        , now(4)
+        , date_format(now(),'%a %b %d %I:%i:%s KST %Y')
         , #{contextmodelKey}
         , #{contextmodelName}
         , #{contextmodelResult}
