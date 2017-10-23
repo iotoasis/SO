@@ -67,7 +67,7 @@
         <file>${LOG_FILE_PATH_DEFAULT}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>${LOG_FILE_NAME_DEFAULT}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_FILE_PATH_DEFAULT}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!-- or whenever the file size reaches 100MB -->
@@ -164,7 +164,7 @@
         </encoder>
     </appender>
 
-    <!-- spring profile: product -->
+    <!-- spring profile: # product ============================== -->
     <springProfile name="product">
         <root level="INFO">
             <!--<appender-ref ref="APPENDER_STDOUT_DEFAULT"/>-->
@@ -196,7 +196,7 @@
         <!--</logger>-->
     </springProfile>
 
-    <!-- spring profile: dev -->
+    <!-- spring profile: # dev ============================== -->
     <springProfile name="dev">
         <root level="${LOG_LEVEL_DEFAULT}">
             <appender-ref ref="APPENDER_STDOUT_DEFAULT"/>

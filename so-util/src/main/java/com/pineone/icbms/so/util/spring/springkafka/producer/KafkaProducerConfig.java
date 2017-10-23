@@ -4,6 +4,8 @@ import com.pineone.icbms.so.util.Settings2;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Conditional;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -12,23 +14,25 @@ import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 /**
  * Spring config for Kafka.<BR/>
  *
  * Created by uni4love on 2017. 4. 10..
  */
+
+
 @Component
 public class KafkaProducerConfig {
 	protected static Logger log = LoggerFactory.getLogger(KafkaProducerConfig.class);
-	
+
     /**
      * kafka producer configs.<BR/>
      *
      * @return Map object for configs
      */
     public static Map<String, Object> getProducerConfigs() {
-    	checkBrokerEnabled();
-    	
         Map<String, Object> keyValueMap = new HashMap<>();
         keyValueMap.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, Settings2.getBrokerList());
         keyValueMap.put(ProducerConfig.ACKS_CONFIG, Settings2.getAcksConfig());
@@ -42,9 +46,14 @@ public class KafkaProducerConfig {
     }
 
     // BROKER가 동작중인지 체크
-    static boolean checkBrokerEnabled(){
+	@PostConstruct
+    boolean checkBrokerEnabled(){
     	String serverUrl = Settings2.getBrokerList(); //Broker정보 읽어오기
-    	String params[] = serverUrl.split(":");
+    	if (serverUrl==null || serverUrl.isEmpty()) { //ignore
+    		return true;
+    	}
+    	
+		String params[] = serverUrl.split(":");
     	String host = params[0];
     	Integer port = Integer.valueOf(params[1]);
     	try {

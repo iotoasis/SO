@@ -14,7 +14,7 @@ public class Settings2 {
     /**
      * broker(kafka) list
      */
-	public static String brokerList = "localhost:9092";
+	public static String brokerList;// = "localhost:9092";
 
 	@Value("${mq.broker.list}")
     public void setBrokerList(String _brokerList) {
