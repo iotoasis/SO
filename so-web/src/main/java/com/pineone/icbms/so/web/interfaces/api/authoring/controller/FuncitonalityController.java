@@ -1,7 +1,7 @@
 package com.pineone.icbms.so.web.interfaces.api.authoring.controller;
 
-import com.pineone.icbms.so.interfaces.database.dao.FunctionDao;
-import com.pineone.icbms.so.interfaces.database.model.FunctionForDB;
+import com.pineone.icbms.so.interfaces.database.dao.FunctionalityDao;
+import com.pineone.icbms.so.interfaces.database.model.FunctionalityForDB;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,52 +28,52 @@ public class FuncitonalityController {
      * repository(DAO)
      */
     @Autowired
-    private FunctionDao dao;
+    private FunctionalityDao dao;
 
     /**
      * response for request "/function, HTTP-method:POST".<BR/>
-     * @param functionForDB FunctionForDB
-     * @return created FunctionForDB id
+     * @param functionalityForDB FunctionalityForDB
+     * @return created FunctionalityForDB id
      */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public FunctionForDB createFunction(@RequestBody FunctionForDB functionForDB) {
-        return dao.create(functionForDB);
+    public FunctionalityForDB createFunction(@RequestBody FunctionalityForDB functionalityForDB) {
+        return dao.create(functionalityForDB);
     }
 
     /**
      * response for request "/function/{id}" .<BR/>
-     * @param id FunctionForDB id
-     * @return FunctionForDB
+     * @param id FunctionalityForDB id
+     * @return FunctionalityForDB
      */
     @RequestMapping(value = "/{id}")
-    public FunctionForDB getFunction(@PathVariable String id) {
+    public FunctionalityForDB getFunction(@PathVariable String id) {
         return dao.retrieve(id);
     }
 
     /**
      * response for request "/function".<BR/>
-     * @return FunctionForDB list
+     * @return FunctionalityForDB list
      */
     @RequestMapping()
-    public List<FunctionForDB> getFunctionList(@RequestBody FunctionForDB functionForDB) {
-        return dao.retrieve(functionForDB);
+    public List<FunctionalityForDB> getFunctionList(@RequestBody FunctionalityForDB functionalityForDB) {
+        return dao.retrieve(functionalityForDB);
     }
 
     /**
      * response for request "/function, HTTP-method:PATCH(update)".<BR/>
-     * @param function FunctionForDB
-     * @return updated FunctionForDB id
+     * @param function FunctionalityForDB
+     * @return updated FunctionalityForDB id
      */
     @RequestMapping(method=RequestMethod.PATCH)
-    public int updateFunction(FunctionForDB function) {
+    public int updateFunction(FunctionalityForDB function) {
         return dao.update(function);
     }
 
     /**
      * response for request "/function/{id}, HTTP-method:DELETE".<BR/>
-     * @param id FunctionForDB id
-     * @return deleted FunctionForDB id
+     * @param id FunctionalityForDB id
+     * @return deleted FunctionalityForDB id
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public int deleteFunction(@PathVariable String id) {
@@ -83,8 +83,8 @@ public class FuncitonalityController {
 
     /**
      * response for request "/function/{id}, HTTP-method:POST, 'register'".<BR/>
-     * @param id FunctionForDB id
-     * @return registed FunctionForDB id
+     * @param id FunctionalityForDB id
+     * @return registed FunctionalityForDB id
      */
 //    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
 //    public String registerFunction(String id) {

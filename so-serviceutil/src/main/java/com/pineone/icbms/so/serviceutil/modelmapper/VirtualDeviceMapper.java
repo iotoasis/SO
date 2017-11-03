@@ -30,7 +30,7 @@ public class VirtualDeviceMapper implements IModelMapper<IGenericVirtualDevice, 
     /**
      * function mapper
      */
-    private static FunctionMapper functionMapper = new FunctionMapper();
+    private static FunctionalityMapper functionalityMapper = new FunctionalityMapper();
 
     /**
      * convert MQ model to Processor model.<BR/>
@@ -82,9 +82,9 @@ public class VirtualDeviceMapper implements IModelMapper<IGenericVirtualDevice, 
             virtualDevice.setId(deviceForDB.getId());
             virtualDevice.setName(deviceForDB.getName());
             
-            //virtualDevice.setFunction(functionMapper.toProcessorModelFromDb(deviceForDB.getFunction()));
+            //virtualDevice.setFunction(functionalityMapper.toProcessorModelFromDb(deviceForDB.getFunction()));
             DefaultFunction function =
-                    new DefaultFunction(deviceForDB.getFunctionId(), "function name", "", deviceForDB.getFunctionId());
+                    new DefaultFunction(deviceForDB.getFunctionalityId(), "functionality name", "", deviceForDB.getFunctionalityId());
             virtualDevice.setFunction(function);
 
             // virtualDevice.setAspect(aspectMapper.toProcessorModelFromDb(deviceForDB.getAspect()));
@@ -109,7 +109,7 @@ public class VirtualDeviceMapper implements IModelMapper<IGenericVirtualDevice, 
             deviceControlForMQ.setId(virtualDevice.getId());
             deviceControlForMQ.setName(virtualDevice.getName());
             deviceControlForMQ.setDescription(virtualDevice.getDescription());
-            deviceControlForMQ.setFunction(functionMapper.toMqModelFromPs(virtualDevice.getFunction()));
+            deviceControlForMQ.setFunction(functionalityMapper.toMqModelFromPs(virtualDevice.getFunction()));
             deviceControlForMQ.setAspect(aspectMapper.toMqModelFromPs(virtualDevice.getAspect()));
             StateStoreUtil.copyStateStore(virtualDevice.getStateStore(), deviceControlForMQ);
             // simulator

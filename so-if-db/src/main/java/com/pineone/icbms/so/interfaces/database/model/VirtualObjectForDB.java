@@ -8,11 +8,7 @@
 package com.pineone.icbms.so.interfaces.database.model;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.pineone.icbms.so.util.time.DateFormat;
 import lombok.*;
-
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * The type Virtual object for db.
@@ -25,15 +21,8 @@ import java.util.Date;
 public class VirtualObjectForDB extends CommonEntity {
 
     @Getter @Setter
-    private String functionId;
-
-    @Getter @Setter
     private String aspectId;
-    
-    @Getter @Setter
-    private String deviceType;
-    
-    @Getter @Setter
-    private String deviceId;
 
+    @Getter @Setter
+    private String functionalityId;
 }

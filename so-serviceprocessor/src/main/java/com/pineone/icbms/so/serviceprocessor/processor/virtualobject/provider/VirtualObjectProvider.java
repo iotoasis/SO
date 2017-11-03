@@ -1,7 +1,7 @@
 package com.pineone.icbms.so.serviceprocessor.processor.virtualobject.provider;
 
 import com.pineone.icbms.so.interfaces.database.model.VirtualObjectForDB;
-import com.pineone.icbms.so.serviceprocessor.repository.database.DatabaseManager;
+import com.pineone.icbms.so.serviceutil.interfaces.database.DatabaseManager;
 import com.pineone.icbms.so.serviceutil.interfaces.provider.IVirtualObjectProvider;
 import com.pineone.icbms.so.virtualobject.IGenericVirtualObject;
 

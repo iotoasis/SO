@@ -4,61 +4,63 @@
 <mapper namespace="com.pineone.icbms.so.interfaces.database.dao.CompositeVirtualObjectDao">
     <select id="retrieveCompositeVirtualObjectListByOrchestrationId" parameterType="String" resultType="CompositeVirtualObjectForDB">
         SELECT
-          O.composite_virtual_object_id as id
-            , created_date
-            , description
-            , modified_date
+              C.id
             , C.name
-            , aspect_id
-            , function_id
-            , device_type
+            , C.description
+            , C.cvo_type
+            , C.device_class_type_id
+            , C.device_id
+            , C.created_date
+            , C.modified_date
         FROM
-          os_cvo O, composite_virtual_object C
+            rule_cvo RO, composite_virtual_object C
         WHERE
-          O.composite_virtual_object_id = C.id
-          AND O.orchestration_service_id = #{value}
+            RO.os_id = #{value}
+            AND RO.cvo_id = C.id
     </select>
 
     <!--
     os 에서 사용되는 cvo 매필정보 등록
     -->
     <insert id="createCompositeVirtualObjectListByOrchestrationId"  parameterType="HashMap">
-        <selectKey keyProperty="id" resultType="int" order="BEFORE">
-            select CAST(ifnull(max(id), 0) AS UNSIGNED) + 1 as id FROM os_cvo
-        </selectKey>
-
-        INSERT INTO os_cvo (
-            id
-            , orchestration_service_id
-            , composite_virtual_object_id
+        INSERT INTO rule_cvo (
+              id
+            , os_id
+            , cvo_id
+          <if test="locationId != null">
+            , location_id
+          </if>
         )
         VALUES (
-            #{id}
-            , #{orchestrationServiceId}
-            , #{compositeVirtualObjectId}
+              #{id}
+            , #{osId}
+            , #{cvoId}
+          <if test="locationId != null">
+            , #{locationId}
+          </if>
         )
     </insert>
 
     <insert id="createCompositeVirtualObject" parameterType="CompositeVirtualObjectForDB">
         INSERT INTO composite_virtual_object (
-            id
+              id
             , name
             , description
-            , aspect_id
-            , function_id
-            , device_type
-            , location_id
+            , cvo_type
+            , device_class_type_id
+            , device_id
+
             , created_date
             , modified_date
         )
         VALUES (
-            #{id}
+              #{id}
             , #{name}
             , #{description}
-            , #{aspectId}
-            , #{functionId}
-            , #{deviceType}
-            , #{locationId}
+            , #{cvoType}
+            , #{deviceClassTypeId}
+            , #{deviceId}
+
             , now(4)
             , now(4)
         )
@@ -66,29 +68,15 @@
 
     <select id="retrieveCompositeVirtualObjectById" parameterType="String" resultType="CompositeVirtualObjectForDB">
         SELECT
-            id
-            , name
-            , description
-            , aspect_id
-            , function_id
-            , device_type
-            , created_date
-            , modified_date
+        	*
         FROM composite_virtual_object
         WHERE
-                id = #{value}
+            id = #{value}
     </select>
 
     <select id="retrieveCompositeVirtualObjectByModel" parameterType="CompositeVirtualObjectForDB" resultType="CompositeVirtualObjectForDB">
         SELECT
-            id
-            , name
-            , description
-            , aspect_id
-            , function_id
-            , device_type
-            , created_date
-            , modified_date
+        	*
         FROM composite_virtual_object
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             <if test="id != null">
@@ -97,14 +85,17 @@
             <if test="name != null">
                 AND name = #{name}
             </if>
-            <if test="aspectId != null">
-                AND aspect_id = #{aspectId}
-            </if>
-            <if test="functionId != null">
-                AND function_id = #{functionId}
-            </if>
             <if test="description != null">
                 AND description = #{description}
+            </if>
+            <if test="cvoType != null">
+                AND cvo_type = #{cvoType}
+            </if>
+            <if test="deviceClassTypeId != null">
+                AND device_class_type_id = #{deviceClassTypeId}
+            </if>
+            <if test="deviceId != null">
+                AND device_id = #{deviceId}
             </if>
         </trim>
     </select>
@@ -115,12 +106,12 @@
             modified_date = now(4)
             <if test="name != null">, name = #{name}</if>
             <if test="description != null">, description = #{description}</if>
-            <if test="aspectId != null">, aspect_id = #{aspectId}</if>
-            <if test="functionId != null">, function_id = #{functionId}</if>
-            <if test="deviceType != null">, device_type = #{deviceType}</if>
+            <if test="cvoType != null">, cvo_type = #{cvoType}</if>
+            <if test="deviceClassTypeId != null">, device_class_type_id = #{deviceClassTypeId}</if>
+            <if test="deviceId != null">, device_id = #{deviceId}</if>
         </set>
         WHERE
-        id = #{id}
+            id = #{id}
     </update>
 
     <delete id="deleteCompositeVirtualObject" parameterType="String">

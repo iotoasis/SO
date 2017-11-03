@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pineone.icbms.so.interfaces.database.dao.FunctionDao">
-    <select id="retrieveFunctionById" parameterType="String" resultType="FunctionForDB">
+<mapper namespace="com.pineone.icbms.so.interfaces.database.dao.FunctionalityDao">
+    <select id="retrieveFunctionById" parameterType="String" resultType="FunctionalityForDB">
         SELECT
-            id
-            , created_date
-            , description
-            , modified_date
-            , name
-            , uri
-        FROM function
+			*
+        FROM functionality
         WHERE
-                id = #{value}
+            id = #{value}
     </select>
 
-    <select id="retrieveFunctionByModel" parameterType="FunctionForDB" resultType="FunctionForDB">
+    <select id="retrieveFunctionByModel" parameterType="FunctionalityForDB" resultType="FunctionalityForDB">
         SELECT
             id
             , created_date
@@ -23,7 +18,7 @@
             , modified_date
             , name
             , uri
-        FROM function
+        FROM functionality
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             <if test="id != null">
                 AND id = #{id}
@@ -40,8 +35,8 @@
         </trim>
     </select>
 
-    <insert id="createFunction"  parameterType="FunctionForDB">
-        INSERT INTO function (
+    <insert id="createFunction"  parameterType="FunctionalityForDB">
+        INSERT INTO functionality (
             id
             , name
             , uri
@@ -59,8 +54,8 @@
         )
     </insert>
 
-    <update id="updateFunction" parameterType="FunctionForDB">
-        UPDATE function
+    <update id="updateFunction" parameterType="FunctionalityForDB">
+        UPDATE functionality
         <set>
             modified_date = now(4)
             <if test="uri != null">, uri = #{uri}</if>
@@ -72,7 +67,7 @@
     </update>
 
     <delete id="deleteFunction" parameterType="String">
-        delete from function
+        delete from functionality
         where id = #{value}
     </delete>
 </mapper>

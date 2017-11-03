@@ -5,14 +5,7 @@
 <mapper namespace="com.pineone.icbms.so.interfaces.database.dao.OrchestrationServiceDao">
     <select id="retrieveOrchestrationServiceById" parameterType="String" resultType="OrchestrationServiceForDB">
         SELECT
-          id
-          , name
-          , description
-          , created_date
-          , parent_id
-          , modified_date
-          , user_id
-          , order_cd
+			*
         FROM orchestration_service
         <where>
             <if test="value != null">
@@ -23,35 +16,19 @@
 
     <select id="retrieveOrchestrationServiceByProfile" parameterType="String" resultType="OrchestrationServiceForDB">
         SELECT
-        s.id
-        , s.name
-        , s.description
-        , s.created_date
-        , s.parent_id
-        , s.modified_date
-        , s.user_id
-        , s.order_cd
-        , s.order_idx
-        FROM orchestration_service s, profile p
+			OS.*
+        FROM orchestration_service OS, profile P
         WHERE
-        	s.id = p.orchestration_service_id 
+        	OS.id = P.orchestration_service_id 
             <if test="_parameter != null">
-                AND p.id = #{_parameter}
+                AND P.id = #{_parameter}
             </if>
         ORDER BY order_idx
     </select>
 
     <select id="retrieveOrchestrationServiceByModel" parameterType="OrchestrationServiceForDB" resultType="OrchestrationServiceForDB">
         SELECT
-        id
-        , name
-        , description
-        , created_date
-        , parent_id
-        , modified_date
-        , user_id
-        , order_cd
-        , order_idx
+			*
         FROM orchestration_service
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             <if test="id != null">
@@ -60,14 +37,8 @@
             <if test="name != null">
                 AND name = #{name}
             </if>
-            <if test="parentId != null">
-                AND parent_id = #{parentId}
-            </if>
             <if test="description != null">
                 AND description = #{description}
-            </if>
-            <if test="userId != null">
-                AND user_id = #{userId}
             </if>
             <if test="orderCd != null">
                 AND order_cd = #{orderCd}
@@ -78,16 +49,17 @@
 
     <select id="retrieveCvoInOrchestrationService" parameterType="String" resultType="CompositeVirtualObjectForDB">
         SELECT
-          composite_virtual_object_id as id
-        FROM os_cvo
+        	C.*
+        FROM rule_cvo RC, composite_virtual_object C
         WHERE
-          orchestration_service_id = #{value}
+        	RC.cvo_id = C.id
+          	AND RC.os_id = #{value}
     </select>
 
     <select id="retrieveVoInOrchestrationService" parameterType="String" resultType="VirtualObjectForDB">
         SELECT
-          virtual_object_id as id
-        FROM os_vo
+          RV.*
+        FROM rule_cvo RC, rule_vo RV
         WHERE
           orchestration_service_id = #{value}
     </select>
@@ -97,23 +69,36 @@
             id
             , name
             , description
-            , parent_id
             , created_date
             , modified_date
-            , user_id
             , order_cd
         )
         VALUES (
             #{id}
             , #{name}
             , #{description}
-            , #{parentId}
             , now(4)
             , now(4)
-            , #{userId}
             , #{orderCd}
         )
     </insert>
+
+    <update id="updateOrchestrationService" parameterType="OrchestrationServiceForDB">
+        UPDATE orchestration_service
+        <set>
+            modified_date = now(4)
+            <if test="name != null">, name = #{name}</if>
+            <if test="description != null">, description = #{description}</if>
+            <if test="orderCd != null">, order_cd = #{orderCd}</if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="deleteOrchestrationService" parameterType="String">
+        delete from orchestration_service
+        where id = #{value}
+    </delete>
 
     <insert id="createOsCvo" parameterType="OrchestrationServiceForDB">
         INSERT INTO os_cvo (
@@ -142,25 +127,6 @@
             )
         </foreach>
     </insert>
-
-    <update id="updateOrchestrationService" parameterType="OrchestrationServiceForDB">
-        UPDATE orchestration_service
-        <set>
-            modified_date = now(4)
-            <if test="parentId != null">, parent_id = #{parentId}</if>
-            <if test="name != null">, name = #{name}</if>
-            <if test="description != null">, description = #{description}</if>
-            <if test="userId != null">, user_id = #{userId}</if>
-            <if test="orderCd != null">, order_cd = #{orderCd}</if>
-        </set>
-        WHERE
-        id = #{id}
-    </update>
-
-    <delete id="deleteOrchestrationService" parameterType="String">
-        delete from orchestration_service
-        where id = #{value}
-    </delete>
 
     <delete id="deleteOsCvo" parameterType="String">
         delete from os_cvo

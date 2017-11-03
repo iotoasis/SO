@@ -1,12 +1,14 @@
-package com.pineone.icbms.so.serviceprocessor.repository.database;
+package com.pineone.icbms.so.serviceutil.interfaces.database;
 
 import com.pineone.icbms.so.interfaces.database.model.*;
 import com.pineone.icbms.so.interfaces.database.service.DataBaseStore;
-import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+
+import javax.annotation.PostConstruct;
 
 /**
  * Database Manager implements.<BR/>
@@ -20,10 +22,16 @@ public class DatabaseManager implements IDatabaseManager {
     //IDataBaseStore dataBaseStore;
     DataBaseStore dataBaseStore;
 
+    static DataBaseStore dataBaseStoreClone;
+    static DatabaseManager databaseManager;
     /**
      * constructor
      */
-    public DatabaseManager() {
+    
+    @PostConstruct
+    public void InitDatabaseManager() {
+    	dataBaseStoreClone = dataBaseStore;
+    	databaseManager = this;
     }
 
     /**
@@ -33,7 +41,8 @@ public class DatabaseManager implements IDatabaseManager {
      */
     public static DatabaseManager getInstance() {
 //        return SingletonHolder.singleton;
-        return new DatabaseManager();
+        //return new DatabaseManager();
+    	return databaseManager;
     }
 
 	@Override
@@ -61,12 +70,12 @@ public class DatabaseManager implements IDatabaseManager {
     public VirtualObjectForDB getVirtualObjectById(String id) {
         return dataBaseStore.getVirtualObjectById(id);
     }
-
+/*
     @Override
     public List<VirtualObjectForDB> getVirtualObjectListByOrchestrationId(String orchestrationServiceId) {
         return dataBaseStore.getVirtualObjectListByOrchestrationId(orchestrationServiceId);
     }
-
+*/
     @Override
     public List<DeviceForDB> getDeviceList(String functionUri, String aspect, String locationUri) {
         //implements.
@@ -124,5 +133,10 @@ public class DatabaseManager implements IDatabaseManager {
     public void updateSessionData(SessionEntity sessionEntity) {
         dataBaseStore.updateSessionData(sessionEntity);
     }
+
+    @Override
+	public LocationForDB getLocationById(String id) {
+        return dataBaseStore.getLocationById(id);
+	}
 
 }

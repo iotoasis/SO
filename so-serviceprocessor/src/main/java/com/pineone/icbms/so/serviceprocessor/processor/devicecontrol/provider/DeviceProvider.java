@@ -2,7 +2,7 @@ package com.pineone.icbms.so.serviceprocessor.processor.devicecontrol.provider;
 
 import com.pineone.icbms.so.virtualobject.virtualdevice.IGenericVirtualDevice;
 import com.pineone.icbms.so.interfaces.database.model.DeviceForDB;
-import com.pineone.icbms.so.serviceprocessor.repository.database.DatabaseManager;
+import com.pineone.icbms.so.serviceutil.interfaces.database.DatabaseManager;
 import com.pineone.icbms.so.serviceutil.interfaces.provider.IDeviceControlProvider;
 
 import java.util.List;

@@ -30,7 +30,7 @@ public class VirtualObjectDao extends AbstractDao {
      */
     public VirtualObjectForDB retrieveVirtualObjectByFunctionAndAspect(String function, String aspect) {
         HashMap<String, String> map = new HashMap<String, String>();
-        map.put("functionId", function);
+        map.put("functionalityId", function);
         map.put("aspectId", aspect);
         return sqlSession.selectOne("retrieveVirtualObjectByFunctionAndAspect", map);
     }
@@ -58,11 +58,11 @@ public class VirtualObjectDao extends AbstractDao {
     public String deleteVirtualObject(String id) {
         return null;
     }
-
+/*
     public List<VirtualObjectForDB> getVirtualObjectListByOrchestrationId(String orchestrationServiceId) {
         return super.sqlSession.selectList("getVirtualObjectListByOrchestrationId", orchestrationServiceId);
     }
-
+*/
     public List<VirtualObjectForDB> retrieveVirtualObjectListByCompositeVirtualObjectId(String compositeVirtualObjectId) {
         return super.sqlSession.selectList("retrieveVirtualObjectListByCompositeVirtualObjectId", compositeVirtualObjectId);
     }

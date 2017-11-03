@@ -8,7 +8,7 @@ import com.pineone.icbms.so.interfaces.database.model.SessionEntity;
 import com.pineone.icbms.so.interfaces.database.model.TrackingEntity;
 import com.pineone.icbms.so.interfaces.sda.handle.SdaManager;
 import com.pineone.icbms.so.serviceprocessor.processor.context.handler.ContextModelHandler;
-import com.pineone.icbms.so.serviceprocessor.repository.database.DatabaseManager;
+import com.pineone.icbms.so.serviceutil.interfaces.database.DatabaseManager;
 import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;
 import com.pineone.icbms.so.util.conversion.ProfileTransFormData;
 import com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextModel;

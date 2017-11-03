@@ -31,11 +31,11 @@ repositories {
 
 
 dependencies {
-    compile project(":so-virtualobject")
-    compile project(":so-if-mq")
-    compile project(":so-if-db")
-    compile project(":so-devicecontrol")
-    compile project(":so-util")
+    compile project(':so-virtualobject')
+    compile project(':so-if-mq')
+    compile project(':so-if-db')
+    compile project(':so-devicecontrol')
+    compile project(':so-util')
 
     //json object mapper
     compile "com.fasterxml.jackson.core:jackson-databind:${VERSION.jackson_databind}"

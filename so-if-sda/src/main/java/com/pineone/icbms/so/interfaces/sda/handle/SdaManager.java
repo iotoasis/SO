@@ -100,7 +100,7 @@ public class SdaManager implements ISdaManager {
 
     // function 에 대응하는 aspect 조회, function 를 이용한 조회 지원 필요
     @Override
-    public List<AspectForIf> retrieveAspectListByFunction(String functionId) {
+    public List<AspectForIf> retrieveAspectListByFunction(String functionalityId) {
         //
         List<AspectForIf> aspectList = new ArrayList<AspectForIf>();
         List<ContextModelContent> contentList = new ArrayList<>();
@@ -109,7 +109,7 @@ public class SdaManager implements ISdaManager {
             IHttpResponseMessage message = clientService.requestGetService(
                     addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
                             SdaAddressStore.CM_ASPECT_LIST_BY_FUNC + SdaAddressStore.SEPARATOR_WITHOUT_COMMA
-                            + functionId);
+                            + functionalityId);
             contentList = getContextModelContents(message);
         } catch (IOException e) {
             e.printStackTrace();
@@ -117,7 +117,7 @@ public class SdaManager implements ISdaManager {
 //            e.printStackTrace();
         }
         if (contentList == null || contentList.isEmpty()) {
-            String info = "Function = " + functionId + " doesn't have Aspect";
+            String info = "Function = " + functionalityId + " doesn't have Aspect";
             log.debug("info : " + info);
         } else {
             for (ContextModelContent contextModelContent : contentList) {
@@ -134,7 +134,7 @@ public class SdaManager implements ISdaManager {
 
     // function, location 을 이용한 Device 목록 조회
     @Override
-    public List<String> retrieveDeviceListByFunctionAndLocation(String locationId, String functionId) {
+    public List<String> retrieveDeviceListByFunctionAndLocation(String locationId, String functionalityId) {
         //
         List<String> deviceList = new ArrayList<>();
         List<ContextModelContent> contentList = new ArrayList<>();
@@ -143,7 +143,7 @@ public class SdaManager implements ISdaManager {
             IHttpResponseMessage message = clientService.requestGetService(
                     addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
                             SdaAddressStore.CM_DEVICE_LIST_BY_FUNC_LOC + SdaAddressStore.SEPARATOR_WITHOUT_COMMA +
-                            functionId + "," + locationId);
+                            functionalityId + "," + locationId);
             contentList = getContextModelContents(message);
         } catch (IOException e) {
             e.printStackTrace();
@@ -151,7 +151,7 @@ public class SdaManager implements ISdaManager {
 //       e.printStackTrace();
         }
         if (contentList == null || contentList.isEmpty()) {
-            String info = "DeviceList = " + locationId + " and " + functionId + " doesn't have Device";
+            String info = "DeviceList = " + locationId + " and " + functionalityId + " doesn't have Device";
             log.debug("info : " + info);
         } else {
             for (ContextModelContent contextModelContent : contentList) {
@@ -164,7 +164,7 @@ public class SdaManager implements ISdaManager {
 
     // function 를 이용한 Device 목록 조회
     @Override
-    public List<String> retrieveDeviceListByFunction(String functionId) {
+    public List<String> retrieveDeviceListByFunction(String functionalityId) {
         //
         List<String> deviceList = new ArrayList<>();
         List<ContextModelContent> contentList = new ArrayList<>();
@@ -173,7 +173,7 @@ public class SdaManager implements ISdaManager {
             IHttpResponseMessage message = clientService.requestGetService(
                     addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
                             SdaAddressStore.CM_DEVICE_LIST_BY_FUNC + SdaAddressStore.SEPARATOR_WITHOUT_COMMA +
-                            functionId);
+                            functionalityId);
             contentList = getContextModelContents(message);
         } catch (IOException e) {
             e.printStackTrace();
@@ -181,7 +181,7 @@ public class SdaManager implements ISdaManager {
 //       e.printStackTrace();
         }
         if (contentList == null || contentList.isEmpty()) {
-            String info = "DeviceList = " + functionId + " doesn't have Device";
+            String info = "DeviceList = " + functionalityId + " doesn't have Device";
             log.debug("info : " + info);
         } else {
             for (ContextModelContent contextModelContent : contentList) {

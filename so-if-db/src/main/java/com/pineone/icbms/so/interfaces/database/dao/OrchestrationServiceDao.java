@@ -51,9 +51,9 @@ public class OrchestrationServiceDao extends AbstractDao {
     // retrieve one
     public OrchestrationServiceForDB retrieve(String id) {
         OrchestrationServiceForDB osDB = super.sqlSession.selectOne("retrieveOrchestrationServiceById", id);
-        osDB.setCompositeVirtualObjectForDBList(retrieveCvo(id));
-        List<VirtualObjectForDB> voList = retrieveVo(id);
-        osDB.setVirtualObjectForDBList(voList);
+        osDB.setCompositeVirtualObjectForDBList(retrieveCvoByOsId(id));
+        //List<VirtualObjectForDB> voList = retrieveVoByOsId(id);
+        //osDB.setVirtualObjectForDBList(voList);
         return osDB;//super.sqlSession.selectOne("retrieveOrchestrationServiceById", id);
     }
 
@@ -73,45 +73,21 @@ public class OrchestrationServiceDao extends AbstractDao {
     }
 
     // retrieve list
-    public List<CompositeVirtualObjectForDB> retrieveCvo(String osid) {
+    public List<CompositeVirtualObjectForDB> retrieveCvoByOsId(String osid) {
         return super.sqlSession.selectList("retrieveCvoInOrchestrationService", osid);
     }
-
+/*
     // retrieve list
-    public List<VirtualObjectForDB> retrieveVo(String osid) {
+    public List<VirtualObjectForDB> retrieveVoByOsId(String osid) {
         return super.sqlSession.selectList("retrieveVoInOrchestrationService", osid);
     }
-
-    // 저장 기능 구현
+*/
+    
     public OrchestrationServiceForDB create(OrchestrationServiceForDB model) {
-        String sessionId = IdUtils.createRandomUUID();
-        model.setId("OS-" + sessionId);
-        super.sqlSession.insert("createOrchestrationService", model);
-        // os_cvo
-        if (model.getCompositeVirtualObjectIds() != null && model.getCompositeVirtualObjectIds().size() != 0) {
-            List<CompositeVirtualObjectForDB> cvoDBList = new ArrayList<CompositeVirtualObjectForDB>();
-            for (String id : model.getCompositeVirtualObjectIds()) {
-                CompositeVirtualObjectForDB db = new CompositeVirtualObjectForDB();
-                db.setId(id);
-                cvoDBList.add(db);
-            }
-            model.setCompositeVirtualObjectForDBList(cvoDBList);
-            super.sqlSession.insert("createOsCvo", model);
-        }
-        // os_vo
-        if (model.getVirtualObjectIds() != null && model.getVirtualObjectIds().size() != 0) {
-            List<VirtualObjectForDB> voDBList = new ArrayList<VirtualObjectForDB>();
-            for (String id : model.getVirtualObjectIds()) {
-                VirtualObjectForDB db = new VirtualObjectForDB();
-                db.setId(id);
-                voDBList.add(db);
-            }
-            model.setVirtualObjectForDBList(voDBList);
-            super.sqlSession.insert("createOsVo", model);
-        }
-        return model;//super.sqlSession.selectOne("retrieveOrchestrationServiceById", model.getId());
+    	super.sqlSession.insert("createOrchestrationService", model);
+    	return model;
     }
-
+    
     // 갱신 기능 구현
     public int update(OrchestrationServiceForDB model) {
         //

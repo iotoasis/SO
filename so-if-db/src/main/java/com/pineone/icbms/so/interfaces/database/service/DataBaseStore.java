@@ -27,6 +27,9 @@ public class DataBaseStore implements IDataBaseStore {
     AspectDao aspectDao;
 
     @Autowired
+    LocationDao locationDao;
+
+    @Autowired
     FixedDeviceDao fixedDeviceDao;
 
     @Autowired
@@ -58,7 +61,7 @@ public class DataBaseStore implements IDataBaseStore {
 	public ContextModelForDB getContextModelById(String contextModelId) {
 		return contextModelDao.retrieve(contextModelId);
 	}
-    
+/*    
     @Override
     public List<VirtualObjectForDB> getVirtualObjectListByOrchestrationId(String orchestrationServiceId){
         log.warn("getVirtualObjectListByOrchestrationId : orchestrationServiceId {}", orchestrationServiceId);
@@ -69,7 +72,7 @@ public class DataBaseStore implements IDataBaseStore {
 
         return virtualObjectForDBList;
     }
-
+*/
     @Override
     public List<CompositeVirtualObjectForDB> getCompositeVirtualObjectListByOrchestrationId(String orchestrationServiceId){
         log.warn("getCompositeVirtualObjectListByOrchestrationId : orchestrationServiceId {}", orchestrationServiceId);
@@ -139,11 +142,11 @@ public class DataBaseStore implements IDataBaseStore {
 	        List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = this.getCompositeVirtualObjectListByOrchestrationId(id);
 	
 	        // get vo
-	        List<VirtualObjectForDB> virtualObjectForDBList = virtualObjectDao.getVirtualObjectListByOrchestrationId(id);
+	        //List<VirtualObjectForDB> virtualObjectForDBList = virtualObjectDao.getVirtualObjectListByOrchestrationId(id);
 	
 	        // set cvo list, vo list
 	        orchestrationServiceForDB.setCompositeVirtualObjectForDBList(compositeVirtualObjectForDBList);
-	        orchestrationServiceForDB.setVirtualObjectForDBList(virtualObjectForDBList);
+	        //orchestrationServiceForDB.setVirtualObjectForDBList(virtualObjectForDBList);
         }
         return orchestrationServiceForDB;
     }
@@ -206,5 +209,10 @@ public class DataBaseStore implements IDataBaseStore {
     public void updateSessionData(SessionEntity sessionEntity) {
         sessionDao.updateSessionData(sessionEntity);
     }
+
+	public LocationForDB getLocationById(String id) {
+        log.warn("getLocationById : id: {}", id);
+        return locationDao.retrieve(id);
+	}
 
 }

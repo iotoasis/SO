@@ -1,7 +1,7 @@
 package com.pineone.icbms.so.serviceprocessor.processor.virtualobject.springkafka;
 
-import com.pineone.icbms.so.serviceprocessor.repository.database.DatabaseManager;
 import com.pineone.icbms.so.serviceprocessor.processor.virtualobject.messagequeue.consumer.VirtualObjectConsumerHandler;
+import com.pineone.icbms.so.serviceutil.interfaces.database.DatabaseManager;
 import com.pineone.icbms.so.util.spring.springkafka.consumer.AConsumerHandler;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;

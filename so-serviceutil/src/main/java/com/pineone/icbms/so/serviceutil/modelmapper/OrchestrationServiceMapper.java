@@ -65,7 +65,7 @@ public class OrchestrationServiceMapper implements IModelMapper<IGenericOrchestr
             orchestrationService.setName(orchestrationServiceForDB.getName());
             orchestrationService.setDescription(orchestrationServiceForDB.getDescription());
             orchestrationService.setCompositeVirtualObjectList(virtualObjectMapper.toCompositeVirtualObjectListFromDb(orchestrationServiceForDB.getCompositeVirtualObjectForDBList()));
-            orchestrationService.setVirtualObjectList(virtualObjectMapper.toVirtualObjectListFromDb(orchestrationServiceForDB.getVirtualObjectForDBList()));
+            // orchestrationService.setVirtualObjectList(virtualObjectMapper.toVirtualObjectListFromDb(orchestrationServiceForDB.getVirtualObjectForDBList()));
             //TODO: orchestration service
 //            orchestrationService.setOrchestrationServiceList(toOrchestrationServiceListFromDb(orchestrationServiceForDB.get));
 

@@ -12,26 +12,18 @@
     <!-- log level: kafka -->
     <property name="LOG_LEVEL_KAFKA" value="ERROR" />
 
-    <!-- log target name -->
-    <property name="LOG_TARGET_NAME" value="so-web"/>
     <!-- log path -->
     <property name="LOG_PATH" value="/svc/logs/so/so"/>
     <!-- log file prefix -->
-    <property name="LOG_FILE_PREFIX" value="${LOG_TARGET_NAME}"/>
+    <property name="LOG_FILE_PREFIX" value="so-web"/>
+
     <!-- log file name -->
-    <property name="LOG_FILE_NAME_DEFAULT" value="${LOG_FILE_PREFIX}" />
-    <property name="LOG_FILE_NAME_PROCESSOR_CONTEXT" value="${LOG_FILE_PREFIX}_context" />
-    <property name="LOG_FILE_NAME_PROCESSOR_ORCHESTRATIONSERVICE" value="${LOG_FILE_PREFIX}_os" />
-    <property name="LOG_FILE_NAME_PROCESSOR_VIRTUALOBJECT" value="${LOG_FILE_PREFIX}_vo" />
-    <property name="LOG_FILE_NAME_PROCESSOR_DEVICECONTROL" value="${LOG_FILE_PREFIX}_dc" />
-    <property name="LOG_FILE_NAME_SPRING" value="${LOG_FILE_PREFIX}_spring" />
-    <!-- log file path -->
-    <property name="LOG_FILE_PATH_DEFAULT"                        value="${LOG_PATH}/${LOG_FILE_NAME_DEFAULT}" />
-    <property name="LOG_FILE_PATH_PROCESSOR_CONTEXT"              value="${LOG_PATH}/${LOG_FILE_NAME_PROCESSOR_CONTEXT}" />
-    <property name="LOG_FILE_PATH_PROCESSOR_ORCHESTRATIONSERVICE" value="${LOG_PATH}/${LOG_FILE_NAME_PROCESSOR_ORCHESTRATIONSERVICE}" />
-    <property name="LOG_FILE_PATH_PROCESSOR_VIRTUALOBJECT"        value="${LOG_PATH}/${LOG_FILE_NAME_PROCESSOR_VIRTUALOBJECT}" />
-    <property name="LOG_FILE_PATH_PROCESSOR_DEVICECONTROL"        value="${LOG_PATH}/${LOG_FILE_NAME_PROCESSOR_DEVICECONTROL}" />
-    <property name="LOG_FILE_PATH_SPRING"                         value="${LOG_PATH}/${LOG_FILE_NAME_SPRING}" />
+    <property name="LOG_FILE_PATH_DEFAULT"                        value="${LOG_PATH}/${LOG_FILE_PREFIX}" />
+    <property name="LOG_FILE_PATH_PROCESSOR_CONTEXT"              value="${LOG_PATH}/${LOG_FILE_PREFIX}_context" />
+    <property name="LOG_FILE_PATH_PROCESSOR_ORCHESTRATIONSERVICE" value="${LOG_PATH}/${LOG_FILE_PREFIX}_os" />
+    <property name="LOG_FILE_PATH_PROCESSOR_VIRTUALOBJECT"        value="${LOG_PATH}/${LOG_FILE_PREFIX}_vo" />
+    <property name="LOG_FILE_PATH_PROCESSOR_DEVICECONTROL"        value="${LOG_PATH}/${LOG_FILE_PREFIX}_dc" />
+    <property name="LOG_FILE_PATH_SPRING"                         value="${LOG_PATH}/${LOG_FILE_PREFIX}_spring" />
 
     <!-- log pattern -->
     <property name="ENCODER_PATTERN_STDOUT" value="%d{yy-MM-dd HH:mm:ss,SSS} %-4relative [%thread] %-5level [%class{10}] - %msg%n"/>
@@ -84,7 +76,7 @@
         <file>${LOG_FILE_PATH_SPRING}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>${LOG_FILE_NAME_SPRING}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_FILE_PATH_SPRING}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!-- or whenever the file size reaches 100MB -->
@@ -101,7 +93,7 @@
         <file>${LOG_FILE_PATH_PROCESSOR_CONTEXT}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>${LOG_FILE_NAME_PROCESSOR_CONTEXT}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_FILE_PATH_PROCESSOR_CONTEXT}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!-- or whenever the file size reaches 100MB -->
@@ -118,7 +110,7 @@
         <file>${LOG_FILE_PATH_PROCESSOR_ORCHESTRATIONSERVICE}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>${LOG_FILE_NAME_PROCESSOR_ORCHESTRATIONSERVICE}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_FILE_PATH_PROCESSOR_ORCHESTRATIONSERVICE}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!-- or whenever the file size reaches 100MB -->
@@ -135,7 +127,7 @@
         <file>${LOG_FILE_PATH_PROCESSOR_VIRTUALOBJECT}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>${LOG_FILE_NAME_PROCESSOR_VIRTUALOBJECT}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_FILE_PATH_PROCESSOR_VIRTUALOBJECT}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!-- or whenever the file size reaches 100MB -->
@@ -152,7 +144,7 @@
         <file>${LOG_FILE_PATH_PROCESSOR_DEVICECONTROL}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>${LOG_FILE_NAME_PROCESSOR_DEVICECONTROL}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_FILE_PATH_PROCESSOR_DEVICECONTROL}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!-- or whenever the file size reaches 100MB -->

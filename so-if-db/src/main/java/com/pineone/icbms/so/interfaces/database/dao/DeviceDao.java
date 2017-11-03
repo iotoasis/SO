@@ -14,7 +14,7 @@ public class DeviceDao extends AbstractDao {
     public List<DeviceForDB> retrieveDeviceList(String functionUri, String aspect, String locationUri) {
 //        //
 //        List<DeviceForDB> deviceForDBList = new ArrayList<>();
-//        deviceForDBList = deviceRepository.findByFunctionIdAndAspectIdAndLocationId(functionId, aspectId, locationUri);
+//        deviceForDBList = deviceRepository.findByFunctionIdAndAspectIdAndLocationId(functionalityId, aspectId, locationUri);
 //        return deviceForDBList;
 
         //return super.sqlSession.selectList("retrieveDeviceList", map);
@@ -22,13 +22,13 @@ public class DeviceDao extends AbstractDao {
         String id = null;
 
         HashMap<String, String> map = new HashMap<String, String>();
-        map.put("functionId", functionUri);
+        map.put("functionalityId", functionUri);
         map.put("aspectId", aspect);
         map.put("locationId", locationUri);
         List<DeviceForDB> deviceForDBList = super.sqlSession.selectList("retrieveDeviceList", map);
 
 //        for (DeviceForDB deviceForDB : deviceForDBList) {
-//            // FunctionForDB function;
+//            // FunctionalityForDB function;
 //            deviceForDB.setFunction(
 //                    super.sqlSession.selectOne("retrieveFunctionFromDevice", functionUri)
 //            );

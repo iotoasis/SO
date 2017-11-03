@@ -32,7 +32,7 @@ public class VirtualObjectMapper implements IModelMapper<IGenericVirtualObject, 
     /**
      * function mapper
      */
-    private static FunctionMapper functionMapper = new FunctionMapper();
+    private static FunctionalityMapper functionalityMapper = new FunctionalityMapper();
 
     /**
      * convert MQ model to Processor model.<BR/>
@@ -49,7 +49,7 @@ public class VirtualObjectMapper implements IModelMapper<IGenericVirtualObject, 
             virtualObject.setName(virtualObjectForMQ.getName());
             IGenericAspect aspect = aspectMapper.toProcessorModelFromMq(virtualObjectForMQ.getAspect());
             virtualObject.setAspect(aspect);
-            IGenericFunction function = functionMapper.toProcessorModelFromMq(virtualObjectForMQ.getFunction());
+            IGenericFunction function = functionalityMapper.toProcessorModelFromMq(virtualObjectForMQ.getFunction());
             virtualObject.setFunction(function);
             StateStoreUtil.copyStateStore(virtualObjectForMQ.getStateStore(), virtualObject);
         }
@@ -70,9 +70,9 @@ public class VirtualObjectMapper implements IModelMapper<IGenericVirtualObject, 
             virtualObject.setId(virtualObjectForDB.getId());
             virtualObject.setName(virtualObjectForDB.getName());
 //            virtualObject.setAspect(aspectMapper.toProcessorModelFromDb(new AspectForDB(virtualObjectForDB.getAspectId())));
-//            virtualObject.setFunction(functionMapper.toProcessorModelFromDb(new FunctionForDB(virtualObjectForDB.getFunctionId())));
+//            virtualObject.setFunction(functionalityMapper.toProcessorModelFromDb(new FunctionalityForDB(virtualObjectForDB.getFunctionId())));
             virtualObject.setAspect(aspectMapper.toProcessorModelFromDb(virtualObjectForDB.getAspectId()));
-            virtualObject.setFunction(functionMapper.toProcessorModelFromDb(virtualObjectForDB.getFunctionId()));
+            virtualObject.setFunction(functionalityMapper.toProcessorModelFromDb(virtualObjectForDB.getFunctionalityId()));
         }
         return virtualObject;
     }
@@ -93,7 +93,7 @@ public class VirtualObjectMapper implements IModelMapper<IGenericVirtualObject, 
             virtualObjectForMQ.setDescription((virtualObject.getDescription()));
             AspectForMQ aspectForMQ = aspectMapper.toMqModelFromPs(virtualObject.getAspect());
             virtualObjectForMQ.setAspect(aspectForMQ);
-            FunctionForMQ functionForMQ = functionMapper.toMqModelFromPs(virtualObject.getFunction());
+            FunctionForMQ functionForMQ = functionalityMapper.toMqModelFromPs(virtualObject.getFunction());
             virtualObjectForMQ.setFunction(functionForMQ);
             StateStoreUtil.copyStateStore(virtualObject.getStateStore(), virtualObjectForMQ);
 

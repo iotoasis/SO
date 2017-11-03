@@ -11,7 +11,7 @@ public interface IDataBaseStore {
     //
 	ContextModelForDB getContextModelById(String contextModelId);
 	
-    List<VirtualObjectForDB> getVirtualObjectListByOrchestrationId(String orchestrationServiceId);
+    //List<VirtualObjectForDB> getVirtualObjectListByOrchestrationId(String orchestrationServiceId);
 
     List<CompositeVirtualObjectForDB> getCompositeVirtualObjectListByOrchestrationId(String orchestrationServiceId);
 

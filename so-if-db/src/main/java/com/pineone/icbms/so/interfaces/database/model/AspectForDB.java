@@ -2,13 +2,7 @@ package com.pineone.icbms.so.interfaces.database.model;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.pineone.icbms.so.interfaces.database.model.CommonEntity;
-import com.pineone.icbms.so.util.time.DateFormat;
 import lombok.*;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
-
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * aspect model for authoring.<BR/>
@@ -22,4 +16,7 @@ public class AspectForDB extends CommonEntity {
 
     @Getter @Setter
     String uri;
+
+    @Getter @Setter
+    String containerName;
 }

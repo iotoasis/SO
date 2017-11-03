@@ -21,7 +21,7 @@ public interface IDatabaseManager {
 
     VirtualObjectForDB getVirtualObjectById(String id);
 
-    List<VirtualObjectForDB> getVirtualObjectListByOrchestrationId(String orchestrationServiceId);
+    //List<VirtualObjectForDB> getVirtualObjectListByOrchestrationId(String orchestrationServiceId);
 
     List<DeviceForDB> getDeviceList(String functionUri, String aspect, String locationUri);
 
@@ -36,6 +36,8 @@ public interface IDatabaseManager {
     ProfileForDB getProfileById(String profileId);
 
     void createTracking(TrackingEntity trackingEntity);
+    
+    LocationForDB getLocationById(String id);
     
     // grib session
     void createSessionData(SessionEntity sessionEntity);

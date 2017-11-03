@@ -15,19 +15,19 @@ import lombok.*;
 public class ProfileForDB extends CommonEntity {
 
     @Getter @Setter
+    private int enabled;
+
+    @Getter @Setter
     private String contextModelId;
+
+    @Getter @Setter
+    private String locationId;
 
     @Getter @Setter
     private String orchestrationServiceId;
 
     @Getter @Setter
-    private String locationUri;
-
-    @Getter @Setter
     private int period;
-
-    @Getter @Setter
-    private int enabled;
 
     @Getter @Setter
     private String priority;

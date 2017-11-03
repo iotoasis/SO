@@ -46,23 +46,23 @@
 //    @Ignore//@Test
 //    public void retrieveAspectList() throws Exception {
 //        //
-//        String functionId = "http://www.iotoasis.org/ontology/SwitchFunction";
-//        sdaManager.retrieveAspectListByFunction(functionId);
+//        String functionalityId = "http://www.iotoasis.org/ontology/SwitchFunction";
+//        sdaManager.retrieveAspectListByFunction(functionalityId);
 //    }
 //
 //    @Ignore//@Test
 //    public void retrieveDeviceListByFuncAndLoc() throws Exception {
 //        //
 //        String locationId = "http://www.iotoasis.org/ontology/t1eng_605";
-//        String functionId = "http://www.iotoasis.org/ontology/MeasureFunction";
-//        sdaManager.retrieveDeviceListByFunctionAndLocation(locationId, functionId);
+//        String functionalityId = "http://www.iotoasis.org/ontology/MeasureFunction";
+//        sdaManager.retrieveDeviceListByFunctionAndLocation(locationId, functionalityId);
 //    }
 //
 //    @Ignore//@Test
 //    public void retrieveDeviceListByFunc() throws Exception {
 //        //
-//        String functionId = "http://www.iotoasis.org/ontology/MeasureFunction";
-//        sdaManager.retrieveDeviceListByFunction(functionId);
+//        String functionalityId = "http://www.iotoasis.org/ontology/MeasureFunction";
+//        sdaManager.retrieveDeviceListByFunction(functionalityId);
 //    }
 //
 //    @Ignore//@Test

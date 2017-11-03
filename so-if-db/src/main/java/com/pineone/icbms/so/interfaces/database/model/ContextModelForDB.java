@@ -12,11 +12,4 @@ import lombok.*;
 @JsonPropertyOrder({"id","name", "description"})
 @ToString
 public class ContextModelForDB extends CommonEntity {
-
-    @Getter @Setter
-    private String createdId;
-
-    @Getter @Setter
-    private String modifiedId;
-
 }

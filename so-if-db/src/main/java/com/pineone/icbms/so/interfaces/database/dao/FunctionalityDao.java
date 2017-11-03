@@ -1,6 +1,6 @@
 package com.pineone.icbms.so.interfaces.database.dao;
 
-import com.pineone.icbms.so.interfaces.database.model.FunctionForDB;
+import com.pineone.icbms.so.interfaces.database.model.FunctionalityForDB;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -9,26 +9,26 @@ import java.util.List;
  * Created by melvin on 2017. 3. 29..
  */
 @Component
-public class FunctionDao extends AbstractDao {
+public class FunctionalityDao extends AbstractDao {
     //
-    public FunctionForDB create(FunctionForDB functionForDB) {
+    public FunctionalityForDB create(FunctionalityForDB functionForDB) {
         super.sqlSession.insert("", functionForDB);
         return super.sqlSession.selectOne("createFunction", functionForDB.getId());
     }
 
-    public FunctionForDB retrieve(String id) {
+    public FunctionalityForDB retrieve(String id) {
         return super.sqlSession.selectOne("retrieveFunctionById", id);
     }
 
-    public List<FunctionForDB> retrieve(FunctionForDB functionForDB) {
+    public List<FunctionalityForDB> retrieve(FunctionalityForDB functionForDB) {
         return super.sqlSession.selectList("retrieveFunctionByModel", functionForDB);
     }
 
-    public List<FunctionForDB> retrieve() {
+    public List<FunctionalityForDB> retrieve() {
         return super.sqlSession.selectList("retrieveFunctionByModel");
     }
 
-    public int update(FunctionForDB functionForDB) {
+    public int update(FunctionalityForDB functionForDB) {
         return super.sqlSession.update("updateFunction", functionForDB);
     }
 

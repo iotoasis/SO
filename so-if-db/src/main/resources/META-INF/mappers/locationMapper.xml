@@ -4,13 +4,7 @@
 <mapper namespace="com.pineone.icbms.so.interfaces.database.dao.LocationDao">
     <select id="retrieveLocationById" parameterType="String" resultType="LocationForDB">
         SELECT
-        id
-        , created_date
-        , description
-        , modified_date
-        , name
-        , uri
-        , order_cd
+			*
         FROM location
         WHERE
           id = #{value}
@@ -18,14 +12,7 @@
 
     <select id="retrieveLocationByModel" parameterType="LocationForDB" resultType="LocationForDB">
         SELECT
-        id
-        , created_date
-        , description
-        , modified_date
-        , name
-        , uri
-        , order_cd
-        , order_idx
+			*
         FROM location
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             <if test="id != null">
@@ -49,22 +36,22 @@
 
     <insert id="createLocation"  parameterType="LocationForDB">
         INSERT INTO location (
-        id
-        , name
-        , uri
-        , description
-        , created_date
-        , modified_date
-        , order_cd
+	          id
+	        , name
+	        , description
+	        , uri
+	        , created_date
+	        , modified_date
+	        , order_cd
         )
         VALUES (
-        #{id}
-        , #{name}
-        , #{uri}
-        , #{description}
-        , now(4)
-        , now(4)
-        , #{orderCd}
+	          #{id}
+	        , #{name}
+	        , #{description}
+	        , #{uri}
+	        , now(4)
+	        , now(4)
+	        , #{orderCd}
         )
     </insert>
 
@@ -72,13 +59,13 @@
         UPDATE location
         <set>
             modified_date = now(4)
-            <if test="uri != null">, uri = #{uri}</if>
             <if test="name != null">, name = #{name}</if>
             <if test="description != null">, description = #{description}</if>
+            <if test="uri != null">, uri = #{uri}</if>
             <if test="orderCd != null">, order_cd = #{orderCd}</if>
         </set>
         WHERE
-        id = #{id}
+        	id = #{id}
     </update>
 
     <delete id="deleteLocation" parameterType="String">

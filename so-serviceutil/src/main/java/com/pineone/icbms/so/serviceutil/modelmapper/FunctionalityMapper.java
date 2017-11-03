@@ -1,6 +1,6 @@
 package com.pineone.icbms.so.serviceutil.modelmapper;
 
-import com.pineone.icbms.so.interfaces.database.model.FunctionForDB;
+import com.pineone.icbms.so.interfaces.database.model.FunctionalityForDB;
 import com.pineone.icbms.so.interfaces.messagequeue.model.FunctionForMQ;
 import com.pineone.icbms.so.util.conversion.IModelMapper;
 import com.pineone.icbms.so.virtualobject.function.DefaultFunction;
@@ -11,7 +11,7 @@ import com.pineone.icbms.so.virtualobject.function.IGenericFunction;
  *
  * Created by uni4love on 2017. 5. 15..
  */
-public class FunctionMapper implements IModelMapper<IGenericFunction, FunctionForDB,
+public class FunctionalityMapper implements IModelMapper<IGenericFunction, FunctionalityForDB,
         FunctionForMQ> {
     /**
      * convert MQ model to Processor model.<BR/>
@@ -36,7 +36,7 @@ public class FunctionMapper implements IModelMapper<IGenericFunction, FunctionFo
      * @return PS_MODEL
      */
     @Override
-    public IGenericFunction toProcessorModelFromDb(FunctionForDB functionForDB) {
+    public IGenericFunction toProcessorModelFromDb(FunctionalityForDB functionForDB) {
         DefaultFunction function = null;
         if (functionForDB != null) {
             function = new DefaultFunction(functionForDB.getId(), functionForDB.getName(),
@@ -44,10 +44,10 @@ public class FunctionMapper implements IModelMapper<IGenericFunction, FunctionFo
         }
         return function;
     }
-    public IGenericFunction toProcessorModelFromDb(String functionId) {
+    public IGenericFunction toProcessorModelFromDb(String functionalityId) {
         DefaultFunction function = null;
-        if (functionId != null) {
-            function = new DefaultFunction(functionId, "","", "");
+        if (functionalityId != null) {
+            function = new DefaultFunction(functionalityId, "","", "");
         }
         return function;
     }

@@ -69,7 +69,7 @@ public class ScheduledTasks {
             //List<AspectForIf> aspectList = sdaManager.retrieveAspectListByFunction(function.getFunction());
 
             for (AspectForIf aspect : aspectList) {
-                // retrieve function_id and aspect_id
+                // retrieve functionality_id and aspect_id
                 //log.info("Function: {}, Aspect : {}", function, aspect);
                 try {
                     VirtualObjectForDB virtualObjectForDB = virtualObjectDao.retrieveVirtualObjectByFunctionAndAspect(
@@ -78,16 +78,16 @@ public class ScheduledTasks {
                     // create virtual object
                     if (virtualObjectForDB == null) {
                         String prefix = "VO-";
-                        String functionId = function.getFunction().substring(function.getFunction().lastIndexOf("/") + 1);
+                        String functionalityId = function.getFunction().substring(function.getFunction().lastIndexOf("/") + 1);
                         String aspectId = aspect.getAspect().substring(aspect.getAspect().lastIndexOf("/") + 1);
                         aspectId = aspectId.replaceAll("-aspect", "");
-                        String id = prefix + functionId + "-" + aspectId;
+                        String id = prefix + functionalityId + "-" + aspectId;
     
                         //log.info("VO id : {}", id);
     
                         VirtualObjectForDB newVirtualObjectForDB = new VirtualObjectForDB();
                         newVirtualObjectForDB.setId(id);
-                        newVirtualObjectForDB.setFunctionId(function.getFunction());
+                        newVirtualObjectForDB.setFunctionalityId(function.getFunction());
                         newVirtualObjectForDB.setAspectId(aspect.getAspect());
                         newVirtualObjectForDB.setName(aspect.getLabel() + function.getLabel());
                         virtualObjectDao.create(newVirtualObjectForDB);

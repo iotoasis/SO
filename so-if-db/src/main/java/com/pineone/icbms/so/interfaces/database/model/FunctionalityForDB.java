@@ -1,11 +1,7 @@
 package com.pineone.icbms.so.interfaces.database.model;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.pineone.icbms.so.util.time.DateFormat;
 import lombok.*;
-
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Function model for authoring.<BR/>
@@ -16,7 +12,7 @@ import java.util.Date;
 //@AllArgsConstructor
 @JsonPropertyOrder({"id","name", "description"})
 @ToString
-public class FunctionForDB extends CommonEntity {
+public class FunctionalityForDB extends CommonEntity {
 
     @Setter @Getter
     private String uri;
