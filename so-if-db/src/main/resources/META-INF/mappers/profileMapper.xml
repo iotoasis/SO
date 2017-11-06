@@ -27,7 +27,7 @@
 	JOIN location l ON p.location_id=l.id
 	      
     WHERE
-      l.uri =  #{_parameter}
+      l.id =  #{_parameter}
     ORDER BY p.order_idx, p.order_cd
     </if>
   </select>
