@@ -12,8 +12,8 @@ import java.util.List;
 public class FunctionalityDao extends AbstractDao {
     //
     public FunctionalityForDB create(FunctionalityForDB functionForDB) {
-        super.sqlSession.insert("", functionForDB);
-        return super.sqlSession.selectOne("createFunction", functionForDB.getId());
+    	super.sqlSession.insert("createFunction", functionForDB);
+        return super.sqlSession.selectOne("retrieveFunctionById", functionForDB.getId());
     }
 
     public FunctionalityForDB retrieve(String id) {
