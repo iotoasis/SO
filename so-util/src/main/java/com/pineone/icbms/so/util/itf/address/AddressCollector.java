@@ -2,6 +2,8 @@ package com.pineone.icbms.so.util.itf.address;
 
 import org.springframework.stereotype.Component;
 
+import com.pineone.icbms.so.util.Settings2;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -18,7 +20,8 @@ public class AddressCollector {
     public static final String SO_SERVER = "SO_Connection";
     public static final String SDA_SERVER = "Sda_Connection";
 
-    public String getServerAddress(String server){
+
+    public String getServerAddress_old(String server){
         //
         String serverAddress = null;
         Properties serverInfo = new Properties();
@@ -39,5 +42,27 @@ public class AddressCollector {
             e.printStackTrace();
         }
         return serverAddress;
+    }
+
+    public String getServerAddress(String server){
+        //
+        String serverAddress = null;
+
+        switch(server){
+            case SI_SERVER : 
+            				serverAddress = Settings2.getSiConnectionUri();
+            				break;
+            case SDA_SERVER :
+            				serverAddress = Settings2.getSdaConnectionUri();
+            				break;
+            case SO_SERVER :
+							serverAddress = Settings2.getSoConnectionUri();
+            				break;
+        }
+        //데이타가 없을시에 기존 방법을 통한 데이타 취득
+		if (serverAddress==null)
+			serverAddress = getServerAddress_old(server);
+
+		return serverAddress;
     }
 }

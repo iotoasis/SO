@@ -295,4 +295,37 @@ public class Settings2 {
     public static String getContextPath() {
         return contextPath;
     }
+
+    //
+    public static String sdaConnectionUri;
+    @Value("${sda.connection.uri}")
+	public void setSdaConnectionUri(String sdaConnectionUri) {
+		Settings2.sdaConnectionUri = sdaConnectionUri;
+	}
+
+    public static String getSdaConnectionUri() {
+		return sdaConnectionUri;
+	}
+
+    //
+    public static String siConnectionUri;
+	@Value("${si.connection.uri}")
+	public void setSiConnectionUri(String siConnectionUri) {
+		Settings2.siConnectionUri = siConnectionUri;
+	}
+    public static String getSiConnectionUri() {
+		return siConnectionUri;
+	}
+
+    //
+    public static String soConnectionUri;
+    @Value("${so.connection.uri}")
+    public void setSoConnectionUri(String soConnectionUri) {
+		Settings2.soConnectionUri = soConnectionUri;
+	}
+
+	public static String getSoConnectionUri() {
+		return soConnectionUri;
+	}
+
 }
