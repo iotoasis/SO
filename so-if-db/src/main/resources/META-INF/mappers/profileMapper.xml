@@ -94,6 +94,7 @@
 	  , location_id
 	  , enabled
 	  , period
+	  , priority
 	  , created_date
 	  , modified_date
     )
@@ -106,6 +107,7 @@
       , #{locationId}
       , #{enabled}
       , #{period}
+      , #{priority}
       , now(4)
       , now(4)
     )
@@ -117,9 +119,9 @@
       <if test="name != null">, name = #{name}</if>
       <if test="description != null">, description = #{description}</if>
       <if test="enabled != null">, enabled = #{enabled}</if>
-      <if test="context_model_id != null">, context_model_id = #{contextModelId}</if>
-      <if test="location_id != null">, location_id = #{location_id}</if>
-      <if test="orchestration_service_id != null">, orchestration_service_id = #{orchestrationServiceId}</if>
+      <if test="contextModelId != null">, context_model_id = #{contextModelId}</if>
+      <if test="locationId != null">, location_id = #{locationId}</if>
+      <if test="orchestrationServiceId != null">, orchestration_service_id = #{orchestrationServiceId}</if>
       <if test="period != null">, period = #{period}</if>
       <if test="priority != null">, priority = #{priority}</if>
     WHERE

@@ -84,8 +84,10 @@ public class OrchestrationServiceDao extends AbstractDao {
 */
     
     public OrchestrationServiceForDB create(OrchestrationServiceForDB model) {
+        String sessionId = IdUtils.createRandomUUID();
+        model.setId("PR-" + sessionId);
     	super.sqlSession.insert("createOrchestrationService", model);
-    	return model;
+    	return super.sqlSession.selectOne("retrieveOrchestrationServiceById", model.getId());
     }
     
     // 갱신 기능 구현
@@ -96,8 +98,8 @@ public class OrchestrationServiceDao extends AbstractDao {
 
     // 삭제 기능 구현
     public int delete(String id) {
-        super.sqlSession.delete("deleteOsCvo", id);
-        super.sqlSession.delete("deleteOsVo", id);
+        //super.sqlSession.delete("deleteOsCvo", id);
+        //super.sqlSession.delete("deleteOsVo", id);
         return super.sqlSession.delete("deleteOrchestrationService", id);
     }
 

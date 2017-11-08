@@ -76,14 +76,14 @@ public class ProfileDao extends AbstractDao {
     public ProfileForDB create(ProfileForDB model) {
         String sessionId = IdUtils.createRandomUUID();
         model.setId("PR-" + sessionId);
-        super.sqlSession.insert("createAspect", model);
-        return super.sqlSession.selectOne("retrieveProfileById", model.getId());
+        super.sqlSession.insert("createProfile", model);
+        return super.sqlSession.selectOne("retrieveServiceByProfile", model.getId());
     }
 
     //  갱신 기능 구현
     public ProfileForDB update(ProfileForDB profileForDB) {
         //
-        super.sqlSession.update("updateAspect", profileForDB);
+        super.sqlSession.update("updateProfile", profileForDB);
         return super.sqlSession.selectOne("retrieveProfileByModel", profileForDB);
     }
 
