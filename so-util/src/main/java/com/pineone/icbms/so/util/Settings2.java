@@ -298,7 +298,7 @@ public class Settings2 {
 
     //
     public static String sdaConnectionUri;
-    @Value("${sda.connection.uri}")
+    @Value("${sda.connection.uri:null}")
 	public void setSdaConnectionUri(String sdaConnectionUri) {
 		Settings2.sdaConnectionUri = sdaConnectionUri;
 	}
@@ -309,7 +309,7 @@ public class Settings2 {
 
     //
     public static String siConnectionUri;
-	@Value("${si.connection.uri}")
+	@Value("${si.connection.uri:null}")
 	public void setSiConnectionUri(String siConnectionUri) {
 		Settings2.siConnectionUri = siConnectionUri;
 	}
@@ -319,7 +319,7 @@ public class Settings2 {
 
     //
     public static String soConnectionUri;
-    @Value("${so.connection.uri}")
+    @Value("${so.connection.uri:null}")
     public void setSoConnectionUri(String soConnectionUri) {
 		Settings2.soConnectionUri = soConnectionUri;
 	}
