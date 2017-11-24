@@ -349,6 +349,26 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
             thread.start();
         }
     }
+    
+    // profileId를 받아 해당 profileID에 해당하는 스케쥴러를 disable 시킴
+    @Override
+    public ResponseMessage disableSchedule(String profileId) throws SchedulerException {
+    	
+    	ResponseMessage res = new ResponseMessage();
+
+    	ProfileForDB profileForDB = profileDAO.retrieveProfile(profileId);
+        if (profileForDB==null || profileForDB.getId().isEmpty()) {
+        	res.setMessage("invalid profileId");
+        	return res;
+        }
+
+        JobKey jobKey = JobKey.jobKey(profileForDB.getId(), groupName);
+        scheduler.pauseJob(jobKey);
+        res.setMessage("ok");
+    	
+    	
+    	return res;
+    }
 
 
 }
