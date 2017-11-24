@@ -17,6 +17,7 @@ import java.util.List;
  */
 
 @Controller
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/scheduler")
 public class SchedulerController {
 
@@ -41,7 +42,8 @@ public class SchedulerController {
         return schedulerManager.quitScheduler();
     }
 
-    // 일시 정지된 JobList 재시작 ( ProfileDB의 Enabled =1 인 profile을 읽어서 scheduler 동작시킴)
+    // 일시 정지된 JobList 재시작 ( ProfileDB에서 Enabled =1 인 profile을 읽어서 scheduler 동작시킴)
+    // 메모리와 DB의 싱크를 맞춤
     @RequestMapping(value = "/restart", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
@@ -51,10 +53,12 @@ public class SchedulerController {
     }
 
     // Scheduler 일시 정지  ( ProfileDB의 Enabled = 1 인 모든 profile을 읽어서 scheduler 중지시킴)
+    // 메모리상에 돌고있는 스케쥴러를 끔 (DB와 상관없이)
     @RequestMapping(value = "/pause", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public ResponseMessage pauseSchedulerController() throws SchedulerException {
+    	//
         return schedulerManager.pauseJobList();
     }
 
@@ -77,6 +81,7 @@ public class SchedulerController {
     }
 
     // 작동중인 Schedule 목록 조회 (실제 동작 중인 스케쥴 조회)
+    // 메모리에서 돌고있는 스케쥴러
     @RequestMapping(value = "/executed", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
