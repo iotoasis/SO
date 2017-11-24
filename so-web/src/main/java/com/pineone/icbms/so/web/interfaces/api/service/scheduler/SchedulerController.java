@@ -128,5 +128,15 @@ public class SchedulerController {
         //
         return schedulerManager.stopJobListAndChangeStatus();
     }
-
+    
+    // profileId를 받아 스케쥴러를 해제 시킴 (DB X)
+    @RequestMapping(value = "/disable", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public ResponseMessage disableSchedule(@RequestBody ProfileTransFormData profileTransFormData) throws SchedulerException {
+    	//
+    	return schedulerManager.disableSchedule(profileTransFormData.getId());
+    }
+    
+    
 }
