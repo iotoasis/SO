@@ -22,23 +22,18 @@
             AND RB.base_cvo_id = C.id
     </select>
 
-    <select id="retrieveRuleBodyListByOsId" parameterType="String" resultType="CompositeVirtualObjectForDB">
+    <select id="retrieveRuleBodyListByOsId" parameterType="String" resultType="RuleBodyForDB">
         SELECT
               RB.id
-            , C.name
-            , C.description
             , RB.cvo_type
             , RB.physical_device_type_id
             , RB.device_id
             , RB.base_cvo_id
             , RB.location_id
-            , C.created_date
-            , C.modified_date
         FROM
-            rule_body RB, composite_virtual_object C
+            rule_body RB
         WHERE
             RB.os_id = #{value}
-            AND RB.base_cvo_id = C.id
     </select>
 
     <select id="retrieveCvoListByGcvoId" parameterType="String" resultType="CompositeVirtualObjectForDB">

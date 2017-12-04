@@ -23,7 +23,7 @@ public class CompositeVirtualObjectDao extends AbstractDao {
     }
 
     //Rule_body값 읽어오기 (osId로 부터)
-	public List<CompositeVirtualObjectForDB> retrieveRuleBodyListByOsId(String osId) {
+	public List<RuleBodyForDB> retrieveRuleBodyListByOsId(String osId) {
         return super.sqlSession.selectList("retrieveRuleBodyListByOsId", osId);
 	}
 

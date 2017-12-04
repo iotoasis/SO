@@ -14,7 +14,7 @@ public interface IDataBaseStore {
     //List<VirtualObjectForDB> getVirtualObjectListByOrchestrationId(String orchestrationServiceId);
 
     List<CompositeVirtualObjectForDB> getCompositeVirtualObjectListByOrchestrationId(String orchestrationServiceId);
-	List<CompositeVirtualObjectForDB> getRuleBodyListByOsId(String osId);
+	List<RuleBodyForDB> getRuleBodyListByOsId(String osId);
 	CompositeVirtualObjectForDB getCvoById(String id);
 
     List<VirtualObjectForDB> getVirtualObjectListByCompositeVirtualObjectId(String compositeVirtualObjectId);

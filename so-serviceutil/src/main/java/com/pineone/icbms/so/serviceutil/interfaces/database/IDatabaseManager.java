@@ -30,7 +30,7 @@ public interface IDatabaseManager {
     FixedDeviceForDB getFixedDevice(String id);
 
     List<CompositeVirtualObjectForDB> getCompositeVirtualObjectListByOrchestrationId(String orchestrationServiceId);
-	List<CompositeVirtualObjectForDB> getRuleBodyListByOsId(String osId);
+	List<RuleBodyForDB> getRuleBodyListByOsId(String osId);
     
     CompositeVirtualObjectForDB getCompositeVirtualObjectById(String id);
 

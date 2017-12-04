@@ -47,13 +47,12 @@
         ORDER BY order_idx
     </select>
 
-    <select id="retrieveCvoInOrchestrationService" parameterType="String" resultType="CompositeVirtualObjectForDB">
+    <select id="retrieveCvoInOrchestrationService" parameterType="String" resultType="RuleBodyForDB">
         SELECT
-        	CVO.*
-        FROM rule_body RB, composite_virtual_object CVO
+        	RB.*
+        FROM rule_body RB
         WHERE
-        	RB.base_cvo_id = CVO.id
-          	AND RB.os_id = #{value}
+          	RB.os_id = #{value}
     </select>
 
     <select id="retrieveVoInOrchestrationService" parameterType="String" resultType="VirtualObjectForDB">

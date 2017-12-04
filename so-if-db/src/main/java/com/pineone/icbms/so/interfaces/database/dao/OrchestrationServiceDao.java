@@ -2,6 +2,7 @@ package com.pineone.icbms.so.interfaces.database.dao;
 
 import com.pineone.icbms.so.interfaces.database.model.CompositeVirtualObjectForDB;
 import com.pineone.icbms.so.interfaces.database.model.OrchestrationServiceForDB;
+import com.pineone.icbms.so.interfaces.database.model.RuleBodyForDB;
 import com.pineone.icbms.so.interfaces.database.model.VirtualObjectForDB;
 import com.pineone.icbms.so.util.id.IdUtils;
 import org.springframework.beans.BeanUtils;
@@ -51,7 +52,7 @@ public class OrchestrationServiceDao extends AbstractDao {
     // retrieve one
     public OrchestrationServiceForDB retrieve(String id) {
         OrchestrationServiceForDB osDB = super.sqlSession.selectOne("retrieveOrchestrationServiceById", id);
-        osDB.setCompositeVirtualObjectForDBList(retrieveCvoByOsId(id));
+        osDB.setRulbodyForDBList(retrieveRuleBodyByOsId(id));
         //List<VirtualObjectForDB> voList = retrieveVoByOsId(id);
         //osDB.setVirtualObjectForDBList(voList);
         return osDB;//super.sqlSession.selectOne("retrieveOrchestrationServiceById", id);
@@ -73,7 +74,7 @@ public class OrchestrationServiceDao extends AbstractDao {
     }
 
     // retrieve list
-    public List<CompositeVirtualObjectForDB> retrieveCvoByOsId(String osid) {
+    public List<RuleBodyForDB> retrieveRuleBodyByOsId(String osid) {
         return super.sqlSession.selectList("retrieveCvoInOrchestrationService", osid);
     }
 /*

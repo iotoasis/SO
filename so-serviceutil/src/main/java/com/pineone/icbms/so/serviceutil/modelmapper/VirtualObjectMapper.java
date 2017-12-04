@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.serviceutil.modelmapper;
 
 import com.pineone.icbms.so.interfaces.database.model.CompositeVirtualObjectForDB;
+import com.pineone.icbms.so.interfaces.database.model.RuleBodyForDB;
 import com.pineone.icbms.so.interfaces.database.model.VirtualObjectForDB;
 import com.pineone.icbms.so.interfaces.messagequeue.model.AspectForMQ;
 import com.pineone.icbms.so.interfaces.messagequeue.model.FunctionForMQ;
@@ -203,4 +204,28 @@ public class VirtualObjectMapper implements IModelMapper<IGenericVirtualObject, 
         }
         return compositeVirtualObjectList;
     }
+
+
+    public List<IGenericCompositeVirtualObject> toCompositeVirtualObjectListFromRulDb(List<RuleBodyForDB> ruleBodyForDBList) {
+        //convert to List<IGenericCompositeVirtualObject>
+        List<IGenericCompositeVirtualObject> compositeVirtualObjectList = new ArrayList<>();
+        for (RuleBodyForDB rubleBodyItem:ruleBodyForDBList) {
+        	DefaultCompositeVirtualObject compositeVirtualObject = new DefaultCompositeVirtualObject();
+            compositeVirtualObject.setId(rubleBodyItem.getId());
+
+            //cvo_type, physical_device_type_id, device_id
+            compositeVirtualObject.setCvoType(rubleBodyItem.getCvoType());
+            compositeVirtualObject.setPhysicalDeviceTypeId(rubleBodyItem.getPhysicalDeviceTypeId());
+            compositeVirtualObject.setDeviceId(rubleBodyItem.getDeviceId());
+        	
+            //base_cvo_id, location_id
+            compositeVirtualObject.setBaseCvoId(rubleBodyItem.getBaseCvoId());
+            compositeVirtualObject.setLocationId(rubleBodyItem.getLocationId());
+
+        	compositeVirtualObjectList.add(compositeVirtualObject);
+        }
+
+        return compositeVirtualObjectList;
+    }
+
 }

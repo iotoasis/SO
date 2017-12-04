@@ -11,6 +11,7 @@ import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;
 import com.pineone.icbms.so.serviceutil.state.StateStoreUtil;
 import com.pineone.icbms.so.util.Settings;
 import com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler;
+import com.pineone.icbms.so.virtualobject.composite.DefaultCompositeVirtualObject;
 import com.pineone.icbms.so.virtualobject.composite.IGenericCompositeVirtualObject;
 import com.pineone.icbms.so.virtualobject.orchestrationservice.IGenericOrchestrationService;
 import com.pineone.icbms.so.virtualobject.state.IGenericStateStore;
@@ -75,12 +76,27 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
 
         // os id 로 Rule body 목록을 조회한다
         log.warn("getRuleBodyListByOsId : {}", osId);
-        List<CompositeVirtualObjectForDB> ruleBodyForDBList = databaseManager.getRuleBodyListByOsId(osId);
+        List<RuleBodyForDB> ruleBodyForDBList = databaseManager.getRuleBodyListByOsId(osId);
 
         //convert to List<IGenericCompositeVirtualObject>
-        List<IGenericCompositeVirtualObject> cvoList 
-        		= ModelMapper.toCompositeVirtualObjectList(ruleBodyForDBList);
+        List<IGenericCompositeVirtualObject> cvoList = new ArrayList<>();
+        for (RuleBodyForDB rubleBodyItem:ruleBodyForDBList) {
+        	DefaultCompositeVirtualObject compositeVirtualObject = new DefaultCompositeVirtualObject();
+            compositeVirtualObject.setId(rubleBodyItem.getId());
 
+            //cvo_type, physical_device_type_id, device_id
+            compositeVirtualObject.setCvoType(rubleBodyItem.getCvoType());
+            compositeVirtualObject.setPhysicalDeviceTypeId(rubleBodyItem.getPhysicalDeviceTypeId());
+            compositeVirtualObject.setDeviceId(rubleBodyItem.getDeviceId());
+        	
+            //base_cvo_id, location_id
+            compositeVirtualObject.setBaseCvoId(rubleBodyItem.getBaseCvoId());
+            compositeVirtualObject.setLocationId(rubleBodyItem.getLocationId());
+
+        	cvoList.add(compositeVirtualObject);
+        }
+
+        
        if (cvoList != null && cvoList.size()>0) {
         	ArrayList<String> cvoIdList= new ArrayList<>();
         	for (int i=0; i< cvoList.size();i++) {

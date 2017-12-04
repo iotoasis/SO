@@ -16,7 +16,7 @@ import java.util.List;
 public class OrchestrationServiceForDB extends CommonEntity {
 
 	@Setter @Getter
-    private List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList;
+    private List<RuleBodyForDB> rulbodyForDBList;
 	
 	//@Setter @Getter
 	//private List<VirtualObjectForDB> virtualObjectForDBList ;

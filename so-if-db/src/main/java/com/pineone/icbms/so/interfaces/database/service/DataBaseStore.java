@@ -94,10 +94,10 @@ public class DataBaseStore implements IDataBaseStore {
     }
     
     @Override
-    public List<CompositeVirtualObjectForDB> getRuleBodyListByOsId(String osId){
+    public List<RuleBodyForDB> getRuleBodyListByOsId(String osId){
         log.warn("getRuleBodyListByOsId : osId {}", osId);
 
-        List<CompositeVirtualObjectForDB> RuleBodyForDBList = compositeVirtualObjectDao.retrieveRuleBodyListByOsId(osId);
+        List<RuleBodyForDB> RuleBodyForDBList = compositeVirtualObjectDao.retrieveRuleBodyListByOsId(osId);
     
         return RuleBodyForDBList;
     }
@@ -161,13 +161,13 @@ public class DataBaseStore implements IDataBaseStore {
         if (orchestrationServiceForDB!=null) {
 	        // get cvo
 	        //List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = compositeVirtualObjectDao.getCompositeVirtualObjectListByOrchestrationId(id);
-	        List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = this.getRuleBodyListByOsId(id);
+	        List<RuleBodyForDB> compositeVirtualObjectForDBList = this.getRuleBodyListByOsId(id);
 	
 	        // get vo
 	        //List<VirtualObjectForDB> virtualObjectForDBList = virtualObjectDao.getVirtualObjectListByOrchestrationId(id);
 	
 	        // set cvo list, vo list
-	        orchestrationServiceForDB.setCompositeVirtualObjectForDBList(compositeVirtualObjectForDBList);
+	        orchestrationServiceForDB.setRulbodyForDBList(compositeVirtualObjectForDBList);
 	        //orchestrationServiceForDB.setVirtualObjectForDBList(virtualObjectForDBList);
         }
         return orchestrationServiceForDB;

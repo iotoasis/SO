@@ -226,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `profile` (
   `name` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `enabled` tinyint(1) DEFAULT NULL,
-  `location_uri` varchar(255) DEFAULT NULL,
+  `location_id` varchar(255) DEFAULT NULL,
   `context_model_id` varchar(255) DEFAULT NULL,
   `orchestration_service_id` varchar(255) DEFAULT NULL,
   `period` int(11) NOT NULL,
@@ -308,7 +308,7 @@ CREATE TABLE IF NOT EXISTS `virtual_object` (
 
 
 INSERT INTO `so`.`context_model` (`order_cd`, `id`, `name`, `description`, `created_date`, `modified_date`) VALUES ('2', 'cm-fire-test', '화재상황 테스트', '화재상황 테스트', '2017-04-17 16:10:21', '2017-04-17 16:10:21');
-INSERT INTO `so`.`profile` (`order_cd`, `id`, `name`, `description`, `enabled`, `location_uri`, `context_model_id`, `orchestration_service_id`, `period`, `created_date`, `modified_date`) VALUES ('2', 'PR-melvin14-sjex-2gjx-2isu-xkglsewalbse', '테스트 장소 화재 관리', '테스트 장소 화재 관리', '0', 'http://www.iotoasis.org/ontology/test', 'cm-fire-test', 'OS-2hs9c29x-s8gs-24xv-sdg2-sdfuxau3s325', '10', '2017-05-23 10:35:03', '2017-05-23 10:35:03');
+INSERT INTO `so`.`profile` (`order_cd`, `id`, `name`, `description`, `enabled`, `location_id`, `context_model_id`, `orchestration_service_id`, `period`, `created_date`, `modified_date`) VALUES ('2', 'PR-melvin14-sjex-2gjx-2isu-xkglsewalbse', '테스트 장소 화재 관리', '테스트 장소 화재 관리', '0', 'http://www.iotoasis.org/ontology/test', 'cm-fire-test', 'OS-2hs9c29x-s8gs-24xv-sdg2-sdfuxau3s325', '10', '2017-05-23 10:35:03', '2017-05-23 10:35:03');
 INSERT INTO `so`.`orchestration_service` (`order_cd`, `id`, `name`, `description`, `parent_id`, `created_date`, `modified_date`) VALUES ('2', 'OS-2hs9c29x-s8gs-24xv-sdg2-sdfuxau3s325', '화재 상황 제어 테스트', '화재 상황 제어 테스트', 'parent_id', '2017-05-23 11:47:26', '2017-05-23 11:47:26');
 INSERT INTO `so`.`location` (`order_cd`, `id`, `name`, `uri`, `description`, `created_date`, `modified_date`) VALUES ('2', 'http://www.iotoasis.org/ontology/test', '테스트 장소', 'http://www.iotoasis.org/ontology/test', '테스트 장소', '2017-04-06 18:27:22', '2017-04-06 18:27:22');
 INSERT INTO `so`.`os_vo` (`orchestration_service_id`, `virtual_object_id`) VALUES ('OS-2hs9c29x-s8gs-24xv-sdg2-sdfuxau3s325', 'vo-test-control');

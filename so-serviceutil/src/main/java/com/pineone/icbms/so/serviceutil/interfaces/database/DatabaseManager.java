@@ -104,7 +104,7 @@ public class DatabaseManager implements IDatabaseManager {
 
     //rule_body
 	@Override
-	public List<CompositeVirtualObjectForDB> getRuleBodyListByOsId(String osId) {
+	public List<RuleBodyForDB> getRuleBodyListByOsId(String osId) {
 		return dataBaseStore.getRuleBodyListByOsId(osId);
 	}
 
