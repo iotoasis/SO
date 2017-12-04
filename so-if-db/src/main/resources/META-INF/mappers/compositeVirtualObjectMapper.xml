@@ -2,28 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pineone.icbms.so.interfaces.database.dao.CompositeVirtualObjectDao">
+
     <select id="retrieveCompositeVirtualObjectListByOrchestrationId" parameterType="String" resultType="CompositeVirtualObjectForDB">
         SELECT
               C.id
             , C.name
             , C.description
-            , C.cvo_type
-            , C.device_class_type_id
-            , C.device_id
+            , RB.cvo_type
+            , RB.physical_device_type_id
+            , RB.device_id
+            , RB.base_cvo_id
+            , RB.location_id
             , C.created_date
             , C.modified_date
         FROM
-            rule_cvo RO, composite_virtual_object C
+            rule_body RB, composite_virtual_object C
         WHERE
-            RO.os_id = #{value}
-            AND RO.cvo_id = C.id
+            RB.os_id = #{value}
+            AND RB.base_cvo_id = C.id
     </select>
+
+    <select id="retrieveRuleBodyListByOsId" parameterType="String" resultType="CompositeVirtualObjectForDB">
+        SELECT
+              RB.id
+            , C.name
+            , C.description
+            , RB.cvo_type
+            , RB.physical_device_type_id
+            , RB.device_id
+            , RB.base_cvo_id
+            , RB.location_id
+            , C.created_date
+            , C.modified_date
+        FROM
+            rule_body RB, composite_virtual_object C
+        WHERE
+            RB.os_id = #{value}
+            AND RB.base_cvo_id = C.id
+    </select>
+
+    <select id="retrieveCvoListByGcvoId" parameterType="String" resultType="CompositeVirtualObjectForDB">
+        SELECT
+              C.id
+            , C.name
+            , C.description
+            , C.created_date
+            , C.modified_date
+        FROM
+            gcvo GC, composite_virtual_object C
+        WHERE
+            GC.gcvo_id = #{value}
+            AND GC.cvo_id = C.id
+    </select>
+
 
     <!--
     os 에서 사용되는 cvo 매필정보 등록
     -->
     <insert id="createCompositeVirtualObjectListByOrchestrationId"  parameterType="HashMap">
-        INSERT INTO rule_cvo (
+        INSERT INTO rule_body (
               id
             , os_id
             , cvo_id
@@ -46,10 +83,6 @@
               id
             , name
             , description
-            , cvo_type
-            , device_class_type_id
-            , device_id
-
             , created_date
             , modified_date
         )
@@ -57,10 +90,6 @@
               #{id}
             , #{name}
             , #{description}
-            , #{cvoType}
-            , #{deviceClassTypeId}
-            , #{deviceId}
-
             , now(4)
             , now(4)
         )
@@ -88,15 +117,6 @@
             <if test="description != null">
                 AND description = #{description}
             </if>
-            <if test="cvoType != null">
-                AND cvo_type = #{cvoType}
-            </if>
-            <if test="deviceClassTypeId != null">
-                AND device_class_type_id = #{deviceClassTypeId}
-            </if>
-            <if test="deviceId != null">
-                AND device_id = #{deviceId}
-            </if>
         </trim>
     </select>
 
@@ -106,9 +126,6 @@
             modified_date = now(4)
             <if test="name != null">, name = #{name}</if>
             <if test="description != null">, description = #{description}</if>
-            <if test="cvoType != null">, cvo_type = #{cvoType}</if>
-            <if test="deviceClassTypeId != null">, device_class_type_id = #{deviceClassTypeId}</if>
-            <if test="deviceId != null">, device_id = #{deviceId}</if>
         </set>
         WHERE
             id = #{id}
@@ -118,4 +135,5 @@
         delete from composite_virtual_object
         where id = #{value}
     </delete>
+    
 </mapper>

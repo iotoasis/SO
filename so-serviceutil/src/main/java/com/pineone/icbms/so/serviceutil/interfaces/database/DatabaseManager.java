@@ -77,6 +77,16 @@ public class DatabaseManager implements IDatabaseManager {
     }
 */
     @Override
+    public List<VirtualObjectForDB> getVirtualObjectListByCompositeVirtualObjectId(String id) {
+        return dataBaseStore.getVirtualObjectListByCompositeVirtualObjectId(id);
+    }
+
+    @Override
+    public List<RuleItemForDB> getRuleItemListByRuleBodyId(String id) {
+        return dataBaseStore.getRuleVirtualObjectListByCvoId(id);
+    }
+    
+    @Override
     public List<DeviceForDB> getDeviceList(String functionUri, String aspect, String locationUri) {
         //implements.
         return dataBaseStore.getDeviceList(functionUri, aspect, locationUri);
@@ -92,7 +102,18 @@ public class DatabaseManager implements IDatabaseManager {
         return dataBaseStore.getCompositeVirtualObjectListByOrchestrationId(orchestrationServiceId);
     }
 
-    @Override
+    //rule_body
+	@Override
+	public List<CompositeVirtualObjectForDB> getRuleBodyListByOsId(String osId) {
+		return dataBaseStore.getRuleBodyListByOsId(osId);
+	}
+
+	@Override
+	public CompositeVirtualObjectForDB getCompositeVirtualObjectById(String id) {
+		return dataBaseStore.getCvoById(id);
+	}
+
+	@Override
     public DeviceControlForDB getDeviceControlByDeviceIdAndContextModelID(String deviceId, String contextModelId) {
         return dataBaseStore.getDeviceControlByDeviceIdAndContextModelID(deviceId, contextModelId);
     }
@@ -107,6 +128,11 @@ public class DatabaseManager implements IDatabaseManager {
         return dataBaseStore.getProfile(profileId);
     }
 
+    @Override
+    public List<ProfileForDB> getAllProfile(){
+        return dataBaseStore.getAllProfile();
+    }
+    
     @Override
     public void createTracking(TrackingEntity trackingEntity) {
         dataBaseStore.createTracking(trackingEntity);
@@ -135,8 +161,29 @@ public class DatabaseManager implements IDatabaseManager {
     }
 
     @Override
+    public SessionEntity getSessionData(String sessionId) {
+        return dataBaseStore.getSessionData(sessionId);
+    }
+
+    @Override
 	public LocationForDB getLocationById(String id) {
         return dataBaseStore.getLocationById(id);
 	}
 
+    @Override
+	public FunctionalityForDB getFunction(String id) {
+    	return dataBaseStore.getFunction(id);
+	}
+
+	@Override
+	public List<DeviceTypeForDB> retrieveDeviceType() {
+		return dataBaseStore.retrieveDeviceType();
+	}
+
+	@Override
+	public DeviceTypeForDB retrieveDeviceTypeById(String id) {
+		return dataBaseStore.retrieveDeviceTypeById(id);
+	}
+
+    
 }

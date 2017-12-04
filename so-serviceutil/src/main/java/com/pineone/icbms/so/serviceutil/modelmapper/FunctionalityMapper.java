@@ -52,6 +52,13 @@ public class FunctionalityMapper implements IModelMapper<IGenericFunction, Funct
         return function;
     }
 
+    public IGenericFunction toProcessorModelFromDb(String functionalityId,String functionalityUri) {
+        DefaultFunction function = null;
+        if (functionalityId != null) {
+            function = new DefaultFunction(functionalityId, "","", functionalityUri);
+        }
+        return function;
+    }
     /**
      * convert Processor model to MQ model.<BR/>
      *

@@ -16,7 +16,8 @@
       )
       VALUES (
           #{id}
-        , date_format(now(),'%a %b %d %I:%i:%s KST %Y')
+<!--         , date_format(now(),'%a %b %d %I:%i:%s KST %Y') -->
+		, now()
         , #{contextmodelKey}
         , #{contextmodelName}
         , #{contextmodelResult}
@@ -62,7 +63,9 @@
     </insert>
 
     <select id="retrieveSessionData" parameterType="String" resultType="SessionEntity">
-        SELECT *
+        SELECT 
+        	  session_data.*
+	        , date_format(create_date,'%a %b %d %I:%i:%s KST %Y') createDate
         FROM session_data
         WHERE id = #{value}
     </select>
@@ -113,8 +116,10 @@
     <!-- grib 연동용 세션 id 목록 조회 -->
     <select id="retrieveRecentlySessionList" resultType="SessionEntity">
         SELECT
-        	*
+        	  session_data.*
+	        , date_format(create_date,'%a %b %d %I:%i:%s KST %Y') createDate
         FROM session_data
         ORDER BY create_date desc limit ${value}
     </select>
+
 </mapper>

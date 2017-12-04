@@ -22,18 +22,25 @@ public interface IDatabaseManager {
     VirtualObjectForDB getVirtualObjectById(String id);
 
     //List<VirtualObjectForDB> getVirtualObjectListByOrchestrationId(String orchestrationServiceId);
+	List<VirtualObjectForDB> getVirtualObjectListByCompositeVirtualObjectId(String id);
+	List<RuleItemForDB> getRuleItemListByRuleBodyId(String id);
 
     List<DeviceForDB> getDeviceList(String functionUri, String aspect, String locationUri);
 
     FixedDeviceForDB getFixedDevice(String id);
 
     List<CompositeVirtualObjectForDB> getCompositeVirtualObjectListByOrchestrationId(String orchestrationServiceId);
+	List<CompositeVirtualObjectForDB> getRuleBodyListByOsId(String osId);
+    
+    CompositeVirtualObjectForDB getCompositeVirtualObjectById(String id);
 
+    
     DeviceControlForDB getDeviceControlByDeviceIdAndContextModelID(String deviceId, String contextModelId);
 
     DeviceControlForDB getDeviceControlValues(String deviceId, String contextModelId);
 
     ProfileForDB getProfileById(String profileId);
+    public List<ProfileForDB> getAllProfile();
 
     void createTracking(TrackingEntity trackingEntity);
     
@@ -45,5 +52,10 @@ public interface IDatabaseManager {
     void createSessionDataDevice(SessionEntity sessionEntity);
     void createSessionDataVo(SessionEntity sessionEntity);
     void updateSessionData(SessionEntity sessionEntity);
-    
+    SessionEntity getSessionData(String sessionId);
+
+	FunctionalityForDB getFunction(String id);
+
+	List<DeviceTypeForDB> retrieveDeviceType();
+	DeviceTypeForDB retrieveDeviceTypeById(String id);
 }

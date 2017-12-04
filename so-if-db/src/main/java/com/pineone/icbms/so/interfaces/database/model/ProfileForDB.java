@@ -32,4 +32,6 @@ public class ProfileForDB extends CommonEntity {
     @Getter @Setter
     private String priority;
 
+    @Getter @Setter
+    private String locationUri;
 }

@@ -49,17 +49,17 @@
 
     <select id="retrieveCvoInOrchestrationService" parameterType="String" resultType="CompositeVirtualObjectForDB">
         SELECT
-        	C.*
-        FROM rule_cvo RC, composite_virtual_object C
+        	CVO.*
+        FROM rule_body RB, composite_virtual_object CVO
         WHERE
-        	RC.cvo_id = C.id
-          	AND RC.os_id = #{value}
+        	RB.base_cvo_id = CVO.id
+          	AND RB.os_id = #{value}
     </select>
 
     <select id="retrieveVoInOrchestrationService" parameterType="String" resultType="VirtualObjectForDB">
         SELECT
-          RV.*
-        FROM rule_cvo RC, rule_vo RV
+          RVO.*
+        FROM rule_body RB, rule_item RVO
         WHERE
           orchestration_service_id = #{value}
     </select>

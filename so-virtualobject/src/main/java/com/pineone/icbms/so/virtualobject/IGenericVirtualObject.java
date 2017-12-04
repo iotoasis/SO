@@ -12,7 +12,7 @@ import com.pineone.icbms.so.virtualobject.function.IGenericFunction;
 public interface IGenericVirtualObject
         extends IVirtualObject<IGenericFunction, IGenericAspect>,
         IGenericServiceEntity {
-    /**
+	/**
      * return function.<BR/>
      *
      * @return function
@@ -25,4 +25,11 @@ public interface IGenericVirtualObject
      * @return aspect
      */
     IGenericAspect getAspect();
+    
+    String getDeviceId();
+    String getVoValeType();
+    String getVoVale();
+
+    String getIsLast();
+    void setIsLast(String isLast);
 }

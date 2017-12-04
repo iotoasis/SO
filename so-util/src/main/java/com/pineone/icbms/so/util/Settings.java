@@ -118,6 +118,11 @@ public class Settings {
     public static String TOPIC_ORCHESTRATION_SERVICE = "orchestrationservice";
 
     /**
+     * kafka topic: orchestrationservice<BR/>
+     */
+    public static String TOPIC_COMPOSITE_VIRTUAL_OBJECT = "compositevirtualobject";
+    
+    /**
      * kafka topic: virtual object<BR/>
      */
     public static String TOPIC_VIRTUAL_OBJECT = "virtualobject";

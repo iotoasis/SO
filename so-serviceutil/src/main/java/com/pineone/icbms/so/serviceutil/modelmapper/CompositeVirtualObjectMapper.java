@@ -3,6 +3,7 @@ package com.pineone.icbms.so.serviceutil.modelmapper;
 import com.pineone.icbms.so.interfaces.database.model.AspectForDB;
 import com.pineone.icbms.so.interfaces.database.model.CompositeVirtualObjectForDB;
 import com.pineone.icbms.so.interfaces.database.model.FunctionalityForDB;
+import com.pineone.icbms.so.interfaces.database.model.RuleBodyForDB;
 import com.pineone.icbms.so.interfaces.messagequeue.model.AspectForMQ;
 import com.pineone.icbms.so.interfaces.messagequeue.model.CompositeVirtualObjectForMQ;
 import com.pineone.icbms.so.interfaces.messagequeue.model.FunctionForMQ;
@@ -50,9 +51,17 @@ public class CompositeVirtualObjectMapper implements IModelMapper<IGenericCompos
             compositeVirtualObject = new DefaultCompositeVirtualObject();
             compositeVirtualObject.setId(compositeVirtualObjectForMQ.getId());
             compositeVirtualObject.setName(compositeVirtualObjectForMQ.getName());
+
+            compositeVirtualObject.setCvoType(compositeVirtualObjectForMQ.getCvoType());
+            compositeVirtualObject.setPhysicalDeviceTypeId(compositeVirtualObjectForMQ.getPhysicalDeviceTypeId());
+            compositeVirtualObject.setDeviceId(compositeVirtualObjectForMQ.getDeviceId());
+            compositeVirtualObject.setBaseCvoId(compositeVirtualObjectForMQ.getBaseCvoId());
+            compositeVirtualObject.setLocationId(compositeVirtualObjectForMQ.getLocationId());
+            
+            
             compositeVirtualObject.setDescription((compositeVirtualObjectForMQ.getDescription()));
-            compositeVirtualObject.setAspect(aspectMapper.toProcessorModelFromMq(compositeVirtualObjectForMQ.getAspect()));
-            compositeVirtualObject.setFunction(functionalityMapper.toProcessorModelFromMq(compositeVirtualObjectForMQ.getFunction()));
+//            compositeVirtualObject.setAspect(aspectMapper.toProcessorModelFromMq(compositeVirtualObjectForMQ.getAspect()));
+//            compositeVirtualObject.setFunction(functionalityMapper.toProcessorModelFromMq(compositeVirtualObjectForMQ.getFunction()));
             compositeVirtualObject.setVirtualObjectList(virtualObjectMapper.toVirtualObjectList(compositeVirtualObjectForMQ.getVirtualObjectList()));
             StateStoreUtil.copyStateStore(compositeVirtualObjectForMQ.getStateStore(), compositeVirtualObjectForMQ);
         }
@@ -74,6 +83,15 @@ public class CompositeVirtualObjectMapper implements IModelMapper<IGenericCompos
             compositeVirtualObject.setName(compositeVirtualObjectForDB.getName());
             compositeVirtualObject.setDescription((compositeVirtualObjectForDB.getDescription()));
 
+            //cvo_type, physical_device_type_id, device_id
+            compositeVirtualObject.setCvoType(compositeVirtualObjectForDB.getCvoType());
+            compositeVirtualObject.setPhysicalDeviceTypeId(compositeVirtualObjectForDB.getPhysicalDeviceTypeId());
+            compositeVirtualObject.setDeviceId(compositeVirtualObjectForDB.getDeviceId());
+        	
+            //base_cvo_id, location_id
+            compositeVirtualObject.setBaseCvoId(compositeVirtualObjectForDB.getBaseCvoId());
+            compositeVirtualObject.setLocationId(compositeVirtualObjectForDB.getLocationId());
+
 //            AspectForDB aspectForDB = new AspectForDB();
 //            aspectForDB.setId(compositeVirtualObjectForDB.getAspect_id());
 //            compositeVirtualObject.setAspect(aspectMapper.toProcessorModelFromDb(aspectForDB));
@@ -88,7 +106,7 @@ public class CompositeVirtualObjectMapper implements IModelMapper<IGenericCompos
         }
         return compositeVirtualObject;
     }
-
+    
     /**
      * convert Processor model to MQ model.<BR/>
      *
@@ -103,10 +121,18 @@ public class CompositeVirtualObjectMapper implements IModelMapper<IGenericCompos
             compositeVirtualObjectForMQ.setId(compositeVirtualObject.getId());
             compositeVirtualObjectForMQ.setName(compositeVirtualObject.getName());
             compositeVirtualObjectForMQ.setDescription((compositeVirtualObject.getDescription()));
-            AspectForMQ aspectForMQ = aspectMapper.toMqModelFromPs(compositeVirtualObject.getAspect());
-            compositeVirtualObjectForMQ.setAspect(aspectForMQ);
-            FunctionForMQ functionForMQ = functionalityMapper.toMqModelFromPs(compositeVirtualObject.getFunction());
-            compositeVirtualObjectForMQ.setFunction(functionForMQ);
+//            AspectForMQ aspectForMQ = aspectMapper.toMqModelFromPs(compositeVirtualObject.getAspect());
+//            compositeVirtualObjectForMQ.setAspect(aspectForMQ);
+//            FunctionForMQ functionForMQ = functionalityMapper.toMqModelFromPs(compositeVirtualObject.getFunction());
+//            compositeVirtualObjectForMQ.setFunction(functionForMQ);
+
+            compositeVirtualObjectForMQ.setCvoType(compositeVirtualObject.getCvoType());
+            compositeVirtualObjectForMQ.setPhysicalDeviceTypeId(compositeVirtualObject.getPhysicalDeviceTypeId());
+            compositeVirtualObjectForMQ.setDeviceId(compositeVirtualObject.getDeviceId());
+            
+            compositeVirtualObjectForMQ.setBaseCvoId(compositeVirtualObject.getBaseCvoId());
+            compositeVirtualObjectForMQ.setLocationId(compositeVirtualObject.getLocationId());
+            
             //virtual object
             compositeVirtualObjectForMQ.setVirtualObjectList(virtualObjectMapper.toVirtualObjectForMQList(compositeVirtualObject.getVirtualObjectList()));
             StateStoreUtil.copyStateStore(compositeVirtualObject.getStateStore(), compositeVirtualObjectForMQ);

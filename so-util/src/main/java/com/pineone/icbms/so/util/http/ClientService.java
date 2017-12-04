@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -193,7 +194,7 @@ public class ClientService
 			conn.setRequestProperty("Content-Type", "application/json");
 		    OutputStream out_stream = conn.getOutputStream();
 		    out_stream.write( param.getBytes("UTF-8") );
-		    log.info("#### requestPostServiceReceiveString2:[{}]:[{}] ", uri, out_stream.toString());
+		    log.info("requestPostServiceReceiveString2:[{}]:[{}] ", uri, out_stream.toString());
 		    out_stream.flush();
 		    out_stream.close();
 		 
@@ -209,8 +210,11 @@ public class ClientService
 		    }
 		    responseString = buff.toString().trim();
 			
-		    log.info("#### response=[{}]", responseString);
+		    log.info("response=[{}]", responseString);
+		} catch (ConnectException e) {
+		    log.error("#### Error ConnectException: uri=[{}]", uri);
 		} catch (IOException e) {
+		    log.error("#### IOException: uri=[{}, response=[{}]", uri, responseString);
 		}
 		return responseString;	
 	}
@@ -219,7 +223,7 @@ public class ClientService
 	public String requestGetServiceReceiveString2(String uri) {
 		String responseString = null;
 		try {
-		    log.info("#### requestGetServiceReceiveString2:[{}] ", uri);
+		    log.info("requestGetServiceReceiveString2:[{}]", uri);
 
 		    URL url = new URL(uri);
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -233,7 +237,7 @@ public class ClientService
 		    InputStream is     = conn.getInputStream();
 		    int statusCode = conn.getResponseCode();
 		    if (statusCode != 200) {
-			    log.info("#### statusCode=[{}]", statusCode);
+			    log.info("statusCode=[{}]", statusCode);
 		    	return null;
 		    }
 		    
@@ -247,10 +251,13 @@ public class ClientService
 		    }
 		    responseString = buff.toString().trim();
 			
-		    log.info("#### response=[{}]", responseString);
+		    log.info("response=[{}]", responseString);
+		} catch (ConnectException e) {
+		    log.error("#### Error ConnectException: uri=[{}]", uri);
 		} catch (IOException e) {
+		    log.error("#### IOException: uri=[{}, response=[{}], ", uri, responseString);
 		}
-		return responseString;	
+		return responseString;
 	}
 
 }

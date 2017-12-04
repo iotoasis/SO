@@ -3,11 +3,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pineone.icbms.so.interfaces.database.dao.DeviceDao">
-    <select id="retrieveDeviceType" parameterType="HashMap" resultType="DeviceForDB">
+    <select id="retrieveDeviceType" resultType="DeviceTypeForDB">
       SELECT
-        id
-        , name
-      FROM device_type
+      	*
+      FROM physical_device_type
+    </select>
+
+    <select id="retrieveDeviceTypeById" parameterType="String" resultType="DeviceTypeForDB">
+      SELECT
+      	*
+      FROM physical_device_type
+      WHERE
+      	 id = #{value}
     </select>
   
     <select id="retrieveDeviceList" parameterType="HashMap" resultType="DeviceForDB">
@@ -29,27 +36,6 @@
      <if test="locationId != null">
         AND location_id = #{locationId}
      </if>
-    </select>
-
-    <select id="retrieveDeviceList___" parameterType="HashMap" resultType="DeviceForDB">
-      SELECT
-        D.id
-        , D.created_date
-        , D.description
-        , D.modified_date
-        , D.name
-        , D.aspect_id
-        , D.device_uri
-        , D.functionality_id
-        , D.location_id
-      FROM device D
-        LEFT OUTER JOIN function F  ON D.functionality_id  = F.id
-        LEFT OUTER JOIN aspect A         ON D.aspect_id         = A.id
-        LEFT OUTER JOIN location L       ON D.location_id       = L.id
-      WHERE
-        F.id = #{functionalityId}
-        AND A.id = #{aspectId}
-        AND L.id = #{locationId}
     </select>
 
   <!--

@@ -88,7 +88,7 @@ public class ScheduledTasks {
                         VirtualObjectForDB newVirtualObjectForDB = new VirtualObjectForDB();
                         newVirtualObjectForDB.setId(id);
                         newVirtualObjectForDB.setFunctionalityId(function.getFunction());
-                        newVirtualObjectForDB.setAspectId(aspect.getAspect());
+                        newVirtualObjectForDB.setAspectUri(aspect.getAspect());
                         newVirtualObjectForDB.setName(aspect.getLabel() + function.getLabel());
                         virtualObjectDao.create(newVirtualObjectForDB);
                     }

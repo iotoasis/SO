@@ -73,19 +73,32 @@
     </select>
 
  -->    
-    <!--
-    cvo 에 포함된 vo 목록 조회
-    -->
+    <!-- cvoId 에 포함된 vo 목록 조회 -->
     <select id="retrieveVirtualObjectListByCompositeVirtualObjectId" parameterType="String" resultType="VirtualObjectForDB">
         SELECT
-			*
+			V.*
         FROM
             virtual_object V
         JOIN cvo_vo CV ON CV.vo_id = V.id  
         WHERE
         	CV.cvo_id = #{value}
-          
     </select>
+
+    <!-- Rule-CVO_ID에 의한 Rule Vo 목록 조회 -->
+    <select id="retrieveRuleVirtualObjectListByCvoId" parameterType="String" resultType="RuleItemForDB">
+        SELECT
+        	ri.*,
+        	vo.aspect_uri,
+        	f.uri funtionalityUri
+        FROM
+            rule_item ri
+        LEFT JOIN virtual_object vo ON vo.id = ri.vo_id
+        LEFT JOIN functionality f ON f.id = ri.funtionality_id
+        WHERE
+        	ri.rule_body_id = #{value}
+    </select>
+
+
     <select id="retrieveVirtualObjectListByCompositeVirtualObjectId__" parameterType="String" resultType="VirtualObjectForDB">
         SELECT
         V.id
@@ -96,7 +109,7 @@
         , aspect_id
         , functionality_id
         FROM cvo_vo C, virtual_object V
-        WHERE C.composite_virtual_object_id = #{value}
+        WHERE C.cvo_id = #{value}
         AND C.virtual_object_id = V.id
     </select>
 
@@ -124,20 +137,15 @@
 
     <select id="retrieveVirtualObjectById" parameterType="String" resultType="VirtualObjectForDB">
         SELECT
-            id
-            , created_date
-            , description
-            , modified_date
-            , name
-            , aspect_id
-            , functionality_id
+			*
         FROM virtual_object
         WHERE
           id = #{value}
     </select>
 
     <select id="retrieveVirtualObjectByModel" resultType="VirtualObjectForDB">
-        SELECT * FROM virtual_object
+        SELECT * 
+        FROM virtual_object
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             <if test="id != null">
                 AND id = #{id}

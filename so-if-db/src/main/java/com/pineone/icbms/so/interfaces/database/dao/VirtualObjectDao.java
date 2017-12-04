@@ -1,5 +1,6 @@
 package com.pineone.icbms.so.interfaces.database.dao;
 
+import com.pineone.icbms.so.interfaces.database.model.RuleItemForDB;
 import com.pineone.icbms.so.interfaces.database.model.VirtualObjectForDB;
 import com.pineone.icbms.so.util.id.IdUtils;
 import org.springframework.stereotype.Component;
@@ -65,6 +66,10 @@ public class VirtualObjectDao extends AbstractDao {
 */
     public List<VirtualObjectForDB> retrieveVirtualObjectListByCompositeVirtualObjectId(String compositeVirtualObjectId) {
         return super.sqlSession.selectList("retrieveVirtualObjectListByCompositeVirtualObjectId", compositeVirtualObjectId);
+    }
+
+    public List<RuleItemForDB> retrieveRuleVirtualObjectListByCvoId(String compositeVirtualObjectId) {
+        return super.sqlSession.selectList("retrieveRuleVirtualObjectListByCvoId", compositeVirtualObjectId);
     }
 
 	// retrieve one

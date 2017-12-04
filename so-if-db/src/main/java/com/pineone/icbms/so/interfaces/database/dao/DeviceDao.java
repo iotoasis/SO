@@ -1,6 +1,8 @@
 package com.pineone.icbms.so.interfaces.database.dao;
 
 import com.pineone.icbms.so.interfaces.database.model.DeviceForDB;
+import com.pineone.icbms.so.interfaces.database.model.DeviceTypeForDB;
+
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -68,7 +70,11 @@ public class DeviceDao extends AbstractDao {
         return super.sqlSession.delete("deleteDevice", id);
     }
     
-    public List<DeviceForDB> retrieveDeviceType()  {
+    public List<DeviceTypeForDB> retrieveDeviceType()  {
         return super.sqlSession.selectList("retrieveDeviceType");
+    }
+
+    public DeviceTypeForDB retrieveDeviceTypeById(String id)  {
+        return super.sqlSession.selectOne("retrieveDeviceTypeById", id);
     }
 }

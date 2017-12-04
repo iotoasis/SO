@@ -1,28 +1,39 @@
 package com.pineone.icbms.so.web.interfaces.api.service.profile;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kastkode.springsandwich.filter.annotation.Before;
 import com.kastkode.springsandwich.filter.annotation.BeforeElement;
 import com.pineone.icbms.so.interfaces.database.model.ContextModelForDB;
 import com.pineone.icbms.so.interfaces.database.model.ProfileForDB;
 import com.pineone.icbms.so.interfaces.database.model.SessionEntity;
 import com.pineone.icbms.so.interfaces.database.model.TrackingEntity;
+import com.pineone.icbms.so.interfaces.messagequeue.model.ContextModelForMQ;
 import com.pineone.icbms.so.interfaces.sda.handle.SdaManager;
+import com.pineone.icbms.so.interfaces.sda.model.ContextModelContent;
+import com.pineone.icbms.so.interfaces.sda.model.ContextModelForIf2;
 import com.pineone.icbms.so.serviceprocessor.processor.context.handler.ContextModelHandler;
 import com.pineone.icbms.so.serviceutil.interfaces.database.DatabaseManager;
 import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;
 import com.pineone.icbms.so.util.conversion.ProfileTransFormData;
+import com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler;
 import com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextModel;
 import com.pineone.icbms.so.virtualobject.location.IGenericLocation;
 import com.pineone.icbms.so.virtualobject.profile.IGenericProfile;
 import com.pineone.icbms.so.web.tracking.BeforeTtrackingHandler;
+import com.pineone.icbms.so.web.util.ContextModelMapper2;
 
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Future;
 
 /**
  * context for ContextModel<BR/>
@@ -53,7 +64,7 @@ public class ProfileController {
      * @param profileTransFormData profile
      * @return profile
      */
-    @RequestMapping(value = "/schedule", method = RequestMethod.POST)
+    @RequestMapping(value = "/schedule1", method = RequestMethod.POST)
     public IGenericProfile callFromScheduler(@RequestBody ProfileTransFormData profileTransFormData, HttpServletRequest request) {
         
         if (profileTransFormData==null) {
@@ -157,6 +168,109 @@ public class ProfileController {
     }
 
     /**
+     * response for request "/profile, HTTP-method:POST".<BR/>
+     * scheduler가 특정 주기로 호출됨
+     *
+     * @param profileTransFormData profile
+     * @return profile
+     */
+    @RequestMapping(value = "/schedule", method = RequestMethod.POST)
+    public IGenericProfile callFromScheduler2(@RequestBody ProfileTransFormData profileTransFormData, HttpServletRequest request) {
+        
+        if (profileTransFormData==null) {
+        	contextLog.warn("Input Profile is null");
+        	return null;
+        }
+        String inputProfileId = profileTransFormData.getId();
+    	contextLog.debug("Checking CM by schedule : input profile=[{}]", inputProfileId);
+
+        //Profile Info
+    	ProfileForDB profileForDb = databaseManager.getProfileById(inputProfileId);
+        IGenericProfile profile = ModelMapper.toProfile(profileForDb);
+        
+        if (profile==null) {
+        	contextLog.warn("Profile is null");
+        	return null;
+        }
+        
+        //Context Info
+        IGenericContextModel contextModel = profile.getContextModel();
+        if (contextModel == null) {
+        	contextLog.warn( "contextModel is null");
+        	return null;
+        }
+
+        String contextModelId = contextModel.getId();
+        ContextModelForDB cm = databaseManager.getContextModelById(contextModelId);
+        String contextModelName = cm.getName();
+        
+        //SDA로 부터 CM발생 여부 체크
+        List<String> locationList = new SdaManager().retrieveEventLocationList(contextModelId);
+
+        contextLog.debug("called SDA: cm={}, name={}, location={}", contextModelId, contextModelName, locationList.toString());
+
+    	ContextModelForIf2 contextModelForIf2 = new ContextModelForIf2();
+    	contextModelForIf2.setSimulatorType("");
+    	contextModelForIf2.setCmd("query");
+    	contextModelForIf2.setContextId(contextModelId);
+
+        boolean isCmProceed = false; //CM 처리되었나?
+    	List<ContextModelContent> contextModelContentList = new ArrayList<>();
+
+        if (locationList != null && locationList.size() > 0) {
+
+            for (String location : locationList) {
+                if (location !=  null && location.equals(profile.getLocation().getUri())) {
+
+                	ContextModelContent contextModelContent = new ContextModelContent();
+                	contextModelContent.setLocationUri(location);
+                	contextModelContentList.add(contextModelContent);
+                	
+                	isCmProceed = true;
+                	
+                    contextLog.warn("O: result: Happen cm=[{}], Location={}", contextModelId, location);
+                }
+            }
+        }
+
+        //Location이 없거나 처리되지 않았을때
+        if (isCmProceed == false) {
+        	contextLog.warn("X: result: Not happened cm=[{}]", contextModelId);
+        }
+
+        contextModelForIf2.setContextModelContentList(contextModelContentList);
+    	processContextModel(contextModelForIf2,request);
+
+        return profile;
+    }
+    
+    
+    private ContextModelForMQ processContextModel(ContextModelForIf2 contextModelForIf, HttpServletRequest request) {
+        log.debug("input:ContextModelForIf: {}", contextModelForIf);
+        // create a message From ContextModelForMQ for messageQueue, publish to message queue
+        // ContextModelForIf --> ContextModelForMQ
+        ContextModelForMQ contextModelForMQ = ContextModelMapper2.toContextModelForMQ(contextModelForIf);
+
+        // tracking
+        TrackingEntity trackingEntity = (TrackingEntity) request.getSession().getAttribute("tracking");
+        trackingEntity.setSimulatorType(contextModelForIf.getSimulatorType());  // simulator type 지정
+        contextModelForMQ.setTrackingEntity(trackingEntity);
+
+        log.debug("converted:ContextModelForMQ: {}", contextModelForMQ);
+        //object to json
+        String contextModelForMqString = ContextModelMapper2.writeJsonString(contextModelForMQ);
+        log.debug("generated:ContextModelForMQ {}", contextModelForMqString);
+        //context model producer handler
+        DefaultProducerHandler producerHandler = new DefaultProducerHandler(0, "contextmodel");
+        Future<RecordMetadata> future = producerHandler.send(contextModelForMQ);
+        producerHandler.close();
+        log.debug("producer.send result: {}", future);
+
+        return contextModelForMQ;
+    }
+    
+    
+    /**
      * response for request "/profile/force, HTTP-method:POST".<BR/>
      * /force url에 의해 발생됨
      *
@@ -187,5 +301,55 @@ public class ProfileController {
         	contextLog.warn("X: result: No location profile={}", inputProfileId);
         }
         return profile;
+    }
+
+    /**
+     * 상황모델 시뮬레이션
+     * response for request "/service/context/cm/simulate, HTTP-method:POST".<BR/>
+     *
+     * @param contextModelForIf ContextModelForIf
+     * @return List<TrackingEntity>
+     */
+    @GetMapping(value = "/checkall")
+    public String checkAllProfile(HttpServletRequest request) {
+
+    	StringBuffer strBuf = new StringBuffer();
+        String result=null;
+
+        List<ProfileForDB> allProfileForDB = databaseManager.getAllProfile();
+    	
+    	for (ProfileForDB profileForDb : allProfileForDB) {
+
+    		String contextModelId = profileForDb.getContextModelId();
+        	IGenericProfile profile = ModelMapper.toProfile(profileForDb);
+
+    		//SDA로 부터 CM발생 여부 체크
+    		List<String> locationList = new SdaManager().retrieveEventLocationList(contextModelId);
+    		String buf;
+            if (locationList != null && locationList.size() > 0) {
+            	buf = String.format("Profile: name=%s, cm=%s, enabled=%d, location=%s\r\n", profile.getName(), contextModelId, profileForDb.getEnabled(),  profile.getLocation().getUri());
+            	strBuf.append(buf);
+
+            	for (String location : locationList) {
+                    if (location.equals(profile.getLocation().getUri())) {
+                    	buf = String.format("  SDA: O: %s\r\n", location);
+                    }else {
+                    	buf = String.format("  SDA: X: %s\r\n", location);
+                    }
+                	strBuf.append(buf);
+                }
+            }
+        }
+    	result = strBuf.toString();
+
+/*
+  		try {
+			ObjectMapper mapper = new ObjectMapper();
+			result = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(list);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+*/        
+        return result;
     }
 }

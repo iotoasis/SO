@@ -25,8 +25,7 @@ abstract public class AGenericVirtualDevice extends AGenericVirtualObject implem
      */
     protected String isLast = "N";
 
-
-    /**
+	/**
      * constructor
      */
     public AGenericVirtualDevice() {

@@ -28,9 +28,10 @@ public class SchedulerNotificationManager implements Job {
         long time = System.currentTimeMillis();
         SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String timeStr = timeFormat.format(new Date(time));
-        log.debug("Time " + timeStr);
 
+        log.debug("### Checking Time by schedule :" + timeStr);
         log.debug(context.getJobDetail().getKey().getName());
+
         String profileId = context.getJobDetail().getKey().getName();
         
         SimpleTrigger  st = (SimpleTrigger ) context.getTrigger();
@@ -44,12 +45,12 @@ public class SchedulerNotificationManager implements Job {
         ProfileTransFormData profileTransFormData = new ProfileTransFormData(profileId);
         profileTransFormData.setPeriod(period);
         String sendData = DataConversion.objectToString(profileTransFormData);
-        //clientService.requestPostService("http://localhost:8080/so/service/profile/schedule", sendData);
+
         //clientService.requestPostService("http://localhost:8080/so/service/profile/schedule", sendData);
         String profileControllerUrl = "http://localhost:" + Settings2.getServerPort() + Settings2.getContextPath() + "/service/profile/schedule";
+        log.debug(" profileControllerUrl = " + profileControllerUrl);
         //clientService.requestPostService(profileControllerUrl, sendData);
         String result = clientService.requestPostServiceReceiveString2(profileControllerUrl, sendData);
-        log.debug("######## profileControllerUrl = " + profileControllerUrl);
-        log.debug("result=" + result);
+        log.debug("---result=" + result);
     }
 }

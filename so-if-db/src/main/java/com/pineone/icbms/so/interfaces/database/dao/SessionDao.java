@@ -32,6 +32,11 @@ public class SessionDao extends AbstractDao {
     public List<SessionEntity> retrieveRecentlySessionList(int number) {
         return super.sqlSession.selectList("retrieveRecentlySessionList", number);
     }
+
+    // retrieve session_data By Id
+    public SessionEntity retrieveSessionData(String sessionId) {
+        return super.sqlSession.selectOne("retrieveSessionData", sessionId);
+    }
     
     // retrieve session_data_device
     public List<SessionEntity> retrieveSessionDataDevice(String sessionId) {

@@ -11,7 +11,8 @@ import com.pineone.icbms.so.virtualobject.function.IGenericFunction;
  */
 abstract public class AGenericVirtualObject extends AGenericServiceEntity
         implements IGenericVirtualObject {
-    /**
+	
+	/**
      * function
      */
     protected IGenericFunction function;
@@ -21,6 +22,11 @@ abstract public class AGenericVirtualObject extends AGenericServiceEntity
      */
     protected IGenericAspect aspect;
 
+    protected String deviceId;
+    protected String voValeType;
+    protected String voVale;
+    protected String isLast;
+    
     /**
      * constructor
      */
@@ -78,7 +84,42 @@ abstract public class AGenericVirtualObject extends AGenericServiceEntity
         this.aspect = aspect;
     }
 
-    @Override
+	@Override
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+
+	@Override
+	public String getVoValeType() {
+		return voValeType;
+	}
+
+    public void setVoValeType(String voValeType) {
+		this.voValeType = voValeType;
+	}
+	
+	@Override
+	public String getVoVale() {
+		return voVale;
+	}
+
+	public void setVoVale(String voVale) {
+		this.voVale = voVale;
+	}
+	
+    public String getIsLast() {
+		return isLast;
+	}
+
+	public void setIsLast(String isLast) {
+		this.isLast = isLast;
+	}
+
+	@Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append(super.toString());

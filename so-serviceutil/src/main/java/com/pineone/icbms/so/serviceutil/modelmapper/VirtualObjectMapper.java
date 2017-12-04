@@ -14,6 +14,9 @@ import com.pineone.icbms.so.virtualobject.composite.DefaultCompositeVirtualObjec
 import com.pineone.icbms.so.virtualobject.composite.IGenericCompositeVirtualObject;
 import com.pineone.icbms.so.virtualobject.function.IGenericFunction;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +54,12 @@ public class VirtualObjectMapper implements IModelMapper<IGenericVirtualObject, 
             virtualObject.setAspect(aspect);
             IGenericFunction function = functionalityMapper.toProcessorModelFromMq(virtualObjectForMQ.getFunction());
             virtualObject.setFunction(function);
+            
+            virtualObject.setDeviceId(virtualObjectForMQ.getDeviceId());;
+            virtualObject.setVoValeType(virtualObjectForMQ.getVoValueType());
+            virtualObject.setVoVale(virtualObjectForMQ.getVoValue());
+            virtualObject.setIsLast(virtualObjectForMQ.getIsLast());
+            
             StateStoreUtil.copyStateStore(virtualObjectForMQ.getStateStore(), virtualObject);
         }
         return virtualObject;
@@ -71,8 +80,12 @@ public class VirtualObjectMapper implements IModelMapper<IGenericVirtualObject, 
             virtualObject.setName(virtualObjectForDB.getName());
 //            virtualObject.setAspect(aspectMapper.toProcessorModelFromDb(new AspectForDB(virtualObjectForDB.getAspectId())));
 //            virtualObject.setFunction(functionalityMapper.toProcessorModelFromDb(new FunctionalityForDB(virtualObjectForDB.getFunctionId())));
-            virtualObject.setAspect(aspectMapper.toProcessorModelFromDb(virtualObjectForDB.getAspectId()));
-            virtualObject.setFunction(functionalityMapper.toProcessorModelFromDb(virtualObjectForDB.getFunctionalityId()));
+            virtualObject.setAspect(aspectMapper.toProcessorModelFromDb("",virtualObjectForDB.getAspectUri()));
+            virtualObject.setFunction(functionalityMapper.toProcessorModelFromDb(virtualObjectForDB.getFunctionalityId(), virtualObjectForDB.getFunctionalityUri()));
+
+            virtualObject.setVoValeType(virtualObjectForDB.getVoValueType());
+            virtualObject.setVoVale(virtualObjectForDB.getVoValue());
+        
         }
         return virtualObject;
     }
@@ -95,6 +108,13 @@ public class VirtualObjectMapper implements IModelMapper<IGenericVirtualObject, 
             virtualObjectForMQ.setAspect(aspectForMQ);
             FunctionForMQ functionForMQ = functionalityMapper.toMqModelFromPs(virtualObject.getFunction());
             virtualObjectForMQ.setFunction(functionForMQ);
+            
+            virtualObjectForMQ.setDeviceId(virtualObject.getDeviceId());
+            virtualObjectForMQ.setVoValueType(virtualObject.getVoValeType());
+            virtualObjectForMQ.setVoValue(virtualObject.getVoVale());
+
+            virtualObjectForMQ.setIsLast(virtualObject.getIsLast());
+            
             StateStoreUtil.copyStateStore(virtualObject.getStateStore(), virtualObjectForMQ);
 
         }

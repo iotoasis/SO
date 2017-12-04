@@ -73,6 +73,33 @@ public class ContextModelContent {
     @JsonProperty("label")
     String label;
 
+    /**
+     * command type
+     */
+    @Getter@Setter
+    @JsonProperty("command_type")
+    String commandType;
+    
+    /**
+     * command value
+     */
+    @Getter@Setter
+    @JsonProperty("command_value")
+    String commandValue;
+    /**
+     * aspect value
+     */
+    @Getter@Setter
+    @JsonProperty("aspect_value")
+    String aspectValue;
+    
+    /**
+     * action value
+     */
+    @Getter@Setter
+    @JsonProperty("action_value")
+    String actionValue;
+
     /*
     public String getValue() {
         return value;

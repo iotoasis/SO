@@ -5,6 +5,8 @@ import com.pineone.icbms.so.devicecontrol.model.virtualdevice.driver.IGenericDev
 import com.pineone.icbms.so.interfaces.database.model.DeviceControlForDB;
 import com.pineone.icbms.so.interfaces.database.model.SessionEntity;
 import com.pineone.icbms.so.interfaces.messagequeue.producer.tracking.TrackingProducer;
+import com.pineone.icbms.so.interfaces.sda.handle.SdaManager;
+import com.pineone.icbms.so.interfaces.sda.model.ContextModelContent;
 import com.pineone.icbms.so.interfaces.si.handle.DeviceManager;
 import com.pineone.icbms.so.interfaces.si.ref.ClientProfile;
 import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
@@ -89,16 +91,22 @@ public class DeviceControlHandler extends AProcessHandler {
 //                controlList.put(deviceDriver, values);
 //            }
 
-        // TODO develop : 개발용 데이터베이스에서 조회처리
-        log.warn("getDeviceControlByDeviceIdAndContextModelID : {}, {}", virtualDevice.getId(), contextModelId);
-        DeviceControlForDB deviceControlForDB = databaseManager.getDeviceControlByDeviceIdAndContextModelID(virtualDevice.getId(), contextModelId);
 
-        log.debug("DeviceControlForDB: {}", deviceControlForDB);
+        String deviceId = virtualDevice.getDeviceId();
+        String aspectUri = virtualDevice.getAspect().getUri();
+        String functionUri = virtualDevice.getFunction().getUri();
+        String controlValue = virtualDevice.getVoVale();
+        
+        // cm-dd-aspect-action-value (id, aspect, functionality) 을 이용한 aspect Value 조회
+        ContextModelContent content = new SdaManager().getAspectValueById_Aspect_Function(deviceId, aspectUri, functionUri);
+        String aspectValue = content.getAspectValue();
 
+        log.warn("getAspectValueById_Aspect_Function : aspect_value={}, action_value={}", aspectValue, content.getActionValue());
+        
         // set TrackingEntity
         //tracking = getTracking();
 
-        if (deviceControlForDB != null) {
+        if (deviceId != null && !deviceId.isEmpty()) {
         	
         	String locLower,loc;
         	if (locationUri != null) {
@@ -108,8 +116,6 @@ public class DeviceControlHandler extends AProcessHandler {
         	else {
         		loc = "";
         	}
-        	
-        	String newAspectId = deviceControlForDB.getAspectIdNew();
         	
             // simulator. 마지막 VO인 경우
             if ("Y".equals(virtualDevice.getIsLast())) {
@@ -126,15 +132,13 @@ public class DeviceControlHandler extends AProcessHandler {
             // grib session device
             SessionEntity session = new SessionEntity();
             session.setId(getTracking().getSessionId());
-            session.setDeviceKey(deviceControlForDB.getId());
+            session.setDeviceKey(deviceId);
             
             session.setDeviceLocation(loc);
             log.trace("session device : {}", session);
             databaseManager.createSessionDataDevice(session);
             
-
             if (getTracking().getSimulatorType() == null || "".equals(getTracking().getSimulatorType())) {
-    
             	session = new SessionEntity();
             	session.setId(getTracking().getSessionId());
             	session.setDeviceResult("CONTROL_EXECUTION");
@@ -142,7 +146,7 @@ public class DeviceControlHandler extends AProcessHandler {
 
                 // 실제 디바이스 실행
                 //control device : SI와 통신
-                controlDevice(virtualDevice, newAspectId, deviceControlForDB.getValue());
+                controlDevice(virtualDevice, aspectValue, controlValue);
             }
             else {
             	// 시뮬레이션 : 실제 제어는 하지 않고 로그만 출력함
@@ -157,7 +161,7 @@ public class DeviceControlHandler extends AProcessHandler {
             	log.warn("Simulate controlDevice: {}, {}", virtualDevice.getName(), virtualDevice.getId());
                 getTracking().setProcessId(virtualDevice.getId());
                 getTracking().setProcessName(virtualDevice.getName() + ", 디바이스제어");
-                getTracking().setProcessValue(deviceControlForDB.getValue());
+                getTracking().setProcessValue(controlValue);
                 TrackingProducer.send(getTracking());
             }
         }
@@ -198,6 +202,7 @@ public class DeviceControlHandler extends AProcessHandler {
     private void controlDevice(IGenericVirtualDevice virtualDevice, String aspect, String deviceControlValue) {
 
         getTracking().setProcessMethod(new Object(){}.getClass().getEnclosingMethod().getName());
+        String deviceId = virtualDevice.getDeviceId();
 
         try {
             String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
@@ -205,10 +210,10 @@ public class DeviceControlHandler extends AProcessHandler {
             //String aspect = virtualDevice.getAspect().getUri();
             //ResultMessage resultMessage = deviceManager.deviceExecute(commandId, virtualDevice.getId(), deviceControlValue);
             
-            log.debug("# Run controlDevice: {}, {}, {}, {}", commandId, virtualDevice.getId(), aspect, deviceControlValue);
-            ResultMessage resultMessage = deviceManager.deviceExecute(commandId, virtualDevice.getId(), aspect, deviceControlValue);
+            log.debug("# Run controlDevice: {}, {}, {}, {}", commandId, deviceId, aspect, deviceControlValue);
+            ResultMessage resultMessage = deviceManager.deviceExecute(commandId, deviceId, aspect, deviceControlValue);
 
-            getTracking().setProcessId(virtualDevice.getId());//resultMessage.getCode());
+            getTracking().setProcessId(deviceId);//resultMessage.getCode());
             getTracking().setProcessValue(deviceControlValue);
 
             boolean resultControl = false;
@@ -238,7 +243,7 @@ public class DeviceControlHandler extends AProcessHandler {
             
         } catch (Exception e) {
             e.printStackTrace();
-            getTracking().setProcessId(virtualDevice.getId());
+            getTracking().setProcessId(deviceId);
             getTracking().setProcessName("Exception");
             getTracking().setProcessResult(e.getMessage());
             TrackingProducer.send(getTracking());

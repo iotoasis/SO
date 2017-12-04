@@ -27,6 +27,9 @@ public class DataBaseStore implements IDataBaseStore {
     AspectDao aspectDao;
 
     @Autowired
+    FunctionalityDao functionalityDao;
+
+    @Autowired
     LocationDao locationDao;
 
     @Autowired
@@ -89,24 +92,43 @@ public class DataBaseStore implements IDataBaseStore {
 
         return compositeVirtualObjectForDBList;
     }
+    
+    @Override
+    public List<CompositeVirtualObjectForDB> getRuleBodyListByOsId(String osId){
+        log.warn("getRuleBodyListByOsId : osId {}", osId);
 
+        List<CompositeVirtualObjectForDB> RuleBodyForDBList = compositeVirtualObjectDao.retrieveRuleBodyListByOsId(osId);
+    
+        return RuleBodyForDBList;
+    }
+
+    @Override
+    public CompositeVirtualObjectForDB getCvoById(String id) {
+        return compositeVirtualObjectDao.retrieve(id);
+	}
+    
     /*
-     * cvo 에서 vo 목록을 가져온다
+     * cvo Id로 부터 vo목록을 가져온다
      */
     @Override
     public List<VirtualObjectForDB> getVirtualObjectListByCompositeVirtualObjectId(String compositeVirtualObjectId){
         log.warn("getVirtualObjectListByCompositeVirtualObjectId : compositeVirtualObjectId {}", compositeVirtualObjectId);
-        //
-//        List<CVO_VO_MapperForDB> cvo_vo_mapperForDBList = cvo_vo_mapper_dao.retrieveCVO_VO_MapperListByCVOID(compositeVirtualObjectId);
+
         List<VirtualObjectForDB> virtualObjectForDBList = virtualObjectDao.retrieveVirtualObjectListByCompositeVirtualObjectId(compositeVirtualObjectId);
-
-//        for(CVO_VO_MapperForDB cvo_vo_mapperForDB : cvo_vo_mapperForDBList){
-//            virtualObjectForDBList.add(virtualObjectDao.retrieveVirtualObject(cvo_vo_mapperForDB.getVirtualObjectId()));
-//        }
-
         return virtualObjectForDBList;
     }
 
+    /*
+     * cvo Id로 부터 Rule vo목록을 가져온다
+     */
+    @Override
+    public List<RuleItemForDB> getRuleVirtualObjectListByCvoId(String compositeVirtualObjectId){
+        log.warn("getRuleVirtualObjectListByCvoId : compositeVirtualObjectId {}", compositeVirtualObjectId);
+
+        List<RuleItemForDB> virtualObjectForDBList = virtualObjectDao.retrieveRuleVirtualObjectListByCvoId(compositeVirtualObjectId);
+        return virtualObjectForDBList;
+    }
+    
     @Override
     public DeviceControlForDB getDeviceControlByDeviceIdAndContextModelID(String deviceId, String contextModelId){
         log.warn("getDeviceControlByDeviceIdAndContextModelID : deviceId: {}, contextModelId:{}", deviceId, contextModelId);
@@ -123,7 +145,7 @@ public class DataBaseStore implements IDataBaseStore {
     @Override
     public List<ProfileForDB> getProfileListByContextModelSidAndLocationUri(String contextModelSid, String locationUri) {
 //        log.warn("getProfileListByContextModelSidAndLocationUri : contextModelSid: {}, locationUri:{}", contextModelSid, locationUri);
-        return profileDao.getProfileByContextModelAndLocation(contextModelSid, locationUri);
+        return profileDao.getProfileByContextModelAndLocationUri(contextModelSid, locationUri);
     }
 
     /*
@@ -139,7 +161,7 @@ public class DataBaseStore implements IDataBaseStore {
         if (orchestrationServiceForDB!=null) {
 	        // get cvo
 	        //List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = compositeVirtualObjectDao.getCompositeVirtualObjectListByOrchestrationId(id);
-	        List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = this.getCompositeVirtualObjectListByOrchestrationId(id);
+	        List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = this.getRuleBodyListByOsId(id);
 	
 	        // get vo
 	        //List<VirtualObjectForDB> virtualObjectForDBList = virtualObjectDao.getVirtualObjectListByOrchestrationId(id);
@@ -183,6 +205,11 @@ public class DataBaseStore implements IDataBaseStore {
     }
 
     @Override
+    public List<ProfileForDB> getAllProfile() {
+    	return profileDao.retrieve();
+    }
+    
+    @Override
     public void createTracking(TrackingEntity trackingEntity) {
 //        log.warn("createTracking : TrackingEntity: {}", trackingEntity);
         trackingDao.createTracking(trackingEntity);
@@ -210,9 +237,28 @@ public class DataBaseStore implements IDataBaseStore {
         sessionDao.updateSessionData(sessionEntity);
     }
 
+    @Override
+	public SessionEntity getSessionData(String sessionId) {
+		return sessionDao.retrieveSessionData(sessionId);
+	}
+
+    @Override
 	public LocationForDB getLocationById(String id) {
         log.warn("getLocationById : id: {}", id);
         return locationDao.retrieve(id);
+	}
+    @Override
+	public FunctionalityForDB getFunction(String id) {
+		return functionalityDao.retrieve(id);
+	}
+
+	@Override
+	public List<DeviceTypeForDB> retrieveDeviceType() {
+		return deviceDao.retrieveDeviceType();
+	}
+    @Override
+	public DeviceTypeForDB retrieveDeviceTypeById(String id) {
+		return deviceDao.retrieveDeviceTypeById(id);
 	}
 
 }

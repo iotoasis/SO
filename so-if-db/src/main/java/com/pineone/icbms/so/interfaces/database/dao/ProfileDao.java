@@ -30,12 +30,12 @@ public class ProfileDao extends AbstractDao {
     }
 
     //  SDA 와 연동하는 contextModel API 로 Profile 정보 조회
-    public List<ProfileForDB> getProfileByContextModelAndLocation(String contextModelId, String locationUri) {
+    public List<ProfileForDB> getProfileByContextModelAndLocationUri(String contextModelId, String locationUri) {
         HashMap<String, String> map = new HashMap<String, String>();
         map.put("contextModelId", contextModelId);
         map.put("locationUri", locationUri);
 
-        return super.sqlSession.selectList("getProfileByContextModelAndLocation", map);
+        return super.sqlSession.selectList("getProfileByContextModelAndLocationUri", map);
     }
 
     public List<ProfileForDB> retrieveProfileListByEnable(boolean enabled) {

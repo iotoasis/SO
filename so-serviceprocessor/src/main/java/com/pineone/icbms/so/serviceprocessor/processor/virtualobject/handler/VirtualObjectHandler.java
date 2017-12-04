@@ -1,22 +1,22 @@
 package com.pineone.icbms.so.serviceprocessor.processor.virtualobject.handler;
 
 import com.pineone.icbms.so.virtualobject.virtualdevice.IGenericVirtualDevice;
-import com.pineone.icbms.so.interfaces.database.model.DeviceForDB;
+import com.pineone.icbms.so.virtualobject.AGenericVirtualObject;
+import com.pineone.icbms.so.devicecontrol.model.virtualdevice.AGenericVirtualDevice;
+import com.pineone.icbms.so.devicecontrol.model.virtualdevice.DefaultVirtualDevice;
 import com.pineone.icbms.so.interfaces.messagequeue.model.DeviceControlForMQ;
 import com.pineone.icbms.so.interfaces.messagequeue.producer.tracking.TrackingProducer;
-import com.pineone.icbms.so.serviceprocessor.Const;
+import com.pineone.icbms.so.interfaces.sda.handle.SdaManager;
 import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
 import com.pineone.icbms.so.serviceprocessor.processor.AProcessHandler;
 import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;
 import com.pineone.icbms.so.serviceutil.state.StateStoreUtil;
-import com.pineone.icbms.so.util.collection.CollectionUtils;
 import com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler;
 import com.pineone.icbms.so.virtualobject.IGenericVirtualObject;
 import com.pineone.icbms.so.virtualobject.aspect.IGenericAspect;
 import com.pineone.icbms.so.virtualobject.function.IGenericFunction;
 import org.apache.kafka.clients.producer.RecordMetadata;
 
-import java.util.List;
 import java.util.concurrent.Future;
 
 /**
@@ -48,62 +48,55 @@ public class VirtualObjectHandler extends AProcessHandler<IGenericVirtualObject>
         if (virtualObject != null) {
             IGenericFunction function = virtualObject.getFunction();
             IGenericAspect aspect = virtualObject.getAspect();
-            String locationUri = (String) virtualObject.getState(Const.LOCATION_URI);
+            
+            String deviceId = virtualObject.getDeviceId();
+            String valueType = virtualObject.getVoValeType();
+            String aspectUri = aspect.getUri();
+            String isLast = virtualObject.getIsLast();
 
-            // TODO product : get device list from repository by function+aspect+location to use SDA API.
-            //
-            //SdaClient sdaClient = new SdaClient();
-            //List<String> values = sdaClient.retreiveDeviceList(String functionUri, locationUri);
-            //retreiveDeviceControlValues(null, null, locationUri, device.getId());
+            // cm-dd-command-value(DeviceId, Aspect, cmd) 을 이용한 Command Value 조회
+            String value = new SdaManager().getCommandValueById_Aspect_Command(deviceId, aspectUri, valueType);
+            if (valueType.equals("SET")) {
+            	//min,max 체크
+            	String[] rangeValues = value.split("~");
+            	Integer min = Integer.valueOf(rangeValues[0]);
+            	Integer max = Integer.valueOf(rangeValues[1]);
+            	Integer checkV = Integer.valueOf(value);
+            	if (checkV<min || max<checkV) {
+            		log.warn("Invalid command value:range="+ value);
+            		return;
+            	}
+            	
+            } else { 
+            	if (valueType.equals("ON") || valueType.equals("OFF")) {
+            		
+	            } else {//if (valueType.equals("GET")) 
+	            	log.warn("This command is not supportted");
+	            	return;
+	            }
+        	}
+			log.info("value=" + valueType + "("+value + ")" );
 
-            // TODO develop :  개발용 데이터베이스에서 조회처리
-            log.warn("getDeviceList : {}, {}, {}", function.getId(), aspect.getId(), locationUri);
-            List<DeviceForDB> deviceForDbList = databaseManager.getDeviceList(function.getId(), aspect.getId(), locationUri);
+            DefaultVirtualDevice defaultVirtualDevice = new DefaultVirtualDevice();
+            AGenericVirtualObject virtualDevice = (AGenericVirtualObject)defaultVirtualDevice;
+            
+            virtualDevice.setId(deviceId);
+            virtualDevice.setDeviceId(deviceId);
+            virtualDevice.setVoVale(value);
+            virtualDevice.setAspect(aspect);
+            virtualDevice.setFunction(function);
+            defaultVirtualDevice.setIsLast(isLast);
+            
+            //tracking
+            getTracking().setProcessId(virtualDevice.getId());
+            getTracking().setProcessName(virtualDevice.getName());
+            TrackingProducer.send(getTracking());
 
-            if (deviceForDbList != null && deviceForDbList.size() > 0) {
-                //get virtual device list from device information
-                List<IGenericVirtualDevice> deviceList = ModelMapper.toVirtualDeviceList(deviceForDbList);
-                log.info("virtual device list size: {}", deviceList.size());
-                log.info("virtual device list size: {},\n{}", deviceList.size(), CollectionUtils.toStringWithLineFeed(deviceList));
-                //publish a VirtualDevice
-                if (deviceList != null && deviceList.size() > 0) {
-                    for (IGenericVirtualDevice virtualDevice : deviceList) {
-                        //tracking
-                        getTracking().setProcessId(virtualDevice.getId());
-                        getTracking().setProcessName(virtualDevice.getName());
-                        TrackingProducer.send(getTracking());
+            //copy state
+            StateStoreUtil.copyStateStore(virtualObject.getStateStore(), virtualDevice);
 
-                        //copy state
-                        StateStoreUtil.copyStateStore(virtualObject.getStateStore(), virtualDevice);
+            publishVirtualDevice((AGenericVirtualDevice)virtualDevice);
 
-                        // simulator. 마지막 VO인지 체크
-                        if (deviceList.indexOf(virtualDevice) == (deviceList.size() - 1)) {
-                            virtualDevice.setIsLast("Y");
-                        }
-
-                        publishVirtualDevice(virtualDevice);
-                    }
-
-                    // end calling device control, 시뮬레이션에서 사용하기 위해 컬럼값을 'F' 로 업데이트
-                    // vo에 매핑된 device 전체에 대한 처리가 종료된 후 tracking 처리
-                    // device control handler 로 최종 처리가 이관되면 device control handler 단에서 처리해 줘야 한다
-//                    TrackingEntity trackingEntity = getTracking();
-//                    trackingEntity.clearProcessInfomation();
-//                    trackingEntity.setProcess("Finish");
-//                    trackingEntity.setStatus("F");
-//                    TrackingProducer.send(trackingEntity);
-                } else {
-                    log.error("Virtual device list NOT exist.");
-                    getTracking().setProcessId("Virtual list NOT exist");
-                    getTracking().setProcessName("");
-                    TrackingProducer.send(getTracking());
-                }
-            } else {
-                log.warn("The device list NOT exist: {}, {}", virtualObject, locationUri);
-                getTracking().setProcessId("device list NOT exist");
-                getTracking().setProcessName("");
-                TrackingProducer.send(getTracking());
-            }
         } else {
             log.warn("A VirtualObject is NULL.");
             getTracking().setProcessId("VirtualObject is NULL");

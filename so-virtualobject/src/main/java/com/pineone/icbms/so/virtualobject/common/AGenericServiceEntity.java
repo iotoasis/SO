@@ -50,6 +50,8 @@ abstract public class AGenericServiceEntity extends AGenericIdentity
 
     @Override
     public Object getState(String key) {
+    	if (stateStore==null)
+    		return null;
         return stateStore.getValue(key);
     }
 

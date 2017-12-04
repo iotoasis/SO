@@ -39,7 +39,19 @@
       profile
     WHERE
       context_model_id = #{contextModelId}
-      AND location_id = #{location_id}
+      AND location_id = #{locationUri}
+  </select>
+
+  <select id="getProfileByContextModelAndLocationUri" parameterType="HashMap" resultType="ProfileForDB">
+    SELECT
+		p.*,
+		l.uri locationUri
+    FROM
+      profile p
+    LEFT JOIN location l ON p.location_id = l.id  
+    WHERE
+      p.context_model_id = #{contextModelId}
+      AND l.uri = #{locationUri}
   </select>
 
   <select id="retrieveProfileListByEnable" parameterType="Integer" resultType="ProfileForDB">

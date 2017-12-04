@@ -14,6 +14,11 @@ public class Const {
     /**
      * location uri
      */
+    public final static String LOCATION_ID = "locationId";
+
+    /**
+     * location uri
+     */
     public final static String LOCATION_URI = "locationUri";
 
     /**

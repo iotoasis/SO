@@ -3,6 +3,7 @@ package com.pineone.icbms.so.virtualobject.composite;
 import com.pineone.icbms.so.virtualobject.AGenericVirtualObject;
 import com.pineone.icbms.so.virtualobject.IGenericVirtualObject;
 import com.pineone.icbms.so.virtualobject.aspect.IGenericAspect;
+import com.pineone.icbms.so.virtualobject.common.AGenericServiceEntity;
 import com.pineone.icbms.so.virtualobject.function.IGenericFunction;
 
 import java.util.ArrayList;
@@ -14,8 +15,62 @@ import java.util.Map;
  *
  * Created by uni4love on 2016. 11. 17..
  */
-abstract public class AGenericCompositeVirtualObject extends AGenericVirtualObject implements IGenericCompositeVirtualObject {
-    /**
+abstract public class AGenericCompositeVirtualObject extends AGenericServiceEntity /* AGenericVirtualObject*/ implements IGenericCompositeVirtualObject {
+
+	private String cvoType;
+
+	private String physicalDeviceTypeId;
+	private String deviceId;
+
+	private String baseCvoId;
+	private String locationId;
+
+
+	@Override
+	public String getPhysicalDeviceTypeId() {
+		return physicalDeviceTypeId;
+	}
+
+	public void setPhysicalDeviceTypeId(String physicalDeviceTypeId) {
+		this.physicalDeviceTypeId = physicalDeviceTypeId;
+	}
+
+	@Override
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+	@Override
+	public String getBaseCvoId() {
+		return baseCvoId;
+	}
+
+	public void setBaseCvoId(String baseCvoId) {
+		this.baseCvoId = baseCvoId;
+	}
+
+	@Override
+	public String getLocationId() {
+		return locationId;
+	}
+
+	public void setLocationId(String locationId) {
+		this.locationId = locationId;
+	}
+
+	@Override
+	public String getCvoType() {
+		return cvoType;
+	}
+
+	public void setCvoType(String cvoType) {
+		this.cvoType = cvoType;
+	}
+
+	/**
      * virtual object list
      */
     protected List<IGenericVirtualObject> virtualObjectList = new ArrayList<>();

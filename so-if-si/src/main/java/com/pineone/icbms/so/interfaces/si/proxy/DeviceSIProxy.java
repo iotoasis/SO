@@ -85,7 +85,13 @@ public class DeviceSIProxy implements DeviceControlProxy {
     private ResultMessage parsingResultMessage(String response){
         ResultMessage resultMessage = new ResultMessage();
         try {
-            resultMessage = mapper.readValue(response, ResultMessage.class);
+        	if (response==null) {
+        		resultMessage.setCode(ClientProfile.RESPONSE_FIALURE_CODE);
+    			resultMessage.setMessage("RESPONSE_FIALURE");
+        	}
+        	else {
+        		resultMessage = mapper.readValue(response, ResultMessage.class);
+        	}
         } catch (IOException e) {
             e.printStackTrace();
             resultMessage.setCode(ClientProfile.RESPONSE_FIALURE_CODE);

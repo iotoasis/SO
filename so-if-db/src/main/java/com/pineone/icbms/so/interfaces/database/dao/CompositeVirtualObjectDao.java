@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.interfaces.database.dao;
 
 import com.pineone.icbms.so.interfaces.database.model.CompositeVirtualObjectForDB;
+import com.pineone.icbms.so.interfaces.database.model.RuleBodyForDB;
 import com.pineone.icbms.so.util.id.IdUtils;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.SqlSession;
@@ -21,6 +22,15 @@ public class CompositeVirtualObjectDao extends AbstractDao {
         return super.sqlSession.selectList("retrieveCompositeVirtualObjectListByOrchestrationId", orchestrationServiceId);
     }
 
+    //Rule_body값 읽어오기 (osId로 부터)
+	public List<CompositeVirtualObjectForDB> retrieveRuleBodyListByOsId(String osId) {
+        return super.sqlSession.selectList("retrieveRuleBodyListByOsId", osId);
+	}
+
+    //GCVO에 연결된 cvo값 읽어오기 (gcvodId로 부터)
+	public List<CompositeVirtualObjectForDB> retrieveCvoListByGcvoId(String gcvoId) {
+        return super.sqlSession.selectList("retrieveCvoListByGcvoId", gcvoId);
+	}
 
     // retrieve one
     public CompositeVirtualObjectForDB retrieve(String id) {

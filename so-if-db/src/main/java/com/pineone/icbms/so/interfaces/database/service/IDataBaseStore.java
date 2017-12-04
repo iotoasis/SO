@@ -14,8 +14,11 @@ public interface IDataBaseStore {
     //List<VirtualObjectForDB> getVirtualObjectListByOrchestrationId(String orchestrationServiceId);
 
     List<CompositeVirtualObjectForDB> getCompositeVirtualObjectListByOrchestrationId(String orchestrationServiceId);
+	List<CompositeVirtualObjectForDB> getRuleBodyListByOsId(String osId);
+	CompositeVirtualObjectForDB getCvoById(String id);
 
     List<VirtualObjectForDB> getVirtualObjectListByCompositeVirtualObjectId(String compositeVirtualObjectId);
+    List<RuleItemForDB> getRuleVirtualObjectListByCvoId(String compositeVirtualObjectId);
 
     DeviceControlForDB getDeviceControlByDeviceIdAndContextModelID(String deviceId, String contextModelId);
 
@@ -33,6 +36,7 @@ public interface IDataBaseStore {
 
     ProfileForDB getProfile(String id);
 //    FixedDeviceForDB getFixedDevice(String id);
+	List<ProfileForDB> getAllProfile();
 
     void createTracking(TrackingEntity trackingEntity);
     
@@ -42,4 +46,12 @@ public interface IDataBaseStore {
     void createSessionDataDevice(SessionEntity sessionEntity);
     void createSessionDataVo(SessionEntity sessionEntity);
     void updateSessionData(SessionEntity sessionEntity);
+    SessionEntity getSessionData(String sessionId);
+
+	LocationForDB getLocationById(String id);
+	FunctionalityForDB getFunction(String id);
+
+	List<DeviceTypeForDB> retrieveDeviceType();
+	DeviceTypeForDB retrieveDeviceTypeById(String id);
+	
 }

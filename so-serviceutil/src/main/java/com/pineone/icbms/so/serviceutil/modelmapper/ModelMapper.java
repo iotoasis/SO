@@ -93,13 +93,6 @@ public class ModelMapper extends JsonMapper {
     public static IGenericProfile toProfile(ProfileForDB profileForDB) {
         DefaultProfile defaultProfile = null;
         if (profileForDB != null) {
-            //context model
-            DefaultContextModel contextModel = new DefaultContextModel();
-            contextModel.setId(profileForDB.getContextModelId());
-            //orchestration service
-            DefaultOrchestrationService orchestrationService = new DefaultOrchestrationService();
-            orchestrationService.setId(profileForDB.getOrchestrationServiceId());
-
             String locId = profileForDB.getLocationId();
             LocationForDB locDb = DatabaseManager.getInstance().getLocationById(locId);
             String locUri = locDb.getUri(); 
@@ -107,6 +100,13 @@ public class ModelMapper extends JsonMapper {
             //location
             DefaultLocation location = new DefaultLocation();
             location.setUri(locUri);
+
+        	//context model
+            DefaultContextModel contextModel = new DefaultContextModel();
+            contextModel.setId(profileForDB.getContextModelId());
+            //orchestration service
+            DefaultOrchestrationService orchestrationService = new DefaultOrchestrationService();
+            orchestrationService.setId(profileForDB.getOrchestrationServiceId());
             
             //profile
             defaultProfile = new DefaultProfile(profileForDB.getId(), profileForDB.getName());

@@ -14,7 +14,7 @@ import java.sql.Timestamp;
  *
  * Created by uni4love on 2016. 12. 26..
  */
-public class ModelMapper extends JsonMapper {
+public class ContextModelMapper2 extends JsonMapper {
     /**
      * convert ContextModelForIf to ContextModelForMQ.<BR/>
      *

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="30 seconds">
+
+<!-- ALL > TRACE > DEBUG > INFO > WARN > ERROR > FATAL > OFF -->
+
     <!-- log level -->
     <!-- log level: default -->
     <property name="LOG_LEVEL_DEFAULT" value="DEBUG"/>
@@ -239,6 +242,9 @@
     <logger name="com.pineone.icbms.so" level="${LOG_LEVEL_DEFAULT}">
         <appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT" />
     </logger>
+
+    <logger name="com.pineone.icbms.so.interfaces.database.dao" level="off" />
+    <logger name="com.pineone.icbms.so.interfaces.database.dao" level="off" />
 
     <root level="INFO">
         <appender-ref ref="APPENDER_STDOUT_DEFAULT" />

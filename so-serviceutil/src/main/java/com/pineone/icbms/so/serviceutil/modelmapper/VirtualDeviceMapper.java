@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.serviceutil.modelmapper;
 
 import com.pineone.icbms.so.devicecontrol.model.virtualdevice.DefaultVirtualDevice;
+import com.pineone.icbms.so.virtualobject.AGenericVirtualObject;
 import com.pineone.icbms.so.virtualobject.aspect.DefaultAspect;
 import com.pineone.icbms.so.virtualobject.function.DefaultFunction;
 import com.pineone.icbms.so.virtualobject.virtualdevice.IGenericVirtualDevice;
@@ -9,6 +10,7 @@ import com.pineone.icbms.so.interfaces.database.model.DeviceForDB;
 import com.pineone.icbms.so.interfaces.messagequeue.model.AspectForMQ;
 import com.pineone.icbms.so.interfaces.messagequeue.model.DeviceControlForMQ;
 import com.pineone.icbms.so.interfaces.messagequeue.model.FunctionForMQ;
+import com.pineone.icbms.so.interfaces.messagequeue.model.VirtualObjectForMQ;
 import com.pineone.icbms.so.serviceutil.state.StateStoreUtil;
 import com.pineone.icbms.so.util.conversion.IModelMapper;
 //import org.springframework.beans.BeanUtils;
@@ -64,6 +66,11 @@ public class VirtualDeviceMapper implements IModelMapper<IGenericVirtualDevice, 
             	function.setUri(funcMq.getUri());
             	virtualDevice.setFunction(function);
             }
+            
+            AGenericVirtualObject virtualObject = (AGenericVirtualObject)virtualDevice;
+            virtualObject.setDeviceId(deviceControlForMQ.getDeviceId());
+            virtualObject.setVoVale(deviceControlForMQ.getVoValue());
+            
         }
         return virtualDevice;
     }
@@ -103,7 +110,7 @@ public class VirtualDeviceMapper implements IModelMapper<IGenericVirtualDevice, 
      */
     @Override
     public DeviceControlForMQ toMqModelFromPs(IGenericVirtualDevice virtualDevice) {
-        DeviceControlForMQ deviceControlForMQ = null;
+    	VirtualObjectForMQ deviceControlForMQ = null;
         if(virtualDevice != null) {
             deviceControlForMQ = new DeviceControlForMQ();
             deviceControlForMQ.setId(virtualDevice.getId());
@@ -111,13 +118,18 @@ public class VirtualDeviceMapper implements IModelMapper<IGenericVirtualDevice, 
             deviceControlForMQ.setDescription(virtualDevice.getDescription());
             deviceControlForMQ.setFunction(functionalityMapper.toMqModelFromPs(virtualDevice.getFunction()));
             deviceControlForMQ.setAspect(aspectMapper.toMqModelFromPs(virtualDevice.getAspect()));
+            
+            deviceControlForMQ.setDeviceId(virtualDevice.getDeviceId());
+            deviceControlForMQ.setVoValue(virtualDevice.getVoVale());
+            
             StateStoreUtil.copyStateStore(virtualDevice.getStateStore(), deviceControlForMQ);
+
             // simulator
-            deviceControlForMQ.setIsLast(virtualDevice.getIsLast());
+            ((DeviceControlForMQ)deviceControlForMQ).setIsLast(virtualDevice.getIsLast());
 
 //            BeanUtils.copyProperties(deviceControlForMQ, virtualDevice);
         }
-        return deviceControlForMQ;
+        return (DeviceControlForMQ)deviceControlForMQ;
     }
 
     /**

@@ -17,15 +17,23 @@ import java.util.List;
 @JsonPropertyOrder({"id","name", "description"})
 @ToString
 public class CompositeVirtualObjectForDB extends CommonEntity {
+	//id = rule_body.id
 
     @Getter @Setter
     private String cvoType;
 
     @Getter @Setter
-    private String deviceClassTypeId;
+    private String physicalDeviceTypeId;
     
     @Getter @Setter
     private String deviceId;
+
+	
+    @Getter @Setter
+    private String baseCvoId;	//rule_body.cvoId
+
+    @Getter @Setter
+    private String locationId;  //rule_body
     
     @Getter @Setter
     private List<VirtualObjectForDB> virtualObjectForDBList;

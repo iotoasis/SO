@@ -5,6 +5,9 @@ import com.pineone.icbms.so.virtualobject.aspect.IGenericAspect;
 import com.pineone.icbms.so.virtualobject.common.IGenericServiceEntity;
 import com.pineone.icbms.so.virtualobject.function.IGenericFunction;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
 /**
@@ -12,9 +15,15 @@ import java.util.List;
  *
  * Created by uni4love on 2016. 11. 17..
  */
-public interface IGenericCompositeVirtualObject
-        extends ICompositeVirtualObject<IGenericVirtualObject, IGenericFunction, IGenericAspect>, IGenericServiceEntity {
-    /**
+public interface IGenericCompositeVirtualObject extends ICompositeVirtualObject<IGenericVirtualObject>, IGenericServiceEntity {
+
+	String getCvoType();
+	String getPhysicalDeviceTypeId();
+	String getDeviceId();
+	String getBaseCvoId();
+	String getLocationId();
+	
+	/**
      * return virtual object list.<BR/>
      *
      * @return virtual object list

@@ -131,7 +131,6 @@ public class SdaManager implements ISdaManager {
         return aspectList;
     }
 
-
     // function, location 을 이용한 Device 목록 조회
     @Override
     public List<String> retrieveDeviceListByFunctionAndLocation(String locationId, String functionalityId) {
@@ -347,6 +346,131 @@ public class SdaManager implements ISdaManager {
         }
         log.debug("Function : " + functionList);
         return functionList;
+    }
+
+    
+    /*
+    public static final String CM_DD_DEVICE_LIST = "cm-dd-device-list"; 				//1) by location, aspect, functionality 
+    public static final String CM_DD_DEVICETYPE_LIST = "cm-dd-devicetype-device-list";  //2) by location, deviceType, aspect, functionality 
+    public static final String CM_DD_COMMAND_VALUE = "cm-dd-command-value"; 			//3) by id, aspect, cmd 
+    public static final String CM_DD_ASPECT_ACTION_VALUE = "cm-dd-aspect-action-value"; //4) by id, aspect, functionality 
+ */
+    // 1)cm-dd-device-list(Loc,Aspect,Func) 을 이용한 Device 목록 조회
+    @Override
+    public List<String> getDeviceListByLoc_Aspect_Func(String locationUri, String aspectUri, String functionalityUri) {
+        //
+        List<String> deviceList = new ArrayList<>();
+        List<ContextModelContent> contentList = new ArrayList<>();
+
+        try {
+            IHttpResponseMessage message = clientService.requestGetService(
+                    addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
+                            SdaAddressStore.CM_DD_DEVICE_LIST + SdaAddressStore.SEPARATOR_WITHOUT_COMMA +
+                            locationUri + "," + aspectUri + "," + functionalityUri);
+            contentList = getContextModelContents(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SDAException e) {
+//       e.printStackTrace();
+        }
+        if (contentList == null || contentList.isEmpty()) {
+            String info = "DeviceList = " + locationUri + " and " + aspectUri + " and " + functionalityUri + " doesn't have Device";
+            log.debug("info : " + info);
+        } else {
+            for (ContextModelContent contextModelContent : contentList) {
+                deviceList.add(contextModelContent.getDeviceUri());
+            }
+        }
+        log.debug("Device = " + deviceList);
+        return deviceList;
+    }
+    
+    // 2)cm-dd-devicetype-device-list(Loc, DeviceType, Aspect, Func) 을 이용한 Device 목록 조회
+    // public static final String CM_DD_DEVICETYPE_LIST = "cm-dd-devicetype-device-list";  //2) by location, deviceType, aspect, functionality
+    @Override
+    public List<String> getDeviceListByLoc_DeviceType_Aspect_Func(String locationUri, String deviceType, String aspectUri, String functionalityUri) {
+        //
+        List<String> deviceList = new ArrayList<>();
+        List<ContextModelContent> contentList = new ArrayList<>();
+
+        try {
+            IHttpResponseMessage message = clientService.requestGetService(
+                    addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
+                            SdaAddressStore.CM_DD_DEVICETYPE_LIST + SdaAddressStore.SEPARATOR_WITHOUT_COMMA +
+                            locationUri + "," + deviceType + "," + aspectUri + ","+ functionalityUri);
+            contentList = getContextModelContents(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SDAException e) {
+//       e.printStackTrace();
+        }
+        if (contentList == null || contentList.isEmpty()) {
+            String info = "DeviceList = " + locationUri + ", " + deviceType + ", " + aspectUri+ ", " + functionalityUri + " doesn't have Device";
+            log.debug("info : " + info);
+        } else {
+            for (ContextModelContent contextModelContent : contentList) {
+                deviceList.add(contextModelContent.getDeviceUri());
+            }
+        }
+        log.debug("Device = " + deviceList);
+        return deviceList;
+    }
+
+    // 3)cm-dd-command-value(DeviceId, Aspect, cmd) 을 이용한 Command Value 조회
+    // public static final String CM_DD_COMMAND_VALUE = "cm-dd-command-value"; 			//3) by id, aspect, cmd
+    @Override
+    public String getCommandValueById_Aspect_Command(String deviceId, String aspectUri, String command) {
+        List<ContextModelContent> contentList = new ArrayList<>();
+
+        try {
+            IHttpResponseMessage message = clientService.requestGetService(
+                    addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
+                            SdaAddressStore.CM_DD_COMMAND_VALUE + SdaAddressStore.SEPARATOR_WITHOUT_COMMA +
+                            deviceId + "," + aspectUri + ","+ command);
+            contentList = getContextModelContents(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SDAException e) {
+//       e.printStackTrace();
+        }
+
+        String value = null;
+        if (contentList == null || contentList.isEmpty()) {
+            String info = "CommandValue = " + deviceId + ", " + aspectUri+ ", " + command + " doesn't have Device";
+            log.debug("info : " + info);
+        } else {
+        	value = contentList.get(0).getCommandValue();
+        }
+        log.debug("CommandValue = " + value);
+        return value;
+    }
+
+    // 4)cm-dd-aspect-action-value (id, aspect, functionality) 을 이용한 aspect Value 조회
+    // public static final String CM_DD_ASPECT_ACTION_VALUE = "cm-dd-aspect-action-value"; //4) by id, aspect, functionality
+    @Override
+    public ContextModelContent getAspectValueById_Aspect_Function(String deviceId, String aspectUri, String functionUri) {
+
+        List<ContextModelContent> contentList = new ArrayList<>();
+
+        try {
+            IHttpResponseMessage message = clientService.requestGetService(
+                    addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
+                            SdaAddressStore.CM_DD_ASPECT_ACTION_VALUE + SdaAddressStore.SEPARATOR_WITHOUT_COMMA +
+                            deviceId + "," + aspectUri + ","+ functionUri);
+            contentList = getContextModelContents(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SDAException e) {
+//       e.printStackTrace();
+        }
+        if (contentList == null || contentList.isEmpty()) {
+            String info = "aspectValue = " + deviceId + ", " + aspectUri+ ", " + functionUri + " doesn't have Device";
+            log.debug("info : " + info);
+            return null;
+        }
+        ContextModelContent content = contentList.get(0);
+    	log.debug("aspectValue = " + content.getAspectValue());
+    	return content;
     }
 
     // get Data

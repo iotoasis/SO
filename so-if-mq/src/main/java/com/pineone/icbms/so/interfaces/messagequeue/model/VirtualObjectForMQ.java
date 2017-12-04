@@ -3,6 +3,9 @@ package com.pineone.icbms.so.interfaces.messagequeue.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * VirtualObject model for MQ.<BR/>
  *
@@ -12,6 +15,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(value= JsonInclude.Include.NON_ABSENT, content= JsonInclude.Include.NON_EMPTY)
 public class VirtualObjectForMQ extends ACommonForMQ {
 
+	@Getter @Setter String physicalDeviceTypeId;
+	@Getter @Setter String deviceId;
+	@Getter @Setter String locationId;
+	@Getter @Setter String voId;
+	@Getter @Setter String voValueType;
+	@Getter @Setter String voValue;
+	@Getter @Setter String isLast;
+	
     /**
      * function
      */

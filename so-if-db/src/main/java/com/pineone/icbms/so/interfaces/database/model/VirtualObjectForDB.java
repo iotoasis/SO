@@ -21,8 +21,17 @@ import lombok.*;
 public class VirtualObjectForDB extends CommonEntity {
 
     @Getter @Setter
-    private String aspectId;
+    private String aspectUri;
 
     @Getter @Setter
     private String functionalityId;
+
+    @Getter @Setter
+    private String functionalityUri;
+
+    @Getter @Setter
+    private String voValueType; // rule_item.vo_value_type
+
+    @Getter @Setter
+    private String voValue;     // rule_item.vo_value
 }

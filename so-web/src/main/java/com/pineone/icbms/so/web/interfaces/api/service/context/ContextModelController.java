@@ -15,7 +15,7 @@ import com.pineone.icbms.so.interfaces.sda.model.ContextModelForIf2;
 import com.pineone.icbms.so.interfaces.si.handle.DeviceManager;
 import com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler;
 import com.pineone.icbms.so.web.tracking.BeforeTtrackingHandler;
-import com.pineone.icbms.so.web.util.ModelMapper;
+import com.pineone.icbms.so.web.util.ContextModelMapper2;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -153,7 +153,7 @@ public class ContextModelController {
         log.debug("input:ContextModelForIf: {}", contextModelForIf);
         // create a message From ContextModelForMQ for messageQueue, publish to message queue
         // ContextModelForIf --> ContextModelForMQ
-        ContextModelForMQ contextModelForMQ = ModelMapper.toContextModelForMQ(contextModelForIf);
+        ContextModelForMQ contextModelForMQ = ContextModelMapper2.toContextModelForMQ(contextModelForIf);
 
         // tracking
         TrackingEntity trackingEntity = (TrackingEntity) request.getSession().getAttribute("tracking");
@@ -162,7 +162,7 @@ public class ContextModelController {
 
         log.debug("converted:ContextModelForMQ: {}", contextModelForMQ);
         //object to json
-        String contextModelForMqString = ModelMapper.writeJsonString(contextModelForMQ);
+        String contextModelForMqString = ContextModelMapper2.writeJsonString(contextModelForMQ);
         log.debug("generated:ContextModelForMQ {}", contextModelForMqString);
         //context model producer handler
         DefaultProducerHandler producerHandler = new DefaultProducerHandler(0, "contextmodel");

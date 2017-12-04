@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.interfaces.sda.handle.itf;
 
 import com.pineone.icbms.so.interfaces.sda.model.AspectForIf;
+import com.pineone.icbms.so.interfaces.sda.model.ContextModelContent;
 import com.pineone.icbms.so.interfaces.sda.model.FunctionForIf;
 
 import java.util.List;
@@ -39,5 +40,19 @@ public interface ISdaManager {
 
     /* 전체 펑션 목록 */
     List<FunctionForIf> retrieveFunctionList();
+
+    //1)cm-dd-device-list(Loc,Aspect,Func) 을 이용한 Device 목록 조회
+	List<String> getDeviceListByLoc_Aspect_Func(String locationUri, String aspectUri, String functionalityUri);
+
+    // 2)cm-dd-devicetype-device-list(Loc, DeviceType, Aspect, Func) 을 이용한 Device 목록 조회
+	List<String> getDeviceListByLoc_DeviceType_Aspect_Func(String locationUri, String deviceType, String aspectUri,
+			String functionalityUri);
+
+	// 3)cm-dd-command-value(DeviceId, Aspect, cmd) 을 이용한 Command Value 조회
+	String getCommandValueById_Aspect_Command(String deviceId, String aspectUri, String command);
+
+	// 4)cm-dd-aspect-action-value (id, aspect, functionality) 을 이용한 aspect Value 조회
+	ContextModelContent getAspectValueById_Aspect_Function(String deviceId, String aspectUri, String functionUri);
+
 
 }
