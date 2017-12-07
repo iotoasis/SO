@@ -51,7 +51,9 @@
     LEFT JOIN location l ON p.location_id = l.id  
     WHERE
       p.context_model_id = #{contextModelId}
-      AND l.uri = #{locationUri}
+     <if test="locationUri != null">
+      	AND l.uri = #{locationUri}
+     </if>
   </select>
 
   <select id="retrieveProfileListByEnable" parameterType="Integer" resultType="ProfileForDB">

@@ -113,7 +113,11 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
                     sessionLocation.setId(sessionId);
                     sessionLocation.setLocationId(location.getUri());
                     log.debug("session location : {}", sessionLocation);
-                    databaseManager.createSessionDataLocation(sessionLocation);
+                    try {
+                    	databaseManager.createSessionDataLocation(sessionLocation);
+                    }catch(Exception e) {
+                        log.error("Error createSessionDataLocation : error={},\n sessionLocation={}", e.getMessage(), sessionLocation);
+                    }
     
                     // cm 으로 프로파일 조회
                     log.debug("getProfileListByContextModelSidAndLocationUri : {}, {}", contextModelId, location.getUri());
