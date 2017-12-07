@@ -108,7 +108,7 @@ public class OrchestrationServiceConsumerHandler extends AGenericConsumerHandler
         TrackingEntity tracking = orchestrationServiceForMQ.getTrackingEntity();
 
         //MQ model --> OrchestrationServiceForDB model
-        log.warn("getOrchestrationServiceById : {}", orchestrationServiceForMQ.getId());
+        log.debug("getOrchestrationServiceById : {}", orchestrationServiceForMQ.getId());
         OrchestrationServiceForDB orchestrationServiceForDB = databaseManager.getOrchestrationServiceById(orchestrationServiceForMQ.getId());
         
         if (orchestrationServiceForDB==null) {

@@ -75,7 +75,7 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
 //        }
 
         // os id 로 Rule body 목록을 조회한다
-        log.warn("getRuleBodyListByOsId : {}", osId);
+        log.debug("getRuleBodyListByOsId : {}", osId);
         List<RuleBodyForDB> ruleBodyForDBList = databaseManager.getRuleBodyListByOsId(osId);
 
         //convert to List<IGenericCompositeVirtualObject>
@@ -155,7 +155,7 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
         
         //CVO list
         // os id 로 cvo 목록을 조회한다
-        log.warn("getCompositeVirtualObjectListByOrchestrationId : {}", os.getId());
+        log.debug("getCompositeVirtualObjectListByOrchestrationId : {}", os.getId());
         List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList =
                 databaseManager.getCompositeVirtualObjectListByOrchestrationId(os.getId());
 

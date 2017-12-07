@@ -101,7 +101,7 @@ public class DeviceControlHandler extends AProcessHandler {
         ContextModelContent content = new SdaManager().getAspectValueById_Aspect_Function(deviceId, aspectUri, functionUri);
         String aspectValue = content.getAspectValue();
 
-        log.warn("getAspectValueById_Aspect_Function : aspect_value={}, action_value={}", aspectValue, content.getActionValue());
+        log.debug("getAspectValueById_Aspect_Function : aspect_value={}, action_value={}", aspectValue, content.getActionValue());
         
         // set TrackingEntity
         //tracking = getTracking();
@@ -158,7 +158,7 @@ public class DeviceControlHandler extends AProcessHandler {
             	databaseManager.updateSessionData(session);
 
             	//Tracking Log
-            	log.warn("Simulate controlDevice: {}, {}", virtualDevice.getName(), virtualDevice.getId());
+            	log.debug("Simulate controlDevice: {}, {}", virtualDevice.getName(), virtualDevice.getId());
                 getTracking().setProcessId(virtualDevice.getId());
                 getTracking().setProcessName(virtualDevice.getName() + ", 디바이스제어");
                 getTracking().setProcessValue(controlValue);
@@ -187,7 +187,7 @@ public class DeviceControlHandler extends AProcessHandler {
                 List<DeviceControlValue> values = entry.getValue();
                 //
                 //databaseManager.getDeviceControlByDeviceIdAndContextModelID
-                log.warn(">>>>>>>>> size of deviceControlList: {}, {}, {} ", deviceControlList.size(), entry.getKey(), entry.getValue());
+                log.debug(">>>>>>>>> size of deviceControlList: {}, {}, {} ", deviceControlList.size(), entry.getKey(), entry.getValue());
                 deviceDriver.control(values);
             }
         }
@@ -221,6 +221,7 @@ public class DeviceControlHandler extends AProcessHandler {
             if (!"2000".equals(resultMessage.getCode())) {
                 getTracking().setProcessName("Response ERROR");
                 getTracking().setProcessResult(resultMessage.getMessage());
+                log.error("Response ERROR: code={}, msg={}", resultMessage.getCode(), resultMessage.getMessage());
             } else {
                 getTracking().setCommandId(commandId);
                 getTracking().setProcessName(resultMessage.getMessage());
@@ -228,7 +229,7 @@ public class DeviceControlHandler extends AProcessHandler {
                 resultControl = true;
             }
             TrackingProducer.send(getTracking());
-            log.warn("Result controlDevice: {}", resultMessage);
+            log.debug("Result controlDevice: {}", resultMessage);
 
             if ("Y".equals(virtualDevice.getIsLast())) {
             	if (resultControl == true) {

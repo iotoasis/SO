@@ -31,5 +31,8 @@ public class Const {
      */
     public final static String CONTEXTMODEL_ID = "contextModelId";
 
-
+    /**
+     * result Cm Value
+     */
+    public final static String RESULT_CM_VALUE = "resultCmValue";
 }

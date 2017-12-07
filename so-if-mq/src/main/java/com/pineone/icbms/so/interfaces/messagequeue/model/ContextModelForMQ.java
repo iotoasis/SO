@@ -29,6 +29,7 @@ public class ContextModelForMQ extends ACommonForMQ {
      */
     List<LocationForMQ> locationList;
 
+    String resultCmValue;
     /**
      * constructor
      */
@@ -75,7 +76,15 @@ public class ContextModelForMQ extends ACommonForMQ {
         this.locationList.add(location);
     }
 
-    @Override
+    public String getResultCmValue() {
+		return resultCmValue;
+	}
+
+	public void setResultCmValue(String resultCmValue) {
+		this.resultCmValue = resultCmValue;
+	}
+
+	@Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append("[").append(super.toString())

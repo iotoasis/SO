@@ -11,10 +11,13 @@ import java.util.List;
  */
 public interface ISdaManager {
 
-    // 상황 조회시 사용
+    // 상황 조회시 사용 (only Location)
     List<String> retrieveEventLocationList(String contextModelId);
 
-    // 특정 위치(location)에 존재하는 device Function 목록 조회
+    // 상황 조회시 사용 (Location, Device, LocationList)
+	List<ContextModelContent> retrieveEventList(String contextModelId);
+
+	// 특정 위치(location)에 존재하는 device Function 목록 조회
     List<String> retrieveFunctionListInLocation(String locationId);
 
     // function 에 대응하는 aspect 조회, function 를 이용한 조회 지원 필요
@@ -53,6 +56,7 @@ public interface ISdaManager {
 
 	// 4)cm-dd-aspect-action-value (id, aspect, functionality) 을 이용한 aspect Value 조회
 	ContextModelContent getAspectValueById_Aspect_Function(String deviceId, String aspectUri, String functionUri);
+
 
 
 }

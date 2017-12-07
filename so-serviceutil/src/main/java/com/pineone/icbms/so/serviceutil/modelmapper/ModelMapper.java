@@ -95,7 +95,9 @@ public class ModelMapper extends JsonMapper {
         if (profileForDB != null) {
             String locId = profileForDB.getLocationId();
             LocationForDB locDb = DatabaseManager.getInstance().getLocationById(locId);
-            String locUri = locDb.getUri(); 
+            String locUri = null;
+            if (locDb!=null)
+            	locUri = locDb.getUri(); 
             
             //location
             DefaultLocation location = new DefaultLocation();

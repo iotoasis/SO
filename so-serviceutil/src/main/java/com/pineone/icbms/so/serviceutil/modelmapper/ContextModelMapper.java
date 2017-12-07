@@ -1,5 +1,7 @@
 package com.pineone.icbms.so.serviceutil.modelmapper;
 
+import static org.mockito.Matchers.contains;
+
 import com.pineone.icbms.so.interfaces.database.model.ContextModelForDB;
 import com.pineone.icbms.so.interfaces.messagequeue.model.ContextModelForMQ;
 import com.pineone.icbms.so.serviceutil.state.StateStoreUtil;
@@ -28,6 +30,7 @@ public class ContextModelMapper implements IModelMapper<IGenericContextModel, Co
             contextModel.setId(contextModelForMQ.getId());
             contextModel.setName(contextModelForMQ.getName());
             contextModel.setDescription(contextModelForMQ.getDescription());
+            contextModel.setResultCmValue(contextModelForMQ.getResultCmValue());
             StateStoreUtil.copyStateStore(contextModelForMQ.getStateStore(), contextModel);
         }
         return contextModel;

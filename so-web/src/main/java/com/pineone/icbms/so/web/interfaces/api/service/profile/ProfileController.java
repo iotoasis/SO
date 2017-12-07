@@ -12,6 +12,7 @@ import com.pineone.icbms.so.interfaces.messagequeue.model.ContextModelForMQ;
 import com.pineone.icbms.so.interfaces.sda.handle.SdaManager;
 import com.pineone.icbms.so.interfaces.sda.model.ContextModelContent;
 import com.pineone.icbms.so.interfaces.sda.model.ContextModelForIf2;
+import com.pineone.icbms.so.serviceprocessor.Const;
 import com.pineone.icbms.so.serviceprocessor.processor.context.handler.ContextModelHandler;
 import com.pineone.icbms.so.serviceutil.interfaces.database.DatabaseManager;
 import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;
@@ -175,7 +176,7 @@ public class ProfileController {
      * @return profile
      */
     @RequestMapping(value = "/schedule", method = RequestMethod.POST)
-    public IGenericProfile callFromScheduler2(@RequestBody ProfileTransFormData profileTransFormData, HttpServletRequest request) {
+    public IGenericProfile callFromSchedulerNew(@RequestBody ProfileTransFormData profileTransFormData, HttpServletRequest request) {
         
         if (profileTransFormData==null) {
         	contextLog.warn("Input Profile is null");
@@ -203,34 +204,76 @@ public class ProfileController {
         String contextModelId = contextModel.getId();
         ContextModelForDB cm = databaseManager.getContextModelById(contextModelId);
         String contextModelName = cm.getName();
-        
-        //SDA로 부터 CM발생 여부 체크
-        List<String> locationList = new SdaManager().retrieveEventLocationList(contextModelId);
 
-        contextLog.debug("called SDA: cm={}, name={}, location={}", contextModelId, contextModelName, locationList.toString());
+        String parameterType = profileForDb.getParameterType();
+        String profileLocationUri = profile.getLocation().getUri();
 
+        boolean isCmProceed = false; //CM 처리되었나?
+    	List<ContextModelContent> contextModelContentList = new ArrayList<>();
     	ContextModelForIf2 contextModelForIf2 = new ContextModelForIf2();
     	contextModelForIf2.setSimulatorType("");
     	contextModelForIf2.setCmd("query");
     	contextModelForIf2.setContextId(contextModelId);
 
-        boolean isCmProceed = false; //CM 처리되었나?
-    	List<ContextModelContent> contextModelContentList = new ArrayList<>();
+        if (parameterType==null || parameterType.isEmpty()) {
+	        //SDA로 부터 CM발생 여부 체크
+        	List<String> locationList = new SdaManager().retrieveEventLocationList(contextModelId);
+	        
+	        contextLog.debug("called SDA: cm={}, name={}, location={}", contextModelId, contextModelName, locationList.toString());
 
-        if (locationList != null && locationList.size() > 0) {
+	        //'D', 'L' 이 아니면 location 비교과 profile의 location을 비교하여 해당 profile 실행
+	        if (locationList != null && locationList.size() > 0) {
+	
+	            for (String location : locationList) {
+	                if (location !=  null && location.equals(profileLocationUri)) {
+	
+	                	ContextModelContent contextModelContent = new ContextModelContent();
+	                	contextModelContent.setLocationUri(location);
+	                	contextModelContentList.add(contextModelContent);
+	                	
+	                	isCmProceed = true;
+	                	
+	                    contextLog.warn("O: result: Happen cm=[{}], Location={}", contextModelId, location);
+	                }
+	            }
+	        }
+	
+        }else if ("DLI".contains(parameterType)) {
+        	//'D', 'L' 이면 location 비교를 안하고 무조건 profile의 실행
+            List<ContextModelContent> contentList = new SdaManager().retrieveEventList(contextModelId);
 
-            for (String location : locationList) {
-                if (location !=  null && location.equals(profile.getLocation().getUri())) {
-
-                	ContextModelContent contextModelContent = new ContextModelContent();
-                	contextModelContent.setLocationUri(location);
-                	contextModelContentList.add(contextModelContent);
-                	
-                	isCmProceed = true;
-                	
-                    contextLog.warn("O: result: Happen cm=[{}], Location={}", contextModelId, location);
-                }
-            }
+	        if (contentList != null && contentList.size() > 0) {
+	        	
+	        	String cmValue = null;
+            	String value;
+	            for (ContextModelContent content : contentList) {
+	            	String uri;
+	            	if (parameterType.equals("D")) {
+	            		uri = content.getDeviceUri();
+	            	} else if (parameterType.equals("L")) {
+	            		uri = content.getLocationUri();
+	            	} else if (parameterType.equals("I")) {
+	            		uri = content.getSid();
+	            	} else
+	            		uri = null;
+	            	
+	            	if (uri==null)
+	            		continue;
+	            	value = uri.substring(uri.lastIndexOf("/")+1,uri.length());
+	            	if (value!=null && !value.isEmpty()) {
+		            	if (cmValue==null)
+		            		cmValue = value;
+		            	else
+		            		cmValue += "|" + value;
+	            	}
+            	}
+	        	ContextModelContent contextModelContent = new ContextModelContent();
+	        	contextModelContent.setLocationUri(profileLocationUri);
+	        	contextModelContentList.add(contextModelContent);
+	        	contextModelForIf2.setResultCmValue(cmValue);
+	        	isCmProceed = true;
+	            contextLog.warn("O: result: Happen cm=[{}], profileLocationUri={}, cmValue={}", contextModelId, profileLocationUri, cmValue);
+        	}
         }
 
         //Location이 없거나 처리되지 않았을때
@@ -244,7 +287,7 @@ public class ProfileController {
         return profile;
     }
     
-    
+    //ContextModel Q에 전달
     private ContextModelForMQ processContextModel(ContextModelForIf2 contextModelForIf, HttpServletRequest request) {
         log.debug("input:ContextModelForIf: {}", contextModelForIf);
         // create a message From ContextModelForMQ for messageQueue, publish to message queue
@@ -256,6 +299,9 @@ public class ProfileController {
         trackingEntity.setSimulatorType(contextModelForIf.getSimulatorType());  // simulator type 지정
         contextModelForMQ.setTrackingEntity(trackingEntity);
 
+        contextModelForMQ.addState(Const.CONTEXTMODEL_ID, contextModelForIf.getContextId());
+        contextModelForMQ.addState(Const.RESULT_CM_VALUE, contextModelForIf.getResultCmValue());
+        
         log.debug("converted:ContextModelForMQ: {}", contextModelForMQ);
         //object to json
         String contextModelForMqString = ContextModelMapper2.writeJsonString(contextModelForMQ);

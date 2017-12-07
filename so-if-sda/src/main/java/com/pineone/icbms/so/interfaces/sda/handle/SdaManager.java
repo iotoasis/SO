@@ -68,6 +68,31 @@ public class SdaManager implements ISdaManager {
         return locationList;
     }
 
+    // 상황의 발생 여부 조회
+    @Override
+    public List<ContextModelContent> retrieveEventList(String contextModelId) {
+
+        List<ContextModelContent> contentList = new ArrayList<>();
+
+        try {
+            //IHttpResponseMessage message = clientService.requestGetService(
+            String message = clientService.requestGetServiceReceiveString2( 
+            		addressCollector.getServerAddress(AddressCollector.SDA_SERVER) + contextModelId + SdaAddressStore.SEPARATOR_WITH_COMMA);
+            contentList = getContextModelContents(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SDAException e) {
+//            e.printStackTrace();
+        }
+
+        if (contentList == null || contentList.isEmpty()) {
+            String info = "ContextModelID = " + contextModelId + " is not Happened ";
+            log.debug("info : " + info);
+        }
+
+        return contentList;
+    }
+    
     // 특정 위치(location)에 존재하는 device Function 목록 조회
     @Override
     public List<String> retrieveFunctionListInLocation(String locationId) {

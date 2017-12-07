@@ -79,7 +79,7 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
 /*
         // get CVO list
         // cvoType이 CVO_TYPE_NONEDEVICE 이면 gcvo로 부터 cvo를 읽어와서 cvo별로 cvo 재호출
-        log.warn("getRuleCvoListByOsId : {}", cvoId);
+        log.debug("getRuleCvoListByOsId : {}", cvoId);
         if (cvoType.equals("CVO_TYPE_NONEDEVICE")) {
         	List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = databaseManager.getCvoListByGcvoId(cvoId);
         }
@@ -103,7 +103,10 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
 
         //2)BaseCvo Id 부터 VO 목록을 가져온다.
        	List<VirtualObjectForDB> validVoList = databaseManager.getVirtualObjectListByCompositeVirtualObjectId(cvoBaseId);
-
+       	if (validVoList.size()==0) {
+            log.error("Not exist vo list by cvoBase={}", cvoBaseId);
+       	}
+       	
        	//3)rule Item중에서 유효한 Vo List만 가려낸다.
        	for (RuleItemForDB item : ruleItemForDBList) {
        		String vId = item.getVoId();

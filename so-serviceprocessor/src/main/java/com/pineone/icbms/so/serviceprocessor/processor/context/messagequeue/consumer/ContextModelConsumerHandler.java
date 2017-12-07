@@ -114,8 +114,9 @@ public class ContextModelConsumerHandler extends AGenericConsumerHandler2<String
                 log.debug("ContextModel with locations: {}", contextModel);
             }
             //ContextModel Handler
-            getContextModelHandler().setTracking(tracking);
-            getContextModelHandler().handle(contextModel);
+            ContextModelHandler contextModelHandler = getContextModelHandler();
+            contextModelHandler.setTracking(tracking);
+            contextModelHandler.handle(contextModel);
         }
     }
 

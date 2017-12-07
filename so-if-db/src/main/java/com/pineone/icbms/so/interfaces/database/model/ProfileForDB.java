@@ -27,6 +27,9 @@ public class ProfileForDB extends CommonEntity {
     private String orchestrationServiceId;
 
     @Getter @Setter
+    private String parameterType;
+    
+    @Getter @Setter
     private int period;
 
     @Getter @Setter

@@ -48,6 +48,8 @@ public class ContextModelMapper2 extends JsonMapper {
                     cmForMQ.addLocation(locationForMQ);
                 }
             }
+
+            cmForMQ.setResultCmValue( retrieveContextData.getResultCmValue());
             //timestamp
             cmForMQ.setCreatedDate(new Timestamp(System.currentTimeMillis()));
         }

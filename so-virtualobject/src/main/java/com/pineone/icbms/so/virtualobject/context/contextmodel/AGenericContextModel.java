@@ -13,6 +13,8 @@ abstract public class AGenericContextModel extends AGenericServiceEntity impleme
      */
     protected String uri;
 
+    protected String resultCmValue;
+
     /**
      * construcotr
      */
@@ -62,9 +64,15 @@ abstract public class AGenericContextModel extends AGenericServiceEntity impleme
         this.uri = uri;
     }
 
+    public String getResultCmValue() {
+		return resultCmValue;
+	}
 
+	public void setResultCmValue(String resultCmValue) {
+		this.resultCmValue = resultCmValue;
+	}
 
-    @Override
+	@Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append(super.toString());

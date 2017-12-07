@@ -42,6 +42,13 @@ public class ContextModelContent {
     String deviceUri;
 
     /**
+     * Serial Id
+     */
+    @Getter@Setter
+    @JsonProperty("sid")
+    String sid;
+
+    /**
      * ci_sequence
      */
     @Getter@Setter

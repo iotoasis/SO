@@ -109,7 +109,7 @@ public class CvoConsumerHandler extends AGenericConsumerHandler2<String, String>
         TrackingEntity tracking = compositeVirtualObjectForMQ.getTrackingEntity();
 
         //MQ model --> CompositeVirtualObjectForDB model
-        log.warn("getOrchestrationServiceById : {}", compositeVirtualObjectForMQ.getId());
+        log.debug("getOrchestrationServiceById : {}", compositeVirtualObjectForMQ.getId());
 /*        
         CompositeVirtualObjectForDB compositeVirtualObjectForDB = databaseManager.getCompositeVirtualObjectById(compositeVirtualObjectForMQ.getId());
         
@@ -133,7 +133,7 @@ public class CvoConsumerHandler extends AGenericConsumerHandler2<String, String>
             getCvoHandler().handle(compositeVirtualObject);
         } else {
             //TODO: exception 처리 필요
-            log.warn("....");
+            log.warn("compositeVirtualObject is null");
         }
     }
 

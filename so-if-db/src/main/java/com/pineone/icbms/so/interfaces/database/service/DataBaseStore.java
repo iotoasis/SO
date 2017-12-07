@@ -67,7 +67,7 @@ public class DataBaseStore implements IDataBaseStore {
 /*    
     @Override
     public List<VirtualObjectForDB> getVirtualObjectListByOrchestrationId(String orchestrationServiceId){
-        log.warn("getVirtualObjectListByOrchestrationId : orchestrationServiceId {}", orchestrationServiceId);
+        log.debug("getVirtualObjectListByOrchestrationId : orchestrationServiceId {}", orchestrationServiceId);
 
         //
         List<VirtualObjectForDB> os_vo_mapperForDBList = virtualObjectDao.getVirtualObjectListByOrchestrationId(orchestrationServiceId);
@@ -78,7 +78,7 @@ public class DataBaseStore implements IDataBaseStore {
 */
     @Override
     public List<CompositeVirtualObjectForDB> getCompositeVirtualObjectListByOrchestrationId(String orchestrationServiceId){
-        log.warn("getCompositeVirtualObjectListByOrchestrationId : orchestrationServiceId {}", orchestrationServiceId);
+        log.debug("getCompositeVirtualObjectListByOrchestrationId : orchestrationServiceId {}", orchestrationServiceId);
 
         List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = compositeVirtualObjectDao.retrieveCompositeVirtualObjectListByOrchestrationId(orchestrationServiceId);
     
@@ -95,7 +95,7 @@ public class DataBaseStore implements IDataBaseStore {
     
     @Override
     public List<RuleBodyForDB> getRuleBodyListByOsId(String osId){
-        log.warn("getRuleBodyListByOsId : osId {}", osId);
+        log.debug("getRuleBodyListByOsId : osId {}", osId);
 
         List<RuleBodyForDB> RuleBodyForDBList = compositeVirtualObjectDao.retrieveRuleBodyListByOsId(osId);
     
@@ -112,7 +112,7 @@ public class DataBaseStore implements IDataBaseStore {
      */
     @Override
     public List<VirtualObjectForDB> getVirtualObjectListByCompositeVirtualObjectId(String compositeVirtualObjectId){
-        log.warn("getVirtualObjectListByCompositeVirtualObjectId : compositeVirtualObjectId {}", compositeVirtualObjectId);
+        log.debug("getVirtualObjectListByCompositeVirtualObjectId : compositeVirtualObjectId {}", compositeVirtualObjectId);
 
         List<VirtualObjectForDB> virtualObjectForDBList = virtualObjectDao.retrieveVirtualObjectListByCompositeVirtualObjectId(compositeVirtualObjectId);
         return virtualObjectForDBList;
@@ -123,7 +123,7 @@ public class DataBaseStore implements IDataBaseStore {
      */
     @Override
     public List<RuleItemForDB> getRuleVirtualObjectListByCvoId(String compositeVirtualObjectId){
-        log.warn("getRuleVirtualObjectListByCvoId : compositeVirtualObjectId {}", compositeVirtualObjectId);
+        log.debug("getRuleVirtualObjectListByCvoId : compositeVirtualObjectId {}", compositeVirtualObjectId);
 
         List<RuleItemForDB> virtualObjectForDBList = virtualObjectDao.retrieveRuleVirtualObjectListByCvoId(compositeVirtualObjectId);
         return virtualObjectForDBList;
@@ -131,7 +131,7 @@ public class DataBaseStore implements IDataBaseStore {
     
     @Override
     public DeviceControlForDB getDeviceControlByDeviceIdAndContextModelID(String deviceId, String contextModelId){
-        log.warn("getDeviceControlByDeviceIdAndContextModelID : deviceId: {}, contextModelId:{}", deviceId, contextModelId);
+        log.debug("getDeviceControlByDeviceIdAndContextModelID : deviceId: {}, contextModelId:{}", deviceId, contextModelId);
 
 //        DeviceControlForDB deviceControlForDB = deviceControlDao.retrieveDeviceControlByDeviceIdAndContextModelId(deviceId, contextModelId);
 //        if(deviceControlForDB == null){
@@ -144,7 +144,7 @@ public class DataBaseStore implements IDataBaseStore {
 
     @Override
     public List<ProfileForDB> getProfileListByContextModelSidAndLocationUri(String contextModelSid, String locationUri) {
-//        log.warn("getProfileListByContextModelSidAndLocationUri : contextModelSid: {}, locationUri:{}", contextModelSid, locationUri);
+//        log.debug("getProfileListByContextModelSidAndLocationUri : contextModelSid: {}, locationUri:{}", contextModelSid, locationUri);
         return profileDao.getProfileByContextModelAndLocationUri(contextModelSid, locationUri);
     }
 
@@ -153,7 +153,7 @@ public class DataBaseStore implements IDataBaseStore {
      */
     @Override
     public OrchestrationServiceForDB getOrchestrationServiceById(String id) {
-        log.warn("getOrchestrationServiceById : id: {}", id);
+        log.debug("getOrchestrationServiceById : id: {}", id);
 
         // get os
         OrchestrationServiceForDB orchestrationServiceForDB = orchestrationServiceDao.retrieveOrchestrationService(id);
@@ -175,32 +175,32 @@ public class DataBaseStore implements IDataBaseStore {
 
     @Override
     public AspectForDB getAspect(String virtualObjectId) {
-        log.warn("getAspect : virtualObjectId: {}", virtualObjectId);
+        log.debug("getAspect : virtualObjectId: {}", virtualObjectId);
         return aspectDao.retrieveAspectByVirtualObjectId(virtualObjectId);
     }
 
     @Override
     public VirtualObjectForDB getVirtualObjectById(String id) {
-        log.warn("getVirtualObjectById : id: {}", id);
+        log.debug("getVirtualObjectById : id: {}", id);
         return virtualObjectDao.retrieveVirtualObject(id);
     }
 
     @Override
     public List<DeviceForDB> getDeviceList(String functionUri, String aspect, String locationUri) {
-        log.warn("getDeviceList : functionUri: {}, aspect: {}, locationUri: {}", functionUri, aspect, locationUri);
+        log.debug("getDeviceList : functionUri: {}, aspect: {}, locationUri: {}", functionUri, aspect, locationUri);
         //implements.
         return deviceDao.retrieveDeviceList(functionUri, aspect, locationUri);
     }
 
     @Override
     public FixedDeviceForDB getFixedDevice(String id) {
-        log.warn("getFixedDevice : id: {}", id);
+        log.debug("getFixedDevice : id: {}", id);
         return fixedDeviceDao.retrieve(id);//.retrieveFixedDevice(id);
     }
 
     @Override
     public ProfileForDB getProfile(String id){
-        log.warn("getProfile : id: {}", id);
+        log.debug("getProfile : id: {}", id);
         return profileDao.retrieveProfile(id);
     }
 
@@ -211,7 +211,7 @@ public class DataBaseStore implements IDataBaseStore {
     
     @Override
     public void createTracking(TrackingEntity trackingEntity) {
-//        log.warn("createTracking : TrackingEntity: {}", trackingEntity);
+//        log.debug("createTracking : TrackingEntity: {}", trackingEntity);
         trackingDao.createTracking(trackingEntity);
     }
     
@@ -244,7 +244,7 @@ public class DataBaseStore implements IDataBaseStore {
 
     @Override
 	public LocationForDB getLocationById(String id) {
-        log.warn("getLocationById : id: {}", id);
+        log.debug("getLocationById : id: {}", id);
         return locationDao.retrieve(id);
 	}
     @Override

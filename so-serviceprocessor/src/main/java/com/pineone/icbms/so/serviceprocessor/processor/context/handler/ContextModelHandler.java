@@ -10,6 +10,7 @@ import com.pineone.icbms.so.serviceprocessor.Const;
 import com.pineone.icbms.so.serviceprocessor.processor.AProcessHandler;
 import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
 import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;
+import com.pineone.icbms.so.serviceutil.state.StateStoreUtil;
 import com.pineone.icbms.so.util.conversion.DataConversion;
 import com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler;
 import com.pineone.icbms.so.util.priority.Priority;
@@ -115,7 +116,7 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
                     databaseManager.createSessionDataLocation(sessionLocation);
     
                     // cm 으로 프로파일 조회
-                    log.warn("getProfileListByContextModelSidAndLocationUri : {}, {}", contextModelId, location.getUri());
+                    log.debug("getProfileListByContextModelSidAndLocationUri : {}, {}", contextModelId, location.getUri());
                     List<ProfileForDB> profileForDbList = databaseManager.getProfileListByContextModelSidAndLocationUri(contextModelId, location.getUri());
                     if (profileForDbList != null && profileForDbList.size() > 0) {
                     	
@@ -139,6 +140,9 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
                             sessionProfile.setPriorityKey(profileForDB.getPriority());
                             log.debug("session profile : {}", sessionProfile);
                             databaseManager.updateSessionData(sessionProfile);
+
+                            //copy state
+                            StateStoreUtil.copyStateStore(contextModel.getStateStore(), profile);
 
                             // profile handler
                             profileHandle(profile);
@@ -221,8 +225,11 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
 //            session.setId(getTracking().getSessionId());
 //            session.setProfileKey("");
 //            session.setProfileName("");
-//            log.warn("session : {}", session);
+//            log.debug("session : {}", session);
 //            databaseManager.updateSessionData(session);
+
+            //copy state
+            StateStoreUtil.copyStateStore(profile.getStateStore(), orchestrationService);
 
             //publish a orchestration service
             publishOrchestrationService(orchestrationService, location.getUri(), contextModelId);
