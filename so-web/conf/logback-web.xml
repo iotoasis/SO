@@ -24,6 +24,7 @@
     <property name="LOG_FILE_PATH_DEFAULT"                        value="${LOG_PATH}/${LOG_FILE_PREFIX}" />
     <property name="LOG_FILE_PATH_PROCESSOR_CONTEXT"              value="${LOG_PATH}/${LOG_FILE_PREFIX}_context" />
     <property name="LOG_FILE_PATH_PROCESSOR_ORCHESTRATIONSERVICE" value="${LOG_PATH}/${LOG_FILE_PREFIX}_os" />
+    <property name="LOG_FILE_PATH_PROCESSOR_COMPOSITEVIRTUALOBJ"  value="${LOG_PATH}/${LOG_FILE_PREFIX}_cvo" />
     <property name="LOG_FILE_PATH_PROCESSOR_VIRTUALOBJECT"        value="${LOG_PATH}/${LOG_FILE_PREFIX}_vo" />
     <property name="LOG_FILE_PATH_PROCESSOR_DEVICECONTROL"        value="${LOG_PATH}/${LOG_FILE_PREFIX}_dc" />
     <property name="LOG_FILE_PATH_SPRING"                         value="${LOG_PATH}/${LOG_FILE_PREFIX}_spring" />
@@ -125,6 +126,23 @@
         </encoder>
     </appender>
 
+    <!-- appender: serviceprocessorssor-compositevirtualobjec  -->
+    <appender name="APPENDER_FILE_ROLLING_PROCESSOR_COMPOSITE_VIRTUALOBJ" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE_PATH_PROCESSOR_COMPOSITEVIRTUALOBJ}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${LOG_FILE_PATH_PROCESSOR_COMPOSITEVIRTUALOBJ}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${ENCODER_PATTERN_UNIT_FILE}</pattern>
+        </encoder>
+    </appender>
+
     <!-- appender: serviceprocessorssor-virtualobject -->
     <appender name="APPENDER_FILE_ROLLING_PROCESSOR_VIRTUALOBJECT" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_FILE_PATH_PROCESSOR_VIRTUALOBJECT}.log</file>
@@ -178,6 +196,9 @@
         <logger name="com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice" level="${LOG_LEVEL_DEFAULT}">
             <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_ORCHESTRATIONSERVICE"/>
         </logger>
+        <logger name="com.pineone.icbms.so.serviceprocessor.processor.cvo" level="${LOG_LEVEL_DEFAULT}">
+            <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_COMPOSITE_VIRTUALOBJ"/>
+        </logger>
         <logger name="com.pineone.icbms.so.serviceprocessor.processor.virtualobject" level="${LOG_LEVEL_DEFAULT}">
             <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_VIRTUALOBJECT"/>
         </logger>
@@ -220,6 +241,9 @@
         </logger>
         <logger name="com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice" level="${LOG_LEVEL_DEFAULT}" >
             <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_ORCHESTRATIONSERVICE"/>
+        </logger>
+        <logger name="com.pineone.icbms.so.serviceprocessor.processor.cvo" level="${LOG_LEVEL_DEFAULT}" >
+            <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_COMPOSITE_VIRTUALOBJ"/>
         </logger>
         <logger name="com.pineone.icbms.so.serviceprocessor.processor.virtualobject" level="${LOG_LEVEL_DEFAULT}" >
             <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_VIRTUALOBJECT"/>
