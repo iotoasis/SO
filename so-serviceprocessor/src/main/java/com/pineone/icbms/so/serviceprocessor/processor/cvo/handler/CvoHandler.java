@@ -209,18 +209,18 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
 	        } else {
 
 	        	String sessionId = getTracking().getSessionId();
-	        	SessionEntity session = databaseManager.getSessionData(sessionId);
+	        	SessionEntity sessionCvo = databaseManager.getSessionData(sessionId);
 
 	        	String cvoIds=null;
-	        	String prevServiceKey = session.getServiceKey();
+	        	String prevServiceKey = sessionCvo.getServiceKey();
 	        	if (prevServiceKey==null)
 	        		cvoIds = cvoIdList.toString();
 	        	else
 	        		cvoIds = prevServiceKey +","+ cvoIdList.toString();
 	        	
 	            //session.setId(getTracking().getSessionId());
-	            session.setServiceKey(cvoIds);
-	            databaseManager.updateSessionData(session);
+	            sessionCvo.setServiceKey(cvoIds);
+	            databaseManager.updateSessionData(sessionCvo);
 
 	            handleCompositeVirtualObjectList(builtCvoList, compositeVirtualObject.getStateStore());
 	        }
@@ -258,14 +258,14 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
                 // grib session location
 	            String voId = deviceId.substring(deviceId.lastIndexOf("/")+1,deviceId.length()) + "-"+virtualObject.getId();
 
-                SessionEntity session = new SessionEntity();
-                session.setId(getTracking().getSessionId());
+                SessionEntity sessionVo = new SessionEntity();
+                sessionVo.setId(getTracking().getSessionId());
                 //session.setVirtualobjectKey(virtualObject.getId());
-                session.setVirtualobjectKey(voId);
-                databaseManager.createSessionDataVo(session);
-                log.trace("session vo : {}", session);
+                sessionVo.setVirtualobjectKey(voId);
+                databaseManager.createSessionDataVo(sessionVo);
+                log.trace("session vo : {}", sessionVo);
     
-                session = new SessionEntity();
+                SessionEntity session = new SessionEntity();
                 session.setId(getTracking().getSessionId());
                 session.setVirtualobjectResult("CONTROL_EXECUTION");
                 databaseManager.updateSessionData(session);

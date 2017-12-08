@@ -59,14 +59,14 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
         }
 
         // grib session
-        SessionEntity session = new SessionEntity();
-        session.setId(getTracking().getSessionId());
-        session.setServicemodelKey(osId);
-        session.setServicemodelName(osName);
-        session.setServicemodelResult(osResult);
-        databaseManager.updateSessionData(session);
+        SessionEntity sessionOs = new SessionEntity();
+        sessionOs.setId(getTracking().getSessionId());
+        sessionOs.setServicemodelKey(osId);
+        sessionOs.setServicemodelName(osName);
+        sessionOs.setServicemodelResult(osResult);
+        databaseManager.updateSessionData(sessionOs);
 
-        log.trace("session service : {}", session);
+        log.trace("session service : {}", sessionOs);
 
         // OS list : os 를 복수로 확장하게 될 경우 사용
 //        if (orchestrationService.getOrchestrationServiceList() != null) {
@@ -107,21 +107,21 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
         	String cvoIds= cvoIdList.toString();
         	String cvoResult = "CONTROL_EXECUTION";
         	
-        	session = new SessionEntity();
-            session.setId(getTracking().getSessionId());
-            session.setServiceKey(cvoIds);
-            session.setServiceResult(cvoResult);
-            databaseManager.updateSessionData(session);
+        	sessionOs = new SessionEntity();
+            sessionOs.setId(getTracking().getSessionId());
+            sessionOs.setServiceKey(cvoIds);
+            sessionOs.setServiceResult(cvoResult);
+            databaseManager.updateSessionData(sessionOs);
 
             
         	handleCompositeVirtualObjectList(cvoList, orchestrationService.getStateStore());
         } else {
         	// cvo 목록이 없는 경우 vo로 지정되어 있는지 확인한다.
         	
-        	session = new SessionEntity();
-            session.setId(getTracking().getSessionId());
-            session.setContextmodelResult("Happen"); //Session Data는 완료 처리
-            databaseManager.updateSessionData(session);
+        	SessionEntity sessionCm = new SessionEntity();
+            sessionCm.setId(getTracking().getSessionId());
+            sessionCm.setContextmodelResult("Happen"); //Session Data는 완료 처리
+            databaseManager.updateSessionData(sessionOs);
         }
     }
 

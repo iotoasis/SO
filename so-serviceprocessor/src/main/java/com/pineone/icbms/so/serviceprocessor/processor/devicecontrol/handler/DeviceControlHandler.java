@@ -130,16 +130,15 @@ public class DeviceControlHandler extends AProcessHandler {
             }
 
             // grib session device
-            SessionEntity session = new SessionEntity();
-            session.setId(getTracking().getSessionId());
-            session.setDeviceKey(deviceId);
-            
-            session.setDeviceLocation(loc);
-            log.trace("session device : {}", session);
-            databaseManager.createSessionDataDevice(session);
+            SessionEntity sessionDevice = new SessionEntity();
+            sessionDevice.setId(getTracking().getSessionId());
+            sessionDevice.setDeviceKey(deviceId);
+            sessionDevice.setDeviceLocation(loc);
+            log.trace("session device : {}", sessionDevice);
+            databaseManager.createSessionDataDevice(sessionDevice);
             
             if (getTracking().getSimulatorType() == null || "".equals(getTracking().getSimulatorType())) {
-            	session = new SessionEntity();
+            	SessionEntity session = new SessionEntity();
             	session.setId(getTracking().getSessionId());
             	session.setDeviceResult("CONTROL_EXECUTION");
             	databaseManager.updateSessionData(session);
@@ -152,7 +151,7 @@ public class DeviceControlHandler extends AProcessHandler {
             	// 시뮬레이션 : 실제 제어는 하지 않고 로그만 출력함
             	
             	//Session Data
-            	session = new SessionEntity();
+            	SessionEntity session = new SessionEntity();
             	session.setId(getTracking().getSessionId());
             	session.setDeviceResult("SIMULATEL_EXECUTION");
             	databaseManager.updateSessionData(session);

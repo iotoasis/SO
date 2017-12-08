@@ -110,13 +110,13 @@ public class ContextModelConsumerHandler extends AGenericConsumerHandler2<String
         if (contextModel != null) {
             List<IGenericLocation> locationList = ModelMapper.toLocationList(contextModelForMQ.getLocationList());
             if(locationList != null && locationList.size() > 0) {
-                contextModel.addState(Const.LOCATION_URI_LIST, locationList);
-                log.debug("ContextModel with locations: {}", contextModel);
+                //contextModel.addState(Const.LOCATION_URI_LIST, locationList);
+                log.debug("ContextModel with locations: {}", locationList);
             }
             //ContextModel Handler
             ContextModelHandler contextModelHandler = getContextModelHandler();
             contextModelHandler.setTracking(tracking);
-            contextModelHandler.handle(contextModel);
+            contextModelHandler.handle(contextModel, locationList);
         }
     }
 
