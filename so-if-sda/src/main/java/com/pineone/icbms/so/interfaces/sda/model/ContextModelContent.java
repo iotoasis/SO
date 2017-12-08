@@ -38,7 +38,7 @@ public class ContextModelContent {
      * Device List
      */
     @Getter@Setter
-    @JsonProperty("device")
+    @JsonProperty("dev")
     String deviceUri;
 
     /**
