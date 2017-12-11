@@ -96,19 +96,24 @@ public class DeviceControlHandler extends AProcessHandler {
         String aspectUri = virtualDevice.getAspect().getUri();
         String functionUri = virtualDevice.getFunction().getUri();
         String controlValue = virtualDevice.getVoVale();
-        
-        // cm-dd-aspect-action-value (id, aspect, functionality) 을 이용한 aspect Value 조회
-        ContextModelContent content = new SdaManager().getAspectValueById_Aspect_Function(deviceId, aspectUri, functionUri);
-        String aspectValue = content.getAspectValue();
 
-        log.debug("getAspectValueById_Aspect_Function : aspect_value={}, action_value={}", aspectValue, content.getActionValue());
+        // cm-dd-aspect-action-value (id, aspect, functionality) 을 이용한 aspect Value 조회
+        log.debug("getAspectValueById_Aspect_Function: deviceId={}, aspectUri={}, functionUri={}", deviceId, aspectUri, functionUri);
+        ContextModelContent content = new SdaManager().getAspectValueById_Aspect_Function(deviceId, aspectUri, functionUri);
+        if (content==null) {
+            log.error("getAspectValueById_Aspect_Function : result : content = null");
+        }
         
         // set TrackingEntity
         //tracking = getTracking();
 
-        if (deviceId != null && !deviceId.isEmpty()) {
+        if (content!= null && deviceId != null && !deviceId.isEmpty()) {
         	
-        	String locLower,loc;
+            String aspectValue = content.getAspectValue();
+
+            log.debug("getAspectValueById_Aspect_Function : aspect_value={}, action_value={}", aspectValue, content.getActionValue());
+
+            String locLower,loc;
         	if (locationUri != null) {
         		locLower = locationUri.substring(locationUri.lastIndexOf("/")+1,locationUri.length());
         		loc = locLower.toUpperCase(); //대문자

@@ -175,14 +175,20 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
 	        		
 			       	//DeviceId 목록을 가져옴
 			       	deviceList = new SdaManager().getDeviceListByLoc_DeviceType_Aspect_Func(locationUri, physicalDeviceTypeUri, aspectUri, functionalityUri);
-			       	
+	            	log.info("getDeviceListByLoc_DeviceType_Aspect_Func :\nlocationUri={}\n physicalDeviceTypeUri={}\n aspectUri={}\n functionalityUri={}", locationUri, physicalDeviceTypeUri, aspectUri, functionalityUri );
 			       	
 		        } else  if (cvoType.equals("CVO_TYPE_ASPECT")) {
 			       	//DeviceId 목록을 가져옴
 			       	deviceList = new SdaManager().getDeviceListByLoc_Aspect_Func(locationUri, aspectUri, functionalityUri);
+	            	log.info("getDeviceListByLoc_Aspect_Func :\nlocationUri={}\n aspectUri={}\n functionalityUri={}", locationUri, aspectUri, functionalityUri );
+
 		        } else  if (cvoType.equals("CVO_TYPE_NONEDEVICE")) {
 		        } 
 	        }    
+	        if (deviceList==null) {
+	        	log.info("deviceList==null");
+	        	return;
+	        }
 	        //4) Device ID 타입 CVO 생성
 	        ArrayList<String> cvoIdList = new ArrayList<>();
 	        //cvoIdList.add(cvoBaseId);

@@ -55,30 +55,36 @@ public class VirtualObjectHandler extends AProcessHandler<IGenericVirtualObject>
             String aspectUri = aspect.getUri();
             String isLast = virtualObject.getIsLast();
 
-            String value;
+            String value=null;
             if (valueType.equals("PARAM")) { //CM에서 전달한 값을 사용
             	value = (String)virtualObject.getState(Const.RESULT_CM_VALUE);
             } else {
 	            // cm-dd-command-value(DeviceId, Aspect, cmd) 을 이용한 Command Value 조회
-	            value = new SdaManager().getCommandValueById_Aspect_Command(deviceId, aspectUri, valueType);
-	            if (valueType.equals("SET")) {
-	            	//min,max 체크
-	            	String[] rangeValues = value.split("~");
-	            	Integer min = Integer.valueOf(rangeValues[0]);
-	            	Integer max = Integer.valueOf(rangeValues[1]);
-	            	Integer checkV = Integer.valueOf(value);
-	            	if (checkV<min || max<checkV) {
-	            		log.warn("Invalid command value:range="+ value);
-	            		return;
-	            	}
-	            } else { 
-	            	if (valueType.equals("ON") || valueType.equals("OFF")) {
-	            		
-		            } else {//if (valueType.equals("GET")) 
-		            	log.warn("This command is not supportted");
-		            	return;
-		            }
-	        	}
+
+            	try {
+            		log.info("getCommandValueById_Aspect_Command : \ndeviceId={}\n aspectUri={}\n valueType={}", deviceId, aspectUri, valueType );
+            		value = new SdaManager().getCommandValueById_Aspect_Command(deviceId, aspectUri, valueType);
+		            if (valueType.equals("SET")) {
+		            	//min,max 체크
+		            	String[] rangeValues = value.split("~");
+		            	Integer min = Integer.valueOf(rangeValues[0]);
+		            	Integer max = Integer.valueOf(rangeValues[1]);
+		            	Integer checkV = Integer.valueOf(value);
+		            	if (checkV<min || max<checkV) {
+		            		log.warn("Invalid command value:range="+ value);
+		            		return;
+		            	}
+		            } else { 
+		            	if (valueType.equals("ON") || valueType.equals("OFF")) {
+		            		
+			            } else {//if (valueType.equals("GET")) 
+			            	log.warn("This command is not supportted");
+			            	return;
+			            }
+		        	}
+	            } catch(Exception e){
+	            	log.error("Error:msg={}", e.getMessage());
+	            }
             }
 			log.info("value=" + valueType + "("+value + ")" );
 
