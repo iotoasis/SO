@@ -1,4 +1,4 @@
-package com.pineone.icbms.so.web.interfaces.api.service.context;
+package com.pineone.icbms.so.web.model.context;
 
 import lombok.Getter;
 import lombok.Setter;

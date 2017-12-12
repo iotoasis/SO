@@ -1,4 +1,4 @@
-package com.pineone.icbms.so.web.interfaces.api.devicecontrol.controller;
+package com.pineone.icbms.so.web.interfaces.api;
 
 import com.pineone.icbms.so.interfaces.database.model.DeviceControlCallbackForDB;
 //import com.pineone.icbms.so.interfaces.database.repository.DeviceControlCallbackRepository;

@@ -1,4 +1,4 @@
-package com.pineone.icbms.so.web.interfaces.api.service.context;
+package com.pineone.icbms.so.web.model.context;
 
 /**
  * Created by melvin on 2016. 8. 9..

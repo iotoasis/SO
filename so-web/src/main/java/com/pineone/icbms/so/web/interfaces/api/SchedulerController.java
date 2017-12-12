@@ -1,4 +1,4 @@
-package com.pineone.icbms.so.web.interfaces.api.service.scheduler;
+package com.pineone.icbms.so.web.interfaces.api;
 
 import com.pineone.icbms.so.interfaces.database.model.ProfileForDB;
 import com.pineone.icbms.so.interfaces.database.ref.ResponseMessage;

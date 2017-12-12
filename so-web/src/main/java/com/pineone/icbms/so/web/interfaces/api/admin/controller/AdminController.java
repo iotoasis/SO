@@ -7,7 +7,7 @@ import com.pineone.icbms.so.interfaces.database.model.TrackingEntity;
 import com.pineone.icbms.so.interfaces.messagequeue.model.ContextModelForMQ;
 import com.pineone.icbms.so.interfaces.sda.model.ContextModelForIf2;
 import com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler;
-import com.pineone.icbms.so.web.interfaces.api.service.context.ContextModelController;
+import com.pineone.icbms.so.web.interfaces.api.ContextModelController;
 import com.pineone.icbms.so.web.tracking.BeforeTtrackingHandler;
 import com.pineone.icbms.so.web.util.ContextModelMapper2;
 import org.apache.kafka.clients.producer.RecordMetadata;

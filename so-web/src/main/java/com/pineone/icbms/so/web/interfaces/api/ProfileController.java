@@ -1,4 +1,4 @@
-package com.pineone.icbms.so.web.interfaces.api.service.profile;
+package com.pineone.icbms.so.web.interfaces.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

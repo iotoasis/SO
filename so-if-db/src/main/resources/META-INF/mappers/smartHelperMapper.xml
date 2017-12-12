@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.pineone.icbms.so.interfaces.database.dao.SmartHelperDao">
+    <select id="retrieveById" parameterType="String" resultType="SmartHelperForDB">
+        SELECT
+			*
+        FROM smart_helper
+        WHERE
+          id = #{value}
+    </select>
+
+    <select id="retrieveByName" parameterType="SmartHelperForDB" resultType="SmartHelperForDB">
+        SELECT
+			*
+        FROM smart_helper
+        WHERE
+          	name = #{name}
+			<if test="locationId != null"> AND location_id=#{locationId} </if>
+          
+    </select>
+
+    <select id="retrieveAll" resultType="SmartHelperForDB">
+        SELECT
+			*
+        FROM smart_helper
+    </select>
+
+    <insert id="createSmartHelper"  parameterType="SmartHelperForDB">
+        INSERT INTO smart_helper (
+	          id
+	        , name
+	        , description
+	        , location_id
+	        , orchestration_service_id
+	        , success_msg
+	        , fail_msg
+	        , created_date
+	        , modified_date
+	        , order_idx
+        )
+        VALUES (
+	          #{id}
+	        , #{name}
+	        , #{description}
+	        , #{locationId}
+	        , #{orchestrationServiceId}
+	        , #{successMsg}
+	        , #{failMsg}
+	        , now(4)
+	        , now(4)
+	        , #{orderIdx}
+        )
+    </insert>
+
+    <update id="updateSmartHelper" parameterType="SmartHelperForDB">
+        UPDATE smart_helper
+        <set>
+            modified_date = now(4)
+	        <if test="name != null"> 		, name=#{name} </if>
+	        <if test="description != null"> , description=#{description} </if>
+	        <if test="locationId != null"> , location_id=#{locationId} </if>
+	        <if test="orchestrationServiceId != null"> , orchestration_service_id=#{orchestrationServiceId} </if>
+	        <if test="successMsg != null"> , success_msg=#{successMsg} </if>
+	        <if test="failMsg != null"> 	, fail_msg=#{failMsg} </if>
+	        <if test="orderIdx != null"> 	, order_idx=#{orderIdx} </if>
+        </set>
+        WHERE
+        	id = #{id}
+    </update>
+
+    <delete id="deleteSmartHelper" parameterType="String">
+        delete from smart_helper
+        where id = #{value}
+    </delete>
+</mapper>

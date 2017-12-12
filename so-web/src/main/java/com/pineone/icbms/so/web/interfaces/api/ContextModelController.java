@@ -1,4 +1,4 @@
-package com.pineone.icbms.so.web.interfaces.api.service.context;
+package com.pineone.icbms.so.web.interfaces.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,6 +14,10 @@ import com.pineone.icbms.so.interfaces.messagequeue.model.ContextModelForMQ;
 import com.pineone.icbms.so.interfaces.sda.model.ContextModelForIf2;
 import com.pineone.icbms.so.interfaces.si.handle.DeviceManager;
 import com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler;
+import com.pineone.icbms.so.web.model.context.Content;
+import com.pineone.icbms.so.web.model.context.ContextModel;
+import com.pineone.icbms.so.web.model.context.ContextModelTransFormObject;
+import com.pineone.icbms.so.web.model.context.ResponseMessage;
 import com.pineone.icbms.so.web.tracking.BeforeTtrackingHandler;
 import com.pineone.icbms.so.web.util.ContextModelMapper2;
 import org.apache.kafka.clients.producer.RecordMetadata;
