@@ -2,24 +2,17 @@ package com.pineone.icbms.so.web.interfaces.api.admin.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pineone.icbms.so.interfaces.database.dao.SessionDao;
-import com.pineone.icbms.so.interfaces.database.dao.TrackingDao;
 import com.pineone.icbms.so.interfaces.database.model.SessionEntity;
-import com.pineone.icbms.so.interfaces.database.model.TrackingEntity;
-import com.pineone.icbms.so.util.session.DefaultSession;
 import com.pineone.icbms.so.util.session.Session;
 
-import com.pineone.icbms.so.util.session.SessionData;
 import com.pineone.icbms.so.util.session.SessionTransFormObject;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by melvin on 2016. 10. 14..
@@ -49,12 +42,10 @@ public class SessionController {
     public List<SessionTransFormObject> retrieveSessionData(@PathVariable int number) {
 
         // 갯수만큼의 최신 tracking id, createDate 조회
-        //List<TrackingEntity> trackingList = trackingDao.retrieveRecentlySessionList(number);
-    
         List<SessionTransFormObject> sessionTransFormObjects = new ArrayList<>();
         
         List<SessionEntity> sessionList = sessionDao.retrieveRecentlySessionList(number);
-        List<String> strTemp = new ArrayList<>();
+
         for (SessionEntity entity : sessionList) {
             SessionTransFormObject defaultSession = new SessionTransFormObject();
             defaultSession.setId(entity.getId());
@@ -65,7 +56,6 @@ public class SessionController {
             // device list
             List<SessionEntity> devices = sessionDao.retrieveSessionDataDevice(entity.getId());
 
-// /*---
             List<String> deviceKeys = new ArrayList<>();
             List<String> deviceLocs = new ArrayList<>();
             for (SessionEntity sessionEntity : devices) {
@@ -98,38 +88,7 @@ public class SessionController {
             sessionData.put("DEVICE_KEY", listToJacksonString(deviceKeys));
             sessionData.put("DEVICE_LOCATION", listToJacksonString(deviceLocs));
             sessionData.put("DEVICE_RESULT", entity.getDeviceResult());
-// */
 
-/*            
-            List<String> deviceKeys = new ArrayList<>();
-            List<String> deviceLocs = new ArrayList<>();
-            for (SessionEntity sessionEntity : devices) {
-            	if(sessionEntity.getDeviceKey()!=null)deviceKeys.add(sessionEntity.getDeviceKey());
-                if(sessionEntity.getDeviceLocation()!= null)deviceLocs.add(sessionEntity.getDeviceLocation());
-            }
-            // vo list
-            //sessionDao.retrieveSessionDataVo(entity.getId());
-    
-            Map<String, String> sessionData = new HashMap<>();
-            if(entity.getPriorityKey()!=null) sessionData.put("PRIORITY_KEY", entity.getPriorityKey() == null ? "LOW" : entity.getPriorityKey());
-            if(entity.getProfileName()!=null) sessionData.put("PROFILE_NAME", entity.getProfileName());
-            if(entity.getContextmodelName()!=null) sessionData.put("CONTEXTMODEL_NAME", entity.getContextmodelName());
-            if(entity.getContextmodelKey()!=null) sessionData.put("CONTEXTMODEL_KEY", entity.getContextmodelKey());
-            strTemp = sessionDao.retrieveSessionDataLocation(entity.getId());
-            if(strTemp.size()>0) sessionData.put("LOCATION_ID", listToJacksonString(sessionDao.retrieveSessionDataLocation(entity.getId())));
-            if(entity.getContextmodelResult()!=null) sessionData.put("CONTEXTMODEL_RESULT", entity.getContextmodelResult());
-            if(entity.getProfileKey()!=null) sessionData.put("PROFILE_KEY", entity.getProfileKey());
-            if(entity.getServicemodelKey()!=null)  sessionData.put("SERVICEMODEL_KEY", entity.getServicemodelKey());
-            if(entity.getServicemodelName()!=null) sessionData.put("SERVICEMODEL_NAME", entity.getServicemodelName());
-            if(entity.getServicemodelResult()!=null) sessionData.put("SERVICEMODEL_RESULT", entity.getServicemodelResult());
-            if(entity.getServiceKey()!=null) sessionData.put("SERVICE_KEY", "["+entity.getServiceKey()+"]");//listToJacksonString());
-            strTemp = sessionDao.retrieveSessionDataVo(entity.getId());
-            if(entity.getVirtualobjectResult()!=null) sessionData.put("VIRTUALOBJECT_RESULT", entity.getVirtualobjectResult());
-            if(deviceKeys.size()!=0) sessionData.put("DEVICE_KEY", listToJacksonString(deviceKeys));
-            if(deviceLocs.size()!=0) sessionData.put("DEVICE_LOCATION", listToJacksonString(deviceLocs));
-            if(entity.getDeviceResult()!=null) sessionData.put("DEVICE_RESULT", entity.getDeviceResult());
-            if(entity.getServiceResult()!=null) sessionData.put("SERVICE_RESULT", entity.getServiceResult());
-*/    
             defaultSession.setSessionData(sessionData);
     
             sessionTransFormObjects.add(defaultSession);
@@ -138,6 +97,57 @@ public class SessionController {
         return sessionTransFormObjects;
     }
 
+    @RequestMapping(value = "/collection/{sessionId}", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public SessionTransFormObject retrieveSessionDataOne(@PathVariable String sessionId) {
+    	
+        SessionEntity sessionDataDb = sessionDao.retrieveSessionData(sessionId);
+        
+        SessionTransFormObject defaultSession = new SessionTransFormObject();
+        defaultSession.setId(sessionDataDb.getId());
+        defaultSession.setCreateDate(sessionDataDb.getCreateDate());
+
+        // device list
+        List<SessionEntity> devices = sessionDao.retrieveSessionDataDevice(sessionDataDb.getId());
+
+        List<String> deviceKeys = new ArrayList<>();
+        List<String> deviceLocs = new ArrayList<>();
+        for (SessionEntity sessionEntity : devices) {
+            deviceKeys.add(sessionEntity.getDeviceKey());
+            deviceLocs.add(sessionEntity.getDeviceLocation());
+        }
+        // vo list
+        //sessionDao.retrieveSessionDataVo(entity.getId());
+
+        LinkedHashMap<String, String> sessionData = new LinkedHashMap<>();
+        sessionData.put("PRIORITY_KEY", sessionDataDb.getPriorityKey() == null ? "LOW" : sessionDataDb.getPriorityKey());
+        sessionData.put("PROFILE_NAME", sessionDataDb.getProfileName());
+        sessionData.put("PROFILE_KEY", sessionDataDb.getProfileKey());
+        sessionData.put("LOCATION_ID", listToJacksonString(sessionDao.retrieveSessionDataLocation(sessionDataDb.getId())));
+
+        sessionData.put("CONTEXTMODEL_KEY", sessionDataDb.getContextmodelKey());
+        sessionData.put("CONTEXTMODEL_NAME", sessionDataDb.getContextmodelName());
+        sessionData.put("CONTEXTMODEL_RESULT", sessionDataDb.getContextmodelResult());
+
+        sessionData.put("SERVICEMODEL_KEY", sessionDataDb.getServicemodelKey());
+        sessionData.put("SERVICEMODEL_NAME", sessionDataDb.getServicemodelName());
+        sessionData.put("SERVICEMODEL_RESULT", sessionDataDb.getServicemodelResult());
+        
+        sessionData.put("SERVICE_KEY",  sessionDataDb.getServiceKey());//listToJacksonString());
+        sessionData.put("SERVICE_RESULT", sessionDataDb.getServiceResult());
+
+        sessionData.put("VIRTUALOBJECT_KEY", listToJacksonString(sessionDao.retrieveSessionDataVo(sessionDataDb.getId())));
+        sessionData.put("VIRTUALOBJECT_RESULT", sessionDataDb.getVirtualobjectResult());
+        
+        sessionData.put("DEVICE_KEY", listToJacksonString(deviceKeys));
+        sessionData.put("DEVICE_LOCATION", listToJacksonString(deviceLocs));
+        sessionData.put("DEVICE_RESULT", sessionDataDb.getDeviceResult());
+
+        defaultSession.setSessionData(sessionData);
+
+        return defaultSession;
+    }
+    
 //    @RequestMapping(value = "/time/{time}", method = RequestMethod.GET)
 //    @ResponseStatus(value = HttpStatus.OK)
 //    public List<Session> retrieveSessionDataByTime(@PathVariable int time){
