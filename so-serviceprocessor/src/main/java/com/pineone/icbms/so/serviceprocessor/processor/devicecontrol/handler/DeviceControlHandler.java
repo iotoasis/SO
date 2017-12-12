@@ -208,6 +208,10 @@ public class DeviceControlHandler extends AProcessHandler {
         getTracking().setProcessMethod(new Object(){}.getClass().getEnclosingMethod().getName());
         String deviceId = virtualDevice.getDeviceId();
 
+        //Device Uri중에서 "http://www.iotoasis.org" 문자열 제외하고 si로 전달
+        final String removeStr = "http://www.iotoasis.org";
+        deviceId = deviceId.replace(removeStr, "");
+        
         try {
             String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
 
