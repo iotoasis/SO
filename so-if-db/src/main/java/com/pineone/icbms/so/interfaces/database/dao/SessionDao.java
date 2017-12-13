@@ -1,6 +1,10 @@
 package com.pineone.icbms.so.interfaces.database.dao;
 
 import com.pineone.icbms.so.interfaces.database.model.SessionEntity;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,21 +15,39 @@ import java.util.List;
 @Component
 public class SessionDao extends AbstractDao {
 
+    protected Logger log = LoggerFactory.getLogger(getClass());
+	
     // create session
     public void createSessionData(SessionEntity sessionEntity) {
-        super.sqlSession.insert("createSessionData", sessionEntity);
+    	try {
+        	super.sqlSession.insert("createSessionData", sessionEntity);
+    	} catch(DataIntegrityViolationException e) {
+    		log.error("createSessionData: error={}", e.getMessage());
+    	}
     }
 
     public void createSessionDataDevice(SessionEntity sessionEntity) {
-        super.sqlSession.insert("createSessionDataDevice", sessionEntity);
+    	try {
+            super.sqlSession.insert("createSessionDataDevice", sessionEntity);
+    	} catch(DataIntegrityViolationException e) {
+    		log.error("createSessionDataDevice: error={}", e.getMessage());
+    	}
     }
 
     public void createSessionDataLocation(SessionEntity sessionEntity) {
-        super.sqlSession.insert("createSessionDataLocation", sessionEntity);
+    	try {
+            super.sqlSession.insert("createSessionDataLocation", sessionEntity);
+    	} catch(DataIntegrityViolationException e) {
+    		log.error("createSessionDataLocation: error={}", e.getMessage());
+    	}
     }
 
     public void createSessionDataVo(SessionEntity sessionEntity) {
-        super.sqlSession.insert("createSessionDataVo", sessionEntity);
+    	try {
+            super.sqlSession.insert("createSessionDataVo", sessionEntity);
+    	} catch(DataIntegrityViolationException e) {
+    		log.error("createSessionDataVo: error={}", e.getMessage());
+    	}
     }
 
     // retrieve session_data
@@ -63,7 +85,11 @@ public class SessionDao extends AbstractDao {
 
     // update
     public void updateSessionData(SessionEntity sessionEntity) {
-        super.sqlSession.update("updateSessionData", sessionEntity);
+    	try {
+    		super.sqlSession.update("updateSessionData", sessionEntity);
+    	} catch(DataIntegrityViolationException e) {
+    		log.error("updateSessionData: error={}", e.getMessage());
+    	}
     }
     
     // delete

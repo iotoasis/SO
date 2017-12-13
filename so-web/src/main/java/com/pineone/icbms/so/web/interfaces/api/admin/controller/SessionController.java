@@ -11,8 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by melvin on 2016. 10. 14..
@@ -39,7 +41,7 @@ public class SessionController {
 
     @RequestMapping(value = "/{number}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
-    public List<SessionTransFormObject> retrieveSessionData(@PathVariable int number) {
+    public List<SessionTransFormObject> retrieveSessionData(@PathVariable Integer number) {
 
         // 갯수만큼의 최신 tracking id, createDate 조회
         List<SessionTransFormObject> sessionTransFormObjects = new ArrayList<>();
@@ -102,9 +104,13 @@ public class SessionController {
     public SessionTransFormObject retrieveSessionDataOne(@PathVariable String sessionId) {
     	
         SessionEntity sessionDataDb = sessionDao.retrieveSessionData(sessionId);
-        
         SessionTransFormObject defaultSession = new SessionTransFormObject();
-        defaultSession.setId(sessionDataDb.getId());
+        defaultSession.setId(sessionId);
+        if (sessionDataDb==null) { //자료가 없는 경우 {} 표시
+            Map<String, String> sessionData = new HashMap<String, String>() ;
+            defaultSession.setSessionData(sessionData);
+        	return defaultSession;
+        }
         defaultSession.setCreateDate(sessionDataDb.getCreateDate());
 
         // device list

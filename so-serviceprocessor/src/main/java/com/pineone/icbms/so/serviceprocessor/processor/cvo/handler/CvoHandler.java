@@ -170,7 +170,16 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
 	        	//3-1) SDA로 부터 Device ID 목록 가져오기
 	        	if (cvoType.equals("CVO_TYPE_DEVICETYPE") || cvoType.equals("CVO_TYPE_DEVICETYPE_ASPECT")) {
 	        		String physicalDeviceTypeId = compositeVirtualObject.getPhysicalDeviceTypeId();
+	        		if (physicalDeviceTypeId==null) {
+	        			log.error("error : physicalDeviceTypeId is not exist. cvoType={}", cvoType);
+	        			return;
+	        		}
 	        		DeviceTypeForDB typeDb = databaseManager.retrieveDeviceTypeById(physicalDeviceTypeId);
+	        		if (typeDb==null) {
+	        			log.error("error : Device Type info is not exist : physicalDeviceTypeId={}", physicalDeviceTypeId);
+	        			return;
+	        		}
+
 	        		String physicalDeviceTypeUri = typeDb.getPhysicalDeviceTypeUri();
 	        		
 			       	//DeviceId 목록을 가져옴
@@ -186,7 +195,7 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
 		        } 
 	        }    
 	        if (deviceList==null) {
-	        	log.info("deviceList==null");
+	        	log.error("deviceList==null");
 	        	return;
 	        }
 	        //4) Device ID 타입 CVO 생성
