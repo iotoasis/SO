@@ -226,7 +226,7 @@ public class DeviceControlHandler extends AProcessHandler {
 
             boolean resultControl = false;
             // 정상응답이 아닌경우
-            if (!"2000".equals(resultMessage.getCode())) {
+            if (!ClientProfile.RESPONSE_SUCCESS_ONEM2MCODE.equals(resultMessage.getCode())) {
                 getTracking().setProcessName("Response ERROR");
                 getTracking().setProcessResult(resultMessage.getMessage());
                 log.error("Response ERROR: code={}, msg={}", resultMessage.getCode(), resultMessage.getMessage());

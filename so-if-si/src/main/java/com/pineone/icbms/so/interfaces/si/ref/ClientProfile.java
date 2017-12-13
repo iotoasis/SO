@@ -31,8 +31,15 @@ public class ClientProfile {
     public static final String SI_DEVICE_BLIND              = "Blind";
 
     //oneM2M Result Data
-    public static final String	RESPONSE_FIALURE_CODE		= "4000";
-    public static final String	RESPONSE_SUCCESS_ONEM2MCODE	= "2000";
+    public static final String	RESPONSE_FIALURE_CODE		= "4001";
+    public static final String	RESPONSE_SUCCESS_ONEM2MCODE	= "2001";
+	/*
+	    2001 성공 / 
+	    2002 삭제
+	    2003 업데이트
+	    2004 리트리브    
+	    4001 FAIL    
+	*/    
 
     //oneM2M Container Data
     public static final String  SI_CONTAINER_STATUS         = "/status";
