@@ -1,7 +1,5 @@
 package com.pineone.icbms.so.serviceutil.modelmapper;
 
-import static org.mockito.Matchers.contains;
-
 import com.pineone.icbms.so.interfaces.database.model.ContextModelForDB;
 import com.pineone.icbms.so.interfaces.messagequeue.model.ContextModelForMQ;
 import com.pineone.icbms.so.serviceutil.state.StateStoreUtil;
