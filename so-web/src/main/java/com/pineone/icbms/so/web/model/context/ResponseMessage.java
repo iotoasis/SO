@@ -1,11 +1,17 @@
 package com.pineone.icbms.so.web.model.context;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * Created by melvin on 2016. 8. 9..
  */
 //NOTE: SO 에서 리턴해주는 메세지 형태 제공
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(value = JsonInclude.Include.NON_ABSENT, content = JsonInclude.Include.NON_EMPTY)
 public class ResponseMessage {
 
+    private String code;
     private String exceptionMessage;
     private String message;
 
@@ -20,7 +26,15 @@ public class ResponseMessage {
         return message;
     }
 
-    public String getMessage() {
+    public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getMessage() {
         return message;
     }
 

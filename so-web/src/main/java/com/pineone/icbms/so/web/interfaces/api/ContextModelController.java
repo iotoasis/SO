@@ -6,11 +6,13 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.kastkode.springsandwich.filter.annotation.Before;
 import com.kastkode.springsandwich.filter.annotation.BeforeElement;
 import com.pineone.icbms.so.interfaces.database.dao.TrackingDao;
+import com.pineone.icbms.so.interfaces.database.model.ProfileForDB;
 import com.pineone.icbms.so.interfaces.database.model.TrackingEntity;
 import com.pineone.icbms.so.interfaces.database.ref.DataLossException;
 import com.pineone.icbms.so.interfaces.database.ref.DataValidation;
-
+import com.pineone.icbms.so.interfaces.database.service.DataBaseStore;
 import com.pineone.icbms.so.interfaces.messagequeue.model.ContextModelForMQ;
+import com.pineone.icbms.so.interfaces.sda.model.ContextModelContent;
 import com.pineone.icbms.so.interfaces.sda.model.ContextModelForIf2;
 import com.pineone.icbms.so.interfaces.si.handle.DeviceManager;
 import com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler;
@@ -39,7 +41,7 @@ import java.util.concurrent.Future;
 @Before(@BeforeElement(BeforeTtrackingHandler.class))
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/cm")
+//@RequestMapping("/cm")
 public class ContextModelController {
     /**
      * logger
@@ -48,6 +50,9 @@ public class ContextModelController {
 
     @Autowired
     TrackingDao trackingDao;
+    
+    @Autowired
+    DataBaseStore dataBaseStore;
 
 //    /**
 //     * response for request "/context/cm, HTTP-method:POST".<BR/>
@@ -83,7 +88,7 @@ public class ContextModelController {
      * @param contextModelForIf ContextModelForIf
      * @return created DeviceControlCallbackForDB id
      */
-    @PostMapping()
+    //@PostMapping()
     public ContextModelForMQ injectContextModel(@RequestBody ContextModelForIf2 contextModelForIf, HttpServletRequest request) {
 
         ContextModelForMQ contextModelForMQ = processContextModel(contextModelForIf, request);
@@ -118,7 +123,7 @@ public class ContextModelController {
      * @param contextModelForIf ContextModelForIf
      * @return List<TrackingEntity>
      */
-    @PostMapping(value = "/simulate")
+    @PostMapping(value = "/cm/simulate")
     //public List<TrackingEntity> simulateContextModel(@RequestBody ContextModelForIf2 contextModelForIf, HttpServletRequest request) {
     public String simulateContextModel(@RequestBody ContextModelForIf2 contextModelForIf, HttpServletRequest request) {
 
@@ -177,7 +182,7 @@ public class ContextModelController {
         return contextModelForMQ;
     }
     
-    @PostMapping(value = "/test")
+    //@PostMapping(value = "/test")
     public void testCode(HttpServletRequest request) {
     	DeviceManager.testmain(null);
     }
@@ -189,37 +194,50 @@ public class ContextModelController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/occ", method = RequestMethod.POST)
-    public ResponseMessage emergencyContextModel(@RequestBody ContextModelTransFormObject contextModelTransFormObject
-		    , HttpServletRequest request) {
+    @RequestMapping(value = "/resource/occ", method = RequestMethod.POST)
+    public ResponseMessage emergencyContextModel(@RequestBody ContextModelTransFormObject contextModelTransFormObject , HttpServletRequest request) {
         
-        log.info("ContextModelId = {}", contextModelTransFormObject.getContextId());
+    	String contextModelId = contextModelTransFormObject.getContextId();
+    	String occTime = contextModelTransFormObject.getTime();
+    	List<Content> contents = contextModelTransFormObject.getContents();
+
+    	log.info("ContextModelId = {}", contextModelId);
         log.debug("ContextModel = {}", contextModelTransFormObject.toString());
+    	
+    	List<ContextModelContent> contentList = new ArrayList<>();
+    	List<ProfileForDB> profiles;
+    	for (Content content : contents) {
+    		
+    		String locationUri = content.getLoc();
+    		profiles = dataBaseStore.getProfileListByContextModelSidAndLocationUri(contextModelId, locationUri);
+    		if (profiles.size()>0) {
+        		ContextModelContent newContent = new ContextModelContent();
+        		newContent.setLocationUri(content.getLoc());
+        		contentList.add(newContent);
+    		}
+    	}
+    	    
         //
-        DataValidation dataValidation = newDataValidation();
-        ResponseMessage responseMessage = ResponseMessage.newResponseMessage();
-        ContextModel contextModel = dataObjectToContextModel(contextModelTransFormObject);
-        try {
-            inspectContextModel(contextModel);
-        } catch (DataLossException e) {
-            responseMessage.setExceptionMessage(e.getMessage());
-            return responseMessage;
-        }
-    
         ContextModelForIf2 contextModelForIf2 = new ContextModelForIf2();
-	    contextModelForIf2.setId(contextModel.getId());
-	    contextModelForIf2.setTime(contextModel.getOccTime());
+	    contextModelForIf2.setId(contextModelId);
+	    contextModelForIf2.setContextId(contextModelId);
+	    contextModelForIf2.setTime(occTime);
+	    contextModelForIf2.setContextModelContentList(contentList);
 
-	    // contextModel(2차년 모델) -> contextModelForIf2(3차년 모델) 변환
-
-	    // LOCATION 빠져 있음
-	    // TODO gibubi ==  연동규격서-ICBMS-SO-2.1.1.docx 2.2.1 상황 발생 수신 interface (긴급 호출 서비스) 참조하여 추가해야 함
-	    // CM문의의 결과와 동일한 형태로 값이 들어옴
-	    
         ContextModelForMQ contextModelForMQ = processContextModel(contextModelForIf2, request);
+        ResponseMessage responseMessage = new ResponseMessage();
         
-        String resultMessage = useQueueSaveContextModel(contextModel);
-        responseMessage.setMessage(resultMessage);
+        TrackingEntity trackingEntity = (TrackingEntity) request.getSession().getAttribute("tracking");
+        String sessionId = trackingEntity.getSessionId();
+
+        String code;
+        if (contentList.size()>0)
+        	code = "200";
+        else
+        	code = "400";
+        responseMessage.setCode(code);
+        responseMessage.setMessage(sessionId);
+        
         return responseMessage;
     }
     

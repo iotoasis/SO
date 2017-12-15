@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * Created by uni4love on 2017. 1. 13..
  */
-@RestController
-@RequestMapping("/cm/*")
+//@RestController
+//@RequestMapping("/cm/*")
 public class ContextModelController {
     /**
      * logger
