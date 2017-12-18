@@ -29,7 +29,7 @@ apply plugin: 'org.springframework.boot'
 
 jar {
     baseName = 'so'
-//    version = '2.0.0-SANPSHOT'
+    version = '0.12.14.0'
 }
 
 sourceCompatibility = "${VERSION.java}"
