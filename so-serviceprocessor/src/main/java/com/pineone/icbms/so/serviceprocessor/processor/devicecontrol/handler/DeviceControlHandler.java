@@ -139,7 +139,7 @@ public class DeviceControlHandler extends AProcessHandler {
             sessionDevice.setId(getTracking().getSessionId());
             sessionDevice.setDeviceKey(deviceId);
             sessionDevice.setDeviceLocation(loc);
-            log.trace("session device : {}", sessionDevice);
+            log.debug("session device : {}", sessionDevice);
             databaseManager.createSessionDataDevice(sessionDevice);
             
             if (getTracking().getSimulatorType() == null || "".equals(getTracking().getSimulatorType())) {
