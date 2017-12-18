@@ -11,7 +11,10 @@ import com.pineone.icbms.so.serviceprocessor.processor.AProcessHandler;
 import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
 import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;
 import com.pineone.icbms.so.serviceutil.state.StateStoreUtil;
+import com.pineone.icbms.so.util.Settings2;
 import com.pineone.icbms.so.util.conversion.DataConversion;
+import com.pineone.icbms.so.util.conversion.ProfileTransFormData;
+import com.pineone.icbms.so.util.http.ClientService;
 import com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler;
 import com.pineone.icbms.so.util.priority.Priority;
 import com.pineone.icbms.so.util.session.DefaultSession;
@@ -150,6 +153,9 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
 
                             // profile handler
                             profileHandle(profile);
+                            
+                        	//CM이 처리되었으면 dependant profile을 처리한다.
+                        	callDependantProfile(profile.getId());
                         }
                     }
                     // When Profile list NOT exist,
@@ -282,6 +288,36 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
         DefaultProducerHandler producerHandler = new DefaultProducerHandler(0, "orchestrationservice");
         producerHandler.send(data);
         producerHandler.close();
+    }
+
+    //Dependant Profile 처리
+    int callDependantProfile(String profileId) {
+
+	    List<String> profileDeps = databaseManager.getDepProfileById(profileId);
+	    Integer profileSize;
+	    
+	    if (profileDeps==null) {
+	    	profileSize = 0;
+	    } else {
+	    	profileSize = profileDeps.size();
+	    }
+	    
+	    //Dependant Profile이 있으면
+	    if (profileSize>0) {
+		    log.debug("callDependantProfile : dependant profiles({}) = {}", profileSize, profileDeps.toString());
+		    ClientService clientService = new ClientService();
+
+		    for (String childId : profileDeps) {
+			    ProfileTransFormData profileTransFormData = new ProfileTransFormData(childId);
+			    String sendData = DataConversion.objectToString(profileTransFormData);
+			    String profileControllerUrl = "http://localhost:" + Settings2.getServerPort() + Settings2.getContextPath() + "/service/profile/schedule";
+			    log.debug(" profileControllerUrl = " + profileControllerUrl);
+			    String result = clientService.requestPostServiceReceiveString2(profileControllerUrl, sendData);
+			    log.debug("---result=" + result);
+		    }
+	    }
+	    
+	    return profileSize;
     }
 }
 

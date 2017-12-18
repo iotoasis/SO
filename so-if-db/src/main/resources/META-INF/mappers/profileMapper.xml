@@ -168,4 +168,9 @@
     delete from profile where id = #{id}
   </delete>
 
+  <select id="getDepProfileById" parameterType="String" resultType="String">
+    SELECT child_profile
+    FROM profile_dep
+    WHERE parent_profile = #{value}
+  </select>
 </mapper>

@@ -92,4 +92,9 @@ public class ProfileDao extends AbstractDao {
         return super.sqlSession.delete("deleteProfile", id);
     }
 
+    // profile dependant list
+	public List<String> getDepProfileById(String profileId) {
+        return super.sqlSession.selectList("getDepProfileById", profileId);
+	}
+
 }

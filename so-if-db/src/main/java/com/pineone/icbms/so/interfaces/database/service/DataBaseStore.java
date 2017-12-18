@@ -204,6 +204,11 @@ public class DataBaseStore implements IDataBaseStore {
         return profileDao.retrieveProfile(id);
     }
 
+	@Override
+	public List<String> getDepProfileById(String profileId) {
+		return profileDao.getDepProfileById(profileId);
+	}
+
     @Override
     public List<ProfileForDB> getAllProfile() {
     	return profileDao.retrieve();
@@ -256,9 +261,9 @@ public class DataBaseStore implements IDataBaseStore {
 	public List<DeviceTypeForDB> retrieveDeviceType() {
 		return deviceDao.retrieveDeviceType();
 	}
-    @Override
+
+	@Override
 	public DeviceTypeForDB retrieveDeviceTypeById(String id) {
 		return deviceDao.retrieveDeviceTypeById(id);
 	}
-
 }

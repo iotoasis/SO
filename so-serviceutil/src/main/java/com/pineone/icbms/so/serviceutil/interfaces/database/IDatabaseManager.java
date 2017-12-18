@@ -40,6 +40,7 @@ public interface IDatabaseManager {
     DeviceControlForDB getDeviceControlValues(String deviceId, String contextModelId);
 
     ProfileForDB getProfileById(String profileId);
+	List<String> getDepProfileById(String profileId);
     public List<ProfileForDB> getAllProfile();
 
     void createTracking(TrackingEntity trackingEntity);
@@ -58,4 +59,5 @@ public interface IDatabaseManager {
 
 	List<DeviceTypeForDB> retrieveDeviceType();
 	DeviceTypeForDB retrieveDeviceTypeById(String id);
+
 }

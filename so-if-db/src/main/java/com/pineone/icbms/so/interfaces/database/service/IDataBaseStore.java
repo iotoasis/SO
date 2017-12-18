@@ -35,6 +35,7 @@ public interface IDataBaseStore {
     FixedDeviceForDB getFixedDevice(String id);
 
     ProfileForDB getProfile(String id);
+	List<String> getDepProfileById(String profileId);
 //    FixedDeviceForDB getFixedDevice(String id);
 	List<ProfileForDB> getAllProfile();
 
@@ -53,5 +54,4 @@ public interface IDataBaseStore {
 
 	List<DeviceTypeForDB> retrieveDeviceType();
 	DeviceTypeForDB retrieveDeviceTypeById(String id);
-	
 }

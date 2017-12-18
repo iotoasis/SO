@@ -280,7 +280,6 @@ public class ProfileController {
         if (isCmProceed == false) {
         	contextLog.warn("X: result: Not happened cm=[{}]", contextModelId);
         }
-
         contextModelForIf2.setContextModelContentList(contextModelContentList);
     	processContextModel(contextModelForIf2,request);
 
@@ -314,7 +313,6 @@ public class ProfileController {
 
         return contextModelForMQ;
     }
-    
     
     /**
      * response for request "/profile/force, HTTP-method:POST".<BR/>

@@ -129,6 +129,11 @@ public class DatabaseManager implements IDatabaseManager {
     }
 
     @Override
+    public List<String> getDepProfileById(String profileId){
+        return dataBaseStore.getDepProfileById(profileId);
+    }
+
+    @Override
     public List<ProfileForDB> getAllProfile(){
         return dataBaseStore.getAllProfile();
     }
