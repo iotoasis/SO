@@ -12,9 +12,11 @@ import com.pineone.icbms.so.interfaces.database.ref.DataLossException;
 import com.pineone.icbms.so.interfaces.database.ref.DataValidation;
 import com.pineone.icbms.so.interfaces.database.service.DataBaseStore;
 import com.pineone.icbms.so.interfaces.messagequeue.model.ContextModelForMQ;
+import com.pineone.icbms.so.interfaces.sda.handle.SdaManager;
 import com.pineone.icbms.so.interfaces.sda.model.ContextModelContent;
 import com.pineone.icbms.so.interfaces.sda.model.ContextModelForIf2;
 import com.pineone.icbms.so.interfaces.si.handle.DeviceManager;
+import com.pineone.icbms.so.serviceprocessor.Const;
 import com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler;
 import com.pineone.icbms.so.web.model.context.Content;
 import com.pineone.icbms.so.web.model.context.ContextModel;
@@ -169,6 +171,9 @@ public class ContextModelController {
         trackingEntity.setSimulatorType(contextModelForIf.getSimulatorType());  // simulator type 지정
         contextModelForMQ.setTrackingEntity(trackingEntity);
 
+        contextModelForMQ.addState(Const.CONTEXTMODEL_ID, contextModelForIf.getContextId());
+        contextModelForMQ.addState(Const.RESULT_CM_VALUE, contextModelForIf.getResultCmValue());
+        
         log.debug("converted:ContextModelForMQ: {}", contextModelForMQ);
         //object to json
         String contextModelForMqString = ContextModelMapper2.writeJsonString(contextModelForMQ);
@@ -190,30 +195,76 @@ public class ContextModelController {
     /**
      * NOTE: SDA 에서 사용할 Emergency ContextModel 을 수신 받기 위한 인터페이스 제공
      *
-     * @param contextModelTransFormObject
+     * @param contextModelForIf
      * @param request
      * @return
      */
-    @RequestMapping(value = "/resource/occ", method = RequestMethod.POST)
-    public ResponseMessage emergencyContextModel(@RequestBody ContextModelTransFormObject contextModelTransFormObject , HttpServletRequest request) {
+    @RequestMapping(value = "/cm/occ", method = RequestMethod.POST)
+    public ResponseMessage emergencyContextModel(@RequestBody ContextModelForIf2 contextModelForIf , HttpServletRequest request) {
         
-    	String contextModelId = contextModelTransFormObject.getContextId();
-    	String occTime = contextModelTransFormObject.getTime();
-    	List<Content> contents = contextModelTransFormObject.getContents();
+    	String contextModelId = contextModelForIf.getContextId();
+    	String occTime = contextModelForIf.getTime();
+    	List<ContextModelContent> contents = contextModelForIf.getContextModelContentList();
+		String cmValue = null;
 
-    	log.info("ContextModelId = {}", contextModelId);
-        log.debug("ContextModel = {}", contextModelTransFormObject.toString());
+    	log.debug("called /cm/occ ContextModelId = {}", contextModelId);
+        log.debug("ContextModel = {}", contextModelForIf.toString());
     	
     	List<ContextModelContent> contentList = new ArrayList<>();
     	List<ProfileForDB> profiles;
-    	for (Content content : contents) {
+    	for (ContextModelContent content : contents) {
     		
-    		String locationUri = content.getLoc();
+    		String locationUri = content.getLocationUri();
+    		if (locationUri==null || locationUri.isEmpty())
+    			continue;
     		profiles = dataBaseStore.getProfileListByContextModelSidAndLocationUri(contextModelId, locationUri);
     		if (profiles.size()>0) {
         		ContextModelContent newContent = new ContextModelContent();
-        		newContent.setLocationUri(content.getLoc());
+        		newContent.setLocationUri(content.getLocationUri());
         		contentList.add(newContent);
+    		}
+    	}
+    	
+    	if (contentList.size()==0) {
+    		List<ProfileForDB> profileForDbList = dataBaseStore.getProfileListByContextModelSidAndLocationUri(contextModelId, null);
+    		if (profileForDbList!=null && profileForDbList.size()>0) {
+
+    			ProfileForDB profileForDb = profileForDbList.get(0);
+    	        String parameterType = profileForDb.getParameterType();
+    	        String profileLocationUri = profileForDb.getLocationUri();
+    			
+    	        if ("DLI".contains(parameterType)) {
+    	        	//'D', 'L' 이면 location 비교를 안하고 무조건 profile의 실행
+
+    	        		String value;
+
+    		            for (ContextModelContent content : contents) {
+    		            	String uri;
+    		            	if (parameterType.equals("D")) {
+    		            		uri = content.getDeviceUri();
+    		            	} else if (parameterType.equals("L")) {
+    		            		uri = content.getLocationUri();
+    		            	} else if (parameterType.equals("I")) {
+    		            		uri = content.getSid();
+    		            	} else
+    		            		uri = null;
+    		            	
+    		            	if (uri==null)
+    		            		continue;
+    		            	value = uri.substring(uri.lastIndexOf("/")+1,uri.length());
+    		            	if (value!=null && !value.isEmpty()) {
+    			            	if (cmValue==null)
+    			            		cmValue = value;
+    			            	else
+    			            		cmValue += "|" + value;
+    		            	}
+    	            	}
+    		        	ContextModelContent contextModelContent = new ContextModelContent();
+    		        	contextModelContent.setLocationUri(profileLocationUri);
+    		        	contentList.add(contextModelContent);
+
+    		            log.debug("added : cm=[{}], profileLocationUri={}, cmValue={}", contextModelId, profileLocationUri, cmValue);
+    	        	}
     		}
     	}
     	    
@@ -223,11 +274,12 @@ public class ContextModelController {
 	    contextModelForIf2.setContextId(contextModelId);
 	    contextModelForIf2.setTime(occTime);
 	    contextModelForIf2.setContextModelContentList(contentList);
+    	contextModelForIf2.setResultCmValue(cmValue);
 
         ContextModelForMQ contextModelForMQ = processContextModel(contextModelForIf2, request);
         ResponseMessage responseMessage = new ResponseMessage();
-        
-        TrackingEntity trackingEntity = (TrackingEntity) request.getSession().getAttribute("tracking");
+
+        TrackingEntity trackingEntity = contextModelForMQ.getTrackingEntity();
         String sessionId = trackingEntity.getSessionId();
 
         String code;
@@ -253,13 +305,14 @@ public class ContextModelController {
             throw new DataLossException();
         }
     }
-    
+
+/*	
     private ContextModel dataObjectToContextModel(ContextModelTransFormObject contextModelDataObject){
         if(contextModelDataObject == null) return null;
         return new ContextModel(contextModelDataObject.getContextId(), contentsToStringList(contextModelDataObject.getContents()),
                 contextModelDataObject.getCmd(), contextModelDataObject.getTime());
     }
-    
+*/    
     private List<String> contentsToStringList(List<Content> contentsList){
         
         List<String> domains = new ArrayList<>();
