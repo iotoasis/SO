@@ -1,6 +1,6 @@
 package com.pineone.icbms.so.serviceprocessor.processor.context;
 
-import com.pineone.icbms.so.util.Settings;
+import com.pineone.icbms.so.util.Settings2;
 import com.pineone.icbms.so.serviceutil.interfaces.processor.AGenericProcessor;
 import com.pineone.icbms.so.serviceprocessor.processor.context.messagequeue.consumer.ContextModelConsumerHandler;
 
@@ -53,10 +53,10 @@ public class ContextModelProcessor extends AGenericProcessor {
      */
     public void process() {
         //executorservice
-        ExecutorService executorService = Executors.newFixedThreadPool(Settings.HANDLER_COUNT);
+        ExecutorService executorService = Executors.newFixedThreadPool(Settings2.HANDLER_COUNT);
         //handler list
         List<ContextModelConsumerHandler> consumerList = new ArrayList<>();
-        for (int i = 0; i < Settings.HANDLER_COUNT; i++) {
+        for (int i = 0; i < Settings2.HANDLER_COUNT; i++) {
             ContextModelConsumerHandler consumer = new ContextModelConsumerHandler(i);
             consumerList.add(consumer);
             //execute a thread

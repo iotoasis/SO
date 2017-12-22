@@ -1,7 +1,7 @@
 package com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice;
 
 import com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.messagequeue.consumer.OrchestrationServiceConsumerHandler;
-import com.pineone.icbms.so.util.Settings;
+import com.pineone.icbms.so.util.Settings2;
 import com.pineone.icbms.so.serviceutil.interfaces.processor.AGenericProcessor;
 
 import java.util.ArrayList;
@@ -38,9 +38,9 @@ public class OrchestrationServiceProcessor extends AGenericProcessor {
      */
     @Override
     public void process() {
-        ExecutorService executorService = Executors.newFixedThreadPool(Settings.HANDLER_COUNT);
+        ExecutorService executorService = Executors.newFixedThreadPool(Settings2.HANDLER_COUNT);
         List<OrchestrationServiceConsumerHandler> consumerList = new ArrayList<>();
-        for (int i = 0; i < Settings.HANDLER_COUNT; i++) {
+        for (int i = 0; i < Settings2.HANDLER_COUNT; i++) {
             OrchestrationServiceConsumerHandler consumer = new OrchestrationServiceConsumerHandler(i);
             consumerList.add(consumer);
             executorService.submit(consumer);

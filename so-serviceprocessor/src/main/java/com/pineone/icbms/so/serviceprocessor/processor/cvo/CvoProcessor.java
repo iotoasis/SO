@@ -1,7 +1,7 @@
 package com.pineone.icbms.so.serviceprocessor.processor.cvo;
 
 import com.pineone.icbms.so.serviceprocessor.processor.cvo.messagequeue.consumer.CvoConsumerHandler;
-import com.pineone.icbms.so.util.Settings;
+import com.pineone.icbms.so.util.Settings2;
 import com.pineone.icbms.so.serviceutil.interfaces.processor.AGenericProcessor;
 
 import java.util.ArrayList;
@@ -38,9 +38,9 @@ public class CvoProcessor extends AGenericProcessor {
      */
     @Override
     public void process() {
-        ExecutorService executorService = Executors.newFixedThreadPool(Settings.HANDLER_COUNT);
+        ExecutorService executorService = Executors.newFixedThreadPool(Settings2.HANDLER_COUNT);
         List<CvoConsumerHandler> consumerList = new ArrayList<>();
-        for (int i = 0; i < Settings.HANDLER_COUNT; i++) {
+        for (int i = 0; i < Settings2.HANDLER_COUNT; i++) {
             CvoConsumerHandler consumer = new CvoConsumerHandler(i);
             consumerList.add(consumer);
             executorService.submit(consumer);

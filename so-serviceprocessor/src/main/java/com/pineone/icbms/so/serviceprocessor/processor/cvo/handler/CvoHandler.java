@@ -17,7 +17,7 @@ import com.pineone.icbms.so.serviceprocessor.Const;
 import com.pineone.icbms.so.serviceprocessor.processor.AProcessHandler;
 import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;
 import com.pineone.icbms.so.serviceutil.state.StateStoreUtil;
-import com.pineone.icbms.so.util.Settings;
+import com.pineone.icbms.so.util.Settings2;
 import com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler;
 import com.pineone.icbms.so.virtualobject.AGenericVirtualObject;
 import com.pineone.icbms.so.virtualobject.DefaultVirtualObject;
@@ -343,7 +343,7 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
      * @return result
      */
     private Future<RecordMetadata> publishToVoMq(String data) {
-        DefaultProducerHandler producerHandler = new DefaultProducerHandler(0, Settings.TOPIC_VIRTUAL_OBJECT);
+        DefaultProducerHandler producerHandler = new DefaultProducerHandler(0, Settings2.TOPIC_VIRTUAL_OBJECT);
         Future<RecordMetadata> result = producerHandler.send(data);
         producerHandler.close();
         return result;
@@ -420,7 +420,7 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
      * @return result
      */
     private Future<RecordMetadata> publishToMq(String data) {
-        DefaultProducerHandler producerHandler = new DefaultProducerHandler(0, Settings.TOPIC_COMPOSITE_VIRTUAL_OBJECT);
+        DefaultProducerHandler producerHandler = new DefaultProducerHandler(0, Settings2.TOPIC_COMPOSITE_VIRTUAL_OBJECT);
         Future<RecordMetadata> result = producerHandler.send(data);
         producerHandler.close();
         return result;

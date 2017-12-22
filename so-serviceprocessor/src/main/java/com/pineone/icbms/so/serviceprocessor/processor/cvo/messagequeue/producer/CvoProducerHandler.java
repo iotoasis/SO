@@ -1,6 +1,6 @@
 package com.pineone.icbms.so.serviceprocessor.processor.cvo.messagequeue.producer;
 
-import com.pineone.icbms.so.util.Settings;
+import com.pineone.icbms.so.util.Settings2;
 import com.pineone.icbms.so.util.messagequeue.producer.AGenericProducerHandler;
 
 /**
@@ -12,7 +12,7 @@ public class CvoProducerHandler extends AGenericProducerHandler {
     /**
      * topic list
      */
-    private static final String TOPIC = Settings.TOPIC_COMPOSITE_VIRTUAL_OBJECT;
+    private static final String TOPIC = Settings2.TOPIC_COMPOSITE_VIRTUAL_OBJECT;
 
     /**
      * kafka producer group id by class name.<BR/>

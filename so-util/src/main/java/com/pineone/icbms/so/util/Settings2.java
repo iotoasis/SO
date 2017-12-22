@@ -218,6 +218,11 @@ public class Settings2 {
     public static String TOPIC_ORCHESTRATION_SERVICE = "orchestrationservice";
 
     /**
+     * kafka topic: orchestrationservice<BR/>
+     */
+    public static String TOPIC_COMPOSITE_VIRTUAL_OBJECT = "compositevirtualobject";
+
+    /**
      * kafka topic: virtual object<BR/>
      */
     public static String TOPIC_VIRTUAL_OBJECT = "virtualobject";
@@ -230,7 +235,7 @@ public class Settings2 {
     /**
      * kafka topic: logging
      */
-    public static String TOPIC_LOGGING = "logging";
+    public static String TOPIC_TRACKING = "tracking";
 
     /**
      * each serviceprocessor handler count

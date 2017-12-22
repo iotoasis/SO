@@ -1,7 +1,6 @@
 package com.pineone.icbms.so.util.spring.springkafka.consumer;
 
 
-import com.pineone.icbms.so.util.Settings;
 import com.pineone.icbms.so.util.Settings2;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.slf4j.Logger;
@@ -38,7 +37,7 @@ abstract public class AConsumerConfig {
         log.debug("kafkaListenerContainerFactory()");
         ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
-        factory.setConcurrency(Settings.HANDLER_COUNT);
+        factory.setConcurrency(Settings2.HANDLER_COUNT);
         factory.getContainerProperties().setPollTimeout(Settings2.getPollTimeout());
         return factory;
     }

@@ -7,7 +7,7 @@ import com.pineone.icbms.so.serviceprocessor.processor.cvo.handler.CvoHandler;
 import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
 import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;
 import com.pineone.icbms.so.serviceutil.state.StateStoreUtil;
-import com.pineone.icbms.so.util.Settings;
+import com.pineone.icbms.so.util.Settings2;
 import com.pineone.icbms.so.util.messagequeue.consumer.AGenericConsumerHandler2;
 import com.pineone.icbms.so.virtualobject.composite.IGenericCompositeVirtualObject;
 
@@ -26,7 +26,7 @@ public class CvoConsumerHandler extends AGenericConsumerHandler2<String, String>
     /**
      * topic list
      */
-    private static final List<String> TOPIC_LIST = Arrays.asList(Settings.TOPIC_COMPOSITE_VIRTUAL_OBJECT);
+    private static final List<String> TOPIC_LIST = Arrays.asList(Settings2.TOPIC_COMPOSITE_VIRTUAL_OBJECT);
 
     /**
      * kafka producer group id by class name.<BR/>
@@ -50,7 +50,7 @@ public class CvoConsumerHandler extends AGenericConsumerHandler2<String, String>
      */
     public CvoConsumerHandler(IDatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
-        Thread.currentThread().setName("T:"+Settings.TOPIC_COMPOSITE_VIRTUAL_OBJECT + "-" +threadNum++);
+        Thread.currentThread().setName("T:"+Settings2.TOPIC_COMPOSITE_VIRTUAL_OBJECT + "-" +threadNum++);
     }
 
     /**

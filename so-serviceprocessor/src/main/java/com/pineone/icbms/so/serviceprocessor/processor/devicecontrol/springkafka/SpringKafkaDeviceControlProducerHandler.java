@@ -1,6 +1,6 @@
 package com.pineone.icbms.so.serviceprocessor.processor.devicecontrol.springkafka;
 
-import com.pineone.icbms.so.util.Settings;
+import com.pineone.icbms.so.util.Settings2;
 import com.pineone.icbms.so.util.spring.springkafka.producer.AProducerHandler;
 import org.springframework.kafka.support.SendResult;
 
@@ -17,7 +17,7 @@ public class SpringKafkaDeviceControlProducerHandler extends AProducerHandler<St
      * @param message value
      */
     public void send(String key, String message) {
-        send(Settings.TOPIC_DEVICE_CONTROL, key, message, this);
+        send(Settings2.TOPIC_DEVICE_CONTROL, key, message, this);
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.pineone.icbms.so.serviceprocessor.processor.virtualobject;
 
-import com.pineone.icbms.so.util.Settings;
+import com.pineone.icbms.so.util.Settings2;
 import com.pineone.icbms.so.serviceprocessor.processor.virtualobject.messagequeue.consumer.VirtualObjectConsumerHandler;
 import com.pineone.icbms.so.serviceutil.interfaces.processor.AGenericProcessor;
 
@@ -38,9 +38,9 @@ public class VirtualObjectProcessor extends AGenericProcessor {
      */
     @Override
     public void process() {
-        ExecutorService executorService = Executors.newFixedThreadPool(Settings.HANDLER_COUNT);
+        ExecutorService executorService = Executors.newFixedThreadPool(Settings2.HANDLER_COUNT);
         List<VirtualObjectConsumerHandler> consumerList = new ArrayList<>();
-        for (int i = 0; i < Settings.HANDLER_COUNT; i++) {
+        for (int i = 0; i < Settings2.HANDLER_COUNT; i++) {
             VirtualObjectConsumerHandler consumer = new VirtualObjectConsumerHandler(i);
             consumerList.add(consumer);
             executorService.submit(consumer);

@@ -7,7 +7,7 @@ import com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.hand
 import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
 import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;
 import com.pineone.icbms.so.serviceutil.state.StateStoreUtil;
-import com.pineone.icbms.so.util.Settings;
+import com.pineone.icbms.so.util.Settings2;
 import com.pineone.icbms.so.util.messagequeue.consumer.AGenericConsumerHandler2;
 import com.pineone.icbms.so.virtualobject.orchestrationservice.IGenericOrchestrationService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -25,7 +25,7 @@ public class OrchestrationServiceConsumerHandler extends AGenericConsumerHandler
     /**
      * topic list
      */
-    private static final List<String> TOPIC_LIST = Arrays.asList(Settings.TOPIC_ORCHESTRATION_SERVICE);
+    private static final List<String> TOPIC_LIST = Arrays.asList(Settings2.TOPIC_ORCHESTRATION_SERVICE);
 
     /**
      * kafka producer group id by class name.<BR/>
@@ -49,7 +49,7 @@ public class OrchestrationServiceConsumerHandler extends AGenericConsumerHandler
      */
     public OrchestrationServiceConsumerHandler(IDatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
-        Thread.currentThread().setName("T:"+Settings.TOPIC_ORCHESTRATION_SERVICE + "-" +threadNum++);
+        Thread.currentThread().setName("T:"+Settings2.TOPIC_ORCHESTRATION_SERVICE + "-" +threadNum++);
     }
 
     /**

@@ -6,7 +6,7 @@ import com.pineone.icbms.so.serviceprocessor.Const;
 import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
 import com.pineone.icbms.so.serviceprocessor.processor.context.handler.ContextModelHandler;
 import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;
-import com.pineone.icbms.so.util.Settings;
+import com.pineone.icbms.so.util.Settings2;
 import com.pineone.icbms.so.util.messagequeue.consumer.AGenericConsumerHandler2;
 import com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextModel;
 import com.pineone.icbms.so.virtualobject.location.IGenericLocation;
@@ -25,7 +25,7 @@ public class ContextModelConsumerHandler extends AGenericConsumerHandler2<String
     /**
      * topic list
      */
-    private static final List<String> TOPIC_LIST = Arrays.asList(Settings.TOPIC_CONTEXT_MODEL);
+    private static final List<String> TOPIC_LIST = Arrays.asList(Settings2.TOPIC_CONTEXT_MODEL);
 
     /**
      * kafka handler group id by class name.<BR/>

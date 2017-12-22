@@ -5,7 +5,7 @@ import com.pineone.icbms.so.interfaces.messagequeue.model.VirtualObjectForMQ;
 import com.pineone.icbms.so.serviceprocessor.processor.virtualobject.handler.VirtualObjectHandler;
 import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
 import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;
-import com.pineone.icbms.so.util.Settings;
+import com.pineone.icbms.so.util.Settings2;
 import com.pineone.icbms.so.util.messagequeue.consumer.AGenericConsumerHandler2;
 import com.pineone.icbms.so.virtualobject.IGenericVirtualObject;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -23,7 +23,7 @@ public class VirtualObjectConsumerHandler extends AGenericConsumerHandler2<Strin
     /**
      * topic list
      */
-    private static final List<String> TOPIC_LIST = Arrays.asList(Settings.TOPIC_VIRTUAL_OBJECT);
+    private static final List<String> TOPIC_LIST = Arrays.asList(Settings2.TOPIC_VIRTUAL_OBJECT);
 
     private static int threadNum = 0;
     
@@ -47,7 +47,7 @@ public class VirtualObjectConsumerHandler extends AGenericConsumerHandler2<Strin
      */
     public VirtualObjectConsumerHandler(IDatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
-        Thread.currentThread().setName("T:"+Settings.TOPIC_VIRTUAL_OBJECT + "-" +threadNum++);
+        Thread.currentThread().setName("T:"+Settings2.TOPIC_VIRTUAL_OBJECT + "-" +threadNum++);
 }
 
     /**

@@ -9,7 +9,7 @@ import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
 import com.pineone.icbms.so.serviceprocessor.processor.AProcessHandler;
 import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;
 import com.pineone.icbms.so.serviceutil.state.StateStoreUtil;
-import com.pineone.icbms.so.util.Settings;
+import com.pineone.icbms.so.util.Settings2;
 import com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler;
 import com.pineone.icbms.so.virtualobject.composite.DefaultCompositeVirtualObject;
 import com.pineone.icbms.so.virtualobject.composite.IGenericCompositeVirtualObject;
@@ -240,7 +240,7 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
      * @return result
      */
     private Future<RecordMetadata> publishToMq(String data) {
-        DefaultProducerHandler producerHandler = new DefaultProducerHandler(0, Settings.TOPIC_COMPOSITE_VIRTUAL_OBJECT);
+        DefaultProducerHandler producerHandler = new DefaultProducerHandler(0, Settings2.TOPIC_COMPOSITE_VIRTUAL_OBJECT);
         Future<RecordMetadata> result = producerHandler.send(data);
         producerHandler.close();
         return result;
