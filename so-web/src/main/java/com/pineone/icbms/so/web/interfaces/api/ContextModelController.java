@@ -205,66 +205,69 @@ public class ContextModelController {
     	String contextModelId = contextModelForIf.getContextId();
     	String occTime = contextModelForIf.getTime();
     	List<ContextModelContent> contents = contextModelForIf.getContextModelContentList();
-		String cmValue = null;
 
     	log.debug("called /cm/occ ContextModelId = {}", contextModelId);
         log.debug("ContextModel = {}", contextModelForIf.toString());
-    	
-    	List<ContextModelContent> contentList = new ArrayList<>();
-    	List<ProfileForDB> profiles;
+
+    	List<ContextModelContent> locationList = new ArrayList<>();
+    	//CM 발생 정보로 부터 location값을 찾는다.
     	for (ContextModelContent content : contents) {
-    		
     		String locationUri = content.getLocationUri();
-    		if (locationUri==null || locationUri.isEmpty())
+    		if (locationUri==null || locationUri.isEmpty()) //Location정보가 없으면 DLI 파라미터 형태
     			continue;
-    		profiles = dataBaseStore.getProfileListByContextModelSidAndLocationUri(contextModelId, locationUri);
+    		//Location정보가 있으면 CM과 location 정보로 정의된 Profile이 있는지 체크
+    		List<ProfileForDB>profiles = dataBaseStore.getProfileListByContextModelSidAndLocationUri(contextModelId, locationUri);
     		if (profiles.size()>0) {
-        		ContextModelContent newContent = new ContextModelContent();
-        		newContent.setLocationUri(content.getLocationUri());
-        		contentList.add(newContent);
+    			ProfileForDB profileForDb = profiles.get(0); //첫번째 Profile
+    	        String parameterType = profileForDb.getParameterType();
+    			if (parameterType==null || parameterType.isEmpty()) { //ParameterType값이 없는 경우에만 Location 정보 이용
+	        		ContextModelContent newContent = new ContextModelContent();
+	        		newContent.setLocationUri(content.getLocationUri());
+	        		locationList.add(newContent);
+    			}
     		}
     	}
     	
-    	if (contentList.size()==0) {
-    		List<ProfileForDB> profileForDbList = dataBaseStore.getProfileListByContextModelSidAndLocationUri(contextModelId, null);
-    		if (profileForDbList!=null && profileForDbList.size()>0) {
+    	String cmValue = null; //CM Paramter 정보
 
-    			ProfileForDB profileForDb = profileForDbList.get(0);
+		//Location정보가 없는 경우 = Parameter Type
+    	if (locationList.size()==0) {
+    		List<ProfileForDB> profileForDbList = dataBaseStore.getProfileListByContextModelSidAndLocationUri(contextModelId, null);
+    		if (profileForDbList!=null && profileForDbList.size()==1) { //응급 CM은 1개만 정의
+    			ProfileForDB profileForDb = profileForDbList.get(0); 
     	        String parameterType = profileForDb.getParameterType();
     	        String profileLocationUri = profileForDb.getLocationUri();
     			
     	        if ("DLI".contains(parameterType)) {
-    	        	//'D', 'L' 이면 location 비교를 안하고 무조건 profile의 실행
+	        		//'D', 'L', 'I' 이면 Parameter 추출
+		            for (ContextModelContent content : contents) {
+		            	String uri;
+		        		String value;
+		            	if (parameterType.equals("D")) {
+		            		uri = content.getDeviceUri();
+		            	} else if (parameterType.equals("L")) {
+		            		uri = content.getLocationUri();
+		            	} else if (parameterType.equals("I")) {
+		            		uri = content.getSid();
+		            	} else
+		            		uri = null;
+		            	
+		            	if (uri==null)
+		            		continue;
+		            	value = uri.substring(uri.lastIndexOf("/")+1,uri.length());
+		            	if (value!=null && !value.isEmpty()) {
+			            	if (cmValue==null)
+			            		cmValue = value;
+			            	else
+			            		cmValue += "|" + value;
+		            	}
+	            	}
+		        	ContextModelContent contextModelContent = new ContextModelContent();
+		        	contextModelContent.setLocationUri(profileLocationUri); //ParameterType을 사용할때에는 location값은 Profile에 정의된 Location사용
+		        	locationList.add(contextModelContent);
 
-    	        		String value;
-
-    		            for (ContextModelContent content : contents) {
-    		            	String uri;
-    		            	if (parameterType.equals("D")) {
-    		            		uri = content.getDeviceUri();
-    		            	} else if (parameterType.equals("L")) {
-    		            		uri = content.getLocationUri();
-    		            	} else if (parameterType.equals("I")) {
-    		            		uri = content.getSid();
-    		            	} else
-    		            		uri = null;
-    		            	
-    		            	if (uri==null)
-    		            		continue;
-    		            	value = uri.substring(uri.lastIndexOf("/")+1,uri.length());
-    		            	if (value!=null && !value.isEmpty()) {
-    			            	if (cmValue==null)
-    			            		cmValue = value;
-    			            	else
-    			            		cmValue += "|" + value;
-    		            	}
-    	            	}
-    		        	ContextModelContent contextModelContent = new ContextModelContent();
-    		        	contextModelContent.setLocationUri(profileLocationUri);
-    		        	contentList.add(contextModelContent);
-
-    		            log.debug("added : cm=[{}], profileLocationUri={}, cmValue={}", contextModelId, profileLocationUri, cmValue);
-    	        	}
+		            log.debug("added : cm=[{}], profileLocationUri={}, cmValue={}", contextModelId, profileLocationUri, cmValue);
+	        	}
     		}
     	}
     	    
@@ -273,7 +276,7 @@ public class ContextModelController {
 	    contextModelForIf2.setId(contextModelId);
 	    contextModelForIf2.setContextId(contextModelId);
 	    contextModelForIf2.setTime(occTime);
-	    contextModelForIf2.setContextModelContentList(contentList);
+	    contextModelForIf2.setContextModelContentList(locationList);
     	contextModelForIf2.setResultCmValue(cmValue);
 
         ContextModelForMQ contextModelForMQ = processContextModel(contextModelForIf2, request);
@@ -283,7 +286,7 @@ public class ContextModelController {
         String sessionId = trackingEntity.getSessionId();
 
         String code;
-        if (contentList.size()>0)
+        if (locationList.size()>0)
         	code = "200";
         else
         	code = "400";
