@@ -65,7 +65,7 @@
     <select id="retrieveSessionData" parameterType="String" resultType="SessionEntity">
         SELECT 
         	  session_data.*
-	        , date_format(create_date,'%a %b %d %I:%i:%s KST %Y') createDate
+	        , date_format(create_date,'%a %b %d %H:%i:%s KST %Y') createDate
         FROM session_data
         WHERE id = #{value}
     </select>
@@ -117,7 +117,7 @@
     <select id="retrieveRecentlySessionList" resultType="SessionEntity">
         SELECT
         	  session_data.*
-	        , date_format(create_date,'%a %b %d %I:%i:%s KST %Y') createDate
+	        , date_format(create_date,'%a %b %d %H:%i:%s KST %Y') createDate
         FROM session_data
         ORDER BY create_date desc limit ${value}
     </select>
