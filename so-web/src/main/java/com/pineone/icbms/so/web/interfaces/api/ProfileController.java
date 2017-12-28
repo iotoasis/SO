@@ -176,7 +176,8 @@ public class ProfileController {
      * @return profile
      */
     @RequestMapping(value = "/schedule", method = RequestMethod.POST)
-    public IGenericProfile callFromSchedulerNew(@RequestBody ProfileTransFormData profileTransFormData, HttpServletRequest request) {
+    //public IGenericProfile callFromSchedulerNew(@RequestBody ProfileTransFormData profileTransFormData, HttpServletRequest request) {
+    public Integer callFromSchedulerNew(@RequestBody ProfileTransFormData profileTransFormData, HttpServletRequest request) {
         
         if (profileTransFormData==null) {
         	contextLog.warn("Input Profile is null");
@@ -283,7 +284,10 @@ public class ProfileController {
         contextModelForIf2.setContextModelContentList(contextModelContentList);
     	processContextModel(contextModelForIf2,request);
 
-        return profile;
+        //return profile;
+    	if (isCmProceed)
+    		return 1;
+    	return 0;
     }
     
     //ContextModel Q에 전달
