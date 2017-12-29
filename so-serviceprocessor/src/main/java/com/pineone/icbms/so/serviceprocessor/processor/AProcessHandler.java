@@ -12,10 +12,14 @@ import org.slf4j.LoggerFactory;
  * Created by uni4love on 2017. 1. 15..
  */
 abstract public class AProcessHandler<T> implements IProcessorHandler<T> {
-    /**
+	
+	final  static String certLogName = "certification"; 
+
+	/**
      * logger
      */
     protected Logger log = LoggerFactory.getLogger(getClass());
+    protected Logger certLog = LoggerFactory.getLogger(certLogName);
 
     /**
      * tracking

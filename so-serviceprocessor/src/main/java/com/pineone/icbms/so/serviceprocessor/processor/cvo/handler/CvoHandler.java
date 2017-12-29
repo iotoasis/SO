@@ -64,6 +64,7 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
         AGenericCompositeVirtualObject compositeVirtualObject = (AGenericCompositeVirtualObject)_compositeVirtualObject;
   
         String cvoType = compositeVirtualObject.getCvoType();
+    	String sessionId = getTracking().getSessionId();
         
 /*
 	CVO_TYPE_DEVICEID		 	0x000000001
@@ -185,11 +186,13 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
 			       	//DeviceId 목록을 가져옴
 			       	deviceList = new SdaManager().getDeviceListByLoc_DeviceType_Aspect_Func(locationUri, physicalDeviceTypeUri, aspectUri, functionalityUri);
 	            	log.info("getDeviceListByLoc_DeviceType_Aspect_Func :\nlocationUri={}\n physicalDeviceTypeUri={}\n aspectUri={}\n functionalityUri={}", locationUri, physicalDeviceTypeUri, aspectUri, functionalityUri );
+	            	certLog.debug("{} : getDeviceListByLoc_DeviceType_Aspect_Func from knowledge base :\nlocationUri={}\n physicalDeviceTypeUri={}\n aspectUri={}\n functionalityUri={}", sessionId, locationUri, physicalDeviceTypeUri, aspectUri, functionalityUri );
 			       	
 		        } else  if (cvoType.equals("CVO_TYPE_ASPECT")) {
 			       	//DeviceId 목록을 가져옴
 			       	deviceList = new SdaManager().getDeviceListByLoc_Aspect_Func(locationUri, aspectUri, functionalityUri);
 	            	log.info("getDeviceListByLoc_Aspect_Func :\nlocationUri={}\n aspectUri={}\n functionalityUri={}", locationUri, aspectUri, functionalityUri );
+	            	certLog.debug("{} : getDeviceListByLoc_Aspect_Func :\\nlocationUri={}\\n aspectUri={}\\n functionalityUri={}", sessionId, locationUri, aspectUri, functionalityUri );
 
 		        } else  if (cvoType.equals("CVO_TYPE_NONEDEVICE")) {
 		        } 
@@ -223,7 +226,7 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
 	
 	        } else {
 
-	        	String sessionId = getTracking().getSessionId();
+	        	//String sessionId = getTracking().getSessionId();
 	        	SessionEntity sessionCvo = databaseManager.getSessionData(sessionId);
 
 	        	String cvoIds=null;
@@ -425,13 +428,4 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
         producerHandler.close();
         return result;
     }
-
-
-
-
-
-
-
-
-
 }
