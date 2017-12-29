@@ -266,4 +266,7 @@ public class DataBaseStore implements IDataBaseStore {
 	public DeviceTypeForDB retrieveDeviceTypeById(String id) {
 		return deviceDao.retrieveDeviceTypeById(id);
 	}
+	public List<CompositeVirtualObjectForDB> getCvoListByGcvoId(String id) {
+		return compositeVirtualObjectDao.retrieveCvoListByGcvoId(id);
+	}
 }

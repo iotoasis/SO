@@ -77,14 +77,41 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
  */
         cvoBaseId = compositeVirtualObject.getBaseCvoId();
 
-/*
         // get CVO list
         // cvoType이 CVO_TYPE_NONEDEVICE 이면 gcvo로 부터 cvo를 읽어와서 cvo별로 cvo 재호출
-        log.debug("getRuleCvoListByOsId : {}", cvoId);
         if (cvoType.equals("CVO_TYPE_NONEDEVICE")) {
-        	List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = databaseManager.getCvoListByGcvoId(cvoId);
+            log.debug("getCvoListByGcvoId : {}", cvoBaseId);
+        	List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = databaseManager.getCvoListByGcvoId(cvoBaseId);
+
+        	String ruleBodyId = compositeVirtualObject.getId();
+        	String locationId = compositeVirtualObject.getLocationId();
+        	
+            List<IGenericCompositeVirtualObject> builtCvoList = new ArrayList<>();
+	        
+	        for (CompositeVirtualObjectForDB gcvoDbItem:compositeVirtualObjectForDBList) {
+
+	        	//String builtCvoId = cvoBaseId + "-" +deviceId.substring(deviceId.lastIndexOf("/")+1,deviceId.length()) + "-CVO";
+	            String cvoId = gcvoDbItem.getId();
+	            
+	        	AGenericCompositeVirtualObject builtCvo = new DefaultCompositeVirtualObject();
+	       		builtCvo.setLocationId(locationId);          //locationId
+	       		builtCvo.setCvoType("CVO_TYPE_ASPECT");      //cvoType
+	       		builtCvo.setBaseCvoId(cvoId);			 	 //cvoBase
+	       		builtCvo.setId(ruleBodyId);					 
+	       		builtCvoList.add(builtCvo);
+	       	}
+        	
+        	//String sessionId = getTracking().getSessionId();
+        	SessionEntity sessionCvo = databaseManager.getSessionData(sessionId);
+
+            //session.setId(getTracking().getSessionId());
+            sessionCvo.setServiceKey(cvoBaseId);
+            databaseManager.updateSessionData(sessionCvo);
+
+            handleCompositeVirtualObjectList(builtCvoList, compositeVirtualObject.getStateStore());
+
+            return;
         }
-*/
 /*        
         base_cvo_id : rule_item의 vo목록이 유효한지 검사에 사용
         	base_cvo_id에 의하여 cvo_vo에서 vo_id를 가져온후 rule_item의 vo_id의 유효성 판단
@@ -192,7 +219,7 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
 			       	//DeviceId 목록을 가져옴
 			       	deviceList = new SdaManager().getDeviceListByLoc_Aspect_Func(locationUri, aspectUri, functionalityUri);
 	            	log.info("getDeviceListByLoc_Aspect_Func :\nlocationUri={}\n aspectUri={}\n functionalityUri={}", locationUri, aspectUri, functionalityUri );
-	            	certLog.debug("{} : getDeviceListByLoc_Aspect_Func :\\nlocationUri={}\\n aspectUri={}\\n functionalityUri={}", sessionId, locationUri, aspectUri, functionalityUri );
+	            	certLog.debug("{} : getDeviceListByLoc_Aspect_Func :\nlocationUri={}\n aspectUri={}\n functionalityUri={}", sessionId, locationUri, aspectUri, functionalityUri );
 
 		        } else  if (cvoType.equals("CVO_TYPE_NONEDEVICE")) {
 		        } 
@@ -385,7 +412,7 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
      */
     private void handleCompositeVirtualObject(IGenericCompositeVirtualObject cvo) {
         // composite virtual object biz.
-        log.debug("cvo : {}", cvo.getId());
+        log.debug("cvo={}, basecvo={}", cvo.getId(), cvo.getBaseCvoId());
         
         //handleVirtualObjectList(cvo.getVirtualObjectList(), cvo.getStateStore());
         publishCompositeVirtualObject(cvo);

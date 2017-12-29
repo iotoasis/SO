@@ -190,5 +190,10 @@ public class DatabaseManager implements IDatabaseManager {
 		return dataBaseStore.retrieveDeviceTypeById(id);
 	}
 
+	@Override
+	public List<CompositeVirtualObjectForDB> getCvoListByGcvoId(String id) {
+		return dataBaseStore.getCvoListByGcvoId(id);
+	}
+
     
 }
