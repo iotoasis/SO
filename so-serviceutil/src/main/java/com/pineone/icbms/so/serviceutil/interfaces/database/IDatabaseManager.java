@@ -60,6 +60,6 @@ public interface IDatabaseManager {
 	List<DeviceTypeForDB> retrieveDeviceType();
 	DeviceTypeForDB retrieveDeviceTypeById(String id);
 
-	List<CompositeVirtualObjectForDB> getCvoListByGcvoId(String cvoBaseId);
+	List<NonDeviceCvoForDB> retrieveNonDeviceCvoList(String nCvoId, String osId);
 
 }

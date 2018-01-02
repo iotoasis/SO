@@ -93,6 +93,8 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
             compositeVirtualObject.setBaseCvoId(rubleBodyItem.getBaseCvoId());
             compositeVirtualObject.setLocationId(rubleBodyItem.getLocationId());
 
+            compositeVirtualObject.setOsId(rubleBodyItem.getOsId());
+
         	cvoList.add(compositeVirtualObject);
         }
 

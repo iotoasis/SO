@@ -22,6 +22,7 @@ public interface IGenericCompositeVirtualObject extends ICompositeVirtualObject<
 	String getDeviceId();
 	String getBaseCvoId();
 	String getLocationId();
+	String getOsId();
 	
 	/**
      * return virtual object list.<BR/>

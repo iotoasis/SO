@@ -57,7 +57,7 @@ public class CompositeVirtualObjectMapper implements IModelMapper<IGenericCompos
             compositeVirtualObject.setDeviceId(compositeVirtualObjectForMQ.getDeviceId());
             compositeVirtualObject.setBaseCvoId(compositeVirtualObjectForMQ.getBaseCvoId());
             compositeVirtualObject.setLocationId(compositeVirtualObjectForMQ.getLocationId());
-            
+            compositeVirtualObject.setOsId(compositeVirtualObjectForMQ.getOsId());
             
             compositeVirtualObject.setDescription((compositeVirtualObjectForMQ.getDescription()));
 //            compositeVirtualObject.setAspect(aspectMapper.toProcessorModelFromMq(compositeVirtualObjectForMQ.getAspect()));
@@ -132,6 +132,7 @@ public class CompositeVirtualObjectMapper implements IModelMapper<IGenericCompos
             
             compositeVirtualObjectForMQ.setBaseCvoId(compositeVirtualObject.getBaseCvoId());
             compositeVirtualObjectForMQ.setLocationId(compositeVirtualObject.getLocationId());
+            compositeVirtualObjectForMQ.setOsId(compositeVirtualObject.getOsId());
             
             //virtual object
             compositeVirtualObjectForMQ.setVirtualObjectList(virtualObjectMapper.toVirtualObjectForMQList(compositeVirtualObject.getVirtualObjectList()));

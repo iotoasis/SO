@@ -191,9 +191,8 @@ public class DatabaseManager implements IDatabaseManager {
 	}
 
 	@Override
-	public List<CompositeVirtualObjectForDB> getCvoListByGcvoId(String id) {
-		return dataBaseStore.getCvoListByGcvoId(id);
+	public List<NonDeviceCvoForDB> retrieveNonDeviceCvoList(String nCvoId, String osId) {
+		return dataBaseStore.retrieveNonDeviceCvoList(nCvoId, osId);
 	}
-
-    
+   
 }

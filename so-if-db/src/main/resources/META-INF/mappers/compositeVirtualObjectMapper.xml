@@ -13,6 +13,7 @@
             , RB.device_id
             , RB.base_cvo_id
             , RB.location_id
+            , RB.os_id
             , C.created_date
             , C.modified_date
         FROM
@@ -26,6 +27,7 @@
         SELECT
               RB.id
             , RB.cvo_type
+            , RB.os_id
             , RB.physical_device_type_id
             , RB.device_id
             , RB.base_cvo_id
@@ -36,18 +38,14 @@
             RB.os_id = #{value}
     </select>
 
-    <select id="retrieveCvoListByGcvoId" parameterType="String" resultType="CompositeVirtualObjectForDB">
+    <select id="retrieveNonDeviceCvoList" parameterType="HashMap" resultType="NonDeviceCvoForDB">
         SELECT
-              C.id
-            , C.name
-            , C.description
-            , C.created_date
-            , C.modified_date
-        FROM
-            gcvo GC, composite_virtual_object C
+              RB.*, NC.noncvo_id nonCvoId, NC.os_id orgOsId
+        FROM noncvo NC
+        LEFT JOIN rule_body RB ON RB.id = NC.rule_body_id
         WHERE
-            GC.gcvo_id = #{value}
-            AND GC.cvo_id = C.id
+            NC.noncvo_id = #{nonCvoId}
+            AND NC.os_id = #{osId}
     </select>
 
 

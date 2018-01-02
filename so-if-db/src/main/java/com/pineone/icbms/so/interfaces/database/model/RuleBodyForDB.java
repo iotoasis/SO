@@ -17,6 +17,9 @@ public class RuleBodyForDB{
     private String baseCvoId; //rule_body.base_cvo_id
 
     @Getter @Setter
+    private String osId;
+
+    @Getter @Setter
     private String physicalDeviceTypeId;
     
     @Getter @Setter

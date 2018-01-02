@@ -24,7 +24,7 @@ abstract public class AGenericCompositeVirtualObject extends AGenericServiceEnti
 
 	private String baseCvoId;
 	private String locationId;
-
+	private String osId;
 
 	@Override
 	public String getPhysicalDeviceTypeId() {
@@ -68,6 +68,14 @@ abstract public class AGenericCompositeVirtualObject extends AGenericServiceEnti
 
 	public void setCvoType(String cvoType) {
 		this.cvoType = cvoType;
+	}
+
+	public String getOsId() {
+		return osId;
+	}
+
+	public void setOsId(String osId) {
+		this.osId = osId;
 	}
 
 	/**

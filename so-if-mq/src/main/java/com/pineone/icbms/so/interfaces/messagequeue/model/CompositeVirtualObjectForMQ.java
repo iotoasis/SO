@@ -24,6 +24,7 @@ public class CompositeVirtualObjectForMQ extends ACommonForMQ {
 	
 	@Getter @Setter private String baseCvoId;
 	@Getter @Setter private String locationId;
+	@Getter @Setter private String osId;
 
 	/**
      * function

@@ -2,11 +2,8 @@ package com.pineone.icbms.so.interfaces.database.model;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.pineone.icbms.so.interfaces.database.model.CommonEntity;
-import com.pineone.icbms.so.util.time.DateFormat;
 import lombok.*;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,6 +31,9 @@ public class CompositeVirtualObjectForDB extends CommonEntity {
 
     @Getter @Setter
     private String locationId;  //rule_body
+
+    @Getter @Setter
+    private String osId;
     
     @Getter @Setter
     private List<VirtualObjectForDB> virtualObjectForDBList;

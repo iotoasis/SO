@@ -4,6 +4,7 @@ import com.pineone.icbms.so.interfaces.database.model.CompositeVirtualObjectForD
 import com.pineone.icbms.so.interfaces.database.model.DeviceTypeForDB;
 import com.pineone.icbms.so.interfaces.database.model.FunctionalityForDB;
 import com.pineone.icbms.so.interfaces.database.model.LocationForDB;
+import com.pineone.icbms.so.interfaces.database.model.NonDeviceCvoForDB;
 import com.pineone.icbms.so.interfaces.database.model.RuleItemForDB;
 import com.pineone.icbms.so.interfaces.database.model.SessionEntity;
 import com.pineone.icbms.so.interfaces.database.model.VirtualObjectForDB;
@@ -80,32 +81,54 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
         // get CVO list
         // cvoType이 CVO_TYPE_NONEDEVICE 이면 gcvo로 부터 cvo를 읽어와서 cvo별로 cvo 재호출
         if (cvoType.equals("CVO_TYPE_NONEDEVICE")) {
-            log.debug("getCvoListByGcvoId : {}", cvoBaseId);
-        	List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = databaseManager.getCvoListByGcvoId(cvoBaseId);
+        	String osId = compositeVirtualObject.getOsId();
+        	log.debug("retrieveNonDeviceCvoList : {}, {}", cvoBaseId, osId);
+        	List<NonDeviceCvoForDB> compositeVirtualObjectForDBList = databaseManager.retrieveNonDeviceCvoList(cvoBaseId, osId);
 
         	String ruleBodyId = compositeVirtualObject.getId();
         	String locationId = compositeVirtualObject.getLocationId();
         	
-            List<IGenericCompositeVirtualObject> builtCvoList = new ArrayList<>();
+        	//String sessionId = getTracking().getSessionId();
+        	String cvoIds = null;
+
+        	List<IGenericCompositeVirtualObject> builtCvoList = new ArrayList<>();
 	        
-	        for (CompositeVirtualObjectForDB gcvoDbItem:compositeVirtualObjectForDBList) {
+	        for (NonDeviceCvoForDB gcvoDbItem:compositeVirtualObjectForDBList) {
 
 	        	//String builtCvoId = cvoBaseId + "-" +deviceId.substring(deviceId.lastIndexOf("/")+1,deviceId.length()) + "-CVO";
 	            String cvoId = gcvoDbItem.getId();
+	            if (cvoIds==null)
+	            	cvoIds = gcvoDbItem.getBaseCvoId();
+	            else
+	            	cvoIds = cvoIds +","+ gcvoDbItem.getBaseCvoId();
 	            
 	        	AGenericCompositeVirtualObject builtCvo = new DefaultCompositeVirtualObject();
-	       		builtCvo.setLocationId(locationId);          //locationId
+/*
+	        	builtCvo.setLocationId(locationId);          //locationId
 	       		builtCvo.setCvoType("CVO_TYPE_ASPECT");      //cvoType
 	       		builtCvo.setBaseCvoId(cvoId);			 	 //cvoBase
 	       		builtCvo.setId(ruleBodyId);					 
-	       		builtCvoList.add(builtCvo);
-	       	}
-        	
-        	//String sessionId = getTracking().getSessionId();
-        	SessionEntity sessionCvo = databaseManager.getSessionData(sessionId);
+*/
+	        	builtCvo.setId(cvoId);
+	        	//builtCvo.setName(gcvoDbItem.getId());
+	        	builtCvo.setBaseCvoId(gcvoDbItem.getBaseCvoId());
+	        	builtCvo.setCvoType(gcvoDbItem.getCvoType());
+	        	builtCvo.setDeviceId(gcvoDbItem.getDeviceId());
+	        	builtCvo.setLocationId(gcvoDbItem.getLocationId());
+	        	builtCvo.setPhysicalDeviceTypeId(gcvoDbItem.getPhysicalDeviceTypeId());
+	        	builtCvo.setOsId(gcvoDbItem.getOrgOsId());
 
-            //session.setId(getTracking().getSessionId());
-            sessionCvo.setServiceKey(cvoBaseId);
+	        	builtCvoList.add(builtCvo);
+	       	}
+
+
+	        cvoIds = "[" + cvoIds + "]";
+        	SessionEntity sessionCvo = databaseManager.getSessionData(sessionId);
+        	String prevServiceKey = sessionCvo.getServiceKey();
+        	if (prevServiceKey!=null)
+        		cvoIds = prevServiceKey + "," + cvoIds;
+
+	        sessionCvo.setServiceKey(cvoIds);
             databaseManager.updateSessionData(sessionCvo);
 
             handleCompositeVirtualObjectList(builtCvoList, compositeVirtualObject.getStateStore());
