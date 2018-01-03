@@ -118,7 +118,7 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
             
         	handleCompositeVirtualObjectList(cvoList, orchestrationService.getStateStore());
         } else {
-        	// cvo 목록이 없는 경우 vo로 지정되어 있는지 확인한다.
+        	// cvo 목록이 없는 경우에 Happend처리
         	
         	SessionEntity sessionCm = new SessionEntity();
             sessionCm.setId(getTracking().getSessionId());
