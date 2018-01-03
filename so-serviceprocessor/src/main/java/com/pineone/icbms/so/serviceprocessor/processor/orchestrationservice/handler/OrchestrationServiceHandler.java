@@ -123,7 +123,7 @@ public class OrchestrationServiceHandler extends AProcessHandler<IGenericOrchest
         	SessionEntity sessionCm = new SessionEntity();
             sessionCm.setId(getTracking().getSessionId());
             sessionCm.setContextmodelResult("Happen"); //Session Data는 완료 처리
-            databaseManager.updateSessionData(sessionOs);
+            databaseManager.updateSessionData(sessionCm);
         }
     }
 
