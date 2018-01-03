@@ -256,7 +256,7 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
 	        //cvoIdList.add(cvoBaseId);
 	        
 	        for (String deviceId:deviceList) {
-	            String builtCvoId = cvoBaseId + "-" +deviceId.substring(deviceId.lastIndexOf("/")+1,deviceId.length()) + "-CVO";
+	            String builtCvoId = /*cvoBaseId + "-" +*/ deviceId.substring(deviceId.lastIndexOf("/")+1,deviceId.length()) + "-CVO";
 	            
 	        	AGenericCompositeVirtualObject builtCvo = new DefaultCompositeVirtualObject();
 	       		builtCvo.setDeviceId(deviceId);              //DeviceId
