@@ -198,12 +198,16 @@ public class ProfileController {
         //Context Info
         IGenericContextModel contextModel = profile.getContextModel();
         if (contextModel == null) {
-        	contextLog.warn( "contextModel is null");
+        	contextLog.warn( "contextModel is null in profile table");
         	return null;
         }
 
         String contextModelId = contextModel.getId();
         ContextModelForDB cm = databaseManager.getContextModelById(contextModelId);
+        if (cm==null) {
+        	contextLog.warn( "contextModelId is not exist in context_model table");
+        	return null;
+        }
         String contextModelName = cm.getName();
 
         String parameterType = profileForDb.getParameterType();

@@ -57,8 +57,8 @@ public class VirtualObjectMapper implements IModelMapper<IGenericVirtualObject, 
             virtualObject.setFunction(function);
             
             virtualObject.setDeviceId(virtualObjectForMQ.getDeviceId());;
-            virtualObject.setVoValeType(virtualObjectForMQ.getVoValueType());
-            virtualObject.setVoVale(virtualObjectForMQ.getVoValue());
+            virtualObject.setVoValueType(virtualObjectForMQ.getVoValueType());
+            virtualObject.setVoValue(virtualObjectForMQ.getVoValue());
             virtualObject.setIsLast(virtualObjectForMQ.getIsLast());
             
             StateStoreUtil.copyStateStore(virtualObjectForMQ.getStateStore(), virtualObject);
@@ -84,8 +84,8 @@ public class VirtualObjectMapper implements IModelMapper<IGenericVirtualObject, 
             virtualObject.setAspect(aspectMapper.toProcessorModelFromDb("",virtualObjectForDB.getAspectUri()));
             virtualObject.setFunction(functionalityMapper.toProcessorModelFromDb(virtualObjectForDB.getFunctionalityId(), virtualObjectForDB.getFunctionalityUri()));
 
-            virtualObject.setVoValeType(virtualObjectForDB.getVoValueType());
-            virtualObject.setVoVale(virtualObjectForDB.getVoValue());
+            virtualObject.setVoValueType(virtualObjectForDB.getVoValueType());
+            virtualObject.setVoValue(virtualObjectForDB.getVoValue());
         
         }
         return virtualObject;
@@ -111,8 +111,8 @@ public class VirtualObjectMapper implements IModelMapper<IGenericVirtualObject, 
             virtualObjectForMQ.setFunction(functionForMQ);
             
             virtualObjectForMQ.setDeviceId(virtualObject.getDeviceId());
-            virtualObjectForMQ.setVoValueType(virtualObject.getVoValeType());
-            virtualObjectForMQ.setVoValue(virtualObject.getVoVale());
+            virtualObjectForMQ.setVoValueType(virtualObject.getVoValueType());
+            virtualObjectForMQ.setVoValue(virtualObject.getVoValue());
 
             virtualObjectForMQ.setIsLast(virtualObject.getIsLast());
             

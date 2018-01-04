@@ -23,8 +23,8 @@ abstract public class AGenericVirtualObject extends AGenericServiceEntity
     protected IGenericAspect aspect;
 
     protected String deviceId;
-    protected String voValeType;
-    protected String voVale;
+    protected String voValueType;
+    protected String voValue;
     protected String isLast;
     
     /**
@@ -94,21 +94,21 @@ abstract public class AGenericVirtualObject extends AGenericServiceEntity
 	}
 
 	@Override
-	public String getVoValeType() {
-		return voValeType;
+	public String getVoValueType() {
+		return voValueType;
 	}
 
-    public void setVoValeType(String voValeType) {
-		this.voValeType = voValeType;
+    public void setVoValueType(String voValueType) {
+		this.voValueType = voValueType;
 	}
 	
 	@Override
-	public String getVoVale() {
-		return voVale;
+	public String getVoValue() {
+		return voValue;
 	}
 
-	public void setVoVale(String voVale) {
-		this.voVale = voVale;
+	public void setVoValue(String voValue) {
+		this.voValue = voValue;
 	}
 	
     public String getIsLast() {

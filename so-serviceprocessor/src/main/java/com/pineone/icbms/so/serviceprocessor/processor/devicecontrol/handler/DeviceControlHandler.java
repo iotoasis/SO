@@ -95,7 +95,7 @@ public class DeviceControlHandler extends AProcessHandler {
         String deviceId = virtualDevice.getDeviceId();
         String aspectUri = virtualDevice.getAspect().getUri();
         String functionUri = virtualDevice.getFunction().getUri();
-        String controlValue = virtualDevice.getVoVale();
+        String controlValue = virtualDevice.getVoValue();
 
         // cm-dd-aspect-action-value (id, aspect, functionality) 을 이용한 aspect Value 조회
         log.debug("getAspectValueById_Aspect_Function: deviceId={}, aspectUri={}, functionUri={}", deviceId, aspectUri, functionUri);

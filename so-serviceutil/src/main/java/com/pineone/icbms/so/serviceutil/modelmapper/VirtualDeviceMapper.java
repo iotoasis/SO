@@ -69,7 +69,7 @@ public class VirtualDeviceMapper implements IModelMapper<IGenericVirtualDevice, 
             
             AGenericVirtualObject virtualObject = (AGenericVirtualObject)virtualDevice;
             virtualObject.setDeviceId(deviceControlForMQ.getDeviceId());
-            virtualObject.setVoVale(deviceControlForMQ.getVoValue());
+            virtualObject.setVoValue(deviceControlForMQ.getVoValue());
             
         }
         return virtualDevice;
@@ -120,7 +120,7 @@ public class VirtualDeviceMapper implements IModelMapper<IGenericVirtualDevice, 
             deviceControlForMQ.setAspect(aspectMapper.toMqModelFromPs(virtualDevice.getAspect()));
             
             deviceControlForMQ.setDeviceId(virtualDevice.getDeviceId());
-            deviceControlForMQ.setVoValue(virtualDevice.getVoVale());
+            deviceControlForMQ.setVoValue(virtualDevice.getVoValue());
             
             StateStoreUtil.copyStateStore(virtualDevice.getStateStore(), deviceControlForMQ);
 
