@@ -51,7 +51,7 @@ public class VirtualObjectHandler extends AProcessHandler<IGenericVirtualObject>
             IGenericAspect aspect = virtualObject.getAspect();
             
             String deviceId = virtualObject.getDeviceId();
-            String valueType = virtualObject.getVoValeType();
+            String valueType = virtualObject.getVoValueType();
             String aspectUri = aspect.getUri();
             String isLast = virtualObject.getIsLast();
 
@@ -63,24 +63,27 @@ public class VirtualObjectHandler extends AProcessHandler<IGenericVirtualObject>
 
             	try {
             		log.info("getCommandValueById_Aspect_Command : \ndeviceId={}\n aspectUri={}\n valueType={}", deviceId, aspectUri, valueType );
-            		value = new SdaManager().getCommandValueById_Aspect_Command(deviceId, aspectUri, valueType);
+            		String rvalue = new SdaManager().getCommandValueById_Aspect_Command(deviceId, aspectUri, valueType);
 		            if (valueType.equals("SET")) {
 		            	//min,max 체크
-		            	String[] rangeValues = value.split("~");
+		            	String[] rangeValues = rvalue.split("~");
 		            	Integer min = Integer.valueOf(rangeValues[0]);
 		            	Integer max = Integer.valueOf(rangeValues[1]);
+		            	
+		            	value = virtualObject.getVoValue();
 		            	Integer checkV = Integer.valueOf(value);
 		            	if (checkV<min || max<checkV) {
 		            		log.warn("Invalid command value:range="+ value);
 		            		return;
 		            	}
-		            } else { 
+		            } else {
 		            	if (valueType.equals("ON") || valueType.equals("OFF")) {
 		            		
 			            } else {//if (valueType.equals("GET")) 
 			            	log.warn("This command is not supportted");
 			            	return;
 			            }
+		            	value = rvalue;
 		        	}
 	            } catch(Exception e){
 	            	log.error("Error:msg={}", e.getMessage());
@@ -93,7 +96,7 @@ public class VirtualObjectHandler extends AProcessHandler<IGenericVirtualObject>
             
             virtualDevice.setId(deviceId);
             virtualDevice.setDeviceId(deviceId);
-            virtualDevice.setVoVale(value);
+            virtualDevice.setVoValue(value);
             virtualDevice.setAspect(aspect);
             virtualDevice.setFunction(function);
             defaultVirtualDevice.setIsLast(isLast);

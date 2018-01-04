@@ -27,8 +27,8 @@ public interface IGenericVirtualObject
     IGenericAspect getAspect();
     
     String getDeviceId();
-    String getVoValeType();
-    String getVoVale();
+    String getVoValueType();
+    String getVoValue();
 
     String getIsLast();
     void setIsLast(String isLast);
