@@ -67,11 +67,12 @@ public class VirtualObjectHandler extends AProcessHandler<IGenericVirtualObject>
 		            if (valueType.equals("SET")) {
 		            	//min,max 체크
 		            	String[] rangeValues = rvalue.split("~");
-		            	Integer min = Integer.valueOf(rangeValues[0]);
-		            	Integer max = Integer.valueOf(rangeValues[1]);
+		            	
+		            	Integer min = numStringToInt(rangeValues[0]);
+		            	Integer max = numStringToInt(rangeValues[1]);
 		            	
 		            	value = virtualObject.getVoValue();
-		            	Integer checkV = Integer.valueOf(value);
+		            	Integer checkV = numStringToInt(value);
 		            	if (checkV<min || max<checkV) {
 		            		log.warn("Invalid command value:range="+ value);
 		            		return;
@@ -157,5 +158,20 @@ public class VirtualObjectHandler extends AProcessHandler<IGenericVirtualObject>
         Future<RecordMetadata> result = producerHandler.send(data);
         producerHandler.close();
         return result;
+    }
+    
+    private Integer numStringToInt(String str) {
+    	Integer r=null;
+    	try {
+	    	if (str.startsWith("0x")) { //16진수
+	    		r = Integer.parseInt(str.substring(2), 16); //0x제거후 10진 변환
+	    	} else {
+	    		r = Integer.parseInt(str);
+	    	}
+    	} catch (NumberFormatException e) {
+			r = null;
+		}
+    	
+    	return r;
     }
 }
