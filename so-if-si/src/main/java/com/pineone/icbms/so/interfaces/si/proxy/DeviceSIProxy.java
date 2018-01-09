@@ -87,7 +87,7 @@ public class DeviceSIProxy implements DeviceControlProxy {
         try {
         	if (response==null) {
         		resultMessage.setCode(ClientProfile.RESPONSE_FAILURE_CODE);
-    			resultMessage.setMessage("RESPONSE_FIALURE");
+    			resultMessage.setMessage("RESPONSE_FAILURE");
         	}
         	else {
         		resultMessage = mapper.readValue(response, ResultMessage.class);
