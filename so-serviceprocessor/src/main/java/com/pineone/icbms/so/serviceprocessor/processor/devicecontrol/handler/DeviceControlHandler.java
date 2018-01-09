@@ -143,14 +143,19 @@ public class DeviceControlHandler extends AProcessHandler {
             databaseManager.createSessionDataDevice(sessionDevice);
             
             if (getTracking().getSimulatorType() == null || "".equals(getTracking().getSimulatorType())) {
-            	SessionEntity session = new SessionEntity();
-            	session.setId(getTracking().getSessionId());
-            	session.setDeviceResult("CONTROL_EXECUTION");
-            	databaseManager.updateSessionData(session);
 
                 // 실제 디바이스 실행
                 //control device : SI와 통신
-                controlDevice(virtualDevice, aspectValue, controlValue);
+                boolean  r = controlDevice(virtualDevice, aspectValue, controlValue);
+            	SessionEntity session = new SessionEntity();
+            	session.setId(getTracking().getSessionId());
+                if (r) {
+                	session.setDeviceResult("CONTROL_EXECUTION");
+                }else {
+                	session.setDeviceResult("CONTROL_FAILURE");
+                }
+
+                databaseManager.updateSessionData(session);
             }
             else {
             	// 시뮬레이션 : 실제 제어는 하지 않고 로그만 출력함
@@ -203,7 +208,7 @@ public class DeviceControlHandler extends AProcessHandler {
      * @param virtualDevice      control device
      * @param deviceControlValue device control value
      */
-    private void controlDevice(IGenericVirtualDevice virtualDevice, String aspect, String deviceControlValue) {
+    private boolean controlDevice(IGenericVirtualDevice virtualDevice, String aspect, String deviceControlValue) {
 
         getTracking().setProcessMethod(new Object(){}.getClass().getEnclosingMethod().getName());
         String deviceId = virtualDevice.getDeviceId();
@@ -212,6 +217,8 @@ public class DeviceControlHandler extends AProcessHandler {
         final String removeStr = "http://www.iotoasis.org";
         deviceId = deviceId.replace(removeStr, "");
         
+        boolean resultControl = false;
+
         try {
             String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
 
@@ -224,7 +231,6 @@ public class DeviceControlHandler extends AProcessHandler {
             getTracking().setProcessId(deviceId);//resultMessage.getCode());
             getTracking().setProcessValue(deviceControlValue);
 
-            boolean resultControl = false;
             // 정상응답이 아닌경우
             if (!ClientProfile.RESPONSE_SUCCESS_ONEM2MCODE.equals(resultMessage.getCode())) {
                 getTracking().setProcessName("Response ERROR");
@@ -257,5 +263,6 @@ public class DeviceControlHandler extends AProcessHandler {
             getTracking().setProcessResult(e.getMessage());
             TrackingProducer.send(getTracking());
         }
+        return resultControl;
     }
 }

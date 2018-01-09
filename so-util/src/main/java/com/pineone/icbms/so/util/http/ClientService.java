@@ -27,7 +27,8 @@ import java.util.HashMap;
 public class ClientService
 {
 	public static final int DATA_TIMEOUT_VALUE = 90000;
-
+	public static final int TIMEOUT_VALUE = 2000;
+	
 	private final Logger log = LoggerFactory.getLogger(ClientService.class);
 
 	/**
@@ -186,7 +187,10 @@ public class ClientService
 		try {
 			URL url = new URL(uri);
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-			
+
+			conn.setConnectTimeout(TIMEOUT_VALUE);
+			conn.setReadTimeout(TIMEOUT_VALUE);
+
 			conn.setRequestMethod("POST"); 	// 전달 방식을 설정한다. POST or GET, 기본값은 GET 이다.
 			conn.setDoInput(true);  		// 서버로부터 메세지를 받을 수 있도록 한다. 기본값은 true이다.
 			conn.setDoOutput(true);			// 서버로 데이터를 전송할 수 있도록 한다. GET방식이면 사용될 일이 없으나, true로 설정하면 자동으로 POST로 설정된다. 기본값은 false이다.
@@ -213,8 +217,8 @@ public class ClientService
 		    log.info("response=[{}]", responseString);
 		} catch (ConnectException e) {
 		    log.error("#### Error ConnectException: uri=[{}]", uri);
-		} catch (IOException e) {
-		    log.error("#### IOException: uri=[{}, response=[{}]", uri, responseString);
+		} catch (Exception e) {
+		    log.error("#### Exception: uri=[{}, response=[{}]", uri, responseString);
 		}
 		return responseString;	
 	}
