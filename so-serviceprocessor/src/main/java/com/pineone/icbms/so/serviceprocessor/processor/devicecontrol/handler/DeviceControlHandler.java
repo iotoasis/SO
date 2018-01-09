@@ -2,7 +2,6 @@ package com.pineone.icbms.so.serviceprocessor.processor.devicecontrol.handler;
 
 import com.pineone.icbms.so.devicecontrol.model.virtualdevice.DeviceControlValue;
 import com.pineone.icbms.so.devicecontrol.model.virtualdevice.driver.IGenericDeviceDriver;
-import com.pineone.icbms.so.interfaces.database.model.DeviceControlForDB;
 import com.pineone.icbms.so.interfaces.database.model.SessionEntity;
 import com.pineone.icbms.so.interfaces.messagequeue.producer.tracking.TrackingProducer;
 import com.pineone.icbms.so.interfaces.sda.handle.SdaManager;
@@ -72,6 +71,8 @@ public class DeviceControlHandler extends AProcessHandler {
         getTracking().setProcess(getClass().getSimpleName());
         getTracking().setProcessMethod(new Object(){}.getClass().getEnclosingMethod().getName());
 
+        String sessionId = getTracking().getSessionId();
+
         // get DeviceDriver from sda by virtual object features
         // retrieve device list
 //        SdaClient sdaClient = new SdaClient();
@@ -128,42 +129,45 @@ public class DeviceControlHandler extends AProcessHandler {
 /*
                 // grib session location
                 SessionEntity session = new SessionEntity();
-                session.setId(getTracking().getSessionId());
+                session.setId(sessionId);
                 session.setContextmodelResult("Happen"); //Session Data 완료 처리
                 databaseManager.updateSessionData(session);
 */
             }
 
-            // grib session device
-            SessionEntity sessionDevice = new SessionEntity();
-            sessionDevice.setId(getTracking().getSessionId());
-            sessionDevice.setDeviceKey(deviceId);
-            sessionDevice.setDeviceLocation(loc);
-            log.debug("session device : {}", sessionDevice);
-            databaseManager.createSessionDataDevice(sessionDevice);
             
             if (getTracking().getSimulatorType() == null || "".equals(getTracking().getSimulatorType())) {
 
+            	SessionEntity sessionPrev = databaseManager.getSessionData(sessionId);
+            	String deviceResult = sessionPrev.getDeviceResult();
+            	if (deviceResult==null)
+            		deviceResult = "";
+            	
                 // 실제 디바이스 실행
                 //control device : SI와 통신
                 boolean  r = controlDevice(virtualDevice, aspectValue, controlValue);
             	SessionEntity session = new SessionEntity();
-            	session.setId(getTracking().getSessionId());
+            	session.setId(sessionId);
                 if (r) {
-                	session.setDeviceResult("CONTROL_EXECUTION");
+                	if (!deviceResult.equals(SessionEntity.CONTROL_FAILURE)) {
+                		session.setDeviceResult(SessionEntity.CONTROL_EXECUTION);
+                        databaseManager.updateSessionData(session);
+                	}
                 }else {
-                	session.setDeviceResult("CONTROL_FAILURE");
+                	if (!deviceResult.equals(SessionEntity.CONTROL_FAILURE)) {
+                		session.setDeviceResult(SessionEntity.CONTROL_FAILURE);
+                        databaseManager.updateSessionData(session);
+                	}
                 }
 
-                databaseManager.updateSessionData(session);
             }
             else {
             	// 시뮬레이션 : 실제 제어는 하지 않고 로그만 출력함
             	
             	//Session Data
             	SessionEntity session = new SessionEntity();
-            	session.setId(getTracking().getSessionId());
-            	session.setDeviceResult("SIMULATEL_EXECUTION");
+            	session.setId(sessionId);
+            	session.setDeviceResult(SessionEntity.SIMULATEL_EXECUTION);
             	databaseManager.updateSessionData(session);
 
             	//Tracking Log
@@ -173,6 +177,14 @@ public class DeviceControlHandler extends AProcessHandler {
                 getTracking().setProcessValue(controlValue);
                 TrackingProducer.send(getTracking());
             }
+
+            // grib session device
+            SessionEntity sessionDevice = new SessionEntity();
+            sessionDevice.setId(sessionId);
+            sessionDevice.setDeviceKey(deviceId);
+            sessionDevice.setDeviceLocation(loc);
+            log.debug("session device : {}", sessionDevice);
+            databaseManager.createSessionDataDevice(sessionDevice);
         }
         else
         {
@@ -214,8 +226,7 @@ public class DeviceControlHandler extends AProcessHandler {
         String deviceId = virtualDevice.getDeviceId();
 
         //Device Uri중에서 "http://www.iotoasis.org" 문자열 제외하고 si로 전달
-        final String removeStr = "http://www.iotoasis.org";
-        deviceId = deviceId.replace(removeStr, "");
+        deviceId = deviceId.replace(ClientProfile.IOT_OASIS_DOMAIN_NAME, ""); //"http://www.iotoasis.org" 삭제
         
         boolean resultControl = false;
 
@@ -233,7 +244,7 @@ public class DeviceControlHandler extends AProcessHandler {
 
             // 정상응답이 아닌경우
             if (!ClientProfile.RESPONSE_SUCCESS_ONEM2MCODE.equals(resultMessage.getCode())) {
-                getTracking().setProcessName("Response ERROR");
+                getTracking().setProcessName(SessionEntity.RESPONSE_ERROR);
                 getTracking().setProcessResult(resultMessage.getMessage());
                 log.error("Response ERROR: code={}, msg={}", resultMessage.getCode(), resultMessage.getMessage());
             } else {
@@ -250,7 +261,7 @@ public class DeviceControlHandler extends AProcessHandler {
 	                // grib session location
 	                SessionEntity session = new SessionEntity();
 	                session.setId(getTracking().getSessionId());
-	                session.setContextmodelResult("Happen"); //Session Data 완료 처리
+	                session.setContextmodelResult(SessionEntity.HAPPEN); //Session Data 완료 처리
 	                databaseManager.updateSessionData(session);
             	}
             	log.debug("===========end==============");
@@ -259,7 +270,7 @@ public class DeviceControlHandler extends AProcessHandler {
         } catch (Exception e) {
             e.printStackTrace();
             getTracking().setProcessId(deviceId);
-            getTracking().setProcessName("Exception");
+            getTracking().setProcessName(SessionEntity.EXCEPTION);
             getTracking().setProcessResult(e.getMessage());
             TrackingProducer.send(getTracking());
         }

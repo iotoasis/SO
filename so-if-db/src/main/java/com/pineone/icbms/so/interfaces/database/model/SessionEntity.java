@@ -92,4 +92,14 @@ public class SessionEntity implements Serializable {
     @Getter @Setter
     @JsonProperty("DEVICE_RESULT")
     private String deviceResult;            //": "CONTROL_EXECUTION"
+
+    public static final String CONTROL_FAILURE   ="CONTROL_FAILURE";
+	public static final String CONTROL_EXECUTION = "CONTROL_EXECUTION";
+
+	public static final String SIMULATEL_EXECUTION = "SIMULATEL_EXECUTION";
+
+	public static final String HAPPEN = "Happen";
+	public static final String RESPONSE_ERROR = "Response ERROR";
+	public static final String EXCEPTION = "Exception";
+
 }
