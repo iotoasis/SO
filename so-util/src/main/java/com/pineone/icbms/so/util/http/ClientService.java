@@ -27,7 +27,9 @@ import java.util.HashMap;
 public class ClientService
 {
 	public static final int DATA_TIMEOUT_VALUE = 90000;
-	public static final int TIMEOUT_VALUE = 2000;
+
+	public static final int CONNECTION_TIMEOUT_VALUE = 2000; // 연결
+	public static final int READ_TIMEOUT_VALUE = 5000;       // 읽기
 	
 	private final Logger log = LoggerFactory.getLogger(ClientService.class);
 
@@ -188,8 +190,8 @@ public class ClientService
 			URL url = new URL(uri);
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 
-			conn.setConnectTimeout(TIMEOUT_VALUE);
-			conn.setReadTimeout(TIMEOUT_VALUE);
+			conn.setConnectTimeout(CONNECTION_TIMEOUT_VALUE);
+			conn.setReadTimeout(READ_TIMEOUT_VALUE);
 
 			conn.setRequestMethod("POST"); 	// 전달 방식을 설정한다. POST or GET, 기본값은 GET 이다.
 			conn.setDoInput(true);  		// 서버로부터 메세지를 받을 수 있도록 한다. 기본값은 true이다.
