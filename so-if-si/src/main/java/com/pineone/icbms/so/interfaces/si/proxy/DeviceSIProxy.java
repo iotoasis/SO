@@ -86,7 +86,7 @@ public class DeviceSIProxy implements DeviceControlProxy {
         ResultMessage resultMessage = new ResultMessage();
         try {
         	if (response==null) {
-        		resultMessage.setCode(ClientProfile.RESPONSE_FIALURE_CODE);
+        		resultMessage.setCode(ClientProfile.RESPONSE_FAILURE_CODE);
     			resultMessage.setMessage("RESPONSE_FIALURE");
         	}
         	else {
@@ -94,7 +94,7 @@ public class DeviceSIProxy implements DeviceControlProxy {
         	}
         } catch (IOException e) {
             e.printStackTrace();
-            resultMessage.setCode(ClientProfile.RESPONSE_FIALURE_CODE);
+            resultMessage.setCode(ClientProfile.RESPONSE_FAILURE_CODE);
         }
         return resultMessage;
     }

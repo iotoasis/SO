@@ -31,7 +31,7 @@ public class ClientProfile {
     public static final String SI_DEVICE_BLIND              = "Blind";
 
     //oneM2M Result Data
-    public static final String	RESPONSE_FIALURE_CODE		= "4001";
+    public static final String	RESPONSE_FAILURE_CODE		= "4001";
     public static final String	RESPONSE_SUCCESS_ONEM2MCODE	= "2001";
 	/*
 	    2001 성공 / 
