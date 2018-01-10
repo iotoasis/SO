@@ -45,6 +45,7 @@ public class ClientProfile {
     public static final String  SI_CONTAINER_STATUS         = "/status";
     public static final String  SI_CONTAINER_POWER          = "/Power";
     public static final String  SI_CONTAINER_ACTION         = "/Action";
+	public static final String  IOT_OASIS_DOMAIN_NAME       = "http://www.iotoasis.org";
 
     public static boolean actionDeviceCommand(String deviceUri){
         if(deviceUri.contains(SI_DEVICE_BEAMSCREEN) || deviceUri.contains(SI_DEVICE_BLIND)){
