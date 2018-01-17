@@ -55,14 +55,15 @@ public class DeviceManager implements IDeviceManager{
         	String resourceUri;
         	String displayName;
         	if (aspectId.startsWith("LEDPower")) {
-        		resourceUri = ClientProfile.SI_CONTROL_LWM2M_DISPLAYNAME_LED; //LED : "/1024/12/1", SOUND : "/1024/12/3"
+        		resourceUri = ClientProfile.SI_CONTROL_LWM2M_RESOURCEURI_LED; //LED : "/1024/12/1", SOUND : "/1024/12/3"
         		displayName = ClientProfile.SI_CONTROL_LWM2M_DISPLAYNAME_LED; //LED : "LED", sound:"Sound"
         	} else if (aspectId.startsWith("SoundPower")) {
-        		resourceUri = ClientProfile.SI_CONTROL_LWM2M_DISPLAYNAME_SOUND; //LED : "/1024/12/1", SOUND : "/1024/12/3"
+        		resourceUri = ClientProfile.SI_CONTROL_LWM2M_RESOURCEURI_SOUND; //LED : "/1024/12/1", SOUND : "/1024/12/3"
         		displayName = ClientProfile.SI_CONTROL_LWM2M_DISPLAYNAME_SOUND; //LED : "LED", sound:"Sound"
         	} else {
         		displayName = null;
         		resourceUri = null;
+        		log.error("unknown apectId={}", aspectId);
         	}
         	
             lwm2MDeviceControl.setOperation(ClientProfile.SI_CONTROL_LWM2M_EXECUTE);
