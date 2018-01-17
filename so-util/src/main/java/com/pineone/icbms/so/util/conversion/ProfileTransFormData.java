@@ -12,11 +12,16 @@ public class ProfileTransFormData {
 
     @Getter @Setter
     private String simulatorType;
+
     @Getter @Setter
     private String id;
-    @Getter @Setter
-    int period;
 
+    @Getter @Setter
+    private int period;
+
+    @Getter @Setter
+    private boolean checkOnly;
+    
     public ProfileTransFormData(String id) {
         this.id = id;
     }

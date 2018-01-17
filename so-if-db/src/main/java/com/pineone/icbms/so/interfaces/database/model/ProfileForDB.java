@@ -30,7 +30,10 @@ public class ProfileForDB extends CommonEntity {
     private String parameterType;
     
     @Getter @Setter
-    private int period;
+    private Integer period;
+
+    @Getter @Setter
+    private Integer checkRate;
 
     @Getter @Setter
     private String priority;

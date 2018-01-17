@@ -18,9 +18,9 @@ public interface ISchedulerManager {
 	ResponseMessage pauseJob(String profileId) throws SchedulerException;
 	ResponseMessage restartJob(String profileId) throws SchedulerException;
 	List<ProfileForDB> executedJobList();
-    List<ProfileForDB> retrieveExecuteJobList();
-    List<ProfileForDB> retrieveReadyJobList();
+    List<ProfileForDB> retrieveEnabledJobList();
+    List<ProfileForDB> retrieveDisabledJobList();
     ResponseMessage updateJob(String profileId, int period) throws SchedulerException;
-    ResponseMessage stopJobListAndChangeStatus();
+    ResponseMessage disableAllProfiles();
     ResponseMessage disableSchedule(String profileId) throws SchedulerException;
 }
