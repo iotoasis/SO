@@ -2,6 +2,7 @@ package com.pineone.icbms.so.schedule.logic;
 
 import com.pineone.icbms.so.interfaces.database.model.ProfileForDB;
 import com.pineone.icbms.so.interfaces.database.ref.ResponseMessage;
+
 import com.pineone.icbms.so.interfaces.database.dao.ProfileDao;
 import org.quartz.*;
 import org.quartz.Trigger.TriggerState;
@@ -35,7 +36,7 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
     Scheduler scheduler;
     private Thread thread;
 
-    // SO 구동시 스케줄러 DB의 내용을 스케줄러에 올려 실행하기 위한 쓰레드 생
+    // SO 구동시 스케줄러 DB의 내용을 스케줄러에 올려 실행하기 위한 쓰레드 생성
 
     // 스케줄러에 새로운 Job 등록
     @Override
@@ -48,21 +49,11 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
         	res.setMessage("invalid profileId");
         	return res;
         }
-        
-        JobDetail job = JobBuilder.newJob(SchedulerNotificationManager.class)
-                .withIdentity(profileForDB.getId(), groupName)
-                .build();
+        profileForDB.setPeriod(period);
+    	
+        startSchedule(profileForDB);
 
-        Trigger trigger = TriggerBuilder
-                .newTrigger()
-                .withIdentity(profileForDB.getId(), groupName)
-                .withSchedule(
-                        SimpleScheduleBuilder.simpleSchedule()
-                        .withIntervalInSeconds(profileForDB.getPeriod()).repeatForever()
-                ).build();
-
-        scheduler.scheduleJob(job, trigger);
-        profileForDB.setEnabled(1);     // true
+    	profileForDB.setEnabled(1);     // true
     	res.setMessage("ok");
     	return res;
     }
@@ -168,17 +159,8 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
         
         JobKey jobKey = JobKey.jobKey(profileForDB.getId(), groupName);
         scheduler.deleteJob(jobKey);
-        JobDetail job = JobBuilder.newJob(SchedulerNotificationManager.class)
-                .withIdentity(profileForDB.getId(),groupName)
-                .build();
-        Trigger trigger = TriggerBuilder
-                .newTrigger()
-                .withIdentity(profileForDB.getId(),groupName)
-                .withSchedule(
-                        SimpleScheduleBuilder.simpleSchedule()
-                        .withIntervalInSeconds(profileForDB.getPeriod()).repeatForever()
-                ).build();
-        scheduler.scheduleJob(job, trigger);
+
+    	startSchedule(profileForDB);
 
         //Enable
         ProfileForDB schProfileForDB = new ProfileForDB();
@@ -237,7 +219,7 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
 
     // Enabled Profile 목록 조회 (Enabled = 1)
     @Override
-    public List<ProfileForDB> retrieveExecuteJobList() {
+    public List<ProfileForDB> retrieveEnabledJobList() {
         //
         List<ProfileForDB> scheduledProfileList = profileDAO.retrieveProfileListByEnable(true);
         return scheduledProfileList;
@@ -245,7 +227,7 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
 
     // Disabled Profile 목록 조회 (Enabled = 0)
     @Override
-    public List<ProfileForDB> retrieveReadyJobList() {
+    public List<ProfileForDB> retrieveDisabledJobList() {
         //
         List<ProfileForDB> scheduledProfileList = profileDAO.retrieveProfileListByEnable(false);
         return scheduledProfileList;
@@ -264,19 +246,8 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
     	
     	profileForDB.setPeriod(period);
 
-        JobDetail job = JobBuilder.newJob(SchedulerNotificationManager.class)
-                .withIdentity(profileForDB.getId(),groupName)
-                .build();
-
-        Trigger trigger = TriggerBuilder
-                .newTrigger()
-                .withIdentity(profileForDB.getId(),groupName)
-                .withSchedule(
-                        SimpleScheduleBuilder.simpleSchedule()
-                                .withIntervalInSeconds(profileForDB.getPeriod()).repeatForever()
-                ).build();
-        scheduler.scheduleJob(job, trigger);
-
+    	startSchedule(profileForDB);
+    	
         ProfileForDB schProfileForDB = new ProfileForDB();
         schProfileForDB.setId(profileId);
         schProfileForDB.setPeriod(period);
@@ -286,9 +257,9 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
         return res;
     }
 
-    // 전체 스케줄 정지 (일시 정지 아닌 enabled 값 변환)
+    // 전체 Profile DB disable
     @Override
-    public ResponseMessage stopJobListAndChangeStatus() {
+    public ResponseMessage disableAllProfiles() {
     	ResponseMessage res = new ResponseMessage();
 
     	ProfileForDB schProfileForDB = new ProfileForDB();
@@ -303,28 +274,14 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
     @Override
     public void run() {
         try{
-            Thread.sleep(10000); //for preparing Jetty
-            scheduler.start();
-
             //DB에서 Enabled된 Profile 목록 읽어옴
             List<ProfileForDB> scheduledProfileForDBList = profileDAO.retrieveProfileListByEnable(true);
             for(ProfileForDB profileForDB : scheduledProfileForDBList) {
-                JobDetail jobDetail = JobBuilder.newJob(SchedulerNotificationManager.class)
-                        .withIdentity(profileForDB.getId(), groupName)
-                        .build();
-
-                Trigger trigger = TriggerBuilder
-                        .newTrigger()
-                        .withIdentity(profileForDB.getId(), groupName)
-                        .withSchedule(
-                                SimpleScheduleBuilder.simpleSchedule()
-                                        .withIntervalInSeconds(profileForDB.getPeriod()).repeatForever())
-                        .build();
-
-                //스케쥴러에 추가
-                log.debug("Added job : {}:{}", profileForDB.getName(), jobDetail.getKey());
-                scheduler.scheduleJob(jobDetail, trigger);
+            	startSchedule(profileForDB);
             }
+            Thread.sleep(10000); //for preparing Jetty
+            log.debug("scheduler started");
+            scheduler.start();
         } catch (SchedulerException e){
             e.printStackTrace();
         } catch (InterruptedException e){
@@ -332,10 +289,66 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
         }
     }
 
-    // SO 구동시 Profile DB의 내용을 스케줄러에 올려 실행하기 위한 쓰레드 생성
-    
+	private void startSchedule(ProfileForDB profileForDB) throws SchedulerException {
+		String profileId = profileForDB.getId();
+		Integer period = profileForDB.getPeriod();
+		Integer checkRate = profileForDB.getCheckRate();
+		
+		if (period==null)
+			period = 24*60*60; //1일
+		if (checkRate==null)
+			checkRate = 30;  //30초
+		
+		JobDataMap dataMap = new JobDataMap();
+		dataMap.put("profile",profileForDB);
+		//dataMap.put("checkRate", checkRate);
+		dataMap.put("happened", false); //초기값=미발생
+		dataMap.put("lastTimeExecutedCm", 0L); //마지막 CM 발생 일시
+
+		JobDetail job = JobBuilder.newJob(SchedulerNotificationManager.class)
+		        .withIdentity(profileId, groupName)
+		        .usingJobData(dataMap)
+//                        .usingJobData("period", period)
+//                        .usingJobData("checkRate", checkRate)
+//                        .usingJobData("happened", false) //초기값=미발생
+//                        .usingJobData("lastTimeExecutedCm", 0) //마지막 CM 발생 일시
+		        .build();
+
+		Trigger trigger = TriggerBuilder
+		        .newTrigger()
+		        .withIdentity(profileId, groupName)
+		        .withSchedule(
+		                SimpleScheduleBuilder.simpleSchedule()
+		                .withIntervalInSeconds(checkRate).repeatForever()
+		        ).build();
+
+		//스케쥴러에 추가
+		scheduler.scheduleJob(job, trigger);
+		log.debug("Added job : {}:{}", profileForDB.getName(), job.getKey());
+
+/*        
+        // 스케쥴러 Period를 바꾸는 방법
+        int newPeriod = period;
+        Trigger newTrigger = TriggerBuilder
+                .newTrigger()
+                .withIdentity(profileId,groupName)
+                .withSchedule(
+                        SimpleScheduleBuilder.simpleSchedule()
+                        .withIntervalInSeconds(newPeriod).repeatForever()
+                ).build();
+
+        
+        Trigger oldTrigger = context.getTrigger();
+        Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+        
+        scheduler.rescheduleJob(oldTrigger.getKey(), newTrigger);
+*/
+	
+	}
+
+	// SO 구동시 Profile DB의 내용을 스케줄러에 올려 실행하기 위한 쓰레드 생성
     @PostConstruct
-    public void SchedulerManager1() {
+    public void schedulerManagerInit() {
   	//public SchedulerManager() {    	
         try{
             scheduler = new StdSchedulerFactory().getScheduler();
@@ -349,8 +362,8 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
             thread.start();
         }
     }
-    
-    // profileId를 받아 해당 profileID에 해당하는 스케쥴러를 disable 시킴
+
+	// profileId를 받아 해당 profileID에 해당하는 스케쥴러를 disable 시킴
     @Override
     public ResponseMessage disableSchedule(String profileId) throws SchedulerException {
     	
@@ -369,6 +382,4 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
     	
     	return res;
     }
-
-
 }

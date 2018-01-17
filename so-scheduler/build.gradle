@@ -43,6 +43,7 @@ repositories {
 dependencies {
 
 	compile project(':so-if-db')
+    compile project(':so-if-sda')
 	//compile project(':so-serviceprocessor')
 
 	//spring-boot

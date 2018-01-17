@@ -12,6 +12,7 @@ import com.pineone.icbms.so.interfaces.messagequeue.model.ContextModelForMQ;
 import com.pineone.icbms.so.interfaces.sda.handle.SdaManager;
 import com.pineone.icbms.so.interfaces.sda.model.ContextModelContent;
 import com.pineone.icbms.so.interfaces.sda.model.ContextModelForIf2;
+import com.pineone.icbms.so.schedule.logic.SchedulerNotificationManager;
 import com.pineone.icbms.so.serviceprocessor.Const;
 import com.pineone.icbms.so.serviceprocessor.processor.context.handler.ContextModelHandler;
 import com.pineone.icbms.so.serviceutil.interfaces.database.DatabaseManager;
@@ -203,6 +204,12 @@ public class ProfileController {
         }
 
         String contextModelId = contextModel.getId();
+        
+        List<ContextModelContent> contentList = new SdaManager().retrieveEventList(contextModelId);
+        if (contentList==null || contentList.size()==0) {
+        	return null;
+        }
+        
         ContextModelForDB cm = databaseManager.getContextModelById(contextModelId);
         if (cm==null) {
         	contextLog.warn( "contextModelId is not exist in context_model table");
@@ -221,72 +228,70 @@ public class ProfileController {
     	contextModelForIf2.setContextId(contextModelId);
 
         if (parameterType==null || parameterType.isEmpty()) {
-	        //SDA로 부터 CM발생 여부 체크
-        	List<String> locationList = new SdaManager().retrieveEventLocationList(contextModelId);
 	        
-	        contextLog.debug("called SDA: cm={}, name={}, location={}", contextModelId, contextModelName, locationList.toString());
+	        //contextLog.debug("called SDA: cm={}, name={}, contentList={}", contextModelId, contextModelName, contentList.toString());
 
 	        //'D', 'L' 이 아니면 location 비교과 profile의 location을 비교하여 해당 profile 실행
-	        if (locationList != null && locationList.size() > 0) {
-	
-	            for (String location : locationList) {
-	                if (location !=  null && location.equals(profileLocationUri)) {
-	
-	                	ContextModelContent contextModelContent = new ContextModelContent();
-	                	contextModelContent.setLocationUri(location);
-	                	contextModelContentList.add(contextModelContent);
-	                	
-	                	isCmProceed = true;
-	                	
-	                    contextLog.warn("O: result: Happen cm=[{}], Location={}", contextModelId, location);
-	                }
-	            }
-	        }
+            for (ContextModelContent content : contentList) {
+            	String location = content.getLocationUri();
+                if (location !=  null && location.equals(profileLocationUri)) {
+
+                	ContextModelContent contextModelContent = new ContextModelContent();
+                	contextModelContent.setLocationUri(location);
+                	contextModelContentList.add(contextModelContent);
+                	
+                	isCmProceed = true;
+                    contextLog.warn("O: result: Happen cm=[{}], Location={}", contextModelId, location);
+                }
+            }
 	
         }else if ("DLI".contains(parameterType)) {
         	//'D', 'L' 이면 location 비교를 안하고 무조건 profile의 실행
-            List<ContextModelContent> contentList = new SdaManager().retrieveEventList(contextModelId);
 
-	        if (contentList != null && contentList.size() > 0) {
-	        	
-	        	String cmValue = null;
-            	String value;
-	            for (ContextModelContent content : contentList) {
-	            	String uri;
-	            	if (parameterType.equals("D")) {
-	            		uri = content.getDeviceUri();
-	            	} else if (parameterType.equals("L")) {
-	            		uri = content.getLocationUri();
-	            	} else if (parameterType.equals("I")) {
-	            		uri = content.getSid();
-	            	} else
-	            		uri = null;
-	            	
-	            	if (uri==null)
-	            		continue;
-	            	value = uri.substring(uri.lastIndexOf("/")+1,uri.length());
-	            	if (value!=null && !value.isEmpty()) {
-		            	if (cmValue==null)
-		            		cmValue = value;
-		            	else
-		            		cmValue += "|" + value;
-	            	}
-            	}
-	        	ContextModelContent contextModelContent = new ContextModelContent();
-	        	contextModelContent.setLocationUri(profileLocationUri);
-	        	contextModelContentList.add(contextModelContent);
-	        	contextModelForIf2.setResultCmValue(cmValue);
-	        	isCmProceed = true;
-	            contextLog.warn("O: result: Happen cm=[{}], profileLocationUri={}, cmValue={}", contextModelId, profileLocationUri, cmValue);
+        	String cmValue = null;
+        	String value;
+        	for (ContextModelContent content : contentList) {
+        		String uri;
+        		if (parameterType.equals("D")) {
+        			uri = content.getDeviceUri();
+        		} else if (parameterType.equals("L")) {
+        			uri = content.getLocationUri();
+        		} else if (parameterType.equals("I")) {
+        			uri = content.getSid();
+        		} else
+        			uri = null;
+        		
+        		if (uri==null)
+        			continue;
+        		value = uri.substring(uri.lastIndexOf("/")+1,uri.length());
+        		if (value!=null && !value.isEmpty()) {
+        			if (cmValue==null)
+        				cmValue = value;
+        			else
+        				cmValue += "|" + value;
+        		}
         	}
+        	ContextModelContent contextModelContent = new ContextModelContent();
+        	contextModelContent.setLocationUri(profileLocationUri);
+        	contextModelContentList.add(contextModelContent);
+        	contextModelForIf2.setResultCmValue(cmValue);
+        	isCmProceed = true;
+        	contextLog.warn("O: result: Happen cm=[{}], profileLocationUri={}, cmValue={}", contextModelId, profileLocationUri, cmValue);
         }
 
         //Location이 없거나 처리되지 않았을때
         if (isCmProceed == false) {
         	contextLog.warn("X: result: Not happened cm=[{}]", contextModelId);
         }
+
         contextModelForIf2.setContextModelContentList(contextModelContentList);
-    	processContextModel(contextModelForIf2,request);
+        if (profileTransFormData.isCheckOnly()==SchedulerNotificationManager.CHECK_ONLY) {
+        	contextLog.debug("check only cm=[{}]", contextModelId);
+        }else {
+        	// TODO process queue  
+        	processContextModel(contextModelForIf2,request);
+        	contextLog.debug("run  cm=[{}]", contextModelId);
+        }
 
         //return profile;
     	if (isCmProceed)

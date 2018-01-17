@@ -97,7 +97,7 @@ public class SchedulerController {
     @ResponseBody
     public List<ProfileForDB> retrieveExecuteScheduleList() throws SchedulerException {
         //
-        List<ProfileForDB> scheduledProfileList = schedulerManager.retrieveExecuteJobList();
+        List<ProfileForDB> scheduledProfileList = schedulerManager.retrieveEnabledJobList();
         return scheduledProfileList;
     }
 
@@ -107,11 +107,11 @@ public class SchedulerController {
     @ResponseBody
     public List<ProfileForDB> retrieveReadyScheduleList() throws SchedulerException {
         //
-        List<ProfileForDB> scheduledProfileList = schedulerManager.retrieveReadyJobList();
+        List<ProfileForDB> scheduledProfileList = schedulerManager.retrieveDisabledJobList();
         return scheduledProfileList;
     }
 
-    // Profile 을 Scheduler 에 등록
+    // Profile의 주기 변경
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
@@ -126,7 +126,7 @@ public class SchedulerController {
     @ResponseBody
     public ResponseMessage stopSchedulerPeriod() throws SchedulerException {
         //
-        return schedulerManager.stopJobListAndChangeStatus();
+        return schedulerManager.disableAllProfiles();
     }
     
     // profileId를 받아 스케쥴러를 해제 시킴 (DB X)
