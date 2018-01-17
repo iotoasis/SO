@@ -185,6 +185,11 @@ public class DeviceControlHandler extends AProcessHandler {
             sessionDevice.setDeviceLocation(loc);
             log.debug("session device : {}", sessionDevice);
             databaseManager.createSessionDataDevice(sessionDevice);
+            
+            if ("Y".equals(virtualDevice.getIsLast())) {
+            	log.debug("===========end==============");
+            }
+
         }
         else
         {
@@ -264,7 +269,7 @@ public class DeviceControlHandler extends AProcessHandler {
 	                session.setContextmodelResult(SessionEntity.HAPPEN); //Session Data 완료 처리
 	                databaseManager.updateSessionData(session);
             	}
-            	log.debug("===========end==============");
+            	//log.debug("===========end==============");
             }
             
         } catch (Exception e) {
