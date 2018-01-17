@@ -15,11 +15,15 @@ public class ClientProfile {
 
     //LWM2M ControlData
     public static final String	SI_CONTROL_JSON_TYPE		= "application/json:1";
-    public static final String  SI_CONTROL_LWM2M_SOUND      = "sound__-1024-12-3";
+    //public static final String  SI_CONTROL_LWM2M_SOUND      = "sound__-1024-12-3";
     public static final String  SI_CONTROL_LWM2M            = "lwm2m";
     public static final String  SI_CONTROL_LWM2M_EXECUTE    = "execute";
-    public static final String  SI_CONTROL_LWM2M_RESOURCEURI= "/1024/12/3";
-    public static final String  SI_CONTROL_LWM2M_DISPLAYNAME= "sound";
+    //public static final String  SI_CONTROL_LWM2M_RESOURCEURI= "/1024/12/3";
+    public static final String  SI_CONTROL_LWM2M_RESOURCEURI_LED= "/1024/12/1";
+    public static final String  SI_CONTROL_LWM2M_RESOURCEURI_SOUND= "/1024/12/3";
+    //public static final String  SI_CONTROL_LWM2M_DISPLAYNAME= "sound";
+    public static final String  SI_CONTROL_LWM2M_DISPLAYNAME_LED= "LED";
+    public static final String  SI_CONTROL_LWM2M_DISPLAYNAME_SOUND= "Sound";
     public static final String  SI_CONTROL_LWM2M_OUI        = "000001";
     public static final String  SI_CONTROL_LWM2M_MODELNAME  = "LWM2M Client(raspberry)";
     public static final String  SI_CONTROL_LWM2M_SN         = "90:9F:33:EF:D8:ED";
