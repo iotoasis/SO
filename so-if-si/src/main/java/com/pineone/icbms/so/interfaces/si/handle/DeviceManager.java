@@ -84,7 +84,7 @@ public class DeviceManager implements IDeviceManager{
         ResultMessage resultMessage = new ResultMessage();
         if(deviceUri.contains("lwm2m")){
             resultMessage = deviceControlProxy.lwm2mDeviceControlRequest(
-                    addressCollector.getServerAddress(AddressCollector.SI_SERVER) + SIAddressStore.SI_LWM2M_CONTOL_URI
+                    addressCollector.getServerAddress(AddressCollector.LWM2M_SERVER) + SIAddressStore.SI_LWM2M_CONTOL_URI
                     , deviceControlMessage, lwm2MDeviceControl);
         } else {
             resultMessage = deviceControlProxy.deviceControlRequest(
