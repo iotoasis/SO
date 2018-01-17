@@ -16,6 +16,7 @@ import java.util.Properties;
 public class AddressCollector {
     //
     public static final String SERVER_PROPERTIES = "server.properties";
+    public static final String LWM2M_SERVER = "LWM2M_Connection";
     public static final String SI_SERVER = "SI_Connection";
     public static final String SO_SERVER = "SO_Connection";
     public static final String SDA_SERVER = "Sda_Connection";
@@ -32,6 +33,8 @@ public class AddressCollector {
             serverInfo.load(inputStream);
             switch(server){
                 case SI_SERVER : serverAddress = serverInfo.getProperty(SI_SERVER);
+                break;
+                case LWM2M_SERVER : serverAddress = serverInfo.getProperty(LWM2M_SERVER);
                 break;
                 case SDA_SERVER : serverAddress = serverInfo.getProperty(SDA_SERVER);
                 break;
@@ -52,6 +55,9 @@ public class AddressCollector {
             case SI_SERVER : 
             				serverAddress = Settings2.getSiConnectionUri();
             				break;
+            case LWM2M_SERVER : 
+							serverAddress = Settings2.getLwm2mConnectionUri();
+							break;
             case SDA_SERVER :
             				serverAddress = Settings2.getSdaConnectionUri();
             				break;

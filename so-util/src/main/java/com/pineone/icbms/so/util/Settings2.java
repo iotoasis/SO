@@ -333,4 +333,13 @@ public class Settings2 {
 		return soConnectionUri;
 	}
 
+    //
+    public static String lwm2mConnectionUri;
+	@Value("${lwm2m.connection.uri:null}")
+	public void setLwm2mConnectionUri(String lwm2mConnectionUri) {
+		Settings2.lwm2mConnectionUri = lwm2mConnectionUri;
+	}
+	public static String getLwm2mConnectionUri() {
+		return lwm2mConnectionUri;
+	}
 }
