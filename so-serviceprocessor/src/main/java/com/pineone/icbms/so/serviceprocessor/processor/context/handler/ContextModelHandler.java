@@ -72,7 +72,11 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
     	if (contextModel!=null) {
     		contextModelId = contextModel.getId();
     		ContextModelForDB cm = databaseManager.getContextModelById(contextModelId);
-    		contextModelName = cm.getName();
+    		if (cm!=null) {
+    			contextModelName = cm.getName();
+    		} else {
+    			log.warn("CM({}) is not exist ", contextModelId);
+    		}
     	}
         
     	//
