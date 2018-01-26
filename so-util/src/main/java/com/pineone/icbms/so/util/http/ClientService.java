@@ -220,12 +220,12 @@ public class ClientService
 			
 		    log.info("response=[{}]", responseString);
 		} catch (ConnectException e) {
-		    log.error("#### Error ConnectException: uri=[{}]", uri);
-		    log.debug(e.getMessage());
+		    log.error("  !### POST Error ConnectException: uri=[{}]", uri);
+		    log.debug("error msg={}",e.getMessage());
 		} catch (Exception e) {
-		    log.error("#### Exception: uri=[{}, response=[{}]", uri, responseString);
-		    log.debug(e.getMessage());
-		    log.debug(e.getCause().getMessage());
+		    log.error("  !### POST Exception: uri=[{}, response=[{}]", uri, responseString);
+		    log.debug("error msg={}",e.getMessage());
+		    //log.debug(e.getCause().getMessage());
 		} finally {
 		    if (in != null) {
 		        try {
@@ -243,12 +243,17 @@ public class ClientService
 
 	public String requestGetServiceReceiveString2(String uri) {
 		String responseString = null;
+		HttpURLConnection conn = null;
+		BufferedReader in  = null;
 		try {
 		    log.info("requestGetServiceReceiveString2:[{}]", uri);
 
 		    URL url = new URL(uri);
-			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+			conn = (HttpURLConnection)url.openConnection();
 			
+			conn.setConnectTimeout(CONNECTION_TIMEOUT_VALUE);
+			conn.setReadTimeout(READ_TIMEOUT_VALUE);
+
 			conn.setRequestMethod("GET"); 	// 전달 방식을 설정한다. POST or GET, 기본값은 GET 이다.
 			conn.setDoInput(true);  		// 서버로부터 메세지를 받을 수 있도록 한다. 기본값은 true이다.
 			conn.setDoOutput(true);			// 서버로 데이터를 전송할 수 있도록 한다. GET방식이면 사용될 일이 없으나, true로 설정하면 자동으로 POST로 설정된다. 기본값은 false이다.
@@ -262,7 +267,7 @@ public class ClientService
 		    	return null;
 		    }
 		    
-		    BufferedReader in  = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8 * 1024);
+		    in  = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8 * 1024);
 		    String line = null;
 		    StringBuffer buff   = new StringBuffer();
 		 
@@ -274,11 +279,24 @@ public class ClientService
 			
 		    log.info("response=[{}]", responseString);
 		} catch (ConnectException e) {
-		    log.error("#### Error ConnectException: uri=[{}]", uri);
-		} catch (IOException e) {
-		    log.error("#### IOException: uri=[{}, response=[{}], ", uri, responseString);
+		    log.error("  !### GET Error ConnectException: uri=[{}]", uri);
+		    log.debug("error msg={}",e.getMessage());
+		} catch (Exception e) {
+		    log.error("  !### GET Exception: uri=[{}, response=[{}]", uri, responseString);
+		    log.debug("error msg={}",e.getMessage());
+		    //log.debug(e.getCause().getMessage());
+		} finally {
+		    if (in != null) {
+		        try {
+		            in.close();
+		        } catch (IOException e) {
+		        }
+		    }			
+			if (conn != null)
+				conn.disconnect();
 		}
-		return responseString;
+		
+		return responseString;	
 	}
 
 }
