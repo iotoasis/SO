@@ -186,9 +186,11 @@ public class ClientService
 	public String requestPostServiceReceiveString2(String uri, String param)
 	{
 		String responseString = null;
+		HttpURLConnection conn = null;
+		BufferedReader in  = null;
 		try {
 			URL url = new URL(uri);
-			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+			conn = (HttpURLConnection)url.openConnection();
 
 			conn.setConnectTimeout(CONNECTION_TIMEOUT_VALUE);
 			conn.setReadTimeout(READ_TIMEOUT_VALUE);
@@ -205,7 +207,7 @@ public class ClientService
 		    out_stream.close();
 		 
 		    InputStream is     = conn.getInputStream();
-		    BufferedReader in  = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8 * 1024);
+		    in  = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8 * 1024);
 		 
 		    String line = null;
 		    StringBuffer buff   = new StringBuffer();
@@ -219,9 +221,22 @@ public class ClientService
 		    log.info("response=[{}]", responseString);
 		} catch (ConnectException e) {
 		    log.error("#### Error ConnectException: uri=[{}]", uri);
+		    log.debug(e.getMessage());
 		} catch (Exception e) {
 		    log.error("#### Exception: uri=[{}, response=[{}]", uri, responseString);
+		    log.debug(e.getMessage());
+		    log.debug(e.getCause().getMessage());
+		} finally {
+		    if (in != null) {
+		        try {
+		            in.close();
+		        } catch (IOException e) {
+		        }
+		    }			
+			if (conn != null)
+				conn.disconnect();
 		}
+		
 		return responseString;	
 	}
 
