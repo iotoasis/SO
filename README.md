@@ -1,7 +1,7 @@
 
 ![Logo](logo_oasis_m.png)
 
-# Oasis Project
+# oasis Project
 
 본 Oasis (Open-source Architecture Semantic Iot Service-platform) 프로젝트는 국제 표준을 준용하는 오픈 소스 기반 지능형 사물 인터넷 서비스 플랫폼을 개발하는 것을 목표로 하고 있습니다.
 
