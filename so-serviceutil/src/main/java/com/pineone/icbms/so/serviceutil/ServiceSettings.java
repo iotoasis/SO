@@ -1,6 +1,6 @@
 package com.pineone.icbms.so.serviceutil;
 
-import com.pineone.icbms.so.util.Settings;
+import com.pineone.icbms.so.util.Settings2;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 /**
@@ -9,5 +9,5 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
  * Created by uni4love on 2017. 5. 17..
  */
 @EnableAutoConfiguration
-public class ServiceSettings extends Settings {
+public class ServiceSettings extends Settings2 {
 }

@@ -8,6 +8,7 @@ group 'com.pineone.icbms.so'
 version "${VERSION.build}"
 
 apply plugin: 'java'
+compileJava.options.encoding = 'UTF-8'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 
@@ -21,6 +22,8 @@ repositories {
 dependencies {
     //so
     compile project(':so-util')
+
+    compile('org.projectlombok:lombok:1.16.6')
 
     //logging
     compile "ch.qos.logback:logback-classic:1.1.9"

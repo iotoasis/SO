@@ -11,9 +11,6 @@ import lombok.ToString;
 public class TypeOfCompositeVirtualObjectForDB extends CommonEntity {
 
     @Getter @Setter
-    private String id;
-
-    @Getter @Setter
     String type;
 
 }

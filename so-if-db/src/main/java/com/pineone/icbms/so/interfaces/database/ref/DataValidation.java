@@ -14,7 +14,7 @@ public class DataValidation {
 //    public void inspectVirtualObjectData(VirtualObjectData virtualObjectData) throws DataLossException {
 //        //
 //        if (virtualObjectData.getName() == null
-//                || virtualObjectData.getFunctionality_id() == null
+//                || virtualObjectData.getFunction_id() == null
 //                || virtualObjectData.getAspect_id() == null
 //                || virtualObjectData.getDescription() == null) {
 //            throw new DataLossException();

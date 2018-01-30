@@ -1,6 +1,8 @@
 package com.pineone.icbms.so.interfaces.sda.handle.itf;
 
-import com.pineone.icbms.so.interfaces.sda.model.ContextInformationForIf;
+import com.pineone.icbms.so.interfaces.sda.model.AspectForIf;
+import com.pineone.icbms.so.interfaces.sda.model.ContextModelContent;
+import com.pineone.icbms.so.interfaces.sda.model.FunctionForIf;
 
 import java.util.List;
 
@@ -9,27 +11,52 @@ import java.util.List;
  */
 public interface ISdaManager {
 
-    // 상황 조회시 사용
+    // 상황 조회시 사용 (only Location)
     List<String> retrieveEventLocationList(String contextModelId);
 
-    // 특정 위치(location)에 존재하는 device Functionality 목록 조회
-    List<String> retrieveFunctionalityListInLocation(String locationId);
+    // 상황 조회시 사용 (Location, Device, LocationList)
+	List<ContextModelContent> retrieveEventList(String contextModelId);
 
-    // functionality 에 대응하는 aspect 조회, functionality 를 이용한 조회 지원 필요
-    List<String> retrieveAspectListByFunctionality(String functionalityId);
+	// 특정 위치(location)에 존재하는 device Function 목록 조회
+    List<String> retrieveFunctionListInLocation(String locationId);
 
-    // functionality, location 을 이용한 Device 목록 조회
-    List<String> retrieveDeviceListByFunctionalityAndLocation(String locationId, String functionalityId);
+    // function 에 대응하는 aspect 조회, function 를 이용한 조회 지원 필요
+    List<AspectForIf> retrieveAspectListByFunction(String functionalityId);
 
-    // functionality 를 이용한 Device 목록 조회
-    List<String> retrieveDeviceListByFunctionality(String functionalityId);
+    // function, location 을 이용한 Device 목록 조회
+    List<String> retrieveDeviceListByFunctionAndLocation(String locationId, String functionalityId);
+
+    // function 를 이용한 Device 목록 조회
+    List<String> retrieveDeviceListByFunction(String functionalityId);
 
     // location 울 이용한 Device 목록 조회
     List<String> retrieveDeviceListByLocation(String locationId);
 
-    // CM 내 CI 목록 조회
-    List<ContextInformationForIf> retrieveContextInformationList(String contextModeId);
-
     // Sensor Status (측정값) 조회
     String retrieveSensorValue(String deviceId);
+
+    /* 전체 펑션 목록 */
+    List<String> retrieveListByContextModelId(String contextModeId);
+
+    /* 전체 aspect 목록 */
+    List<AspectForIf> retrieveAspectList();
+
+    /* 전체 펑션 목록 */
+    List<FunctionForIf> retrieveFunctionList();
+
+    //1)cm-dd-device-list(Loc,Aspect,Func) 을 이용한 Device 목록 조회
+	List<String> getDeviceListByLoc_Aspect_Func(String locationUri, String aspectUri, String functionalityUri);
+
+    // 2)cm-dd-devicetype-device-list(Loc, DeviceType, Aspect, Func) 을 이용한 Device 목록 조회
+	List<String> getDeviceListByLoc_DeviceType_Aspect_Func(String locationUri, String deviceType, String aspectUri,
+			String functionalityUri);
+
+	// 3)cm-dd-command-value(DeviceId, Aspect, cmd) 을 이용한 Command Value 조회
+	String getCommandValueById_Aspect_Command(String deviceId, String aspectUri, String command);
+
+	// 4)cm-dd-aspect-action-value (id, aspect, functionality) 을 이용한 aspect Value 조회
+	ContextModelContent getAspectValueById_Aspect_Function(String deviceId, String aspectUri, String functionUri);
+
+
+
 }

@@ -1,8 +1,8 @@
 package com.pineone.icbms.so.serviceprocessor.profile.provider;
 
 import com.pineone.icbms.so.interfaces.database.model.ProfileForDB;
-import com.pineone.icbms.so.serviceprocessor.repository.database.DatabaseManager;
 import com.pineone.icbms.so.virtualobject.profile.IGenericProfile;
+import com.pineone.icbms.so.serviceutil.interfaces.database.DatabaseManager;
 import com.pineone.icbms.so.serviceutil.interfaces.provider.IProfileProvider;
 
 import java.util.List;

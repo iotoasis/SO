@@ -9,7 +9,8 @@ import com.pineone.icbms.so.virtualobject.orchestrationservice.IGenericOrchestra
  * Generic profile interface.<BR/>
  * Created by uni4love on 2016. 11. 17..
  */
-public interface IGenericProfile extends IProfile<IGenericContextModel, IGenericOrchestrationService>, IGenericServiceEntity {
+public interface IGenericProfile extends IProfile<IGenericContextModel, IGenericOrchestrationService>
+        , IGenericServiceEntity {
 
     /**
      * return context model.<BR/>

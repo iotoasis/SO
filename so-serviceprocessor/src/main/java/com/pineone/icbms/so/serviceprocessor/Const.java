@@ -14,6 +14,11 @@ public class Const {
     /**
      * location uri
      */
+    public final static String LOCATION_ID = "locationId";
+
+    /**
+     * location uri
+     */
     public final static String LOCATION_URI = "locationUri";
 
     /**
@@ -26,5 +31,8 @@ public class Const {
      */
     public final static String CONTEXTMODEL_ID = "contextModelId";
 
-
+    /**
+     * result Cm Value
+     */
+    public final static String RESULT_CM_VALUE = "resultCmValue";
 }

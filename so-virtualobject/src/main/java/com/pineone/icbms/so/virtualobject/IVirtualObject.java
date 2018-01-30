@@ -9,11 +9,11 @@ import com.pineone.icbms.so.virtualobject.common.IVirtualEntity;
  */
 public interface IVirtualObject<FUNCTIONALITY, ASPECT> extends IVirtualEntity {
     /**
-     * return functionality.<BR/>
+     * return function.<BR/>
      *
-     * @return functionality
+     * @return function
      */
-    FUNCTIONALITY getFunctionality();
+    FUNCTIONALITY getFunction();
 
     /**
      * return aspect.<BR/>

@@ -27,6 +27,12 @@ public class DataBaseStore implements IDataBaseStore {
     AspectDao aspectDao;
 
     @Autowired
+    FunctionalityDao functionalityDao;
+
+    @Autowired
+    LocationDao locationDao;
+
+    @Autowired
     FixedDeviceDao fixedDeviceDao;
 
     @Autowired
@@ -42,88 +48,90 @@ public class DataBaseStore implements IDataBaseStore {
     OrchestrationServiceDao orchestrationServiceDao;
 
     @Autowired
-    ContextInformationDao contextInformationDao;
+    ContextModelDao contextModelDao;
 
     @Autowired
     DeviceControlDao deviceControlDao;
 
     @Autowired
     TrackingDao trackingDao;
+    
+	// grib session
+    @Autowired
+    SessionDao sessionDao;
 
+	@Override
+	public ContextModelForDB getContextModelById(String contextModelId) {
+		return contextModelDao.retrieve(contextModelId);
+	}
+/*    
     @Override
     public List<VirtualObjectForDB> getVirtualObjectListByOrchestrationId(String orchestrationServiceId){
-        log.warn("getVirtualObjectListByOrchestrationId : orchestrationServiceId {}", orchestrationServiceId);
-//        //
-//        List<OS_VO_MapperForDB> os_vo_mapperForDBList = os_vo_mapper_dao.retrieveOS_VO_MapperListByServiceId(orchestrationServiceId);
-//        List<VirtualObjectForDB> virtualObjectForDBList = new ArrayList<>();
-//
-//        for(OS_VO_MapperForDB os_vo_mapperForDB : os_vo_mapperForDBList){
-//            virtualObjectForDBList.add(virtualObjectDao.retrieveVirtualObject(os_vo_mapperForDB.getVirtualObjectId()));
-//        }
-//        return virtualObjectForDBList;
+        log.debug("getVirtualObjectListByOrchestrationId : orchestrationServiceId {}", orchestrationServiceId);
 
+        //
         List<VirtualObjectForDB> os_vo_mapperForDBList = virtualObjectDao.getVirtualObjectListByOrchestrationId(orchestrationServiceId);
         List<VirtualObjectForDB> virtualObjectForDBList = virtualObjectDao.retrieveVirtualObject(os_vo_mapperForDBList);
 
         return virtualObjectForDBList;
     }
-
+*/
     @Override
     public List<CompositeVirtualObjectForDB> getCompositeVirtualObjectListByOrchestrationId(String orchestrationServiceId){
-        log.warn("getCompositeVirtualObjectListByOrchestrationId : orchestrationServiceId {}", orchestrationServiceId);
-//        //
-//        List<OS_CVO_MapperForDB> os_cvo_mapperForDBList = os_cvo_mapper_dao.retrieveOS_CVO_MapperListByServiceId(orchestrationServiceId);
-//        List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = new ArrayList<>();
-//
-//        for(OS_CVO_MapperForDB os_cvo_mapperForDB : os_cvo_mapperForDBList){
-//            //
-//            compositeVirtualObjectForDBList.add(compositeVirtualObjectDao.retrieveCompositeVirtualObject(
-//                    os_cvo_mapperForDB.getCompositeVirtualObjectId()));
-//        }
-//
-//        for(CompositeVirtualObjectForDB compositeVirtualObjectForDB : compositeVirtualObjectForDBList){
-//            compositeVirtualObjectForDB.setVirtualObjectForDBList(getVirtualObjectListByCompositeVirtualObjectId(
-//                    compositeVirtualObjectForDB.getId()));
-//        }
-//        return compositeVirtualObjectForDBList;
+        log.debug("getCompositeVirtualObjectListByOrchestrationId : orchestrationServiceId {}", orchestrationServiceId);
 
-        List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = compositeVirtualObjectDao.getCompositeVirtualObjectListByOrchestrationId(orchestrationServiceId);
+        List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = compositeVirtualObjectDao.retrieveCompositeVirtualObjectListByOrchestrationId(orchestrationServiceId);
+    
+        List<VirtualObjectForDB> virtualObjectForDBList = null;
+        
+        for(CompositeVirtualObjectForDB compositeVirtualObjectForDB : compositeVirtualObjectForDBList){
+            compositeVirtualObjectForDB.setVirtualObjectForDBList(
+                    getVirtualObjectListByCompositeVirtualObjectId(compositeVirtualObjectForDB.getId())
+            );
+        }
 
         return compositeVirtualObjectForDBList;
     }
+    
+    @Override
+    public List<RuleBodyForDB> getRuleBodyListByOsId(String osId){
+        log.debug("getRuleBodyListByOsId : osId {}", osId);
 
+        List<RuleBodyForDB> RuleBodyForDBList = compositeVirtualObjectDao.retrieveRuleBodyListByOsId(osId);
+    
+        return RuleBodyForDBList;
+    }
+
+    @Override
+    public CompositeVirtualObjectForDB getCvoById(String id) {
+        return compositeVirtualObjectDao.retrieve(id);
+	}
+    
+    /*
+     * cvo Id로 부터 vo목록을 가져온다
+     */
     @Override
     public List<VirtualObjectForDB> getVirtualObjectListByCompositeVirtualObjectId(String compositeVirtualObjectId){
-        log.warn("getVirtualObjectListByCompositeVirtualObjectId : compositeVirtualObjectId {}", compositeVirtualObjectId);
-//        //
-//        List<CVO_VO_MapperForDB> cvo_vo_mapperForDBList = cvo_vo_mapper_dao.retrieveCVO_VO_MapperListByCVOID(compositeVirtualObjectId);
-//        List<VirtualObjectForDB> virtualObjectForDBList = new ArrayList<>();
-//
-//        for(CVO_VO_MapperForDB cvo_vo_mapperForDB : cvo_vo_mapperForDBList){
-//            virtualObjectForDBList.add(virtualObjectDao.retrieveVirtualObject(cvo_vo_mapperForDB.getVirtualObjectId()));
-//        }
-//        return virtualObjectForDBList;
+        log.debug("getVirtualObjectListByCompositeVirtualObjectId : compositeVirtualObjectId {}", compositeVirtualObjectId);
 
-        return null;
+        List<VirtualObjectForDB> virtualObjectForDBList = virtualObjectDao.retrieveVirtualObjectListByCompositeVirtualObjectId(compositeVirtualObjectId);
+        return virtualObjectForDBList;
     }
 
+    /*
+     * cvo Id로 부터 Rule vo목록을 가져온다
+     */
     @Override
-    public List<ContextInformationForDB> getContextInformationListByContextModelId(String contextModelId){
-        log.warn("getContextInformationListByContextModelId : contextModelId {}", contextModelId);
-//        //
-//        List<CM_CI_MapperForDB> cm_ci_mapperForDBList = cm_ci_mapper_dao.retrieveCM_CI_MapperListBYCMId(contextModelId);
-//        List<ContextInformationForDB> contextInformationForDBList = new ArrayList<>();
-//
-//        for(CM_CI_MapperForDB cm_ci_mapperForDB : cm_ci_mapperForDBList){
-//            contextInformationForDBList.add(contextInformationDao.retrieveContextInformation(cm_ci_mapperForDB.getContextInformationId()));
-//        }
-//        return contextInformationForDBList;
-        return null;
-    }
+    public List<RuleItemForDB> getRuleVirtualObjectListByCvoId(String compositeVirtualObjectId){
+        log.debug("getRuleVirtualObjectListByCvoId : compositeVirtualObjectId {}", compositeVirtualObjectId);
 
+        List<RuleItemForDB> virtualObjectForDBList = virtualObjectDao.retrieveRuleVirtualObjectListByCvoId(compositeVirtualObjectId);
+        return virtualObjectForDBList;
+    }
+    
     @Override
     public DeviceControlForDB getDeviceControlByDeviceIdAndContextModelID(String deviceId, String contextModelId){
-        log.warn("getDeviceControlByDeviceIdAndContextModelID : deviceId: {}, contextModelId:{}", deviceId, contextModelId);
+        log.debug("getDeviceControlByDeviceIdAndContextModelID : deviceId: {}, contextModelId:{}", deviceId, contextModelId);
 
 //        DeviceControlForDB deviceControlForDB = deviceControlDao.retrieveDeviceControlByDeviceIdAndContextModelId(deviceId, contextModelId);
 //        if(deviceControlForDB == null){
@@ -136,63 +144,130 @@ public class DataBaseStore implements IDataBaseStore {
 
     @Override
     public List<ProfileForDB> getProfileListByContextModelSidAndLocationUri(String contextModelSid, String locationUri) {
-        log.warn("getProfileListByContextModelSidAndLocationUri : contextModelSid: {}, locationUri:{}", contextModelSid, locationUri);
-        return profileDao.getProfileByContextModelAndLocation(contextModelSid, locationUri);
+//        log.debug("getProfileListByContextModelSidAndLocationUri : contextModelSid: {}, locationUri:{}", contextModelSid, locationUri);
+        return profileDao.getProfileByContextModelAndLocationUri(contextModelSid, locationUri);
     }
 
+    /*
+     * Orchestration Service Id로 os 목록 조회, os 에 속한 cvo, vo 목록 조회
+     */
     @Override
     public OrchestrationServiceForDB getOrchestrationServiceById(String id) {
-        log.warn("getOrchestrationServiceById : id: {}", id);
+        log.debug("getOrchestrationServiceById : id: {}", id);
 
         // get os
         OrchestrationServiceForDB orchestrationServiceForDB = orchestrationServiceDao.retrieveOrchestrationService(id);
 
-        // get cvo
-        List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = compositeVirtualObjectDao.getCompositeVirtualObjectListByOrchestrationId(id);
-
-        // get vo
-        List<VirtualObjectForDB> virtualObjectForDBList = virtualObjectDao.getVirtualObjectListByOrchestrationId(id);
-
-        orchestrationServiceForDB.setCompositeVirtualObjectForDBList(compositeVirtualObjectForDBList);
-        orchestrationServiceForDB.setVirtualObjectForDBList(virtualObjectForDBList);
-
+        if (orchestrationServiceForDB!=null) {
+	        // get cvo
+	        //List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = compositeVirtualObjectDao.getCompositeVirtualObjectListByOrchestrationId(id);
+	        List<RuleBodyForDB> compositeVirtualObjectForDBList = this.getRuleBodyListByOsId(id);
+	
+	        // get vo
+	        //List<VirtualObjectForDB> virtualObjectForDBList = virtualObjectDao.getVirtualObjectListByOrchestrationId(id);
+	
+	        // set cvo list, vo list
+	        orchestrationServiceForDB.setRulbodyForDBList(compositeVirtualObjectForDBList);
+	        //orchestrationServiceForDB.setVirtualObjectForDBList(virtualObjectForDBList);
+        }
         return orchestrationServiceForDB;
     }
 
     @Override
     public AspectForDB getAspect(String virtualObjectId) {
-        log.warn("getAspect : virtualObjectId: {}", virtualObjectId);
+        log.debug("getAspect : virtualObjectId: {}", virtualObjectId);
         return aspectDao.retrieveAspectByVirtualObjectId(virtualObjectId);
     }
 
     @Override
     public VirtualObjectForDB getVirtualObjectById(String id) {
-        log.warn("getVirtualObjectById : id: {}", id);
+        log.debug("getVirtualObjectById : id: {}", id);
         return virtualObjectDao.retrieveVirtualObject(id);
     }
 
     @Override
-    public List<DeviceForDB> getDeviceList(String functionalityUri, String aspect, String locationUri) {
-        log.warn("getDeviceList : functionalityUri: {}, aspect: {}, locationUri: {}", functionalityUri, aspect, locationUri);
+    public List<DeviceForDB> getDeviceList(String functionUri, String aspect, String locationUri) {
+        log.debug("getDeviceList : functionUri: {}, aspect: {}, locationUri: {}", functionUri, aspect, locationUri);
         //implements.
-        return deviceDao.retrieveDeviceList(functionalityUri, aspect, locationUri);
+        return deviceDao.retrieveDeviceList(functionUri, aspect, locationUri);
     }
 
     @Override
     public FixedDeviceForDB getFixedDevice(String id) {
-        log.warn("getFixedDevice : id: {}", id);
-        return fixedDeviceDao.retrieveFixedDevice(id);
+        log.debug("getFixedDevice : id: {}", id);
+        return fixedDeviceDao.retrieve(id);//.retrieveFixedDevice(id);
     }
 
     @Override
     public ProfileForDB getProfile(String id){
-        log.warn("getProfile : id: {}", id);
+        log.debug("getProfile : id: {}", id);
         return profileDao.retrieveProfile(id);
     }
 
+	@Override
+	public List<String> getDepProfileById(String profileId) {
+		return profileDao.getDepProfileById(profileId);
+	}
+
+    @Override
+    public List<ProfileForDB> getAllProfile() {
+    	return profileDao.retrieve();
+    }
+    
     @Override
     public void createTracking(TrackingEntity trackingEntity) {
-        log.warn("createTracking : TrackingEntity: {}", trackingEntity);
+//        log.debug("createTracking : TrackingEntity: {}", trackingEntity);
         trackingDao.createTracking(trackingEntity);
     }
+    
+    // grib session
+    @Override
+    public void createSessionData(SessionEntity sessionEntity) {
+        sessionDao.createSessionData(sessionEntity);
+    }
+    @Override
+    public void createSessionDataLocation(SessionEntity sessionEntity) {
+        sessionDao.createSessionDataLocation(sessionEntity);
+    }
+    @Override
+    public void createSessionDataDevice(SessionEntity sessionEntity) {
+        sessionDao.createSessionDataDevice(sessionEntity);
+    }
+    @Override
+    public void createSessionDataVo(SessionEntity sessionEntity) {
+        sessionDao.createSessionDataVo(sessionEntity);
+    }
+    @Override
+    public void updateSessionData(SessionEntity sessionEntity) {
+        sessionDao.updateSessionData(sessionEntity);
+    }
+
+    @Override
+	public SessionEntity getSessionData(String sessionId) {
+		return sessionDao.retrieveSessionData(sessionId);
+	}
+
+    @Override
+	public LocationForDB getLocationById(String id) {
+        log.debug("getLocationById : id: {}", id);
+        return locationDao.retrieve(id);
+	}
+    @Override
+	public FunctionalityForDB getFunction(String id) {
+		return functionalityDao.retrieve(id);
+	}
+
+	@Override
+	public List<DeviceTypeForDB> retrieveDeviceType() {
+		return deviceDao.retrieveDeviceType();
+	}
+
+	@Override
+	public DeviceTypeForDB retrieveDeviceTypeById(String id) {
+		return deviceDao.retrieveDeviceTypeById(id);
+	}
+
+	public List<NonDeviceCvoForDB> retrieveNonDeviceCvoList(String nCvoId, String osId) {
+		return compositeVirtualObjectDao.retrieveNonDeviceCvoList(nCvoId, osId);
+	}
 }

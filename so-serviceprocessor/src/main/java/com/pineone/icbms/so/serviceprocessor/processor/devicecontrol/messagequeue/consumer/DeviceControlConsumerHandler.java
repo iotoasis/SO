@@ -7,7 +7,7 @@ import com.pineone.icbms.so.serviceprocessor.Const;
 import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
 import com.pineone.icbms.so.serviceprocessor.processor.devicecontrol.handler.DeviceControlHandler;
 import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;
-import com.pineone.icbms.so.util.Settings;
+import com.pineone.icbms.so.util.Settings2;
 import com.pineone.icbms.so.util.messagequeue.consumer.AGenericConsumerHandler2;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -24,13 +24,15 @@ public class DeviceControlConsumerHandler extends AGenericConsumerHandler2<Strin
     /**
      * topic list
      */
-    private static final List<String> TOPIC_LIST = Arrays.asList(Settings.TOPIC_DEVICE_CONTROL);
+    private static final List<String> TOPIC_LIST = Arrays.asList(Settings2.TOPIC_DEVICE_CONTROL);
 
     /**
      * kafka producer group id by class name.<BR/>
      */
     private static final String GROUP_ID = DeviceControlConsumerHandler.class.getSimpleName();
-
+    
+    private static int threadNum =0; 
+    
     /**
      * database manager
      */
@@ -46,6 +48,7 @@ public class DeviceControlConsumerHandler extends AGenericConsumerHandler2<Strin
      */
     public DeviceControlConsumerHandler(IDatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
+        Thread.currentThread().setName("T:"+Settings2.TOPIC_DEVICE_CONTROL + "-" +threadNum++);
     }
 
     /**
@@ -96,18 +99,19 @@ public class DeviceControlConsumerHandler extends AGenericConsumerHandler2<Strin
      */
     @Override
     public void handle(ConsumerRecord<String, String> record) {
-        log.debug("received message: {}", record);
+        log.trace("received message: {}", record);
+
         //read DeviceControlForMQ from string
         DeviceControlForMQ deviceControlForMQ = ModelMapper.readJsonObject(record.value(), DeviceControlForMQ.class);
         log.debug("DeviceControlForMQ: {}", deviceControlForMQ);
 
-        // TODO tracking
+        // tracking
         TrackingEntity tracking = deviceControlForMQ.getTrackingEntity();
 
         //MQ model --> DeviceControl model
         IGenericVirtualDevice virtualDevice = ModelMapper.toVirtualDevice(deviceControlForMQ);
 
-        log.debug("VirtualDevice: {}", virtualDevice);
+        log.trace("VirtualDevice: {}", virtualDevice);
         if (virtualDevice != null) {
             String locationUri = (String)deviceControlForMQ.getState(Const.LOCATION_URI);
             String contextModelId = (String)deviceControlForMQ.getState(Const.CONTEXTMODEL_ID);

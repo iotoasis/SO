@@ -1,8 +1,10 @@
 package com.pineone.icbms.so.interfaces.database.dao;
 
 import com.pineone.icbms.so.interfaces.database.model.ProfileForDB;
+import com.pineone.icbms.so.util.id.IdUtils;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -13,43 +15,31 @@ import java.util.List;
  */
 @Component
 public class ProfileDao extends AbstractDao {
-
     //
-    public ProfileForDB retrieveProfile(String profileId) {
-        return null;
+    public List<ProfileForDB> retrieveProfileByContextModel(String contextModelId) {
+        return super.sqlSession.selectList("retrieveProfileByContextModel", contextModelId);
     }
 
-    // Profile 전체 조회
-    public List<ProfileForDB> retrieveProfileList(ProfileForDB model) {
-        return super.sqlSession.selectList("", model);
+    public List<ProfileForDB> retrieveProfileByLocation(String locationUri) {
+        return super.sqlSession.selectList("retrieveProfileByLocation", locationUri);
     }
-
-    // Profile 생성 Id 없는 경우 기능
-//    public ProfileForDB createProfileByExceptID(ProfileForDB profileForDB) {
-//        return null;
-//    }
-
-    // Profile 갱신 기능
-    public ProfileForDB updateProfile(String id, ProfileForDB profileForDB) {
-        return null;
-    }
-
-    //  Profile 삭제 기능
-    public ProfileForDB deleteProfile(String id) {
-        return null;
+	
+	public ProfileForDB retrieveProfile(String profileId) {
+        //return null;
+        return super.sqlSession.selectOne("retrieveProfile", profileId);
     }
 
     //  SDA 와 연동하는 contextModel API 로 Profile 정보 조회
-    public List<ProfileForDB> getProfileByContextModelAndLocation(String contextModelId, String locationUri) {
+    public List<ProfileForDB> getProfileByContextModelAndLocationUri(String contextModelId, String locationUri) {
         HashMap<String, String> map = new HashMap<String, String>();
         map.put("contextModelId", contextModelId);
         map.put("locationUri", locationUri);
 
-        return super.sqlSession.selectList("getProfileByContextModelAndLocation", map);
+        return super.sqlSession.selectList("getProfileByContextModelAndLocationUri", map);
     }
 
     public List<ProfileForDB> retrieveProfileListByEnable(boolean enabled) {
-        return null;
+        return super.sqlSession.selectList("retrieveProfileListByEnable", enabled?1:0);
     }
 
     //Profile 주기 업데이트
@@ -62,40 +52,49 @@ public class ProfileDao extends AbstractDao {
         return super.sqlSession.update("updateProfileEnabled", profileForDB);
     }
 
-    /*private ProfileForDB createProfileDataConversion(ProfileData profileData) {
+    //Profile 전체 Enabled 업데이트
+    public int updateProfileEnabledAll(ProfileForDB profileForDB) {
+        return super.sqlSession.update("updateProfileEnabledAll", profileForDB);
+    }
+
+    // retrieve one
+    public ProfileForDB retrieve(String id) {
+        return super.sqlSession.selectOne("retrieveProfile", id);
+    }
+
+    // retrieve list
+    public List<ProfileForDB> retrieve(ProfileForDB profileForDB) {
+        return super.sqlSession.selectList("retrieveProfileByModel", profileForDB);
+    }
+
+    // retrieve all
+    public List<ProfileForDB> retrieve() {
+        return super.sqlSession.selectList("retrieveProfileByModel");
+    }
+
+    // 저장 기능 구현
+    public ProfileForDB create(ProfileForDB model) {
+        String sessionId = IdUtils.createRandomUUID();
+        model.setId("PR-" + sessionId);
+        super.sqlSession.insert("createProfile", model);
+        return super.sqlSession.selectOne("retrieveServiceByProfile", model.getId());
+    }
+
+    //  갱신 기능 구현
+    public ProfileForDB update(ProfileForDB profileForDB) {
         //
+        super.sqlSession.update("updateProfile", profileForDB);
+        return super.sqlSession.selectOne("retrieveProfileByModel", profileForDB);
+    }
 
-        ProfileForDB profileForDB = new ProfileForDB(null, profileData.getName(), profileData.getDescription(),
-                profileData.getContextModelId(), profileData.getOrchestration_service_id(),
-                profileData.getLocationId(), profileData.isEnabled(),  profileData.getPeriod());
+    // 삭제 기능 구현
+    public int delete(String id) {
+        return super.sqlSession.delete("deleteProfile", id);
+    }
 
-        //JPA 객체 사용
-//        ContextModelForDB contextModelForDB = contextModelDAO.retrieveContextModel(profileData.getContextModelId());
-//        LocationForDB locationForDB = locationDAO.retrieveLocation(profileData.getLocationId());
-//        OrchestrationServiceForDB orchestrationServiceForDB = orchestrationServiceDAO.retrieveOrchestrationService(
-//                profileData.getOrchestration_service_id());
-//
-//        ProfileForDB profileForDB = new ProfileForDB(profileData.getName(), contextModelForDB,
-//                orchestrationServiceForDB, locationForDB, true, profileData.getDescription(), profileData.getPeriod());
-        return profileForDB;
-    }*/
+    // profile dependant list
+	public List<String> getDepProfileById(String profileId) {
+        return super.sqlSession.selectList("getDepProfileById", profileId);
+	}
 
-    /*private ProfileForDB updateProfileDataConversion(ProfileData profileData) {
-        //
-        ProfileForDB profileForDB = new ProfileForDB(null, profileData.getName(), profileData.getDescription(),
-                profileData.getContextModelId(), profileData.getOrchestration_service_id(),
-                profileData.getLocationId(), profileData.isEnabled(), profileData.getPeriod(),
-                Calendar.getInstance().getTime());
-
-        //JPA 객체 사용
-//        ContextModelForDB contextModelForDB = contextModelDAO.retrieveContextModel(profileData.getContextModelId());
-//        LocationForDB locationForDB = locationDAO.retrieveLocation(profileData.getLocationId());
-//        OrchestrationServiceForDB orchestrationServiceForDB = orchestrationServiceDAO.retrieveOrchestrationService(
-//                profileData.getOrchestration_service_id());
-//
-//        ProfileForDB profileForDB = new ProfileForDB(profileData.getName(), contextModelForDB,
-//                orchestrationServiceForDB, locationForDB, true, profileData.getDescription(),
-//                Calendar.getInstance().getTime(), profileData.getPeriod());
-        return profileForDB;
-    }*/
 }

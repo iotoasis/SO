@@ -1,6 +1,9 @@
 package com.pineone.icbms.so.virtualobject.common;
 
 
+import jdk.nashorn.internal.objects.annotations.Getter;
+import jdk.nashorn.internal.objects.annotations.Setter;
+
 /**
  * abstract Generic id-name owner.<BR/>
  *

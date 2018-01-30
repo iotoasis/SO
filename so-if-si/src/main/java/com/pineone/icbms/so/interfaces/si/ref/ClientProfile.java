@@ -15,11 +15,15 @@ public class ClientProfile {
 
     //LWM2M ControlData
     public static final String	SI_CONTROL_JSON_TYPE		= "application/json:1";
-    public static final String  SI_CONTROL_LWM2M_SOUND      = "sound__-1024-12-3";
+    //public static final String  SI_CONTROL_LWM2M_SOUND      = "sound__-1024-12-3";
     public static final String  SI_CONTROL_LWM2M            = "lwm2m";
     public static final String  SI_CONTROL_LWM2M_EXECUTE    = "execute";
-    public static final String  SI_CONTROL_LWM2M_RESOURCEURI= "/1024/12/3";
-    public static final String  SI_CONTROL_LWM2M_DISPLAYNAME= "sound";
+    //public static final String  SI_CONTROL_LWM2M_RESOURCEURI= "/1024/12/3";
+    public static final String  SI_CONTROL_LWM2M_RESOURCEURI_LED= "/1024/12/1";
+    public static final String  SI_CONTROL_LWM2M_RESOURCEURI_SOUND= "/1024/12/3";
+    //public static final String  SI_CONTROL_LWM2M_DISPLAYNAME= "sound";
+    public static final String  SI_CONTROL_LWM2M_DISPLAYNAME_LED= "LED";
+    public static final String  SI_CONTROL_LWM2M_DISPLAYNAME_SOUND= "Sound";
     public static final String  SI_CONTROL_LWM2M_OUI        = "000001";
     public static final String  SI_CONTROL_LWM2M_MODELNAME  = "LWM2M Client(raspberry)";
     public static final String  SI_CONTROL_LWM2M_SN         = "90:9F:33:EF:D8:ED";
@@ -31,13 +35,21 @@ public class ClientProfile {
     public static final String SI_DEVICE_BLIND              = "Blind";
 
     //oneM2M Result Data
-    public static final String	RESPONSE_FIALURE_CODE		= "4000";
-    public static final String	RESPONSE_SUCCESS_ONEM2MCODE	= "2000";
+    public static final String	RESPONSE_FAILURE_CODE		= "4001";
+    public static final String	RESPONSE_SUCCESS_ONEM2MCODE	= "2001";
+	/*
+	    2001 성공 / 
+	    2002 삭제
+	    2003 업데이트
+	    2004 리트리브    
+	    4001 FAIL    
+	*/    
 
     //oneM2M Container Data
     public static final String  SI_CONTAINER_STATUS         = "/status";
     public static final String  SI_CONTAINER_POWER          = "/Power";
     public static final String  SI_CONTAINER_ACTION         = "/Action";
+	public static final String  IOT_OASIS_DOMAIN_NAME       = "http://www.iotoasis.org";
 
     public static boolean actionDeviceCommand(String deviceUri){
         if(deviceUri.contains(SI_DEVICE_BEAMSCREEN) || deviceUri.contains(SI_DEVICE_BLIND)){

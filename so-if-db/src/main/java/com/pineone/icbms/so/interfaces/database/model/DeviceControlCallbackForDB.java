@@ -12,9 +12,6 @@ import lombok.ToString;
 public class DeviceControlCallbackForDB extends CommonEntity {
 
     @Getter @Setter
-    String id;
-
-    @Getter @Setter
     String parentId;
 
     @Getter @Setter

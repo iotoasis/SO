@@ -13,10 +13,6 @@ import com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextMo
  * Created by uni4love on 2017. 5. 15..
  */
 public class ContextModelMapper implements IModelMapper<IGenericContextModel, ContextModelForDB, ContextModelForMQ> {
-    /**
-     * context information mapper
-     */
-    private static ContextInformationMapper contextInformationMapper = new ContextInformationMapper();
 
     /**
      * convert MQ model to Processor model.<BR/>
@@ -32,7 +28,7 @@ public class ContextModelMapper implements IModelMapper<IGenericContextModel, Co
             contextModel.setId(contextModelForMQ.getId());
             contextModel.setName(contextModelForMQ.getName());
             contextModel.setDescription(contextModelForMQ.getDescription());
-            contextModel.setContextInformationList(contextInformationMapper.toContextInformationListFromContextInformationForMQList(contextModelForMQ.getContextInformationList()));
+            contextModel.setResultCmValue(contextModelForMQ.getResultCmValue());
             StateStoreUtil.copyStateStore(contextModelForMQ.getStateStore(), contextModel);
         }
         return contextModel;
@@ -52,7 +48,6 @@ public class ContextModelMapper implements IModelMapper<IGenericContextModel, Co
             contextModel.setId(contextModelForDB.getId());
             contextModel.setName(contextModelForDB.getName());
             contextModel.setDescription(contextModelForDB.getDescription());
-            contextModel.setContextInformationList(contextInformationMapper.toContextInformationList(contextModelForDB.getContextInformationForDBList()));
         }
         return contextModel;
     }

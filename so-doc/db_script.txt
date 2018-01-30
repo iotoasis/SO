@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
--- 호스트:                          166.104.112.37
--- 서버 버전:                        10.1.18-MariaDB - MariaDB Server
+-- 호스트:                          166.104.112.38
+-- 서버 버전:                        10.1.30-MariaDB - MariaDB Server
 -- 서버 OS:                        Linux
--- HeidiSQL 버전:                  9.4.0.5125
+-- HeidiSQL 버전:                  9.5.0.5218
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -12,294 +12,299 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
--- so 데이터베이스 구조 내보내기
-CREATE DATABASE IF NOT EXISTS `so` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `so`;
+-- so.open 데이터베이스 구조 내보내기
+CREATE DATABASE IF NOT EXISTS `so.open` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `so.open`;
 
--- 테이블 so.aspect 구조 내보내기
-CREATE TABLE IF NOT EXISTS `aspect` (
-  `id` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `uri` varchar(255) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `created_date` varchar(50) NOT NULL,
-  `modified_date` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- 내보낼 데이터가 선택되어 있지 않습니다.
--- 테이블 so.cm_ci 구조 내보내기
-CREATE TABLE IF NOT EXISTS `cm_ci` (
-  `id` varchar(255) NOT NULL,
-  `context_model_id` varchar(255) NOT NULL,
-  `context_information_id` varchar(255) NOT NULL,
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- 테이블 so.open.CM_LocationTemp 구조 내보내기
+CREATE TABLE IF NOT EXISTS `CM_LocationTemp` (
+  `order_idx` int(11) NOT NULL,
+  `CM` varchar(120) NOT NULL COMMENT 'CM ID정보',
+  `comment` varchar(200) NOT NULL DEFAULT '' COMMENT '디바이스 이름',
+  `return_type` char(1) NOT NULL DEFAULT 'L' COMMENT 'L:Location, D: Device',
+  `state` int(11) NOT NULL DEFAULT '0' COMMENT '0:OFF/1:ON',
+  `location_uri` varchar(256) NOT NULL COMMENT '위치URI값',
+  `location_id` varchar(120) NOT NULL COMMENT '설치 위치(UI)',
+  `return_value` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
--- 테이블 so.composite_virtual_object 구조 내보내기
+-- 테이블 so.open.composite_virtual_object 구조 내보내기
 CREATE TABLE IF NOT EXISTS `composite_virtual_object` (
-  `id` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `functionality_id` varchar(255) NOT NULL,
-  `aspect_id` varchar(255) NOT NULL,
-  `type` varchar(10) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `created_date` varchar(50) NOT NULL,
-  `modified_date` varchar(50) NOT NULL,
+  `id` varchar(50) NOT NULL COMMENT 'id',
+  `name` varchar(255) NOT NULL COMMENT '이름',
+  `description` varchar(255) DEFAULT NULL COMMENT '정의',
+  `created_date` varchar(50) DEFAULT NULL,
+  `modified_date` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='복합사물가상화 정보';
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
--- 테이블 so.composite_virtual_object_type 구조 내보내기
-CREATE TABLE IF NOT EXISTS `composite_virtual_object_type` (
-  `cvo_type_id` varchar(255) NOT NULL,
-  `created_date` varchar(255) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `modified_date` varchar(255) DEFAULT NULL,
-  `name` varchar(255) NOT NULL,
-  `type` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`cvo_type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- 내보낼 데이터가 선택되어 있지 않습니다.
--- 테이블 so.context_information 구조 내보내기
-CREATE TABLE IF NOT EXISTS `context_information` (
-  `order_cd` varchar(1) NOT NULL COMMENT '년차: 1,2,3',
-  `id` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `uri` varchar(255) NOT NULL,
-  `created_date` varchar(50) NOT NULL,
-  `modified_date` varchar(50) NOT NULL,
-  `user_id` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- 내보낼 데이터가 선택되어 있지 않습니다.
--- 테이블 so.context_model 구조 내보내기
+-- 테이블 so.open.context_model 구조 내보내기
 CREATE TABLE IF NOT EXISTS `context_model` (
-  `order_cd` varchar(1) NOT NULL,
-  `id` varchar(255) NOT NULL,
+  `order_cd` varchar(1) DEFAULT NULL COMMENT '년차: 1,2,3',
+  `id` varchar(100) NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `created_id` varchar(50) DEFAULT NULL,
-  `modified_id` varchar(50) DEFAULT NULL,
-  `user_id` varchar(50) DEFAULT NULL,
   `created_date` varchar(50) DEFAULT NULL,
   `modified_date` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='cm id 는 동적 생성이 아니고 sda 쪽과 합의하에 정해진 값으로 유지된다';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='상황모델정보 테이블, cm id 는 sda 쪽에서 정해진 값으로 유지된다';
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
--- 테이블 so.cvo_vo 구조 내보내기
+-- 테이블 so.open.cvo_vo 구조 내보내기
 CREATE TABLE IF NOT EXISTS `cvo_vo` (
-  `id` varchar(255) NOT NULL,
-  `composite_virtual_object_id` varchar(255) NOT NULL,
-  `virtual_object_id` varchar(255) NOT NULL,
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `cvo_id` varchar(255) NOT NULL COMMENT 'id',
+  `vo_id` varchar(255) NOT NULL,
+  PRIMARY KEY (`cvo_id`,`vo_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='복합사물가상화 정보';
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
--- 테이블 so.device 구조 내보내기
-CREATE TABLE IF NOT EXISTS `device` (
-  `order_cd` varchar(1) NOT NULL,
-  `id` varchar(255) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `device_uri` varchar(255) DEFAULT NULL,
-  `aspect_id` varchar(255) NOT NULL,
-  `functionality_id` varchar(255) NOT NULL,
-  `location_id` varchar(255) NOT NULL,
-  `created_date` varchar(50) DEFAULT NULL,
-  `modified_date` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`,`aspect_id`,`functionality_id`,`location_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='디바이스 정보는 sda에 func/aspect/location 값으로 조회해서 받아오는 정보인데 개발을 위한 목적으로 만들어진 테이블 임 ';
+-- 테이블 so.open.device1121 구조 내보내기
+CREATE TABLE IF NOT EXISTS `device1121` (
+  `id` int(11) NOT NULL,
+  `device_uri` varchar(255) NOT NULL DEFAULT '0',
+  `device_name` varchar(255) NOT NULL,
+  `deviceType` varchar(255) DEFAULT NULL,
+  `location_uri` varchar(255) DEFAULT NULL,
+  `aspect_uri` varchar(255) DEFAULT NULL,
+  `aspect_value` varchar(255) DEFAULT NULL,
+  `functionality_uri` varchar(255) DEFAULT NULL,
+  `action_value` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='검증용 파인원 디바이스를 포함한 디바이스 리스트';
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
--- 테이블 so.device_control 구조 내보내기
-CREATE TABLE IF NOT EXISTS `device_control` (
-  `order_cd` varchar(1) NOT NULL,
-  `id` varchar(255) NOT NULL,
-  `unit` varchar(50) NOT NULL,
-  `value` varchar(255) NOT NULL,
-  `max_value` varchar(50) DEFAULT NULL,
-  `min_value` varchar(50) DEFAULT NULL,
-  `unit_description` varchar(255) DEFAULT NULL,
-  `value_description` varchar(255) DEFAULT NULL,
-  `context_model_id` varchar(255) NOT NULL,
-  `created_date` varchar(50) NOT NULL,
-  `modified_date` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`,`context_model_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='디바이스제어 상세정보는 sda에 조회해서 받아오는 정보인데 개발을 위한 목적으로 만들어진 테이블 임 ';
+-- 테이블 so.open.device_value 구조 내보내기
+CREATE TABLE IF NOT EXISTS `device_value` (
+  `aspect_id` int(11) DEFAULT '0',
+  `command_type` varchar(255) DEFAULT '0',
+  `command_value` varchar(255) DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='검증용 파인원 디바이스를 포함한 디바이스 value 리스트';
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
--- 테이블 so.device_control_callback 구조 내보내기
-CREATE TABLE IF NOT EXISTS `device_control_callback` (
-  `deivce_control_id` varchar(255) NOT NULL,
-  `created_date` varchar(255) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `modified_date` varchar(255) DEFAULT NULL,
-  `name` varchar(255) NOT NULL,
-  `parent_id` varchar(255) DEFAULT NULL,
-  `virtual_object_id` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`deivce_control_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='디바이스제어 정보를 si 로 전송후 subscription 을 요청하여 디바이스가 실행된 결과를 받는 테이블\r\n하지만 디바이스 제어 결과는 si 쪽에서 api로 제공해서 제어 결과 조회시 볼수 있도록 처리함 - 필요없는 테이블';
-
--- 내보낼 데이터가 선택되어 있지 않습니다.
--- 테이블 so.fixed_device 구조 내보내기
-CREATE TABLE IF NOT EXISTS `fixed_device` (
-  `fixed_device_id` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `profile_id` varchar(255) DEFAULT NULL,
-  `virtual_object_id` varchar(255) DEFAULT NULL,
-  `device_uri` varchar(255) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `created_date` varchar(50) DEFAULT NULL,
-  `modified_date` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`fixed_device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='cvo 처리를 할때 cvo 안에 특정 디바이스를 지정하기 위해서 사용하는 테이블';
-
--- 내보낼 데이터가 선택되어 있지 않습니다.
--- 테이블 so.functionality 구조 내보내기
+-- 테이블 so.open.functionality 구조 내보내기
 CREATE TABLE IF NOT EXISTS `functionality` (
   `id` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `uri` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `created_date` varchar(50) NOT NULL,
-  `modified_date` varchar(50) NOT NULL,
+  `uri` varchar(255) NOT NULL,
+  `created_date` varchar(50) DEFAULT NULL,
+  `modified_date` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='functionality 저장용 테이블';
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
--- 테이블 so.location 구조 내보내기
+-- 테이블 so.open.location 구조 내보내기
 CREATE TABLE IF NOT EXISTS `location` (
-  `order_cd` varchar(1) NOT NULL,
+  `order_cd` varchar(1) NOT NULL COMMENT '년차: 1,2,3',
+  `order_idx` int(11) DEFAULT NULL COMMENT '정렬순서',
   `id` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `uri` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `created_date` varchar(255) DEFAULT NULL,
-  `modified_date` varchar(255) DEFAULT NULL,
+  `uri` varchar(255) DEFAULT NULL,
+  `created_date` varchar(50) DEFAULT NULL,
+  `modified_date` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `uri` (`uri`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='위치정보 테이블 sda에서 인터페이스로 가져온다';
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
--- 테이블 so.orchestration_service 구조 내보내기
+-- 테이블 so.open.noncvo 구조 내보내기
+CREATE TABLE IF NOT EXISTS `noncvo` (
+  `noncvo_id` varchar(50) NOT NULL COMMENT 'cvo id',
+  `os_id` varchar(50) DEFAULT NULL,
+  `rule_body_id` varchar(50) NOT NULL COMMENT 'rule body id'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='cvo그룹. CVO_TYPE_NONEDEVICE';
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.open.orchestration_service 구조 내보내기
 CREATE TABLE IF NOT EXISTS `orchestration_service` (
-  `order_cd` varchar(1) NOT NULL,
-  `id` varchar(255) NOT NULL,
+  `order_cd` varchar(50) DEFAULT '1' COMMENT '년차',
+  `order_idx` int(11) DEFAULT '999',
+  `id` varchar(50) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `parent_id` varchar(255) DEFAULT NULL,
-  `created_date` varchar(50) NOT NULL,
-  `modified_date` varchar(50) NOT NULL,
-  `user_id` varchar(50) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL COMMENT 'OS Call을 했을때 응답 메시지',
+  `result_message` varchar(1024) DEFAULT NULL,
+  `created_date` varchar(50) DEFAULT NULL,
+  `modified_date` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='서비스 정보 저장';
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
--- 테이블 so.os_cvo 구조 내보내기
-CREATE TABLE IF NOT EXISTS `os_cvo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `orchestration_service_id` varchar(255) NOT NULL,
-  `composite_virtual_object_id` varchar(255) NOT NULL,
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+-- 테이블 so.open.physical_device_type 구조 내보내기
+CREATE TABLE IF NOT EXISTS `physical_device_type` (
+  `id` varchar(50) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `descrption` varchar(255) DEFAULT NULL,
+  `physical_device_type_uri` varchar(255) DEFAULT NULL,
+  `created_date` varchar(50) DEFAULT NULL,
+  `modified_date` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='sda 에서 제공되는 인터페이스에서 cvo 에 사용될 device_class_type 정보,';
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
--- 테이블 so.os_vo 구조 내보내기
-CREATE TABLE IF NOT EXISTS `os_vo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `orchestration_service_id` varchar(255) NOT NULL,
-  `virtual_object_id` varchar(255) NOT NULL,
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
-
--- 내보낼 데이터가 선택되어 있지 않습니다.
--- 테이블 so.profile 구조 내보내기
+-- 테이블 so.open.profile 구조 내보내기
 CREATE TABLE IF NOT EXISTS `profile` (
-  `order_cd` varchar(1) NOT NULL,
-  `id` varchar(255) NOT NULL,
+  `order_idx` int(11) DEFAULT NULL,
+  `order_cd` int(11) DEFAULT NULL,
+  `id` varchar(50) NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `enabled` tinyint(1) DEFAULT NULL,
-  `location_uri` varchar(255) DEFAULT NULL,
-  `context_model_id` varchar(255) DEFAULT NULL,
-  `orchestration_service_id` varchar(255) DEFAULT NULL,
-  `period` int(11) NOT NULL,
+  `context_model_id` varchar(50) DEFAULT NULL,
+  `location_id` varchar(255) DEFAULT NULL,
+  `orchestration_service_id` varchar(50) DEFAULT NULL,
+  `check_rate` int(11) unsigned NOT NULL COMMENT 'event 체크 rate',
+  `period` int(11) unsigned NOT NULL COMMENT '스케줄러 주기',
+  `parameter_type` varchar(50) DEFAULT NULL,
+  `priority` varchar(10) NOT NULL DEFAULT 'LOW',
   `created_date` varchar(50) DEFAULT NULL,
   `modified_date` varchar(50) DEFAULT NULL,
-  `user_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='프로파일 정보 저장';
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
--- 테이블 so.schedule_context 구조 내보내기
-CREATE TABLE IF NOT EXISTS `schedule_context` (
-  `schedule_id` varchar(255) NOT NULL,
-  `created_date` varchar(255) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `modified_date` varchar(255) DEFAULT NULL,
+-- 테이블 so.open.profile_dep 구조 내보내기
+CREATE TABLE IF NOT EXISTS `profile_dep` (
+  `parent_profile` varchar(50) NOT NULL,
+  `child_profile` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='프로파일 정보 저장';
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.open.rule_body 구조 내보내기
+CREATE TABLE IF NOT EXISTS `rule_body` (
+  `order_cd` int(11) DEFAULT NULL,
+  `order_idx` varchar(255) DEFAULT NULL,
+  `id` varchar(255) NOT NULL COMMENT 'rule_cvo id',
+  `os_id` varchar(255) NOT NULL COMMENT 'so id',
+  `cvo_type` varchar(255) NOT NULL COMMENT 'cvo_type',
+  `base_cvo_id` varchar(255) DEFAULT NULL COMMENT 'cvo id',
+  `physical_device_type_id` varchar(255) DEFAULT NULL,
+  `device_id` varchar(255) DEFAULT NULL,
+  `location_id` varchar(255) DEFAULT NULL COMMENT 'location id (비어있으면, os를 여러군데서 같은 것을 쓰는 경우)'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.open.rule_item 구조 내보내기
+CREATE TABLE IF NOT EXISTS `rule_item` (
+  `order_cd` int(11) DEFAULT NULL,
+  `order_idx` varchar(255) DEFAULT NULL,
+  `id` varchar(255) NOT NULL,
+  `rule_body_id` varchar(255) NOT NULL COMMENT 'rule_body id',
+  `vo_id` varchar(255) NOT NULL COMMENT 'aspect_id',
+  `funtionality_id` varchar(255) NOT NULL COMMENT 'vo_value_type에 따라 자동으로 입력',
+  `vo_value_type` varchar(255) NOT NULL COMMENT 'ON,OFF,SET,GET',
+  `vo_value` varchar(255) DEFAULT NULL COMMENT 'SET일때의 값'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.open.session_data 구조 내보내기
+CREATE TABLE IF NOT EXISTS `session_data` (
+  `id` varchar(50) NOT NULL,
+  `create_date` varchar(50) NOT NULL,
+  `PRIORITY_KEY` varchar(255) DEFAULT 'LOW',
+  `PROFILE_NAME` varchar(255) DEFAULT NULL,
+  `PROFILE_KEY` varchar(50) DEFAULT NULL,
+  `CONTEXTMODEL_KEY` varchar(100) DEFAULT NULL,
+  `CONTEXTMODEL_NAME` varchar(255) DEFAULT NULL,
+  `CONTEXTMODEL_RESULT` varchar(20) DEFAULT NULL,
+  `SERVICEMODEL_KEY` varchar(255) DEFAULT NULL,
+  `SERVICEMODEL_NAME` varchar(255) DEFAULT NULL,
+  `SERVICEMODEL_RESULT` varchar(20) DEFAULT NULL,
+  `SERVICE_KEY` varchar(2048) DEFAULT NULL,
+  `SERVICE_RESULT` varchar(20) DEFAULT NULL,
+  `VIRTUALOBJECT_RESULT` varchar(20) DEFAULT NULL,
+  `DEVICE_RESULT` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `create_date` (`create_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='grib에 2차년도 로그 포맷을 제공';
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.open.session_data_device 구조 내보내기
+CREATE TABLE IF NOT EXISTS `session_data_device` (
+  `id` varchar(50) NOT NULL,
+  `DEVICE_KEY` varchar(1024) NOT NULL,
+  `DEVICE_LOCATION` varchar(1024) DEFAULT NULL,
+  KEY `idx_session_data_device` (`id`,`DEVICE_KEY`(255))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='grib에 2차년도 로그 포맷을 제공';
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.open.session_data_location 구조 내보내기
+CREATE TABLE IF NOT EXISTS `session_data_location` (
+  `id` varchar(50) NOT NULL,
+  `LOCATION_ID` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`,`LOCATION_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='grib에 2차년도 로그 포맷을 제공';
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.open.session_data_vo 구조 내보내기
+CREATE TABLE IF NOT EXISTS `session_data_vo` (
+  `id` varchar(50) NOT NULL,
+  `VIRTUALOBJECT_KEY` varchar(1024) NOT NULL,
+  KEY `idx_session_data_vo` (`id`,`VIRTUALOBJECT_KEY`(255))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='grib에 2차년도 로그 포맷을 제공';
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.open.smart_helper 구조 내보내기
+CREATE TABLE IF NOT EXISTS `smart_helper` (
+  `order_idx` int(11) DEFAULT NULL COMMENT '정렬순서',
+  `id` varchar(50) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `schedule` varchar(255) NOT NULL,
-  PRIMARY KEY (`schedule_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `description` varchar(255) DEFAULT NULL,
+  `location_id` varchar(255) DEFAULT NULL,
+  `orchestration_service_id` varchar(50) DEFAULT NULL,
+  `success_msg` varchar(255) DEFAULT NULL,
+  `fail_msg` varchar(255) DEFAULT NULL,
+  `created_date` varchar(50) DEFAULT NULL,
+  `modified_date` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='프로파일 정보 저장';
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
--- 테이블 so.tracking 구조 내보내기
+-- 테이블 so.open.tracking 구조 내보내기
 CREATE TABLE IF NOT EXISTS `tracking` (
-  `session_id` varchar(255) NOT NULL,
   `seq` int(11) DEFAULT NULL,
+  `session_id` varchar(50) NOT NULL,
   `process` varchar(120) DEFAULT NULL,
   `process_method` varchar(255) DEFAULT NULL,
   `process_name` varchar(255) DEFAULT NULL,
   `process_id` varchar(255) DEFAULT NULL,
-  `process_value` varchar(255) DEFAULT NULL,
-  `process_error` varchar(1000) DEFAULT NULL,
+  `process_value` varchar(2048) DEFAULT NULL,
+  `process_result` varchar(1000) DEFAULT NULL,
   `uri` varchar(255) DEFAULT NULL,
-  `remote_addr` varchar(255) DEFAULT NULL,
-  `remote_host` varchar(255) DEFAULT NULL,
+  `remote_addr` varchar(125) DEFAULT NULL,
+  `remote_host` varchar(125) DEFAULT NULL,
   `simulator_type` varchar(20) DEFAULT NULL,
-  `method` varchar(255) DEFAULT NULL,
-  `command_id` varchar(255) DEFAULT NULL,
+  `method` varchar(255) NOT NULL,
+  `command_id` varchar(50) DEFAULT NULL,
   `created_time` varchar(50) DEFAULT NULL,
   `user_id` varchar(50) DEFAULT NULL,
-  `status_cd` varchar(1) NOT NULL DEFAULT 'R' COMMENT 'R:run, F:finish',
+  `status_cd` varchar(1) NOT NULL DEFAULT 'R' COMMENT '상태코드 (R:run, F:finish)',
+  `priority_key` varchar(20) DEFAULT NULL COMMENT 'MAXIMUM, HIGH, MEDIUM, LOW, MINIMUM',
   KEY `인덱스 1` (`session_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='so 실행 로그를 저장';
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
--- 테이블 so.user_info 구조 내보내기
-CREATE TABLE IF NOT EXISTS `user_info` (
-  `no` int(11) NOT NULL,
-  `id` varchar(255) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `authority_cd` varchar(1) NOT NULL DEFAULT 'V' COMMENT 'A:admin, U:user, V:viewer',
-  `created_date` varchar(50) NOT NULL,
-  `created_no` int(11) NOT NULL,
-  `modified_date` varchar(50) NOT NULL,
-  `modified_no` int(11) NOT NULL,
-  PRIMARY KEY (`no`),
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='사용자 정보 테이블';
-
--- 내보낼 데이터가 선택되어 있지 않습니다.
--- 테이블 so.virtual_object 구조 내보내기
+-- 테이블 so.open.virtual_object 구조 내보내기
 CREATE TABLE IF NOT EXISTS `virtual_object` (
   `id` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `functionality_id` varchar(255) NOT NULL,
-  `aspect_id` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
+  `aspect_uri` varchar(255) NOT NULL,
   `created_date` varchar(50) NOT NULL,
-  `modified_date` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKaiukroc420ibjmkr3hnkg9ofj` (`aspect_id`),
-  KEY `FKlwb4g4k1l8axl9m38ldvvbyj7` (`functionality_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `modified_date` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='aspect 저장용 테이블';
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 so.open.vo_value_type 구조 내보내기
+CREATE TABLE IF NOT EXISTS `vo_value_type` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `created_date` varchar(50) DEFAULT NULL,
+  `modified_date` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
@@ -307,17 +312,17 @@ CREATE TABLE IF NOT EXISTS `virtual_object` (
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 
 
-INSERT INTO `so`.`context_model` (`order_cd`, `id`, `name`, `description`, `created_date`, `modified_date`) VALUES ('2', 'cm-fire-test', '화재상황 테스트', '화재상황 테스트', '2017-04-17 16:10:21', '2017-04-17 16:10:21');
-INSERT INTO `so`.`profile` (`order_cd`, `id`, `name`, `description`, `enabled`, `location_uri`, `context_model_id`, `orchestration_service_id`, `period`, `created_date`, `modified_date`) VALUES ('2', 'PR-melvin14-sjex-2gjx-2isu-xkglsewalbse', '테스트 장소 화재 관리', '테스트 장소 화재 관리', '0', 'http://www.iotoasis.org/ontology/test', 'cm-fire-test', 'OS-2hs9c29x-s8gs-24xv-sdg2-sdfuxau3s325', '10', '2017-05-23 10:35:03', '2017-05-23 10:35:03');
-INSERT INTO `so`.`orchestration_service` (`order_cd`, `id`, `name`, `description`, `parent_id`, `created_date`, `modified_date`) VALUES ('2', 'OS-2hs9c29x-s8gs-24xv-sdg2-sdfuxau3s325', '화재 상황 제어 테스트', '화재 상황 제어 테스트', 'parent_id', '2017-05-23 11:47:26', '2017-05-23 11:47:26');
-INSERT INTO `so`.`location` (`order_cd`, `id`, `name`, `uri`, `description`, `created_date`, `modified_date`) VALUES ('2', 'http://www.iotoasis.org/ontology/test', '테스트 장소', 'http://www.iotoasis.org/ontology/test', '테스트 장소', '2017-04-06 18:27:22', '2017-04-06 18:27:22');
-INSERT INTO `so`.`os_vo` (`orchestration_service_id`, `virtual_object_id`) VALUES ('OS-2hs9c29x-s8gs-24xv-sdg2-sdfuxau3s325', 'vo-test-control');
-INSERT INTO `so`.`virtual_object` (`id`, `name`, `functionality_id`, `aspect_id`, `description`, `created_date`, `modified_date`) VALUES ('vo-test-control', '화재 테스트 제어', 'TestFunctionality', 'test-aspect', '화재 테스트 제어', '2017-05-29 11:25:32', '2017-05-29 11:25:34');
-INSERT INTO `so`.`aspect` (`id`, `name`,`uri`,`description`, `created_date`, `modified_date`) VALUES ('test-aspect', '테스트','null', '테스트', '2017-05-29 10:47:16', '2017-05-29 10:47:17');
-INSERT INTO `so`.`functionality` (`id`, `name`,`uri`, `description`, `created_date`, `modified_date`) VALUES ('TestFunctionality', '테스트기능','null', '테스트기능', '2017-04-06 16:53:17', '2017-04-06 16:53:17');
-INSERT INTO `so`.`device_control` (`order_cd`, `id`, `unit`, `value`, `context_model_id`, `created_date`, `modified_date`) VALUES ('2', '/test/Siren', '(0)off, (1)on', '1', 'cm-fire-test', '2017-04-20 18:02:04', '2017-04-20 18:02:04');
-INSERT INTO `so`.`device_control` (`order_cd`, `id`, `unit`, `value`, `context_model_id`, `created_date`, `modified_date`) VALUES ('2', '/test/Sprinkler', '(0)off, (1)on', '1', 'cm-fire-test', '2017-04-20 18:02:04', '2017-04-20 18:02:04');
-INSERT INTO `so`.`device_control` (`order_cd`, `id`, `unit`, `value`, `context_model_id`, `created_date`, `modified_date`) VALUES ('2', '/test/Call119', 'Notification', 'Calling!!', 'cm-fire-test', '2017-04-20 18:02:04', '2017-04-20 18:02:04');
-INSERT INTO `so`.`device` (`order_cd`, `id`, `name`, `description`, `device_uri`, `aspect_id`, `functionality_id`, `location_id`, `created_date`, `modified_date`) VALUES ('2', '/test/Siren', '테스트 사이렌', '테스트 사이렌', '/test/Siren', 'test-aspect', 'TestFunctionality', 'http://www.iotoasis.org/ontology/test', '2017-04-20 18:02:04', '2017-04-20 18:02:04');
-INSERT INTO `so`.`device` (`order_cd`, `id`, `name`, `description`, `device_uri`, `aspect_id`, `functionality_id`, `location_id`, `created_date`, `modified_date`) VALUES ('2', '/test/Sprinkler', '테스트 스프링쿨러', '테스트 스프링쿨러', '/test/Sprinkler', 'test-aspect', 'TestFunctionality', 'http://www.iotoasis.org/ontology/test', '2017-04-20 18:02:04', '2017-04-20 18:02:04');
-INSERT INTO `so`.`device` (`order_cd`, `id`, `name`, `description`, `device_uri`, `aspect_id`, `functionality_id`, `location_id`, `created_date`, `modified_date`) VALUES ('2', '/test/Call119', '테스트 119알림', '테스트 119알림', '/test/Call119', 'test-aspect', 'TestFunctionality', 'http://www.iotoasis.org/ontology/test', '2017-04-20 18:02:04', '2017-04-20 18:02:04');
+
+INSERT IGNORE INTO `location` (`order_cd`, `order_idx`, `id`, `name`, `description`, `uri`, `created_date`, `modified_date`) VALUES
+	('2', 999, 'testcenter', '테스트센터', '테스트센터/시연룸/FTC408', 'http://www.iotoasis.org/ontology/testcenter', NULL, NULL);
+
+INSERT IGNORE INTO `functionality` (`id`, `name`, `description`, `uri`, `created_date`, `modified_date`) VALUES
+	('FUNCTIONALITY_TYPE_CONTROLLING', 'CONTROLLING', '제어', 'ControllingFunctionality', NULL, NULL),
+	('FUNCTIONALITY_TYPE_MEASURING', 'MEASURING', '측정', 'MeasuringFunctionality', NULL, NULL);
+
+
+INSERT IGNORE INTO `orchestration_service` (`order_cd`, `order_idx`, `id`, `name`, `description`, `result_message`, `created_date`, `modified_date`) VALUES
+	('1', 999, 'os-so-test', 'os-so-test', 'os-so-test', NULL, NULL, NULL);
+
+INSERT IGNORE INTO `smart_helper` (`order_idx`, `id`, `name`, `description`, `location_id`, `orchestration_service_id`, `success_msg`, `fail_msg`, `created_date`, `modified_date`) VALUES
+	(999, 'sh-os-test', 'DO_TEST', 'OS Testing', 'testcenter', 'os-so-test', 'Starting test by user', NULL, NULL, NULL);

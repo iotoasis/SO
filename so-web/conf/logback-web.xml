@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="30 seconds">
+
+<!-- ALL > TRACE > DEBUG > INFO > WARN > ERROR > FATAL > OFF -->
+
     <!-- log level -->
     <!-- log level: default -->
     <property name="LOG_LEVEL_DEFAULT" value="DEBUG"/>
@@ -12,30 +15,25 @@
     <!-- log level: kafka -->
     <property name="LOG_LEVEL_KAFKA" value="ERROR" />
 
-    <!-- log target name -->
-    <property name="LOG_TARGET_NAME" value="so-web"/>
     <!-- log path -->
-    <property name="LOG_PATH" value="/svc/logs/so/so"/>
+    <property name="LOG_PATH" value="/svc/logs/git/so"/>
     <!-- log file prefix -->
-    <property name="LOG_FILE_PREFIX" value="${LOG_TARGET_NAME}"/>
+    <property name="LOG_FILE_PREFIX" value="so-web"/>
+
     <!-- log file name -->
-    <property name="LOG_FILE_NAME_DEFAULT" value="${LOG_FILE_PREFIX}" />
-    <property name="LOG_FILE_NAME_PROCESSOR_CONTEXT" value="${LOG_FILE_PREFIX}_context" />
-    <property name="LOG_FILE_NAME_PROCESSOR_ORCHESTRATIONSERVICE" value="${LOG_FILE_PREFIX}_os" />
-    <property name="LOG_FILE_NAME_PROCESSOR_VIRTUALOBJECT" value="${LOG_FILE_PREFIX}_vo" />
-    <property name="LOG_FILE_NAME_PROCESSOR_DEVICECONTROL" value="${LOG_FILE_PREFIX}_dc" />
-    <property name="LOG_FILE_NAME_SPRING" value="${LOG_FILE_PREFIX}_spring" />
-    <!-- log file path -->
-    <property name="LOG_FILE_PATH_DEFAULT"                        value="${LOG_PATH}/${LOG_FILE_NAME_DEFAULT}" />
-    <property name="LOG_FILE_PATH_PROCESSOR_CONTEXT"              value="${LOG_PATH}/${LOG_FILE_NAME_PROCESSOR_CONTEXT}" />
-    <property name="LOG_FILE_PATH_PROCESSOR_ORCHESTRATIONSERVICE" value="${LOG_PATH}/${LOG_FILE_NAME_PROCESSOR_ORCHESTRATIONSERVICE}" />
-    <property name="LOG_FILE_PATH_PROCESSOR_VIRTUALOBJECT"        value="${LOG_PATH}/${LOG_FILE_NAME_PROCESSOR_VIRTUALOBJECT}" />
-    <property name="LOG_FILE_PATH_PROCESSOR_DEVICECONTROL"        value="${LOG_PATH}/${LOG_FILE_NAME_PROCESSOR_DEVICECONTROL}" />
-    <property name="LOG_FILE_PATH_SPRING"                         value="${LOG_PATH}/${LOG_FILE_NAME_SPRING}" />
+    <property name="LOG_FILE_PATH_DEFAULT"                        value="${LOG_PATH}/${LOG_FILE_PREFIX}" />
+    <property name="LOG_FILE_PATH_PROCESSOR_CERTIFICATION"        value="${LOG_PATH}/${LOG_FILE_PREFIX}_cert" />
+    <property name="LOG_FILE_PATH_PROCESSOR_CONTEXT"              value="${LOG_PATH}/${LOG_FILE_PREFIX}_context" />
+    <property name="LOG_FILE_PATH_PROCESSOR_ORCHESTRATIONSERVICE" value="${LOG_PATH}/${LOG_FILE_PREFIX}_os" />
+    <property name="LOG_FILE_PATH_PROCESSOR_COMPOSITEVIRTUALOBJ"  value="${LOG_PATH}/${LOG_FILE_PREFIX}_cvo" />
+    <property name="LOG_FILE_PATH_PROCESSOR_VIRTUALOBJECT"        value="${LOG_PATH}/${LOG_FILE_PREFIX}_vo" />
+    <property name="LOG_FILE_PATH_PROCESSOR_DEVICECONTROL"        value="${LOG_PATH}/${LOG_FILE_PREFIX}_dc" />
+    <property name="LOG_FILE_PATH_SPRING"                         value="${LOG_PATH}/${LOG_FILE_PREFIX}_spring" />
 
     <!-- log pattern -->
-    <property name="ENCODER_PATTERN_STDOUT" value="%d %-4relative [%thread] %-5level %logger{36} - %msg%n"/>
-    <property name="ENCODER_PATTERN_FILE" value="${ENCODER_PATTERN_STDOUT}"/>
+    <property name="ENCODER_PATTERN_STDOUT" value="%d{yy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] %-5level [%class{10}] - %msg%n"/>
+    <property name="ENCODER_PATTERN_ALL_FILE" value="${ENCODER_PATTERN_STDOUT}"/>
+    <property name="ENCODER_PATTERN_UNIT_FILE" value="%d{yy-MM-dd HH:mm:ss.SSS} %-4relative %-5level %msg%n"/>
     <property name="ENCODER_PATTERN_ROLLING_FILE" value="${ENCODER_PATTERN_STDOUT}"/>
 
     <!-- appender -->
@@ -43,7 +41,8 @@
     <appender name="APPENDER_STDOUT_DEFAULT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <charset>UTF-8</charset>
-            <Pattern>%d %-4relative [%thread] %-5level %logger{36} - %msg%n</Pattern>
+<!--             <Pattern>%d %-4relative [%thread] %-5level %logger{36} - %msg%n</Pattern> -->
+            <pattern>${ENCODER_PATTERN_STDOUT}</pattern>
         </encoder>
     </appender>
 
@@ -56,7 +55,7 @@
         <file>${LOG_FILE_PATH_DEFAULT}_${byDay}.log</file>
         <append>true</append>
         <encoder>
-            <pattern>${ENCODER_PATTERN_FILE}</pattern>
+            <pattern>${ENCODER_PATTERN_ALL_FILE}</pattern>
         </encoder>
     </appender>
 
@@ -65,7 +64,7 @@
         <file>${LOG_FILE_PATH_DEFAULT}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>${LOG_FILE_NAME_DEFAULT}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_FILE_PATH_DEFAULT}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!-- or whenever the file size reaches 100MB -->
@@ -82,7 +81,7 @@
         <file>${LOG_FILE_PATH_SPRING}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>${LOG_FILE_NAME_SPRING}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_FILE_PATH_SPRING}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!-- or whenever the file size reaches 100MB -->
@@ -91,6 +90,23 @@
         </rollingPolicy>
         <encoder>
             <pattern>${ENCODER_PATTERN_ROLLING_FILE}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- appender: serviceprocessorssor-certification -->
+    <appender name="APPENDER_FILE_ROLLING_PROCESSOR_CERTIFICATION" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE_PATH_PROCESSOR_CERTIFICATION}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${LOG_FILE_PATH_PROCESSOR_CERTIFICATION}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${ENCODER_PATTERN_UNIT_FILE}</pattern>
         </encoder>
     </appender>
 
@@ -99,7 +115,7 @@
         <file>${LOG_FILE_PATH_PROCESSOR_CONTEXT}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>${LOG_FILE_NAME_PROCESSOR_CONTEXT}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_FILE_PATH_PROCESSOR_CONTEXT}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!-- or whenever the file size reaches 100MB -->
@@ -107,7 +123,7 @@
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>
-            <pattern>${ENCODER_PATTERN_ROLLING_FILE}</pattern>
+            <pattern>${ENCODER_PATTERN_UNIT_FILE}</pattern>
         </encoder>
     </appender>
 
@@ -116,7 +132,7 @@
         <file>${LOG_FILE_PATH_PROCESSOR_ORCHESTRATIONSERVICE}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>${LOG_FILE_NAME_PROCESSOR_ORCHESTRATIONSERVICE}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_FILE_PATH_PROCESSOR_ORCHESTRATIONSERVICE}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!-- or whenever the file size reaches 100MB -->
@@ -124,7 +140,24 @@
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>
-            <pattern>${ENCODER_PATTERN_ROLLING_FILE}</pattern>
+            <pattern>${ENCODER_PATTERN_UNIT_FILE}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- appender: serviceprocessorssor-compositevirtualobjec  -->
+    <appender name="APPENDER_FILE_ROLLING_PROCESSOR_COMPOSITE_VIRTUALOBJ" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE_PATH_PROCESSOR_COMPOSITEVIRTUALOBJ}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${LOG_FILE_PATH_PROCESSOR_COMPOSITEVIRTUALOBJ}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${ENCODER_PATTERN_UNIT_FILE}</pattern>
         </encoder>
     </appender>
 
@@ -133,7 +166,7 @@
         <file>${LOG_FILE_PATH_PROCESSOR_VIRTUALOBJECT}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>${LOG_FILE_NAME_PROCESSOR_VIRTUALOBJECT}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_FILE_PATH_PROCESSOR_VIRTUALOBJECT}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!-- or whenever the file size reaches 100MB -->
@@ -141,7 +174,7 @@
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>
-            <pattern>${ENCODER_PATTERN_ROLLING_FILE}</pattern>
+            <pattern>${ENCODER_PATTERN_UNIT_FILE}</pattern>
         </encoder>
     </appender>
 
@@ -150,7 +183,7 @@
         <file>${LOG_FILE_PATH_PROCESSOR_DEVICECONTROL}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>${LOG_FILE_NAME_PROCESSOR_DEVICECONTROL}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_FILE_PATH_PROCESSOR_DEVICECONTROL}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!-- or whenever the file size reaches 100MB -->
@@ -158,11 +191,11 @@
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>
-            <pattern>${ENCODER_PATTERN_ROLLING_FILE}</pattern>
+            <pattern>${ENCODER_PATTERN_UNIT_FILE}</pattern>
         </encoder>
     </appender>
 
-    <!-- spring profile: product -->
+    <!-- spring profile: # product ============================== -->
     <springProfile name="product">
         <root level="INFO">
             <!--<appender-ref ref="APPENDER_STDOUT_DEFAULT"/>-->
@@ -175,26 +208,32 @@
         </logger>
 
         <!-- serviceprocessorssor -->
-        <logger name="com.pineone.icbms.so.serviceprocessor.processor.context" level="${LOG_LEVEL}">
+        <logger name="certification" level="${LOG_LEVEL_DEFAULT}">
+            <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_CERTIFICATION"/>
+        </logger>
+        <logger name="com.pineone.icbms.so.serviceprocessor.processor.context" level="${LOG_LEVEL_DEFAULT}">
             <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_CONTEXT"/>
         </logger>
-        <logger name="com.pineone.icbms.so.serviceprocessor.orchestrationservice" level="${LOG_LEVEL}">
+        <logger name="com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice" level="${LOG_LEVEL_DEFAULT}">
             <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_ORCHESTRATIONSERVICE"/>
         </logger>
-        <logger name="com.pineone.icbms.so.serviceprocessor.virtualobject" level="${LOG_LEVEL}">
+        <logger name="com.pineone.icbms.so.serviceprocessor.processor.cvo" level="${LOG_LEVEL_DEFAULT}">
+            <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_COMPOSITE_VIRTUALOBJ"/>
+        </logger>
+        <logger name="com.pineone.icbms.so.serviceprocessor.processor.virtualobject" level="${LOG_LEVEL_DEFAULT}">
             <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_VIRTUALOBJECT"/>
         </logger>
-        <logger name="com.pineone.icbms.so.serviceprocessor.devicecontrol" level="${LOG_LEVEL}">
+        <logger name="com.pineone.icbms.so.serviceprocessor.processor.devicecontrol" level="${LOG_LEVEL_DEFAULT}">
             <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_DEVICECONTROL"/>
         </logger>
 
         <!-- hibernate -->
-        <!--<logger name="org.hibernate.type.descriptor.sql" level="${LOG_LEVEL}">-->
+        <!--<logger name="org.hibernate.type.descriptor.sql" level="${LOG_LEVEL_DEFAULT}">-->
             <!--<appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT"/>-->
         <!--</logger>-->
     </springProfile>
 
-    <!-- spring profile: dev -->
+    <!-- spring profile: # dev ============================== -->
     <springProfile name="dev">
         <root level="${LOG_LEVEL_DEFAULT}">
             <appender-ref ref="APPENDER_STDOUT_DEFAULT"/>
@@ -218,16 +257,22 @@
         </logger>
 
         <!-- serviceprocessorssor -->
+        <logger name="certification" level="${LOG_LEVEL_DEFAULT}" >
+            <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_CERTIFICATION"/>
+        </logger>
         <logger name="com.pineone.icbms.so.serviceprocessor.processor.context" level="${LOG_LEVEL_DEFAULT}" >
             <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_CONTEXT"/>
         </logger>
-        <logger name="com.pineone.icbms.so.serviceprocessor.orchestrationservice" level="${LOG_LEVEL_DEFAULT}" >
+        <logger name="com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice" level="${LOG_LEVEL_DEFAULT}" >
             <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_ORCHESTRATIONSERVICE"/>
         </logger>
-        <logger name="com.pineone.icbms.so.serviceprocessor.virtualobject" level="${LOG_LEVEL_DEFAULT}" >
+        <logger name="com.pineone.icbms.so.serviceprocessor.processor.cvo" level="${LOG_LEVEL_DEFAULT}" >
+            <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_COMPOSITE_VIRTUALOBJ"/>
+        </logger>
+        <logger name="com.pineone.icbms.so.serviceprocessor.processor.virtualobject" level="${LOG_LEVEL_DEFAULT}" >
             <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_VIRTUALOBJECT"/>
         </logger>
-        <logger name="com.pineone.icbms.so.serviceprocessor.devicecontrol" level="${LOG_LEVEL_DEFAULT}" >
+        <logger name="com.pineone.icbms.so.serviceprocessor.processor.devicecontrol" level="${LOG_LEVEL_DEFAULT}" >
             <appender-ref ref="APPENDER_FILE_ROLLING_PROCESSOR_DEVICECONTROL"/>
         </logger>
 
@@ -236,18 +281,21 @@
             <appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT"/>
         </logger>
 
-        <logger name="com.pineone.icbms.so.interface.database" level="DEBUG">
+        <logger name="com.pineone.icbms.so.interface.database" level="${LOG_LEVEL_DEFAULT}">
             <appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT" />
         </logger>
     </springProfile>
 
-    <!--
-    <logger name="com.pineone.icbms.so" level="${LOG_LEVEL}">
+    
+    <logger name="com.pineone.icbms.so" level="${LOG_LEVEL_DEFAULT}">
         <appender-ref ref="APPENDER_FILE_ROLLING_DEFAULT" />
     </logger>
+
+    <logger name="com.pineone.icbms.so.interfaces.database.dao" level="off" />
+    <logger name="com.pineone.icbms.so.interfaces.database.dao" level="off" />
 
     <root level="INFO">
         <appender-ref ref="APPENDER_STDOUT_DEFAULT" />
     </root>
-    -->
+   
 </configuration>

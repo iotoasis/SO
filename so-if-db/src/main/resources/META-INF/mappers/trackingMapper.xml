@@ -23,8 +23,7 @@
             , process_id
             , process_name
             , process_value
-            , process_error
-            , user_id
+            , process_result
             , status_cd
         )
         VALUES (
@@ -42,8 +41,7 @@
             , #{processId}
             , #{processName}
             , #{processValue}
-            , SUBSTRING(#{processError}, 1, 1000)
-            , #{userId}
+            , SUBSTRING(#{processResult}, 1, 1000)
             <choose>
                 <when test="statusCd == null">
                     , 'R'
@@ -64,13 +62,11 @@
         </where>
     </select>
 
-    <select id="retrieveTrackingByUserId" parameterType="String" resultType="TrackingEntity">
-        SELECT * FROM tracking
-        <where>
-            <if test="value != null">
-                user_id = #{value}
-            </if>
-        </where>
+    <select id="retrieveTrackingBySessionId_Status_Finish" parameterType="String" resultType="Integer">
+        SELECT count(status_cd) FROM tracking
+        WHERE
+            session_id = #{value}
+            AND status_cd = "F"
     </select>
 
     <select id="retrieveTrackingStatus" parameterType="String" resultType="TrackingEntity">

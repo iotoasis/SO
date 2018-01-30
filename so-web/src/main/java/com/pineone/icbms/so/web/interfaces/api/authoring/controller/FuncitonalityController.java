@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * context for functionality.<BR/>
+ * context for function.<BR/>
  *
  * Created by uni4love on 2017. 1. 13..
  */
 @RestController
-@RequestMapping("/functionality")
+@RequestMapping("/function")
 @ResponseStatus(value = HttpStatus.OK)
 public class FuncitonalityController {
     /**
@@ -31,63 +31,63 @@ public class FuncitonalityController {
     private FunctionalityDao dao;
 
     /**
-     * response for request "/functionality, HTTP-method:POST".<BR/>
+     * response for request "/function, HTTP-method:POST".<BR/>
      * @param functionalityForDB FunctionalityForDB
      * @return created FunctionalityForDB id
      */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public FunctionalityForDB createFunctionality(@RequestBody FunctionalityForDB functionalityForDB) {
+    public FunctionalityForDB createFunction(@RequestBody FunctionalityForDB functionalityForDB) {
         return dao.create(functionalityForDB);
     }
 
     /**
-     * response for request "/functionality/{id}" .<BR/>
+     * response for request "/function/{id}" .<BR/>
      * @param id FunctionalityForDB id
      * @return FunctionalityForDB
      */
     @RequestMapping(value = "/{id}")
-    public FunctionalityForDB getFunctionality(@PathVariable String id) {
+    public FunctionalityForDB getFunction(@PathVariable String id) {
         return dao.retrieve(id);
     }
 
     /**
-     * response for request "/functionality".<BR/>
+     * response for request "/function".<BR/>
      * @return FunctionalityForDB list
      */
     @RequestMapping()
-    public List<FunctionalityForDB> getFunctionalityList(@RequestBody FunctionalityForDB functionalityForDB) {
+    public List<FunctionalityForDB> getFunctionList(@RequestBody FunctionalityForDB functionalityForDB) {
         return dao.retrieve(functionalityForDB);
     }
 
     /**
-     * response for request "/functionality, HTTP-method:PATCH(update)".<BR/>
-     * @param functionality FunctionalityForDB
+     * response for request "/function, HTTP-method:PATCH(update)".<BR/>
+     * @param function FunctionalityForDB
      * @return updated FunctionalityForDB id
      */
     @RequestMapping(method=RequestMethod.PATCH)
-    public int updateFunctionality(FunctionalityForDB functionality) {
-        return dao.update(functionality);
+    public int updateFunction(FunctionalityForDB function) {
+        return dao.update(function);
     }
 
     /**
-     * response for request "/functionality/{id}, HTTP-method:DELETE".<BR/>
+     * response for request "/function/{id}, HTTP-method:DELETE".<BR/>
      * @param id FunctionalityForDB id
      * @return deleted FunctionalityForDB id
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public int deleteFunctionality(@PathVariable String id) {
+    public int deleteFunction(@PathVariable String id) {
 
         return dao.delete(id);
     }
 
     /**
-     * response for request "/functionality/{id}, HTTP-method:POST, 'register'".<BR/>
+     * response for request "/function/{id}, HTTP-method:POST, 'register'".<BR/>
      * @param id FunctionalityForDB id
      * @return registed FunctionalityForDB id
      */
 //    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-//    public String registerFunctionality(String id) {
+//    public String registerFunction(String id) {
 //        //implements...
 //        return null;
 //    }

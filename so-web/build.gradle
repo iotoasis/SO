@@ -1,7 +1,7 @@
 def VERSION = [
-//        build           : '1.0.0-SNAPSHOT',
-java            : 1.8,
-jackson_databind: '2.8.6'
+    //        build           : '1.0.0-SNAPSHOT',
+    java            : 1.8,
+    jackson_databind: '2.8.6'
 ]
 
 group 'com.pineone.icbms.so'
@@ -21,6 +21,7 @@ buildscript {
 }
 
 apply plugin: 'java'
+compileJava.options.encoding = 'UTF-8'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
@@ -28,7 +29,7 @@ apply plugin: 'org.springframework.boot'
 
 jar {
     baseName = 'so'
-//    version = '2.0.0-SANPSHOT'
+    version = '0.12.14.0'
 }
 
 sourceCompatibility = "${VERSION.java}"
@@ -48,8 +49,9 @@ dependencies {
     compile project(':so-devicecontrol')
     compile project(':so-serviceutil')
     compile project(':so-serviceprocessor')
-    compile project(':so-scheduler')
+    //compile project(':so-scheduler')
 //    compile project(':so-web-mvc')
+    compile project(':so-scheduler')
 
     //spring-boot
     compile('org.springframework.boot:spring-boot-starter-aop')
@@ -91,7 +93,7 @@ dependencies {
 
 bootRun {
     jvmArgs = [
-            "-Dspring.config.location=/svc/apps/so/so/so-web/conf/application-dev.yml" ,
+            "-Dspring.config.location=/svc/apps/so/so/so-web/conf/application-dev.properties" ,
             "-Dspring.profiles.active=dev" ,
             "-DSO_SERVICE_HOME=."
     ]

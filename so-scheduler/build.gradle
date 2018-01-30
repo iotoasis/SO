@@ -21,6 +21,7 @@ buildscript {
 }
 
 apply plugin: 'java'
+compileJava.options.encoding = 'UTF-8'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
@@ -42,6 +43,7 @@ repositories {
 dependencies {
 
 	compile project(':so-if-db')
+    compile project(':so-if-sda')
 	//compile project(':so-serviceprocessor')
 
 	//spring-boot
@@ -51,6 +53,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	runtime('mysql:mysql-connector-java')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+
+	compile('org.projectlombok:lombok:1.16.6')
 
 	//scheduler
 	compile "org.quartz-scheduler:quartz:2.2.1"

@@ -24,12 +24,10 @@ public class DeviceControlDao extends AbstractDao {
         return super.sqlSession.selectList("retrieveDeviceControlByModel");
     }
 
-    public DeviceControlForDB retrieveDeviceControlByDeviceIdAndContextModelId(String deviceId, String contextModelId) {
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put("id", deviceId);
-        map.put("contextModelId", contextModelId);
-
-        return super.sqlSession.selectOne("retrieveDeviceControlByDeviceIdAndContextModelId", map);
+    // 저장 기능 구현
+    public DeviceControlForDB create(DeviceControlForDB model) {
+        super.sqlSession.insert("createAspect", model);
+        return super.sqlSession.selectOne("retrieveAspectById", model.getId());
     }
 
     public int update(DeviceControlForDB model) {
@@ -39,4 +37,13 @@ public class DeviceControlDao extends AbstractDao {
     public int delete(String id) {
         return super.sqlSession.delete("deleteDeviceControl", id);
     }
+
+    public DeviceControlForDB retrieveDeviceControlByDeviceIdAndContextModelId(String deviceId, String contextModelId) {
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("id", deviceId);
+        map.put("contextModelId", contextModelId);
+
+        return super.sqlSession.selectOne("retrieveDeviceControlByDeviceIdAndContextModelId", map);
+    }
+
 }

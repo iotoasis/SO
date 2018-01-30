@@ -16,39 +16,23 @@ import java.util.Date;
 @ToString
 public class DeviceForDB extends CommonEntity {
     @Getter @Setter
-    private String id;
-    @Getter @Setter
     private String deviceUri;
 
     @Getter @Setter
-    private FunctionalityForDB functionality;
+    private FunctionalityForDB function;
     @Getter @Setter
     private AspectForDB aspect;
     @Getter @Setter
     private LocationForDB location;
-
-//    public FunctionalityForDB getFunctionality() {
-//        return functionality;
-//    }
-//
-//    public void setFunctionality(FunctionalityForDB functionalityForDB) {
-//        this.functionality = functionalityForDB;
-//    }
-//
-//    public AspectForDB getAspect() {
-//        return aspect;
-//    }
-//
-//    public void setAspect(AspectForDB aspectId) {
-//        this.aspect = aspectId;
-//    }
-//
-//    public LocationForDB getLocation() {
-//        return location;
-//    }
-//
-//    public void setLocation(LocationForDB locationId) {
-//        this.location = locationId;
-//    }
+    
+    @Getter @Setter
+    private String functionalityId;
+    @Getter @Setter
+    private String aspectId;
+    @Getter @Setter
+    private String locationId;
+    
+    @Getter @Setter
+    private String deviceType;
 
 }

@@ -3,25 +3,39 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pineone.icbms.so.interfaces.database.dao.DeviceDao">
+    <select id="retrieveDeviceType" resultType="DeviceTypeForDB">
+      SELECT
+      	*
+      FROM physical_device_type
+    </select>
+
+    <select id="retrieveDeviceTypeById" parameterType="String" resultType="DeviceTypeForDB">
+      SELECT
+      	*
+      FROM physical_device_type
+      WHERE
+      	 id = #{value}
+    </select>
+  
     <select id="retrieveDeviceList" parameterType="HashMap" resultType="DeviceForDB">
       SELECT
-        D.id
-        , D.created_date
-        , D.description
-        , D.modified_date
-        , D.name
-        , D.aspect_id
-        , D.device_uri
-        , D.functionality_id
-        , D.location_id
-      FROM device D
-        LEFT OUTER JOIN functionality F  ON D.functionality_id  = F.id
-        LEFT OUTER JOIN aspect A         ON D.aspect_id         = A.id
-        LEFT OUTER JOIN location L       ON D.location_id       = L.id
+        id
+        , created_date
+        , description
+        , modified_date
+        , name
+        , aspect_id
+        , device_uri
+        , functionality_id
+        , location_id
+        , device_type
+      FROM device
       WHERE
-        F.id = #{functionalityId}
-        AND A.id = #{aspectId}
-        AND L.id = #{locationId}
+        functionality_id = #{functionalityId}
+        AND aspect_id = #{aspectId}
+     <if test="locationId != null">
+        AND location_id = #{locationId}
+     </if>
     </select>
 
   <!--
@@ -31,7 +45,7 @@
   해결방법은 해쉬맵을 사용하거나 파라메터용 클래스를 만들어서 사용하면 된다
   이 방법이 불편하면 parameterType을 String 으로 사용하고 단일 조회 변수인 경우에 만 value 란 이름으로 처리 하면된다
   -->
-  <select id="retrieveFunctionalityFromDevice" parameterType="String" resultType="FunctionalityForDB">
+  <select id="retrieveFunctionFromDevice" parameterType="String" resultType="FunctionalityForDB">
     SELECT
       id
       , created_date
@@ -39,7 +53,7 @@
       , modified_date
       , name
       , uri
-    FROM functionality
+    FROM function
     WHERE
         id = #{value}
   </select>
@@ -78,6 +92,7 @@
       , created_date
       , modified_date
       , order_cd
+      , device_type
     FROM
       device
     WHERE
@@ -86,16 +101,17 @@
 
   <select id="retrieveDeviceByModel" parameterType="DeviceForDB" resultType="DeviceForDB">
     SELECT
-    id
-    , name
-    , description
-    , device_uri
-    , aspect_id
-    , functionality_id
-    , location_id
-    , created_date
-    , modified_date
-    , order_cd
+      id
+      , name
+      , description
+      , device_uri
+      , aspect_id
+      , functionality_id
+      , location_id
+      , created_date
+      , modified_date
+      , order_cd
+      , device_type
     FROM device
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="id != null">
@@ -134,6 +150,7 @@
       , created_date
       , modified_date
       , order_cd
+      , device_type
     )
     VALUES (
       #{id}
@@ -146,6 +163,7 @@
       , now(4)
       , now(4)
       , #{orderCd}
+      , #{deviceType}
     )
   </insert>
 

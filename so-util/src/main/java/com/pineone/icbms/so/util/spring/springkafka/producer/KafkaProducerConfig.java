@@ -2,18 +2,31 @@ package com.pineone.icbms.so.util.spring.springkafka.producer;
 
 import com.pineone.icbms.so.util.Settings2;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Conditional;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.annotation.PostConstruct;
 
 /**
  * Spring config for Kafka.<BR/>
  *
  * Created by uni4love on 2017. 4. 10..
  */
+
+
 @Component
 public class KafkaProducerConfig {
+	protected static Logger log = LoggerFactory.getLogger(KafkaProducerConfig.class);
+
     /**
      * kafka producer configs.<BR/>
      *
@@ -32,4 +45,28 @@ public class KafkaProducerConfig {
         return keyValueMap;
     }
 
+    // BROKER가 동작중인지 체크
+	@PostConstruct
+    boolean checkBrokerEnabled(){
+    	String serverUrl = Settings2.getBrokerList(); //Broker정보 읽어오기
+    	if (serverUrl==null || serverUrl.isEmpty()) { //ignore
+    		return true;
+    	}
+    	
+		String params[] = serverUrl.split(":");
+    	String host = params[0];
+    	Integer port = Integer.valueOf(params[1]);
+    	try {
+    		//서버 검사
+			Socket sock = new Socket(host, port);
+			sock.close();
+			log.debug("checkBrokerEnabled: Kafka is running ==");
+			return true; //정상 실행
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	log.error("checkBrokerEnabled: == Kafka is not running ==");
+    	System.exit(1); //시스템 종료
+    	return false;
+    }
 }

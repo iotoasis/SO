@@ -6,7 +6,7 @@ import com.pineone.icbms.so.serviceprocessor.Const;
 import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
 import com.pineone.icbms.so.serviceprocessor.processor.context.handler.ContextModelHandler;
 import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;
-import com.pineone.icbms.so.util.Settings;
+import com.pineone.icbms.so.util.Settings2;
 import com.pineone.icbms.so.util.messagequeue.consumer.AGenericConsumerHandler2;
 import com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextModel;
 import com.pineone.icbms.so.virtualobject.location.IGenericLocation;
@@ -25,7 +25,7 @@ public class ContextModelConsumerHandler extends AGenericConsumerHandler2<String
     /**
      * topic list
      */
-    private static final List<String> TOPIC_LIST = Arrays.asList(Settings.TOPIC_CONTEXT_MODEL);
+    private static final List<String> TOPIC_LIST = Arrays.asList(Settings2.TOPIC_CONTEXT_MODEL);
 
     /**
      * kafka handler group id by class name.<BR/>
@@ -101,7 +101,7 @@ public class ContextModelConsumerHandler extends AGenericConsumerHandler2<String
         ContextModelForMQ contextModelForMQ = ModelMapper.readJsonObject(record.value(), ContextModelForMQ.class);
         log.debug("ContextModelForMQ: {}", contextModelForMQ);
 
-        // TODO tracking
+        // tracking
         TrackingEntity tracking = contextModelForMQ.getTrackingEntity();
 
         //ContextModelForMQ model --> ContextModel model
@@ -110,12 +110,13 @@ public class ContextModelConsumerHandler extends AGenericConsumerHandler2<String
         if (contextModel != null) {
             List<IGenericLocation> locationList = ModelMapper.toLocationList(contextModelForMQ.getLocationList());
             if(locationList != null && locationList.size() > 0) {
-                contextModel.addState(Const.LOCATION_URI_LIST, locationList);
-                log.debug("ContextModel with locations: {}", contextModel);
+                //contextModel.addState(Const.LOCATION_URI_LIST, locationList);
+                log.debug("ContextModel with locations: {}", locationList);
             }
             //ContextModel Handler
-            getContextModelHandler().setTracking(tracking);
-            getContextModelHandler().handle(contextModel);
+            ContextModelHandler contextModelHandler = getContextModelHandler();
+            contextModelHandler.setTracking(tracking);
+            contextModelHandler.handle(contextModel, locationList);
         }
     }
 

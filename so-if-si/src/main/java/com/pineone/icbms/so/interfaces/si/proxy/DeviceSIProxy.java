@@ -35,9 +35,10 @@ public class DeviceSIProxy implements DeviceControlProxy {
     public ResultMessage deviceControlRequest(String requestUrl, DeviceControlMessage deviceControlMessage) {
         //
         String requestBody = new Gson().toJson(deviceControlMessage);
-        log.warn("deviceControlRequest : requestBody {}", requestBody);
-        String responseData = clientService.requestPostServiceReceiveString(requestUrl, requestBody);
-        log.warn("deviceControlRequest : responseData {}", responseData);
+        log.debug("deviceControlRequest : requestBody {}", requestBody);
+        String responseData = clientService.requestPostServiceReceiveString2(requestUrl, requestBody, true); //true=timeout
+        
+        log.debug("deviceControlRequest : responseData {}", responseData);
         ResultMessage resultMessage = parsingResultMessage(responseData);
         return resultMessage;
     }
@@ -48,7 +49,7 @@ public class DeviceSIProxy implements DeviceControlProxy {
         String lwm2mCon = DataConversion.base64encoding(new Gson().toJson(lwm2MDeviceControl));
         deviceControlMessage.setCon(lwm2mCon);
         String requestBody = new Gson().toJson(deviceControlMessage);
-        String responseData = clientService.requestPostServiceReceiveString(requestUrl, requestBody);
+        String responseData = clientService.requestPostServiceReceiveString2(requestUrl, requestBody, true); //true=timeout
         ResultMessage resultMessage = parsingResultMessage(responseData);
         return resultMessage;
     }
@@ -63,7 +64,7 @@ public class DeviceSIProxy implements DeviceControlProxy {
 
         String requestBody = new Gson().toJson(deviceSubscriptionData);
 
-        String responseData = clientService.requestPostServiceReceiveString(addressCollector.getServerAddress(AddressCollector.SI_SERVER) + SIAddressStore.SI_SUBSCRIPTION_URI, requestBody);
+        String responseData = clientService.requestPostServiceReceiveString2(addressCollector.getServerAddress(AddressCollector.SI_SERVER) + SIAddressStore.SI_SUBSCRIPTION_URI, requestBody);
         // ResponseData{ "code" : "2000", "message" : "", "content" : "" }
         ResultMessage resultMessage = parsingResultMessage(responseData);
         return resultMessage.getCode();
@@ -76,7 +77,7 @@ public class DeviceSIProxy implements DeviceControlProxy {
         deviceSubscriptionData.set_uri(deviceUri);
 
         String requestBody = new Gson().toJson(deviceSubscriptionData);
-        String responseData = clientService.requestPostServiceReceiveString(addressCollector.getServerAddress(AddressCollector.SI_SERVER) + SIAddressStore.SI_SUBSCRIPTION_RELEASE_URI, requestBody);
+        String responseData = clientService.requestPostServiceReceiveString2(addressCollector.getServerAddress(AddressCollector.SI_SERVER) + SIAddressStore.SI_SUBSCRIPTION_RELEASE_URI, requestBody);
         ResultMessage resultMessage = parsingResultMessage(responseData);
         return resultMessage.getCode();
     }
@@ -84,10 +85,16 @@ public class DeviceSIProxy implements DeviceControlProxy {
     private ResultMessage parsingResultMessage(String response){
         ResultMessage resultMessage = new ResultMessage();
         try {
-            resultMessage = mapper.readValue(response, ResultMessage.class);
+        	if (response==null) {
+        		resultMessage.setCode(ClientProfile.RESPONSE_FAILURE_CODE);
+    			resultMessage.setMessage("RESPONSE_FAILURE");
+        	}
+        	else {
+        		resultMessage = mapper.readValue(response, ResultMessage.class);
+        	}
         } catch (IOException e) {
             e.printStackTrace();
-            resultMessage.setCode(ClientProfile.RESPONSE_FIALURE_CODE);
+            resultMessage.setCode(ClientProfile.RESPONSE_FAILURE_CODE);
         }
         return resultMessage;
     }

@@ -9,6 +9,7 @@ import com.pineone.icbms.so.interfaces.si.proxy.DeviceSIProxy;
 import com.pineone.icbms.so.interfaces.si.ref.SIAddressStore;
 import com.pineone.icbms.so.interfaces.si.ref.ClientProfile;
 import com.pineone.icbms.so.util.itf.address.AddressCollector;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,8 +36,10 @@ public class DeviceManager implements IDeviceManager{
 //    }
 
     @Override
-    public ResultMessage deviceExecute(String commandId, String deviceUri, String deviceCommand) {
+    public ResultMessage deviceExecute(String commandId, String deviceUri, String aspectId, String deviceCommand) {
 
+    	//deviceCommand : 제어값
+    	
 //        // so-serviceprocessor 에서 최종 device control 단에서 commandId 를 생성해서 인자로 받도록 수정
 //        String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
 
@@ -49,25 +52,39 @@ public class DeviceManager implements IDeviceManager{
 
         //TODO : Device ID = Device Uri 일 경우 해당
         if(deviceUri.contains(ClientProfile.SI_CONTROL_LWM2M)) {
+        	String resourceUri;
+        	String displayName;
+        	if (aspectId.startsWith("LEDPower")) {
+        		resourceUri = ClientProfile.SI_CONTROL_LWM2M_RESOURCEURI_LED; //LED : "/1024/12/1", SOUND : "/1024/12/3"
+        		displayName = ClientProfile.SI_CONTROL_LWM2M_DISPLAYNAME_LED; //LED : "LED", sound:"Sound"
+        	} else if (aspectId.startsWith("SoundPower")) {
+        		resourceUri = ClientProfile.SI_CONTROL_LWM2M_RESOURCEURI_SOUND; //LED : "/1024/12/1", SOUND : "/1024/12/3"
+        		displayName = ClientProfile.SI_CONTROL_LWM2M_DISPLAYNAME_SOUND; //LED : "LED", sound:"Sound"
+        	} else {
+        		displayName = null;
+        		resourceUri = null;
+        		log.error("unknown apectId={}", aspectId);
+        	}
+        	
             lwm2MDeviceControl.setOperation(ClientProfile.SI_CONTROL_LWM2M_EXECUTE);
-            lwm2MDeviceControl.setResourceUri(ClientProfile.SI_CONTROL_LWM2M_RESOURCEURI);
-            lwm2MDeviceControl.setDisplayName(ClientProfile.SI_CONTROL_LWM2M_DISPLAYNAME);
+            lwm2MDeviceControl.setResourceUri(resourceUri);
+            lwm2MDeviceControl.setDisplayName(displayName);
             lwm2MDeviceControl.setOui(ClientProfile.SI_CONTROL_LWM2M_OUI);
             lwm2MDeviceControl.setModelName(ClientProfile.SI_CONTROL_LWM2M_MODELNAME);
             lwm2MDeviceControl.setSn(ClientProfile.SI_CONTROL_LWM2M_SN);
             lwm2MDeviceControl.setAuthId(ClientProfile.SI_CONTROL_LWM2M_AUTHID);
             lwm2MDeviceControl.setAuthPwd(ClientProfile.SI_CONTROL_LWM2M_AUTHPWD);
             lwm2MDeviceControl.setSv(deviceCommand);
-            deviceControlMessage = lwm2mDeviceDataConversion(deviceUri, commandId, deviceCommand);
+            deviceControlMessage = lwm2mDeviceDataConversion(deviceUri, commandId, aspectId, deviceCommand);
         } else{
-            deviceControlMessage = deviceDataConversion(deviceUri, commandId, deviceCommand);
+            deviceControlMessage = deviceDataConversion(deviceUri, commandId, aspectId, deviceCommand);
         }
 
         //디바이스 제어 요청 보냄
         ResultMessage resultMessage = new ResultMessage();
         if(deviceUri.contains("lwm2m")){
             resultMessage = deviceControlProxy.lwm2mDeviceControlRequest(
-                    addressCollector.getServerAddress(AddressCollector.SI_SERVER) + SIAddressStore.SI_LWM2M_CONTOL_URI
+                    addressCollector.getServerAddress(AddressCollector.LWM2M_SERVER) + SIAddressStore.SI_LWM2M_CONTOL_URI
                     , deviceControlMessage, lwm2MDeviceControl);
         } else {
             resultMessage = deviceControlProxy.deviceControlRequest(
@@ -113,26 +130,34 @@ public class DeviceManager implements IDeviceManager{
 
 
 
-    private DeviceControlMessage lwm2mDeviceDataConversion(String deviceId, String commandId, String deviceCommand){
+    private DeviceControlMessage lwm2mDeviceDataConversion(String deviceId, String commandId, String aspectId, String deviceCommand){
         DeviceControlMessage deviceControlMessage = new DeviceControlMessage();
         deviceControlMessage.set_uri(deviceId);
         deviceControlMessage.set_commandId(commandId);
-        deviceControlMessage.set_command(ClientProfile.SI_CONTROL_LWM2M_SOUND);
+        deviceControlMessage.set_command(aspectId);
         deviceControlMessage.setCnf(ClientProfile.SI_CONTROL_JSON_TYPE);
         deviceControlMessage.setCon(deviceCommand);
         return deviceControlMessage;
     }
 
-    private DeviceControlMessage deviceDataConversion(String deviceId, String commandId, String deviceCommand){
+    private DeviceControlMessage deviceDataConversion(String deviceId, String commandId, String aspectId, String deviceCommand){
         DeviceControlMessage deviceControlMessage = new DeviceControlMessage();
 
         deviceControlMessage.set_uri(deviceId);
         deviceControlMessage.set_commandId(commandId);
+
+        // 2017.9.8 SI Spect 변경 by gibubi
+/*
         if(deviceId != null && ClientProfile.actionDeviceCommand(deviceId)){
             deviceControlMessage.set_command(ClientProfile.SI_CONTROL_ACTION);
         }else {
             deviceControlMessage.set_command(ClientProfile.SI_CONTROL_POWER);
         }
+*/      
+        //get Last aspect-Name part from aspectUri
+        String aspectName = aspectId.substring(aspectId.lastIndexOf("/")+1,aspectId.length());
+        deviceControlMessage.set_command(aspectName);
+
         deviceControlMessage.setCnf(ClientProfile.SO_CONTROL_TYPE);
         deviceControlMessage.setCon(deviceCommand);
 
@@ -140,4 +165,40 @@ public class DeviceManager implements IDeviceManager{
     }
 
 
+    public static void testmain(String[] args) {
+    	DeviceManager dm = new DeviceManager();
+    	String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
+    	String aspectId;
+    	String controlValue = "1";
+    	int count=1;
+
+    	DeviceControlMessage dcMsg;
+    	
+    	aspectId = "http://www.iotoasis.org/ontology/electronicpower-aspect";
+    	System.out.println(aspectId);
+    	dcMsg = dm.deviceDataConversion("deviceId",commandId , aspectId, controlValue);
+    	System.out.println(" case"+Integer.toString(count++)+"==> "+dcMsg.toString());
+
+    	aspectId = "electronicpower-aspect";
+    	System.out.println(aspectId);
+    	dcMsg = dm.deviceDataConversion("deviceId",commandId , aspectId, controlValue);
+    	System.out.println(" case"+Integer.toString(count++)+"==> "+dcMsg.toString());
+
+    	aspectId = "/electronicpower-aspect";
+    	System.out.println(aspectId);
+    	dcMsg = dm.deviceDataConversion("deviceId",commandId , aspectId, controlValue);
+    	System.out.println(" case"+Integer.toString(count++)+"==> "+dcMsg.toString());
+
+    	aspectId = "";
+    	System.out.println(aspectId);
+    	dcMsg = dm.deviceDataConversion("deviceId",commandId , aspectId, controlValue);
+    	System.out.println(" case"+Integer.toString(count++)+"==> "+dcMsg.toString());
+
+    	//
+    	String deviceUri = "/herit-in/herit-cse/ONDB_BeamProjector01_001";
+    	aspectId = "http://www.iotoasis.org/ontology/lecture-aspect";
+    	String deviceCommand="1";
+    	ResultMessage resultMessage = dm.deviceExecute(commandId, deviceUri, aspectId, deviceCommand);
+    	System.out.println(resultMessage);
+    }
 }

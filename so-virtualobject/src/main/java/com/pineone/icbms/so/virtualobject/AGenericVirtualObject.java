@@ -2,7 +2,7 @@ package com.pineone.icbms.so.virtualobject;
 
 import com.pineone.icbms.so.virtualobject.aspect.IGenericAspect;
 import com.pineone.icbms.so.virtualobject.common.AGenericServiceEntity;
-import com.pineone.icbms.so.virtualobject.functionlity.IGenericFunctionality;
+import com.pineone.icbms.so.virtualobject.function.IGenericFunction;
 
 /**
  * abstract Generic virtual object.<BR/>
@@ -11,16 +11,22 @@ import com.pineone.icbms.so.virtualobject.functionlity.IGenericFunctionality;
  */
 abstract public class AGenericVirtualObject extends AGenericServiceEntity
         implements IGenericVirtualObject {
-    /**
-     * functionality
+	
+	/**
+     * function
      */
-    protected IGenericFunctionality functionality;
+    protected IGenericFunction function;
 
     /**
      * aspect
      */
     protected IGenericAspect aspect;
 
+    protected String deviceId;
+    protected String voValueType;
+    protected String voValue;
+    protected String isLast;
+    
     /**
      * constructor
      */
@@ -61,12 +67,12 @@ abstract public class AGenericVirtualObject extends AGenericServiceEntity
     }
 
     @Override
-    public IGenericFunctionality getFunctionality() {
-        return functionality;
+    public IGenericFunction getFunction() {
+        return function;
     }
 
-    public void setFunctionality(IGenericFunctionality functionality) {
-        this.functionality = functionality;
+    public void setFunction(IGenericFunction function) {
+        this.function = function;
     }
 
     @Override
@@ -78,11 +84,46 @@ abstract public class AGenericVirtualObject extends AGenericServiceEntity
         this.aspect = aspect;
     }
 
-    @Override
+	@Override
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+
+	@Override
+	public String getVoValueType() {
+		return voValueType;
+	}
+
+    public void setVoValueType(String voValueType) {
+		this.voValueType = voValueType;
+	}
+	
+	@Override
+	public String getVoValue() {
+		return voValue;
+	}
+
+	public void setVoValue(String voValue) {
+		this.voValue = voValue;
+	}
+	
+    public String getIsLast() {
+		return isLast;
+	}
+
+	public void setIsLast(String isLast) {
+		this.isLast = isLast;
+	}
+
+	@Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append(super.toString());
-        sb.append(", functionlity: ").append(functionality);
+        sb.append(", function: ").append(function);
         sb.append(", aspect: ").append(aspect);
         return sb.toString();
     }

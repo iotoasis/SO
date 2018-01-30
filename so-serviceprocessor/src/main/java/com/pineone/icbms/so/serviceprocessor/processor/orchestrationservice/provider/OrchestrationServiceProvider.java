@@ -1,7 +1,7 @@
 package com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.provider;
 
 import com.pineone.icbms.so.interfaces.database.model.OrchestrationServiceForDB;
-import com.pineone.icbms.so.serviceprocessor.repository.database.DatabaseManager;
+import com.pineone.icbms.so.serviceutil.interfaces.database.DatabaseManager;
 import com.pineone.icbms.so.serviceutil.interfaces.provider.IOrchestrationServiceProvider;
 import com.pineone.icbms.so.virtualobject.orchestrationservice.IGenericOrchestrationService;
 

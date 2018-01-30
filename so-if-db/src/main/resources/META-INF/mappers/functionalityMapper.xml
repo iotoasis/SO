@@ -2,20 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pineone.icbms.so.interfaces.database.dao.FunctionalityDao">
-    <select id="retrieveFunctionalityById" parameterType="String" resultType="FunctionalityForDB">
+    <select id="retrieveFunctionById" parameterType="String" resultType="FunctionalityForDB">
         SELECT
-            id
-            , created_date
-            , description
-            , modified_date
-            , name
-            , uri
+			*
         FROM functionality
         WHERE
-                id = #{value}
+            id = #{value}
     </select>
 
-    <select id="retrieveFunctionalityByModel" parameterType="FunctionalityForDB" resultType="FunctionalityForDB">
+    <select id="retrieveFunctionByModel" parameterType="FunctionalityForDB" resultType="FunctionalityForDB">
         SELECT
             id
             , created_date
@@ -40,7 +35,7 @@
         </trim>
     </select>
 
-    <insert id="createFunctionality"  parameterType="FunctionalityForDB">
+    <insert id="createFunction"  parameterType="FunctionalityForDB">
         INSERT INTO functionality (
             id
             , name
@@ -59,7 +54,7 @@
         )
     </insert>
 
-    <update id="updateFunctionality" parameterType="FunctionalityForDB">
+    <update id="updateFunction" parameterType="FunctionalityForDB">
         UPDATE functionality
         <set>
             modified_date = now(4)
@@ -71,7 +66,7 @@
           id = #{id}
     </update>
 
-    <delete id="deleteFunctionality" parameterType="String">
+    <delete id="deleteFunction" parameterType="String">
         delete from functionality
         where id = #{value}
     </delete>

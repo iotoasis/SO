@@ -43,8 +43,19 @@ public class Jackson_Test {
         TestObject testClass = objectMapper.readValue(testObjStr, TestObject.class);
         System.out.println("*******funcClass******** " + testClass);
         System.out.println("*******funcClass.name******** " + testClass.getName());
-
-
+    
+    
+        List<String> test = new ArrayList<>();
+    
+        test.add("testObject1");
+        test.add("testObject2");
+        test.add("testObject3");
+    
+        objectMapper = new ObjectMapper();
+    
+        // List --> String
+        testObjListStr = objectMapper.writeValueAsString(test);
+        System.out.println("*******string array******** " + testObjListStr);
     }
 
 }

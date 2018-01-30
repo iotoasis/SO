@@ -46,7 +46,15 @@ public class AspectMapper implements IModelMapper<IGenericAspect, AspectForDB, A
     public IGenericAspect toProcessorModelFromDb(String aspectId) {
         DefaultAspect aspect = null;
         if (aspectId != null) {
-            aspect = new DefaultAspect(aspectId, "", "","");
+            aspect = new DefaultAspect(aspectId, "", "", "");
+        }
+        return aspect;
+    }
+    
+    public IGenericAspect toProcessorModelFromDb(String aspectId, String aspectUri) {
+        DefaultAspect aspect = null;
+        if (aspectId != null) {
+            aspect = new DefaultAspect(aspectId, "", "", aspectUri);
         }
         return aspect;
     }

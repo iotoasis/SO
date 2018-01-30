@@ -2,53 +2,87 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pineone.icbms.so.interfaces.database.dao.CompositeVirtualObjectDao">
-    <select id="getCompositeVirtualObjectListByOrchestrationId" parameterType="String" resultType="CompositeVirtualObjectForDB">
+
+    <select id="retrieveCompositeVirtualObjectListByOrchestrationId" parameterType="String" resultType="CompositeVirtualObjectForDB">
         SELECT
-          composite_virtual_object_id
+              C.id
+            , C.name
+            , C.description
+            , RB.cvo_type
+            , RB.physical_device_type_id
+            , RB.device_id
+            , RB.base_cvo_id
+            , RB.location_id
+            , RB.os_id
+            , C.created_date
+            , C.modified_date
         FROM
-          os_cvo
+            rule_body RB, composite_virtual_object C
         WHERE
-          orchestration_service_id = #{value}
+            RB.os_id = #{value}
+            AND RB.base_cvo_id = C.id
     </select>
+
+    <select id="retrieveRuleBodyListByOsId" parameterType="String" resultType="RuleBodyForDB">
+        SELECT
+              RB.id
+            , RB.cvo_type
+            , RB.os_id
+            , RB.physical_device_type_id
+            , RB.device_id
+            , RB.base_cvo_id
+            , RB.location_id
+        FROM
+            rule_body RB
+        WHERE
+            RB.os_id = #{value}
+    </select>
+
+    <select id="retrieveNonDeviceCvoList" parameterType="HashMap" resultType="NonDeviceCvoForDB">
+        SELECT
+              RB.*, NC.noncvo_id nonCvoId, NC.os_id orgOsId
+        FROM noncvo NC
+        LEFT JOIN rule_body RB ON RB.id = NC.rule_body_id
+        WHERE
+            NC.noncvo_id = #{nonCvoId}
+            AND NC.os_id = #{osId}
+    </select>
+
 
     <!--
     os 에서 사용되는 cvo 매필정보 등록
     -->
     <insert id="createCompositeVirtualObjectListByOrchestrationId"  parameterType="HashMap">
-        <selectKey keyProperty="id" resultType="int" order="BEFORE">
-            select CAST(ifnull(max(id), 0) AS UNSIGNED) + 1 as id FROM os_cvo
-        </selectKey>
-
-        INSERT INTO os_cvo (
-            id
-            , orchestration_service_id
-            , composite_virtual_object_id
+        INSERT INTO rule_body (
+              id
+            , os_id
+            , cvo_id
+          <if test="locationId != null">
+            , location_id
+          </if>
         )
         VALUES (
-            #{id}
-            , #{orchestrationServiceId}
-            , #{compositeVirtualObjectId}
+              #{id}
+            , #{osId}
+            , #{cvoId}
+          <if test="locationId != null">
+            , #{locationId}
+          </if>
         )
     </insert>
 
     <insert id="createCompositeVirtualObject" parameterType="CompositeVirtualObjectForDB">
         INSERT INTO composite_virtual_object (
-            id
+              id
             , name
             , description
-            , aspect_id
-            , functionality_id
-            , type
             , created_date
             , modified_date
         )
         VALUES (
-            #{id}
+              #{id}
             , #{name}
             , #{description}
-            , #{aspectId}
-            , #{functionalityId}
-            , #{type}
             , now(4)
             , now(4)
         )
@@ -56,29 +90,15 @@
 
     <select id="retrieveCompositeVirtualObjectById" parameterType="String" resultType="CompositeVirtualObjectForDB">
         SELECT
-            id
-            , name
-            , description
-            , aspect_id
-            , functionality_id
-            , type
-            , created_date
-            , modified_date
+        	*
         FROM composite_virtual_object
         WHERE
-                id = #{value}
+            id = #{value}
     </select>
 
     <select id="retrieveCompositeVirtualObjectByModel" parameterType="CompositeVirtualObjectForDB" resultType="CompositeVirtualObjectForDB">
         SELECT
-            id
-            , name
-            , description
-            , aspect_id
-            , functionality_id
-            , type
-            , created_date
-            , modified_date
+        	*
         FROM composite_virtual_object
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             <if test="id != null">
@@ -86,12 +106,6 @@
             </if>
             <if test="name != null">
                 AND name = #{name}
-            </if>
-            <if test="aspectId != null">
-                AND aspect_id = #{aspectId}
-            </if>
-            <if test="functionalityId != null">
-                AND functionality_id = #{functionalityId}
             </if>
             <if test="description != null">
                 AND description = #{description}
@@ -105,16 +119,14 @@
             modified_date = now(4)
             <if test="name != null">, name = #{name}</if>
             <if test="description != null">, description = #{description}</if>
-            <if test="aspectId != null">, aspect_id = #{aspectId}</if>
-            <if test="functionalityId != null">, functionality_id = #{functionalityId}</if>
-            <if test="type != null">, type = #{type}</if>
         </set>
         WHERE
-        id = #{id}
+            id = #{id}
     </update>
 
     <delete id="deleteCompositeVirtualObject" parameterType="String">
         delete from composite_virtual_object
         where id = #{value}
     </delete>
+    
 </mapper>

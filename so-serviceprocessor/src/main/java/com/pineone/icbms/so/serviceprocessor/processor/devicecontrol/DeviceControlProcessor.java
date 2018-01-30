@@ -1,6 +1,6 @@
 package com.pineone.icbms.so.serviceprocessor.processor.devicecontrol;
 
-import com.pineone.icbms.so.util.Settings;
+import com.pineone.icbms.so.util.Settings2;
 import com.pineone.icbms.so.serviceutil.interfaces.processor.AGenericProcessor;
 import com.pineone.icbms.so.serviceprocessor.processor.devicecontrol.messagequeue.consumer.DeviceControlConsumerHandler;
 
@@ -38,9 +38,9 @@ public class DeviceControlProcessor extends AGenericProcessor {
      */
     @Override
     public void process() {
-        ExecutorService executorService = Executors.newFixedThreadPool(Settings.HANDLER_COUNT);
+        ExecutorService executorService = Executors.newFixedThreadPool(Settings2.HANDLER_COUNT);
         List<DeviceControlConsumerHandler> consumerList = new ArrayList<>();
-        for (int i = 0; i < Settings.HANDLER_COUNT; i++) {
+        for (int i = 0; i < Settings2.HANDLER_COUNT; i++) {
             DeviceControlConsumerHandler consumer = new DeviceControlConsumerHandler(i);
             consumerList.add(consumer);
             executorService.submit(consumer);

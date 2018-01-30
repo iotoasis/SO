@@ -4,20 +4,22 @@
 
 <mapper namespace="com.pineone.icbms.so.interfaces.database.dao.DeviceControlDao">
     <select id="retrieveDeviceControlByDeviceIdAndContextModelId" parameterType="HashMap" resultType="DeviceControlForDB">
-        SELECT
-          context_model_id
-          , id
-          , max_value
-          , min_value
-          , unit
-          , unit_description
-          , value
-          , value_description
-        FROM
-          device_control
-        WHERE
-          id = #{id}
-          AND context_model_id = #{contextModelId}
+		SELECT
+		      a.context_model_id
+		    , a.id
+		    , a.max_value
+		    , a.min_value
+		    , a.unit
+		    , a.unit_description
+		    , a.value
+		    , a.value_description
+		    , b.aspect_id_new
+		FROM
+		    device_control a
+		left join device b on a.id=b.id
+		WHERE
+          a.id = #{id}
+          AND a.context_model_id = #{contextModelId}
     </select>
 
     <select id="retrieveDeviceControlById" parameterType="String" resultType="DeviceControlForDB">

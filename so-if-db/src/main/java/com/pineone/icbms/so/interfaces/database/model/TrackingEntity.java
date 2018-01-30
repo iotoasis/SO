@@ -1,5 +1,6 @@
 package com.pineone.icbms.so.interfaces.database.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import java.io.Serializable;
  * Created by jonghee on 2017-06-02.
  */
 //@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"sessionId","seq", "description"})
 @ToString
 public class TrackingEntity implements Serializable {
@@ -66,7 +68,7 @@ public class TrackingEntity implements Serializable {
     private String processMethod;
 
     @Getter @Setter
-    private String processError;
+    private String processResult;
 
     @Getter @Setter
     private String userId;
@@ -93,7 +95,7 @@ public class TrackingEntity implements Serializable {
         this.processMethod = "";
         this.processName = "";
         this.processId = "";
-        this.processError = "";
+        this.processResult = "";
         this.processValue = "";
         //this.simulatorType = "";
         //this.uri = "";

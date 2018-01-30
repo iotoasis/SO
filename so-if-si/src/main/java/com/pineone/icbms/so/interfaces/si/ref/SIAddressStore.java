@@ -11,7 +11,10 @@ public class SIAddressStore {
     public static final String  SI_SUBSCRIPTION_URI                     = "/si/subscription/add";
     public static final String  SI_SUBSCRIPTION_RELEASE_URI             = "/si/subscription/del";
     // SI AuthIgnore Data
+    // 2nd
     public static final String  SI_AUTH_CONTOL_URI                      = "/si/newcontrol";
+    // 3rd
+    //public static final String  SI_AUTH_CONTOL_URI                      = "/si/command";
 
 
     // SI LWM2M Data

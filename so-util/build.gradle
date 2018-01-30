@@ -21,6 +21,7 @@ buildscript {
 }
 
 apply plugin: 'java'
+compileJava.options.encoding = 'UTF-8'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
@@ -45,8 +46,12 @@ dependencies {
     //json object mapper
     compile "com.fasterxml.jackson.core:jackson-databind:${VERSION.jackson_databind}"
     compile "com.google.code.gson:gson:2.6.2"
-    compile "org.codehaus.jackson:jackson-mapper-asl:1.9.13"
-    compile "org.codehaus.jackson:jackson-core-asl:1.9.13"
+    //compile "org.codehaus.jackson:jackson-mapper-asl:1.9.13"
+    //compile "org.codehaus.jackson:jackson-core-asl:1.9.13"
+
+    //compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+
+    compile('org.projectlombok:lombok:1.16.6')
 
     //spring
     // https://mvnrepository.com/artifact/org.springframework/spring-beans

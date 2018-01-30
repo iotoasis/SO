@@ -18,7 +18,6 @@
     <!--<typeAliases>-->
         <!--<typeAlias alias="AspectForDB"                  type="com.pineone.icbms.so.interfaces.database.model.AspectForDB"/>-->
         <!--<typeAlias alias="CompositeVirtualObjectForDB"  type="com.pineone.icbms.so.interfaces.database.model.CompositeVirtualObjectForDB"/>-->
-        <!--<typeAlias alias="ContextInformationForDB"      type="com.pineone.icbms.so.interfaces.database.model.ContextInformationForDB"/>-->
         <!--<typeAlias alias="ContextModelForDB"            type="com.pineone.icbms.so.interfaces.database.model.ContextModelForDB"/>-->
         <!--<typeAlias alias="DeviceControlCallbackForDB"   type="com.pineone.icbms.so.interfaces.database.model.DeviceControlCallbackForDB"/>-->
         <!--<typeAlias alias="DeviceControlForDB"           type="com.pineone.icbms.so.interfaces.database.model.DeviceControlForDB"/>-->

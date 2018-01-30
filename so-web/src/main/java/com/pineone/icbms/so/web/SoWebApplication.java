@@ -4,15 +4,19 @@ import com.pineone.icbms.so.util.spring.beans.CustomBeanNameGenerator;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication(scanBasePackages = {
         "com.kastkode.springsandwich.filter" ,
+//        "com.pineone.icbms.so.interfaces.database.dao",
 //        "com.pineone.icbms.so.web" ,
 //        "com.pineone.icbms.so.interfaces" ,
 //        "com.pineone.icbms.so.serviceprocessor" ,
         "com.pineone.icbms.so"
 }) //package list에서 "com.pineone.icbms.so.serviceprocessor"를 제거하여 kafka 기능을 비활성화.
+@EnableScheduling
 public class SoWebApplication /* extends SpringBootServletInitializer for tomcat binding*/ { // for jetty binding
     /**
      * for tomcat binding.<BR/>

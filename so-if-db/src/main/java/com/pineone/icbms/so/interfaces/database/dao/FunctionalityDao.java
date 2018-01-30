@@ -11,50 +11,28 @@ import java.util.List;
 @Component
 public class FunctionalityDao extends AbstractDao {
     //
-    public FunctionalityForDB retrieveFunctionality(String id) {
-        return null;
-    }
-
-    public List<FunctionalityForDB> retrieveFunctionalityList() {
-        return null;
-    }
-
-//    public FunctionalityForDB createFunctionality(FunctionalityData functionalityData) {
-//        return null;
-//    }
-//
-//    public FunctionalityForDB updateFunctionality(String id, FunctionalityData functionalityData) {
-//        return null;
-//    }
-
-    public String deleteFunctionality(String id) {
-        return null;
-    }
-
-//    public FunctionalityForDB findOne(String id) {
-//        return null;
-//    }
-//    public List<FunctionalityForDB> findAll() {
-//        return null;
-//    }
-    public FunctionalityForDB create(FunctionalityForDB functionalityForDB) {
-        super.sqlSession.insert("", functionalityForDB);
-        return super.sqlSession.selectOne("createFunctionality", functionalityForDB.getId());
+    public FunctionalityForDB create(FunctionalityForDB functionForDB) {
+    	super.sqlSession.insert("createFunction", functionForDB);
+        return super.sqlSession.selectOne("retrieveFunctionById", functionForDB.getId());
     }
 
     public FunctionalityForDB retrieve(String id) {
-        return super.sqlSession.selectOne("retrieveFunctionalityById", id);
+        return super.sqlSession.selectOne("retrieveFunctionById", id);
     }
 
-    public List<FunctionalityForDB> retrieve(FunctionalityForDB functionalityForDB) {
-        return super.sqlSession.selectList("retrieveFunctionalityByModel", functionalityForDB);
+    public List<FunctionalityForDB> retrieve(FunctionalityForDB functionForDB) {
+        return super.sqlSession.selectList("retrieveFunctionByModel", functionForDB);
     }
 
-    public int update(FunctionalityForDB functionalityForDB) {
-        return super.sqlSession.update("updateFunctionality", functionalityForDB);
+    public List<FunctionalityForDB> retrieve() {
+        return super.sqlSession.selectList("retrieveFunctionByModel");
+    }
+
+    public int update(FunctionalityForDB functionForDB) {
+        return super.sqlSession.update("updateFunction", functionForDB);
     }
 
     public int delete(String id) {
-        return super.sqlSession.delete("deleteFunctionality", id);
+        return super.sqlSession.delete("deleteFunction", id);
     }
 }

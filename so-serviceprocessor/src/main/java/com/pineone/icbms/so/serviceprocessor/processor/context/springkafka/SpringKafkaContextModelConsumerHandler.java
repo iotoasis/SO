@@ -1,7 +1,7 @@
 package com.pineone.icbms.so.serviceprocessor.processor.context.springkafka;
 
-import com.pineone.icbms.so.serviceprocessor.repository.database.DatabaseManager;
 import com.pineone.icbms.so.serviceprocessor.processor.context.messagequeue.consumer.ContextModelConsumerHandler;
+import com.pineone.icbms.so.serviceutil.interfaces.database.DatabaseManager;
 import com.pineone.icbms.so.util.spring.springkafka.consumer.AConsumerHandler;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +40,7 @@ public class SpringKafkaContextModelConsumerHandler extends AConsumerHandler<Con
         if (consumerHandler == null)
             consumerHandler = new ContextModelConsumerHandler(databaseManager);
         consumerHandler.handle(record);
+
+        super.countDown();
     }
 }

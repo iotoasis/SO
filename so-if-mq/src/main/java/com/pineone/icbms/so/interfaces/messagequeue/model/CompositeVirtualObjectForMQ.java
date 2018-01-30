@@ -3,6 +3,9 @@ package com.pineone.icbms.so.interfaces.messagequeue.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +18,18 @@ import java.util.List;
 @JsonInclude(value= JsonInclude.Include.NON_ABSENT, content= JsonInclude.Include.NON_EMPTY)
 public class CompositeVirtualObjectForMQ extends ACommonForMQ {
 
-    /**
-     * functionality
+	@Getter @Setter private String cvoType;
+	@Getter @Setter private String physicalDeviceTypeId;
+	@Getter @Setter private String deviceId;
+	
+	@Getter @Setter private String baseCvoId;
+	@Getter @Setter private String locationId;
+	@Getter @Setter private String osId;
+
+	/**
+     * function
      */
-    protected FunctionalityForMQ functionality;
+    protected FunctionForMQ function;
 
     /**
      * aspect
@@ -47,12 +58,12 @@ public class CompositeVirtualObjectForMQ extends ACommonForMQ {
         super(id, name);
     }
 
-    public FunctionalityForMQ getFunctionality() {
-        return functionality;
+    public FunctionForMQ getFunction() {
+        return function;
     }
 
-    public void setFunctionality(FunctionalityForMQ functionality) {
-        this.functionality = functionality;
+    public void setFunction(FunctionForMQ function) {
+        this.function = function;
     }
 
     public AspectForMQ getAspect() {
@@ -84,7 +95,7 @@ public class CompositeVirtualObjectForMQ extends ACommonForMQ {
         StringBuffer sb = new StringBuffer();
         sb.append("[id = ").append(id);
         sb.append(", name = ").append(name);
-        sb.append(",\nfunctionlity: ").append(functionality);
+        sb.append(",\nfunction: ").append(function);
         sb.append(",\naspect: ").append(aspect);
         if (virtualObjectList != null) {
             for (VirtualObjectForMQ vo : virtualObjectList) {

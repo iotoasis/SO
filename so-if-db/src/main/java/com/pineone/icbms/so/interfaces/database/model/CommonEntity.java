@@ -1,10 +1,9 @@
 package com.pineone.icbms.so.interfaces.database.model;
 
-
-import lombok.Data;
+//import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
+//import lombok.ToString;
 
 /**
  * handler entity model.<BR/>
@@ -13,6 +12,11 @@ import lombok.ToString;
 //@Data
 //@ToString
 public class CommonEntity { //extends AbstractPersistable<String> {
+    /*
+     * id
+     */
+    @Getter @Setter
+    private String id;
 
     /*
      * 이름
@@ -37,12 +41,6 @@ public class CommonEntity { //extends AbstractPersistable<String> {
      */
     @Getter @Setter
     String modifiedDate;
-
-    /*
-     * 권한기능 - 사용자 ID
-     */
-    @Getter @Setter
-    String userId;
 
     /*
      * 차수 - 1, 2, 3 차년

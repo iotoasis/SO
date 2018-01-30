@@ -1,11 +1,10 @@
 package com.pineone.icbms.so.serviceutil.modelmapper;
 
-import com.pineone.icbms.so.interfaces.database.model.AspectForDB;
 import com.pineone.icbms.so.interfaces.database.model.CompositeVirtualObjectForDB;
-import com.pineone.icbms.so.interfaces.database.model.FunctionalityForDB;
+import com.pineone.icbms.so.interfaces.database.model.RuleBodyForDB;
 import com.pineone.icbms.so.interfaces.database.model.VirtualObjectForDB;
 import com.pineone.icbms.so.interfaces.messagequeue.model.AspectForMQ;
-import com.pineone.icbms.so.interfaces.messagequeue.model.FunctionalityForMQ;
+import com.pineone.icbms.so.interfaces.messagequeue.model.FunctionForMQ;
 import com.pineone.icbms.so.interfaces.messagequeue.model.VirtualObjectForMQ;
 import com.pineone.icbms.so.serviceutil.state.StateStoreUtil;
 import com.pineone.icbms.so.util.conversion.IModelMapper;
@@ -14,7 +13,10 @@ import com.pineone.icbms.so.virtualobject.IGenericVirtualObject;
 import com.pineone.icbms.so.virtualobject.aspect.IGenericAspect;
 import com.pineone.icbms.so.virtualobject.composite.DefaultCompositeVirtualObject;
 import com.pineone.icbms.so.virtualobject.composite.IGenericCompositeVirtualObject;
-import com.pineone.icbms.so.virtualobject.functionlity.IGenericFunctionality;
+import com.pineone.icbms.so.virtualobject.function.IGenericFunction;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,7 @@ public class VirtualObjectMapper implements IModelMapper<IGenericVirtualObject, 
     private static AspectMapper aspectMapper = new AspectMapper();
 
     /**
-     * functionality mapper
+     * function mapper
      */
     private static FunctionalityMapper functionalityMapper = new FunctionalityMapper();
 
@@ -51,8 +53,14 @@ public class VirtualObjectMapper implements IModelMapper<IGenericVirtualObject, 
             virtualObject.setName(virtualObjectForMQ.getName());
             IGenericAspect aspect = aspectMapper.toProcessorModelFromMq(virtualObjectForMQ.getAspect());
             virtualObject.setAspect(aspect);
-            IGenericFunctionality functionality = functionalityMapper.toProcessorModelFromMq(virtualObjectForMQ.getFunctionality());
-            virtualObject.setFunctionality(functionality);
+            IGenericFunction function = functionalityMapper.toProcessorModelFromMq(virtualObjectForMQ.getFunction());
+            virtualObject.setFunction(function);
+            
+            virtualObject.setDeviceId(virtualObjectForMQ.getDeviceId());;
+            virtualObject.setVoValueType(virtualObjectForMQ.getVoValueType());
+            virtualObject.setVoValue(virtualObjectForMQ.getVoValue());
+            virtualObject.setIsLast(virtualObjectForMQ.getIsLast());
+            
             StateStoreUtil.copyStateStore(virtualObjectForMQ.getStateStore(), virtualObject);
         }
         return virtualObject;
@@ -72,9 +80,13 @@ public class VirtualObjectMapper implements IModelMapper<IGenericVirtualObject, 
             virtualObject.setId(virtualObjectForDB.getId());
             virtualObject.setName(virtualObjectForDB.getName());
 //            virtualObject.setAspect(aspectMapper.toProcessorModelFromDb(new AspectForDB(virtualObjectForDB.getAspectId())));
-//            virtualObject.setFunctionality(functionalityMapper.toProcessorModelFromDb(new FunctionalityForDB(virtualObjectForDB.getFunctionalityId())));
-            virtualObject.setAspect(aspectMapper.toProcessorModelFromDb(virtualObjectForDB.getAspectId()));
-            virtualObject.setFunctionality(functionalityMapper.toProcessorModelFromDb(virtualObjectForDB.getFunctionalityId()));
+//            virtualObject.setFunction(functionalityMapper.toProcessorModelFromDb(new FunctionalityForDB(virtualObjectForDB.getFunctionId())));
+            virtualObject.setAspect(aspectMapper.toProcessorModelFromDb("",virtualObjectForDB.getAspectUri()));
+            virtualObject.setFunction(functionalityMapper.toProcessorModelFromDb(virtualObjectForDB.getFunctionalityId(), virtualObjectForDB.getFunctionalityUri()));
+
+            virtualObject.setVoValueType(virtualObjectForDB.getVoValueType());
+            virtualObject.setVoValue(virtualObjectForDB.getVoValue());
+        
         }
         return virtualObject;
     }
@@ -95,8 +107,15 @@ public class VirtualObjectMapper implements IModelMapper<IGenericVirtualObject, 
             virtualObjectForMQ.setDescription((virtualObject.getDescription()));
             AspectForMQ aspectForMQ = aspectMapper.toMqModelFromPs(virtualObject.getAspect());
             virtualObjectForMQ.setAspect(aspectForMQ);
-            FunctionalityForMQ functionalityForMQ = functionalityMapper.toMqModelFromPs(virtualObject.getFunctionality());
-            virtualObjectForMQ.setFunctionality(functionalityForMQ);
+            FunctionForMQ functionForMQ = functionalityMapper.toMqModelFromPs(virtualObject.getFunction());
+            virtualObjectForMQ.setFunction(functionForMQ);
+            
+            virtualObjectForMQ.setDeviceId(virtualObject.getDeviceId());
+            virtualObjectForMQ.setVoValueType(virtualObject.getVoValueType());
+            virtualObjectForMQ.setVoValue(virtualObject.getVoValue());
+
+            virtualObjectForMQ.setIsLast(virtualObject.getIsLast());
+            
             StateStoreUtil.copyStateStore(virtualObject.getStateStore(), virtualObjectForMQ);
 
         }
@@ -185,4 +204,28 @@ public class VirtualObjectMapper implements IModelMapper<IGenericVirtualObject, 
         }
         return compositeVirtualObjectList;
     }
+
+
+    public List<IGenericCompositeVirtualObject> toCompositeVirtualObjectListFromRulDb(List<RuleBodyForDB> ruleBodyForDBList) {
+        //convert to List<IGenericCompositeVirtualObject>
+        List<IGenericCompositeVirtualObject> compositeVirtualObjectList = new ArrayList<>();
+        for (RuleBodyForDB rubleBodyItem:ruleBodyForDBList) {
+        	DefaultCompositeVirtualObject compositeVirtualObject = new DefaultCompositeVirtualObject();
+            compositeVirtualObject.setId(rubleBodyItem.getId());
+
+            //cvo_type, physical_device_type_id, device_id
+            compositeVirtualObject.setCvoType(rubleBodyItem.getCvoType());
+            compositeVirtualObject.setPhysicalDeviceTypeId(rubleBodyItem.getPhysicalDeviceTypeId());
+            compositeVirtualObject.setDeviceId(rubleBodyItem.getDeviceId());
+        	
+            //base_cvo_id, location_id
+            compositeVirtualObject.setBaseCvoId(rubleBodyItem.getBaseCvoId());
+            compositeVirtualObject.setLocationId(rubleBodyItem.getLocationId());
+
+        	compositeVirtualObjectList.add(compositeVirtualObject);
+        }
+
+        return compositeVirtualObjectList;
+    }
+
 }

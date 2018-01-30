@@ -17,6 +17,7 @@ buildscript {
 }
 
 apply plugin: 'java'
+compileJava.options.encoding = 'UTF-8'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
@@ -30,11 +31,11 @@ repositories {
 
 
 dependencies {
-    compile project(":so-virtualobject")
-    compile project(":so-if-mq")
-    compile project(":so-if-db")
-    compile project(":so-devicecontrol")
-    compile project(":so-util")
+    compile project(':so-virtualobject')
+    compile project(':so-if-mq')
+    compile project(':so-if-db')
+    compile project(':so-devicecontrol')
+    compile project(':so-util')
 
     //json object mapper
     compile "com.fasterxml.jackson.core:jackson-databind:${VERSION.jackson_databind}"

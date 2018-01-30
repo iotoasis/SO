@@ -11,6 +11,8 @@ import java.util.List;
  */
 public interface IDatabaseManager {
 
+	ContextModelForDB getContextModelById(String contextModelId);
+	
     List<ProfileForDB> getProfileListByContextModelSidAndLocationUri(String contextModelSid, String locationUri);
 
     OrchestrationServiceForDB getOrchestrationServiceById(String id);
@@ -19,19 +21,45 @@ public interface IDatabaseManager {
 
     VirtualObjectForDB getVirtualObjectById(String id);
 
-    List<VirtualObjectForDB> getVirtualObjectListByOrchestrationId(String orchestrationServiceId);
+    //List<VirtualObjectForDB> getVirtualObjectListByOrchestrationId(String orchestrationServiceId);
+	List<VirtualObjectForDB> getVirtualObjectListByCompositeVirtualObjectId(String id);
+	List<RuleItemForDB> getRuleItemListByRuleBodyId(String id);
 
-    List<DeviceForDB> getDeviceList(String functionalityUri, String aspect, String locationUri);
+    List<DeviceForDB> getDeviceList(String functionUri, String aspect, String locationUri);
 
     FixedDeviceForDB getFixedDevice(String id);
 
     List<CompositeVirtualObjectForDB> getCompositeVirtualObjectListByOrchestrationId(String orchestrationServiceId);
+	List<RuleBodyForDB> getRuleBodyListByOsId(String osId);
+    
+    CompositeVirtualObjectForDB getCompositeVirtualObjectById(String id);
 
+    
     DeviceControlForDB getDeviceControlByDeviceIdAndContextModelID(String deviceId, String contextModelId);
 
     DeviceControlForDB getDeviceControlValues(String deviceId, String contextModelId);
 
     ProfileForDB getProfileById(String profileId);
+	List<String> getDepProfileById(String profileId);
+    public List<ProfileForDB> getAllProfile();
 
     void createTracking(TrackingEntity trackingEntity);
+    
+    LocationForDB getLocationById(String id);
+    
+    // grib session
+    void createSessionData(SessionEntity sessionEntity);
+    void createSessionDataLocation(SessionEntity sessionEntity);
+    void createSessionDataDevice(SessionEntity sessionEntity);
+    void createSessionDataVo(SessionEntity sessionEntity);
+    void updateSessionData(SessionEntity sessionEntity);
+    SessionEntity getSessionData(String sessionId);
+
+	FunctionalityForDB getFunction(String id);
+
+	List<DeviceTypeForDB> retrieveDeviceType();
+	DeviceTypeForDB retrieveDeviceTypeById(String id);
+
+	List<NonDeviceCvoForDB> retrieveNonDeviceCvoList(String nCvoId, String osId);
+
 }

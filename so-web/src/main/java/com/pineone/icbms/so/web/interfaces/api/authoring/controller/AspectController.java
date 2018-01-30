@@ -78,7 +78,7 @@ public class AspectController {
      * @return updated Aspect id
      */
     @RequestMapping(method = RequestMethod.PATCH)
-    public AspectForDB updateAspect(@RequestBody AspectForDB aspect) {
+    public int updateAspect(@RequestBody AspectForDB aspect) {
         return aspectDAO.update(aspect);
     }
 

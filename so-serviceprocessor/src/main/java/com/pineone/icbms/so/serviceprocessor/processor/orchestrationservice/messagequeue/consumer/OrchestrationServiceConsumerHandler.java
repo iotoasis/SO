@@ -3,11 +3,11 @@ package com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.mes
 import com.pineone.icbms.so.interfaces.database.model.OrchestrationServiceForDB;
 import com.pineone.icbms.so.interfaces.database.model.TrackingEntity;
 import com.pineone.icbms.so.interfaces.messagequeue.model.OrchestrationServiceForMQ;
-import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
 import com.pineone.icbms.so.serviceprocessor.processor.orchestrationservice.handler.OrchestrationServiceHandler;
+import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
 import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;
 import com.pineone.icbms.so.serviceutil.state.StateStoreUtil;
-import com.pineone.icbms.so.util.Settings;
+import com.pineone.icbms.so.util.Settings2;
 import com.pineone.icbms.so.util.messagequeue.consumer.AGenericConsumerHandler2;
 import com.pineone.icbms.so.virtualobject.orchestrationservice.IGenericOrchestrationService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -25,12 +25,14 @@ public class OrchestrationServiceConsumerHandler extends AGenericConsumerHandler
     /**
      * topic list
      */
-    private static final List<String> TOPIC_LIST = Arrays.asList(Settings.TOPIC_ORCHESTRATION_SERVICE);
+    private static final List<String> TOPIC_LIST = Arrays.asList(Settings2.TOPIC_ORCHESTRATION_SERVICE);
 
     /**
      * kafka producer group id by class name.<BR/>
      */
     private static final String GROUP_ID = OrchestrationServiceConsumerHandler.class.getSimpleName();
+    
+    private static int threadNum=0;
 
     /**
      * database manager
@@ -47,6 +49,7 @@ public class OrchestrationServiceConsumerHandler extends AGenericConsumerHandler
      */
     public OrchestrationServiceConsumerHandler(IDatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
+        Thread.currentThread().setName("T:"+Settings2.TOPIC_ORCHESTRATION_SERVICE + "-" +threadNum++);
     }
 
     /**
@@ -101,15 +104,21 @@ public class OrchestrationServiceConsumerHandler extends AGenericConsumerHandler
         OrchestrationServiceForMQ orchestrationServiceForMQ = ModelMapper.readJsonObject(record.value(), OrchestrationServiceForMQ.class);
         log.debug("OrchestrationServiceForMQ: {}", orchestrationServiceForMQ);
 
-        // TODO tracking
+        // tracking
         TrackingEntity tracking = orchestrationServiceForMQ.getTrackingEntity();
 
         //MQ model --> OrchestrationServiceForDB model
+        log.debug("getOrchestrationServiceById : {}", orchestrationServiceForMQ.getId());
         OrchestrationServiceForDB orchestrationServiceForDB = databaseManager.getOrchestrationServiceById(orchestrationServiceForMQ.getId());
+        
+        if (orchestrationServiceForDB==null) {
+            log.warn("OrchestrationServiceForDB is null");
+        	return;
+        }
 //        List<VirtualObjectForDB> virtualObjectForDBList = databaseManager.getVirtualObjectListByOrchestrationId(orchestrationServiceForDB.getId());
         //OrchestrationServiceForDB model --> OrchestrationService model
         IGenericOrchestrationService orchestrationService = ModelMapper.toOrchestrationService(orchestrationServiceForDB);
-        //TODO: refactor copying StateStore
+        // TODO refactor copying StateStore
         StateStoreUtil.copyStateStore(orchestrationServiceForMQ.getStateStore(), orchestrationService);
 
         log.debug("OrchestrationService: {}", orchestrationService);

@@ -12,9 +12,6 @@ import lombok.*;
 public class ScheduleContextForDB extends CommonEntity {
 
     @Getter @Setter
-    String id;
-
-    @Getter @Setter
     String schedule;
 
 }

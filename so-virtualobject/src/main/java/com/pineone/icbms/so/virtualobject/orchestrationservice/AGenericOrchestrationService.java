@@ -26,7 +26,7 @@ abstract public class AGenericOrchestrationService extends AGenericServiceEntity
     /**
      * virtual object: composite or general
      */
-    protected List<IGenericVirtualObject> virtualObjectList;
+    protected List<IGenericVirtualObject> virtualObjectList = null;
 
     /**
      * constructor
@@ -85,7 +85,6 @@ abstract public class AGenericOrchestrationService extends AGenericServiceEntity
         this.compositeVirtualObjectList = compositeVirtualObjectList;
     }
 
-    @Override
     public List<IGenericVirtualObject> getVirtualObjectList() {
         return virtualObjectList;
     }

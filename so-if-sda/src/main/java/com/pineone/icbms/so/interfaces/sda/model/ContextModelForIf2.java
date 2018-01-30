@@ -46,6 +46,10 @@ public class ContextModelForIf2 extends AGenericIdNameOwner {
     /**
      * contructor
      */
+    
+    // got CM value
+    String resultCmValue;
+    
     public ContextModelForIf2() {
     }
 
@@ -89,7 +93,15 @@ public class ContextModelForIf2 extends AGenericIdNameOwner {
         this.simulatorType = simulatorType;
     }
 
-    @Override
+    public String getResultCmValue() {
+		return resultCmValue;
+	}
+
+	public void setResultCmValue(String resultCmValue) {
+		this.resultCmValue = resultCmValue;
+	}
+
+	@Override
     public String toString() {
         StringBuffer sb = new StringBuffer(getClass().getSimpleName()).append(": {");
         sb.append("simulatorType: ").append(simulatorType)

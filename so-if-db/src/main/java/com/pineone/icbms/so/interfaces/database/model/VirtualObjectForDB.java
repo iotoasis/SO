@@ -1,15 +1,18 @@
+/*
+ * Created Date : 2017. 9. 7
+ * Author : jonghee
+ * Company : PINEONE
+ * License : MIT
+ */
+
 package com.pineone.icbms.so.interfaces.database.model;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.pineone.icbms.so.util.time.DateFormat;
 import lombok.*;
 
-import java.util.Calendar;
-import java.util.Date;
-
 /**
- * Virtual Object model for authoring.<BR/>
- * Created by uni4love on 2017. 1. 13..
+ * The type Virtual object for db.
+ * jonghee 2017.09.07.
  */
 //@Data
 //@EqualsAndHashCode(callSuper=true)
@@ -18,12 +21,17 @@ import java.util.Date;
 public class VirtualObjectForDB extends CommonEntity {
 
     @Getter @Setter
-    private String id;
+    private String aspectUri;
 
     @Getter @Setter
     private String functionalityId;
 
     @Getter @Setter
-    private String aspectId;
+    private String functionalityUri;
 
+    @Getter @Setter
+    private String voValueType; // rule_item.vo_value_type
+
+    @Getter @Setter
+    private String voValue;     // rule_item.vo_value
 }

@@ -2,7 +2,7 @@ package com.pineone.icbms.so.serviceprocessor.processor.devicecontrol.provider;
 
 import com.pineone.icbms.so.virtualobject.virtualdevice.IGenericVirtualDevice;
 import com.pineone.icbms.so.interfaces.database.model.DeviceForDB;
-import com.pineone.icbms.so.serviceprocessor.repository.database.DatabaseManager;
+import com.pineone.icbms.so.serviceutil.interfaces.database.DatabaseManager;
 import com.pineone.icbms.so.serviceutil.interfaces.provider.IDeviceControlProvider;
 
 import java.util.List;
@@ -74,12 +74,12 @@ public class DeviceProvider implements IDeviceControlProvider {
     /**
      * return IGenericVirtualDevice list from database.<BR/>
      *
-     * @param functionality functionality uri
+     * @param function function uri
      * @param aspect        aspect
      * @param locationUri   location uri
      * @return IGenericVirtualDevice list
      */
-    public List<DeviceForDB> getDeviceList(String functionality, String aspect, String locationUri) {
-        return databaseManager.getDeviceList(functionality, aspect, locationUri);
+    public List<DeviceForDB> getDeviceList(String function, String aspect, String locationUri) {
+        return databaseManager.getDeviceList(function, aspect, locationUri);
     }
 }

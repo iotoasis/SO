@@ -2,11 +2,8 @@ package com.pineone.icbms.so.interfaces.database.model;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.pineone.icbms.so.interfaces.database.model.CommonEntity;
-import com.pineone.icbms.so.util.time.DateFormat;
 import lombok.*;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,28 +14,28 @@ import java.util.List;
 @JsonPropertyOrder({"id","name", "description"})
 @ToString
 public class CompositeVirtualObjectForDB extends CommonEntity {
+	//id = rule_body.id
 
     @Getter @Setter
-    private String id;
+    private String cvoType;
 
     @Getter @Setter
-    private String functionalityId;
+    private String physicalDeviceTypeId;
+    
+    @Getter @Setter
+    private String deviceId;
+
+	
+    @Getter @Setter
+    private String baseCvoId;	//rule_body.cvoId
 
     @Getter @Setter
-    private String aspectId;
+    private String locationId;  //rule_body
 
+    @Getter @Setter
+    private String osId;
+    
     @Getter @Setter
     private List<VirtualObjectForDB> virtualObjectForDBList;
-
-    @Getter @Setter
-    private String type;
-
-//    public List<VirtualObjectForDB> getVirtualObjectForDBList() {
-//        return virtualObjectForDBList;
-//    }
-//
-//    public void setVirtualObjectForDBList(List<VirtualObjectForDB> virtualObjectForDBList) {
-//        this.virtualObjectForDBList = virtualObjectForDBList;
-//    }
 
 }

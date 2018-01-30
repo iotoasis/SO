@@ -2,10 +2,15 @@ package com.pineone.icbms.so.interfaces.database.dao;
 
 import com.pineone.icbms.so.interfaces.database.model.CompositeVirtualObjectForDB;
 import com.pineone.icbms.so.interfaces.database.model.OrchestrationServiceForDB;
+import com.pineone.icbms.so.interfaces.database.model.RuleBodyForDB;
 import com.pineone.icbms.so.interfaces.database.model.VirtualObjectForDB;
+import com.pineone.icbms.so.util.id.IdUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,12 +18,12 @@ import java.util.List;
  */
 @Component
 public class OrchestrationServiceDao extends AbstractDao {
-//    @Autowired
-//    private CompositeVirtualObjectDao cvoDao;
-//    @Autowired
-//    private VirtualObjectDao voDao;
-
     //
+    
+    public List<OrchestrationServiceForDB> retrieveServiceByProfile(String id) {
+        return super.sqlSession.selectList("retrieveServiceByProfile", id);
+    }
+    
     public OrchestrationServiceForDB retrieveOrchestrationService(String id) {
         //
 //        OrchestrationServiceForDB orchestrationServiceForDB = orchestrationServiceRepository.findOne(id);
@@ -44,19 +49,59 @@ public class OrchestrationServiceDao extends AbstractDao {
         //return super.sqlSession.selectOne("getOrchestrationServiceById", id);
     }
 
-    public List<OrchestrationServiceForDB> retrieveOrchestrationServiceList() {
-        return null;
+    // retrieve one
+    public OrchestrationServiceForDB retrieve(String id) {
+        OrchestrationServiceForDB osDB = super.sqlSession.selectOne("retrieveOrchestrationServiceById", id);
+        osDB.setRulbodyForDBList(retrieveRuleBodyByOsId(id));
+        //List<VirtualObjectForDB> voList = retrieveVoByOsId(id);
+        //osDB.setVirtualObjectForDBList(voList);
+        return osDB;//super.sqlSession.selectOne("retrieveOrchestrationServiceById", id);
     }
 
-//    public OrchestrationServiceForDB createOrchestrationService(OrchestrationServiceData orchestrationServiceData) {
-//        return null;
-//    }
-//
-//    public OrchestrationServiceForDB updateOrchestrationService(String id, OrchestrationServiceData orchestrationServiceData) {
-//        return null;
-//    }
+    //os list by profile_id
+	public List<OrchestrationServiceForDB> retrieveByProfile(String profileId) {
+        return super.sqlSession.selectList("retrieveOrchestrationServiceByProfile", profileId);
+	}
 
-    public String deleteOrchestrationService(String id) {
-        return null;
+    // retrieve list
+    public List<OrchestrationServiceForDB> retrieve(OrchestrationServiceForDB model) {
+        return super.sqlSession.selectList("retrieveOrchestrationServiceByModel", model);
     }
+
+    // retrieve all
+    public List<OrchestrationServiceForDB> retrieve() {
+        return super.sqlSession.selectList("retrieveOrchestrationServiceByModel");
+    }
+
+    // retrieve list
+    public List<RuleBodyForDB> retrieveRuleBodyByOsId(String osid) {
+        return super.sqlSession.selectList("retrieveCvoInOrchestrationService", osid);
+    }
+/*
+    // retrieve list
+    public List<VirtualObjectForDB> retrieveVoByOsId(String osid) {
+        return super.sqlSession.selectList("retrieveVoInOrchestrationService", osid);
+    }
+*/
+    
+    public OrchestrationServiceForDB create(OrchestrationServiceForDB model) {
+        String sessionId = IdUtils.createRandomUUID();
+        model.setId("PR-" + sessionId);
+    	super.sqlSession.insert("createOrchestrationService", model);
+    	return super.sqlSession.selectOne("retrieveOrchestrationServiceById", model.getId());
+    }
+    
+    // 갱신 기능 구현
+    public int update(OrchestrationServiceForDB model) {
+        //
+        return super.sqlSession.update("updateOrchestrationService", model);
+    }
+
+    // 삭제 기능 구현
+    public int delete(String id) {
+        //super.sqlSession.delete("deleteOsCvo", id);
+        //super.sqlSession.delete("deleteOsVo", id);
+        return super.sqlSession.delete("deleteOrchestrationService", id);
+    }
+
 }

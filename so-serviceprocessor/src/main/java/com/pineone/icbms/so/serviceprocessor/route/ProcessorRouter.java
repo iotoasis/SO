@@ -19,6 +19,7 @@ import java.util.Arrays;
 
 
 /**
+ * 미사용
  * Process router class.<BR/>
  * This class is Singleton instance.<BR/>
  * <p>

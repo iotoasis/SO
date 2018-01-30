@@ -12,9 +12,7 @@ import lombok.ToString;
 //@Data
 @JsonPropertyOrder({"id","contextModelId", "unit", "value"})
 @ToString
-public class DeviceControlForDB {
-    @Getter @Setter
-    private String id;
+public class DeviceControlForDB extends CommonEntity {
     @Getter @Setter
     private String unit;
     @Getter @Setter
@@ -30,4 +28,6 @@ public class DeviceControlForDB {
     @Getter @Setter
     private String contextModelId;
 
+    @Getter @Setter
+    private String aspectIdNew;
 }

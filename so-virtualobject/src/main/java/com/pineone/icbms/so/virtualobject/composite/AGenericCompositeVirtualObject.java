@@ -3,7 +3,8 @@ package com.pineone.icbms.so.virtualobject.composite;
 import com.pineone.icbms.so.virtualobject.AGenericVirtualObject;
 import com.pineone.icbms.so.virtualobject.IGenericVirtualObject;
 import com.pineone.icbms.so.virtualobject.aspect.IGenericAspect;
-import com.pineone.icbms.so.virtualobject.functionlity.IGenericFunctionality;
+import com.pineone.icbms.so.virtualobject.common.AGenericServiceEntity;
+import com.pineone.icbms.so.virtualobject.function.IGenericFunction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +15,70 @@ import java.util.Map;
  *
  * Created by uni4love on 2016. 11. 17..
  */
-abstract public class AGenericCompositeVirtualObject extends AGenericVirtualObject implements IGenericCompositeVirtualObject {
-    /**
+abstract public class AGenericCompositeVirtualObject extends AGenericServiceEntity /* AGenericVirtualObject*/ implements IGenericCompositeVirtualObject {
+
+	private String cvoType;
+
+	private String physicalDeviceTypeId;
+	private String deviceId;
+
+	private String baseCvoId;
+	private String locationId;
+	private String osId;
+
+	@Override
+	public String getPhysicalDeviceTypeId() {
+		return physicalDeviceTypeId;
+	}
+
+	public void setPhysicalDeviceTypeId(String physicalDeviceTypeId) {
+		this.physicalDeviceTypeId = physicalDeviceTypeId;
+	}
+
+	@Override
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+	@Override
+	public String getBaseCvoId() {
+		return baseCvoId;
+	}
+
+	public void setBaseCvoId(String baseCvoId) {
+		this.baseCvoId = baseCvoId;
+	}
+
+	@Override
+	public String getLocationId() {
+		return locationId;
+	}
+
+	public void setLocationId(String locationId) {
+		this.locationId = locationId;
+	}
+
+	@Override
+	public String getCvoType() {
+		return cvoType;
+	}
+
+	public void setCvoType(String cvoType) {
+		this.cvoType = cvoType;
+	}
+
+	public String getOsId() {
+		return osId;
+	}
+
+	public void setOsId(String osId) {
+		this.osId = osId;
+	}
+
+	/**
      * virtual object list
      */
     protected List<IGenericVirtualObject> virtualObjectList = new ArrayList<>();
@@ -110,11 +173,11 @@ abstract public class AGenericCompositeVirtualObject extends AGenericVirtualObje
     }
 
     /**
-     * return functionality list.<BR/>
+     * return function list.<BR/>
      *
-     * @return functionality list
+     * @return function list
      */
-    public List<IGenericFunctionality> getFunctionalityList() {
+    public List<IGenericFunction> getFunctionList() {
         //implements...
         return null;
     }
@@ -130,11 +193,11 @@ abstract public class AGenericCompositeVirtualObject extends AGenericVirtualObje
     }
 
     /**
-     * return aspect-functionality list.<BR/>
+     * return aspect-function list.<BR/>
      *
-     * @return aspect-functionality list
+     * @return aspect-function list
      */
-    public Map<IGenericAspect, IGenericFunctionality> getAspectFunctionalityList() {
+    public Map<IGenericAspect, IGenericFunction> getAspectFunctionList() {
         //implements...
         return null;
     }

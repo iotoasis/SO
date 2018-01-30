@@ -3,6 +3,7 @@ package com.pineone.icbms.so.serviceutil.modelmapper;
 import com.pineone.icbms.so.virtualobject.virtualdevice.IGenericVirtualDevice;
 import com.pineone.icbms.so.interfaces.database.model.*;
 import com.pineone.icbms.so.interfaces.messagequeue.model.*;
+import com.pineone.icbms.so.serviceutil.interfaces.database.DatabaseManager;
 import com.pineone.icbms.so.virtualobject.profile.IGenericProfile;
 import com.pineone.icbms.so.virtualobject.profile.DefaultProfile;
 import com.pineone.icbms.so.util.conversion.JsonMapper;
@@ -10,15 +11,13 @@ import com.pineone.icbms.so.virtualobject.IGenericVirtualObject;
 import com.pineone.icbms.so.virtualobject.aspect.IGenericAspect;
 import com.pineone.icbms.so.virtualobject.common.IGenericIdentity;
 import com.pineone.icbms.so.virtualobject.composite.IGenericCompositeVirtualObject;
-import com.pineone.icbms.so.virtualobject.context.contextinformation.IGenericContextInformation;
 import com.pineone.icbms.so.virtualobject.context.contextmodel.DefaultContextModel;
 import com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextModel;
-import com.pineone.icbms.so.virtualobject.functionlity.IGenericFunctionality;
+import com.pineone.icbms.so.virtualobject.function.IGenericFunction;
 import com.pineone.icbms.so.virtualobject.location.DefaultLocation;
 import com.pineone.icbms.so.virtualobject.location.IGenericLocation;
 import com.pineone.icbms.so.virtualobject.orchestrationservice.DefaultOrchestrationService;
 import com.pineone.icbms.so.virtualobject.orchestrationservice.IGenericOrchestrationService;
-import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -36,11 +35,6 @@ public class ModelMapper extends JsonMapper {
      * contextmodel mapper
      */
     private static ContextModelMapper contextModelMapper = new ContextModelMapper();
-
-    /**
-     * contextmodel mapper
-     */
-    private static ContextInformationMapper contextInformationMapper = new ContextInformationMapper();
 
     /**
      * orchestrationservice mapper
@@ -63,7 +57,7 @@ public class ModelMapper extends JsonMapper {
     private static AspectMapper aspectMapper = new AspectMapper();
 
     /**
-     * functionality mapper
+     * function mapper
      */
     private static FunctionalityMapper functionalityMapper = new FunctionalityMapper();
 
@@ -99,20 +93,29 @@ public class ModelMapper extends JsonMapper {
     public static IGenericProfile toProfile(ProfileForDB profileForDB) {
         DefaultProfile defaultProfile = null;
         if (profileForDB != null) {
-            //context model
+            String locId = profileForDB.getLocationId();
+            LocationForDB locDb = DatabaseManager.getInstance().getLocationById(locId);
+            String locUri = null;
+            if (locDb!=null)
+            	locUri = locDb.getUri(); 
+            
+            //location
+            DefaultLocation location = new DefaultLocation();
+            location.setUri(locUri);
+
+        	//context model
             DefaultContextModel contextModel = new DefaultContextModel();
             contextModel.setId(profileForDB.getContextModelId());
             //orchestration service
             DefaultOrchestrationService orchestrationService = new DefaultOrchestrationService();
             orchestrationService.setId(profileForDB.getOrchestrationServiceId());
-            //location
-            DefaultLocation location = new DefaultLocation();
-            location.setUri(profileForDB.getLocationUri());
+            
             //profile
             defaultProfile = new DefaultProfile(profileForDB.getId(), profileForDB.getName());
             defaultProfile.setContextModel(contextModel);
             defaultProfile.setOrchestrationService(orchestrationService);
             defaultProfile.setLocation(location);
+
         }
         return defaultProfile;
     }
@@ -135,26 +138,6 @@ public class ModelMapper extends JsonMapper {
      */
     public static IGenericContextModel toContextModel(ContextModelForDB contextModelForDB) {
         return contextModelMapper.toProcessorModelFromDb(contextModelForDB);
-    }
-
-    /**
-     * convert List<ContextInformationForDB> to List<IGenericContextInformation> <BR/>
-     *
-     * @param contextInformationForDBList List<ContextInformationForDB>
-     * @return List<IGenericContextInformation>
-     */
-    public static List<IGenericContextInformation> toContextInformationList(List<ContextInformationForDB> contextInformationForDBList) {
-        return contextInformationMapper.toContextInformationList(contextInformationForDBList);
-    }
-
-    /**
-     * convert ContextInformationForDB to IGenericContextInformation.<BR/>
-     *
-     * @param contextInformationForDB ContextInformationForDB
-     * @return IGenericContextInformation
-     */
-    public static IGenericContextInformation toContextInformaion(ContextInformationForDB contextInformationForDB) {
-        return contextInformationMapper.toProcessorModelFromDb(contextInformationForDB);
     }
 
     /**
@@ -359,33 +342,33 @@ public class ModelMapper extends JsonMapper {
     }
 
     /**
-     * convert FunctionalityForDB to IGenericFunctionality.<BR/>
+     * convert FunctionalityForDB to IGenericFunction.<BR/>
      *
      * @param functionalityForDB FunctionalityForDB
-     * @return IGenericFunctionality
+     * @return IGenericFunction
      */
-    public static IGenericFunctionality toFunctionality(FunctionalityForDB functionalityForDB) {
+    public static IGenericFunction toFunction(FunctionalityForDB functionalityForDB) {
         return functionalityMapper.toProcessorModelFromDb(functionalityForDB);
     }
 
     /**
-     * convert FunctionalityForMQ to IGenericFunctionality.<BR/>
+     * convert FunctionForMQ to IGenericFunction.<BR/>
      *
-     * @param functionalityForMQ FunctionalityForMQ
-     * @return IGenericFunctionality
+     * @param functionForMQ FunctionForMQ
+     * @return IGenericFunction
      */
-    public static IGenericFunctionality toFunctionality(FunctionalityForMQ functionalityForMQ) {
-        return functionalityMapper.toProcessorModelFromMq(functionalityForMQ);
+    public static IGenericFunction toFunction(FunctionForMQ functionForMQ) {
+        return functionalityMapper.toProcessorModelFromMq(functionForMQ);
     }
 
     /**
-     * convert FunctionalityForMQ to IGenericFunctionality.<BR/>
+     * convert FunctionForMQ to IGenericFunction.<BR/>
      *
-     * @param functionality IGenericFunctionality
-     * @return FunctionalityForMQ
+     * @param function IGenericFunction
+     * @return FunctionForMQ
      */
-    public static FunctionalityForMQ toFunctionalityForMQ(IGenericFunctionality functionality) {
-        return functionalityMapper.toMqModelFromPs(functionality);
+    public static FunctionForMQ toFunctionForMQ(IGenericFunction function) {
+        return functionalityMapper.toMqModelFromPs(function);
     }
 
     /**

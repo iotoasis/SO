@@ -1,11 +1,7 @@
 package com.pineone.icbms.so.interfaces.database.model;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.pineone.icbms.so.util.time.DateFormat;
 import lombok.*;
-
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * ProfileForDB model for authoring.<BR/>
@@ -19,22 +15,29 @@ import java.util.Date;
 public class ProfileForDB extends CommonEntity {
 
     @Getter @Setter
-    private String id;
+    private int enabled;
 
     @Getter @Setter
     private String contextModelId;
 
     @Getter @Setter
+    private String locationId;
+
+    @Getter @Setter
     private String orchestrationServiceId;
 
     @Getter @Setter
+    private String parameterType;
+    
+    @Getter @Setter
+    private Integer period;
+
+    @Getter @Setter
+    private Integer checkRate;
+
+    @Getter @Setter
+    private String priority;
+
+    @Getter @Setter
     private String locationUri;
-
-    @Getter @Setter
-    private int period;
-
-    @Getter @Setter
-    private int enabled;
-
-
 }

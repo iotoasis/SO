@@ -5,31 +5,15 @@
 <mapper namespace="com.pineone.icbms.so.interfaces.database.dao.ContextModelDao">
     <select id="retrieveContextModelById" parameterType="String" resultType="ContextModelForDB">
         SELECT
-        id
-        , name
-        , description
-        , created_date
-        , modified_date
-        , user_id
-        , order_cd
-        , created_id
-        , modified_id
+        	*
         FROM context_model
         WHERE
-                id = #{value}
+            id = #{value}
     </select>
 
     <select id="retrieveContextModelByModel" parameterType="ContextModelForDB" resultType="ContextModelForDB">
         SELECT
-        id
-        , name
-        , description
-        , created_date
-        , modified_date
-        , user_id
-        , order_cd
-        , created_id
-        , modified_id
+			*
         FROM context_model
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             <if test="id != null">
@@ -37,15 +21,6 @@
             </if>
             <if test="name != null">
                 AND name = #{name}
-            </if>
-            <if test="createdId != null">
-                AND created_id = #{createdId}
-            </if>
-            <if test="modifiedId != null">
-                AND modified_id = #{modifiedId}
-            </if>
-            <if test="userId != null">
-                AND user_id = #{userId}
             </if>
             <if test="description != null">
                 AND description = #{description}
@@ -55,26 +30,20 @@
 
     <insert id="createContextModel" parameterType="ContextModelForDB">
         INSERT INTO context_model (
-        id
-        , name
-        , description
-        , created_date
-        , modified_date
-        , order_cd
-        , created_id
-        , modified_id
-        , user_id
+	          id
+	        , name
+	        , description
+	        , created_date
+	        , modified_date
+	        , order_cd
         )
         VALUES (
-        #{id}
-        , #{name}
-        , #{description}
-        , now(4)
-        , now(4)
-        , #{orderCd}
-        , #{createdId}
-        , #{modifiedId}
-        , #{userId}
+	          #{id}
+	        , #{name}
+	        , #{description}
+	        , now(4)
+	        , now(4)
+	        , #{orderCd}
         )
     </insert>
 
@@ -85,12 +54,9 @@
             <if test="name != null">, name = #{name}</if>
             <if test="description != null">, description = #{description}</if>
             <if test="orderCd != null">, order_cd = #{orderCd}</if>
-            <if test="createdId != null">, created_id = #{createdId}</if>
-            <if test="modifiedId != null">, modified_id = #{modifiedId}</if>
-            <if test="userId != null">, user_id = #{userId}</if>
         </set>
         WHERE
-        id = #{id}
+            id = #{id}
     </update>
 
     <delete id="deleteContextModel" parameterType="String">

@@ -7,7 +7,7 @@
         SELECT *
         FROM aspect
         WHERE
-              id = #{value}
+            id = #{value}
     </select>
 
     <select id="retrieveAspectByModel" parameterType="AspectForDB" resultType="AspectForDB">
@@ -17,14 +17,17 @@
             <if test="id != null">
                 AND id = #{id}
             </if>
-            <if test="uri != null">
-                AND uri LIKE concat('%', #{uri}, '%')
-            </if>
             <if test="name != null">
                 AND name LIKE concat('%', #{name}, '%')
             </if>
             <if test="description != null">
                 AND description LIKE concat('%', #{description}, '%')
+            </if>
+            <if test="uri != null">
+                AND uri LIKE concat('%', #{uri}, '%')
+            </if>
+            <if test="containerName != null">
+                AND container_name LIKE concat('%', #{containerName}, '%')
             </if>
         </trim>
     </select>
@@ -33,9 +36,10 @@
         UPDATE aspect
         <set>
             modified_date = now(4)
-            <if test="uri != null">, uri = #{uri}</if>
             <if test="name != null">, name = #{name}</if>
             <if test="description != null">, description = #{description}</if>
+            <if test="uri != null">, uri = #{uri}</if>
+            <if test="containerName != null">, container_name = #{containerName}</if>
         </set>
         WHERE
           id = #{id}
@@ -43,18 +47,20 @@
 
     <insert id="createAspect" parameterType="AspectForDB">
       INSERT INTO aspect (
-        id
+          id
         , name
-        , uri
         , description
+        , uri
+        , container_name
         , created_date
         , modified_date
       )
       VALUES (
-        #{id}
+          #{id}
         , #{name}
-        , #{uri}
         , #{description}
+        , #{uri}
+        , #{containerName}
         , now(4)
         , now(4)
       )

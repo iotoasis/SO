@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pineone.icbms.so.interfaces.database.dao.SessionDao">
+    <insert id="createSessionData" parameterType="SessionEntity">
+      INSERT INTO session_data (
+          id
+        , create_date
+        , CONTEXTMODEL_KEY
+        , CONTEXTMODEL_NAME
+        , CONTEXTMODEL_RESULT
+        , PRIORITY_KEY
+        , PROFILE_NAME
+        , PROFILE_KEY
+      )
+      VALUES (
+          #{id}
+<!--         , date_format(now(),'%a %b %d %I:%i:%s KST %Y') -->
+		, now()
+        , #{contextmodelKey}
+        , #{contextmodelName}
+        , #{contextmodelResult}
+        , #{priorityKey}
+        , #{profileName}
+        , #{profileKey}
+      )
+    </insert>
+
+    <insert id="createSessionDataDevice" parameterType="SessionEntity">
+      INSERT INTO session_data_device (
+          id
+        , DEVICE_KEY
+        , DEVICE_LOCATION
+        )
+      VALUES (
+          #{id}
+        , #{deviceKey}
+        , #{deviceLocation}
+        )
+    </insert>
+
+    <insert id="createSessionDataLocation" parameterType="SessionEntity">
+        INSERT INTO session_data_location (
+          id
+        , LOCATION_ID
+        )
+        VALUES (
+          #{id}
+        , #{locationId}
+        )
+    </insert>
+
+    <insert id="createSessionDataVo" parameterType="SessionEntity">
+        INSERT INTO session_data_vo (
+          id
+        , VIRTUALOBJECT_KEY
+        )
+        VALUES (
+          #{id}
+        , #{virtualobjectKey}
+        )
+    </insert>
+
+    <select id="retrieveSessionData" parameterType="String" resultType="SessionEntity">
+        SELECT 
+        	  session_data.*
+	        , date_format(create_date,'%a %b %d %H:%i:%s KST %Y') createDate
+        FROM session_data
+        WHERE id = #{value}
+    </select>
+
+    <select id="retrieveSessionDataDevice" parameterType="String" resultType="SessionEntity">
+        SELECT DEVICE_KEY, DEVICE_LOCATION
+        FROM session_data_device
+        WHERE id = #{value}
+    </select>
+
+    <select id="retrieveSessionDataLocation" parameterType="String" resultType="String">
+        SELECT LOCATION_ID
+        FROM session_data_location
+        WHERE id = #{value}
+    </select>
+
+    <select id="retrieveSessionDataVo" parameterType="String" resultType="String">
+        SELECT VIRTUALOBJECT_KEY
+        FROM session_data_vo
+        WHERE id = #{value}
+    </select>
+    
+    <update id="updateSessionData" parameterType="SessionEntity">
+        UPDATE session_data
+        <set>
+<!--             create_date = now(4) -->
+			id = #{id}
+            <if test="priorityKey != null">        , PRIORITY_KEY =         #{priorityKey}</if>
+            <if test="profileName != null">        , PROFILE_NAME =         #{profileName}</if>
+            <if test="profileKey != null">         , PROFILE_KEY =          #{profileKey}</if>
+            <if test="contextmodelKey != null">    , CONTEXTMODEL_KEY =     #{contextmodelKey}</if>
+            <if test="contextmodelName != null">   , CONTEXTMODEL_NAME =    #{contextmodelName}</if>
+            <if test="contextmodelResult != null"> , CONTEXTMODEL_RESULT =  #{contextmodelResult}</if>
+
+            <if test="servicemodelKey != null">    , SERVICEMODEL_KEY =     #{servicemodelKey}</if>
+            <if test="servicemodelName != null">   , SERVICEMODEL_NAME =    #{servicemodelName}</if>
+            <if test="servicemodelResult != null"> , SERVICEMODEL_RESULT =  #{servicemodelResult}</if>
+
+            <if test="serviceKey != null">         , SERVICE_KEY =          #{serviceKey}</if>
+            <if test="serviceResult != null">      , SERVICE_RESULT =       #{serviceResult}</if>
+            <if test="virtualobjectResult != null">, VIRTUALOBJECT_RESULT = #{virtualobjectResult}</if>
+            <if test="deviceResult != null">       , DEVICE_RESULT =        #{deviceResult}</if>
+        </set>
+        WHERE
+          id = #{id}
+    </update>
+
+    <!-- grib 연동용 세션 id 목록 조회 -->
+    <select id="retrieveRecentlySessionList" resultType="SessionEntity">
+        SELECT
+        	  session_data.*
+	        , date_format(create_date,'%a %b %d %H:%i:%s KST %Y') createDate
+        FROM session_data
+        ORDER BY create_date desc limit ${value}
+    </select>
+
+</mapper>

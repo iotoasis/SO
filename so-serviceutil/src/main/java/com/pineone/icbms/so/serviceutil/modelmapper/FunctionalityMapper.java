@@ -1,70 +1,77 @@
 package com.pineone.icbms.so.serviceutil.modelmapper;
 
 import com.pineone.icbms.so.interfaces.database.model.FunctionalityForDB;
-import com.pineone.icbms.so.interfaces.messagequeue.model.FunctionalityForMQ;
+import com.pineone.icbms.so.interfaces.messagequeue.model.FunctionForMQ;
 import com.pineone.icbms.so.util.conversion.IModelMapper;
-import com.pineone.icbms.so.virtualobject.functionlity.DefaultFunctionality;
-import com.pineone.icbms.so.virtualobject.functionlity.IGenericFunctionality;
+import com.pineone.icbms.so.virtualobject.function.DefaultFunction;
+import com.pineone.icbms.so.virtualobject.function.IGenericFunction;
 
 /**
- * Functionality mapper.<BR/>
+ * Function mapper.<BR/>
  *
  * Created by uni4love on 2017. 5. 15..
  */
-public class FunctionalityMapper implements IModelMapper<IGenericFunctionality, FunctionalityForDB,
-        FunctionalityForMQ> {
+public class FunctionalityMapper implements IModelMapper<IGenericFunction, FunctionalityForDB,
+        FunctionForMQ> {
     /**
      * convert MQ model to Processor model.<BR/>
      *
-     * @param functionalityForMQ MQ_MODEL
+     * @param functionForMQ MQ_MODEL
      * @return PS_MODEL
      */
     @Override
-    public IGenericFunctionality toProcessorModelFromMq(FunctionalityForMQ functionalityForMQ) {
-        DefaultFunctionality functionality = null;
-        if (functionalityForMQ != null) {
-            functionality = new DefaultFunctionality(functionalityForMQ.getId(), functionalityForMQ.getName(),
-                    functionalityForMQ.getDescription(), functionalityForMQ.getUri());
+    public IGenericFunction toProcessorModelFromMq(FunctionForMQ functionForMQ) {
+        DefaultFunction function = null;
+        if (functionForMQ != null) {
+            function = new DefaultFunction(functionForMQ.getId(), functionForMQ.getName(),
+                    functionForMQ.getDescription(), functionForMQ.getUri());
         }
-        return functionality;
+        return function;
     }
 
     /**
      * convert MQ model to Processor model.<BR/>
      *
-     * @param functionalityForDB DB_MODEL
+     * @param functionForDB DB_MODEL
      * @return PS_MODEL
      */
     @Override
-    public IGenericFunctionality toProcessorModelFromDb(FunctionalityForDB functionalityForDB) {
-        DefaultFunctionality functionality = null;
-        if (functionalityForDB != null) {
-            functionality = new DefaultFunctionality(functionalityForDB.getId(), functionalityForDB.getName(),
-                    functionalityForDB.getDescription(), functionalityForDB.getUri());
+    public IGenericFunction toProcessorModelFromDb(FunctionalityForDB functionForDB) {
+        DefaultFunction function = null;
+        if (functionForDB != null) {
+            function = new DefaultFunction(functionForDB.getId(), functionForDB.getName(),
+                    functionForDB.getDescription(), functionForDB.getUri());
         }
-        return functionality;
+        return function;
     }
-    public IGenericFunctionality toProcessorModelFromDb(String functionalityId) {
-        DefaultFunctionality functionality = null;
+    public IGenericFunction toProcessorModelFromDb(String functionalityId) {
+        DefaultFunction function = null;
         if (functionalityId != null) {
-            functionality = new DefaultFunctionality(functionalityId, "","", "");
+            function = new DefaultFunction(functionalityId, "","", "");
         }
-        return functionality;
+        return function;
     }
 
+    public IGenericFunction toProcessorModelFromDb(String functionalityId,String functionalityUri) {
+        DefaultFunction function = null;
+        if (functionalityId != null) {
+            function = new DefaultFunction(functionalityId, "","", functionalityUri);
+        }
+        return function;
+    }
     /**
      * convert Processor model to MQ model.<BR/>
      *
-     * @param functionality PS_MODEL
+     * @param function PS_MODEL
      * @return MQ_MODEL
      */
     @Override
-    public FunctionalityForMQ toMqModelFromPs(IGenericFunctionality functionality) {
-        FunctionalityForMQ functionalityForMQ = null;
-        if (functionality != null) {
-            functionalityForMQ = new FunctionalityForMQ(functionality.getId(), functionality.getName(),
-                    functionality.getDescription(), functionality.getUri());
+    public FunctionForMQ toMqModelFromPs(IGenericFunction function) {
+        FunctionForMQ functionForMQ = null;
+        if (function != null) {
+            functionForMQ = new FunctionForMQ(function.getId(), function.getName(),
+                    function.getDescription(), function.getUri());
         }
-        return functionalityForMQ;
+        return functionForMQ;
     }
 }

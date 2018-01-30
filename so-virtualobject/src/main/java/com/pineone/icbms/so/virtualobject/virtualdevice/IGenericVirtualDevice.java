@@ -13,9 +13,4 @@ public interface IGenericVirtualDevice extends IVirtualDevice {
      */
     String getDriverClassName();
 
-    /*
-     * for simulator
-     */
-    String getIsLast();
-    void setIsLast(String isLast);
 }
