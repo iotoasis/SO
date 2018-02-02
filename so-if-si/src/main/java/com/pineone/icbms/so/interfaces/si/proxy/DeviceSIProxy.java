@@ -36,7 +36,7 @@ public class DeviceSIProxy implements DeviceControlProxy {
         //
         String requestBody = new Gson().toJson(deviceControlMessage);
         log.debug("deviceControlRequest : requestBody {}", requestBody);
-        String responseData = clientService.requestPostServiceReceiveString2(requestUrl, requestBody);
+        String responseData = clientService.requestPostServiceReceiveString2(requestUrl, requestBody, true); //true=timeout
         
         log.debug("deviceControlRequest : responseData {}", responseData);
         ResultMessage resultMessage = parsingResultMessage(responseData);
@@ -49,7 +49,7 @@ public class DeviceSIProxy implements DeviceControlProxy {
         String lwm2mCon = DataConversion.base64encoding(new Gson().toJson(lwm2MDeviceControl));
         deviceControlMessage.setCon(lwm2mCon);
         String requestBody = new Gson().toJson(deviceControlMessage);
-        String responseData = clientService.requestPostServiceReceiveString2(requestUrl, requestBody);
+        String responseData = clientService.requestPostServiceReceiveString2(requestUrl, requestBody, true); //true=timeout
         ResultMessage resultMessage = parsingResultMessage(responseData);
         return resultMessage;
     }
