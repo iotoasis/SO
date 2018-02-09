@@ -89,11 +89,11 @@
         SELECT
         	ri.*,
         	vo.aspect_uri,
-        	f.uri funtionalityUri
+        	f.uri functionalityUri
         FROM
             rule_item ri
         LEFT JOIN virtual_object vo ON vo.id = ri.vo_id
-        LEFT JOIN functionality f ON f.id = ri.funtionality_id
+        LEFT JOIN functionality f ON f.id = ri.functionality_id
         WHERE
         	ri.rule_body_id = #{value}
     </select>

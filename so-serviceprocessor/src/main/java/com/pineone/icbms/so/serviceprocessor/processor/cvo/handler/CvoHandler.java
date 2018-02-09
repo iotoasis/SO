@@ -121,6 +121,7 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
 	        	builtCvoList.add(builtCvo);
 	       	}
 
+	        
 
 	        cvoIds = "[" + cvoIds + "]";
         	SessionEntity sessionCvo = databaseManager.getSessionData(sessionId);
@@ -131,6 +132,11 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
 	        sessionCvo.setServiceKey(cvoIds);
             databaseManager.updateSessionData(sessionCvo);
 
+        	certLog.debug("=============START(CVO_TYPE_NONEDEVICE)==============");
+        	certLog.debug("sessionID : " + sessionId);
+        	certLog.debug("baseCVOID : " + cvoBaseId);
+        	certLog.debug("=======================END============================");
+            
             handleCompositeVirtualObjectList(builtCvoList, compositeVirtualObject.getStateStore());
 
             return;
@@ -166,8 +172,8 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
        			if (vId.equals(validVo.getId())){
 		       		VirtualObjectForDB vo = new VirtualObjectForDB(); 
 		       		vo.setAspectUri(item.getAspectUri());
-		       		vo.setFunctionalityId(item.getFuntionalityId());
-		       		vo.setFunctionalityUri(item.getFuntionalityUri());
+		       		vo.setFunctionalityId(item.getFunctionalityId());
+		       		vo.setFunctionalityUri(item.getFunctionalityUri());
 		       		vo.setId(item.getVoId());
 		       		vo.setVoValueType(item.getVoValueType());
 		       		vo.setVoValue(item.getVoValue());
@@ -266,11 +272,6 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
 	            	certLog.debug("deviceList : " + deviceList.toString());
 	            	certLog.debug("========================END===========================");
 	            	
-		        } else  if (cvoType.equals("CVO_TYPE_NONEDEVICE")) {
-		        	
-		        	certLog.debug("=============START(CVO_TYPE_NONEDEVICE)==============");
-		        	certLog.debug("========================END===========================");
-		        	
 		        } 
 	        }    
 	        if (deviceList==null) {
@@ -299,6 +300,8 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
 	        if (cvoType.equals("CVO_TYPE_DEVICEID")) {
 	        	//VO list
 	            handleVirtualObjectList(builtCvoList.get(0), compositeVirtualObject.getStateStore());
+	            
+	            
 	
 	        } else {
 
