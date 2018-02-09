@@ -30,7 +30,7 @@ public class IdUtils {
      * @param args
      */
     public static void main(String[] args) {
-        System.out.println(IdUtils.createRandomUUID());
-        System.out.println(IdUtils.createRandomLongValue());
+        //System.out.println(IdUtils.createRandomUUID());
+        //System.out.println(IdUtils.createRandomLongValue());
     }
 }

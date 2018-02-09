@@ -156,7 +156,7 @@ public final class ProcessorRouter {
         for (Class cls : processorList) {
             sb.append("+- " + cls.getName() + "\n");
         }
-        System.out.println(sb);
+        //System.out.println(sb);
     }
 
     /**

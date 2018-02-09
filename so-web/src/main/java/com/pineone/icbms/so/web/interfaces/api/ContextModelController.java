@@ -189,7 +189,7 @@ public class ContextModelController {
     
     //@PostMapping(value = "/test")
     public void testCode(HttpServletRequest request) {
-    	DeviceManager.testmain(null);
+    	new DeviceManager().testmain(null);
     }
     
     /**

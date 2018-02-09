@@ -24,7 +24,7 @@ public class IProfileMapperTest {
     @Test
     public void createTracking() throws Exception {
         ProfileForDB profile = dao.retrieveProfile("PR-810fc6d0-1e08-4875-adc5-5c4adce00e33");
-        System.out.println("조회결과 : " + profile.getId());
+        //System.out.println("조회결과 : " + profile.getId());
     }
 
 }
