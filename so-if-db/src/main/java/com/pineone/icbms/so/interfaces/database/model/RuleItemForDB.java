@@ -18,10 +18,10 @@ public class RuleItemForDB {
     private String aspectUri;  
 
     @Getter @Setter
-    private String funtionalityId; // rule_item.funtionality_id 
+    private String functionalityId; // rule_item.funtionality_id 
 
     @Getter @Setter
-    private String funtionalityUri; 
+    private String functionalityUri; 
 
     @Getter @Setter
     private String voValueType; // rule_item.vo_value_type

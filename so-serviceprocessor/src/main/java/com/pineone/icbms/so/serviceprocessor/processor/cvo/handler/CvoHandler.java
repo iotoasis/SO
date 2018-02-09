@@ -121,6 +121,7 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
 	        	builtCvoList.add(builtCvo);
 	       	}
 
+	        
 
 	        cvoIds = "[" + cvoIds + "]";
         	SessionEntity sessionCvo = databaseManager.getSessionData(sessionId);
@@ -131,6 +132,11 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
 	        sessionCvo.setServiceKey(cvoIds);
             databaseManager.updateSessionData(sessionCvo);
 
+        	certLog.debug("=============START(CVO_TYPE_NONEDEVICE)==============");
+        	certLog.debug("sessionID : " + sessionId);
+        	certLog.debug("baseCVOID : " + cvoBaseId);
+        	certLog.debug("=======================END============================");
+            
             handleCompositeVirtualObjectList(builtCvoList, compositeVirtualObject.getStateStore());
 
             return;
@@ -166,8 +172,8 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
        			if (vId.equals(validVo.getId())){
 		       		VirtualObjectForDB vo = new VirtualObjectForDB(); 
 		       		vo.setAspectUri(item.getAspectUri());
-		       		vo.setFunctionalityId(item.getFuntionalityId());
-		       		vo.setFunctionalityUri(item.getFuntionalityUri());
+		       		vo.setFunctionalityId(item.getFunctionalityId());
+		       		vo.setFunctionalityUri(item.getFunctionalityUri());
 		       		vo.setId(item.getVoId());
 		       		vo.setVoValueType(item.getVoValueType());
 		       		vo.setVoValue(item.getVoValue());
@@ -236,15 +242,36 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
 			       	//DeviceId 목록을 가져옴
 			       	deviceList = new SdaManager().getDeviceListByLoc_DeviceType_Aspect_Func(locationUri, physicalDeviceTypeUri, aspectUri, functionalityUri);
 	            	log.info("getDeviceListByLoc_DeviceType_Aspect_Func :\nlocationUri={}\n physicalDeviceTypeUri={}\n aspectUri={}\n functionalityUri={}", locationUri, physicalDeviceTypeUri, aspectUri, functionalityUri );
-	            	certLog.debug("{} : getDeviceListByLoc_DeviceType_Aspect_Func from knowledge base :\nlocationUri={}\n physicalDeviceTypeUri={}\n aspectUri={}\n functionalityUri={}", sessionId, locationUri, physicalDeviceTypeUri, aspectUri, functionalityUri );
+	            	// certLog.debug("{} : getDeviceListByLoc_DeviceType_Aspect_Func from knowledge base :\nlocationUri={}\n physicalDeviceTypeUri={}\n aspectUri={}\n functionalityUri={}", sessionId, locationUri, physicalDeviceTypeUri, aspectUri, functionalityUri );
+	            	
+	            	certLog.debug("=============START(CVO_TYPE_DEVICETYPE)==============");
+	            	certLog.debug("sessionID : " + sessionId);
+	            	certLog.debug("===============SDA Request Parameters================");
+	            	certLog.debug("1. locationUri : " + locationUri);
+	            	certLog.debug("2. physicalDeviceTypeUri : " + physicalDeviceTypeUri);
+	            	certLog.debug("3. aspectUri : " + aspectUri);
+	            	certLog.debug("4. functionalityUri : " + functionalityUri);
+	            	certLog.debug("===============SDA Response DeviceList================");
+	            	certLog.debug("deviceList : " + deviceList.toString());
+	            	certLog.debug("=======================END============================");
+	            	
 			       	
 		        } else  if (cvoType.equals("CVO_TYPE_ASPECT")) {
 			       	//DeviceId 목록을 가져옴
 			       	deviceList = new SdaManager().getDeviceListByLoc_Aspect_Func(locationUri, aspectUri, functionalityUri);
 	            	log.info("getDeviceListByLoc_Aspect_Func :\nlocationUri={}\n aspectUri={}\n functionalityUri={}", locationUri, aspectUri, functionalityUri );
-	            	certLog.debug("{} : getDeviceListByLoc_Aspect_Func :\nlocationUri={}\n aspectUri={}\n functionalityUri={}", sessionId, locationUri, aspectUri, functionalityUri );
+	            	// certLog.debug("{} : getDeviceListByLoc_Aspect_Func :\nlocationUri={}\n aspectUri={}\n functionalityUri={}", sessionId, locationUri, aspectUri, functionalityUri );
 
-		        } else  if (cvoType.equals("CVO_TYPE_NONEDEVICE")) {
+	            	certLog.debug("===============START(CVO_TYPE_ASPECT)================");
+	            	certLog.debug("sessionID : " + sessionId);
+	            	certLog.debug("===============SDA Request Parameters================");
+	            	certLog.debug("1. locationUri : " + locationUri);
+	            	certLog.debug("2. aspectUri : " + aspectUri);
+	            	certLog.debug("3. functionalityUri : " + functionalityUri);
+	            	certLog.debug("===============SDA Response DeviceList================");
+	            	certLog.debug("deviceList : " + deviceList.toString());
+	            	certLog.debug("========================END===========================");
+	            	
 		        } 
 	        }    
 	        if (deviceList==null) {
@@ -273,6 +300,8 @@ public class CvoHandler extends AProcessHandler<IGenericCompositeVirtualObject> 
 	        if (cvoType.equals("CVO_TYPE_DEVICEID")) {
 	        	//VO list
 	            handleVirtualObjectList(builtCvoList.get(0), compositeVirtualObject.getStateStore());
+	            
+	            
 	
 	        } else {
 
