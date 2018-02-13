@@ -28,13 +28,13 @@ public class Settings2 {
     /**
      * Zookeeper list
      */
-	public static String zookeeperList = "localhost:2181";
+	public static String zookeeperList; // = "localhost:21811";
 	
     public static String getZookeeperList() {
         return zookeeperList;
     }
 
-    @Value("${mq.zookeeper.list}")
+    //@Value("${mq.zookeeper.list}")
     public void setZookeeperList(String _zookeeperList) {
         zookeeperList = _zookeeperList;
     }

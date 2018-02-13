@@ -56,34 +56,6 @@ public class ContextModelController {
     @Autowired
     DataBaseStore dataBaseStore;
 
-//    /**
-//     * response for request "/context/cm, HTTP-method:POST".<BR/>
-//     *
-//     * @param contextModelForIf ContextModelForIf
-//     * @return created DeviceControlCallbackForDB id
-//     */
-//    @RequestMapping(value = "/cm", method = RequestMethod.POST)
-//    public String injectContextModel(@RequestBody ContextModelForIf contextModelForIf) {
-//        log.debug("input:ContextModelForIf: {}", contextModelForIf);
-//        // create a message From ContextModelForMQ for messageQueue, publish to message queue
-//        // ContextModelForIf --> ContextModelForMQ
-//        ContextModelForMQ contextModelForMQ = ModelMapper.toContextModelForMQ(contextModelForIf);
-//        log.debug("converted:ContextModelForMQ: {}", contextModelForMQ);
-//        //object to json
-//        String contextModelForMqString = ModelMapper.writeJsonString(contextModelForMQ);
-//        log.debug("generated:ContextModelForMQ {}", contextModelForMqString);
-//        //context model producer handler
-////        ContextModelProducerHandler producerHandler = new ContextModelProducerHandler(0);
-////        Future<RecordMetadata> future = producerHandler.send(contextModelForMqString);
-//        DefaultProducerHandler producerHandler = new DefaultProducerHandler(0, "contextmodel");
-//        Future<RecordMetadata> future = producerHandler.send(contextModelForMQ);
-//        log.debug("producer.send result: {}", future);
-//        producerHandler.close();
-//
-//        //TODO: 추후 처리 결과를 정의하여 리턴함.
-//        return contextModelForMqString;
-//    }
-
     /**
      * response for request "/service/context/cm, HTTP-method:POST".<BR/>
      *

@@ -1,6 +1,5 @@
 package com.pineone.icbms.so.serviceprocessor.processor.context.handler;
 
-import com.pineone.icbms.so.interfaces.database.dao.SessionDao;
 import com.pineone.icbms.so.interfaces.database.model.ContextModelForDB;
 import com.pineone.icbms.so.interfaces.database.model.ProfileForDB;
 import com.pineone.icbms.so.interfaces.database.model.SessionEntity;
@@ -16,17 +15,11 @@ import com.pineone.icbms.so.util.conversion.DataConversion;
 import com.pineone.icbms.so.util.conversion.ProfileTransFormData;
 import com.pineone.icbms.so.util.http.ClientService;
 import com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler;
-import com.pineone.icbms.so.util.priority.Priority;
-import com.pineone.icbms.so.util.session.DefaultSession;
-import com.pineone.icbms.so.util.session.Session;
 import com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextModel;
 import com.pineone.icbms.so.virtualobject.location.IGenericLocation;
 import com.pineone.icbms.so.virtualobject.orchestrationservice.IGenericOrchestrationService;
 import com.pineone.icbms.so.virtualobject.profile.IGenericProfile;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**

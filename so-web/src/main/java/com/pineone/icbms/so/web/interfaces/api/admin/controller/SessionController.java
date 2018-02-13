@@ -25,16 +25,6 @@ import java.util.Map;
 @ResponseStatus(value = HttpStatus.OK)
 public class SessionController {
 
-//    @Autowired
-//    SessionStore sessionStore;
-//
-//    @RequestMapping(value = "/{number}", method = RequestMethod.GET)
-//    @ResponseStatus(value = HttpStatus.OK)
-//    public List<SessionTransFormObject> retrieveSessionData(@PathVariable int number){
-//        List<Session> sessionList = sessionStore.retrieveRecentlyDataList(number);
-//        return sessionToTransFormObject(sessionList);
-//    }
-
     @Autowired
     //TrackingDao trackingDao;
     SessionDao sessionDao;

@@ -1,7 +1,5 @@
 package com.pineone.icbms.so.serviceprocessor.processor.devicecontrol.handler;
 
-import com.pineone.icbms.so.devicecontrol.model.virtualdevice.DeviceControlValue;
-import com.pineone.icbms.so.devicecontrol.model.virtualdevice.driver.IGenericDeviceDriver;
 import com.pineone.icbms.so.interfaces.database.model.SessionEntity;
 import com.pineone.icbms.so.interfaces.messagequeue.producer.tracking.TrackingProducer;
 import com.pineone.icbms.so.interfaces.sda.handle.SdaManager;
@@ -16,9 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.pineone.icbms.so.interfaces.si.model.ResultMessage;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * device control handler.<BR/>
@@ -72,26 +67,6 @@ public class DeviceControlHandler extends AProcessHandler {
         getTracking().setProcessMethod(new Object(){}.getClass().getEnclosingMethod().getName());
 
         String sessionId = getTracking().getSessionId();
-
-        // get DeviceDriver from sda by virtual object features
-        // retrieve device list
-//        SdaClient sdaClient = new SdaClient();
-//        List<IGenericVirtualDevice> deviceList = sdaClient.retreiveDeviceList(null, locationUri);
-
-        //create control list
-        // TODO product : get device control value to use SDA API.
-//        DeviceControlValue deviceControlValue = ModelMapper.toDeviceControlValue(deviceControlForDB);
-//        LinkedHashMap<IGenericDeviceDriver, List<DeviceControlValue>> controlList = new LinkedHashMap<>();
-//        if (deviceList != null) {
-//            for (IGenericVirtualDevice device : deviceList) {
-//                String driverClassName = device.getDriverClassName();
-        //load devicemapper driver
-//                IGenericDeviceDriver deviceDriver = new DeviceDriverLoader().loadDeviceDriver(Settings.DEVICE_DRIVER_PATH, driverClassName);
-        //retreive values from sda
-//                List<DeviceControlValue> values = sdaClient.retreiveDeviceControlValues(null, null, locationUri, device.getId());
-//                controlList.put(deviceDriver, values);
-//            }
-
 
         String deviceId = virtualDevice.getDeviceId();
         String aspectUri = virtualDevice.getAspect().getUri();
@@ -197,25 +172,6 @@ public class DeviceControlHandler extends AProcessHandler {
             getTracking().setProcessId(String.format("deviceId : %s, contextModelId : %s", virtualDevice.getId(), contextModelId));
             getTracking().setProcessName("디바이스 제어정보 없음");
             TrackingProducer.send(getTracking());
-        }
-    }
-
-    /**
-     * control a device.<BR/>
-     *
-     * @param deviceControlList device control list
-     */
-    private void controlDevice(LinkedHashMap<IGenericDeviceDriver, List<DeviceControlValue>> deviceControlList) {
-        //TODO: thread process 고민 필요
-        if (deviceControlList != null) {
-            for (Map.Entry<IGenericDeviceDriver, List<DeviceControlValue>> entry : deviceControlList.entrySet()) {
-                IGenericDeviceDriver deviceDriver = entry.getKey();
-                List<DeviceControlValue> values = entry.getValue();
-                //
-                //databaseManager.getDeviceControlByDeviceIdAndContextModelID
-                log.debug(">>>>>>>>> size of deviceControlList: {}, {}, {} ", deviceControlList.size(), entry.getKey(), entry.getValue());
-                deviceDriver.control(values);
-            }
         }
     }
 

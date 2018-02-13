@@ -5,7 +5,9 @@ package com.pineone.icbms.so.interfaces.sda.ref;
  */
 public class DataNotExistException extends SDAException {
 
-    public DataNotExistException(){
+	private static final long serialVersionUID = 1L;
+
+	public DataNotExistException(){
         super("DataNotExist Exception.");
     }
 }
