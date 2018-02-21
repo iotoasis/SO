@@ -156,7 +156,10 @@ public class DeviceControlHandler extends AProcessHandler {
             // grib session device
             SessionEntity sessionDevice = new SessionEntity();
             sessionDevice.setId(sessionId);
-            sessionDevice.setDeviceKey(deviceId);
+
+            //Device Uri중에서 "http://www.iotoasis.org" 문자열 제외하고 session Log에 저장
+            String stripDeviceId = deviceId.replace(ClientProfile.IOT_OASIS_DOMAIN_NAME, ""); //"http://www.iotoasis.org" 삭제
+            sessionDevice.setDeviceKey(stripDeviceId);
             sessionDevice.setDeviceLocation(loc);
             log.debug("session device : {}", sessionDevice);
             databaseManager.createSessionDataDevice(sessionDevice);
