@@ -1,11 +1,7 @@
 package com.pineone.icbms.so.web.service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,35 +10,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.pineone.icbms.so.interfaces.database.dao.OrchestrationServiceDao;
 import com.pineone.icbms.so.interfaces.database.model.DeviceTypeForDB;
 import com.pineone.icbms.so.interfaces.database.model.LocationForDB;
 import com.pineone.icbms.so.interfaces.database.model.MeasuringVoForDB;
-import com.pineone.icbms.so.interfaces.database.model.NonDeviceCvoForDB;
 import com.pineone.icbms.so.interfaces.database.model.OrchestrationServiceForDB;
-import com.pineone.icbms.so.interfaces.database.model.RuleBodyForDB;
-import com.pineone.icbms.so.interfaces.database.model.RuleItemForDB;
-import com.pineone.icbms.so.interfaces.database.model.SessionEntity;
-import com.pineone.icbms.so.interfaces.database.model.SmartHelperForDB;
 import com.pineone.icbms.so.interfaces.database.model.TrackingEntity;
 import com.pineone.icbms.so.interfaces.database.model.VirtualObjectForDB;
 import com.pineone.icbms.so.interfaces.database.service.DataBaseStore;
-import com.pineone.icbms.so.interfaces.messagequeue.model.OrchestrationServiceForMQ;
-import com.pineone.icbms.so.interfaces.messagequeue.producer.tracking.TrackingProducer;
 import com.pineone.icbms.so.interfaces.sda.handle.SdaManager;
 import com.pineone.icbms.so.interfaces.sda.model.ContextModelContent;
-import com.pineone.icbms.so.serviceprocessor.Const;
-import com.pineone.icbms.so.serviceutil.interfaces.database.DatabaseManager;
-import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;
-import com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler;
-import com.pineone.icbms.so.virtualobject.composite.AGenericCompositeVirtualObject;
-import com.pineone.icbms.so.virtualobject.composite.DefaultCompositeVirtualObject;
-import com.pineone.icbms.so.virtualobject.composite.IGenericCompositeVirtualObject;
-import com.pineone.icbms.so.virtualobject.orchestrationservice.DefaultOrchestrationService;
-import com.pineone.icbms.so.virtualobject.orchestrationservice.IGenericOrchestrationService;
+import com.pineone.icbms.so.web.model.MeasuringData;
 import com.pineone.icbms.so.web.model.measure.ReqMeasuring;
 
 import lombok.Getter;
@@ -72,8 +50,6 @@ public class MeasuringService implements IMeasuringService {
 		String locId = req.getLocation();          //설치 위치
 		String serviceName = req.getServiceName(); //OS 이름
 
-		String resultMsg=null;
-
 		//설치 장소
 		LocationForDB locForDB = dataBaseStore.getLocationById(locId);
 		String locationUri =  locForDB.getUri();
@@ -99,7 +75,7 @@ public class MeasuringService implements IMeasuringService {
         List<MeasuringVoForDB> measuringVoForDBList = dataBaseStore.getMeasuringVoList(osId);
 
         // 측정데이타를 저장할 변수 생성
-        List<ContextModelContent> measuringDataList = new ArrayList<>();
+        List<MeasuringData> measuringDataList = new ArrayList<>();
         		
         //3) MeasuringVoForDB의 item별로 동작
         for (MeasuringVoForDB measuringVoItem:measuringVoForDBList) {
@@ -115,11 +91,13 @@ public class MeasuringService implements IMeasuringService {
            	}
        		String vId = measuringVoItem.getVoId();
        		String aspectUri = null;
+        	String voDesc = null;
        		
            	//VO값이 유효한 Vo인지 검사한다.
        		for (VirtualObjectForDB validVo:validVoList) {
        			if (vId.equals(validVo.getId())){
 		        	aspectUri = validVo.getAspectUri(); //첫번째 VO만 참조하여 URI를 가져옴
+		        	voDesc = validVo.getDescription();
 		        	break;
        			}
        		}
@@ -131,6 +109,7 @@ public class MeasuringService implements IMeasuringService {
        		}
 
        		// 4) cvo_type별로 sda에서 값 읽기
+       		List<ContextModelContent> contentList = null;
             //4-1) CVO_TYPE_DEVICETYPE or CVO_TYPE_DEVICETYPE_ASPECT
             if (cvoType.equals("CVO_TYPE_DEVICETYPE") || cvoType.equals("CVO_TYPE_DEVICETYPE_ASPECT")) {
                 String physicalDeviceTypeId = measuringVoItem.getPhysicalDeviceTypeId();
@@ -143,27 +122,38 @@ public class MeasuringService implements IMeasuringService {
 	        	}
 	        	String physicalDeviceTypeUri = typeDb.getPhysicalDeviceTypeUri();
 
-	        	List<ContextModelContent> contentList = new SdaManager().getMeasuringValueByLocDeviceTypeAspect(locationUri, physicalDeviceTypeUri, aspectUri);
-	        	measuringDataList.addAll(contentList);
+	        	contentList = new SdaManager().getMeasuringValueByLocDeviceTypeAspect(locationUri, physicalDeviceTypeUri, aspectUri);
             }
             //4-2) CVO_TYPE_ASPECT
             else if (cvoType.equals("CVO_TYPE_ASPECT")) {
             
-            	List<ContextModelContent> contentList = new SdaManager().getMeasuringValueByLocAspect(locationUri, aspectUri);
-	        	measuringDataList.addAll(contentList);
+            	contentList = new SdaManager().getMeasuringValueByLocAspect(locationUri, aspectUri);
             }
             //4-3) CVO_TYPE_DEVICEID
             else if (cvoType.equals("CVO_TYPE_DEVICEID")) {
 
             	String deviceUri = measuringVoItem.getDeviceId();
-            	List<ContextModelContent> contentList = new SdaManager().getMeasuringValueByDevIdAspect(deviceUri, aspectUri);
-	        	measuringDataList.addAll(contentList);
+            	contentList = new SdaManager().getMeasuringValueByDevIdAspect(deviceUri, aspectUri);
             	
             } else {
             	// SKIP
             }
+            
+            if (contentList != null) {
+	            for (ContextModelContent contentItem:contentList) {
+	            	
+	            	MeasuringData md = new MeasuringData();
+	            	
+	            	md.setDevId(contentItem.getDeviceUri());
+	    	        md.setDevName(contentItem.getDeviceName());
+	    	        md.setDevTypeDesc(contentItem.getDeviceTypeDesc());
+	    	        md.setAspectName(voDesc);
+	    	        md.setMeasuringValue(contentItem.getValue());
+
+	    	        measuringDataList.add(md);
+	            }
+            }
         }
-        
 		
 /*		
 		String contextModelId="measuring";
@@ -195,66 +185,8 @@ public class MeasuringService implements IMeasuringService {
             log.error("Error createSessionDataLocation : error={},\n sessionLocation={}", e.getMessage(), sessionLocation);
         }
 */
-/*
-        //resultMsg = new Gson().toJson(measuringDataList);
-        try {
-			ObjectMapper mapper = new ObjectMapper();
-			//mapper.enable(SerializationFeature.INDENT_OUTPUT);        
-			//result = mapper.writeValueAsString(list);
-			resultMsg = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(measuringDataList);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-        
-        log.debug("getMeasuredData=" + resultMsg);
 
-        return resultMsg;
-*/        
         return measuringDataList;
 	}
-
 	
-    /**
-     * publish a OrchestrationService to MQ.<BR/>
-     * 서비스 객체를 메시지큐 객체로 변환한다
-     * @param orchestrationService IGenericOrchestrationService
-     */
-    private void publishOrchestrationService(IGenericOrchestrationService orchestrationService, String locationUri, String contextModelId) {
-        //generate a OrchestrationServiceForMQ model
-        OrchestrationServiceForMQ orchestrationServiceForMQ = ModelMapper.toOrchestrationServiceForMQ(orchestrationService);
-
-        orchestrationServiceForMQ.setTrackingEntity(getTracking());
-
-        // location id =? location uri
-        orchestrationServiceForMQ.addState(Const.LOCATION_URI, locationUri);
-        orchestrationServiceForMQ.addState(Const.CONTEXTMODEL_ID, contextModelId);
-        
-        //generate to string.
-        String jsonString = toJsonString(orchestrationServiceForMQ);
-        
-        //publish by producer
-        publishToMq(jsonString);
-    }
-
-    /**
-     * OrchestrationServiceForMQ to json String.<BR/>
-     *
-     * @param orchestrationServiceForMQ OrchestrationServiceForMQ
-     * @return json String
-     */
-    private String toJsonString(OrchestrationServiceForMQ orchestrationServiceForMQ) {
-        return ModelMapper.writeJsonString(orchestrationServiceForMQ);
-    }
-
-    /**
-     * publish a data.<BR/>
-     * orchestrationservice 토픽으로 메시지 전송
-     * @param data data
-     * @return result
-     */
-    public void publishToMq(String data) {
-        DefaultProducerHandler producerHandler = new DefaultProducerHandler(0, "orchestrationservice");
-        producerHandler.send(data);
-        producerHandler.close();
-    }
 }
