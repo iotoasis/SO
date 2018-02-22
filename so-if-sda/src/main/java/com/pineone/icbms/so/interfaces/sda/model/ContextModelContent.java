@@ -1,6 +1,7 @@
 package com.pineone.icbms.so.interfaces.sda.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import lombok.Setter;
  * Created by uni4love on 2017. 4. 4..
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(value = JsonInclude.Include.NON_ABSENT, content = JsonInclude.Include.NON_EMPTY)
 public class ContextModelContent {
     /**
      * location list
@@ -39,6 +41,20 @@ public class ContextModelContent {
     @Getter@Setter
     @JsonProperty("dev")
     String deviceUri;
+
+    /**
+     * Device Name
+     */
+    @Getter@Setter
+    @JsonProperty("dev_name")
+    String deviceName;
+
+    /**
+     * Device Type comment
+     */
+    @Getter@Setter
+    @JsonProperty("dev_type_desc")
+    String deviceTypeDesc;
 
     /**
      * Serial Id

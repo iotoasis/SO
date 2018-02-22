@@ -54,4 +54,6 @@ public interface IDataBaseStore {
 
 	List<DeviceTypeForDB> retrieveDeviceType();
 	DeviceTypeForDB retrieveDeviceTypeById(String id);
+
+	List<MeasuringVoForDB> getMeasuringVoList(String osId);
 }

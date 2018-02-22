@@ -82,8 +82,6 @@ public class DataBaseStore implements IDataBaseStore {
 
         List<CompositeVirtualObjectForDB> compositeVirtualObjectForDBList = compositeVirtualObjectDao.retrieveCompositeVirtualObjectListByOrchestrationId(orchestrationServiceId);
     
-        List<VirtualObjectForDB> virtualObjectForDBList = null;
-        
         for(CompositeVirtualObjectForDB compositeVirtualObjectForDB : compositeVirtualObjectForDBList){
             compositeVirtualObjectForDB.setVirtualObjectForDBList(
                     getVirtualObjectListByCompositeVirtualObjectId(compositeVirtualObjectForDB.getId())
@@ -106,7 +104,17 @@ public class DataBaseStore implements IDataBaseStore {
     public CompositeVirtualObjectForDB getCvoById(String id) {
         return compositeVirtualObjectDao.retrieve(id);
 	}
-    
+
+    // retrieve list of Measuring Vo
+    @Override
+    public List<MeasuringVoForDB> getMeasuringVoList(String osId){
+    	log.debug("getMeasuringVoList : osId {}", osId);
+
+    	List<MeasuringVoForDB> RuleBodyForDBList = virtualObjectDao.getMeasuringVoList(osId);
+        
+    	return RuleBodyForDBList;
+    }
+
     /*
      * cvo Id로 부터 vo목록을 가져온다
      */

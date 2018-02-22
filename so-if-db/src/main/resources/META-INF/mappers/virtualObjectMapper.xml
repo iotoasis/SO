@@ -99,6 +99,29 @@
     </select>
 
 
+    <!-- OS_ID에 의한 Measuring Rule Vo 목록 조회 -->
+    <select id="retrieveMeasuringRuleVirtualObjectListByOsId" parameterType="String" resultType="MeasuringVoForDB">
+		SELECT rbc.*, ri.* FROM rule_body rbp
+		LEFT JOIN noncvo nc  ON rbp.base_cvo_id = nc.noncvo_id  AND nc.os_id = rbp.os_id
+		LEFT JOIN rule_body rbc  ON rbc.id = nc.rule_body_id
+		LEFT JOIN rule_item ri ON ri.rule_body_id = nc.rule_body_id
+		WHERE 
+			rbp.os_id = #{osId} 
+			AND rbp.cvo_type = "CVO_TYPE_NONEDEVICE"
+			AND ri.functionality_id = "FUNCTIONALITY_TYPE_MEASURING"
+		
+		union all
+		
+		SELECT rb.*, ri.* FROM rule_body rb
+		LEFT JOIN rule_item ri ON ri.rule_body_id = rb.id
+		WHERE 
+			rb.os_id = #{osId} 
+			AND rb.cvo_type != "CVO_TYPE_NONEDEVICE"
+			AND ri.functionality_id = "FUNCTIONALITY_TYPE_MEASURING"
+	
+    </select>
+
+
     <select id="retrieveVirtualObjectListByCompositeVirtualObjectId__" parameterType="String" resultType="VirtualObjectForDB">
         SELECT
         V.id

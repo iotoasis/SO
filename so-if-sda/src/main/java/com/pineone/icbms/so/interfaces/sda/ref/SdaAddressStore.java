@@ -38,4 +38,13 @@ public class SdaAddressStore {
     /* 전체 펑셔널리티 목록 */
     public static final String CM_FUNCTIONALITY_LIST = "cm-functionality-list";
 
+    // 5) cm-dd-measuring-loc_dtype_aspect (Loc, DeviceType, Aspect)을 이용한 Measuring
+    public static final String CM_DD_MEASURING_BY_LOC_DTYPE_ASPECT = "cm-dd-measuring-loc_dtype_aspect";
+
+    // 6) cm-dd-measuring-loc_aspect (Loc, Aspect)을 이용한 Measuring 
+    public static final String CM_DD_MEASURING_BY_LOC_ASPECT = "cm-dd-measuring-loc_aspect";
+
+	// 7) cm-dd-measuring-devid_aspect (devId, Aspect)을 이용한 Measuring 
+    public static final String CM_DD_MEASURING_BY_DEVID_ASPECT = "cm-dd-measuring-devid_aspect";
+
 }
