@@ -63,6 +63,4 @@ public class DataConversion
 	public static String base64encoding(String data){
 		return new String(Base64.encodeBase64(data.getBytes()));
 	}
-
-
 }

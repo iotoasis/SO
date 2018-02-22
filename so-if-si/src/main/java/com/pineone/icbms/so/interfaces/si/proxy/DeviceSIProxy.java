@@ -9,7 +9,7 @@ import com.pineone.icbms.so.interfaces.si.model.ResultMessage;
 import com.pineone.icbms.so.interfaces.si.ref.SIAddressStore;
 import com.pineone.icbms.so.interfaces.si.ref.ClientProfile;
 import com.pineone.icbms.so.util.conversion.DataConversion;
-import com.pineone.icbms.so.util.http.ClientService;
+import com.pineone.icbms.so.util.http.ClientServiceTimeout;
 import com.pineone.icbms.so.util.itf.address.AddressCollector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ public class DeviceSIProxy implements DeviceControlProxy {
      */
     protected Logger log = LoggerFactory.getLogger(getClass());
 
-    private ClientService clientService = new ClientService();
+    private ClientServiceTimeout clientServiceTimeout = new ClientServiceTimeout();
     private ObjectMapper mapper = new ObjectMapper();
 
     AddressCollector addressCollector = new AddressCollector();
@@ -36,7 +36,7 @@ public class DeviceSIProxy implements DeviceControlProxy {
         //
         String requestBody = new Gson().toJson(deviceControlMessage);
         log.debug("deviceControlRequest : requestBody {}", requestBody);
-        String responseData = clientService.requestPostServiceReceiveString2(requestUrl, requestBody, true); //true=timeout
+        String responseData = clientServiceTimeout.requestPostServiceReceiveString2(requestUrl, requestBody, true); //true=timeout
         
         log.debug("deviceControlRequest : responseData {}", responseData);
         ResultMessage resultMessage = parsingResultMessage(responseData);
@@ -49,7 +49,7 @@ public class DeviceSIProxy implements DeviceControlProxy {
         String lwm2mCon = DataConversion.base64encoding(new Gson().toJson(lwm2MDeviceControl));
         deviceControlMessage.setCon(lwm2mCon);
         String requestBody = new Gson().toJson(deviceControlMessage);
-        String responseData = clientService.requestPostServiceReceiveString2(requestUrl, requestBody, true); //true=timeout
+        String responseData = clientServiceTimeout.requestPostServiceReceiveString2(requestUrl, requestBody, true); //true=timeout
         ResultMessage resultMessage = parsingResultMessage(responseData);
         return resultMessage;
     }
@@ -64,7 +64,7 @@ public class DeviceSIProxy implements DeviceControlProxy {
 
         String requestBody = new Gson().toJson(deviceSubscriptionData);
 
-        String responseData = clientService.requestPostServiceReceiveString2(addressCollector.getServerAddress(AddressCollector.SI_SERVER) + SIAddressStore.SI_SUBSCRIPTION_URI, requestBody);
+        String responseData = clientServiceTimeout.requestPostServiceReceiveString2(addressCollector.getServerAddress(AddressCollector.SI_SERVER) + SIAddressStore.SI_SUBSCRIPTION_URI, requestBody);
         // ResponseData{ "code" : "2000", "message" : "", "content" : "" }
         ResultMessage resultMessage = parsingResultMessage(responseData);
         return resultMessage.getCode();
@@ -77,7 +77,7 @@ public class DeviceSIProxy implements DeviceControlProxy {
         deviceSubscriptionData.set_uri(deviceUri);
 
         String requestBody = new Gson().toJson(deviceSubscriptionData);
-        String responseData = clientService.requestPostServiceReceiveString2(addressCollector.getServerAddress(AddressCollector.SI_SERVER) + SIAddressStore.SI_SUBSCRIPTION_RELEASE_URI, requestBody);
+        String responseData = clientServiceTimeout.requestPostServiceReceiveString2(addressCollector.getServerAddress(AddressCollector.SI_SERVER) + SIAddressStore.SI_SUBSCRIPTION_RELEASE_URI, requestBody);
         ResultMessage resultMessage = parsingResultMessage(responseData);
         return resultMessage.getCode();
     }

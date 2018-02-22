@@ -13,7 +13,7 @@ import com.pineone.icbms.so.serviceutil.state.StateStoreUtil;
 import com.pineone.icbms.so.util.Settings2;
 import com.pineone.icbms.so.util.conversion.DataConversion;
 import com.pineone.icbms.so.util.conversion.ProfileTransFormData;
-import com.pineone.icbms.so.util.http.ClientService;
+import com.pineone.icbms.so.util.http.ClientServiceNoTimeout;
 import com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler;
 import com.pineone.icbms.so.virtualobject.context.contextmodel.IGenericContextModel;
 import com.pineone.icbms.so.virtualobject.location.IGenericLocation;
@@ -302,7 +302,7 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
 	    //Dependant Profile이 있으면
 	    if (profileSize>0) {
 		    log.debug("callDependantProfile : dependant profiles({}) = {}", profileSize, profileDeps.toString());
-		    ClientService clientService = new ClientService();
+		    ClientServiceNoTimeout clientService = new ClientServiceNoTimeout();
 
 		    for (String childId : profileDeps) {
 			    ProfileTransFormData profileTransFormData = new ProfileTransFormData(childId);

@@ -12,7 +12,6 @@ import com.pineone.icbms.so.interfaces.database.ref.DataLossException;
 import com.pineone.icbms.so.interfaces.database.ref.DataValidation;
 import com.pineone.icbms.so.interfaces.database.service.DataBaseStore;
 import com.pineone.icbms.so.interfaces.messagequeue.model.ContextModelForMQ;
-import com.pineone.icbms.so.interfaces.sda.handle.SdaManager;
 import com.pineone.icbms.so.interfaces.sda.model.ContextModelContent;
 import com.pineone.icbms.so.interfaces.sda.model.ContextModelForIf2;
 import com.pineone.icbms.so.interfaces.si.handle.DeviceManager;
@@ -20,7 +19,6 @@ import com.pineone.icbms.so.serviceprocessor.Const;
 import com.pineone.icbms.so.util.messagequeue.producer.DefaultProducerHandler;
 import com.pineone.icbms.so.web.model.context.Content;
 import com.pineone.icbms.so.web.model.context.ContextModel;
-import com.pineone.icbms.so.web.model.context.ContextModelTransFormObject;
 import com.pineone.icbms.so.web.model.context.ResponseMessage;
 import com.pineone.icbms.so.web.tracking.BeforeTtrackingHandler;
 import com.pineone.icbms.so.web.util.ContextModelMapper2;
@@ -268,34 +266,6 @@ public class ContextModelController {
         return responseMessage;
     }
     
-    private DataValidation newDataValidation(){
-        DataValidation dataValidation = new DataValidation();
-        return dataValidation;
-    }
-	
-	private void inspectContextModel(ContextModel contextModel) throws DataLossException {
-        //
-        if(contextModel.getId() == null || contextModel.getContextType() == null ||
-                contextModel.getDomainIdList() == null){
-            throw new DataLossException();
-        }
-    }
-
-/*	
-    private ContextModel dataObjectToContextModel(ContextModelTransFormObject contextModelDataObject){
-        if(contextModelDataObject == null) return null;
-        return new ContextModel(contextModelDataObject.getContextId(), contentsToStringList(contextModelDataObject.getContents()),
-                contextModelDataObject.getCmd(), contextModelDataObject.getTime());
-    }
-*/    
-    private List<String> contentsToStringList(List<Content> contentsList){
-        
-        List<String> domains = new ArrayList<>();
-        for(Content content : contentsList){
-            domains.add(content.getLoc());
-        }
-        return domains;
-    }
     
     public String useQueueSaveContextModel(ContextModel contextModel) {
         //
