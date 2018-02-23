@@ -1,4 +1,3 @@
-0
 ![Logo](https://github.com/iotoasis/SO/blob/master/logo_oasis_m.png)
 
 # Oasis Project
