@@ -76,8 +76,10 @@ public class SessionController {
 
             sessionData.put("VIRTUALOBJECT_KEY", listToJacksonString(sessionDao.retrieveSessionDataVo(entity.getId())));
             sessionData.put("VIRTUALOBJECT_RESULT", entity.getVirtualobjectResult());
-            
-            sessionData.put("DEVICE_KEY", listToJacksonString(deviceKeys));
+
+            if (deviceKeys.size()>0) {
+            	sessionData.put("DEVICE_KEY", listToJacksonString(deviceKeys));
+            }
             sessionData.put("DEVICE_LOCATION", listToJacksonString(deviceLocs));
             sessionData.put("DEVICE_RESULT", entity.getDeviceResult());
 
@@ -135,7 +137,9 @@ public class SessionController {
         sessionData.put("VIRTUALOBJECT_KEY", listToJacksonString(sessionDao.retrieveSessionDataVo(sessionDataDb.getId())));
         sessionData.put("VIRTUALOBJECT_RESULT", sessionDataDb.getVirtualobjectResult());
         
-        sessionData.put("DEVICE_KEY", listToJacksonString(deviceKeys));
+        if (deviceKeys.size()>0) {
+        	sessionData.put("DEVICE_KEY", listToJacksonString(deviceKeys));
+        }
         sessionData.put("DEVICE_LOCATION", listToJacksonString(deviceLocs));
         sessionData.put("DEVICE_RESULT", sessionDataDb.getDeviceResult());
 
