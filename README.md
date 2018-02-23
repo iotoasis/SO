@@ -14,12 +14,12 @@ The SO module is a standardized service orchestration framework that can adapt t
 
 ## Main Functions
 
-- Support for dynamically changing service, service driven environments and events in IOT environments
+- Support for dynamically changing service, service driven environments and events in IOT environments.
 - Standard-based architecture with service descriptions, service objectives, service details, and business specifications.
-- Utilizing MultI-services as one independent service
-- The components and processes to select, configure and collaborate with the appropriate services to achieve the given goal
-- Providing SDA interface functionality, situation occurrence inquiry and recognition
-- MairiDB based Resource Management(2nd year based on MongoDB)
+- Utilizing MultI-services as one independent service.
+- Providing components and processes to select, configure and collaborate with the appropriate services to achieve the given goal.
+- Providing SDA interface functionality, situation occurrence inquiry and recognition.
+- MairiDB based Resource Management(2nd year based on MongoDB).
 
 ## Documents
  - [Quick Start](https://github.com/iotoasis/SO/blob/master/so-doc/quick-start.md)
@@ -31,7 +31,7 @@ The SO module is a standardized service orchestration framework that can adapt t
  
 ## Module
 - SO Framework consists of one server module. 
-- SO Framework can be tested using virtual services
+- SO Framework can be tested using virtual services.
 - [Test](https://github.com/iotoasis/SO/blob/master/so-doc/so-test.md)
 <br>
 
