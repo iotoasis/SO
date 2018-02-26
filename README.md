@@ -25,6 +25,9 @@ The SO module is a standardized service orchestration framework that can adapt t
  - [Quick Start](https://github.com/iotoasis/SO/blob/master/so-doc/quick-start.md)
  - [SO Server Settings](https://github.com/iotoasis/SO/blob/master/so-doc/configuration.md)
  - [SO Framework Server Buiild](https://github.com/iotoasis/SO/blob/master/so-doc/build_eclipse.md)
+ - [SO Development Guide(Korean)(https://github.com/iotoasis/SO/blob/master/so-doc/SO_%EA%B0%9C%EB%B0%9C%EA%B0%80%EC%9D%B4%EB%93%9C_20180226.pdf)
+ - [SO Development Guide(English)(https://github.com/iotoasis/SO/blob/master/so-doc/(English_version)3.SO_Development_Guide_20180124_PINEONE_20180226.pdf)
+ 
 
 ## Downloads
  - [Release Page](https://github.com/iotoasis/SO/releases)
