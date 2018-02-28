@@ -267,7 +267,7 @@ public class Settings2 {
      */
     public static String deviceDriverPath= "/";
 
-    @Value("${so.device.driver.path}")
+    //@Value("${so.device.driver.path}")
     public void setDeviceDriverPath(String _deviceDriverPath) {
     	deviceDriverPath = _deviceDriverPath;
     }
