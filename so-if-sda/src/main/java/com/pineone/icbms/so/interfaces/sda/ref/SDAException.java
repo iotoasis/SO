@@ -5,7 +5,9 @@ package com.pineone.icbms.so.interfaces.sda.ref;
  */
 public class SDAException extends Exception{
 
-    public SDAException(){
+	private static final long serialVersionUID = -6591909415556966767L;
+
+	public SDAException(){
         super("SDA Exception.");
     }
 

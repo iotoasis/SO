@@ -2,7 +2,6 @@ package com.pineone.icbms.so.serviceprocessor.processor.context.messagequeue.con
 
 import com.pineone.icbms.so.interfaces.database.model.TrackingEntity;
 import com.pineone.icbms.so.interfaces.messagequeue.model.ContextModelForMQ;
-import com.pineone.icbms.so.serviceprocessor.Const;
 import com.pineone.icbms.so.serviceutil.interfaces.database.IDatabaseManager;
 import com.pineone.icbms.so.serviceprocessor.processor.context.handler.ContextModelHandler;
 import com.pineone.icbms.so.serviceutil.modelmapper.ModelMapper;

@@ -4,7 +4,7 @@ import com.pineone.icbms.so.interfaces.database.model.ProfileForDB;
 import com.pineone.icbms.so.util.Settings2;
 import com.pineone.icbms.so.util.conversion.DataConversion;
 import com.pineone.icbms.so.util.conversion.ProfileTransFormData;
-import com.pineone.icbms.so.util.http.ClientService;
+import com.pineone.icbms.so.util.http.ClientServiceNoTimeout;
 
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
@@ -107,7 +107,7 @@ public class SchedulerNotificationManager implements Job {
     }
     
 	private boolean checkCm(String profileId, boolean checkOnly) {
-        ClientService clientService = new ClientService();
+		ClientServiceNoTimeout clientService = new ClientServiceNoTimeout();
         ProfileTransFormData profileTransFormData = new ProfileTransFormData(profileId);
         //profileTransFormData.setPeriod(period);
         profileTransFormData.setCheckOnly(checkOnly);;

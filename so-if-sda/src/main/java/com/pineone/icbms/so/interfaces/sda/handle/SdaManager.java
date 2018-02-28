@@ -6,9 +6,8 @@ import com.pineone.icbms.so.interfaces.sda.model.*;
 import com.pineone.icbms.so.interfaces.sda.ref.DataNotExistException;
 import com.pineone.icbms.so.interfaces.sda.ref.SDAException;
 import com.pineone.icbms.so.interfaces.sda.ref.SdaAddressStore;
-import com.pineone.icbms.so.util.http.ClientService;
+import com.pineone.icbms.so.util.http.ClientServiceNoTimeout;
 import com.pineone.icbms.so.util.itf.address.AddressCollector;
-import com.withwiz.beach.network.http.message.IHttpResponseMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -34,11 +33,12 @@ public class SdaManager implements ISdaManager {
      */
     protected Logger log = LoggerFactory.getLogger(getClass());
 
-    ClientService clientService = new ClientService();
+    //ClientService clientService = new ClientService();
+    ClientServiceNoTimeout clientServiceNoTimeout = new ClientServiceNoTimeout();
     AddressCollector addressCollector = new AddressCollector();
     ObjectMapper objectMapper = new ObjectMapper();
 
-    // 상황의 발생 여부 조회
+    // 상황의 발생 여부 조회 (발생 위치 리턴) - 미사용
     @Override
     public List<String> retrieveEventLocationList(String contextModelId) {
         //
@@ -47,7 +47,7 @@ public class SdaManager implements ISdaManager {
 
         try {
             //IHttpResponseMessage message = clientService.requestGetService(
-            String message = clientService.requestGetServiceReceiveString2( 
+            String message = clientServiceNoTimeout.requestGetServiceReceiveString2( 
             		addressCollector.getServerAddress(AddressCollector.SDA_SERVER) + contextModelId + SdaAddressStore.SEPARATOR_WITH_COMMA);
             contentList = getContextModelContents(message);
         } catch (IOException e) {
@@ -68,7 +68,7 @@ public class SdaManager implements ISdaManager {
         return locationList;
     }
 
-    // 상황의 발생 여부 조회
+    // 상황의 발생 여부 조회 (발생 정보 리턴 - location, Id, Mac)
     @Override
     public List<ContextModelContent> retrieveEventList(String contextModelId) {
 
@@ -76,7 +76,7 @@ public class SdaManager implements ISdaManager {
 
         try {
             //IHttpResponseMessage message = clientService.requestGetService(
-            String message = clientService.requestGetServiceReceiveString2( 
+            String message = clientServiceNoTimeout.requestGetServiceReceiveString2( 
             		addressCollector.getServerAddress(AddressCollector.SDA_SERVER) + contextModelId + SdaAddressStore.SEPARATOR_WITH_COMMA);
             contentList = getContextModelContents(message);
         } catch (IOException e) {
@@ -92,7 +92,8 @@ public class SdaManager implements ISdaManager {
 
         return contentList;
     }
-    
+
+/*    
     // 특정 위치(location)에 존재하는 device Function 목록 조회
     @Override
     public List<String> retrieveFunctionListInLocation(String locationId) {
@@ -317,69 +318,13 @@ public class SdaManager implements ISdaManager {
 
         return resultList;
     }
+*/    
 
-    @Override
-    public List<AspectForIf> retrieveAspectList() {
-        //
-        List<AspectForIf> list = new ArrayList<AspectForIf>();
-        List<ContextModelContent> contentList = new ArrayList<>();
-    
-        try {
-            IHttpResponseMessage message = clientService.requestGetService(
-                    addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
-                            SdaAddressStore.CM_ASPECT_LIST + SdaAddressStore.SEPARATOR_WITH_COMMA);
-            contentList = getContextModelContents(message);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SDAException e) {
-//            e.printStackTrace();
-        }
-    
-        for (ContextModelContent contextModelContent : contentList) {
-            AspectForIf addItam = new AspectForIf();
-            addItam.setAspect(contextModelContent.getAspectUri());
-            addItam.setLabel(contextModelContent.getLabel());
-            list.add(addItam);
-        }
-        log.debug("Aspect : " + list);
-        return list;
-    }
+    //public static final String CM_DD_DEVICE_LIST = "cm-dd-device-list"; 				  //1) by location, aspect, functionality 
+    //public static final String CM_DD_DEVICETYPE_LIST = "cm-dd-devicetype-device-list";  //2) by location, deviceType, aspect, functionality 
+    //public static final String CM_DD_COMMAND_VALUE = "cm-dd-command-value"; 			  //3) by id, aspect, cmd 
+    //public static final String CM_DD_ASPECT_ACTION_VALUE = "cm-dd-aspect-action-value"; //4) by id, aspect, functionality 
 
-    @Override
-    public List<FunctionForIf> retrieveFunctionList() {
-        //
-        List<FunctionForIf> functionList = new ArrayList<FunctionForIf>();
-        List<ContextModelContent> contentList = new ArrayList<>();
-
-        try {
-            IHttpResponseMessage message = clientService.requestGetService(
-                    addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
-                            SdaAddressStore.CM_FUNCTION_LIST + SdaAddressStore.SEPARATOR_WITH_COMMA);
-            contentList = getContextModelContents(message);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SDAException e) {
-//            e.printStackTrace();
-        }
-
-        for (ContextModelContent contextModelContent : contentList) {
-            FunctionForIf addItam = new FunctionForIf();
-            addItam.setFunction(contextModelContent.getFunctionUri());
-            addItam.setLabel(contextModelContent.getLabel());
-            functionList.add(addItam);
-
-        }
-        log.debug("Function : " + functionList);
-        return functionList;
-    }
-
-    
-    /*
-    public static final String CM_DD_DEVICE_LIST = "cm-dd-device-list"; 				//1) by location, aspect, functionality 
-    public static final String CM_DD_DEVICETYPE_LIST = "cm-dd-devicetype-device-list";  //2) by location, deviceType, aspect, functionality 
-    public static final String CM_DD_COMMAND_VALUE = "cm-dd-command-value"; 			//3) by id, aspect, cmd 
-    public static final String CM_DD_ASPECT_ACTION_VALUE = "cm-dd-aspect-action-value"; //4) by id, aspect, functionality 
- */
     // 1)cm-dd-device-list(Loc,Aspect,Func) 을 이용한 Device 목록 조회
     @Override
     public List<String> getDeviceListByLoc_Aspect_Func(String locationUri, String aspectUri, String functionalityUri) {
@@ -388,7 +333,8 @@ public class SdaManager implements ISdaManager {
         List<ContextModelContent> contentList = new ArrayList<>();
 
         try {
-            IHttpResponseMessage message = clientService.requestGetService(
+            //IHttpResponseMessage message = clientService.requestGetService(
+            String message = clientServiceNoTimeout.requestGetServiceReceiveString2( 
                     addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
                             SdaAddressStore.CM_DD_DEVICE_LIST + SdaAddressStore.SEPARATOR_WITHOUT_COMMA +
                             locationUri + "," + aspectUri + "," + functionalityUri);
@@ -419,7 +365,8 @@ public class SdaManager implements ISdaManager {
         List<ContextModelContent> contentList = new ArrayList<>();
 
         try {
-            IHttpResponseMessage message = clientService.requestGetService(
+            //IHttpResponseMessage message = clientService.requestGetService(
+            String message = clientServiceNoTimeout.requestGetServiceReceiveString2( 
                     addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
                             SdaAddressStore.CM_DD_DEVICETYPE_LIST + SdaAddressStore.SEPARATOR_WITHOUT_COMMA +
                             locationUri + "," + deviceType + "," + aspectUri + ","+ functionalityUri);
@@ -448,7 +395,8 @@ public class SdaManager implements ISdaManager {
         List<ContextModelContent> contentList = new ArrayList<>();
 
         try {
-            IHttpResponseMessage message = clientService.requestGetService(
+            //IHttpResponseMessage message = clientService.requestGetService(
+            String message = clientServiceNoTimeout.requestGetServiceReceiveString2( 
                     addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
                             SdaAddressStore.CM_DD_COMMAND_VALUE + SdaAddressStore.SEPARATOR_WITHOUT_COMMA +
                             deviceId + "," + aspectUri + ","+ command);
@@ -478,7 +426,8 @@ public class SdaManager implements ISdaManager {
         List<ContextModelContent> contentList = new ArrayList<>();
 
         try {
-            IHttpResponseMessage message = clientService.requestGetService(
+            //IHttpResponseMessage message = clientService.requestGetService(
+            String message = clientServiceNoTimeout.requestGetServiceReceiveString2( 
                     addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
                             SdaAddressStore.CM_DD_ASPECT_ACTION_VALUE + SdaAddressStore.SEPARATOR_WITHOUT_COMMA +
                             deviceId + "," + aspectUri + ","+ functionUri);
@@ -498,7 +447,102 @@ public class SdaManager implements ISdaManager {
     	return content;
     }
 
-    // get Data
+    // 5)cm-dd-measuring-loc_dtype_aspect (Loc, Type, Aspect)을 이용한 Measuring 
+    // public static final String CM_DD_MEASURING_BY_LOC_DTYPE_ASPECT = "cm-dd-measuring-loc_dtype_aspect"; //5) by location, deviceType, aspect
+    @Override
+    public List<ContextModelContent> getMeasuringValueByLocDeviceTypeAspect(String locationUri, String deviceType, String aspectUri) {
+
+        List<ContextModelContent> contentList = new ArrayList<>();
+
+        try {
+            //IHttpResponseMessage message = clientService.requestGetService(
+            String message = clientServiceNoTimeout.requestGetServiceReceiveString2( 
+                    addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
+                            SdaAddressStore.CM_DD_MEASURING_BY_LOC_DTYPE_ASPECT + SdaAddressStore.SEPARATOR_WITHOUT_COMMA +
+                            locationUri + "," + deviceType + "," + aspectUri);
+            contentList = getContextModelContents(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SDAException e) {
+//           e.printStackTrace();
+        }
+        String info = "getMeasuringValueByLocDeviceTypeAspect::contentList(by " + locationUri + ", " + deviceType + ", " + aspectUri +")=";
+        if (contentList == null || contentList.isEmpty()) {
+            log.debug("info : " + info + " is empty");
+        }
+        else {
+            for (ContextModelContent contextModelContent : contentList) {
+                log.debug("  - " + contextModelContent.getDeviceName() +"=" + contextModelContent.getValue() );
+            }
+        }
+        return contentList;
+    }
+    
+    // 6) cm-dd-measuring-loc_aspect (Loc, Aspect)을 이용한 Measuring 
+    // public static final String CM_DD_MEASURING_BY_LOC_ASPECT = "cm-dd-measuring-loc_aspect"; //6) by location, aspect
+    @Override
+    public List<ContextModelContent> getMeasuringValueByLocAspect(String locationUri, String aspectUri) {
+
+        List<ContextModelContent> contentList = new ArrayList<>();
+
+        try {
+            //IHttpResponseMessage message = clientService.requestGetService(
+            String message = clientServiceNoTimeout.requestGetServiceReceiveString2( 
+                    addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
+                            SdaAddressStore.CM_DD_MEASURING_BY_LOC_ASPECT + SdaAddressStore.SEPARATOR_WITHOUT_COMMA +
+                            locationUri + "," + aspectUri);
+            contentList = getContextModelContents(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SDAException e) {
+//           e.printStackTrace();
+        }
+        String info = "getMeasuringValueByLocAspect:: contentList(by " + locationUri + ", " + aspectUri +")=";
+        if (contentList == null || contentList.isEmpty()) {
+            log.debug("info : " + info + " is empty");
+        }
+        else {
+            for (ContextModelContent contextModelContent : contentList) {
+                log.debug("  - " + contextModelContent.getDeviceName() +"=" + contextModelContent.getValue() );
+            }
+        }
+        return contentList;
+    }
+    
+    // 7) cm-dd-measuring-devid_aspect (devId, Aspect)을 이용한 Measuring 
+    // public static final String CM_DD_MEASURING_BY_DEVID_ASPECT = "cm-dd-measuring-devid_aspect"; //7) by devId, aspect
+    @Override
+    public List<ContextModelContent> getMeasuringValueByDevIdAspect(String devUri, String aspectUri) {
+
+        List<ContextModelContent> contentList = new ArrayList<>();
+
+        try {
+            //IHttpResponseMessage message = clientService.requestGetService(
+            String message = clientServiceNoTimeout.requestGetServiceReceiveString2( 
+                    addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
+                            SdaAddressStore.CM_DD_MEASURING_BY_DEVID_ASPECT + SdaAddressStore.SEPARATOR_WITHOUT_COMMA +
+                            devUri + "," + aspectUri);
+            contentList = getContextModelContents(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SDAException e) {
+//           e.printStackTrace();
+        }
+        String info = "getMeasuringValueByDevIdAspect:: contentList(by " + devUri + ", " + aspectUri +")=";
+        if (contentList == null || contentList.isEmpty()) {
+            log.debug("info : " + info + " is empty");
+        }
+        else {
+            for (ContextModelContent contextModelContent : contentList) {
+                log.debug("  - " + contextModelContent.getDeviceName() +"=" + contextModelContent.getValue() );
+            }
+        }
+        return contentList;
+    }
+
+    //================================
+/*    
+    // get Data (old)
     private List<ContextModelContent> getContextModelContents(IHttpResponseMessage message) throws IOException, DataNotExistException {
         if (message.getStatusCode() == 200) {
 //            System.out.println(message.getBodyByteArray().toString());
@@ -511,8 +555,8 @@ public class SdaManager implements ISdaManager {
             throw new DataNotExistException();
         }
     }
-
-    // get Data
+*/
+    // get Data (new)
     private List<ContextModelContent> getContextModelContents(String message) throws IOException, DataNotExistException {
         if (message != null) {
 //            System.out.println(message.getBodyByteArray().toString());
@@ -524,4 +568,63 @@ public class SdaManager implements ISdaManager {
             throw new DataNotExistException();
         }
     }
+
+    //================================
+    @Override
+    public List<FunctionForIf> retrieveFunctionList() {
+        //
+        List<FunctionForIf> functionList = new ArrayList<FunctionForIf>();
+        List<ContextModelContent> contentList = new ArrayList<>();
+
+        try {
+          //IHttpResponseMessage message = clientService.requestGetService(
+            String message = clientServiceNoTimeout.requestGetServiceReceiveString2( 
+                    addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
+                            SdaAddressStore.CM_FUNCTION_LIST + SdaAddressStore.SEPARATOR_WITH_COMMA);
+            contentList = getContextModelContents(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SDAException e) {
+//            e.printStackTrace();
+        }
+
+        for (ContextModelContent contextModelContent : contentList) {
+            FunctionForIf addItam = new FunctionForIf();
+            addItam.setFunction(contextModelContent.getFunctionUri());
+            addItam.setLabel(contextModelContent.getLabel());
+            functionList.add(addItam);
+
+        }
+        log.debug("Function : " + functionList);
+        return functionList;
+    }
+
+    @Override
+    public List<AspectForIf> retrieveAspectList() {
+        //
+        List<AspectForIf> list = new ArrayList<AspectForIf>();
+        List<ContextModelContent> contentList = new ArrayList<>();
+    
+        try {
+            //IHttpResponseMessage message = clientService.requestGetService(
+            String message = clientServiceNoTimeout.requestGetServiceReceiveString2( 
+                    addressCollector.getServerAddress(AddressCollector.SDA_SERVER) +
+                            SdaAddressStore.CM_ASPECT_LIST + SdaAddressStore.SEPARATOR_WITH_COMMA);
+            contentList = getContextModelContents(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SDAException e) {
+//            e.printStackTrace();
+        }
+    
+        for (ContextModelContent contextModelContent : contentList) {
+            AspectForIf addItam = new AspectForIf();
+            addItam.setAspect(contextModelContent.getAspectUri());
+            addItam.setLabel(contextModelContent.getLabel());
+            list.add(addItam);
+        }
+        log.debug("Aspect : " + list);
+        return list;
+    }
+
 }

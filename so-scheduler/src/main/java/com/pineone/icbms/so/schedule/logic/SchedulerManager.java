@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -203,10 +204,12 @@ public class SchedulerManager implements ISchedulerManager, Runnable {
 						if (profileForDB != null) {
 							profileList.add(profileForDB);
 						}
-					} 
+					}
+					SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					String nextFireTimeStr = sdf.format(nextFireTime);
 					log.debug(" === [jobName] : " + jobName
 								+ " [groupName] : "  + jobGroup 
-								+ " - " + nextFireTime
+								+ " - " + nextFireTimeStr
 								+ " = triggerState : " + triggerState.toString());
 				}
 			}

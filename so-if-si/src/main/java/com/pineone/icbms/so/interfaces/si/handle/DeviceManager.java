@@ -165,7 +165,7 @@ public class DeviceManager implements IDeviceManager{
     }
 
 
-    public static void testmain(String[] args) {
+    public void testmain(String[] args) {
     	DeviceManager dm = new DeviceManager();
     	String commandId = ClientProfile.SI_COMMAND_ID + System.nanoTime();
     	String aspectId;
@@ -175,30 +175,30 @@ public class DeviceManager implements IDeviceManager{
     	DeviceControlMessage dcMsg;
     	
     	aspectId = "http://www.iotoasis.org/ontology/electronicpower-aspect";
-    	System.out.println(aspectId);
+    	log.info(aspectId);
     	dcMsg = dm.deviceDataConversion("deviceId",commandId , aspectId, controlValue);
-    	System.out.println(" case"+Integer.toString(count++)+"==> "+dcMsg.toString());
+    	log.info(" case"+Integer.toString(count++)+"==> "+dcMsg.toString());
 
     	aspectId = "electronicpower-aspect";
-    	System.out.println(aspectId);
+    	log.info(aspectId);
     	dcMsg = dm.deviceDataConversion("deviceId",commandId , aspectId, controlValue);
-    	System.out.println(" case"+Integer.toString(count++)+"==> "+dcMsg.toString());
+    	log.info(" case"+Integer.toString(count++)+"==> "+dcMsg.toString());
 
     	aspectId = "/electronicpower-aspect";
-    	System.out.println(aspectId);
+    	log.info(aspectId);
     	dcMsg = dm.deviceDataConversion("deviceId",commandId , aspectId, controlValue);
-    	System.out.println(" case"+Integer.toString(count++)+"==> "+dcMsg.toString());
+    	log.info(" case"+Integer.toString(count++)+"==> "+dcMsg.toString());
 
     	aspectId = "";
-    	System.out.println(aspectId);
+    	log.info(aspectId);
     	dcMsg = dm.deviceDataConversion("deviceId",commandId , aspectId, controlValue);
-    	System.out.println(" case"+Integer.toString(count++)+"==> "+dcMsg.toString());
+    	log.info(" case"+Integer.toString(count++)+"==> "+dcMsg.toString());
 
     	//
     	String deviceUri = "/herit-in/herit-cse/ONDB_BeamProjector01_001";
     	aspectId = "http://www.iotoasis.org/ontology/lecture-aspect";
     	String deviceCommand="1";
     	ResultMessage resultMessage = dm.deviceExecute(commandId, deviceUri, aspectId, deviceCommand);
-    	System.out.println(resultMessage);
+    	log.info(resultMessage.toString());
     }
 }

@@ -72,9 +72,6 @@ dependencies {
     //json object mapper
     compile "com.fasterxml.jackson.core:jackson-databind:${VERSION.jackson_databind}"
 
-    //withwiz
-    compile "com.withwiz:plankton:0.1.3"
-
     //spring
     compile('org.springframework.boot:spring-boot-starter')
 

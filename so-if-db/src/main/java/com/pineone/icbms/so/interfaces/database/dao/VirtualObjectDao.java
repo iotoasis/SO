@@ -1,8 +1,8 @@
 package com.pineone.icbms.so.interfaces.database.dao;
 
+import com.pineone.icbms.so.interfaces.database.model.MeasuringVoForDB;
 import com.pineone.icbms.so.interfaces.database.model.RuleItemForDB;
 import com.pineone.icbms.so.interfaces.database.model.VirtualObjectForDB;
-import com.pineone.icbms.so.util.id.IdUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -87,6 +87,11 @@ public class VirtualObjectDao extends AbstractDao {
         return super.sqlSession.selectList("retrieveVirtualObjectByModel");
     }
 
+    // retrieve list of Measuring Vo
+    public List<MeasuringVoForDB> getMeasuringVoList(String osId) {
+        return super.sqlSession.selectList("retrieveMeasuringRuleVirtualObjectListByOsId", osId);
+    }
+    
     // Aspect 저장 기능 구현
     public VirtualObjectForDB create(VirtualObjectForDB model) {
         //String sessionId = IdUtils.createRandomUUID();

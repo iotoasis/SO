@@ -25,16 +25,6 @@ import java.util.Map;
 @ResponseStatus(value = HttpStatus.OK)
 public class SessionController {
 
-//    @Autowired
-//    SessionStore sessionStore;
-//
-//    @RequestMapping(value = "/{number}", method = RequestMethod.GET)
-//    @ResponseStatus(value = HttpStatus.OK)
-//    public List<SessionTransFormObject> retrieveSessionData(@PathVariable int number){
-//        List<Session> sessionList = sessionStore.retrieveRecentlyDataList(number);
-//        return sessionToTransFormObject(sessionList);
-//    }
-
     @Autowired
     //TrackingDao trackingDao;
     SessionDao sessionDao;
@@ -86,8 +76,10 @@ public class SessionController {
 
             sessionData.put("VIRTUALOBJECT_KEY", listToJacksonString(sessionDao.retrieveSessionDataVo(entity.getId())));
             sessionData.put("VIRTUALOBJECT_RESULT", entity.getVirtualobjectResult());
-            
-            sessionData.put("DEVICE_KEY", listToJacksonString(deviceKeys));
+
+            if (deviceKeys.size()>0) {
+            	sessionData.put("DEVICE_KEY", listToJacksonString(deviceKeys));
+            }
             sessionData.put("DEVICE_LOCATION", listToJacksonString(deviceLocs));
             sessionData.put("DEVICE_RESULT", entity.getDeviceResult());
 
@@ -145,7 +137,9 @@ public class SessionController {
         sessionData.put("VIRTUALOBJECT_KEY", listToJacksonString(sessionDao.retrieveSessionDataVo(sessionDataDb.getId())));
         sessionData.put("VIRTUALOBJECT_RESULT", sessionDataDb.getVirtualobjectResult());
         
-        sessionData.put("DEVICE_KEY", listToJacksonString(deviceKeys));
+        if (deviceKeys.size()>0) {
+        	sessionData.put("DEVICE_KEY", listToJacksonString(deviceKeys));
+        }
         sessionData.put("DEVICE_LOCATION", listToJacksonString(deviceLocs));
         sessionData.put("DEVICE_RESULT", sessionDataDb.getDeviceResult());
 

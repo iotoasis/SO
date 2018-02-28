@@ -22,7 +22,7 @@ public class SoProcessorApplication implements CommandLineRunner {
      * @param args arguments
      */
     public static void main(String[] args) {
-        System.out.println("*user.dir: " + System.getProperty("user.dir"));
+//        System.out.println("*user.dir: " + System.getProperty("user.dir"));
 //		SpringApplication.run(SoProcessorApplication.class, args);
 //        SpringApplication app = new SpringApplication(SoProcessorApplication.class);
 //        app.run(args);
