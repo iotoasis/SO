@@ -23,7 +23,19 @@ public class ClientServiceTimeout
 	public static final int CONNECTION_TIMEOUT_VALUE = 2000; // 연결
 	public static final int READ_TIMEOUT_VALUE = 5000;       // 읽기
 	
-	private final Logger log = LoggerFactory.getLogger(ClientServiceTimeout.class);
+	private final Logger log;// = LoggerFactory.getLogger(ClientServiceTimeout.class);
+
+	public ClientServiceTimeout() {
+		log = LoggerFactory.getLogger(ClientServiceTimeout.class);
+	}
+
+	public ClientServiceTimeout(String clsName) {
+		log = LoggerFactory.getLogger(clsName);
+	}
+
+	public ClientServiceTimeout(Class<?> class1) {
+		log = LoggerFactory.getLogger(class1);
+	}
 
 	public String requestPostServiceReceiveString2(String uri, String param) {
 		return requestPostServiceReceiveString2(uri, param, false);

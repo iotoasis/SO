@@ -11,6 +11,7 @@ import com.pineone.icbms.so.interfaces.si.ref.ClientProfile;
 import com.pineone.icbms.so.util.conversion.DataConversion;
 import com.pineone.icbms.so.util.http.ClientServiceTimeout;
 import com.pineone.icbms.so.util.itf.address.AddressCollector;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +24,7 @@ public class DeviceSIProxy implements DeviceControlProxy {
      */
     protected Logger log = LoggerFactory.getLogger(getClass());
 
-    private ClientServiceTimeout clientServiceTimeout = new ClientServiceTimeout();
+    private ClientServiceTimeout clientServiceTimeout = new ClientServiceTimeout("com.pineone.icbms.so.serviceprocessor.processor.devicecontrol");
     private ObjectMapper mapper = new ObjectMapper();
 
     AddressCollector addressCollector = new AddressCollector();
