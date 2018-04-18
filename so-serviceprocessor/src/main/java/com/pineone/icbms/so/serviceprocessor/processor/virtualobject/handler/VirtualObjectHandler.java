@@ -64,6 +64,13 @@ public class VirtualObjectHandler extends AProcessHandler<IGenericVirtualObject>
             	try {
             		log.info("getCommandValueById_Aspect_Command : \ndeviceId={}\n aspectUri={}\n valueType={}", deviceId, aspectUri, valueType );
             		String rvalue = new SdaManager().getCommandValueById_Aspect_Command(deviceId, aspectUri, valueType);
+            		
+            		if (rvalue==null) {
+                		log.error("getCommandValueById_Aspect_Command(\n deviceId={},\n aspectUri={},\n valueType={}) == null"
+                					, deviceId, aspectUri, valueType );
+            			return;
+            		}
+
 		            if (valueType.equals("SET")) {
 		            	//min,max 체크
 		            	String[] rangeValues = rvalue.split("~");
@@ -88,6 +95,7 @@ public class VirtualObjectHandler extends AProcessHandler<IGenericVirtualObject>
 		        	}
 	            } catch(Exception e){
 	            	log.error("Error:msg={}", e.getMessage());
+	            	return;
 	            }
             }
 			log.info("value=" + valueType + "("+value + ")" );
