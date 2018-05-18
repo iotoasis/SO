@@ -303,12 +303,20 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
 	    //Dependant Profile이 있으면
 	    if (profileSize>0) {
 	    	
+	    	long delayMillis = 3 * 1000; //3 sec
+
+	    	//case to use Thread
+	    	DependantContextModelHandlerThread thread = new DependantContextModelHandlerThread(profileDeps, delayMillis);
+	    	thread.start();
+/*	    	
+ 			//case to use Timer
 	    	DependantContextModelHandlerTask dcmHandlerTask = new DependantContextModelHandlerTask(profileDeps);
 	    	Timer timer = new Timer("Timer-thread", false);
-	    	long delayMillis = 3 * 1000; //3 sec
 	    	timer.schedule(dcmHandlerTask, delayMillis);
+*/
 	    	
 /*	    	
+			//case not to delay
 		    log.debug("callDependantProfile : dependant profiles({}) = {}", profileSize, profileDeps.toString());
 		    ClientServiceNoTimeout clientService = new ClientServiceNoTimeout();
 
