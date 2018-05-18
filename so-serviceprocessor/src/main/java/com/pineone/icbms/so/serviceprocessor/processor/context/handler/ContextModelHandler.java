@@ -21,6 +21,7 @@ import com.pineone.icbms.so.virtualobject.orchestrationservice.IGenericOrchestra
 import com.pineone.icbms.so.virtualobject.profile.IGenericProfile;
 
 import java.util.List;
+import java.util.Timer;
 
 /**
  * ContextModel handler.<BR/>
@@ -301,6 +302,13 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
 	    
 	    //Dependant Profile이 있으면
 	    if (profileSize>0) {
+	    	
+	    	DependantContextModelHandlerTask dcmHandlerTask = new DependantContextModelHandlerTask(profileDeps);
+	    	Timer timer = new Timer("Timer-thread", false);
+	    	long delayMillis = 3 * 1000; //3 sec
+	    	timer.schedule(dcmHandlerTask, delayMillis);
+	    	
+/*	    	
 		    log.debug("callDependantProfile : dependant profiles({}) = {}", profileSize, profileDeps.toString());
 		    ClientServiceNoTimeout clientService = new ClientServiceNoTimeout();
 
@@ -312,6 +320,7 @@ public class ContextModelHandler extends AProcessHandler<IGenericContextModel> {
 			    String result = clientService.requestPostServiceReceiveString2(profileControllerUrl, sendData);
 			    log.debug("---result=" + result);
 		    }
+*/		    
 	    }
 	    
 	    return profileSize;
